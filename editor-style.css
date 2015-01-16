@@ -1,0 +1,24 @@
+body{font-size:14px;line-height:24px;word-break: break-all; word-wrap: break-word;font-family: microsoft yahei}
+img{max-width:100%;padding: 5px;border: solid 1px #e6e6e6;border:none;}
+img:hover{background-color: #fbfbfb;border-color: #ddd;}
+a{text-decoration: none;}
+h2,h3,h4{color:#222;border-bottom:#eee 1px solid;padding-bottom:5px;margin-bottom: 14px;}
+h2{font-size:18px;margin-top: 30px}
+h3,h4{font-size:14px}
+ul{margin:0 0 6px 26px}
+ol{margin:16px}
+ul li{margin-bottom: 10px;*list-style:disc;*padding-left:0;}
+ol li{list-style:decimal;margin-left: 28px;}
+p{margin-bottom:14px}
+code{padding:1px 4px;border-radius:2px;background-color:#eee;font-family:'courier new';color:#777;margin:0 4px}
+table{border-top:solid 1px #ddd;border-left:solid 1px #ddd;width: 100%;margin-bottom: 16px;}
+table th{background-color:#f9f9f9;text-align:center}
+table td,table th{border-bottom:solid 1px #ddd;border-right:solid 1px #ddd;padding:5px 10px}
+.alignleft{float:left;text-align:left;margin-right:10px}
+.aligncenter{text-align:center}
+.alignright{float:right;text-align:right;margin-left:10px}
+
+
+pre{margin:15px auto;font:12px/20px 'courier new';border:1px solid #d6d6d6;border-left-width:4px;background:#fbfbfb;padding:10px 15px}
+blockquote{margin:15px auto;border:1px solid #d6d6d6;border-top-width:3px;padding:15px 20px 10px;background-color:#fdfdfd;}
+blockquote p{margin:0;padding:0;text-indent:24px;margin-bottom:10px;}
