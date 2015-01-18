@@ -137,7 +137,7 @@ function deel_breadcrumbs(){
 function footerScript() {
     if ( !is_admin() ) {
         wp_deregister_script( 'jquery' );
- 	wp_register_script( 'jquery','//libs.baidu.com/jquery/1.8.3/jquery.min.js', false,'1.0');
+ 	wp_register_script( 'jquery','//7arngj.com1.z0.glb.clouddn.com/jquery1.8.3.min.js', false,'1.0');
 	wp_enqueue_script( 'jquery' );
         wp_register_script( 'default', get_template_directory_uri() . '/js/jquery.js', false, '1.0', dopt('d_jquerybom_b') ? true : false );
         wp_enqueue_script( 'default' );
@@ -993,6 +993,72 @@ function redirect_comment_link(){
 add_action('init', 'redirect_comment_link');
 add_filter('get_comment_author_link', 'add_redirect_comment_link', 5);
 add_filter('comment_text', 'add_redirect_comment_link', 99);
+
+//新文章同步到新浪微博
+function post_to_sina_weibo($post_ID) {
+
+   /* 此处修改为通过文章自定义栏目来判断是否同步 */
+   if(get_post_meta($post_ID,'weibo_sync',true) == 1) return;
+
+   $get_post_info = get_post($post_ID);
+   $get_post_centent = get_post($post_ID)->post_content;
+   $get_post_title = get_post($post_ID)->post_title;
+   if ($get_post_info->post_status == 'publish' && $_POST['original_post_status'] != 'publish') {
+       $appkey='3819601734'; /* 此处是你的新浪微博appkey，不修改的话就会显示来自张戈博客哦！ */
+       $username='sp91@qq.com';
+       $userpassword='shenpeng1991';
+       $request = new WP_Http;
+       $keywords = "";
+
+       /* 获取文章标签关键词 */
+       $tags = wp_get_post_tags($post_ID);
+       foreach ($tags as $tag ) {
+          $keywords = $keywords.'#'.$tag->name."#";
+       }
+
+       /* 修改了下风格，并添加文章关键词作为微博话题，提高与其他相关微博的关联率 */
+       $status = '【文章发布】' . strip_tags( $get_post_title ).'：'.mb_strimwidth(strip_tags( apply_filters('the_content', $get_post_centent)),0, 160,'...') .$keywords. ' 查看全文:' . get_permalink($post_ID) ;
+
+       /* 获取特色图片，如果没设置就抓取文章第一张图片 */
+       if (has_post_thumbnail()) {
+          $url = get_post_thumbnail_url($post->ID);
+
+       /* 抓取第一张图片作为特色图片，需要主题函数支持 */
+       } else if(function_exists('catch_first_image')) {
+          $url = catch_first_image();
+       }
+       /* 判断是否存在图片，定义不同的接口 */
+       if(!empty($url)){
+           $api_url = 'https://api.weibo.com/2/statuses/upload_url_text.json'; /* 新的API接口地址 */
+           $body = array('status' => $status,'source' => $appkey,'url' => $url);
+       } else {
+           $api_url = 'https://api.weibo.com/2/statuses/update.json';
+           $body = array('status' => $status,'source' => $appkey);
+       }
+       $headers = array('Authorization' => 'Basic ' . base64_encode("$username:$userpassword"));
+       $result = $request->post($api_url, array('body' => $body,'headers' => $headers));
+
+       /* 若同步成功，则给新增自定义栏目weibo_sync，避免以后更新文章重复同步 */
+       add_post_meta($post_ID, 'weibo_sync', 1, true);
+    }
+}
+add_action('publish_post', 'post_to_sina_weibo', 0);
+
+
+//获取所有站点分类id
+function Bing_show_category() {
+	global $wpdb;
+	$request = "SELECT $wpdb->terms.term_id, name FROM $wpdb->terms ";
+	$request .= " LEFT JOIN $wpdb->term_taxonomy ON $wpdb->term_taxonomy.term_id = $wpdb->terms.term_id ";
+	$request .= " WHERE $wpdb->term_taxonomy.taxonomy = 'category' ";
+	$request .= " ORDER BY term_id asc";
+	$categorys = $wpdb->get_results($request);
+	foreach ($categorys as $category) { //调用菜单
+		$output = '<span>'.$category->name."(<em>".$category->term_id.'</em>)</span>';
+		echo $output;
+	}
+}
+
 
 
 ?>
