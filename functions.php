@@ -994,6 +994,20 @@ add_action('init', 'redirect_comment_link');
 add_filter('get_comment_author_link', 'add_redirect_comment_link', 5);
 add_filter('comment_text', 'add_redirect_comment_link', 99);
 
+//获取所有站点分类id
+function Bing_show_category() {
+	global $wpdb;
+	$request = "SELECT $wpdb->terms.term_id, name FROM $wpdb->terms ";
+	$request .= " LEFT JOIN $wpdb->term_taxonomy ON $wpdb->term_taxonomy.term_id = $wpdb->terms.term_id ";
+	$request .= " WHERE $wpdb->term_taxonomy.taxonomy = 'category' ";
+	$request .= " ORDER BY term_id asc";
+	$categorys = $wpdb->get_results($request);
+	foreach ($categorys as $category) { //调用菜单
+		$output = '<span>'.$category->name."(<em>".$category->term_id.'</em>)</span>';
+		echo $output;
+	}
+}
+
 //新文章同步到新浪微博
 function post_to_sina_weibo($post_ID) {
 
@@ -1004,9 +1018,9 @@ function post_to_sina_weibo($post_ID) {
    $get_post_centent = get_post($post_ID)->post_content;
    $get_post_title = get_post($post_ID)->post_title;
    if ($get_post_info->post_status == 'publish' && $_POST['original_post_status'] != 'publish') {
-       $appkey='3819601734'; /* 此处是你的新浪微博appkey，不修改的话就会显示来自张戈博客哦！ */
+       $appkey='3819601734'; /* 此处是你的新浪微博appkey */
        $username='sp91@qq.com';
-       $userpassword='shenpeng1991';
+       $userpassword='微博密码';
        $request = new WP_Http;
        $keywords = "";
 
@@ -1042,23 +1056,8 @@ function post_to_sina_weibo($post_ID) {
        add_post_meta($post_ID, 'weibo_sync', 1, true);
     }
 }
+if( dopt('d_sinasync_b') ){
 add_action('publish_post', 'post_to_sina_weibo', 0);
-
-
-//获取所有站点分类id
-function Bing_show_category() {
-	global $wpdb;
-	$request = "SELECT $wpdb->terms.term_id, name FROM $wpdb->terms ";
-	$request .= " LEFT JOIN $wpdb->term_taxonomy ON $wpdb->term_taxonomy.term_id = $wpdb->terms.term_id ";
-	$request .= " WHERE $wpdb->term_taxonomy.taxonomy = 'category' ";
-	$request .= " ORDER BY term_id asc";
-	$categorys = $wpdb->get_results($request);
-	foreach ($categorys as $category) { //调用菜单
-		$output = '<span>'.$category->name."(<em>".$category->term_id.'</em>)</span>';
-		echo $output;
-	}
 }
-
-
 
 ?>

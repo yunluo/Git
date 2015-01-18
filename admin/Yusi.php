@@ -2,7 +2,7 @@
 
 $themename = $dname.'主题';
 $options = array(
-      "d_sj404_b", "d_sjm404_b", "d_darkhighlight_b", "d_cat_8", "d_cat_7", "d_cat_6", "d_cat_5", "d_cat_4", "d_cat_3", "d_cat_2", "d_cat_1", "d_blog_b", "d_cms_b", "d_singlecode_b", "d_singlecode", "d_touminnav_b", "d_yellow_b", "d_purple_b", "d_black_b", "d_blue_b", "d_red_b", "d_avataer_b", "d_pichead_b", "d_wordhead_b", "d_nosuojin_b", "d_categroy_b", "d_fuckziti_b", "d_autolink_b", "d_fancybox_b", "d_mobilesticky_b", "d_timthumbnail_b", "d_qiniuthumbnail_b", "d_tui_b", "d_description", "d_description_b", "d_keywords", "d_keywords_b", "d_tui", "d_sticky_b", "d_sticky_count", "d_linkpage_cat", "d_tougao_b", "d_tougao_time", "d_tougao_mailto", "d_avatar_b", "d_avatarDate", "d_sideroll_b", "d_sideroll_1", "d_sideroll_2", "d_pingback_b", "d_autosave_b", "d_tqq_b", "d_tqq", "d_weibo_b", "d_weibo", "d_facebook_b", "d_facebook", "d_twitter_b", "d_twitter", "d_rss","d_qqContact_b","d_qqContact","d_weixin_b","d_weixin","d_emailContact_b","d_emailContact", "d_track_b", "d_track", "d_headcode_b", "d_headcode", "d_footcode_b", "d_footcode", "d_adsite_01_b", "d_adsite_01", "d_adindex_02_b", "d_adindex_02", "d_adindex_01_b", "d_adindex_01", "d_adindex_03_b", "d_adindex_03", "d_adpost_01_b", "d_adpost_01", "d_adpost_02_b", "d_adpost_02", "d_adpost_03_b", "d_adpost_03", "d_sign_b", "d_jquerybom_b", "d_ajaxpager_b", "d_thumbnail_b", "d_bdshare_b", "d_related_count", "d_post_views_b", "d_post_author_b", "d_post_comment_b", "d_post_time_b","hot_list_title","hot_list_number","hot_list_date","hot_list_check","d_post_like_b","d_singleMenu_b","Mobiled_adindex_02_b","Mobiled_adindex_02","Mobiled_adpost_01_b","Mobiled_adpost_01","Mobiled_adpost_02_b","Mobiled_adpost_02","d_spamComments_b"
+      "d_sinasync_b", "d_sj404_b", "d_sjm404_b", "d_darkhighlight_b", "d_cat_8", "d_cat_7", "d_cat_6", "d_cat_5", "d_cat_4", "d_cat_3", "d_cat_2", "d_cat_1", "d_blog_b", "d_cms_b", "d_singlecode_b", "d_singlecode", "d_touminnav_b", "d_yellow_b", "d_purple_b", "d_black_b", "d_blue_b", "d_red_b", "d_avataer_b", "d_pichead_b", "d_wordhead_b", "d_nosuojin_b", "d_categroy_b", "d_fuckziti_b", "d_autolink_b", "d_fancybox_b", "d_mobilesticky_b", "d_timthumbnail_b", "d_qiniuthumbnail_b", "d_tui_b", "d_description", "d_description_b", "d_keywords", "d_keywords_b", "d_tui", "d_sticky_b", "d_sticky_count", "d_linkpage_cat", "d_tougao_b", "d_tougao_time", "d_tougao_mailto", "d_avatar_b", "d_avatarDate", "d_sideroll_b", "d_sideroll_1", "d_sideroll_2", "d_pingback_b", "d_autosave_b", "d_tqq_b", "d_tqq", "d_weibo_b", "d_weibo", "d_facebook_b", "d_facebook", "d_twitter_b", "d_twitter", "d_rss","d_qqContact_b","d_qqContact","d_weixin_b","d_weixin","d_emailContact_b","d_emailContact", "d_track_b", "d_track", "d_headcode_b", "d_headcode", "d_footcode_b", "d_footcode", "d_adsite_01_b", "d_adsite_01", "d_adindex_02_b", "d_adindex_02", "d_adindex_01_b", "d_adindex_01", "d_adindex_03_b", "d_adindex_03", "d_adpost_01_b", "d_adpost_01", "d_adpost_02_b", "d_adpost_02", "d_adpost_03_b", "d_adpost_03", "d_sign_b", "d_jquerybom_b", "d_ajaxpager_b", "d_thumbnail_b", "d_bdshare_b", "d_related_count", "d_post_views_b", "d_post_author_b", "d_post_comment_b", "d_post_time_b","hot_list_title","hot_list_number","hot_list_date","hot_list_check","d_post_like_b","d_singleMenu_b","Mobiled_adindex_02_b","Mobiled_adindex_02","Mobiled_adpost_01_b","Mobiled_adpost_01","Mobiled_adpost_02_b","Mobiled_adpost_02","d_spamComments_b"
 );
 
 function mytheme_add_admin() {
@@ -105,7 +105,12 @@ function mytheme_admin() {
 			分类8<label class="checkbox inline">
                 <input type="number" id="d_cat_8" name="d_cat_8" <?php if(dopt('d_cat_8')) echo 'checked="checked"' ?>>
             </label>
-			<span class="showid"><h3>您的所有分类</h3><?php Bing_show_category(); ?></span>
+        </td>
+    </tr>
+    <tr>
+        <td class="d_tit">网站全部分类</td>
+        <td>
+<span class="d_tip"><?php Bing_show_category(); ?></span>
         </td>
     </tr>
     <tr>
@@ -116,6 +121,23 @@ function mytheme_admin() {
             </label>
 			素静404<label class="checkbox inline">
                 <input type="checkbox" id="d_sj404_b" name="d_sj404_b" <?php if(dopt('d_sj404_b')) echo 'checked="checked"' ?>>开启
+            </label>
+        </td>
+    </tr>
+    <tr>
+        <td class="d_tit">新浪微博同步</td>
+        <td>
+            <label class="checkbox inline">
+                <input type="checkbox" id="d_sinasync_b" name="d_sinasync_b" <?php if(dopt('d_sinasync_b')) echo 'checked="checked"' ?>>开启
+            </label>
+            <label class="checkbox inline">
+                用户名<input type="text" placeholder="用户名" id="d_sinaname_b" name="d_sinaname_b" <?php if(dopt('d_sinaname_b')) echo 'checked="checked"' ?>>
+            </label><br>
+			<label class="checkbox inline">
+                密码<input type="text" placeholder="输入密码" id="d_sinapasd_b" name="d_sinapasd_b" <?php if(dopt('d_sinapasd_b')) echo 'checked="checked"' ?>>
+            </label><br>
+			<label class="checkbox inline">
+                appkey<input type="text" placeholder="请输入您的appkey" id="d_sinaapk_b" name="d_sinaapk_b" <?php if(dopt('d_sinaapk_b')) echo 'checked="checked"' ?>>
             </label>
         </td>
     </tr>
