@@ -105,6 +105,7 @@ function mytheme_admin() {
 			分类8<label class="checkbox inline">
                 <input type="number" id="d_cat_8" name="d_cat_8" <?php if(dopt('d_cat_8')) echo 'checked="checked"' ?>>
             </label>
+			<span class="showid"><h3>您的所有分类</h3><?php Bing_show_category(); ?></span>
         </td>
     </tr>
     <tr>
