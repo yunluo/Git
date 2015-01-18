@@ -30,7 +30,7 @@ $bookmarks = get_bookmarks(array('category' => dopt('d_linkpage_cat')?dopt('d_li
 if ( !empty($bookmarks) ){
     echo '<ul class="link-content clearfix">';
     foreach ($bookmarks as $bookmark) {
-        echo '<li><a href="' . $bookmark->link_url . '" title="' . $bookmark->link_description . '" target="_blank" ><img src="' . $bookmark->link_url . 'favicon.ico" height="32" width="32" alt="favicon">
+        echo '<li><a href="' . $bookmark->link_url . '" title="' . $bookmark->link_description . '" target="_blank" ><img src="http://favicon.ydr.me/?url=' . $bookmark->link_url . '" height="32" width="32" />
 <span class="sitename">'. $bookmark->link_name .'</span></a></li>';
     }
     echo '</ul>';
