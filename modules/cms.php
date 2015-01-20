@@ -21,7 +21,6 @@
 <div class="widget-box">
         <div class="widget-title">
 			<h2 class="title-h2"><small><?php echo get_cat_name(dopt('d_cat_1') );?></small></h2>
-
     <div class="first-posts">
         <?php query_posts( array( 'showposts' => 1, 'cat' => dopt('d_cat_1') ) )?>
         <?php while (have_posts()) : the_post(); ?>
