@@ -1031,7 +1031,7 @@ function post_to_sina_weibo($post_ID) {
        }
 
        /* 修改了下风格，并添加文章关键词作为微博话题，提高与其他相关微博的关联率 */
-       $status = '【文章发布】' . strip_tags( $get_post_title ).'：'.mb_strimwidth(strip_tags( apply_filters('the_content', $get_post_centent)),0, 160,'...') .$keywords. ' 查看全文:' . get_permalink($post_ID) ;
+       $status = '【乐趣公园】' . strip_tags( $get_post_title ).'：'.mb_strimwidth(strip_tags( apply_filters('the_content', $get_post_centent)),0, 160,'...') .$keywords. ' 查看全文:' . get_permalink($post_ID) ;
 
        /* 获取特色图片，如果没设置就抓取文章第一张图片 */
        if (has_post_thumbnail()) {
