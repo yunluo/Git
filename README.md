@@ -1,64 +1,168 @@
+> 这个主题是本来是自己改着玩的。原来最初的主题后台框架是D8的二点几版本还是多少，忘了。后来自己修修改改。增加和删减了不少东西。本来只是自己用用。后来见好几个朋友求主题。所以免费共享出来。这个主题可以个人使用修改，但是请不要进行售卖和添加恶意代码等无耻行为。至于留链接什么的，就不奢望了。
 
-<!-- saved from url=(0067)http://git.oschina.net/kenvix/Tieba-Cloud-Sign/raw/master/README.md -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">#百度贴吧云签到
-详细了解本程序请前往：http://www.stus8.com/forum.php?mod=viewthread&amp;tid=2141 
+因为并非是纯原创主题，所以随意取博客的域名为主题取了个名字：Yusi。这是一款[WordPress](http://yusi123.com/tag/wordpress "查看关于 WordPress 的文章") 扁平化+响应式式主题，支持 [WordPress](http://yusi123.com/tag/wordpress "查看关于 WordPress 的文章") 3.8 及以上最新版，兼容 IE9+、Chrome、Firefox 等主流浏览器。部分浏览器不兼容一些新特效，请使用现代浏览器！
 
-## 云签到教程
-所有教程：http://www.stus8.com/forum.php?mod=forumdisplay&amp;fid=163      
-在各平台的部署教程：http://www.stus8.com/forum.php?mod=viewthread&amp;tid=2204
+废话不多说，来一张首页截图吧：
 
-## 代码库列表
-云签到在多个代码库均有副本，当某个代码库不可用时，您可以尝试通过其他代码库下载云签到      
-#### 代码库地址
-OSCGit  : https://git.oschina.net/kenvix/Tieba-Cloud-Sign      
-Github  : https://github.com/kenvix/Tieba-Cloud-Sign      
-Coding  : https://coding.net/u/kenvix/p/Tieba-Cloud-Sign/git      
-Gitcafe : https://gitcafe.com/kenvix/Tieba-Cloud-Sign
-#### 直接下载最新版压缩包地址
-OSCGit  : https://git.oschina.net/kenvix/Tieba-Cloud-Sign/repository/archive?ref=master      
-Github  : https://github.com/kenvix/Tieba-Cloud-Sign/archive/master.zip      
-Coding  : https://coding.net/u/kenvix/p/Tieba-Cloud-Sign/git/archive/master      
-Gitcafe : https://gitcafe.com/kenvix/Tieba-Cloud-Sign/archiveball/master/zip
+[![yusi-theme](http://images.yusi123.com/wp-content/uploads/2014/07/yusi-theme.gif)](http://images.yusi123.com/wp-content/uploads/2014/07/yusi-theme.gif)
 
-##常见问题解决方案
-#####1.如何安装程序
-上传此程序到您的网站，然后网页访问 /setup/install.php   
-#####2.如何开启 MySQL 连接方式强制功能
-打开   mysql_autoload.php   
-找到   define('SQLMODE', 'mysqli');   
-替换为 define('SQLMODE', 'mysql');   
-#####3.数据库配置正确，但连接数据库失败，错误代码 20XX
-请尝试开启 MySQL 连接方式强制功能   
-#####4.如何手动修改配置
-打开 config.php 并按照里面的注释修改   
-切勿使用记事本编辑，否则程序将不能工作   
-#####5.如何手动导入数据库
-打开 /setup/install.template.sql 并按照里面的注释修改   
-#####6.如何安装新版本
-若需要安装新版本，直接下载 Zip，删除压缩包内的 config.php ，然后上传到您的网站即可   
-每一个大版本都会有一个升级脚本，运行它即可   
-文件名一般命名为 update旧版本to新版本.php ，例如 update1.0to2.0.php   
+## 主题特色
 
-## 云签到教程
-所有教程：http://www.stus8.com/forum.php?mod=forumdisplay&amp;fid=163      
-在各平台的部署教程：http://www.stus8.com/forum.php?mod=viewthread&amp;tid=2204
+*   兼容 IE9+、谷歌 Chrome 、火狐 Firefox 等主流浏览器
+*   扁平化+[响应式设计](http://yusi123.com/tag/%e5%93%8d%e5%ba%94%e5%bc%8f%e7%bd%91%e9%a1%b5%e8%ae%be%e8%ae%a1)，兼容电脑、平板和手机访问
+*   主题设置面板新增多种广告位，PC端和移动设备各不相同
+*   自带7+小工具，可随意设置侧栏分类和浮动块。
+*   基本SEO：首页、分类、文章等页面都可以设置关键词和描述
+*   内置实用功能：<span style="color: #444444;">Ajax加载分页</span>、垃圾广告拦截、缓存头像、社交账户图标等
+*   短代码包括dm和dl、gt等,可自主选择。
 
-##禁止利用该软件来盈利
-#####1.不得要求用户付费
-例：你提出用户要付费才能使用
-#####2.不得通过提供类似增值服务的方法去盈利
-例：你提供一个免费节点和一个付费的会员节点，这是不允许的
-#####3.只要涉及收费就禁止
-总之：禁止贩售程序，禁止去版权，禁止要求用户付费      
-可以：摆放一个捐赠链接（必须是用户自愿，不得强制要求捐赠），挂广告
+## 首页导航、最新消息和置顶推荐+热门排行
 
-#####不要尝试去违反协议或用于盈利
+*   顶面菜单炫酷切换，文章页顶部面包屑导航可隐藏或开启
+*   最新消息可以后台配置任意HTML代码
+*   首页内置炫酷的幻灯滑块，可自由开启，添加置顶文章后即可预览
+*   热门排行显示读者的最爱，评论和喜欢并排显示
 
-#其他
-StusGame GROUP:http://www.stus8.com   
-博客:http://zhizhe8.net   
-插件商城：http://www.stus8.com/forum.php?mod=forumdisplay&amp;fid=163&amp;filter=sortid&amp;sortid=13   
+## 文章列表展示效果 缩略图+文字排版
 
-#邮箱联系方式
-无名智者：kenvix@vip.qq.com        
-mokeyjay：longting@longtings.com</pre></body></html>
+*   分类链接醒目展示，可点击图标订阅栏目
+*   排版简洁清爽，鼠标切换图标放大特效，图片后台设置隐藏
+
+## 搜索、订阅、社交 + 喜欢+分享 + 回顶部和去评论
+
+*   搜索结果增加关键词高亮显示
+*   增加多种社交账户图标，微博、Facebook、Twitter、qq、随意隐藏显示
+*   为你喜欢的文章点赞，无处不喜欢
+*   分享无处不在，各种页面、各种文章
+*   回顶部自动隐藏，在有评论的时候才会有去评论
+
+## 侧栏小工具：邮箱订阅+标签云+特别推荐等
+
+*   文章加吐槽随意控制，可控制显示条数和具体分类，还可选择排序方式
+*   邮箱订阅收集你的读者群，及时推送最新的资讯。
+*   标签云并排展示，颜色多种变化
+*   个性广告随意添加，还可以控制浮动个数
+*   特别推荐标题颜色风格多种选择
+
+## 关于读者墙、友情链接、投稿页面
+
+*   独立的读者墙页面，漂亮的展示方式，鼠标滑过头像旋转和显示评论数
+*   带头像的友情链接页面，更加有个性。
+*   接受读者投稿是不错的选择
+
+## 文章结尾和相关文章推荐
+
+*   文章结尾有加转载说明、喜欢、分享、标签、上下页
+*   图文排列的相关文章推荐，后台可设置数量
+
+
+## 前言
+
+乐趣公园一直在使用欲思[主题](http://googlo.me/tag/theme "查看更多关于 主题 的文章")，然后自己改改，如果有朋友觉得不错的，可以拿走使用，如果有问题的希望给我反馈或者给我提意见
+
+## [主题](http://googlo.me/tag/theme "查看更多关于 主题 的文章")说明
+
+*   修改了一些小问题
+*   给主题SEO功能添加开关
+*   给主题的其他功能添加开关
+*   增加七牛缩略图功能
+*   添加图片头部，图片logo功能
+*   添加透明导航栏
+*   添加图片弹窗功能
+*   添加头像旋转功能
+*   添加主题换肤功能
+*   添加文字自动内链功能
+*   屏蔽谷歌字体功能
+*   禁用了主题自带的首行缩进
+*   添加文章自定义代码功能
+*   添加表情按钮功能
+*   添加CMS风格功能
+
+## 代码高亮
+
+### HTML
+
+<pre class="prettyprint linenums" >&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+ &lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;Generator&quot; content=&quot;EditPlus®&quot;&gt;
+  &lt;meta name=&quot;Author&quot; content=&quot;&quot;&gt;
+  &lt;meta name=&quot;Keywords&quot; content=&quot;&quot;&gt;
+  &lt;meta name=&quot;Description&quot; content=&quot;&quot;&gt;
+  &lt;title&gt;Document&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+
+ &lt;/body&gt;
+&lt;/html&gt;</pre>
+
+### php
+
+<pre class="prettyprint linenums" >&lt;!-- 苍茫的代码是我的爱！！！  --&gt;
+&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;meta http-equiv=&quot;Cache-Control&quot; content=&quot;no-siteapp&quot; /&gt;
+&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=10,IE=9,IE=8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0&quot;&gt;
+&lt;title&gt;&lt;?php wp_title(&#039;-&#039;, true, &#039;right&#039;); echo get_option(&#039;blogname&#039;); if (is_home ()) echo &#039; — &#039; ,get_option(&#039;blogdescription&#039;); if ($paged &gt; 1) echo &#039;-Page &#039;, $paged; ?&gt;&lt;/title&gt;
+&lt;?php
+$sr_1 = 0; $sr_2 = 0; $commenton = 0;
+if( dopt(&#039;d_sideroll_b&#039;) ){
+    $sr_1 = dopt(&#039;d_sideroll_1&#039;);
+    $sr_2 = dopt(&#039;d_sideroll_2&#039;);
+}
+if( is_singular() ){
+    if( comments_open() ) $commenton = 1;
+}
+?&gt;</pre>
+
+### javascript
+
+<pre class="prettyprint linenums" >// ==UserScript==
+// @name           picviewer CE
+// @author         NLF &amp;&amp; ywzhaiqi
+// @description    NLF 的围观图修改版
+// @version        2014.11.5.1
+// version        4.2.6.1
+// @created        2011-6-15
+// @lastUpdated    2013-5-29
+// @namespace      http://userscripts.org/users/NLF
+// @homepage       https://github.com/ywzhaiqi/userscript/tree/master/picviewerCE
+
+// @grant          GM_getValue
+// @grant          GM_setValue
+// @grant          GM_addStyle
+// @grant          GM_openInTab
+// @grant          GM_setClipboard
+// @grant          GM_xmlhttpRequest
+// @grant          GM_registerMenuCommand
+// @require        https://greasyfork.org/scripts/6158-gm-config-cn/code/GM_config%20CN.js?version=23710
+// @run-at         document-end
+
+// @include       http://*
+// @include       https://*
+// @exclude       http://www.toodledo.com/tasks/*
+// @exclude       http*://maps.google.com*/*
+// @exclude       *://www.google.*/_/chrome/newtab*
+// ==/UserScript==</pre>
+
+### CSS
+
+<pre class="prettyprint linenums" >    @namespace url(http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul);
+    @-moz-document url(chrome://browser/content/browser.xul) {
+
+    #main-window { counter-reset: tabs;}
+    .tabbrowser-tab:not(:-moz-any([pinned],[concealed])){
+        counter-increment: tabs;
+    }
+    #alltabs-button {visibility: visible!important;}
+    #alltabs-button:after {
+        content: counter(tabs);
+        display: -moz-box;}
+    #alltabs-button &gt; :-moz-any(label, image) {
+        display: none;}
+    }</pre>
+如果还有更多问题欢迎查看本项目WIKI，或者访问我的博客http://Googlo.Me
