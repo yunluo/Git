@@ -130,15 +130,7 @@ function mytheme_admin() {
             <label class="checkbox inline">
                 <input type="checkbox" id="d_sinasync_b" name="d_sinasync_b" <?php if(dopt('d_sinasync_b')) echo 'checked="checked"' ?>>开启
             </label>
-            <label class="checkbox inline">
-                用户名<input type="text" placeholder="用户名" id="d_sinaname_b" name="d_sinaname_b" <?php if(dopt('d_sinaname_b')) echo 'checked="checked"' ?>>
-            </label><br>
-			<label class="checkbox inline">
-                密码<input type="text" placeholder="输入密码" id="d_sinapasd_b" name="d_sinapasd_b" <?php if(dopt('d_sinapasd_b')) echo 'checked="checked"' ?>>
-            </label><br>
-			<label class="checkbox inline">
-                appkey<input type="text" placeholder="请输入您的appkey" id="d_sinaapk_b" name="d_sinaapk_b" <?php if(dopt('d_sinaapk_b')) echo 'checked="checked"' ?>>
-            </label>
+			<span class="d_tip">开启后请在<a href="http://open.weibo.com/connect" target="_blank" >微博开放平台</a>建立网站应用，然后在主题目录<code>functions.php</code>文件1021行添加自己的Appkey，微博账号，密码</span>
         </td>
     </tr>
     <tr>
