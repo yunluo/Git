@@ -165,3 +165,4 @@ if( is_singular() ){
     #alltabs-button &gt; :-moz-any(label, image) {
         display: none;}
     }</pre>
+    如果还有更多问题欢迎查看[本项目WIKI](http://git.oschina.net/yunluo/yusi-theme/wikis/home)
