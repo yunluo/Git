@@ -56,15 +56,112 @@
 *   图文排列的相关文章推荐，后台可设置数量
 
 
-最后PS：匆匆忙忙弄出来的。使用主题的童鞋记得在`timthumb.php`中加入你的域名，不然列表图片会显示不正常。具体参考<span style="color: #222222;">[timthumb常见问答](http://yusi123.com/1247.html)!</span>
+## 前言
 
-**2014-7-24 补充**
+乐趣公园一直在使用欲思[主题](http://googlo.me/tag/theme "查看更多关于 主题 的文章")，然后自己改改，如果有朋友觉得不错的，可以拿走使用，如果有问题的希望给我反馈或者给我提意见
 
-1、代码高亮已经集成到主题，自己后台文本模式下点击`&lt;pre&gt;`标签即可生成如下标签，加上自己的代码内容即可
-<pre class="prettyprint linenums">&lt;pre class="prettyprint linenums" &gt;代码内容&lt;/pre&gt;</pre>
+## [主题](http://googlo.me/tag/theme "查看更多关于 主题 的文章")说明
 
-2、头部字体引用请参考[webfont中文云端字体服务推荐：有字库](http://yusi123.com/3317.html "webfont中文云端字体服务推荐：有字库")。
+*   修改了一些小问题
+*   给主题SEO功能添加开关
+*   给主题的其他功能添加开关
+*   增加七牛缩略图功能
+*   添加图片头部，图片logo功能
+*   添加透明导航栏
+*   添加图片弹窗功能
+*   添加头像旋转功能
+*   添加主题换肤功能
+*   添加文字自动内链功能
+*   屏蔽谷歌字体功能
+*   禁用了主题自带的首行缩进
+*   添加文章自定义代码功能
+*   添加表情按钮功能
+*   添加CMS风格功能
 
-3、文章中短代码使用方法是：
+## 代码高亮
 
-![WordPress短代码](http://images.yusi123.com/wp-content/uploads/2014/07/demolink.gif "WordPress短代码")
+### HTML
+
+<pre class="prettyprint linenums" >&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+ &lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;Generator&quot; content=&quot;EditPlus®&quot;&gt;
+  &lt;meta name=&quot;Author&quot; content=&quot;&quot;&gt;
+  &lt;meta name=&quot;Keywords&quot; content=&quot;&quot;&gt;
+  &lt;meta name=&quot;Description&quot; content=&quot;&quot;&gt;
+  &lt;title&gt;Document&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+
+ &lt;/body&gt;
+&lt;/html&gt;</pre>
+
+### php
+
+<pre class="prettyprint linenums" >&lt;!-- 苍茫的代码是我的爱！！！  --&gt;
+&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;meta http-equiv=&quot;Cache-Control&quot; content=&quot;no-siteapp&quot; /&gt;
+&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=10,IE=9,IE=8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0&quot;&gt;
+&lt;title&gt;&lt;?php wp_title(&#039;-&#039;, true, &#039;right&#039;); echo get_option(&#039;blogname&#039;); if (is_home ()) echo &#039; — &#039; ,get_option(&#039;blogdescription&#039;); if ($paged &gt; 1) echo &#039;-Page &#039;, $paged; ?&gt;&lt;/title&gt;
+&lt;?php
+$sr_1 = 0; $sr_2 = 0; $commenton = 0;
+if( dopt(&#039;d_sideroll_b&#039;) ){
+    $sr_1 = dopt(&#039;d_sideroll_1&#039;);
+    $sr_2 = dopt(&#039;d_sideroll_2&#039;);
+}
+if( is_singular() ){
+    if( comments_open() ) $commenton = 1;
+}
+?&gt;</pre>
+
+### javascript
+
+<pre class="prettyprint linenums" >// ==UserScript==
+// @name           picviewer CE
+// @author         NLF &amp;&amp; ywzhaiqi
+// @description    NLF 的围观图修改版
+// @version        2014.11.5.1
+// version        4.2.6.1
+// @created        2011-6-15
+// @lastUpdated    2013-5-29
+// @namespace      http://userscripts.org/users/NLF
+// @homepage       https://github.com/ywzhaiqi/userscript/tree/master/picviewerCE
+
+// @grant          GM_getValue
+// @grant          GM_setValue
+// @grant          GM_addStyle
+// @grant          GM_openInTab
+// @grant          GM_setClipboard
+// @grant          GM_xmlhttpRequest
+// @grant          GM_registerMenuCommand
+// @require        https://greasyfork.org/scripts/6158-gm-config-cn/code/GM_config%20CN.js?version=23710
+// @run-at         document-end
+
+// @include       http://*
+// @include       https://*
+// @exclude       http://www.toodledo.com/tasks/*
+// @exclude       http*://maps.google.com*/*
+// @exclude       *://www.google.*/_/chrome/newtab*
+// ==/UserScript==</pre>
+
+### CSS
+
+<pre class="prettyprint linenums" >    @namespace url(http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul);
+    @-moz-document url(chrome://browser/content/browser.xul) {
+
+    #main-window { counter-reset: tabs;}
+    .tabbrowser-tab:not(:-moz-any([pinned],[concealed])){
+        counter-increment: tabs;
+    }
+    #alltabs-button {visibility: visible!important;}
+    #alltabs-button:after {
+        content: counter(tabs);
+        display: -moz-box;}
+    #alltabs-button &gt; :-moz-any(label, image) {
+        display: none;}
+    }</pre>
