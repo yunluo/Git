@@ -462,7 +462,7 @@ return( $comment_data );
 }
 if( dopt('d_spamComments_b') ){
 add_filter('preprocess_comment','refused_spam_comments');
-	}
+}
 
 
 //点赞
@@ -1186,5 +1186,14 @@ $example_update_checker = new ThemeUpdateChecker(
     'http://googlo.me/themes-updates.json'//此处链接不可改
 );
 
+//屏蔽长连接评论
+function rkv_url_spamcheck( $approved , $commentdata ) {
+    return ( strlen( $commentdata['comment_author_url'] ) > 50 ) ?
+ //表示评论中链接长度超过50为垃圾评论
+ 'spam' : $approved;
+}
+if( dopt('d_spamComments_b') ){
+add_filter( 'pre_comment_approved', 'rkv_url_spamcheck', 99, 2 );
+}
 
 ?>
