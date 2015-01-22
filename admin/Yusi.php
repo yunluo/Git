@@ -245,14 +245,14 @@ function mytheme_admin() {
             </label>
 			禁用首行缩进<label class="checkbox inline">
                 <input type="checkbox" id="d_nosuojin_b" name="d_nosuojin_b" <?php if(dopt('d_nosuojin_b')) echo 'checked="checked"' ?>>开启
-            </label><br>
+            </label><br><hr />
 			头像旋转<label class="checkbox inline">
                 <input type="checkbox" id="d_avataer_b" name="d_avataer_b" <?php if(dopt('d_avataer_b')) echo 'checked="checked"' ?>>开启
             </label>
 			淡入载入<label class="checkbox inline">
                 <input type="checkbox" id="d_danru_b" name="d_danru_b" <?php if(dopt('d_danru_b')) echo 'checked="checked"' ?>>开启
             </label>
-			收录提示<label class="checkbox inline">
+			百度收录提示<label class="checkbox inline">
                 <input type="checkbox" id="d_baidurecord_b" name="d_baidurecord_b" <?php if(dopt('d_baidurecord_b')) echo 'checked="checked"' ?>>开启
             </label>
 			保存远程图片<label class="checkbox inline">
@@ -260,6 +260,9 @@ function mytheme_admin() {
             </label>
 			网站下雪特效<label class="checkbox inline">
                 <input type="checkbox" id="d_snow_b" name="d_snow_b" <?php if(dopt('d_snow_b')) echo 'checked="checked"' ?>>开启
+            </label>
+			文章二维码<label class="checkbox inline">
+                <input type="checkbox" id="d_qr_b" name="d_qr_b" <?php if(dopt('d_qr_b')) echo 'checked="checked"' ?>>开启
             </label>
         </td>
     </tr>

@@ -18,12 +18,10 @@
 				?>
 				<span class="muted"><i class="fa fa-user"></i> <a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ) ?>"><?php echo get_the_author() ?></a></span>
 				<time class="muted"><i class="fa fa-clock-o"></i> <?php echo timeago( get_gmt_from_date(get_the_time('Y-m-d G:i:s')) )?></time>
-				<span class="muted"><i class="fa fa-eye"></i> <?php deel_views('浏览'); ?></span>
+				<span class="muted"><i class="fa fa-eye"></i> <?php deel_views('次浏览'); ?></span>
 				<?php if( dopt('d_baidurecord_b') ){?><span class="muted"><i class="fa fa-flag"></i> <?php baidu_record(); ?></span><?php } ?>
-
-				<?php if( dopt('d_qr_b') ){?><span class="muted" onmouseover="qrpic.style.display=''" onmouseout="qrpic.style.display='none'"><i class="fa fa-qrcode"></i> 扫描二维码</span><div id="qrpic" style="display:none" onmouseover="this.style.display=''" onmouseout="this.style.display='none'"><img title="本文二维码，手机扫一扫，精彩随身带!" src="http://api.kuaipai.cn/qr?chl=<?php the_permalink(); ?>"></div><?php } ?>
-
-				<?php if ( comments_open() ) echo '<span class="muted"><i class="fa fa-comments-o"></i> <a href="'.get_comments_link().'">'.get_comments_number('0', '1', '%').'评论</a></span>'; ?>
+				<?php if ( comments_open() ) echo '<span class="muted"><i class="fa fa-comments-o"></i> <a href="'.get_comments_link().'">'.get_comments_number('0', '1', '%').'个评论</a></span>'; ?>
+				<?php if( dopt('d_qr_b') ){?><span class="muted"><i class="fa fa-qrcode"></i><a class="weixin"> 扫描二维码<div class="weixin-popover"><div class="popover bottom in"><div class="popover-content"><img src="http://s.jiathis.com/qrcode.php?url=<?php the_permalink(); ?>"></div></div></div></a></span><?php } ?>
 				<?php edit_post_link('[编辑]'); ?>
 			</div>
 		</header>
