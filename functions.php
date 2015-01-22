@@ -1182,7 +1182,7 @@ function baidu_record() {
 //主题自动更新服务
 require 'theme-update-checker.php';
 $example_update_checker = new ThemeUpdateChecker(
-    'yusi-theme',
+    '欲思主题',
     'http://googlo.me/themes-updates.json'//此处链接不可改
 );
 
