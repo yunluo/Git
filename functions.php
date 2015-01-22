@@ -1186,4 +1186,5 @@ $example_update_checker = new ThemeUpdateChecker(
     'http://googlo.me/themes-updates.json'//此处链接不可改
 );
 
+
 ?>
