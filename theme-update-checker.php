@@ -12,9 +12,8 @@ if ( !class_exists('ThemeUpdateChecker') ):
 
 class ThemeUpdateChecker {
 	public $theme = '欲思主题';              //待检查更新的主题名
-	public $metadataUrl = 'http://googlo.me/themes-updates.json';        //元数据文件的路径
+	public $metadataUrl = 'http://googlo.me/themes-updates.json';  //元数据文件的路径
 	public $enableAutomaticChecking = true; //是否启用自动更新
-
 	protected $optionName = '立刻更新主题';      //更新时候的文字信息
 	protected $automaticCheckDone = false;
 	protected static $filterPrefix = 'tuc_request_update_';
@@ -29,8 +28,7 @@ class ThemeUpdateChecker {
 	}
 
 	public function installHooks(){
-		//Check for updates when WordPress does. We can detect when that happens by tracking
-		//updates to the "update_themes" transient, which only happen in wp_update_themes().
+
 		if ( $this->enableAutomaticChecking ){
 			add_filter('pre_set_site_transient_update_themes', array($this, 'onTransientUpdate'));
 		}
