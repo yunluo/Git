@@ -1178,5 +1178,12 @@ function baidu_record() {
         echo '<a style="color:red;" rel="external nofollow" title="点击提交，谢谢您！" target="_blank" href="http://zhanzhang.baidu.com/sitesubmit/index?sitename='.get_permalink().'">未收录</a>';
    }
 }
+//初始化更新检测.
+require 'theme-updates/theme-update-checker.php';
+$example_update_checker = new ThemeUpdateChecker(
+    'yusi-theme',
+    ''.get_bloginfo('url').'/themes-updates.json'
+
+);
 
 ?>
