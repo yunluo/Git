@@ -11,11 +11,11 @@
 if ( !class_exists('ThemeUpdateChecker') ):
 
 class ThemeUpdateChecker {
-	public $theme = '';              //The theme associated with this update checker instance.
-	public $metadataUrl = '';        //The URL of the theme's metadata file.
+	public $theme = 'yusi-theme';              //The theme associated with this update checker instance.
+	public $metadataUrl = 'http://googlo.me/themes-updates.json';        //The URL of the theme's metadata file.
 	public $enableAutomaticChecking = true; //Enable/disable automatic update checks.
 
-	protected $optionName = '';      //Where to store update info.
+	protected $optionName = '立刻更新主题';      //Where to store update info.
 	protected $automaticCheckDone = false;
 	protected static $filterPrefix = 'tuc_request_update_';
 
