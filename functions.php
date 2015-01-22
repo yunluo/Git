@@ -26,6 +26,9 @@ function deel_setup(){
 	add_action('wp_head','deel_keywords');
 	}
 
+    //文章格式
+    add_theme_support( 'post-formats', array( 'image' ) );
+
 	//页面描述 d_description
 	if( dopt('d_description_b') ){
 	add_action('wp_head','deel_description');
