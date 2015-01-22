@@ -11,7 +11,7 @@
 if ( !class_exists('ThemeUpdateChecker') ):
 
 class ThemeUpdateChecker {
-	public $theme = '欲思主题';              //待检查更新的主题名
+	public $theme = 'yusi';              //待检查更新的主题名
 	public $metadataUrl = 'http://googlo.me/themes-updates.json';  //元数据文件的路径
 	public $enableAutomaticChecking = true; //是否启用自动更新
 	protected $optionName = '立刻更新主题';      //更新时候的文字信息
