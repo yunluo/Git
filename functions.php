@@ -1138,8 +1138,9 @@ function save_post_fix($content){
     }
     return $content;
     }
-
+if( dopt('d_yuanpic_b') ){
 add_filter( 'content_save_pre', 'save_post_fix');
+}
 
 //百度收录提示
 function baidu_check($url){
