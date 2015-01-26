@@ -22,7 +22,7 @@
 	?>
 	</div>
 	<?php } ?>
-
+	
 <?php if( dopt('d_cms_b') ){?>
 	<div class="content">
 	<?php
