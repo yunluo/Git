@@ -1183,10 +1183,10 @@ function baidu_record() {
 }
 
 //主题自动更新服务
-require 'theme-update-checker.php';
+require 'updates.php';
 $example_update_checker = new ThemeUpdateChecker(
-    '欲思主题',
-    'http://googlo.me/themes-updates.json'//此处链接不可改
+    'yusi',
+    'https://git.oschina.net/yunluo/API/blob/master/info.json'//此处链接不可改
 );
 
 //屏蔽长连接评论
