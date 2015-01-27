@@ -1186,7 +1186,7 @@ function baidu_record() {
 require 'updates.php';
 $example_update_checker = new ThemeUpdateChecker(
     'yusi',
-    'https://git.oschina.net/yunluo/API/blob/master/info.json'//此处链接不可改
+    'https://git.oschina.net/yunluo/API/raw/master/info.json'//此处链接不可改
 );
 
 //屏蔽长连接评论
