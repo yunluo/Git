@@ -1,3 +1,4 @@
+<?php if (!Yusi_is_mobile() ): ?>
 <div id="wowslider-container1">
 	<div class="ws_images"><ul>
 <?php $sticky = get_option('sticky_posts'); rsort( $sticky );
@@ -33,4 +34,4 @@ echo '<a target="_blank" href="#" title="'.get_the_title().'">';
 	?>
 </div><?php } ?>
 </div><div class="ws_shadow"></div>
-	</div><script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/slider.js"></script>
+	</div><script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/slider.js"></script><?php endif ;?>

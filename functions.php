@@ -26,6 +26,9 @@ function deel_setup(){
 	add_action('wp_head','deel_keywords');
 	}
 
+    //文章格式
+    add_theme_support( 'post-formats', array( 'image' ) );
+
 	//页面描述 d_description
 	if( dopt('d_description_b') ){
 	add_action('wp_head','deel_description');
@@ -137,7 +140,7 @@ function deel_breadcrumbs(){
 function footerScript() {
     if ( !is_admin() ) {
         wp_deregister_script( 'jquery' );
- 	wp_register_script( 'jquery','//libs.baidu.com/jquery/1.8.3/jquery.min.js', false,'1.0');
+ 	wp_register_script( 'jquery','//7arngj.com1.z0.glb.clouddn.com/jquery1.8.3.min.js', false,'1.0');
 	wp_enqueue_script( 'jquery' );
         wp_register_script( 'default', get_template_directory_uri() . '/js/jquery.js', false, '1.0', dopt('d_jquerybom_b') ? true : false );
         wp_enqueue_script( 'default' );
@@ -462,7 +465,7 @@ return( $comment_data );
 }
 if( dopt('d_spamComments_b') ){
 add_filter('preprocess_comment','refused_spam_comments');
-	}
+}
 
 
 //点赞
@@ -994,8 +997,8 @@ add_action('init', 'redirect_comment_link');
 add_filter('get_comment_author_link', 'add_redirect_comment_link', 5);
 add_filter('comment_text', 'add_redirect_comment_link', 99);
 
-/*获取所有分类目录的ID
- function show_category() {
+//获取所有站点分类id
+function Bing_show_category() {
 	global $wpdb;
 	$request = "SELECT $wpdb->terms.term_id, name FROM $wpdb->terms ";
 	$request .= " LEFT JOIN $wpdb->term_taxonomy ON $wpdb->term_taxonomy.term_id = $wpdb->terms.term_id ";
@@ -1005,6 +1008,195 @@ add_filter('comment_text', 'add_redirect_comment_link', 99);
 	foreach ($categorys as $category) { //调用菜单
 		$output = '<span>'.$category->name."(<em>".$category->term_id.'</em>)</span>';
 		echo $output;
-	};
-*/
+	}
+}
+
+//新文章同步到新浪微博
+function post_to_sina_weibo($post_ID) {
+
+   /* 此处修改为通过文章自定义栏目来判断是否同步 */
+   if(get_post_meta($post_ID,'weibo_sync',true) == 1) return;
+
+   $get_post_info = get_post($post_ID);
+   $get_post_centent = get_post($post_ID)->post_content;
+   $get_post_title = get_post($post_ID)->post_title;
+   if ($get_post_info->post_status == 'publish' && $_POST['original_post_status'] != 'publish') {
+       $appkey='3819601734'; /* 此处是你的新浪微博appkey */
+       $username='sp91@qq.com';
+       $userpassword='微博密码';
+       $request = new WP_Http;
+       $keywords = "";
+
+       /* 获取文章标签关键词 */
+       $tags = wp_get_post_tags($post_ID);
+       foreach ($tags as $tag ) {
+          $keywords = $keywords.'#'.$tag->name."#";
+       }
+
+       /* 修改了下风格，并添加文章关键词作为微博话题，提高与其他相关微博的关联率 */
+       $status = '【' . strip_tags( $get_post_title ).'】'.mb_strimwidth(strip_tags( apply_filters('the_content', $get_post_centent)),0, 180,'...') .$keywords. ' 查看全文:' . get_permalink($post_ID) ;
+
+       /* 获取特色图片，如果没设置就抓取文章第一张图片 */
+       if (has_post_thumbnail()) {
+          $url = get_post_thumbnail_url($post->ID);
+
+       /* 抓取第一张图片作为特色图片，需要主题函数支持 */
+       } else if(function_exists('catch_first_image')) {
+          $url = catch_first_image();
+       }
+       /* 判断是否存在图片，定义不同的接口 */
+       if(!empty($url)){
+           $api_url = 'https://api.weibo.com/2/statuses/upload_url_text.json'; /* 新的API接口地址 */
+           $body = array('status' => $status,'source' => $appkey,'url' => $url);
+       } else {
+           $api_url = 'https://api.weibo.com/2/statuses/update.json';
+           $body = array('status' => $status,'source' => $appkey);
+       }
+       $headers = array('Authorization' => 'Basic ' . base64_encode("$username:$userpassword"));
+       $result = $request->post($api_url, array('body' => $body,'headers' => $headers));
+
+       /* 若同步成功，则给新增自定义栏目weibo_sync，避免以后更新文章重复同步 */
+       add_post_meta($post_ID, 'weibo_sync', 1, true);
+    }
+}
+if( dopt('d_sinasync_b') ){
+add_action('publish_post', 'post_to_sina_weibo', 0);
+}
+
+//自动下载外部图片开始
+function save_post_fix($content){
+   global $wpdb;
+    $post_id = get_the_ID();
+    $upload_dir = wp_upload_dir();
+    $path = $upload_dir["url"];
+    $realPath = $upload_dir["path"];
+    $pathbase = $upload_dir["baseurl"].'/';
+
+   if(!is_dir($realPath)){
+    mkdirs($realPath);
+    }
+
+    $pagelink=array();
+    $pattern_page = '/<img([\s\S]*?)src=\\\\[\"|\'](.*?)\\\\[\"|\']([\s\S]*?)>/i';
+    preg_match_all($pattern_page, $content, $pagelink[]);
+    foreach ($pagelink[0][2] as $key => $value) {
+    $pic_url = $value;
+    $url_feter = parse_url($pic_url);
+    if(stripos($url_feter["host"],"'.get_bloginfo('url').'")){ //此处修改成自己的网址
+    continue;
+    }else{
+    $ch = curl_init();
+    curl_setopt($ch,CURLOPT_HEADER,1);
+    curl_setopt($ch, CURLOPT_NOBODY, TRUE);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($ch,CURLOPT_URL,$pic_url);
+    $hd = curl_exec($ch);
+   if(!empty($hd) && !(stripos($hd,'Content-Length: image/png')||stripos($hd,'Content-Length: image/jpg'))){
+    $fp =file_get_contents($pic_url);
+    $pic_name =basename($url_feter["path"]);
+    $savePath = $realPath.'/'.$pic_name;
+    $fullPath = $path.'/'.$pic_name;
+    if(file_exists($savePath)){
+    $savePath = $realPath.'/'.str_replace('.','_'.date("YmdHis").'.' ,$pic_name);
+    $fullPath = $path.'/'.str_replace('.','_'.date("YmdHis").'.' ,$pic_name);
+    }
+
+   if(file_put_contents($savePath,$fp)){
+    $content = str_replace($pic_url, $fullPath, $content);
+    $pic_xiangdui = str_replace($pathbase,'',$fullPath);
+    $wpdb->query("INSERT INTO wp_postmeta (post_id, meta_key, meta_value) VALUES ('{$post_id}', '_wp_attached_file' ,'{$pic_xiangdui}')");
+    $picInfo =array();
+    $picInfo['file'] = $pic_xiangdui;
+    $picInfo['width'] = $picSize[0];
+    $picInfo['height'] = $picSize[1];
+    $picInfo['sizes'] = array();
+    $picInfo['image_meta'] = array(
+    'aperture' => '0',
+    'credit'	=> '',
+    'camera'	=>'',
+    'caption' =>'',
+    'created_timestamp' =>'0',
+    'copyright' =>'0',
+    'focal_length' =>'0',
+    'iso'	=>'0',
+    'shutter_speed' =>'0',
+    'title' => ''
+    );
+    $picStr = serialize($picInfo);
+    $wpdb->query("INSERT INTO wp_postmeta (post_id, meta_key, meta_value) VALUES ('{$post_id}', '_wp_attachment_metadata' ,'{$picStr}')");
+
+    $daytime= date("Y-m-d H:i:s");
+    $daytimegmt =date("Y-m-d H:i:s",strtotime('-8 hours'));
+    list($pictitle)=explode('.',$pic_name);
+    $wpdb->query("
+    INSERT INTO wp_posts (post_author, post_date, post_date_gmt,post_content,post_title,post_excerpt,
+    post_status,comment_status,ping_status,post_password,post_name,to_ping,pinged,post_modified,post_modified_gmt,
+    post_content_filtered,post_parent,guid,menu_order,post_type,post_mime_type,comment_count) VALUES (
+    '1','{$daytime}','{$daytimegmt}','','{$pictitle}','','inherit','open','open','','{$pictitle}','','',
+    '{$daytime}','{$daytimegmt}','','0','{$fullPath}','0','attachment','".$picSize['mime']."','0')");
+    }
+    }
+
+    }
+    }
+    return $content;
+    }
+if( dopt('d_yuanpic_b') ){
+add_filter( 'content_save_pre', 'save_post_fix');
+}
+
+//百度收录提示
+function baidu_check($url){
+    global $wpdb;
+    $post_id = ( null === $post_id ) ? get_the_ID() : $post_id;
+    $baidu_record  = get_post_meta($post_id,'baidu_record',true);
+    if( $baidu_record != 1){
+        $url='http://www.baidu.com/s?wd='.$url;
+        $curl=curl_init();
+        curl_setopt($curl,CURLOPT_URL,$url);
+        curl_setopt($curl,CURLOPT_RETURNTRANSFER,1);
+        $rs=curl_exec($curl);
+        curl_close($curl);
+        if(!strpos($rs,'没有找到')){
+            if( $baidu_record == 0){
+                update_post_meta($post_id, 'baidu_record', 1);
+            } else {
+                add_post_meta($post_id, 'baidu_record', 1, true);
+            }
+                return 1;
+        } else {
+            if( $baidu_record == false){
+                add_post_meta($post_id, 'baidu_record', 0, true);
+            }
+            return 0;
+        }
+    } else {
+       return 1;
+    }
+}
+function baidu_record() {
+    if(baidu_check(get_permalink()) == 1) {
+        echo '<a target="_blank" title="点击查看" rel="external nofollow" href="http://www.baidu.com/s?wd='.get_the_title().'">已收录</a>';
+   } else {
+        echo '<a style="color:red;" rel="external nofollow" title="点击提交，谢谢您！" target="_blank" href="http://zhanzhang.baidu.com/sitesubmit/index?sitename='.get_permalink().'">未收录</a>';
+   }
+}
+
+//主题自动更新服务
+require 'updates.php';
+$example_update_checker = new ThemeUpdateChecker(
+    'yusi',
+    'https://git.oschina.net/yunluo/API/raw/master/info.json'//此处链接不可改
+);
+
+//屏蔽长连接评论
+function rkv_url_spamcheck( $approved , $commentdata ) {
+    return ( strlen( $commentdata['comment_author_url'] ) > 50 ) ?
+ //表示评论中链接长度超过50为垃圾评论
+ 'spam' : $approved;
+}
+if( dopt('d_spamComments_b') ){
+add_filter( 'pre_comment_approved', 'rkv_url_spamcheck', 99, 2 );
+}
+
 ?>

@@ -5,7 +5,7 @@
 <style type="text/css">.article-content h2 {border-left: 8px solid #00A67C;border-bottom: 1px solid #00A67C;}.article-content blockquote:before {display:none !important;}.article-content h3 {border-left: 2px solid #0095ff;background-color:#fbfbfb}input{padding:0px 20px;height : 30px;}</style>
 <?php if( dopt('d_singleMenu_b') ) echo '<div class="breadcrumbs">'.deel_breadcrumbs().'</div>'; ?>
 <?php if( dopt('d_nosuojin_b') ) echo '<style type="text/css">.article-content{text-indent:0px;}</style>'; ?>
-
+<?php if( dopt('d_darkhighlight_b') ) echo '<style type="text/css">.prettyprint,pre.prettyprint{background-color:#272822;border:none;overflow:hidden;padding:10px 15px;}.prettyprint.linenums,pre.prettyprint.linenums{-webkit-box-shadow:inset 40px 0 0 #39382E,inset 41px 0 0 #464741;-moz-box-shadow:inset 40px 0 0 #39382E,inset 41px 0 0 #464741;box-shadow:inset 40px 0 0 #39382E,inset 41px 0 0 #464741;}.prettyprint.linenums ol,pre.prettyprint.linenums ol{margin:0 0 0 33px;}.prettyprint.linenums ol li,pre.prettyprint.linenums ol li{padding-left:12px;color:#bebec5;line-height:20px;margin-left:0;list-style:decimal;}.prettyprint .com{color:#93a1a1;}.prettyprint .lit{color:#AE81FF;}.prettyprint .pun,.prettyprint .opn,.prettyprint .clo{color:#F8F8F2;}.prettyprint .fun{color:#dc322f;}.prettyprint .str,.prettyprint .atv{color:#E6DB74;}.prettyprint .kwd,.prettyprint .tag{color:#F92659;}.prettyprint .typ,.prettyprint .atn,.prettyprint .dec,.prettyprint .var{color:#A6E22E;}.prettyprint .pln{color:#66D9EF;}</style>'; ?>
 		<?php while (have_posts()) : the_post(); ?>
 		<header class="article-header">
 			<h1 class="article-title"><a href="<?php the_permalink() ?>"><?php the_title(); ?></a></h1>
@@ -18,8 +18,10 @@
 				?>
 				<span class="muted"><i class="fa fa-user"></i> <a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ) ?>"><?php echo get_the_author() ?></a></span>
 				<time class="muted"><i class="fa fa-clock-o"></i> <?php echo timeago( get_gmt_from_date(get_the_time('Y-m-d G:i:s')) )?></time>
-				<span class="muted"><i class="fa fa-eye"></i> <?php deel_views('浏览'); ?></span>
-				<?php if ( comments_open() ) echo '<span class="muted"><i class="fa fa-comments-o"></i> <a href="'.get_comments_link().'">'.get_comments_number('0', '1', '%').'评论</a></span>'; ?>
+				<span class="muted"><i class="fa fa-eye"></i> <?php deel_views('次浏览'); ?></span>
+				<?php if( dopt('d_baidurecord_b') ){?><span class="muted"><i class="fa fa-flag"></i> <?php baidu_record(); ?></span><?php } ?>
+				<?php if ( comments_open() ) echo '<span class="muted"><i class="fa fa-comments-o"></i> <a href="'.get_comments_link().'">'.get_comments_number('0', '1', '%').'个评论</a></span>'; ?>
+				<?php if( dopt('d_qr_b') ){?><span class="muted"><i class="fa fa-qrcode"></i><a class="weixin"> 扫描二维码<div class="weixin-popover"><div class="popover bottom in"><div class="popover-content"><img src="http://s.jiathis.com/qrcode.php?url=<?php the_permalink(); ?>"></div></div></div></a></span><?php } ?>
 				<?php edit_post_link('[编辑]'); ?>
 			</div>
 		</header>
