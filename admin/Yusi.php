@@ -2,7 +2,7 @@
 
 $themename = $dname.'主题';
 $options = array(
-      "d_cat_8", "d_cat_7", "d_cat_6", "d_cat_5", "d_cat_4", "d_cat_3", "d_cat_2", "d_cat_1", "d_blog_b", "d_cms_b", "d_singlecode_b", "d_singlecode", "d_touminnav_b", "d_yellow_b", "d_purple_b", "d_black_b", "d_blue_b", "d_red_b", "d_avataer_b", "d_pichead_b", "d_wordhead_b", "d_nosuojin_b", "d_categroy_b", "d_fuckziti_b", "d_autolink_b", "d_fancybox_b", "d_mobilesticky_b", "d_timthumbnail_b", "d_qiniuthumbnail_b", "d_tui_b", "d_description", "d_description_b", "d_keywords", "d_keywords_b", "d_tui", "d_sticky_b", "d_sticky_count", "d_linkpage_cat", "d_tougao_b", "d_tougao_time", "d_tougao_mailto", "d_avatar_b", "d_avatarDate", "d_sideroll_b", "d_sideroll_1", "d_sideroll_2", "d_pingback_b", "d_autosave_b", "d_tqq_b", "d_tqq", "d_weibo_b", "d_weibo", "d_facebook_b", "d_facebook", "d_twitter_b", "d_twitter", "d_rss","d_qqContact_b","d_qqContact","d_weixin_b","d_weixin","d_emailContact_b","d_emailContact", "d_track_b", "d_track", "d_headcode_b", "d_headcode", "d_footcode_b", "d_footcode", "d_adsite_01_b", "d_adsite_01", "d_adindex_02_b", "d_adindex_02", "d_adindex_01_b", "d_adindex_01", "d_adindex_03_b", "d_adindex_03", "d_adpost_01_b", "d_adpost_01", "d_adpost_02_b", "d_adpost_02", "d_adpost_03_b", "d_adpost_03", "d_sign_b", "d_jquerybom_b", "d_ajaxpager_b", "d_thumbnail_b", "d_bdshare_b", "d_related_count", "d_post_views_b", "d_post_author_b", "d_post_comment_b", "d_post_time_b","hot_list_title","hot_list_number","hot_list_date","hot_list_check","d_post_like_b","d_singleMenu_b","Mobiled_adindex_02_b","Mobiled_adindex_02","Mobiled_adpost_01_b","Mobiled_adpost_01","Mobiled_adpost_02_b","Mobiled_adpost_02","d_spamComments_b"
+      "d_qr_b", "d_snow_b", "d_baidurecord_b", "d_yuanpic_b", "d_danru_b", "d_sinasync_b", "d_sj404_b", "d_sjm404_b", "d_darkhighlight_b", "d_cat_8", "d_cat_7", "d_cat_6", "d_cat_5", "d_cat_4", "d_cat_3", "d_cat_2", "d_cat_1", "d_blog_b", "d_cms_b", "d_singlecode_b", "d_singlecode", "d_touminnav_b", "d_yellow_b", "d_purple_b", "d_black_b", "d_blue_b", "d_red_b", "d_avataer_b", "d_pichead_b", "d_wordhead_b", "d_nosuojin_b", "d_categroy_b", "d_fuckziti_b", "d_autolink_b", "d_fancybox_b", "d_mobilesticky_b", "d_timthumbnail_b", "d_qiniuthumbnail_b", "d_tui_b", "d_description", "d_description_b", "d_keywords", "d_keywords_b", "d_tui", "d_sticky_b", "d_sticky_count", "d_linkpage_cat", "d_tougao_b", "d_tougao_time", "d_tougao_mailto", "d_avatar_b", "d_avatarDate", "d_sideroll_b", "d_sideroll_1", "d_sideroll_2", "d_pingback_b", "d_autosave_b", "d_tqq_b", "d_tqq", "d_weibo_b", "d_weibo", "d_facebook_b", "d_facebook", "d_twitter_b", "d_twitter", "d_rss","d_qqContact_b","d_qqContact","d_weixin_b","d_weixin","d_emailContact_b","d_emailContact", "d_track_b", "d_track", "d_headcode_b", "d_headcode", "d_footcode_b", "d_footcode", "d_adsite_01_b", "d_adsite_01", "d_adindex_02_b", "d_adindex_02", "d_adindex_01_b", "d_adindex_01", "d_adindex_03_b", "d_adindex_03", "d_adpost_01_b", "d_adpost_01", "d_adpost_02_b", "d_adpost_02", "d_adpost_03_b", "d_adpost_03", "d_sign_b", "d_jquerybom_b", "d_ajaxpager_b", "d_thumbnail_b", "d_bdshare_b", "d_related_count", "d_post_views_b", "d_post_author_b", "d_post_comment_b", "d_post_time_b","hot_list_title","hot_list_number","hot_list_date","hot_list_check","d_post_like_b","d_singleMenu_b","Mobiled_adindex_02_b","Mobiled_adindex_02","Mobiled_adpost_01_b","Mobiled_adpost_01","Mobiled_adpost_02_b","Mobiled_adpost_02","d_spamComments_b"
 );
 
 function mytheme_add_admin() {
@@ -28,7 +28,7 @@ function mytheme_admin() {
 <div class="wrap d_wrap">
     <link rel="stylesheet" href="<?php bloginfo('template_url') ?>/admin/admin.css"/>
     <h2><?php echo $themename; ?>设置
-        <span class="d_themedesc">发布来源：<a href="http://googlo.me/" target="_blank">乐趣公园</a> &nbsp;&nbsp; <a href="http://googlo.me/3011.html" target="_blank">访问发布页</a></span><span style="font-size:16px;color: rgb(245, 99, 99);padding-left:20px;">更多问题，请查看 -><a href="http://yusi123.com/pay" target="_blank">主题FAQ</a></span>
+        <span class="d_themedesc">发布来源：<a href="http://googlo.me/" target="_blank">乐趣公园</a> &nbsp;&nbsp; <a href="http://googlo.me/3011.html" target="_blank">访问发布页</a></span><span style="font-size:16px;color: rgb(245, 99, 99);padding-left:20px;">更多问题，请查看 -><a href="http://googlo.me/2015.html" target="_blank">主题FAQ</a></span>
     </h2>
 
 <form method="post" class="d_formwrap">
@@ -63,7 +63,7 @@ function mytheme_admin() {
 		<label class="checkbox inline">
 <input type="checkbox" id="d_tui_b" name="d_tui_b" <?php if(dopt('d_tui_b')) echo 'checked="checked"' ?>>开启
         </label>
-            <textarea name="d_tui" id="d_tui" type="textarea" rows=""><?php echo dopt('d_tui'); ?></textarea>
+            <textarea name="d_tui" id="d_tui" type="textarea" rows="3"><?php echo dopt('d_tui'); ?></textarea>
             <span class="d_tip">最新消息显示在全站导航条下方，非常给力的推广位置</span>
         </td>
     </tr>
@@ -104,7 +104,33 @@ function mytheme_admin() {
             </label>
 			分类8<label class="checkbox inline">
                 <input type="number" id="d_cat_8" name="d_cat_8" <?php if(dopt('d_cat_8')) echo 'checked="checked"' ?>>
-            </label><br>
+            </label>
+        </td>
+    </tr>
+    <tr>
+        <td class="d_tit">网站全部分类</td>
+        <td>
+<span class="d_tip"><?php Bing_show_category(); ?></span>
+        </td>
+    </tr>
+    <tr>
+        <td class="d_tit">主题404设置</td>
+        <td>
+            神经猫404<label class="checkbox inline">
+                <input type="checkbox" id="d_sjm404_b" name="d_sjm404_b" <?php if(dopt('d_sjm404_b')) echo 'checked="checked"' ?>>开启
+            </label>
+			素静404<label class="checkbox inline">
+                <input type="checkbox" id="d_sj404_b" name="d_sj404_b" <?php if(dopt('d_sj404_b')) echo 'checked="checked"' ?>>开启
+            </label>
+        </td>
+    </tr>
+    <tr>
+        <td class="d_tit">新浪微博同步</td>
+        <td>
+            <label class="checkbox inline">
+                <input type="checkbox" id="d_sinasync_b" name="d_sinasync_b" <?php if(dopt('d_sinasync_b')) echo 'checked="checked"' ?>>开启
+            </label>
+			<span class="d_tip">开启后请去微博开放平台创建网站应用，然后到主题functions.php写下自己的appkey和微博用户名和密码</span>
         </td>
     </tr>
     <tr>
@@ -113,7 +139,7 @@ function mytheme_admin() {
             电脑端显示<label class="checkbox inline">
                 <input type="checkbox" id="d_sticky_b" name="d_sticky_b" <?php if(dopt('d_sticky_b')) echo 'checked="checked"' ?>>开启
             </label>
-			移动端不显示<label class="checkbox inline">
+			移动端显示<label class="checkbox inline">
                 <input type="checkbox" id="d_mobilesticky_b" name="d_mobilesticky_b" <?php if(dopt('d_mobilesticky_b')) echo 'checked="checked"' ?>>开启
             </label>
             显示<input class="d_num" name="d_sticky_count" id="d_sticky_count" type="number" value="<?php echo dopt('d_sticky_count'); ?>">条 默认4条
@@ -162,7 +188,7 @@ function mytheme_admin() {
 	    <tr>
         <td class="d_tit">主题头部设置</td>
         <td>
-		自带文字头部<label class="checkbox inline">
+		    文字头部<label class="checkbox inline">
                 <input type="checkbox" id="d_wordhead_b" name="d_wordhead_b" <?php if(dopt('d_wordhead_b')) echo 'checked="checked"' ?>>开启
             </label>
             图片头部<label class="checkbox inline">
@@ -211,9 +237,27 @@ function mytheme_admin() {
             </label>
 			禁用首行缩进<label class="checkbox inline">
                 <input type="checkbox" id="d_nosuojin_b" name="d_nosuojin_b" <?php if(dopt('d_nosuojin_b')) echo 'checked="checked"' ?>>开启
-            </label><br>
+            </label><br><hr />
 			头像旋转<label class="checkbox inline">
                 <input type="checkbox" id="d_avataer_b" name="d_avataer_b" <?php if(dopt('d_avataer_b')) echo 'checked="checked"' ?>>开启
+            </label>
+			淡入载入<label class="checkbox inline">
+                <input type="checkbox" id="d_danru_b" name="d_danru_b" <?php if(dopt('d_danru_b')) echo 'checked="checked"' ?>>开启
+            </label>
+			百度收录提示<label class="checkbox inline">
+                <input type="checkbox" id="d_baidurecord_b" name="d_baidurecord_b" <?php if(dopt('d_baidurecord_b')) echo 'checked="checked"' ?>>开启
+            </label>
+			保存远程图片<label class="checkbox inline">
+                <input type="checkbox" id="d_yuanpic_b" name="d_yuanpic_b" <?php if(dopt('d_yuanpic_b')) echo 'checked="checked"' ?>>开启
+            </label>
+			网站下雪特效<label class="checkbox inline">
+                <input type="checkbox" id="d_snow_b" name="d_snow_b" <?php if(dopt('d_snow_b')) echo 'checked="checked"' ?>>开启
+            </label>
+			文章二维码<label class="checkbox inline">
+                <input type="checkbox" id="d_qr_b" name="d_qr_b" <?php if(dopt('d_qr_b')) echo 'checked="checked"' ?>>开启
+            </label><br><hr />
+			代码黑色主题<label class="checkbox inline">
+                <input type="checkbox" id="d_darkhighlight_b" name="d_darkhighlight_b" <?php if(dopt('d_darkhighlight_b')) echo 'checked="checked"' ?>>开启
             </label>
         </td>
     </tr>

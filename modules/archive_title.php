@@ -41,12 +41,12 @@ $content = preg_replace('/('.implode('|', $keys) .')/iu','<span style="color:#b9
 		<span class="muted"><i class="fa fa-user"></i> <a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ) ?>"><?php echo get_the_author() ?></a></span>
 	<?php } ?>
 	<?php if( !$_time ){ ?><span class="muted"><i class="fa fa-clock-o"></i> <?php echo timeago( get_gmt_from_date(get_the_time('Y-m-d G:i:s')) ) ?></span><?php } ?>
-	<?php if( !$_views ){ ?><span class="muted"><i class="fa fa-eye"></i> <?php deel_views('℃'); ?></span><?php } ?>
+	<?php if( !$_views ){ ?><span class="muted"><i class="fa fa-eye"></i> <?php deel_views('次浏览'); ?></span><?php } ?>
 	<?php if( !$_comment ){ ?><span class="muted"><i class="fa fa-comments-o"></i> <?php
-			if ( comments_open() ) echo '<a target="_blank" href="'.get_comments_link().'">'.get_comments_number('0', '1', '%').'评论</a>'
+			if ( comments_open() ) echo '<a target="_blank" href="'.get_comments_link().'">'.get_comments_number('0', '1', '%').'个评论</a>'
 		?></span><?php } ?>
 <?php if( !$_like ){ ?><span class="muted">
-<a href="javascript:;" data-action="ding" data-id="<?php the_ID(); ?>" id="Addlike" class="action<?php if(isset($_COOKIE['bigfa_ding_'.$post->ID])) echo ' actived';?>"><i class="fa fa-heart-o"></i><span class="count"><?php if( get_post_meta($post->ID,'bigfa_ding',true) ){ echo get_post_meta($post->ID,'bigfa_ding',true); } else {echo '0';}?></span>喜欢</a></span><?php } ?></p>
+<a href="javascript:;" data-action="ding" data-id="<?php the_ID(); ?>" id="Addlike" class="action<?php if(isset($_COOKIE['bigfa_ding_'.$post->ID])) echo ' actived';?>"><i class="fa fa-heart-o"></i><span class="count"><?php if( get_post_meta($post->ID,'bigfa_ding',true) ){ echo get_post_meta($post->ID,'bigfa_ding',true); } else {echo '0';}?></span>个赞</a></span><?php } ?></p>
 </article>
 <?php endwhile; wp_reset_query(); ?>
 <?php deel_paging(); ?>
