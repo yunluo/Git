@@ -61,7 +61,7 @@ function mytheme_admin() {
         <td class="d_tit">最新消息</td>
         <td>
 		<label class="checkbox inline">
-<input type="checkbox" id="d_tui_b" name="d_tui_b" <?php if(dopt('d_tui_b')) echo 'checked="checked"' ?>>开启
+<input type="checkbox" id="d_tui_b" name="d_tui_b" <?php if(dopt('d_tui_b')) echo 'checked="checked"' ?> checked>开启
         </label>
             <textarea name="d_tui" id="d_tui" type="textarea" rows="3"><?php echo dopt('d_tui'); ?></textarea>
             <span class="d_tip">最新消息显示在全站导航条下方，非常给力的推广位置</span>
@@ -71,7 +71,7 @@ function mytheme_admin() {
         <td class="d_tit">网站布局设置</td>
         <td>
 			博客布局<label class="checkbox inline">
-                <input type="checkbox" id="d_blog_b" name="d_blog_b" <?php if(dopt('d_blog_b')) echo 'checked="checked"' ?>>开启
+                <input type="checkbox" id="d_blog_b" name="d_blog_b" <?php if(dopt('d_blog_b')) echo 'checked="checked"' ?> checked>开启
             </label>
 			CMS布局<label class="checkbox inline">
                 <input type="checkbox" id="d_cms_b" name="d_cms_b" <?php if(dopt('d_cms_b')) echo 'checked="checked"' ?>>开启
@@ -120,7 +120,7 @@ function mytheme_admin() {
                 <input type="checkbox" id="d_sjm404_b" name="d_sjm404_b" <?php if(dopt('d_sjm404_b')) echo 'checked="checked"' ?>>开启
             </label>
 			素静404<label class="checkbox inline">
-                <input type="checkbox" id="d_sj404_b" name="d_sj404_b" <?php if(dopt('d_sj404_b')) echo 'checked="checked"' ?>>开启
+                <input type="checkbox" id="d_sj404_b" name="d_sj404_b" <?php if(dopt('d_sj404_b')) echo 'checked="checked"' ?> checked>开启
             </label>
         </td>
     </tr>
@@ -175,7 +175,7 @@ function mytheme_admin() {
         <td class="d_tit">缩略图来源设置<span class="d_tip">【二选一】</span></td>
         <td>
 		timthumb缩略图  <label class="checkbox inline">
-                <input type="checkbox" id="d_timthumbnail_b" name="d_timthumbnail_b" <?php if(dopt('d_timthumbnail_b')) echo 'checked="checked"' ?>>开启
+                <input type="checkbox" id="d_timthumbnail_b" name="d_timthumbnail_b" <?php if(dopt('d_timthumbnail_b')) echo 'checked="checked"' ?> checked>开启
             </label>
             七牛缩略图<label class="checkbox inline">
                 <input type="checkbox" id="d_qiniuthumbnail_b" name="d_qiniuthumbnail_b" <?php if(dopt('d_qiniuthumbnail_b')) echo 'checked="checked"' ?>>开启
@@ -192,7 +192,7 @@ function mytheme_admin() {
                 <input type="checkbox" id="d_wordhead_b" name="d_wordhead_b" <?php if(dopt('d_wordhead_b')) echo 'checked="checked"' ?>>开启
             </label>
             图片头部<label class="checkbox inline">
-                <input type="checkbox" id="d_pichead_b" name="d_pichead_b" <?php if(dopt('d_pichead_b')) echo 'checked="checked"' ?>>开启
+                <input type="checkbox" id="d_pichead_b" name="d_pichead_b" <?php if(dopt('d_pichead_b')) echo 'checked="checked"' ?> checked>开启
             </label>
 			透明导航栏<label class="checkbox inline">
                 <input type="checkbox" id="d_touminnav_b" name="d_touminnav_b" <?php if(dopt('d_touminnav_b')) echo 'checked="checked"' ?>>开启
@@ -203,7 +203,7 @@ function mytheme_admin() {
         <td class="d_tit">主题皮肤设置</td>
         <td>
 		红色<label class="checkbox inline">
-                <input type="checkbox" id="d_red_b" name="d_red_b" <?php if(dopt('d_red_b')) echo 'checked="checked"' ?>>
+                <input type="checkbox" id="d_red_b" name="d_red_b" <?php if(dopt('d_red_b')) echo 'checked="checked"' ?> checked>
             </label>
         蓝色<label class="checkbox inline">
                 <input type="checkbox" id="d_blue_b" name="d_blue_b" <?php if(dopt('d_blue_b')) echo 'checked="checked"' ?>>
@@ -224,13 +224,13 @@ function mytheme_admin() {
         <td class="d_tit">主题高级功能</td>
         <td>
 		图片弹窗<label class="checkbox inline">
-                <input type="checkbox" id="d_fancybox_b" name="d_fancybox_b" <?php if(dopt('d_fancybox_b')) echo 'checked="checked"' ?>>开启
+                <input type="checkbox" id="d_fancybox_b" name="d_fancybox_b" <?php if(dopt('d_fancybox_b')) echo 'checked="checked"' ?> checked>开启
             </label>
             自动内链<label class="checkbox inline">
                 <input type="checkbox" id="d_autolink_b" name="d_autolink_b" <?php if(dopt('d_autolink_b')) echo 'checked="checked"' ?>>开启
             </label>
 			屏蔽谷歌字体<label class="checkbox inline">
-                <input type="checkbox" id="d_fuckziti_b" name="d_fuckziti_b" <?php if(dopt('d_fuckziti_b')) echo 'checked="checked"' ?>>开启
+                <input type="checkbox" id="d_fuckziti_b" name="d_fuckziti_b" <?php if(dopt('d_fuckziti_b')) echo 'checked="checked"' ?> checked>开启
             </label>
 			链接去掉Categroy<label class="checkbox inline">
                 <input type="checkbox" id="d_categroy_b" name="d_categroy_b" <?php if(dopt('d_categroy_b')) echo 'checked="checked"' ?>>开启
@@ -239,7 +239,7 @@ function mytheme_admin() {
                 <input type="checkbox" id="d_nosuojin_b" name="d_nosuojin_b" <?php if(dopt('d_nosuojin_b')) echo 'checked="checked"' ?>>开启
             </label><br><hr />
 			头像旋转<label class="checkbox inline">
-                <input type="checkbox" id="d_avataer_b" name="d_avataer_b" <?php if(dopt('d_avataer_b')) echo 'checked="checked"' ?>>开启
+                <input type="checkbox" id="d_avataer_b" name="d_avataer_b" <?php if(dopt('d_avataer_b')) echo 'checked="checked"' ?> checked>开启
             </label>
 			淡入载入<label class="checkbox inline">
                 <input type="checkbox" id="d_danru_b" name="d_danru_b" <?php if(dopt('d_danru_b')) echo 'checked="checked"' ?>>开启
@@ -257,7 +257,7 @@ function mytheme_admin() {
                 <input type="checkbox" id="d_qr_b" name="d_qr_b" <?php if(dopt('d_qr_b')) echo 'checked="checked"' ?>>开启
             </label><br><hr />
 			代码黑色主题<label class="checkbox inline">
-                <input type="checkbox" id="d_darkhighlight_b" name="d_darkhighlight_b" <?php if(dopt('d_darkhighlight_b')) echo 'checked="checked"' ?>>开启
+                <input type="checkbox" id="d_darkhighlight_b" name="d_darkhighlight_b" <?php if(dopt('d_darkhighlight_b')) echo 'checked="checked"' ?> checked>开启
             </label>
         </td>
     </tr>
