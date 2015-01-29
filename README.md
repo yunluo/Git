@@ -4,7 +4,7 @@
 
 废话不多说，来一张首页截图吧：
 
-[![yusi-theme](http://files.git.oschina.net/group1/M00/00/55/cHwGbFTJ7d2AQZrHAAzeWpLwETs556.jpg?token=1519fd5ba3dab5a7a6625c82a7ba05a5&ts=1422519806&filename=2014-11-22_230020.jpg)](http://files.git.oschina.net/group1/M00/00/55/cHwGbFTJ7d2AQZrHAAzeWpLwETs556.jpg?token=1519fd5ba3dab5a7a6625c82a7ba05a5&ts=1422519806&filename=2014-11-22_230020.jpg)
+[![yusi-theme](http://sandbox.runjs.cn/uploads/rs/60/mvjplrno/2014-11-22_230020.jpg)](http://sandbox.runjs.cn/uploads/rs/60/mvjplrno/2014-11-22_230020.jpg)
 
 ## 主题特色
 
