@@ -45,7 +45,7 @@ function mytheme_admin() {
 			<label class="checkbox inline">
                 <input type="checkbox" id="d_description_b" name="d_description_b" <?php if(dopt('d_description_b')) echo 'checked="checked"' ?>>开启
             </label>
-            <input class="ipt-b" type="text" id="d_description" name="d_description" value="<?php echo dopt('d_description'); ?>">
+            <input placeholder="请在这里输入您的网站描述，简单介绍一些您的网站" class="ipt-b" type="text" id="d_description" name="d_description" value="<?php echo dopt('d_description'); ?>">
         </td>
     </tr>
     <tr>
@@ -54,7 +54,7 @@ function mytheme_admin() {
 			<label class="checkbox inline">
                 <input type="checkbox" id="d_keywords_b" name="d_keywords_b" <?php if(dopt('d_keywords_b')) echo 'checked="checked"' ?>>开启
             </label>
-            <input class="ipt-b" type="text" id="d_keywords" name="d_keywords" value="<?php echo dopt('d_keywords'); ?>">
+            <input placeholder="请在这里输入您的网站关键词" class="ipt-b" type="text" id="d_keywords" name="d_keywords" value="<?php echo dopt('d_keywords'); ?>">
         </td>
     </tr>
     <tr>
@@ -63,7 +63,7 @@ function mytheme_admin() {
 		<label class="checkbox inline">
 <input type="checkbox" id="d_tui_b" name="d_tui_b" <?php if(dopt('d_tui_b')) echo 'checked="checked"' ?> checked>开启
         </label>
-            <textarea name="d_tui" id="d_tui" type="textarea" rows="3"><?php echo dopt('d_tui'); ?></textarea>
+            <textarea placeholder="这里的文字将显示在公告栏" name="d_tui" id="d_tui" type="textarea" rows="3"><?php echo dopt('d_tui'); ?></textarea>
             <span class="d_tip">最新消息显示在全站导航条下方，非常给力的推广位置</span>
         </td>
     </tr>
@@ -152,7 +152,7 @@ function mytheme_admin() {
         <td class="d_tit">友情链接页面</td>
         <td>
 			<label class="checkbox inline">
-                只显示分类ID为 <input name="d_linkpage_cat" id="d_linkpage_cat" type="text" value="<?php echo dopt('d_linkpage_cat'); ?>"> 的链接(id之间用英文逗号隔开)，默认显示全部
+                只显示分类ID为 <input placeholder="如果您不知道填写什么，您可以空着不填写，么么" name="d_linkpage_cat" id="d_linkpage_cat" type="text" value="<?php echo dopt('d_linkpage_cat'); ?>"> 的链接(id之间用英文逗号隔开)
             </label>
         </td>
     </tr>
@@ -328,7 +328,7 @@ function mytheme_admin() {
             </label>
             投稿时间间隔 <input class="d_num" name="d_tougao_time" id="d_tougao_time" type="number" value="<?php echo dopt('d_tougao_time'); ?>"> 秒，默认：240
             &nbsp; &nbsp;
-            投稿提醒邮箱 <input name="d_tougao_mailto" id="d_tougao_mailto" type="text" value="<?php echo dopt('d_tougao_mailto'); ?>">
+            投稿提醒邮箱 <input placeholder="请在这里输入您的邮箱" name="d_tougao_mailto" id="d_tougao_mailto" type="text" value="<?php echo dopt('d_tougao_mailto'); ?>">
         </td>
     </tr>
     <tr>
@@ -398,45 +398,45 @@ function mytheme_admin() {
         <td class="d_tit">腾讯微博</td>
         <td>
             <label class="checkbox inline">
-                <input type="checkbox" id="d_tqq_b" name="d_tqq_b" <?php if(dopt('d_tqq_b')) echo 'checked="checked"' ?>>开启
+                <input type="checkbox" id="d_tqq_b" name="d_tqq_b" <?php if(dopt('d_tqq_b')) echo 'checked="checked"' ?> checked>开启
             </label>
-            网址：<input class="d_inp_short" name="d_tqq" id="d_tqq" type="text" value="<?php echo dopt('d_tqq'); ?>">
+            网址：<input placeholder="实例：http://t.qq.com/sp865113728" class="d_inp_short" name="d_tqq" id="d_tqq" type="text" value="<?php echo dopt('d_tqq'); ?>">
         </td>
     </tr>
     <tr>
         <td class="d_tit">新浪微博</td>
         <td>
             <label class="checkbox inline">
-                <input type="checkbox" id="d_weibo_b" name="d_weibo_b" <?php if(dopt('d_weibo_b')) echo 'checked="checked"' ?>>开启
+                <input type="checkbox" id="d_weibo_b" name="d_weibo_b" <?php if(dopt('d_weibo_b')) echo 'checked="checked"' ?> checked>开启
             </label>
-            网址：<input class="d_inp_short" name="d_weibo" id="d_weibo" type="text" value="<?php echo dopt('d_weibo'); ?>">
+            网址：<input placeholder="实例：http://weibo.com/igooglo" class="d_inp_short" name="d_weibo" id="d_weibo" type="text" value="<?php echo dopt('d_weibo'); ?>">
         </td>
     </tr>
    <tr>
         <td class="d_tit">腾讯微信</td>
         <td>
             <label class="checkbox inline">
-                <input type="checkbox" id="d_weixin_b" name="d_weixin_b" <?php if(dopt('d_weixin_b')) echo 'checked="checked"' ?>>开启
+                <input type="checkbox" id="d_weixin_b" name="d_weixin_b" <?php if(dopt('d_weixin_b')) echo 'checked="checked"' ?> checked>开启
             </label>
-            订阅号：<input class="d_inp_short" name="d_weixin" id="d_weixin" type="text" value="<?php echo dopt('d_weixin'); ?>"><span class="d_tip">微信图片直接替换主题同名weixin.gif图片即可。</span>
+            订阅号：<input placeholder="实例：yunluoV587" class="d_inp_short" name="d_weixin" id="d_weixin" type="text" value="<?php echo dopt('d_weixin'); ?>"><span class="d_tip">微信图片直接替换主题同名weixin.gif图片即可。</span>
         </td>
     </tr>
    <tr>
         <td class="d_tit">QQ联系代码</td>
         <td>
             <label class="checkbox inline">
-                <input type="checkbox" id="d_qqContact_b" name="d_qqContact_b" <?php if(dopt('d_qqContact_b')) echo 'checked="checked"' ?>>开启
+                <input type="checkbox" id="d_qqContact_b" name="d_qqContact_b" <?php if(dopt('d_qqContact_b')) echo 'checked="checked"' ?> checked>开启
             </label>
-            代码：<input class="d_inp_short" name="d_qqContact" id="d_qqContact" type="text" value="<?php echo dopt('d_qqContact'); ?>">
+            代码：<input placeholder="格式参照：tencent://message/?uin=QQ号&Site=&Menu=yes" class="d_inp_short" name="d_qqContact" id="d_qqContact" type="text" value="<?php echo dopt('d_qqContact'); ?>">
         </td>
     </tr>
    <tr>
         <td class="d_tit">Email</td>
         <td>
             <label class="checkbox inline">
-                <input type="checkbox" id="d_emailContact_b" name="d_emailContact_b" <?php if(dopt('d_emailContact_b')) echo 'checked="checked"' ?>>开启
+                <input type="checkbox" id="d_emailContact_b" name="d_emailContact_b" <?php if(dopt('d_emailContact_b')) echo 'checked="checked"' ?> checked>开启
             </label>
-            网址：<input class="d_inp_short" name="d_emailContact" id="d_emailContact" type="text" value="<?php echo dopt('d_emailContact'); ?>">
+            网址：<input placeholder="实例：http://t.qq.com/sp865113728" class="d_inp_short" name="d_emailContact" id="d_emailContact" type="text" value="<?php echo dopt('d_emailContact'); ?>">
         </td>
     </tr>
     <tr>
