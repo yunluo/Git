@@ -1,11 +1,14 @@
 <!-- 苍茫的代码是我的爱！！！  -->
 <!DOCTYPE HTML>
-<html>
+<html xmlns:wb=“http://open.weibo.com/wb”>
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 <meta http-equiv="X-UA-Compatible" content="IE=10,IE=9,IE=8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<?php
+wp_head();
+if( dopt('d_headcode_b') ) echo dopt('d_headcode'); ?>
 <title><?php wp_title('-', true, 'right'); echo get_option('blogname'); if (is_home ()) echo ' — ' ,get_option('blogdescription'); if ($paged > 1) echo '-Page ', $paged; ?></title>
 <?php
 $sr_1 = 0; $sr_2 = 0; $commenton = 0;
@@ -20,10 +23,8 @@ if( is_singular() ){
 <script>
 window._deel = {name: '<?php bloginfo('name') ?>',url: '<?php echo get_bloginfo("template_url") ?>', ajaxpager: '<?php echo dopt('d_ajaxpager_b') ?>', commenton: <?php echo $commenton ?>, roll: [<?php echo $sr_1 ?>,<?php echo $sr_2 ?>]}
 </script>
-<?php
-wp_head();
-if( dopt('d_headcode_b') ) echo dopt('d_headcode'); ?>
 <!--[if lt IE 9]><script src="<?php bloginfo('template_url'); ?>/js/html5.js"></script><![endif]-->
+<?php if( dopt('d_danru_b') ) echo '<style type="text/css">@keyframes fade-in{0%{opacity:0}40%{opacity:0}100%{opacity:1}}@-webkit-keyframes fade-in{0%{opacity:0}40%{opacity:0}100%{opacity:1}}.container{animation:fade-in;animation-duration:2.5s;-webkit-animation:fade-in 2.5s}</style>'; ?>
 </head>
 <body <?php body_class(); ?>>
 
