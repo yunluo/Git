@@ -21,7 +21,7 @@
 				<span class="muted"><i class="fa fa-eye"></i> <?php deel_views('次浏览'); ?></span>
 				<?php if( dopt('d_baidurecord_b') ){?><span class="muted"><i class="fa fa-flag"></i> <?php baidu_record(); ?></span><?php } ?>
 				<?php if ( comments_open() ) echo '<span class="muted"><i class="fa fa-comments-o"></i> <a href="'.get_comments_link().'">'.get_comments_number('0', '1', '%').'个评论</a></span>'; ?>
-				<?php if( dopt('d_qr_b') ){?><span class="muted"><i class="fa fa-qrcode"></i><a class="weixin"> 扫描二维码<div class="weixin-popover"><img src="http://s.jiathis.com/qrcode.php?url=<?php the_permalink(); ?>"></div></a></span><?php } ?><?php edit_post_link('[编辑]'); ?>
+				<?php if( dopt('d_qr_b') ){?><span class="muted"><a class="weixin"><i class="fa fa-qrcode"></i>   扫描二维码<div class="weixin-popover"><div class="popover bottom in"><div class="popover-title">扫描二维码</div><div class="popover-content"><img src="http://s.jiathis.com/qrcode.php?url=<?php the_permalink(); ?>" ></div></div></div></a></span><?php } ?><?php edit_post_link('[编辑]'); ?>
 			</div>
 		</header>
 <?php if( dopt('d_adpost_01_b') ) echo '<div class="banner banner-post">'.dopt('d_adpost_01').'</div>'; ?>
