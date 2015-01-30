@@ -28,7 +28,7 @@ function mytheme_admin() {
 <div class="wrap d_wrap">
     <link rel="stylesheet" href="<?php bloginfo('template_url') ?>/admin/admin.css"/>
     <h2><?php echo $themename; ?>设置
-        <span class="d_themedesc">发布来源：<a href="http://googlo.me/" target="_blank">乐趣公园</a> &nbsp;&nbsp; <a href="http://googlo.me/3011.html" target="_blank">访问发布页</a></span><span style="font-size:16px;color: rgb(245, 99, 99);padding-left:20px;">更多问题，请查看 -><a href="http://googlo.me/2015.html" target="_blank">主题FAQ</a></span>
+        <span class="d_themedesc">发布来源：<a href="http://googlo.me/" target="_blank">乐趣公园</a> &nbsp;&nbsp; <a href="http://googlo.me/3011.html" target="_blank">访问发布页</a></span><span style="font-size:16px;color: rgb(245, 99, 99);padding-left:20px;">更多问题，请查看 -><a href="http://googlo.me/2015.html" target="_blank">主题FAQ</a>  注意：设置项含(★)的是单选项</span>
     </h2>
 
 <form method="post" class="d_formwrap">
@@ -45,7 +45,7 @@ function mytheme_admin() {
 			<label class="checkbox inline">
                 <input type="checkbox" id="d_description_b" name="d_description_b" <?php if(dopt('d_description_b')) echo 'checked="checked"' ?>>开启
             </label>
-            <input placeholder="请在这里输入您的网站描述，简单介绍一些您的网站" class="ipt-b" type="text" id="d_description" name="d_description" value="<?php echo dopt('d_description'); ?>">
+            <input placeholder="请在这里输入您的网站描述，简单介绍一些您的网站" class="ipt-b" type="text" id="d_description" name="d_description" value="<?php echo dopt('d_description'); ?>"><br><hr />
         </td>
     </tr>
     <tr>
@@ -54,7 +54,7 @@ function mytheme_admin() {
 			<label class="checkbox inline">
                 <input type="checkbox" id="d_keywords_b" name="d_keywords_b" <?php if(dopt('d_keywords_b')) echo 'checked="checked"' ?>>开启
             </label>
-            <input placeholder="请在这里输入您的网站关键词" class="ipt-b" type="text" id="d_keywords" name="d_keywords" value="<?php echo dopt('d_keywords'); ?>">
+            <input placeholder="请在这里输入您的网站关键词" class="ipt-b" type="text" id="d_keywords" name="d_keywords" value="<?php echo dopt('d_keywords'); ?>"><br><hr />
         </td>
     </tr>
     <tr>
@@ -64,18 +64,18 @@ function mytheme_admin() {
 <input type="checkbox" id="d_tui_b" name="d_tui_b" <?php if(dopt('d_tui_b')) echo 'checked="checked"' ?> checked>开启
         </label>
             <textarea placeholder="这里的文字将显示在公告栏" name="d_tui" id="d_tui" type="textarea" rows="3"><?php echo dopt('d_tui'); ?></textarea>
-            <span class="d_tip">最新消息显示在全站导航条下方，非常给力的推广位置</span>
+            <span class="d_tip">最新消息显示在全站导航条下方，非常给力的推广位置</span><br><hr />
         </td>
     </tr>
     <tr>
-        <td class="d_tit">网站布局设置</td>
+        <td class="d_tit">网站布局设置<span class="d_tip">★</span></td>
         <td>
 			博客布局<label class="checkbox inline">
                 <input type="checkbox" id="d_blog_b" name="d_blog_b" <?php if(dopt('d_blog_b')) echo 'checked="checked"' ?> checked>开启
             </label>
 			CMS布局<label class="checkbox inline">
                 <input type="checkbox" id="d_cms_b" name="d_cms_b" <?php if(dopt('d_cms_b')) echo 'checked="checked"' ?>>开启
-            </label>
+            </label><br><hr />
         </td>
     </tr>
     <tr>
@@ -104,24 +104,24 @@ function mytheme_admin() {
             </label>
 			分类8<label class="checkbox inline">
                 <input type="number" id="d_cat_8" name="d_cat_8" <?php if(dopt('d_cat_8')) echo 'checked="checked"' ?>>
-            </label>
+            </label><br><hr />
         </td>
     </tr>
     <tr>
         <td class="d_tit">网站全部分类</td>
         <td>
-<span class="d_tip"><?php Bing_show_category(); ?></span>
+<span class="d_tip"><?php Bing_show_category(); ?></span><br><hr />
         </td>
     </tr>
     <tr>
-        <td class="d_tit">主题404设置</td>
+        <td class="d_tit">主题404设置<span class="d_tip">★</span></td>
         <td>
             神经猫404<label class="checkbox inline">
                 <input type="checkbox" id="d_sjm404_b" name="d_sjm404_b" <?php if(dopt('d_sjm404_b')) echo 'checked="checked"' ?>>开启
             </label>
 			素静404<label class="checkbox inline">
                 <input type="checkbox" id="d_sj404_b" name="d_sj404_b" <?php if(dopt('d_sj404_b')) echo 'checked="checked"' ?> checked>开启
-            </label>
+            </label><br><hr />
         </td>
     </tr>
     <tr>
@@ -130,7 +130,7 @@ function mytheme_admin() {
             <label class="checkbox inline">
                 <input type="checkbox" id="d_sinasync_b" name="d_sinasync_b" <?php if(dopt('d_sinasync_b')) echo 'checked="checked"' ?>>开启
             </label>
-			<span class="d_tip">开启后请去微博开放平台创建网站应用，然后到主题functions.php写下自己的appkey和微博用户名和密码</span>
+			<span class="d_tip">开启后请去微博开放平台创建网站应用，然后到主题functions.php写下自己的appkey和微博用户名和密码</span><br><hr />
         </td>
     </tr>
     <tr>
@@ -144,8 +144,7 @@ function mytheme_admin() {
             </label>
             显示<input class="d_num" name="d_sticky_count" id="d_sticky_count" type="number" value="<?php echo dopt('d_sticky_count'); ?>">条 默认4条
             &nbsp; &nbsp;
-            <span class="d_tip">开启后请设置4篇以上的置顶文章,文章第一张图片为716*297</span>
-
+            <span class="d_tip">开启后请设置4篇以上的置顶文章,文章第一张图片为716*297</span><br><hr />
         </td>
     </tr>
     <tr>
@@ -153,7 +152,7 @@ function mytheme_admin() {
         <td>
 			<label class="checkbox inline">
                 只显示分类ID为 <input placeholder="如果您不知道填写什么，您可以空着不填写，么么" name="d_linkpage_cat" id="d_linkpage_cat" type="text" value="<?php echo dopt('d_linkpage_cat'); ?>"> 的链接(id之间用英文逗号隔开)
-            </label>
+            </label><br><hr />
         </td>
     </tr>
     <tr>
@@ -168,11 +167,11 @@ function mytheme_admin() {
             </label>
 		文章页顶部面包屑导航  <label class="checkbox inline">
                 <input type="checkbox" id="d_singleMenu_b" name="d_singleMenu_b" <?php if(dopt('d_singleMenu_b')) echo 'checked="checked"' ?>>开启
-            </label>
+            </label><br><hr />
         </td>
     </tr>
 	    <tr>
-        <td class="d_tit">缩略图来源设置<span class="d_tip">【二选一】</span></td>
+        <td class="d_tit">缩略图来源设置<span class="d_tip">★</span></td>
         <td>
 		timthumb缩略图  <label class="checkbox inline">
                 <input type="checkbox" id="d_timthumbnail_b" name="d_timthumbnail_b" <?php if(dopt('d_timthumbnail_b')) echo 'checked="checked"' ?> checked>开启
@@ -181,12 +180,11 @@ function mytheme_admin() {
                 <input type="checkbox" id="d_qiniuthumbnail_b" name="d_qiniuthumbnail_b" <?php if(dopt('d_qiniuthumbnail_b')) echo 'checked="checked"' ?>>开启
             </label>
 			&nbsp;&nbsp;
-			<span class="d_tip">开启后请在您的七牛数据处理</span>
-
+			<span class="d_tip">开启后请在您的七牛数据处理</span><br><hr />
         </td>
     </tr>
 	    <tr>
-        <td class="d_tit">主题头部设置</td>
+        <td class="d_tit">主题头部设置<span class="d_tip">★</span></td>
         <td>
 		    文字头部<label class="checkbox inline">
                 <input type="checkbox" id="d_wordhead_b" name="d_wordhead_b" <?php if(dopt('d_wordhead_b')) echo 'checked="checked"' ?>>开启
@@ -196,11 +194,11 @@ function mytheme_admin() {
             </label>
 			透明导航栏<label class="checkbox inline">
                 <input type="checkbox" id="d_touminnav_b" name="d_touminnav_b" <?php if(dopt('d_touminnav_b')) echo 'checked="checked"' ?>>开启
-            </label><span class="d_tip">配合图片头部使用，不和文字头部一起用</span>
+            </label><span class="d_tip">配合图片头部使用，不和文字头部一起用</span><br><hr />
         </td>
     </tr>
 	    <tr>
-        <td class="d_tit">主题皮肤设置</td>
+        <td class="d_tit">主题皮肤设置<span class="d_tip">★</span></td>
         <td>
 		红色<label class="checkbox inline">
                 <input type="checkbox" id="d_red_b" name="d_red_b" <?php if(dopt('d_red_b')) echo 'checked="checked"' ?> checked>
@@ -216,8 +214,7 @@ function mytheme_admin() {
             </label>
         黄色<label class="checkbox inline">
                 <input type="checkbox" id="d_yellow_b" name="d_yellow_b" <?php if(dopt('d_yellow_b')) echo 'checked="checked"' ?>>
-            </label>
-			<span class="d_tip">不选择皮肤好像会样式错乱，必选一个</span>
+            </label><br><hr />
         </td>
     </tr>
 	    <tr>
@@ -269,7 +266,7 @@ function mytheme_admin() {
 
 	显示数量 <input class="hot_list_number" name="hot_list_number" id="hot_list_number" type="number" value="<?php echo dopt('hot_list_number'); ?>">条（默认10）
 
-	&nbsp;&nbsp; 名称 <input class="d_inp_short" name="hot_list_title" id="hot_list_title" type="text" value="<?php echo dopt('hot_list_title'); ?>">
+	&nbsp;&nbsp; 名称 <input class="d_inp_short" name="hot_list_title" id="hot_list_title" type="text" value="<?php echo dopt('hot_list_title'); ?>"><br><hr />
 	</td>
     </tr>
     <tr>
@@ -289,7 +286,7 @@ function mytheme_admin() {
             </label> &nbsp; &nbsp;
   	<label class="checkbox inline">
                 <input type="checkbox" id="d_post_like_b" name="d_post_like_b" <?php if(dopt('d_post_like_b')) echo 'checked="checked"' ?>>不显示喜欢
-            </label>
+            </label><br><hr />
         </td>
     </tr>
         </td>
@@ -297,7 +294,7 @@ function mytheme_admin() {
     <tr>
         <td class="d_tit">文章页 - 相关文章显示条数</td>
         <td>
-            显示<input class="d_num" name="d_related_count" id="d_related_count" type="number" value="<?php echo dopt('d_related_count'); ?>">条 默认 8
+            显示<input class="d_num" name="d_related_count" id="d_related_count" type="number" value="<?php echo dopt('d_related_count'); ?>">条 默认 8<br><hr />
         </td>
     </tr>
     <tr>
@@ -306,7 +303,7 @@ function mytheme_admin() {
             <label class="checkbox inline">
                 <input type="checkbox" id="d_jquerybom_b" name="d_jquerybom_b" <?php if(dopt('d_jquerybom_b')) echo 'checked="checked"' ?>>开启
             </label>
-            <span class="d_tip">jQuery默认在head区域加载，如果需要页面载入加速，请开启，但是有可能影响部分依赖jQuery的插件失效。</span>
+            <span class="d_tip">jQuery默认在head区域加载，如果需要页面载入加速，请开启，但是有可能影响部分依赖jQuery的插件失效。</span><br><hr />
         </td>
     </tr>
     <tr>
@@ -317,7 +314,7 @@ function mytheme_admin() {
             </label>
  	    <label class="checkbox inline">
                 <input type="checkbox" id="d_bdshare_b" name="d_bdshare_b" <?php if(dopt('d_bdshare_b')) echo 'checked="checked"' ?>>开启百度分享
-            </label>
+            </label><br><hr />
         </td>
     </tr>
     <tr>
@@ -328,7 +325,7 @@ function mytheme_admin() {
             </label>
             投稿时间间隔 <input class="d_num" name="d_tougao_time" id="d_tougao_time" type="number" value="<?php echo dopt('d_tougao_time'); ?>"> 秒，默认：240
             &nbsp; &nbsp;
-            投稿提醒邮箱 <input placeholder="请在这里输入您的邮箱" name="d_tougao_mailto" id="d_tougao_mailto" type="text" value="<?php echo dopt('d_tougao_mailto'); ?>">
+            投稿提醒邮箱 <input placeholder="请在这里输入您的邮箱" name="d_tougao_mailto" id="d_tougao_mailto" type="text" value="<?php echo dopt('d_tougao_mailto'); ?>"><br><hr />
         </td>
     </tr>
     <tr>
@@ -344,7 +341,7 @@ function mytheme_admin() {
                 开启后请确保网站根目录（与wp-content平级）有avatar文件夹，且权限设置成777
                 <br>
                 <span class="d_tip">缓存头像有利于头像加载和防备Gravatar头像站点被墙；如有报错等异常，请关闭，可能你的主机不支持</span>
-            </label>
+            </label><br><hr />
         </td>
     </tr>
  <tr>
@@ -353,7 +350,7 @@ function mytheme_admin() {
             <label class="checkbox inline">
                 <input type="checkbox" id="d_spamComments_b" name="d_spamComments_b" <?php if(dopt('d_spamComments_b')) echo 'checked="checked"' ?>>开启
             </label>
-           <span class="d_tip">开启后，会禁止有日文字符和纯英文的评论，不对外的建议开启。</span>
+           <span class="d_tip">开启后，会禁止有日文字符和纯英文的评论，不对外的建议开启。</span><br><hr />
         </td>
     </tr>
     <tr>
@@ -370,7 +367,7 @@ function mytheme_admin() {
             <label class="d_number">
                 第
                 <input class="d_num " name="d_sideroll_2" id="d_sideroll_2" type="number" value="<?php echo dopt('d_sideroll_2'); ?>"> 个模块
-            </label>
+            </label><br><hr />
         </td>
     </tr>
     <tr>
@@ -380,7 +377,7 @@ function mytheme_admin() {
                 <input type="checkbox" id="d_pingback_b" name="d_pingback_b" <?php if(dopt('d_pingback_b')) echo 'checked="checked"' ?>>开启
                 &nbsp; &nbsp;
                 <span class="d_tip">开启后，不会发送站内Pingback，建议开启</span>
-            </label>
+            </label><br><hr />
         </td>
     </tr>
     <tr>
@@ -390,7 +387,7 @@ function mytheme_admin() {
                 <input type="checkbox" id="d_autosave_b" name="d_autosave_b" <?php if(dopt('d_autosave_b')) echo 'checked="checked"' ?>>开启
                 &nbsp; &nbsp;
                 <span class="d_tip">开启后，后台编辑文章时候不会定时保存，有效缩减数据库存储量；但是，一般不建议开启，除非你的数据库容量很小</span>
-            </label>
+            </label><br><hr />
         </td>
     </tr>
 
@@ -400,7 +397,7 @@ function mytheme_admin() {
             <label class="checkbox inline">
                 <input type="checkbox" id="d_tqq_b" name="d_tqq_b" <?php if(dopt('d_tqq_b')) echo 'checked="checked"' ?> checked>开启
             </label>
-            网址：<input placeholder="实例：http://t.qq.com/sp865113728" class="d_inp_short" name="d_tqq" id="d_tqq" type="text" value="<?php echo dopt('d_tqq'); ?>">
+            网址：<input placeholder="实例：http://t.qq.com/sp865113728" class="d_inp_short" name="d_tqq" id="d_tqq" type="text" value="<?php echo dopt('d_tqq'); ?>"><br><hr />
         </td>
     </tr>
     <tr>
@@ -409,7 +406,7 @@ function mytheme_admin() {
             <label class="checkbox inline">
                 <input type="checkbox" id="d_weibo_b" name="d_weibo_b" <?php if(dopt('d_weibo_b')) echo 'checked="checked"' ?> checked>开启
             </label>
-            网址：<input placeholder="实例：http://weibo.com/igooglo" class="d_inp_short" name="d_weibo" id="d_weibo" type="text" value="<?php echo dopt('d_weibo'); ?>">
+            网址：<input placeholder="实例：http://weibo.com/igooglo" class="d_inp_short" name="d_weibo" id="d_weibo" type="text" value="<?php echo dopt('d_weibo'); ?>"><br><hr />
         </td>
     </tr>
    <tr>
@@ -418,7 +415,7 @@ function mytheme_admin() {
             <label class="checkbox inline">
                 <input type="checkbox" id="d_weixin_b" name="d_weixin_b" <?php if(dopt('d_weixin_b')) echo 'checked="checked"' ?> checked>开启
             </label>
-            订阅号：<input placeholder="实例：yunluoV587" class="d_inp_short" name="d_weixin" id="d_weixin" type="text" value="<?php echo dopt('d_weixin'); ?>"><span class="d_tip">微信图片直接替换主题同名weixin.gif图片即可。</span>
+            订阅号：<input placeholder="实例：yunluoV587" class="d_inp_short" name="d_weixin" id="d_weixin" type="text" value="<?php echo dopt('d_weixin'); ?>"><span class="d_tip">微信图片直接替换主题同名weixin.gif图片即可。</span><br><hr />
         </td>
     </tr>
    <tr>
@@ -427,7 +424,7 @@ function mytheme_admin() {
             <label class="checkbox inline">
                 <input type="checkbox" id="d_qqContact_b" name="d_qqContact_b" <?php if(dopt('d_qqContact_b')) echo 'checked="checked"' ?> checked>开启
             </label>
-            代码：<input placeholder="格式参照：tencent://message/?uin=QQ号&Site=&Menu=yes" class="d_inp_short" name="d_qqContact" id="d_qqContact" type="text" value="<?php echo dopt('d_qqContact'); ?>">
+            代码：<input placeholder="参照右侧格式填写代码" class="d_inp_short" name="d_qqContact" id="d_qqContact" type="text" value="<?php echo dopt('d_qqContact'); ?>">&nbsp;<span class="d_tip">tencent://message/?uin=QQ号&Site=&Menu=yes</span><br><hr />
         </td>
     </tr>
    <tr>
@@ -436,7 +433,7 @@ function mytheme_admin() {
             <label class="checkbox inline">
                 <input type="checkbox" id="d_emailContact_b" name="d_emailContact_b" <?php if(dopt('d_emailContact_b')) echo 'checked="checked"' ?> checked>开启
             </label>
-            网址：<input placeholder="实例：http://t.qq.com/sp865113728" class="d_inp_short" name="d_emailContact" id="d_emailContact" type="text" value="<?php echo dopt('d_emailContact'); ?>">
+            网址：<input placeholder="请填写好您的邮我代码" class="d_inp_short" name="d_emailContact" id="d_emailContact" type="text" value="<?php echo dopt('d_emailContact'); ?>">&nbsp;&nbsp;<a target="_blank" href="http://open.mail.qq.com/cgi-bin/qm_help_mailme?sid=,2,zh_CN&t=open_mailme">点击获取邮箱代码</a><br><hr />
         </td>
     </tr>
     <tr>
@@ -445,7 +442,7 @@ function mytheme_admin() {
             <label class="checkbox inline">
                <input type="checkbox" id="d_facebook_b" name="d_facebook_b" <?php if(dopt('d_facebook_b')) echo 'checked="checked"' ?>>开启
             </label>
-            网址：<input class="d_inp_short" name="d_facebook" id="d_facebook" type="text" value="<?php echo dopt('d_facebook'); ?>">
+            网址：<input class="d_inp_short" name="d_facebook" id="d_facebook" type="text" value="<?php echo dopt('d_facebook'); ?>"><br><hr />
         </td>
     </tr>
     <tr>
@@ -454,14 +451,14 @@ function mytheme_admin() {
             <label class="checkbox inline">
                 <input type="checkbox" id="d_twitter_b" name="d_twitter_b" <?php if(dopt('d_twitter_b')) echo 'checked="checked"' ?>>开启
             </label>
-            网址：<input class="d_inp_short" name="d_twitter" id="d_twitter" type="text" value="<?php echo dopt('d_twitter'); ?>">
+            网址：<input class="d_inp_short" name="d_twitter" id="d_twitter" type="text" value="<?php echo dopt('d_twitter'); ?>"><br><hr />
         </td>
     </tr>
     <tr>
         <td class="d_tit">RSS订阅地址</td>
         <td>
-            <input class="d_inp_short" name="d_rss" id="d_rss" type="text" value="<?php echo dopt('d_rss'); ?>">
-            <span class="d_tip">可以是其他订阅托管站点的地址。边栏只能选择六个社交账户，否则会错位。</span>
+            <input placeholder="一般是网站域名/feed，例如：http://googlo.me/feed" class="d_inp_short" name="d_rss" id="d_rss" type="text" value="<?php echo dopt('d_rss'); ?>">
+            <span class="d_tip">可以是其他订阅托管站点的地址。边栏只能选择六个社交账户，否则会错位。</span><br><hr />
         </td>
     </tr>
     <tr>
@@ -469,10 +466,8 @@ function mytheme_admin() {
         <td>
             <label class="checkbox inline">
                 <input type="checkbox" id="d_track_b" name="d_track_b" <?php if(dopt('d_track_b')) echo 'checked="checked"' ?>>开启
-  <span class="d_tip">统计网站流量，推荐使用百度统计，国内比较优秀且速度快；还可使用Google统计、CNZZ等</span>
             </label>
-            <textarea name="d_track" id="d_track" type="textarea" rows="2"><?php echo dopt('d_track'); ?></textarea>
-
+            <textarea placeholder="统计网站流量，推荐使用百度统计，国内比较优秀且速度快；还可使用Google统计、CNZZ等" name="d_track" id="d_track" type="textarea" rows="2"><?php echo dopt('d_track'); ?></textarea><br><hr />
         </td>
     </tr>
     <tr>
@@ -480,10 +475,8 @@ function mytheme_admin() {
         <td>
             <label class="checkbox inline">
                 <input type="checkbox" id="d_singlecode_b" name="d_singlecode_b" <?php if(dopt('d_singlecode_b')) echo 'checked="checked"' ?>>开启
-<span class="d_tip">放置自定义（css或js）的代码块</span>
             </label>
-            <textarea name="d_singlecode" id="d_singlecode" type="textarea" rows="2"><?php echo dopt('d_singlecode'); ?></textarea>
-
+            <textarea placeholder="放置自定义（css或js）的代码块" name="d_singlecode" id="d_singlecode" type="textarea" rows="2"><?php echo dopt('d_singlecode'); ?></textarea><br><hr />
         </td>
     </tr>
     <tr>
@@ -491,21 +484,17 @@ function mytheme_admin() {
         <td>
             <label class="checkbox inline">
                 <input type="checkbox" id="d_headcode_b" name="d_headcode_b" <?php if(dopt('d_headcode_b')) echo 'checked="checked"' ?>>开启
-<span class="d_tip">会自动出现在页面头部（head区域），可放置广告代码等自定义（css或js）的全局代码块</span>
             </label>
-            <textarea name="d_headcode" id="d_headcode" type="textarea" rows="2"><?php echo dopt('d_headcode'); ?></textarea>
-
+            <textarea placeholder="会自动出现在页面头部（head区域），可放置广告代码等自定义（css或js）的全局代码块" name="d_headcode" id="d_headcode" type="textarea" rows="2"><?php echo dopt('d_headcode'); ?></textarea><br><hr />
         </td>
     </tr>
     <tr>
-        <td class="d_tit">页面底部公共代码</td>
+        <td class="d_tit">网站footer公共代码</td>
         <td>
             <label class="checkbox inline">
                 <input type="checkbox" id="d_footcode_b" name="d_footcode_b" <?php if(dopt('d_footcode_b')) echo 'checked="checked"' ?>>开启
- <span class="d_tip">同上，但是在全站页面底部出现</span>
             </label>
-            <textarea name="d_footcode" id="d_footcode" type="textarea" rows="2"><?php echo dopt('d_footcode'); ?></textarea>
-
+            <textarea placeholder="同上，但是在全站页面footer部分出现" name="d_footcode" id="d_footcode" type="textarea" rows="2"><?php echo dopt('d_footcode'); ?></textarea><br><hr />
         </td>
     </tr>
     <tr>
@@ -513,10 +502,8 @@ function mytheme_admin() {
         <td>
             <label class="checkbox inline">
                 <input type="checkbox" id="d_adsite_01_b" name="d_adsite_01_b" <?php if(dopt('d_adsite_01_b')) echo 'checked="checked"' ?>>开启
- <span class="d_tip">广告区域，任意联盟广告和自定义广告的代码均可，下同</span>
             </label>
-            <textarea name="d_adsite_01" id="d_adsite_01" type="textarea" rows=""><?php echo dopt('d_adsite_01'); ?></textarea>
-
+            <textarea placeholder="广告区域，任意联盟广告和自定义广告的代码均可，下同" name="d_adsite_01" id="d_adsite_01" type="textarea" rows=""><?php echo dopt('d_adsite_01'); ?></textarea><br><hr />
         </td>
     </tr>
     <tr>
@@ -525,7 +512,7 @@ function mytheme_admin() {
             <label class="checkbox inline">
                 <input type="checkbox" id="d_adindex_02_b" name="d_adindex_02_b" <?php if(dopt('d_adindex_02_b')) echo 'checked="checked"' ?>>开启
             </label>
-            <textarea name="d_adindex_02" id="d_adindex_02" type="textarea" rows=""><?php echo dopt('d_adindex_02'); ?></textarea>
+            <textarea name="d_adindex_02" id="d_adindex_02" type="textarea" rows=""><?php echo dopt('d_adindex_02'); ?></textarea><br><hr />
         </td>
     </tr>
 
@@ -535,7 +522,7 @@ function mytheme_admin() {
             <label class="checkbox inline">
                 <input type="checkbox" id="d_adindex_01_b" name="d_adindex_01_b" <?php if(dopt('d_adindex_01_b')) echo 'checked="checked"' ?>>开启
             </label>
-            <textarea name="d_adindex_01" id="d_adindex_01" type="textarea" rows=""><?php echo dopt('d_adindex_01'); ?></textarea>
+            <textarea name="d_adindex_01" id="d_adindex_01" type="textarea" rows=""><?php echo dopt('d_adindex_01'); ?></textarea><br><hr />
         </td>
     </tr>
     <tr>
@@ -544,7 +531,7 @@ function mytheme_admin() {
             <label class="checkbox inline">
                 <input type="checkbox" id="d_adindex_03_b" name="d_adindex_03_b" <?php if(dopt('d_adindex_03_b')) echo 'checked="checked"' ?>>开启
             </label>
-            <textarea name="d_adindex_03" id="d_adindex_03" type="textarea" rows=""><?php echo dopt('d_adindex_03'); ?></textarea>
+            <textarea name="d_adindex_03" id="d_adindex_03" type="textarea" rows=""><?php echo dopt('d_adindex_03'); ?></textarea><br><hr />
         </td>
     </tr>
     <tr>
@@ -553,7 +540,7 @@ function mytheme_admin() {
             <label class="checkbox inline">
                 <input type="checkbox" id="d_adpost_01_b" name="d_adpost_01_b" <?php if(dopt('d_adpost_01_b')) echo 'checked="checked"' ?>>开启
             </label>
-            <textarea name="d_adpost_01" id="d_adpost_01" type="textarea" rows=""><?php echo dopt('d_adpost_01'); ?></textarea>
+            <textarea name="d_adpost_01" id="d_adpost_01" type="textarea" rows=""><?php echo dopt('d_adpost_01'); ?></textarea><br><hr />
         </td>
     </tr>
     <tr>
@@ -562,7 +549,7 @@ function mytheme_admin() {
             <label class="checkbox inline">
                 <input type="checkbox" id="d_adpost_02_b" name="d_adpost_02_b" <?php if(dopt('d_adpost_02_b')) echo 'checked="checked"' ?>>开启
             </label>
-            <textarea name="d_adpost_02" id="d_adpost_02" type="textarea" rows=""><?php echo dopt('d_adpost_02'); ?></textarea>
+            <textarea name="d_adpost_02" id="d_adpost_02" type="textarea" rows=""><?php echo dopt('d_adpost_02'); ?></textarea><br><hr />
         </td>
     </tr>
     <tr>
@@ -571,16 +558,15 @@ function mytheme_admin() {
             <label class="checkbox inline">
                 <input type="checkbox" id="d_adpost_03_b" name="d_adpost_03_b" <?php if(dopt('d_adpost_03_b')) echo 'checked="checked"' ?>>开启
             </label>
-            <textarea name="d_adpost_03" id="d_adpost_03" type="textarea" rows=""><?php echo dopt('d_adpost_03'); ?></textarea>
+            <textarea name="d_adpost_03" id="d_adpost_03" type="textarea" rows=""><?php echo dopt('d_adpost_03'); ?></textarea><br><hr />
         </td>
     </tr>
      <tr>
         <td class="d_tit">手机广告：全站正文列表最前</td>
         <td>
             <label class="checkbox inline">
-                <input type="checkbox" id="Mobiled_adindex_02_b" name="Mobiled_adindex_02_b" <?php if(dopt('Mobiled_adindex_02_b')) echo 'checked="checked"' ?>>开启 <span class="d_tip">手机广告只适合在手机中投放。例如百度联盟移动广告，PC端不会显示。下同。</span>
-            </label>
-            <textarea name="Mobiled_adindex_02" id="Mobiled_adindex_02" type="textarea" rows=""><?php echo dopt('Mobiled_adindex_02'); ?></textarea>
+                <input type="checkbox" id="Mobiled_adindex_02_b" name="Mobiled_adindex_02_b" <?php if(dopt('Mobiled_adindex_02_b')) echo 'checked="checked"' ?>>开启
+            <textarea placeholder="手机广告只适合在手机中投放。例如百度联盟移动广告，PC端不会显示。下同。" name="Mobiled_adindex_02" id="Mobiled_adindex_02" type="textarea" rows=""><?php echo dopt('Mobiled_adindex_02'); ?></textarea><br><hr />
         </td>
     </tr>
  <tr>
@@ -589,7 +575,7 @@ function mytheme_admin() {
             <label class="checkbox inline">
                 <input type="checkbox" id="Mobiled_adpost_01_b" name="Mobiled_adpost_01_b" <?php if(dopt('Mobiled_adpost_01_b')) echo 'checked="checked"' ?>>开启
             </label>
-            <textarea name="Mobiled_adpost_01" id="Mobiled_adpost_01" type="textarea" rows=""><?php echo dopt('Mobiled_adpost_01'); ?></textarea>
+            <textarea name="Mobiled_adpost_01" id="Mobiled_adpost_01" type="textarea" rows=""><?php echo dopt('Mobiled_adpost_01'); ?></textarea><br><hr />
         </td>
     </tr>
  <tr>
@@ -598,9 +584,16 @@ function mytheme_admin() {
             <label class="checkbox inline">
                 <input type="checkbox" id="Mobiled_adpost_02_b" name="Mobiled_adpost_02_b" <?php if(dopt('Mobiled_adpost_02_b')) echo 'checked="checked"' ?>>开启
             </label>
-            <textarea name="Mobiled_adpost_02" id="Mobiled_adpost_02" type="textarea" rows=""><?php echo dopt('Mobiled_adpost_02'); ?></textarea>
+            <textarea name="Mobiled_adpost_02" id="Mobiled_adpost_02" type="textarea" rows=""><?php echo dopt('Mobiled_adpost_02'); ?></textarea><br><hr />
         </td>
     </tr>
+	 <tr>
+        <td class="d_tit">主题邮件反馈</td>
+        <td>
+            <iframe align="center" frameborder="0" src="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&#038;email=luXmr6fW8Pnu_-f-_rj1_fs" width="100%;" height="10%;"> <p>您的浏览器不支持框架</p></iframe><br><hr />
+        </td>
+    </tr>
+
     <tr>
         <td class="d_tit"></td>
         <td>

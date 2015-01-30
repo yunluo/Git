@@ -407,6 +407,8 @@ function deel_comment_list($comment, $args, $depth) {
   //内容
   echo '<div class="c-main" id="div-comment-'.get_comment_ID().'">';
 	echo str_replace(' src=', ' data-original=', convert_smilies(get_comment_text()));
+	if ($comment->user_id == '1')
+			echo '&nbsp;<img src="'.get_bloginfo('template_directory').'/img/webmaster.png" id="comment_is_admin" title="博主大人">';
 	if ($comment->comment_approved == '0'){
 	  echo '<span class="c-approved">您的评论正在排队审核中，请稍后！</span><br />';
 	}
@@ -419,6 +421,7 @@ function deel_comment_list($comment, $args, $depth) {
 		echo edit_comment_link(__('(编辑)'),' - ','');
 	  }
 	echo '</div>';
+
   echo '</div></div>';
 }
 
@@ -1198,5 +1201,7 @@ function rkv_url_spamcheck( $approved , $commentdata ) {
 if( dopt('d_spamComments_b') ){
 add_filter( 'pre_comment_approved', 'rkv_url_spamcheck', 99, 2 );
 }
+
+
 
 ?>
