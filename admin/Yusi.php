@@ -257,7 +257,7 @@ function mytheme_admin() {
                 <input type="checkbox" id="d_darkhighlight_b" name="d_darkhighlight_b" <?php if(dopt('d_darkhighlight_b')) echo 'checked="checked"' ?> checked>开启
             </label>
 			防复制<label class="checkbox inline">
-                <input type="checkbox" id="d_copy_b" name="d_copy_b" <?php if(dopt('d_copy_b')) echo 'checked="checked"' ?> checked>开启
+                <input type="checkbox" id="d_copy_b" name="d_copy_b" <?php if(dopt('d_copy_b')) echo 'checked="checked"' ?>>开启
             </label>
         </td>
     </tr>
