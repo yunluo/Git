@@ -33,7 +33,11 @@ function deel_setup(){
 	if( dopt('d_description_b') ){
 	add_action('wp_head','deel_description');
 	}
-
+	function left_admin_footer_text($text) {
+	$text = '感谢使用<a href=http://googlo.me/ >乐趣公园修改版主题</a>进行创作';
+	return $text;
+	}
+	add_filter('admin_footer_text','left_admin_footer_text');
 	//阻止站内PingBack
 	if( dopt('d_pingback_b') ){
 		add_action('pre_ping','deel_noself_ping');
@@ -1422,9 +1426,5 @@ function get_simple_local_avatar( $id_or_email, $size = '96', $default = '', $al
     return $avatar;
 }
 
-function left_admin_footer_text($text) {
-$text = '感谢使用<a href=http://googlo.me/ >乐趣公园</a>进行创作';
-return $text;
-}
-add_filter('admin_footer_text','left_admin_footer_text');
+
 ?>
