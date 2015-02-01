@@ -2,7 +2,7 @@
 <footer style="border-top: 20px solid ;background-image: url('<?php bloginfo('template_url'); ?>/img/footbg.jpg'); background-repeat: repeat;" class="footer">
     <div class="footer-inner">
         <div class="fooert copyright" align="center">
-         Copyright &copy; <?php echo date(Y);?>  <a href=”<?php bloginfo(“url”); ?>/”><?php bloginfo(“name”); ?></a>   |  <a href="/sitemap.xml" target="_blank" title="站点地图">站点地图</a>  |  <a href="/about" target="_blank" title="关于网站">关于网站</a>  |  <a href="/links" target="_blank" title="友情链接">友情链接</a>  |  由 <a rel="nofollow" target="_blank" href="http://googlo.me/go/hengtian">衡天主机</a> &amp; <a rel="nofollow" target="_blank" href="http://googlo.me/go/qiniu">七牛</a> 强力驱动<span class="trackcode pull-right"><?php if( dopt('d_track_b') ) echo dopt('d_track'); ?></span>
+         Copyright &copy; <?php echo date(Y);?>  <a href="/" title="<?php bloginfo(“name”); ?>"><?php bloginfo(“name”); ?></a>   |  <a href="/sitemap.xml" target="_blank" title="站点地图">站点地图</a>  |  <a href="/about" target="_blank" title="关于网站">关于网站</a>  |  <a href="/links" target="_blank" title="友情链接">友情链接</a>  |  由 <a rel="nofollow" target="_blank" href="http://googlo.me/go/hengtian">衡天主机</a> &amp; <a rel="nofollow" target="_blank" href="http://googlo.me/go/qiniu">七牛</a> 强力驱动<span class="trackcode pull-right"><?php if( dopt('d_track_b') ) echo dopt('d_track'); ?></span>
         </div>
     </div>
 </footer>
