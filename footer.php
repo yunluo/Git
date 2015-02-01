@@ -1,5 +1,16 @@
 </section>
-<footer style="border-top: 20px solid ;background-image: url('<?php bloginfo('template_url'); ?>/img/footbg.jpg'); background-repeat: repeat;" class="footer">
+<?php if (!Yusi_is_mobile() ): ?>
+<?php if( dopt('d_superfoot_b') ){?>
+<div id="footbar"><ul>
+<li><p class="first"><?php echo dopt('d_foottitle1'); ?></p><?php echo dopt('d_footconent1'); ?></li>
+<li><p class="second"><?php echo dopt('d_foottitle2'); ?></p><?php echo dopt('d_footconent2'); ?></li>
+<li><p class="third"><?php echo dopt('d_foottitle3'); ?></p><?php echo dopt('d_footconent3'); ?></li>
+<li><p class="fourth"><?php echo dopt('d_foottitle4'); ?></p><?php echo dopt('d_footconent4'); ?></li>
+</ul>
+</div>
+<?php } ?>
+<?php endif ;?>
+<footer style="border-top: 1px solid ;background-image: url('<?php bloginfo('template_url'); ?>/img/footbg.jpg'); background-repeat: repeat;" class="footer">
     <div class="footer-inner">
         <div class="fooert copyright" align="center">
          Copyright &copy; <?php echo date(Y);?>  <a href="/" title="<?php bloginfo(“name”); ?>"><?php bloginfo(“name”); ?></a>   |  <a href="/sitemap.xml" target="_blank" title="站点地图">站点地图</a>  |  <a href="/about" target="_blank" title="关于网站">关于网站</a>  |  <a href="/links" target="_blank" title="友情链接">友情链接</a>  |  由 <a rel="nofollow" target="_blank" href="http://googlo.me/go/hengtian">衡天主机</a> &amp; <a rel="nofollow" target="_blank" href="http://googlo.me/go/qiniu">七牛</a> 强力驱动<span class="trackcode pull-right"><?php if( dopt('d_track_b') ) echo dopt('d_track'); ?></span>
