@@ -1422,4 +1422,9 @@ function get_simple_local_avatar( $id_or_email, $size = '96', $default = '', $al
     return $avatar;
 }
 
+function left_admin_footer_text($text) {
+$text = '感谢使用<a href=http://googlo.me/ >乐趣公园</a>进行创作';
+return $text;
+}
+add_filter('admin_footer_text','left_admin_footer_text');
 ?>

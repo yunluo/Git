@@ -2,7 +2,7 @@
 
 $themename = $dname.'主题';
 $options = array(
-      "d_copy_b", "d_qr_b", "d_snow_b", "d_baidurecord_b", "d_yuanpic_b", "d_danru_b", "d_sinasync_b", "d_sj404_b", "d_sjm404_b", "d_darkhighlight_b", "d_cat_8", "d_cat_7", "d_cat_6", "d_cat_5", "d_cat_4", "d_cat_3", "d_cat_2", "d_cat_1", "d_blog_b", "d_cms_b", "d_singlecode_b", "d_singlecode", "d_touminnav_b", "d_yellow_b", "d_purple_b", "d_black_b", "d_blue_b", "d_red_b", "d_avataer_b", "d_pichead_b", "d_wordhead_b", "d_nosuojin_b", "d_categroy_b", "d_fuckziti_b", "d_autolink_b", "d_fancybox_b", "d_mobilesticky_b", "d_timthumbnail_b", "d_qiniuthumbnail_b", "d_tui_b", "d_description", "d_description_b", "d_keywords", "d_keywords_b", "d_tui", "d_sticky_b", "d_sticky_count", "d_linkpage_cat", "d_tougao_b", "d_tougao_time", "d_tougao_mailto", "d_avatar_b", "d_avatarDate", "d_sideroll_b", "d_sideroll_1", "d_sideroll_2", "d_pingback_b", "d_autosave_b", "d_tqq_b", "d_tqq", "d_weibo_b", "d_weibo", "d_facebook_b", "d_facebook", "d_twitter_b", "d_twitter", "d_rss","d_qqContact_b","d_qqContact","d_weixin_b","d_weixin","d_emailContact_b","d_emailContact", "d_track_b", "d_track", "d_headcode_b", "d_headcode", "d_footcode_b", "d_footcode", "d_adsite_01_b", "d_adsite_01", "d_adindex_02_b", "d_adindex_02", "d_adindex_01_b", "d_adindex_01", "d_adindex_03_b", "d_adindex_03", "d_adpost_01_b", "d_adpost_01", "d_adpost_02_b", "d_adpost_02", "d_adpost_03_b", "d_adpost_03", "d_sign_b", "d_jquerybom_b", "d_ajaxpager_b", "d_thumbnail_b", "d_bdshare_b", "d_related_count", "d_post_views_b", "d_post_author_b", "d_post_comment_b", "d_post_time_b","hot_list_title","hot_list_number","hot_list_date","hot_list_check","d_post_like_b","d_singleMenu_b","Mobiled_adindex_02_b","Mobiled_adindex_02","Mobiled_adpost_01_b","Mobiled_adpost_01","Mobiled_adpost_02_b","Mobiled_adpost_02","d_spamComments_b"
+      "d_superfoot_b", "d_foottitle1", "d_foottitle2", "d_foottitle3", "d_foottitle4", "d_footconent1", "d_footconent2", "d_footconent3", "d_footconent4", "d_copy_b", "d_qr_b", "d_snow_b", "d_baidurecord_b", "d_yuanpic_b", "d_danru_b", "d_sinasync_b", "d_sj404_b", "d_sjm404_b", "d_darkhighlight_b", "d_cat_8", "d_cat_7", "d_cat_6", "d_cat_5", "d_cat_4", "d_cat_3", "d_cat_2", "d_cat_1", "d_blog_b", "d_cms_b", "d_singlecode_b", "d_singlecode", "d_touminnav_b", "d_yellow_b", "d_purple_b", "d_black_b", "d_blue_b", "d_red_b", "d_avataer_b", "d_pichead_b", "d_wordhead_b", "d_nosuojin_b", "d_categroy_b", "d_fuckziti_b", "d_autolink_b", "d_fancybox_b", "d_mobilesticky_b", "d_timthumbnail_b", "d_qiniuthumbnail_b", "d_tui_b", "d_description", "d_description_b", "d_keywords", "d_keywords_b", "d_tui", "d_sticky_b", "d_sticky_count", "d_linkpage_cat", "d_tougao_b", "d_tougao_time", "d_tougao_mailto", "d_avatar_b", "d_avatarDate", "d_sideroll_b", "d_sideroll_1", "d_sideroll_2", "d_pingback_b", "d_autosave_b", "d_tqq_b", "d_tqq", "d_weibo_b", "d_weibo", "d_facebook_b", "d_facebook", "d_twitter_b", "d_twitter", "d_rss","d_qqContact_b","d_qqContact","d_weixin_b","d_weixin","d_emailContact_b","d_emailContact", "d_track_b", "d_track", "d_headcode_b", "d_headcode", "d_footcode_b", "d_footcode", "d_adsite_01_b", "d_adsite_01", "d_adindex_02_b", "d_adindex_02", "d_adindex_01_b", "d_adindex_01", "d_adindex_03_b", "d_adindex_03", "d_adpost_01_b", "d_adpost_01", "d_adpost_02_b", "d_adpost_02", "d_adpost_03_b", "d_adpost_03", "d_sign_b", "d_jquerybom_b", "d_ajaxpager_b", "d_thumbnail_b", "d_bdshare_b", "d_related_count", "d_post_views_b", "d_post_author_b", "d_post_comment_b", "d_post_time_b","hot_list_title","hot_list_number","hot_list_date","hot_list_check","d_post_like_b","d_singleMenu_b","Mobiled_adindex_02_b","Mobiled_adindex_02","Mobiled_adpost_01_b","Mobiled_adpost_01","Mobiled_adpost_02_b","Mobiled_adpost_02","d_spamComments_b"
 );
 
 function mytheme_add_admin() {
@@ -256,7 +256,7 @@ function mytheme_admin() {
 			代码黑色主题<label class="checkbox inline">
                 <input type="checkbox" id="d_darkhighlight_b" name="d_darkhighlight_b" <?php if(dopt('d_darkhighlight_b')) echo 'checked="checked"' ?> checked>开启
             </label>
-			防复制<label class="checkbox inline">
+			网站防复制<label class="checkbox inline">
                 <input type="checkbox" id="d_copy_b" name="d_copy_b" <?php if(dopt('d_copy_b')) echo 'checked="checked"' ?>>开启
             </label>
         </td>
@@ -474,6 +474,62 @@ function mytheme_admin() {
         </td>
     </tr>
     <tr>
+        <td class="d_tit">超级Footer</td>
+        <td>
+            <label class="checkbox inline">
+                <input type="checkbox" id="d_superfoot_b" name="d_superfoot_b" <?php if(dopt('d_superfoot_b')) echo 'checked="checked"' ?>>开启
+            </label>开启后下面输入的数据才有效果<hr />
+        </td>
+    </tr>
+    <tr>
+        <td class="d_tit">Footer1标题</td>
+        <td>
+            <input placeholder="在这里输入foot1的标题" class="d_inp_short" name="d_foottitle1" id="d_foottitle1" type="text" value="<?php echo dopt('d_foottitle1'); ?>"><hr />
+        </td>
+    </tr>
+    <tr>
+        <td class="d_tit">Footer1内容</td>
+        <td>
+            <textarea placeholder="在这里输入foot1的内容" name="d_footconent1" id="d_footconent1" type="textarea" rows="2"><?php echo dopt('d_footconent1'); ?></textarea><hr />
+        </td>
+    </tr>
+    <tr>
+        <td class="d_tit">Footer2标题</td>
+        <td>
+            <input placeholder="在这里输入foot1的标题" class="d_inp_short" name="d_foottitle2" id="d_foottitle2" type="text" value="<?php echo dopt('d_foottitle2'); ?>"><hr />
+        </td>
+    </tr>
+    <tr>
+        <td class="d_tit">Footer2内容</td>
+        <td>
+            <textarea placeholder="在这里输入foot1的内容" name="d_footconent2" id="d_footconent2" type="textarea" rows="2"><?php echo dopt('d_footconent2'); ?></textarea><hr />
+        </td>
+    </tr>
+    <tr>
+        <td class="d_tit">Footer3标题</td>
+        <td>
+            <input placeholder="在这里输入foot1的标题" class="d_inp_short" name="d_foottitle3" id="d_foottitle3" type="text" value="<?php echo dopt('d_foottitle3'); ?>"><hr />
+        </td>
+    </tr>
+    <tr>
+        <td class="d_tit">Footer3内容</td>
+        <td>
+            <textarea placeholder="在这里输入foot1的内容" name="d_footconent3" id="d_footconent3" type="textarea" rows="2"><?php echo dopt('d_footconent3'); ?></textarea><hr />
+        </td>
+    </tr>
+    <tr>
+        <td class="d_tit">Footer4标题</td>
+        <td>
+            <input placeholder="在这里输入foot1的标题" class="d_inp_short" name="d_foottitle4" id="d_foottitle4" type="text" value="<?php echo dopt('d_foottitle4'); ?>"><hr />
+        </td>
+    </tr>
+    <tr>
+        <td class="d_tit">Footer4内容</td>
+        <td>
+            <textarea placeholder="在这里输入foot1的内容" name="d_footconent4" id="d_footconent4" type="textarea" rows="2"><?php echo dopt('d_footconent4'); ?></textarea><hr />
+        </td>
+    </tr>
+    <tr>
         <td class="d_tit">文章页自定义代码</td>
         <td>
             <label class="checkbox inline">
@@ -515,7 +571,7 @@ function mytheme_admin() {
             <label class="checkbox inline">
                 <input type="checkbox" id="d_adindex_02_b" name="d_adindex_02_b" <?php if(dopt('d_adindex_02_b')) echo 'checked="checked"' ?>>开启
             </label>
-            <textarea name="d_adindex_02" id="d_adindex_02" type="textarea" rows=""><?php echo dopt('d_adindex_02'); ?></textarea><br><hr />
+            <textarea name="d_adindex_02" id="d_adindex_02" type="textarea" rows=""><?php echo dopt('d_adindex_02'); ?></textarea><br>
         </td>
     </tr>
 
@@ -569,7 +625,7 @@ function mytheme_admin() {
         <td>
             <label class="checkbox inline">
                 <input type="checkbox" id="Mobiled_adindex_02_b" name="Mobiled_adindex_02_b" <?php if(dopt('Mobiled_adindex_02_b')) echo 'checked="checked"' ?>>开启
-            <textarea placeholder="手机广告只适合在手机中投放。例如百度联盟移动广告，PC端不会显示。下同。" name="Mobiled_adindex_02" id="Mobiled_adindex_02" type="textarea" rows=""><?php echo dopt('Mobiled_adindex_02'); ?></textarea><br><hr />
+            <textarea placeholder="手机广告只适合在手机中投放。例如百度联盟移动广告，PC端不会显示。下同" name="Mobiled_adindex_02" id="Mobiled_adindex_02" type="textarea" rows=""><?php echo dopt('Mobiled_adindex_02'); ?></textarea><br><hr />
         </td>
     </tr>
  <tr>
@@ -590,13 +646,6 @@ function mytheme_admin() {
             <textarea name="Mobiled_adpost_02" id="Mobiled_adpost_02" type="textarea" rows=""><?php echo dopt('Mobiled_adpost_02'); ?></textarea><br><hr />
         </td>
     </tr>
-	 <tr>
-        <td class="d_tit">主题邮件反馈</td>
-        <td>
-            <iframe align="center" frameborder="0" src="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&#038;email=luXmr6fW8Pnu_-f-_rj1_fs" width="100%;" height="10%;"> <p>您的浏览器不支持框架</p></iframe><br><hr />
-        </td>
-    </tr>
-
     <tr>
         <td class="d_tit"></td>
         <td>
