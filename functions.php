@@ -1032,7 +1032,7 @@ function post_to_sina_weibo($post_ID) {
    if ($get_post_info->post_status == 'publish' && $_POST['original_post_status'] != 'publish') {
        $appkey='3819601734'; /* 此处是你的新浪微博appkey */
        $username='sp91@qq.com';
-       $userpassword='shenpeng1991';
+       $userpassword='微博密码';
        $request = new WP_Http;
        $keywords = "";
 
