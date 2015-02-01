@@ -404,17 +404,19 @@ function deel_comment_list($comment, $args, $depth) {
   //头像
   echo '<div class="c-avatar">';
   echo str_replace(' src=', ' data-original=', get_avatar( $comment->comment_author_email, $size = '54' , deel_avatar_default()));
+
   //内容
   echo '<div class="c-main" id="div-comment-'.get_comment_ID().'">';
 	echo str_replace(' src=', ' data-original=', convert_smilies(get_comment_text()));
-	if ($comment->user_id == '1')
-			echo '&nbsp;<img src="'.get_bloginfo('template_directory').'/img/webmaster.png" id="comment_is_admin" title="博主大人">';
+
 	if ($comment->comment_approved == '0'){
 	  echo '<span class="c-approved">您的评论正在排队审核中，请稍后！</span><br />';
 	}
 	//信息
 	echo '<div class="c-meta">';
 		echo '<span class="c-author">'.get_comment_author_link().'</span>';
+		if ($comment->user_id == '1')
+		echo '<img src="'.get_bloginfo('template_directory').'/img/webmaster.png" id="comment_is_admin" title="博主大人">&nbsp;&nbsp;';
 		echo get_comment_time('Y-m-d H:i '); echo time_ago();
 		if ($comment->comment_approved !== '0'){
 			echo comment_reply_link( array_merge( $args, array('add_below' => 'div-comment', 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) );
@@ -1026,7 +1028,7 @@ function post_to_sina_weibo($post_ID) {
    if ($get_post_info->post_status == 'publish' && $_POST['original_post_status'] != 'publish') {
        $appkey='3819601734'; /* 此处是你的新浪微博appkey */
        $username='sp91@qq.com';
-       $userpassword='微博密码';
+       $userpassword='shenpeng1991';
        $request = new WP_Http;
        $keywords = "";
 
