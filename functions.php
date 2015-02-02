@@ -34,7 +34,7 @@ function deel_setup(){
 	add_action('wp_head','deel_description');
 	}
 	function left_admin_footer_text($text) {
-	$text = '感谢使用<a href=http://googlo.me/ >乐趣公园修改版主题</a>进行创作';
+	$text = '感谢使用<a target="_blank" href=http://googlo.me/ >乐趣公园修改版主题</a>进行创作';
 	return $text;
 	}
 	add_filter('admin_footer_text','left_admin_footer_text');
