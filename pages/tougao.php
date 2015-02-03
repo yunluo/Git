@@ -1,7 +1,7 @@
-<?php 
+<?php
 /*
 	template name: 投稿
-	description: template for yusi123.com Yusi theme 
+	description: template for yusi123.com Yusi theme
 */
 get_header();
 ?>
@@ -27,11 +27,11 @@ get_header();
 		<?php endwhile;  ?>
 		<ul class="submit-form">
 			<li> <strong>标题</strong>
-				<input id="tougao-title" class="input-block-level" type="text" size="40" placeholder="写点什么...">	
+				<input id="tougao-title" class="input-block-level" type="text" size="40" placeholder="写点什么...">
 				<p class="text-error hide"></p>
 			</li>
 			<li> <strong>网址</strong>
-				<input id="tougao-url" class="input-block-level" type="text" placeholder="http://" size="100">	
+				<input id="tougao-url" class="input-block-level" type="text" placeholder="http://" size="100">
 				<p class="text-error hide"></p>
 			</li>
 			<li>
@@ -41,7 +41,7 @@ get_header();
 			</li>
 		</ul>
 		<div class="text-error"></div>
-		<button id="tougao-submit" class="btn btn-primary"><i class="fa fa-check-square-o"></i> 立即提交</button>
+		<button id="tougao-submit" class="btn btn-primary"><i class="fa fa-check-square-o"></i> 立即提交</button><div class="text-error">嫌弃这个编辑器太渣？点击<a target="_blank" href="http://zaixianwangyebianji.51240.com/">这里</a>写好文章之后，将源代码发在上面编辑器里面吧</div>
 	</div>
 </div>
 
