@@ -842,17 +842,17 @@ function dangopress_esc_callback($matches)
 add_filter('the_content', 'dangopress_esc_html', 2);
 add_filter('comment_text', 'dangopress_esc_html', 2);
 
-/*首页隐藏一些分类
+//首页隐藏一些分类
 function exclude_category_home( $query ) {
 	if ( $query->is_home ) {
-		$query->set( 'cat', '-10,-20' );//隐藏10和20这两个分类
+		$query->set( 'cat', '-'.get_option('d_blockcat_1').',-'.get_option('d_blockcat_2').'' );//隐藏10和20这两个分类
 		}
 	return $query;
 		}
 		if( dopt('d_blockcat_b') ){
 add_filter( 'pre_get_posts', 'exclude_category_home' );
 }
-*/
+
 //后台日志阅读统计
 add_filter('manage_posts_columns', 'postviews_admin_add_column');
 function postviews_admin_add_column($columns){
@@ -1028,7 +1028,7 @@ function Bing_show_category() {
 	$request .= " ORDER BY term_id asc";
 	$categorys = $wpdb->get_results($request);
 	foreach ($categorys as $category) { //调用菜单
-		$output = '<span>'.$category->name."(<em>".$category->term_id.'</em>)</span>';
+		$output = '<span>'.$category->name."=(<em>".$category->term_id.'</em>)</span>&nbsp;&nbsp;';
 		echo $output;
 	}
 }
@@ -1043,9 +1043,9 @@ function post_to_sina_weibo($post_ID) {
    $get_post_centent = get_post($post_ID)->post_content;
    $get_post_title = get_post($post_ID)->post_title;
    if ($get_post_info->post_status == 'publish' && $_POST['original_post_status'] != 'publish') {
-       $appkey='新浪微博appkey'; /* 此处是你的新浪微博appkey */
-       $username='sp91@qq.com';
-       $userpassword='微博密码';
+       $appkey=''.get_option('d_wbapky_b').''; /* 此处是你的新浪微博appkey */
+       $username=''.get_option('d_wbuser_b').'';
+       $userpassword=''.get_option('d_wbpasd_b').'';
        $request = new WP_Http;
        $keywords = "";
 
@@ -1056,7 +1056,7 @@ function post_to_sina_weibo($post_ID) {
        }
 
        /* 修改了下风格，并添加文章关键词作为微博话题，提高与其他相关微博的关联率 */
-       $status = '【' . strip_tags( $get_post_title ).'】'.mb_strimwidth(strip_tags( apply_filters('the_content', $get_post_centent)),0, 180,'...') .$keywords. ' 查看全文:' . get_permalink($post_ID) ;
+       $status = '【' . strip_tags( $get_post_title ).'】:'.mb_strimwidth(strip_tags( apply_filters('the_content', $get_post_centent)),0, 180,'...') .$keywords. ' 查看全文:' . get_permalink($post_ID) ;
 
        /* 获取特色图片，如果没设置就抓取文章第一张图片 */
        if (has_post_thumbnail()) {
@@ -1205,20 +1205,21 @@ function baidu_record() {
 }
 
 //主题自动更新服务
+if( dopt('d_update_b') ){
 require 'updates.php';
 $example_update_checker = new ThemeUpdateChecker(
     'yusi',
     'https://git.oschina.net/yunluo/API/raw/master/info.json'//此处链接不可改
 );
-
+}
 //屏蔽长连接评论
-function rkv_url_spamcheck( $approved , $commentdata ) {
+function lang_url_spamcheck( $approved , $commentdata ) {
     return ( strlen( $commentdata['comment_author_url'] ) > 50 ) ?
  //表示评论中链接长度超过50为垃圾评论
  'spam' : $approved;
 }
 if( dopt('d_spamComments_b') ){
-add_filter( 'pre_comment_approved', 'rkv_url_spamcheck', 99, 2 );
+add_filter( 'pre_comment_approved', 'lang_url_spamcheck', 99, 2 );
 }
 
 //本地头像
