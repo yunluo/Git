@@ -174,7 +174,7 @@ function mytheme_admin() {
         <td class="d_tit">缩略图来源设置<span class="d_tip">★</span></td>
         <td>
 		timthumb缩略图  <label class="checkbox inline">
-                <input type="checkbox" id="d_timthumbnail_b" name="d_timthumbnail_b" <?php if(dopt('d_timthumbnail_b')) echo 'checked="checked"' ?> checked>开启
+                <input type="checkbox" id="d_timthumbnail_b" name="d_timthumbnail_b" <?php if(dopt('d_timthumbnail_b')) echo 'checked="checked"' ?>>开启
             </label>
             七牛缩略图<label class="checkbox inline">
                 <input type="checkbox" id="d_qiniuthumbnail_b" name="d_qiniuthumbnail_b" <?php if(dopt('d_qiniuthumbnail_b')) echo 'checked="checked"' ?>>开启
@@ -221,13 +221,13 @@ function mytheme_admin() {
         <td class="d_tit">主题高级功能</td>
         <td>
 		图片弹窗<label class="checkbox inline">
-                <input type="checkbox" id="d_fancybox_b" name="d_fancybox_b" <?php if(dopt('d_fancybox_b')) echo 'checked="checked"' ?> checked>开启
+                <input type="checkbox" id="d_fancybox_b" name="d_fancybox_b" <?php if(dopt('d_fancybox_b')) echo 'checked="checked"' ?>>开启
             </label>
             自动内链<label class="checkbox inline">
                 <input type="checkbox" id="d_autolink_b" name="d_autolink_b" <?php if(dopt('d_autolink_b')) echo 'checked="checked"' ?>>开启
             </label>
 			屏蔽谷歌字体<label class="checkbox inline">
-                <input type="checkbox" id="d_fuckziti_b" name="d_fuckziti_b" <?php if(dopt('d_fuckziti_b')) echo 'checked="checked"' ?> checked>开启
+                <input type="checkbox" id="d_fuckziti_b" name="d_fuckziti_b" <?php if(dopt('d_fuckziti_b')) echo 'checked="checked"' ?>>开启
             </label>
 			链接去掉Categroy<label class="checkbox inline">
                 <input type="checkbox" id="d_categroy_b" name="d_categroy_b" <?php if(dopt('d_categroy_b')) echo 'checked="checked"' ?>>开启
@@ -236,7 +236,7 @@ function mytheme_admin() {
                 <input type="checkbox" id="d_nosuojin_b" name="d_nosuojin_b" <?php if(dopt('d_nosuojin_b')) echo 'checked="checked"' ?>>开启
             </label><br><hr />
 			头像旋转<label class="checkbox inline">
-                <input type="checkbox" id="d_avataer_b" name="d_avataer_b" <?php if(dopt('d_avataer_b')) echo 'checked="checked"' ?> checked>开启
+                <input type="checkbox" id="d_avataer_b" name="d_avataer_b" <?php if(dopt('d_avataer_b')) echo 'checked="checked"' ?>>开启
             </label>
 			淡入载入<label class="checkbox inline">
                 <input type="checkbox" id="d_danru_b" name="d_danru_b" <?php if(dopt('d_danru_b')) echo 'checked="checked"' ?>>开启
@@ -254,7 +254,7 @@ function mytheme_admin() {
                 <input type="checkbox" id="d_qr_b" name="d_qr_b" <?php if(dopt('d_qr_b')) echo 'checked="checked"' ?>>开启
             </label><br><hr />
 			代码黑色主题<label class="checkbox inline">
-                <input type="checkbox" id="d_darkhighlight_b" name="d_darkhighlight_b" <?php if(dopt('d_darkhighlight_b')) echo 'checked="checked"' ?> checked>开启
+                <input type="checkbox" id="d_darkhighlight_b" name="d_darkhighlight_b" <?php if(dopt('d_darkhighlight_b')) echo 'checked="checked"' ?>>开启
             </label>
 			网站防复制<label class="checkbox inline">
                 <input type="checkbox" id="d_copy_b" name="d_copy_b" <?php if(dopt('d_copy_b')) echo 'checked="checked"' ?>>开启
