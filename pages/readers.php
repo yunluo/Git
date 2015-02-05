@@ -1,7 +1,7 @@
-<?php 
+<?php
 /*
 	template name: 读者墙
-	description: template for yusi123.com Yusi theme 
+	description: template for G theme
 */
 get_header();
 function readers_wall( $outer='1',$timer='100',$limit='60' ){

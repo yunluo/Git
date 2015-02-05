@@ -1,4 +1,4 @@
-<?php if (!Yusi_is_mobile() ): ?>
+<?php if (!G_is_mobile() ): ?>
 <div id="wowslider-container1">
 	<div class="ws_images"><ul>
 <?php $sticky = get_option('sticky_posts'); rsort( $sticky );

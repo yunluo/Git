@@ -1,7 +1,7 @@
-<?php 
+<?php
 /*
 	template name: 页面(新版)
-	description: template for yusi123.com Yusi theme 
+	description: template for G theme
 */
 get_header();
 ?>

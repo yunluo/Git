@@ -1,14 +1,14 @@
-<?php 
+<?php
 /*
 	template name: 空页面
-	description: template for yusi123.com Yusi theme 
+	description: template for G theme
 */
 get_header();
 ?>
 
 <div class="pagewrapper clearfix">
-	
-	
+
+
 		<header class="pageheader clearfix">
 			<h1 class="pull-left">
 				<a href="<?php the_permalink() ?>"><?php the_title(); ?></a>
@@ -22,7 +22,7 @@ get_header();
 				<?php the_content(); ?>
 			</div>
 		<?php comments_template('', true); endwhile;  ?>
-	
+
 </div>
 
 <?php get_footer(); ?>

@@ -1,4 +1,4 @@
-<?php  
+<?php
 add_action( 'widgets_init', 'd_tags' );
 
 function d_tags() {
@@ -8,7 +8,7 @@ function d_tags() {
 class d_tag extends WP_Widget {
 	function d_tag() {
 		$widget_ops = array( 'classname' => 'd_tag', 'description' => '显示热门标签' );
-		$this->WP_Widget( 'd_tag', 'Yusi-标签云', $widget_ops, $control_ops );
+		$this->WP_Widget( 'd_tag', 'G-标签云', $widget_ops, $control_ops );
 	}
 
 	function widget( $args, $instance ) {
@@ -24,13 +24,13 @@ class d_tag extends WP_Widget {
 		if( $more!='' && $link!='' ) $mo='<a class="btn" href="'.$link.'">'.$more.'</a>';
 
 		echo $before_widget;
-		echo $before_title.$mo.$title.$after_title; 
+		echo $before_title.$mo.$title.$after_title;
 		echo '<div class="d_tags">';
 		$tags_list = get_tags('orderby=count&order=DESC&number='.$count.'&offset='.$offset);
-		if ($tags_list) { 
+		if ($tags_list) {
 			foreach($tags_list as $tag) {
-				echo '<a title="'. $tag->count .'个话题" href="'.get_tag_link($tag).'">'. $tag->name .' ('. $tag->count .')</a>'; 
-			} 
+				echo '<a title="'. $tag->count .'个话题" href="'.get_tag_link($tag).'">'. $tag->name .' ('. $tag->count .')</a>';
+			}
 		}else{
 			echo '暂无标签！';
 		}
