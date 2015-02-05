@@ -1,4 +1,4 @@
-<?php  
+<?php
 add_action( 'widgets_init', 'd_textbanners' );
 
 function d_textbanners() {
@@ -8,7 +8,7 @@ function d_textbanners() {
 class d_textbanner extends WP_Widget {
 	function d_textbanner() {
 		$widget_ops = array( 'classname' => 'd_textbanner', 'description' => '显示一个文本特别推荐' );
-		$this->WP_Widget( 'd_textbanner', 'Yusi-特别推荐', $widget_ops, $control_ops );
+		$this->WP_Widget( 'd_textbanner', 'G-特别推荐', $widget_ops, $control_ops );
 	}
 
 	function widget( $args, $instance ) {

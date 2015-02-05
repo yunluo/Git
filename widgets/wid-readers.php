@@ -1,4 +1,4 @@
-<?php  
+<?php
 add_action( 'widgets_init', 'd_readers' );
 
 function d_readers() {
@@ -8,7 +8,7 @@ function d_readers() {
 class d_reader extends WP_Widget {
 	function d_reader() {
 		$widget_ops = array( 'classname' => 'd_reader', 'description' => '显示近期评论频繁的网友头像等' );
-		$this->WP_Widget( 'd_reader', 'Yusi-活跃读者', $widget_ops, $control_ops );
+		$this->WP_Widget( 'd_reader', 'G-活跃读者', $widget_ops, $control_ops );
 	}
 
 	function widget( $args, $instance ) {
@@ -26,7 +26,7 @@ class d_reader extends WP_Widget {
 		if( $more!='' && $link!='' ) $mo='<a class="btn" href="'.$link.'">'.$more.'</a>';
 
 		echo $before_widget;
-		echo $before_title.$mo.$title.$after_title; 
+		echo $before_title.$mo.$title.$after_title;
 		echo '<ul>';
 		echo dtheme_readers( $out=$outer, $tim=$timer, $lim=$limit, $addlink );;
 		echo '</ul>';
@@ -81,7 +81,7 @@ class d_reader extends WP_Widget {
 	}
 }
 
-/* 
+/*
  * 读者墙
  * dtheme_readers( $outer='name', $timer='3', $limit='14' );
  * $outer 不显示某人

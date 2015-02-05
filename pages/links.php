@@ -1,7 +1,7 @@
 <?php
 /*
 	template name: 友情链接
-	description: template for Yusi theme
+	description: template for G theme
 */
 get_header();
 ?>

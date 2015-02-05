@@ -1,7 +1,7 @@
 <?php
 /*
  	template name: 标签云
- 	description: template for yusi123.com Yusi theme
+ 	description: template for G theme
 */
 get_header();
 ?>

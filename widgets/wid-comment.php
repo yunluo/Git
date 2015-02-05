@@ -1,4 +1,4 @@
-<?php  
+<?php
 add_action( 'widgets_init', 'd_comments' );
 
 function d_comments() {
@@ -8,7 +8,7 @@ function d_comments() {
 class d_comment extends WP_Widget {
 	function d_comment() {
 		$widget_ops = array( 'classname' => 'd_comment', 'description' => '显示网友最新评论（头像+名称+评论）' );
-		$this->WP_Widget( 'd_comment', 'Yusi-最新评论', $widget_ops, $control_ops );
+		$this->WP_Widget( 'd_comment', 'G-最新评论', $widget_ops, $control_ops );
 	}
 
 	function widget( $args, $instance ) {
@@ -23,9 +23,9 @@ class d_comment extends WP_Widget {
 
 		$mo='';
 		if( $more!='' && $link!='' ) $mo='<a class="btn" href="'.$link.'">'.$more.'</a>';
-		
+
 		echo $before_widget;
-		echo $before_title.$mo.$title.$after_title; 
+		echo $before_title.$mo.$title.$after_title;
 		echo '<ul>';
 		echo mod_newcomments( $limit,$outpost,$outer );
 		echo '</ul>';
@@ -83,7 +83,7 @@ function mod_newcomments( $limit,$outpost,$outer ){
 	foreach ( $comments as $comment ) {
 		$output .= '<li><a href="'.get_permalink($comment->ID).'#comment-'.$comment->comment_ID.'" title="'.$comment->post_title.'上的评论">'.str_replace(' src=', ' data-original=', get_avatar( $comment->comment_author_email, $size = '36' , deel_avatar_default())).' <div class="muted"><i>'.strip_tags($comment->comment_author).'</i>'.timeago( $comment->comment_date_gmt ).'说：'.str_replace(' src=', ' data-original=', convert_smilies(strip_tags($comment->com_excerpt))).'</div></a></li>';
 	}
-	
+
 	echo $output;
 };
 

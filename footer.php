@@ -1,5 +1,5 @@
 </section>
-<?php if (!Yusi_is_mobile() ): ?>
+<?php if (!G_is_mobile() ): ?>
 <?php if( dopt('d_superfoot_b') ){?>
 <div id="footbar" style="border-top: 2px solid #009856;"><ul>
 <li><p class="first"><?php echo dopt('d_foottitle1'); ?></p><?php echo dopt('d_footconent1'); ?></li>

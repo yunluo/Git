@@ -1,10 +1,8 @@
 <?php
 
-$dname = 'Yusi';
-
 add_action( 'after_setup_theme', 'deel_setup' );
 
-include('admin/Yusi.php');
+include('admin/G.php');
 include('widgets/index.php');
 
 function deel_setup(){
@@ -26,9 +24,6 @@ function deel_setup(){
 	add_action('wp_head','deel_keywords');
 	}
 
-    //文章格式
-    add_theme_support( 'post-formats', array( 'image' ) );
-
 	//页面描述 d_description
 	if( dopt('d_description_b') ){
 	add_action('wp_head','deel_description');
@@ -49,7 +44,7 @@ function deel_setup(){
 	add_action('comment_post','comment_mail_notify');
 
 	//自动勾选评论回复邮件通知，不勾选则注释掉
-	// add_action('comment_form','deel_add_checkbox');
+	add_action('comment_form','deel_add_checkbox');
 
 	//评论表情改造，如需更换表情，img/smilies/下替换
 	add_filter('smilies_src','deel_smilies_src',1,10);
@@ -72,11 +67,6 @@ function deel_setup(){
 	set_post_thumbnail_size(220, 150, true);
 
 	add_editor_style('editor-style.css');
-
-	//头像缓存
-	if( dopt('d_avatar_b') ){
-		add_filter('get_avatar','deel_avatar');
-	}
 
 	//定义菜单
 	if (function_exists('register_nav_menus')){
@@ -246,8 +236,31 @@ function deel_avatar($avatar) {
   if ( filesize($e) < 500 )
 	copy(get_bloginfo('template_directory').'/img/default.png', $e);
   return $avatar;
+}if( dopt('d_avatar_b') ){
+add_filter('get_avatar','deel_avatar');
 }
-
+//头像SSL链接
+function get_ssl_avatar($avatar) {
+  $avatar = preg_replace('/.*\/avatar\/(.*)\?s=([\d]+)&.*/','<img src="https://secure.gravatar.com/avatar/$1?s=$2" class="avatar avatar-$2" height="$2" width="$2">',$avatar);
+    return $avatar;
+  }if( dopt('d_avatar_ssl') ){
+add_filter('get_avatar', 'get_ssl_avatar');
+}
+//七牛头像镜像(奶子提供)
+function v7v3_get_avatar($avatar) {
+ $avatar = str_replace(array("www.gravatar.com","0.gravatar.com","1.gravatar.com","2.gravatar.com"),
+"cd.v7v3.com",$avatar);
+ return $avatar;
+}if( dopt('d_avatar_qn') ){
+add_filter( 'get_avatar', 'v7v3_get_avatar', 10, 3 );
+}
+//多说头像镜像
+function duoshuo_avatar($avatar) {
+ $avatar = str_replace(array("www.gravatar.com","0.gravatar.com","1.gravatar.com","2.gravatar.com"),"gravatar.duoshuo.com",$avatar);
+ return $avatar;
+}if( dopt('d_avatar_ds') ){
+ add_filter( 'get_avatar', 'duoshuo_avatar', 10, 3 );
+ }
 //关键字
 function deel_keywords() {
   global $s, $post;
@@ -544,7 +557,7 @@ function add_next_page_button($mce_buttons) {
 }
 
 //判断手机广告
-function Yusi_is_mobile() {
+function G_is_mobile() {
     if ( empty($_SERVER['HTTP_USER_AGENT']) ) {
         return false;
     } elseif ( ( strpos($_SERVER['HTTP_USER_AGENT'], 'Mobile') !== false  && strpos($_SERVER['HTTP_USER_AGENT'], 'iPad') === false) // many mobile devices (all iPh, etc.)
