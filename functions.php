@@ -1030,7 +1030,7 @@ function post_to_sina_weibo($post_ID) {
    $get_post_centent = get_post($post_ID)->post_content;
    $get_post_title = get_post($post_ID)->post_title;
    if ($get_post_info->post_status == 'publish' && $_POST['original_post_status'] != 'publish') {
-       $appkey='3819601734'; /* 此处是你的新浪微博appkey */
+       $appkey='新浪微博appkey'; /* 此处是你的新浪微博appkey */
        $username='sp91@qq.com';
        $userpassword='微博密码';
        $request = new WP_Http;
