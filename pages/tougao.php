@@ -25,7 +25,7 @@ wp_die('标题必须填写，且长度不得超过100字。<a href="'.$current_u
 if ( empty($content) || mb_strlen($content) > 3000 || mb_strlen($content) < 10) {
 wp_die('内容必须填写，且长度不得超过3000字，不得少于100字。<a href="'.$current_url.'">点此返回</a>');
 }
-$post_content = .$content.'<br />感谢来自:'.$name.'的投稿';
+$post_content = $content.'<br />感谢来自:'.$name.'的投稿';
 $tougao = array('post_title' => $title,'post_content' => $post_content);
 // 将文章插入数据库
 $status = wp_insert_post( $tougao );
