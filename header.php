@@ -50,7 +50,7 @@ window._deel = {name: '<?php bloginfo('name') ?>',url: '<?php echo get_bloginfo(
 <?php if( dopt('d_purple_b') ) echo '<div id="nav-header" class="navbar" style="border-bottom: 4px solid #9932CC ;">'; ?>
 <?php if( dopt('d_yellow_b') ) echo '<div id="nav-header" class="navbar" style="border-bottom: 4px solid #f5e011 ;">'; ?>
 
-<?php if( dopt('d_bdshare_b') ) echo '<style type="text/css">.bdsharebuttonbox a{border-bottom:0;margin-right:5px;width:28px;height:28px;line-height:28px;color:#fff}.bds_renren{background:#94b3eb}.bds_qzone{background:#fac33f}.bds_more{background:#40a57d}.bds_weixin{background:#7ad071}.bdsharebuttonbox a:hover{background-color:#7fb4ab;color:#fff;border-bottom:0}</style>'; ?>
+<?php if( dopt('d_bdshare_b') ) echo '<style type="text/css">.bdsharebuttonbox a{cursor:pointer;border-bottom:0;margin-right:5px;width:28px;height:28px;line-height:28px;color:#fff}.bds_renren{background:#94b3eb}.bds_qzone{background:#fac33f}.bds_more{background:#40a57d}.bds_weixin{background:#7ad071}.bdsharebuttonbox a:hover{background-color:#7fb4ab;color:#fff;border-bottom:0}</style>'; ?>
 
 <ul class="nav">
 			<?php echo str_replace("</ul></div>", "", ereg_replace("<div[^>]*><ul[^>]*>", "", wp_nav_menu(array('theme_location' => 'nav', 'echo' => false)) )); ?>
