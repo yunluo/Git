@@ -438,7 +438,7 @@ function mytheme_admin() {
             <label class="checkbox inline">
                 <input type="checkbox" id="d_qqContact_b" name="d_qqContact_b" <?php if(dopt('d_qqContact_b')) echo 'checked="checked"' ?> checked>开启
             </label>
-            代码：<input placeholder="参照右侧格式填写代码" class="d_inp_short" name="d_qqContact" id="d_qqContact" type="url" value="<?php echo dopt('d_qqContact'); ?>">&nbsp;<span class="d_tip">tencent://message/?uin=QQ号&Site=&Menu=yes</span><br><hr />
+            代码：<input placeholder="参照右侧格式填写代码" class="d_inp_short" name="d_qqContact" id="d_qqContact" type="url" value="<?php echo dopt('d_qqContact'); ?>">&nbsp;格式：<span class="d_tip">tencent://message/?uin=QQ号&Site=&Menu=yes</span><br><hr />
         </td>
     </tr>
    <tr>
@@ -507,7 +507,7 @@ function mytheme_admin() {
     <tr>
         <td class="d_tit">Footer2标题</td>
         <td>
-            <input placeholder="在这里输入foot2的标题" class="d_inp_short" name="d_foottitle2" id="d_foottitle2" type="text" value="<?php echo dopt('d_foottitle2'); ?>"><hr />
+            <input placeholder="在这里输入foot2的标题" class="d_inp_short" name="d_foottitle2" id="d_foottitle2" type="smalltext" value="<?php echo dopt('d_foottitle2'); ?>"><hr />
         </td>
     </tr>
     <tr>
@@ -519,7 +519,7 @@ function mytheme_admin() {
     <tr>
         <td class="d_tit">Footer3标题</td>
         <td>
-            <input placeholder="在这里输入foot3的标题" class="d_inp_short" name="d_foottitle3" id="d_foottitle3" type="text" value="<?php echo dopt('d_foottitle3'); ?>"><hr />
+            <input placeholder="在这里输入foot3的标题" class="d_inp_short" name="d_foottitle3" id="d_foottitle3" type="smalltext" value="<?php echo dopt('d_foottitle3'); ?>"><hr />
         </td>
     </tr>
     <tr>
@@ -531,7 +531,7 @@ function mytheme_admin() {
     <tr>
         <td class="d_tit">Footer4标题</td>
         <td>
-            <input placeholder="在这里输入foot4的标题" class="d_inp_short" name="d_foottitle4" id="d_foottitle4" type="text" value="<?php echo dopt('d_foottitle4'); ?>"><hr />
+            <input placeholder="在这里输入foot4的标题" class="d_inp_short" name="d_foottitle4" id="d_foottitle4" type="smalltext" value="<?php echo dopt('d_foottitle4'); ?>"><hr />
         </td>
     </tr>
     <tr>
@@ -631,11 +631,12 @@ function mytheme_admin() {
             <textarea name="d_adpost_03" id="d_adpost_03" type="textarea" rows=""><?php echo dopt('d_adpost_03'); ?></textarea><br><hr />
         </td>
     </tr>
-     <tr>
+ <tr>
         <td class="d_tit">手机广告：全站正文列表最前</td>
         <td>
             <label class="checkbox inline">
                 <input type="checkbox" id="Mobiled_adindex_02_b" name="Mobiled_adindex_02_b" <?php if(dopt('Mobiled_adindex_02_b')) echo 'checked="checked"' ?>>开启
+			</label>
             <textarea placeholder="手机广告只适合在手机中投放。例如百度联盟移动广告，PC端不会显示。下同" name="Mobiled_adindex_02" id="Mobiled_adindex_02" type="textarea" rows=""><?php echo dopt('Mobiled_adindex_02'); ?></textarea><br><hr />
         </td>
     </tr>
@@ -684,7 +685,8 @@ jQuery('.d_wrap input, .d_wrap textarea').each(function(e){
     if( jQuery(this).attr('id') ) aaa.push( jQuery(this).attr('id') )
 })
 console.log( aaa )
-		     function about(){
+
+	function about(){
     alert("首先去微博开放平台创建网站应用，然后静等通过（未备案域名发送域名证书截图即可）\n将新浪的代码放进下方的head代码框，然后将appkey，用户名，密码输入即可！\n 如果审核不通过的话，看原因.审核通过后再申请高级写入权限");
     }
 </script>
