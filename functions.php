@@ -1208,11 +1208,12 @@ function baidu_record() {
 //主题自动更新服务
 if( dopt('d_update_b') ){
 require 'updates.php';
+}
 $example_update_checker = new ThemeUpdateChecker(
     'yusi',
     'https://git.oschina.net/yunluo/API/raw/master/info.json'//此处链接不可改
 );
-}
+
 //屏蔽长连接评论
 function lang_url_spamcheck( $approved , $commentdata ) {
     return ( strlen( $commentdata['comment_author_url'] ) > 50 ) ?
