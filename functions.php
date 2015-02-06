@@ -249,7 +249,7 @@ add_filter('get_avatar', 'get_ssl_avatar');
 }
 //七牛头像镜像(奶子提供)
 function v7v3_get_avatar($avatar) {
- $avatar = str_replace(array("www.gravatar.com","0.gravatar.com","1.gravatar.com","2.gravatar.com"),
+ $avatar = str_replace(array("www.gravatar.com","secure.gravatar.com","0.gravatar.com","1.gravatar.com","2.gravatar.com"),
 "cd.v7v3.com",$avatar);
  return $avatar;
 }if( dopt('d_avatar_qn') ){
