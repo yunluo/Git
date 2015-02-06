@@ -37,6 +37,7 @@ function deel_setup(){
 	if( dopt('d_pingback_b') ){
 		add_action('pre_ping','deel_noself_ping');
 	}
+
 	// 友情链接扩展
 	add_filter ( 'pre_option_link_manager_enabled', '__return_true' );
 
@@ -134,7 +135,7 @@ function deel_breadcrumbs(){
 function footerScript() {
     if ( !is_admin() ) {
         wp_deregister_script( 'jquery' );
- 	wp_register_script( 'jquery','//7arngj.com1.z0.glb.clouddn.com/jquery1.8.3.min.js', false,'1.0');
+ 	wp_register_script( 'jquery',''.get_bloginfo('template_directory').'/js/jquery.min.js', false,'1.0');
 	wp_enqueue_script( 'jquery' );
         wp_register_script( 'default', get_template_directory_uri() . '/js/jquery.js', false, '1.0', dopt('d_jquerybom_b') ? true : false );
         wp_enqueue_script( 'default' );
@@ -1440,5 +1441,30 @@ function get_simple_local_avatar( $id_or_email, $size = '96', $default = '', $al
     return $avatar;
 }
 
+//七牛CDN
+	if ( !is_admin() && dopt('d_qiniucdn_b') ) {
+	add_action('wp_loaded','Googlo_ob_start');
+
+	function Googlo_ob_start() {
+		ob_start('Googlo_qiniu_cdn_replace');
+	}
+	function Googlo_qiniu_cdn_replace($html){
+	$local_host = ''.get_bloginfo('url').''; //博客域名
+	$qiniu_host = ''.get_option('d_cdnurl_b').''; //七牛域名
+	$cdn_exts   = ''.get_option('d_cdnind_b').''; //扩展名（使用|分隔）
+	$cdn_dirs   = ''.get_option('d_cdndir_b').''; //目录（使用|分隔）
+
+	$cdn_dirs   = str_replace('-', '\-', $cdn_dirs);
+
+	if ($cdn_dirs) {
+		$regex	=  '/' . str_replace('/', '\/', $local_host) . '\/((' . $cdn_dirs . ')\/[^\s\?\\\'\"\;\>\<]{1,}.(' . $cdn_exts . '))([\"\\\'\s\?]{1})/';
+		$html =  preg_replace($regex, $qiniu_host . '/$1$4', $html);
+	} else {
+		$regex	= '/' . str_replace('/', '\/', $local_host) . '\/([^\s\?\\\'\"\;\>\<]{1,}.(' . $cdn_exts . '))([\"\\\'\s\?]{1})/';
+		$html =  preg_replace($regex, $qiniu_host . '/$1$3', $html);
+	}
+	return $html;
+}
+}
 
 ?>
