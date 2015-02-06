@@ -14,7 +14,7 @@ class ThemeUpdateChecker {
 	public $theme = 'yusi';              //待检查更新的主题名
 	public $metadataUrl = 'https://git.oschina.net/yunluo/API/raw/master/info.json';  //元数据文件的路径
 	public $enableAutomaticChecking = true; //是否启用自动更新
-	protected $optionName = '立刻更新主题';      //更新时候的文字信息
+	protected $optionName = '';      //更新时候的文字信息
 	protected $automaticCheckDone = false;
 	protected static $filterPrefix = 'tuc_request_update_';
 
