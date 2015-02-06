@@ -1,7 +1,7 @@
-QTags.addButton( 'zyy', '引用',  "<blockquote>", "</blockquote>" );//添加引用
-QTags.addButton( 'hr', '横线', "<hr />" );//添加横线
-QTags.addButton( 'h2', 'H2标签', "<h2>", "</h2>" ); //添加标题2
-QTags.addButton( 'h3', 'H3标签', "<h3>", "</h3>" ); //添加标题3
+QTags.addButton( 'zyy', '引用',  "<blockquote>", "</blockquote>\n" );//添加引用
+QTags.addButton( 'hr', '横线', "<hr />\n" );//添加横线
+QTags.addButton( 'h2', 'H2标签', "<h2>", "</h2>\n" ); //添加标题2
+QTags.addButton( 'h3', 'H3标签', "<h3>", "</h3>\n" ); //添加标题3
 QTags.addButton( 'sb', '上标', "<sup>","</sup>" );
 QTags.addButton( 'xb', '下标', "<sub>","</sub>" );
 QTags.addButton( 'shsj', '首行缩进', "&nbsp;&nbsp;" );
@@ -12,7 +12,7 @@ QTags.addButton( 'mark', '黄字', "<mark>","</mark>" );
 QTags.addButton( 'xzt', '小字体', "<small>","</small>" );
 QTags.addButton( 'dzt', '大字体', "<big>","</big>" );
 QTags.addButton( 'xhx', '下划线', "<u>","</u>" );
-QTags.addButton( 'ipre', '代码高亮', '<pre class="prettyprint linenums" ></pre>', "" );//添加高亮代码
+QTags.addButton( 'ipre', '代码高亮', '<pre class="prettyprint linenums" >\n\n</pre>', "" );//添加高亮代码
 QTags.addButton( 'ilinks', '链接按钮', "[dm href='']", "[/dm]" );
 QTags.addButton( 'idownload', '下载按钮', "[dl href='']", "[/dl]" );
 QTags.addButton( 'ikaiyuan', '开源按钮', "[gt href='']开源地址[/gt]", "" );
