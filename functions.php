@@ -823,13 +823,13 @@ return '<?php site_url(); ?>';
 /*
  * 强制阻止WordPress代码转义，关于代码高亮可以看这里http://googlo.me/2986.html
  */
-function dangopress_esc_html($content)
+function googlo_esc_html($content)
 {
     $regex = '/(<pre\s+[^>]*?class\s*?=\s*?[",\'].*?prettyprint.*?[",\'].*?>)(.*?)(<\/pre>)/sim';
-    return preg_replace_callback($regex, dangopress_esc_callback, $content);
+    return preg_replace_callback($regex, googlo_esc_callback, $content);
 }
 
-function dangopress_esc_callback($matches)
+function googlo_esc_callback($matches)
 {
     $tag_open = $matches[1];
     $content = $matches[2];
@@ -840,8 +840,8 @@ function dangopress_esc_callback($matches)
 
     return $tag_open . $content . $tag_close;
 }
-add_filter('the_content', 'dangopress_esc_html', 2);
-add_filter('comment_text', 'dangopress_esc_html', 2);
+add_filter('the_content', 'googlo_esc_html', 2);
+add_filter('comment_text', 'googlo_esc_html', 2);
 
 //首页隐藏一些分类
 function exclude_category_home( $query ) {
@@ -1206,9 +1206,7 @@ function baidu_record() {
 }
 
 //主题自动更新服务
-if( dopt('d_update_b') ){
 require 'updates.php';
-}
 $example_update_checker = new ThemeUpdateChecker(
     'yusi',
     'https://git.oschina.net/yunluo/API/raw/master/info.json'//此处链接不可改
