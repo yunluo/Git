@@ -179,10 +179,10 @@ function mytheme_admin() {
                 <input type="checkbox" id="d_qiniuthumbnail_b" name="d_qiniuthumbnail_b" <?php if(dopt('d_qiniuthumbnail_b')) echo 'checked="checked"' ?>>开启
             </label>
 			&nbsp;&nbsp;
-			<span class="d_tip">开启后请在您的七牛数据处理</span><br><hr />
+			<span class="d_tip">开启后请开通七牛服务</span>&nbsp;&nbsp;<input class="button-primary" type="button" value="立即注册七牛" onclick="window.open('http://googlo.me/go/qiniu')"><br><hr />
 			CDN域名<input type="smalltext" id="d_cdnurl_b" name="d_cdnurl_b" value="<?php echo dopt('d_cdnurl_b'); ?>">
 			CDN目录<input type="smalltext" id="d_cdndir_b" name="d_cdndir_b" value="<?php echo dopt('d_cdndir_b'); ?>">
-			镜像文件类型<input type="text" id="d_cdnind_b" name="d_cdnind_b" value="<?php echo dopt('d_cdnind_b'); ?>"><br><hr />
+			镜像文件类型<input type="text" id="d_cdnind_b" name="d_cdnind_b" value="<?php echo dopt('d_cdnind_b'); ?>"><span class="d_tip">cdn目录和文件类型以|分割</span><br><hr />
         </td>
     </tr>
 	    <tr>
