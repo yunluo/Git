@@ -474,7 +474,7 @@ function my_quicktags() {
     );
     };
 
-//评论过滤
+//过滤外文评论
 function refused_spam_comments( $comment_data ) {
 $pattern = '/[一-龥]/u';
 $jpattern ='/[ぁ-ん]+|[ァ-ヴ]+/u';
@@ -490,7 +490,59 @@ if( dopt('d_spamComments_b') ){
 add_filter('preprocess_comment','refused_spam_comments');
 }
 
+//屏蔽关键词，email，url，ip
+function Googlofuckspam($comment) {
+    if(  is_user_logged_in()){ return $comment;} //登录用户无压力...
 
+    if( wp_blacklist_check($comment['comment_author'],$comment['comment_author_email'],$comment['comment_author_url'], $comment['comment_content'], $comment['comment_author_IP'], $comment['comment_agent'] )){
+            header("Content-type: text/html; charset=utf-8");
+            err('不好意思，您的评论违反本站评论规则');
+    }  else  {
+       return $comment;
+    }
+}if( dopt('d_spamComments_b') ){
+add_filter('preprocess_comment', 'Googlofuckspam');
+}
+//屏蔽长连接评论
+function lang_url_spamcheck( $approved , $commentdata ) {
+    return ( strlen( $commentdata['comment_author_url'] ) > 50 ) ?
+ //表示评论中链接长度超过50为垃圾评论
+ 'spam' : $approved;
+}
+if( dopt('d_spamComments_b') ){
+add_filter( 'pre_comment_approved', 'lang_url_spamcheck', 99, 2 );
+}
+//评论字数限制2-200
+	function Googlo_comment_length($incoming_comment){
+		if(  is_user_logged_in()){ return $comment;}
+		if(mb_strlen($incoming_comment['comment_content'],'utf-8')< 2 || mb_strlen($incoming_comment['comment_content'],'utf-8')> 200){
+			err('你的评论内容不符合字数要求.');
+		}
+
+		return($incoming_comment);
+	}if( dopt('d_spamComments_b') ){
+	add_filter('preprocess_comment','Googlo_comment_length',1);
+	}
+//屏蔽昵称，评论内容带链接的评论
+function Googlolink( $comment_data ) {
+		$links = '/http:\/\/|https:\/\/|www\./u';
+		if( preg_match($links,$comment_data['comment_author']) || preg_match($links,$comment_data['comment_content']) ){
+			err('在昵称和评论里面是不准发链接滴.');
+		}
+		return( $comment_data );
+}if( dopt('d_spamComments_b') ){
+add_filter('preprocess_comment', 'Googlolink');
+}
+//禁止其他人使用博猪昵称，邮箱，网址
+function Googlo_commenter_check($incoming_comment){
+			if($incoming_comment['comment_author'] == trim('.get_user_display_name (1).'))
+			if($incoming_comment['comment_author_email'] == trim('.get_user_email (1).'))
+			if($incoming_comment['comment_author_url'] == trim('.get_user_url (1).'))
+	if( is_user_logged_in()) { return $incoming_comment; }
+	err('这个昵称以及邮箱和网址为博猪所有.');
+}if( dopt('d_spamComments_b') ){
+add_filter('preprocess_comment','Googlo_commenter_check',1);
+}
 //点赞
 add_action('wp_ajax_nopriv_bigfa_like', 'bigfa_like');
 add_action('wp_ajax_bigfa_like', 'bigfa_like');
@@ -1212,15 +1264,6 @@ $example_update_checker = new ThemeUpdateChecker(
     'https://git.oschina.net/yunluo/API/raw/master/info.json'//此处链接不可改
 );
 
-//屏蔽长连接评论
-function lang_url_spamcheck( $approved , $commentdata ) {
-    return ( strlen( $commentdata['comment_author_url'] ) > 50 ) ?
- //表示评论中链接长度超过50为垃圾评论
- 'spam' : $approved;
-}
-if( dopt('d_spamComments_b') ){
-add_filter( 'pre_comment_approved', 'lang_url_spamcheck', 99, 2 );
-}
 
 //本地头像
 class Simple_Local_Avatars {

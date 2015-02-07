@@ -182,7 +182,7 @@ function mytheme_admin() {
 			<span class="d_tip">开启后请开通七牛服务</span>&nbsp;&nbsp;<input class="button-primary" type="button" value="立即注册七牛" onclick="window.open('http://googlo.me/go/qiniu')"><br><hr />
 			CDN域名<input type="smalltext" id="d_cdnurl_b" name="d_cdnurl_b" value="<?php echo dopt('d_cdnurl_b'); ?>">
 			CDN目录<input type="smalltext" id="d_cdndir_b" name="d_cdndir_b" value="<?php echo dopt('d_cdndir_b'); ?>">
-			镜像文件类型<input type="text" id="d_cdnind_b" name="d_cdnind_b" value="<?php echo dopt('d_cdnind_b'); ?>"><span class="d_tip">cdn目录和文件类型以|分割</span><br><hr />
+			镜像文件类型<input type="smalltext" id="d_cdnind_b" name="d_cdnind_b" value="<?php echo dopt('d_cdnind_b'); ?>">&nbsp;<span class="d_tip">cdn目录和文件类型以 | 分割</span><br><hr />
         </td>
     </tr>
 	    <tr>
@@ -193,7 +193,7 @@ function mytheme_admin() {
             </label>
             图片头部<label class="checkbox inline">
                 <input type="checkbox" id="d_pichead_b" name="d_pichead_b" <?php if(dopt('d_pichead_b')) echo 'checked="checked"' ?> checked>开启
-            </label>
+            </label><span class="d_tip">图片头部和文字头部请不要同时选择</span>
 			透明导航栏<label class="checkbox inline">
                 <input type="checkbox" id="d_touminnav_b" name="d_touminnav_b" <?php if(dopt('d_touminnav_b')) echo 'checked="checked"' ?>>开启
             </label><span class="d_tip">配合图片头部使用，不和文字头部一起用</span><br><hr />
@@ -337,7 +337,7 @@ function mytheme_admin() {
         <td class="d_tit">Gravatar头像设置&nbsp;<span class="d_tip">★</span></td>
         <td>
 		    <label class="checkbox inline">
-                SSL访问<input type="checkbox" id="d_avatar_ssl" name="d_avatar_ssl" <?php if(dopt('d_avatar_ssl')) echo 'checked="checked"' ?>>开启
+                SSL访问(推荐)<input type="checkbox" id="d_avatar_ssl" name="d_avatar_ssl" <?php if(dopt('d_avatar_ssl')) echo 'checked="checked"' ?>>开启
             </label>
 			<label class="checkbox inline">
                 多说镜像<input type="checkbox" id="d_avatar_ds" name="d_avatar_ds" <?php if(dopt('d_avatar_ds')) echo 'checked="checked"' ?>>开启
@@ -364,7 +364,7 @@ function mytheme_admin() {
             <label class="checkbox inline">
                 <input type="checkbox" id="d_spamComments_b" name="d_spamComments_b" <?php if(dopt('d_spamComments_b')) echo 'checked="checked"' ?>>开启
             </label>
-           <span class="d_tip">开启后，会禁止有日文字符和纯英文的评论，不对外的建议开启。</span><br><hr />
+           <span class="d_tip">本功能属于综合方案，启用后，屏蔽外文评论，屏蔽含有WordPress设置黑名单内容的评论，屏蔽过长网址的评论，屏蔽字数少于2或者多余200的评论，屏蔽内容或者评论昵称含有链接的评论，屏蔽冒用博猪邮箱，昵称，网址的评论。另，在WordPress-设置-讨论-黑名单中添加想要屏蔽的关键词，邮箱，网址，IP地址，每行一个。</span><br><hr />
         </td>
     </tr>
     <tr>
