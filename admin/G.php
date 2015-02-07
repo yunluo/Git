@@ -438,7 +438,7 @@ function mytheme_admin() {
             <label class="checkbox inline">
                 <input type="checkbox" id="d_qqContact_b" name="d_qqContact_b" <?php if(dopt('d_qqContact_b')) echo 'checked="checked"' ?> checked>开启
             </label>
-            QQ号：<input placeholder="请在此填写您的QQ号" class="d_inp_short" name="d_qqContact" id="d_qqContact" type="url" value="<?php echo dopt('d_qqContact'); ?>"><br><hr />
+            QQ号：<input placeholder="请在此填写您的QQ号" class="d_inp_short" name="d_qqContact" id="d_qqContact" type="text" value="<?php echo dopt('d_qqContact'); ?>"><br><hr />
         </td>
     </tr>
    <tr>
