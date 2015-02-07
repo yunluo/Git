@@ -2,7 +2,7 @@
 
 $themename = 'G+主题';
 $options = array(
-      "d_cdnind_b", "d_cdndir_b", "d_cdnurl_b", "d_qiniucdn_b", "d_wbpasd_b", "d_wbapky_b", "d_wbuser_b", "d_update_b", "d_blockcat_b", "d_blockcat_2", "d_blockcat_1", "d_avatar_qn", "d_avatar_ds", "d_avatar_ssl", "d_superfoot_b", "d_foottitle1", "d_foottitle2", "d_foottitle3", "d_foottitle4", "d_footconent1", "d_footconent2", "d_footconent3", "d_footconent4", "d_copy_b", "d_qr_b", "d_snow_b", "d_baidurecord_b", "d_yuanpic_b", "d_danru_b", "d_sinasync_b", "d_sj404_b", "d_sjm404_b", "d_darkhighlight_b", "d_cat_8", "d_cat_7", "d_cat_6", "d_cat_5", "d_cat_4", "d_cat_3", "d_cat_2", "d_cat_1", "d_blog_b", "d_cms_b", "d_singlecode_b", "d_singlecode", "d_touminnav_b", "d_yellow_b", "d_purple_b", "d_black_b", "d_blue_b", "d_red_b", "d_avataer_b", "d_pichead_b", "d_wordhead_b", "d_nosuojin_b", "d_categroy_b", "d_fuckziti_b", "d_autolink_b", "d_fancybox_b", "d_mobilesticky_b", "d_timthumbnail_b", "d_qiniuthumbnail_b", "d_tui_b", "d_description", "d_description_b", "d_keywords", "d_keywords_b", "d_tui", "d_sticky_b", "d_sticky_count", "d_linkpage_cat", "d_tougao_b", "d_tougao_time", "d_tougao_mailto", "d_avatar_b", "d_avatarDate", "d_sideroll_b", "d_sideroll_1", "d_sideroll_2", "d_pingback_b", "d_autosave_b", "d_tqq_b", "d_tqq", "d_weibo_b", "d_weibo", "d_facebook_b", "d_facebook", "d_twitter_b", "d_twitter", "d_rss","d_qqContact_b","d_qqContact","d_weixin_b","d_weixin","d_emailContact_b","d_emailContact", "d_track_b", "d_track", "d_headcode_b", "d_headcode", "d_footcode_b", "d_footcode", "d_adsite_01_b", "d_adsite_01", "d_adindex_02_b", "d_adindex_02", "d_adindex_01_b", "d_adindex_01", "d_adindex_03_b", "d_adindex_03", "d_adpost_01_b", "d_adpost_01", "d_adpost_02_b", "d_adpost_02", "d_adpost_03_b", "d_adpost_03", "d_sign_b", "d_jquerybom_b", "d_ajaxpager_b", "d_thumbnail_b", "d_bdshare_b", "d_related_count", "d_post_views_b", "d_post_author_b", "d_post_comment_b", "d_post_time_b","hot_list_title","hot_list_number","hot_list_date","hot_list_check","d_post_like_b","d_singleMenu_b","Mobiled_adindex_02_b","Mobiled_adindex_02","Mobiled_adpost_01_b","Mobiled_adpost_01","Mobiled_adpost_02_b","Mobiled_adpost_02","d_spamComments_b"
+      "d_cdnind_b", "d_cdndir_b", "d_cdnurl_b", "d_qiniucdn_b", "d_wbpasd_b", "d_wbapky_b", "d_wbuser_b", "d_blockcat_b", "d_blockcat_2", "d_blockcat_1", "d_avatar_qn", "d_avatar_ds", "d_avatar_ssl", "d_superfoot_b", "d_foottitle1", "d_foottitle2", "d_foottitle3", "d_foottitle4", "d_footconent1", "d_footconent2", "d_footconent3", "d_footconent4", "d_copy_b", "d_qr_b", "d_snow_b", "d_baidurecord_b", "d_yuanpic_b", "d_danru_b", "d_sinasync_b", "d_sj404_b", "d_sjm404_b", "d_darkhighlight_b", "d_cat_8", "d_cat_7", "d_cat_6", "d_cat_5", "d_cat_4", "d_cat_3", "d_cat_2", "d_cat_1", "d_blog_b", "d_cms_b", "d_singlecode_b", "d_singlecode", "d_touminnav_b", "d_yellow_b", "d_purple_b", "d_black_b", "d_blue_b", "d_red_b", "d_avataer_b", "d_pichead_b", "d_wordhead_b", "d_nosuojin_b", "d_categroy_b", "d_fuckziti_b", "d_autolink_b", "d_fancybox_b", "d_mobilesticky_b", "d_timthumbnail_b", "d_qiniuthumbnail_b", "d_tui_b", "d_description", "d_description_b", "d_keywords", "d_keywords_b", "d_tui", "d_sticky_b", "d_sticky_count", "d_linkpage_cat", "d_tougao_b", "d_tougao_time", "d_tougao_mailto", "d_avatar_b", "d_avatarDate", "d_sideroll_b", "d_sideroll_1", "d_sideroll_2", "d_pingback_b", "d_autosave_b", "d_tqq_b", "d_tqq", "d_weibo_b", "d_weibo", "d_facebook_b", "d_facebook", "d_twitter_b", "d_twitter", "d_rss","d_qqContact_b","d_qqContact","d_weixin_b","d_weixin","d_emailContact_b","d_emailContact", "d_track_b", "d_track", "d_headcode_b", "d_headcode", "d_footcode_b", "d_footcode", "d_adsite_01_b", "d_adsite_01", "d_adindex_02_b", "d_adindex_02", "d_adindex_01_b", "d_adindex_01", "d_adindex_03_b", "d_adindex_03", "d_adpost_01_b", "d_adpost_01", "d_adpost_02_b", "d_adpost_02", "d_adpost_03_b", "d_adpost_03", "d_sign_b", "d_jquerybom_b", "d_ajaxpager_b", "d_thumbnail_b", "d_bdshare_b", "d_related_count", "d_post_views_b", "d_post_author_b", "d_post_comment_b", "d_post_time_b","hot_list_title","hot_list_number","hot_list_date","hot_list_check","d_post_like_b","d_singleMenu_b","Mobiled_adindex_02_b","Mobiled_adindex_02","Mobiled_adpost_01_b","Mobiled_adpost_01","Mobiled_adpost_02_b","Mobiled_adpost_02","d_spamComments_b"
 );
 
 function mytheme_add_admin() {
@@ -28,7 +28,7 @@ function mytheme_admin() {
 <div class="wrap d_wrap">
     <link rel="stylesheet" href="<?php bloginfo('template_url') ?>/admin/admin.css"/>
     <h2><?php echo $themename; ?>设置
-        <span class="d_themedesc">发布来源：<a href="http://googlo.me/" target="_blank">乐趣公园</a> &nbsp;&nbsp; <a href="http://googlo.me/3011.html" target="_blank">访问发布页</a></span><span style="font-size:16px;color: rgb(245, 99, 99);padding-left:20px;">更多问题，请查看 -><a href="http://googlo.me/2015.html" target="_blank">主题FAQ</a>  注意：设置项含(★)的是单选项</span>
+        <span class="d_themedesc">发布来源：<a href="http://googlo.me/" target="_blank">乐趣公园</a> &nbsp;&nbsp; <a href="http://googlo.me/3011.html" target="_blank">访问发布页</a></span><span style="font-size:16px;color: rgb(245, 99, 99);padding-left:20px;">更多问题，请查看 -><a href="http://googlo.me/2015.html" target="_blank">主题FAQ</a>  注意：设置项含(★)的是单选项</span> <input class="button-primary" type="button" value="主题更新日志" onclick="window.open('http://git.oschina.net/yunluo/yusi/commits/master')">
     </h2>
 
 <form method="post" class="d_formwrap">
@@ -656,14 +656,6 @@ function mytheme_admin() {
                 <input type="checkbox" id="Mobiled_adpost_02_b" name="Mobiled_adpost_02_b" <?php if(dopt('Mobiled_adpost_02_b')) echo 'checked="checked"' ?>>开启
             </label>
             <textarea name="Mobiled_adpost_02" id="Mobiled_adpost_02" type="textarea" rows=""><?php echo dopt('Mobiled_adpost_02'); ?></textarea><br><hr />
-        </td>
-    </tr>
- <tr>
-        <td class="d_tit">主题更新</td>
-        <td>
-            <label class="checkbox inline">
-                <input type="checkbox" id="d_update_b" name="d_update_b" <?php if(dopt('d_update_b')) echo 'checked="checked"' ?>>开启
-            </label><span class="d_tip">开启后主题会自动检测版本更新，并向您推送到最新版本主题</span>&nbsp;&nbsp;&nbsp;&nbsp;<input class="button-primary" type="button" value="主题更新日志" onclick="window.open('http://git.oschina.net/yunluo/yusi/commits/master')"><br><hr />
         </td>
     </tr>
     <tr>
