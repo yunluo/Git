@@ -433,12 +433,12 @@ function mytheme_admin() {
         </td>
     </tr>
    <tr>
-        <td class="d_tit">QQ联系代码</td>
+        <td class="d_tit">腾讯QQ</td>
         <td>
             <label class="checkbox inline">
                 <input type="checkbox" id="d_qqContact_b" name="d_qqContact_b" <?php if(dopt('d_qqContact_b')) echo 'checked="checked"' ?> checked>开启
             </label>
-            代码：<input placeholder="参照右侧格式填写代码" class="d_inp_short" name="d_qqContact" id="d_qqContact" type="url" value="<?php echo dopt('d_qqContact'); ?>">&nbsp;格式：<span class="d_tip">tencent://message/?uin=QQ号&Site=&Menu=yes</span><br><hr />
+            QQ号：<input placeholder="请在此填写您的QQ号" class="d_inp_short" name="d_qqContact" id="d_qqContact" type="url" value="<?php echo dopt('d_qqContact'); ?>"><br><hr />
         </td>
     </tr>
    <tr>
