@@ -14,7 +14,7 @@ if( has_post_thumbnail() || !dopt('d_thumbnail_b') ){
 ?><?php
 $s = trim(get_search_query()) ? trim(get_search_query()) : 0;
 $title = get_the_title();
-$content = mb_strimwidth(strip_tags(apply_filters('the_content', $post->post_content)), 0, 260,"......",'utf-8');//300是摘要字符数，......是结束符号。
+$content = mb_strimwidth(strip_tags(apply_filters('the_content', $post->post_content)), 0, 260,"……<a href="'.post_permalink().'" rel="nofollow" class="more-link">继续阅读 &raquo;</a>",'utf-8');//300是摘要字符数，......是结束符号。
 if($s){$keys = explode(" ",$s);
 $title = preg_replace('/('.implode('|', $keys) .')/iu','<span style="color:#b94a48;">\0</span>',$title);
 $content = preg_replace('/('.implode('|', $keys) .')/iu','<span style="color:#b94a48;">\0</span>',$content);
