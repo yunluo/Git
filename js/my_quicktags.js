@@ -12,6 +12,8 @@ QTags.addButton( 'mark', '黄字', "<mark>","</mark>" );
 QTags.addButton( 'xzt', '小字体', "<small>","</small>" );
 QTags.addButton( 'dzt', '大字体', "<big>","</big>" );
 QTags.addButton( 'xhx', '下划线', "<u>","</u>" );
+QTags.addButton( '<', '<', '&lt;', '' );
+QTags.addButton( '>', '>', '&gt;', '' ); 
 QTags.addButton( 'ipre', '代码高亮', '<pre class="prettyprint linenums" >\n\n</pre>', "" );//添加高亮代码
 QTags.addButton( 'ilinks', '链接按钮', "[dm href='']", "[/dm]" );
 QTags.addButton( 'idownload', '下载按钮', "[dl href='']", "[/dl]" );
@@ -31,6 +33,6 @@ QTags.addButton( 'yb', '黄色按钮', "[yb href='']", "[/yb]" );
 QTags.addButton( 'music', '音乐按钮', "[music]", "[/music]" );
 QTags.addButton( 'collapse', '隐藏收缩', "[collapse]", "[/collapse]" );
 QTags.addButton( 'reply', '回复可见', "[reply]", "[/reply]" );
-QTags.addButton( 'iframe', '框架', '[iframe href=""]', "" );
+QTags.addButton( 'iframe', '网页框架', '[iframe href=""]', "" );
 QTags.addButton( 'nextpage', '下一页', '<!–nextpage–>', "" );
 //这儿共有四对引号，分别是按钮的ID、显示名、点一下输入内容、再点一下关闭内容（此为空则一次输入全部内容），\n表示换行。
