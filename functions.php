@@ -1258,7 +1258,7 @@ function baidu_record() {
 }
 
 //主题自动更新服务
-require 'updates.php';
+require 'modules/updates.php';
 $example_update_checker = new ThemeUpdateChecker(
     'yusi',
     'https://git.oschina.net/yunluo/API/raw/master/info.json'//此处链接不可改
