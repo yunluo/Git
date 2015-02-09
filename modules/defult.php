@@ -132,7 +132,7 @@ function deel_breadcrumbs(){
 function footerScript() {
     if ( !is_admin() ) {
         wp_deregister_script( 'jquery' );
- 	wp_register_script( 'jquery', get_template_directory_uri() . '/js/jquery.min.js', false,'1.0');
+wp_register_script( 'jquery',''.get_bloginfo('template_directory').'/js/jquery.min.js', false,'1.0');
 	wp_enqueue_script( 'jquery' );
         wp_register_script( 'default', get_template_directory_uri() . '/js/jquery.js', false, '1.0', dopt('d_jquerybom_b') ? true : false );
         wp_enqueue_script( 'default' );
