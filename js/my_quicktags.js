@@ -12,8 +12,7 @@ QTags.addButton( 'mark', '黄字', "<mark>","</mark>" );
 QTags.addButton( 'xzt', '小字体', "<small>","</small>" );
 QTags.addButton( 'dzt', '大字体', "<big>","</big>" );
 QTags.addButton( 'xhx', '下划线', "<u>","</u>" );
-QTags.addButton( '<', '<', '&lt;', '' );
-QTags.addButton( '>', '>', '&gt;', '' ); 
+QTags.addButton( '</>', '</>', "&lt;", "&gt;" );
 QTags.addButton( 'ipre', '代码高亮', '<pre class="prettyprint linenums" >\n\n</pre>', "" );//添加高亮代码
 QTags.addButton( 'ilinks', '链接按钮', "[dm href='']", "[/dm]" );
 QTags.addButton( 'idownload', '下载按钮', "[dl href='']", "[/dl]" );
