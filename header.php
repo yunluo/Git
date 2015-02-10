@@ -56,13 +56,13 @@ window._deel = {name: '<?php bloginfo('name') ?>',url: '<?php echo get_bloginfo(
 			<?php echo str_replace("</ul></div>", "", ereg_replace("<div[^>]*><ul[^>]*>", "", wp_nav_menu(array('theme_location' => 'nav', 'echo' => false)) )); ?>
 <li style="float:right;">
                     <div class="toggle-search"><i class="fa fa-search"></i></div>
-<div class="search-expand" style="display: none;"><div class="search-expand-inner"><form method="get" class="searchform themeform" onsubmit="location.href='<?php echo home_url('/search/'); ?>' + encodeURIComponent(this.s.value).replace(/%20/g, '+'); return false;" action="/"><div> <input type="ext" class="search" name="s" onblur="if(this.value=='')this.value='search...';" onfocus="if(this.value=='search...')this.value='';" value="search..."></div></form></div></div>
+<div class="search-expand" style="display: none;"><div class="search-expand-inner"><form method="get" class="searchform themeform" onsubmit="location.href='<?php echo home_url('/search/'); ?>' + encodeURIComponent(this.s.value).replace(/%20/g, '+'); return false;" action="/"><div> <input type="ext" class="search" name="s" onblur="if(this.value=='')this.value='输入文字并回车';" onfocus="if(this.value=='输入文字并回车')this.value='';" value="输入文字并回车"></div></form></div></div>
 </li>
 		</ul>
 	</div>
 	</div>
 </header>
-<section class="container"><?php if( dopt('d_tui_b') ){?><div class="speedbar">
+<section class="container"><div class="speedbar">
 		<?php
 		if( dopt('d_sign_b') ){
 			global $current_user;
@@ -73,8 +73,9 @@ window._deel = {name: '<?php bloginfo('name') ?>',url: '<?php echo get_bloginfo(
 			<div class="pull-right">
 				<?php if(is_user_logged_in()){ echo '<i class="fa fa-user"></i> <a href="/wp-admin">'.$u_name.'</a> ';   }else{  echo '<i class="fa fa-user"></i> <a href="/wp-login.php?action=register">注册</a>';   };  echo ' &nbsp; <i class="fa fa-power-off"></i> ';echo wp_loginout();echo'';  ?>
 			</div>
+		<?php if( dopt('d_tui_b') ){?>
+		<div class="toptip"><div id="marqueebox0" class="marqueebox"><div id="qalist"><ul>  <?php echo dopt('d_tui'); ?></ul></div></div></div>
 		<?php } ?>
-		<div class="toptip"><strong class="text-success"><i class="fa fa-volume-up"></i> </strong> <?php echo dopt('d_tui'); ?></div>
 	</div>
 	<?php } ?>
 	<?php if( dopt('d_adsite_01_b') ) echo '<div class="banner banner-site">'.dopt('d_adsite_01').'</div>'; ?>
