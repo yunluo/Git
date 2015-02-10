@@ -460,7 +460,7 @@ function mytheme_admin() {
         </td>
     </tr>
     <tr>
-        <td class="d_tit">GIT</td>
+        <td class="d_tit">GIT系统</td>
         <td>
             <label class="checkbox inline">
                 <input type="checkbox" id="d_git_b" name="d_git_b" <?php if(dopt('d_git_b')) echo 'checked="checked"' ?>>开启
