@@ -76,6 +76,8 @@ window._deel = {name: '<?php bloginfo('name') ?>',url: '<?php echo get_bloginfo(
 		<?php if( dopt('d_tui_b') ){?>
 		<div class="toptip"><div id="marqueebox0" class="marqueebox"><div id="qalist"><ul>  <?php echo dopt('d_tui'); ?></ul></div></div></div>
 		<?php } ?>
+
 	</div>
+
 	<?php } ?>
 	<?php if( dopt('d_adsite_01_b') ) echo '<div class="banner banner-site">'.dopt('d_adsite_01').'</div>'; ?>
