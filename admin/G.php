@@ -192,7 +192,7 @@ function mytheme_admin() {
                 <input type="checkbox" id="d_wordhead_b" name="d_wordhead_b" <?php if(dopt('d_wordhead_b')) echo 'checked="checked"' ?>>开启
             </label>
             图片头部<label class="checkbox inline">
-                <input type="checkbox" id="d_pichead_b" name="d_pichead_b" <?php if(dopt('d_pichead_b')) echo 'checked="checked"' ?> checked>开启
+                <input type="checkbox" id="d_pichead_b" name="d_pichead_b" <?php if(dopt('d_pichead_b')) echo 'checked="checked"' ?>>开启
             </label><span class="d_tip">图片头部和文字头部请不要同时选择</span>
 			透明导航栏<label class="checkbox inline">
                 <input type="checkbox" id="d_touminnav_b" name="d_touminnav_b" <?php if(dopt('d_touminnav_b')) echo 'checked="checked"' ?>>开启
@@ -203,7 +203,7 @@ function mytheme_admin() {
         <td class="d_tit">主题皮肤设置&nbsp;<span class="d_tip">★</span></td>
         <td>
 		红色<label class="checkbox inline">
-                <input type="checkbox" id="d_red_b" name="d_red_b" <?php if(dopt('d_red_b')) echo 'checked="checked"' ?> checked>
+                <input type="checkbox" id="d_red_b" name="d_red_b" <?php if(dopt('d_red_b')) echo 'checked="checked"' ?>>
             </label>
         蓝色<label class="checkbox inline">
                 <input type="checkbox" id="d_blue_b" name="d_blue_b" <?php if(dopt('d_blue_b')) echo 'checked="checked"' ?>>
