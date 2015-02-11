@@ -32,8 +32,7 @@ $content = preg_replace('/('.implode('|', $keys) .')/iu','<span style="color:#b9
 		<h2><a target="_blank" href="<?php the_permalink() ?>" title="<?php the_title(); ?> - <?php bloginfo('name'); ?>"><?php echo $title; ?></a></h2>
 	</header>
 <?php if( $_thumbnail ){ ?>
-<?php if( dopt('d_qiniuthumbnail_b') ){?><div class="focus"><a target="_blank" href="<?php the_permalink(); ?>"><img class="thumb" src="<?php echo post_thumbnail_src(); ?>?imageView2/1/w/200/h/123/q/85" alt="<?php the_title(); ?>" height="123" width="200" /></a></div><?php } ?>
-<?php if( dopt('d_timthumbnail_b') ){?><div class="focus"><a target="_blank" href="<?php the_permalink(); ?>"><img class="thumb" src="<?php echo get_bloginfo("template_url") ?>/timthumb.php?src=<?php echo post_thumbnail_src(); ?>&h=123&w=200&q=90&zc=1&ct=1" alt="<?php the_title(); ?>" height="123" width="200" /></a></div><?php } ?>
+<div class="focus"><a target="_blank" href="<?php the_permalink(); ?>"><?php if( dopt('d_qiniucdn_b') ){echo '<img class="thumb" src="';echo post_thumbnail_src();echo '?imageView2/1/w/200/h/123/q/85" alt="'.get_the_title().'" height="123" width="200" />';}else{ echo '<img class="thumb" src="'.get_bloginfo("template_url").'/timthumb.php?src=';echo post_thumbnail_src();echo '&h=123&w=200&q=90&zc=1&ct=1" alt="'.get_the_title().'" height="123" width="200" />';} ?></a></div>
 <?php } ?>
 		<span class="note"> <?php echo $content;?></span>
 <p class="auth-span">
