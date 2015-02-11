@@ -63,7 +63,7 @@ function mytheme_admin() {
 		<label class="checkbox inline">
 <input type="checkbox" id="d_tui_b" name="d_tui_b" <?php if(dopt('d_tui_b')) echo 'checked="checked"' ?> checked>开启
         </label>
-            <textarea placeholder="这里的文字将显示在公告栏" name="d_tui" id="d_tui" type="textarea" rows="3"><?php echo dopt('d_tui'); ?></textarea>
+            <textarea placeholder="这里的文字将显示在公告栏" name="d_tui" id="d_tui" type="textarea" rows="2"><?php echo dopt('d_tui'); ?></textarea>
             <span class="d_tip">最新消息显示在全站导航条下方，非常给力的推广位置</span><br><hr />
         </td>
     </tr>
@@ -72,19 +72,13 @@ function mytheme_admin() {
         <td>
 			<label class="checkbox inline">
                 <input type="checkbox" id="d_cms_b" name="d_cms_b" <?php if(dopt('d_cms_b')) echo 'checked="checked"' ?>>开启
-            </label><span class="d_tip">开启后，请在下方的分类id写好</span><br><hr />
-        </td>
-    </tr>
-    <tr>
-        <td class="d_tit">CMS分类选择</td>
-        <td>
+            </label>分类设置：
 			分类1&nbsp;<input type="number" id="d_cat_1" name="d_cat_1" value="<?php echo dopt('d_cat_1'); ?>">&nbsp;
 			分类2&nbsp;<input type="number" id="d_cat_2" name="d_cat_2" value="<?php echo dopt('d_cat_2'); ?>">&nbsp;
 			分类3&nbsp;<input type="number" id="d_cat_3" name="d_cat_3" value="<?php echo dopt('d_cat_3'); ?>">&nbsp;
 			分类4&nbsp;<input type="number" id="d_cat_4" name="d_cat_4" value="<?php echo dopt('d_cat_4'); ?>">&nbsp;
 			分类5&nbsp;<input type="number" id="d_cat_5" name="d_cat_5" value="<?php echo dopt('d_cat_5'); ?>">&nbsp;
-			分类6&nbsp;<input type="number" id="d_cat_6" name="d_cat_6" value="<?php echo dopt('d_cat_6'); ?>">&nbsp;<span class="d_tip">需开启CMS布局</span>
-            <br><hr />
+			分类6&nbsp;<input type="number" id="d_cat_6" name="d_cat_6" value="<?php echo dopt('d_cat_6'); ?>">
         </td>
     </tr>
     <tr>
