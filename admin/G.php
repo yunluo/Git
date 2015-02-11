@@ -2,7 +2,7 @@
 
 $themename = 'G+主题';
 $options = array(
-      "d_weixin_qr", "d_cdnind_b", "d_cdndir_b", "d_cdnurl_b", "d_qiniucdn_b", "d_wbpasd_b", "d_wbapky_b", "d_wbuser_b", "d_blockcat_b", "d_blockcat_2", "d_blockcat_1", "d_avatar_qn", "d_avatar_ds", "d_avatar_ssl", "d_superfoot_b", "d_foottitle1", "d_foottitle2", "d_foottitle3", "d_foottitle4", "d_footconent1", "d_footconent2", "d_footconent3", "d_footconent4", "d_copy_b", "d_qr_b", "d_snow_b", "d_baidurecord_b", "d_yuanpic_b", "d_danru_b", "d_sinasync_b", "d_sj404_b", "d_sjm404_b", "d_darkhighlight_b", "d_cat_8", "d_cat_7", "d_cat_6", "d_cat_5", "d_cat_4", "d_cat_3", "d_cat_2", "d_cat_1", "d_blog_b", "d_cms_b", "d_singlecode_b", "d_singlecode", "d_touminnav_b", "d_yellow_b", "d_purple_b", "d_black_b", "d_blue_b", "d_red_b", "d_avataer_b", "d_pichead_b", "d_wordhead_b", "d_nosuojin_b", "d_categroy_b", "d_fuckziti_b", "d_autolink_b", "d_fancybox_b", "d_mobilesticky_b", "d_timthumbnail_b", "d_qiniuthumbnail_b", "d_tui_b", "d_description", "d_description_b", "d_keywords", "d_keywords_b", "d_tui", "d_sticky_b", "d_sticky_count", "d_linkpage_cat", "d_tougao_b", "d_tougao_time", "d_tougao_mailto", "d_avatar_b", "d_avatarDate", "d_sideroll_b", "d_sideroll_1", "d_sideroll_2", "d_pingback_b", "d_autosave_b", "d_tqq_b", "d_tqq", "d_weibo_b", "d_weibo", "d_baidu_b", "d_baidu", "d_git_b", "d_git", "d_rss","d_qqContact_b","d_qqContact","d_weixin_b","d_weixin","d_emailContact_b","d_emailContact", "d_track_b", "d_track", "d_headcode_b", "d_headcode", "d_footcode_b", "d_footcode", "d_adsite_01_b", "d_adsite_01", "d_adindex_02_b", "d_adindex_02", "d_adindex_01_b", "d_adindex_01", "d_adindex_03_b", "d_adindex_03", "d_adpost_01_b", "d_adpost_01", "d_adpost_02_b", "d_adpost_02", "d_adpost_03_b", "d_adpost_03", "d_sign_b", "d_jquerybom_b", "d_ajaxpager_b", "d_thumbnail_b", "d_bdshare_b", "d_related_count", "d_post_views_b", "d_post_author_b", "d_post_comment_b", "d_post_time_b","hot_list_title","hot_list_number","hot_list_date","hot_list_check","d_post_like_b","d_singleMenu_b","Mobiled_adindex_02_b","Mobiled_adindex_02","Mobiled_adpost_01_b","Mobiled_adpost_01","Mobiled_adpost_02_b","Mobiled_adpost_02","d_spamComments_b"
+      "d_pay_qr", "d_pay", "d_pay_b", "d_weixin_qr", "d_cdnind_b", "d_cdndir_b", "d_cdnurl_b", "d_qiniucdn_b", "d_wbpasd_b", "d_wbapky_b", "d_wbuser_b", "d_blockcat_b", "d_blockcat_2", "d_blockcat_1", "d_avatar_qn", "d_avatar_ds", "d_avatar_ssl", "d_superfoot_b", "d_foottitle1", "d_foottitle2", "d_foottitle3", "d_foottitle4", "d_footconent1", "d_footconent2", "d_footconent3", "d_footconent4", "d_copy_b", "d_qr_b", "d_snow_b", "d_baidurecord_b", "d_yuanpic_b", "d_danru_b", "d_sinasync_b", "d_sj404_b", "d_darkhighlight_b", "d_cat_6", "d_cat_5", "d_cat_4", "d_cat_3", "d_cat_2", "d_cat_1", "d_blog_b", "d_cms_b", "d_singlecode_b", "d_singlecode", "d_touminnav_b", "d_yellow_b", "d_purple_b", "d_black_b", "d_blue_b", "d_red_b", "d_avataer_b", "d_pichead_b", "d_wordhead_b", "d_nosuojin_b", "d_categroy_b", "d_fuckziti_b", "d_autolink_b", "d_fancybox_b", "d_mobilesticky_b", "d_tui_b", "d_description", "d_description_b", "d_keywords", "d_keywords_b", "d_tui", "d_sticky_b", "d_sticky_count", "d_linkpage_cat", "d_tougao_b", "d_tougao_time", "d_tougao_mailto", "d_avatar_b", "d_avatarDate", "d_sideroll_b", "d_sideroll_1", "d_sideroll_2", "d_pingback_b", "d_autosave_b", "d_tqq_b", "d_tqq", "d_weibo_b", "d_weibo", "d_baidu_b", "d_baidu", "d_git_b", "d_git", "d_rss","d_qqContact_b","d_qqContact","d_weixin_b","d_weixin","d_emailContact_b","d_emailContact", "d_track_b", "d_track", "d_headcode_b", "d_headcode", "d_footcode_b", "d_footcode", "d_adsite_01_b", "d_adsite_01", "d_adindex_02_b", "d_adindex_02", "d_adindex_01_b", "d_adindex_01", "d_adindex_03_b", "d_adindex_03", "d_adpost_01_b", "d_adpost_01", "d_adpost_02_b", "d_adpost_02", "d_adpost_03_b", "d_adpost_03", "d_sign_b", "d_jquerybom_b", "d_ajaxpager_b", "d_thumbnail_b", "d_bdshare_b", "d_related_count", "d_post_views_b", "d_post_author_b", "d_post_comment_b", "d_post_time_b","hot_list_title","hot_list_number","hot_list_date","hot_list_check","d_post_like_b","d_singleMenu_b","Mobiled_adindex_02_b","Mobiled_adindex_02","Mobiled_adpost_01_b","Mobiled_adpost_01","Mobiled_adpost_02_b","Mobiled_adpost_02","d_spamComments_b"
 );
 
 function mytheme_add_admin() {
@@ -83,9 +83,7 @@ function mytheme_admin() {
 			分类3&nbsp;<input type="number" id="d_cat_3" name="d_cat_3" value="<?php echo dopt('d_cat_3'); ?>">&nbsp;
 			分类4&nbsp;<input type="number" id="d_cat_4" name="d_cat_4" value="<?php echo dopt('d_cat_4'); ?>">&nbsp;
 			分类5&nbsp;<input type="number" id="d_cat_5" name="d_cat_5" value="<?php echo dopt('d_cat_5'); ?>">&nbsp;
-			分类6&nbsp;<input type="number" id="d_cat_6" name="d_cat_6" value="<?php echo dopt('d_cat_6'); ?>">&nbsp;
-			分类7&nbsp;<input type="number" id="d_cat_7" name="d_cat_7" value="<?php echo dopt('d_cat_7'); ?>">&nbsp;
-			分类8&nbsp;<input type="number" id="d_cat_8" name="d_cat_8" value="<?php echo dopt('d_cat_8'); ?>">&nbsp;&nbsp;<span class="d_tip">需开启CMS布局</span>
+			分类6&nbsp;<input type="number" id="d_cat_6" name="d_cat_6" value="<?php echo dopt('d_cat_6'); ?>">&nbsp;<span class="d_tip">需开启CMS布局</span>
             <br><hr />
         </td>
     </tr>
@@ -104,17 +102,6 @@ function mytheme_admin() {
 		分类1&nbsp;<input type="smalltext" id="d_blockcat_1" name="d_blockcat_1" value="<?php echo dopt('d_blockcat_1'); ?>">&nbsp;
 
 		分类2&nbsp;<input type="smalltext" id="d_blockcat_2" name="d_blockcat_2" value="<?php echo dopt('d_blockcat_2'); ?>"><br><hr />
-        </td>
-    </tr>
-    <tr>
-        <td class="d_tit">主题404设置&nbsp;<span class="d_tip">★</span></td>
-        <td>
-            神经猫404<label class="checkbox inline">
-                <input type="checkbox" id="d_sjm404_b" name="d_sjm404_b" <?php if(dopt('d_sjm404_b')) echo 'checked="checked"' ?>>开启
-            </label>
-			素静404<label class="checkbox inline">
-                <input type="checkbox" id="d_sj404_b" name="d_sj404_b" <?php if(dopt('d_sj404_b')) echo 'checked="checked"' ?> checked>开启
-            </label><br><hr />
         </td>
     </tr>
     <tr>
@@ -163,20 +150,17 @@ function mytheme_admin() {
             </label>
 		文章页顶部面包屑导航  <label class="checkbox inline">
                 <input type="checkbox" id="d_singleMenu_b" name="d_singleMenu_b" <?php if(dopt('d_singleMenu_b')) echo 'checked="checked"' ?>>开启
+            </label>
+			白色哭泣404设置<label class="checkbox inline">
+                <input type="checkbox" id="d_sj404_b" name="d_sj404_b" <?php if(dopt('d_sj404_b')) echo 'checked="checked"' ?> checked>开启
             </label><br><hr />
         </td>
     </tr>
 	    <tr>
-        <td class="d_tit">七牛CDN设置&nbsp;<span class="d_tip">★</span></td>
+        <td class="d_tit">七牛CDN设置</td>
         <td>
 		七牛CDN<label class="checkbox inline">
-                <input type="checkbox" id="d_qiniucdn_b" name="d_qiniucdn_b" <?php if(dopt('d_qiniucdn_b')) echo 'checked="checked"' ?>>开启
-            </label>
-		    默认缩略图  <label class="checkbox inline">
-                <input type="checkbox" id="d_timthumbnail_b" name="d_timthumbnail_b" <?php if(dopt('d_timthumbnail_b')) echo 'checked="checked"' ?>>开启
-            </label>
-            七牛缩略图<label class="checkbox inline">
-                <input type="checkbox" id="d_qiniuthumbnail_b" name="d_qiniuthumbnail_b" <?php if(dopt('d_qiniuthumbnail_b')) echo 'checked="checked"' ?>>开启
+                <input type="checkbox" id="d_qiniucdn_b" name="d_qiniucdn_b" <?php if(dopt('d_qiniucdn_b')) echo 'checked="checked"' ?>>开启&nbsp;&nbsp;<span class="d_tip">开启七牛CDN之后同时开启七牛缩略图功能</span>
             </label>
 			&nbsp;&nbsp;
 			<span class="d_tip">开启后请开通七牛服务</span>&nbsp;&nbsp;<input class="button-primary" type="button" value="立即注册七牛" onclick="window.open('http://googlo.me/go/qiniu')"><br><hr />
@@ -451,7 +435,7 @@ function mytheme_admin() {
         </td>
     </tr>
     <tr>
-        <td class="d_tit">百度熊</td>
+        <td class="d_tit">百度贴吧</td>
         <td>
             <label class="checkbox inline">
                <input type="checkbox" id="d_baidu_b" name="d_baidu_b" <?php if(dopt('d_baidu_b')) echo 'checked="checked"' ?>>开启
@@ -466,6 +450,15 @@ function mytheme_admin() {
                 <input type="checkbox" id="d_git_b" name="d_git_b" <?php if(dopt('d_git_b')) echo 'checked="checked"' ?>>开启
             </label>
             网址：<input class="d_inp_short" name="d_git" id="d_git" type="url" value="<?php echo dopt('d_git'); ?>"><br><hr />
+        </td>
+    </tr>
+   <tr>
+        <td class="d_tit">支付宝</td>
+        <td>
+            <label class="checkbox inline">
+                <input type="checkbox" id="d_pay_b" name="d_pay_b" <?php if(dopt('d_pay_b')) echo 'checked="checked"' ?>>开启
+            </label>
+            支付宝账号：<input placeholder="您的支付宝账号" class="d_inp_short" name="d_pay" id="d_pay" type="smalltext" value="<?php echo dopt('d_pay'); ?>">&nbsp;&nbsp;支付宝二维码：<input placeholder="请在此输入您的二维码图片链接" class="d_inp_short" name="d_pay_qr" id="d_pay_qr" type="text" value="<?php echo dopt('d_pay_qr'); ?>"><br><hr />
         </td>
     </tr>
     <tr>
