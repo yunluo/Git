@@ -116,7 +116,7 @@ function mytheme_admin() {
             电脑端显示<label class="checkbox inline">
                 <input type="checkbox" id="d_sticky_b" name="d_sticky_b" <?php if(dopt('d_sticky_b')) echo 'checked="checked"' ?>>开启
             </label>
-			移动端显示<label class="checkbox inline">
+			移动端不显示<label class="checkbox inline">
                 <input type="checkbox" id="d_mobilesticky_b" name="d_mobilesticky_b" <?php if(dopt('d_mobilesticky_b')) echo 'checked="checked"' ?>>开启
             </label>
             显示<input class="d_num" name="d_sticky_count" id="d_sticky_count" type="number" value="<?php echo dopt('d_sticky_count'); ?>">条 默认4条

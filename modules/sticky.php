@@ -1,4 +1,4 @@
-<?php if (!G_is_mobile() ): ?>
+<?php if( dopt('d_mobilesticky_b') ) echo '<style type="text/css">@media screen and (max-width:600px){ #wowslider-container1{display:none !important ;}}</style>'; ?>
 <div id="wowslider-container1">
 	<div class="ws_images"><ul>
 <?php $sticky = get_option('sticky_posts'); rsort( $sticky );
@@ -34,4 +34,4 @@ echo '<a target="_blank" href="#" title="'.get_the_title().'">';
 	?>
 </div>
 </div><div class="ws_shadow"></div>
-	</div><script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/slider.js"></script><?php endif ;?>
+	</div><script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/slider.js"></script>
