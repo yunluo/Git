@@ -512,17 +512,6 @@ function lang_url_spamcheck( $approved , $commentdata ) {
 if( dopt('d_spamComments_b') ){
 add_filter( 'pre_comment_approved', 'lang_url_spamcheck', 99, 2 );
 }
-//评论字数限制2-200
-	function Googlo_comment_length($incoming_comment){
-		if(  is_user_logged_in()){ return $comment;}
-		if(mb_strlen($incoming_comment['comment_content'],'utf-8')< 2 || mb_strlen($incoming_comment['comment_content'],'utf-8')> 200){
-			err('你的评论内容不符合字数要求.');
-		}
-
-		return($incoming_comment);
-	}if( dopt('d_spamComments_b') ){
-	add_filter('preprocess_comment','Googlo_comment_length',1);
-	}
 //屏蔽昵称，评论内容带链接的评论
 function Googlolink( $comment_data ) {
 		$links = '/http:\/\/|https:\/\/|www\./u';
