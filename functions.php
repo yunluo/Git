@@ -522,7 +522,6 @@ function Googlolink( $comment_data ) {
 }if( dopt('d_spamComments_b') ){
 add_filter('preprocess_comment', 'Googlolink');
 }
-
 //点赞
 add_action('wp_ajax_nopriv_bigfa_like', 'bigfa_like');
 add_action('wp_ajax_bigfa_like', 'bigfa_like');
@@ -1089,7 +1088,7 @@ function post_to_sina_weibo($post_ID) {
        }
 
        /* 修改了下风格，并添加文章关键词作为微博话题，提高与其他相关微博的关联率 */
-       $status = '【' . strip_tags( $get_post_title ).'】:'.mb_strimwidth(strip_tags( apply_filters('the_content', $get_post_centent)),0, 180,'...') .$keywords. ' 查看全文:' . get_permalink($post_ID) ;
+       $status = '【' . strip_tags( $get_post_title ).'】:'.mb_strimwidth(strip_tags( apply_filters('the_content', $get_post_centent)),0, 180,'...') .$keywords. '' . get_permalink($post_ID) ;
 
        /* 获取特色图片，如果没设置就抓取文章第一张图片 */
        if (has_post_thumbnail()) {
@@ -1099,6 +1098,7 @@ function post_to_sina_weibo($post_ID) {
        } else if(function_exists('catch_first_image')) {
           $url = catch_first_image();
        }
+
        /* 判断是否存在图片，定义不同的接口 */
        if(!empty($url)){
            $api_url = 'https://api.weibo.com/2/statuses/upload_url_text.json'; /* 新的API接口地址 */
