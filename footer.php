@@ -1,6 +1,6 @@
 </section>
 <?php if( dopt('d_superfoot_b') ){?>
-<div id="footbar" style="border-top: 2px solid #009856;"><ul>
+<div id="footbar" style="border-top: 2px solid #8E44AD;"><ul>
 <li><p class="first"><?php echo dopt('d_foottitle1'); ?></p><?php echo dopt('d_footconent1'); ?></li>
 <li><p class="second"><?php echo dopt('d_foottitle2'); ?></p><?php echo dopt('d_footconent2'); ?></li>
 <li><p class="third"><?php echo dopt('d_foottitle3'); ?></p><?php echo dopt('d_footconent3'); ?></li>

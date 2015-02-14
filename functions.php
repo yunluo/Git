@@ -522,16 +522,7 @@ function Googlolink( $comment_data ) {
 }if( dopt('d_spamComments_b') ){
 add_filter('preprocess_comment', 'Googlolink');
 }
-//禁止其他人使用博猪昵称，邮箱，网址
-function Googlo_commenter_check($incoming_comment){
-			if($incoming_comment['comment_author'] == trim('.get_user_display_name (1).'))
-			if($incoming_comment['comment_author_email'] == trim('.get_user_email (1).'))
-			if($incoming_comment['comment_author_url'] == trim('.get_user_url (1).'))
-	if( is_user_logged_in()) { return $incoming_comment; }
-	err('这个昵称以及邮箱和网址为博猪所有.');
-}if( dopt('d_spamComments_b') ){
-add_filter('preprocess_comment','Googlo_commenter_check',1);
-}
+
 //点赞
 add_action('wp_ajax_nopriv_bigfa_like', 'bigfa_like');
 add_action('wp_ajax_bigfa_like', 'bigfa_like');
