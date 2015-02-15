@@ -2,7 +2,7 @@
 
 $themename = 'G+主题';
 $options = array(
-      "d_pay_qr", "d_pay", "d_pay_b", "d_weixin_qr", "d_cdnind_b", "d_cdndir_b", "d_cdnurl_b", "d_qiniucdn_b", "d_wbpasd_b", "d_wbapky_b", "d_wbuser_b", "d_blockcat_b", "d_blockcat_2", "d_blockcat_1", "d_avatar_qn", "d_avatar_ds", "d_avatar_ssl", "d_superfoot_b", "d_foottitle1", "d_foottitle2", "d_foottitle3", "d_foottitle4", "d_footconent1", "d_footconent2", "d_footconent3", "d_footconent4", "d_copy_b", "d_qr_b", "d_snow_b", "d_baidurecord_b", "d_yuanpic_b", "d_danru_b", "d_sinasync_b", "d_sj404_b", "d_darkhighlight_b", "d_cat_6", "d_cat_5", "d_cat_4", "d_cat_3", "d_cat_2", "d_cat_1", "d_blog_b", "d_cms_b", "d_singlecode_b", "d_singlecode", "d_yellow_b", "d_purple_b", "d_black_b", "d_blue_b", "d_red_b", "d_avataer_b", "d_pichead_b", "d_nosuojin_b", "d_categroy_b", "d_fuckziti_b", "d_autolink_b", "d_fancybox_b", "d_mobilesticky_b", "d_tui_b", "d_description", "d_description_b", "d_keywords", "d_keywords_b", "d_tui", "d_sticky_b", "d_sticky_count", "d_linkpage_cat", "d_tougao_b", "d_tougao_time", "d_tougao_mailto", "d_avatar_b", "d_avatarDate", "d_sideroll_b", "d_sideroll_1", "d_sideroll_2", "d_pingback_b", "d_autosave_b", "d_tqq_b", "d_tqq", "d_weibo_b", "d_weibo", "d_baidu_b", "d_baidu", "d_git_b", "d_git", "d_rss","d_qqContact_b","d_qqContact","d_weixin_b","d_weixin","d_emailContact_b","d_emailContact", "d_track_b", "d_track", "d_headcode_b", "d_headcode", "d_footcode_b", "d_footcode", "d_adsite_01_b", "d_adsite_01", "d_adindex_02_b", "d_adindex_02", "d_adindex_01_b", "d_adindex_01", "d_adindex_03_b", "d_adindex_03", "d_adpost_01_b", "d_adpost_01", "d_adpost_02_b", "d_adpost_02", "d_adpost_03_b", "d_adpost_03", "d_sign_b", "d_jquerybom_b", "d_ajaxpager_b", "d_thumbnail_b", "d_bdshare_b", "d_related_count", "d_post_views_b", "d_post_author_b", "d_post_comment_b", "d_post_time_b","hot_list_title","hot_list_number","hot_list_date","hot_list_check","d_post_like_b","d_singleMenu_b","Mobiled_adindex_02_b","Mobiled_adindex_02","Mobiled_adpost_01_b","Mobiled_adpost_01","Mobiled_adpost_02_b","Mobiled_adpost_02","d_spamComments_b"
+      "d_pay_qr", "d_pay", "d_pay_b", "d_weixin_qr", "d_cdnurl_b", "d_qiniucdn_b", "d_wbpasd_b", "d_wbapky_b", "d_wbuser_b", "d_blockcat_b", "d_blockcat_2", "d_blockcat_1", "d_avatar_qn", "d_avatar_ds", "d_avatar_ssl", "d_superfoot_b", "d_foottitle1", "d_foottitle2", "d_foottitle3", "d_foottitle4", "d_footconent1", "d_footconent2", "d_footconent3", "d_footconent4", "d_copy_b", "d_qr_b", "d_snow_b", "d_baidurecord_b", "d_yuanpic_b", "d_danru_b", "d_sinasync_b", "d_sj404_b", "d_darkhighlight_b", "d_cat_6", "d_cat_5", "d_cat_4", "d_cat_3", "d_cat_2", "d_cat_1", "d_blog_b", "d_cms_b", "d_singlecode_b", "d_singlecode", "d_yellow_b", "d_purple_b", "d_black_b", "d_blue_b", "d_red_b", "d_avataer_b", "d_pichead_b", "d_nosuojin_b", "d_categroy_b", "d_fuckziti_b", "d_autolink_b", "d_fancybox_b", "d_mobilesticky_b", "d_tui_b", "d_description", "d_description_b", "d_keywords", "d_keywords_b", "d_tui", "d_sticky_b", "d_sticky_count", "d_linkpage_cat", "d_tougao_b", "d_tougao_time", "d_tougao_mailto", "d_avatar_b", "d_avatarDate", "d_sideroll_b", "d_sideroll_1", "d_sideroll_2", "d_pingback_b", "d_autosave_b", "d_tqq_b", "d_tqq", "d_weibo_b", "d_weibo", "d_baidu_b", "d_baidu", "d_git_b", "d_git", "d_rss","d_qqContact_b","d_qqContact","d_weixin_b","d_weixin","d_emailContact_b","d_emailContact", "d_track_b", "d_track", "d_headcode_b", "d_headcode", "d_footcode_b", "d_footcode", "d_adsite_01_b", "d_adsite_01", "d_adindex_02_b", "d_adindex_02", "d_adindex_01_b", "d_adindex_01", "d_adindex_03_b", "d_adindex_03", "d_adpost_01_b", "d_adpost_01", "d_adpost_02_b", "d_adpost_02", "d_adpost_03_b", "d_adpost_03", "d_sign_b", "d_jquerybom_b", "d_ajaxpager_b", "d_thumbnail_b", "d_bdshare_b", "d_related_count", "d_post_views_b", "d_post_author_b", "d_post_comment_b", "d_post_time_b","hot_list_title","hot_list_number","hot_list_date","hot_list_check","d_post_like_b","d_singleMenu_b","Mobiled_adindex_02_b","Mobiled_adindex_02","Mobiled_adpost_01_b","Mobiled_adpost_01","Mobiled_adpost_02_b","Mobiled_adpost_02","d_spamComments_b"
 );
 
 function mytheme_add_admin() {
@@ -28,7 +28,7 @@ function mytheme_admin() {
 <div class="wrap d_wrap">
     <link rel="stylesheet" href="<?php bloginfo('template_url') ?>/admin/admin.css"/>
     <h2><?php echo $themename; ?>设置
-        <span class="d_themedesc">发布来源：<a href="http://googlo.me/" target="_blank">乐趣公园</a> &nbsp;&nbsp; <a href="http://googlo.me/3011.html" target="_blank">访问发布页</a></span><span style="font-size:16px;color: rgb(245, 99, 99);padding-left:20px;">更多问题，请查看 -><a href="http://googlo.me/2015.html" target="_blank">主题FAQ</a>  注意：设置项含(★)的是单选项</span> <input class="button-primary" type="button" value="主题更新日志" onclick="window.open('http://git.oschina.net/yunluo/yusi/commits/master')">
+        <span class="d_themedesc">发布来源：<a href="http://googlo.me/" target="_blank">乐趣公园</a> &nbsp;&nbsp; <a href="http://googlo.me/3011.html" target="_blank">访问发布页</a></span><span style="font-size:16px;color: rgb(245, 99, 99);padding-left:20px;">更多问题，请查看 -><a href="http://googlo.me/2015.html" target="_blank">主题FAQ</a>  注意：设置项含(★)的是单选项</span> <input class="button-primary" type="button" value="主题更新日志" onclick="window.open('http://git.oschina.net/yunluo/yusi/commits/master')">&nbsp;&nbsp;<input class="button-primary" type="button" value="主题反馈" onclick="window.open('http://googlo.me/go/mail')">
     </h2>
 
 <form method="post" class="d_formwrap">
@@ -154,13 +154,11 @@ function mytheme_admin() {
         <td class="d_tit">七牛CDN设置</td>
         <td>
 		七牛CDN<label class="checkbox inline">
-                <input type="checkbox" id="d_qiniucdn_b" name="d_qiniucdn_b" <?php if(dopt('d_qiniucdn_b')) echo 'checked="checked"' ?>>开启&nbsp;&nbsp;<span class="d_tip">开启七牛CDN之后同时开启七牛缩略图功能</span>
-            </label>
-			&nbsp;&nbsp;
-			<span class="d_tip">开启后请开通七牛服务</span>&nbsp;&nbsp;<input class="button-primary" type="button" value="立即注册七牛" onclick="window.open('http://googlo.me/go/qiniu')"><br><hr />
-			CDN域名<input type="smalltext" id="d_cdnurl_b" name="d_cdnurl_b" value="<?php echo dopt('d_cdnurl_b'); ?>">
-			CDN目录<input type="smalltext" id="d_cdndir_b" name="d_cdndir_b" value="<?php echo dopt('d_cdndir_b'); ?>">
-			镜像文件类型<input type="smalltext" id="d_cdnind_b" name="d_cdnind_b" value="<?php echo dopt('d_cdnind_b'); ?>">&nbsp;<span class="d_tip">cdn目录和文件类型以 | 分割</span><br><hr />
+                <input type="checkbox" id="d_qiniucdn_b" name="d_qiniucdn_b" <?php if(dopt('d_qiniucdn_b')) echo 'checked="checked"' ?>>开启
+				</label>&nbsp;
+		七牛自定义域名<input placeholder="请输入您的七牛域名，结尾不带 / " type="text" id="d_cdnurl_b" name="d_cdnurl_b" value="<?php echo dopt('d_cdnurl_b'); ?>">
+            &nbsp;&nbsp;
+			<span class="d_tip">开启后请开通七牛服务</span>&nbsp;&nbsp;<a href="javascript:qiniu();">为何要使用七牛？</a><input class="button-primary" type="button" value="立即注册七牛" onclick="window.open('http://googlo.me/go/qiniu')"><br><hr />
         </td>
     </tr>
 	    <tr>
@@ -336,7 +334,7 @@ function mytheme_admin() {
             <label class="checkbox inline">
                 <input type="checkbox" id="d_spamComments_b" name="d_spamComments_b" <?php if(dopt('d_spamComments_b')) echo 'checked="checked"' ?>>开启
             </label>
-           <span class="d_tip">本功能属于综合方案，启用后，屏蔽外文评论，屏蔽含有WordPress设置黑名单内容的评论，屏蔽过长网址的评论，屏蔽字数少于2或者多余200的评论，屏蔽内容或者评论昵称含有链接的评论，屏蔽冒用博猪邮箱，昵称，网址的评论。另，在WordPress-设置-讨论-黑名单中添加想要屏蔽的关键词，邮箱，网址，IP地址，每行一个。</span><br><hr />
+           <span class="d_tip">启用后，屏蔽外文评论，屏蔽含有WordPress设置黑名单内容的评论，屏蔽过长网址的评论，屏蔽字数少于2或者多余200的评论，屏蔽内容或者评论昵称含有链接的评论。另，在WordPress-设置-讨论-黑名单中添加想要屏蔽的关键词，邮箱，网址，IP地址，每行一个。</span><br><hr />
         </td>
     </tr>
     <tr>
@@ -659,9 +657,12 @@ jQuery('.d_wrap input, .d_wrap textarea').each(function(e){
 })
 console.log( aaa )
 
-	function about(){
-    alert("首先去微博开放平台创建网站应用，然后静等通过（未备案域名发送域名证书截图即可）\n将新浪的代码放进下方的head代码框，然后将appkey，用户名，密码输入即可！\n 如果审核不通过的话，看原因.审核通过后再申请高级写入权限");
-    }
+function about(){
+alert("首先去微博开放平台创建网站应用，然后静等通过（未备案域名发送域名证书截图即可）\n将新浪的代码放进下方的head代码框，然后将appkey，用户名，密码输入即可！\n 如果审核不通过的话，看原因.审核通过后再申请高级写入权限");
+}
+function qiniu(){
+alert("七牛可以视为免备案免费CDN，可以加速网站静态资源加载\n另外七牛可以免费拥有10G储存，10G流量（可提升），可以为主题提供稳定的缩略图服务\n本主题采用七牛云储存之后，可以直接删除占网站空间最大的uploads目录文件\n可以为有流量限制，空间大小限制的主机大幅节约成本\n如果你觉得七牛不错，点击右侧注册按钮立即注册七牛吧(邀请链接，若在意，请勿点)");
+}
 </script>
 <?php } ?>
 <?php add_action('admin_menu', 'mytheme_add_admin');?>

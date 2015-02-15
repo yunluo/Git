@@ -8,7 +8,7 @@ if(! defined('MEMORY_LIMIT') )				define ('MEMORY_LIMIT', '30M');
 if(! defined('BLOCK_EXTERNAL_LEECHERS') ) 	define ('BLOCK_EXTERNAL_LEECHERS', false);
 if(! defined('DISPLAY_ERROR_MESSAGES') )	define ('DISPLAY_ERROR_MESSAGES', true);
 if(! defined('ALLOW_EXTERNAL') )			define ('ALLOW_EXTERNAL', TRUE);
-if(! defined('ALLOW_ALL_EXTERNAL_SITES') ) 	define ('ALLOW_ALL_EXTERNAL_SITES', false);				// Less secure.
+if(! defined('ALLOW_ALL_EXTERNAL_SITES') ) 	define ('ALLOW_ALL_EXTERNAL_SITES', false);
 if(! defined('FILE_CACHE_ENABLED') ) 		define ('FILE_CACHE_ENABLED', TRUE);
 if(! defined('FILE_CACHE_TIME_BETWEEN_CLEANS'))	define ('FILE_CACHE_TIME_BETWEEN_CLEANS', 86400);
 if(! defined('FILE_CACHE_MAX_FILE_AGE') ) 	define ('FILE_CACHE_MAX_FILE_AGE', 86400);
@@ -16,53 +16,51 @@ if(! defined('FILE_CACHE_SUFFIX') ) 		define ('FILE_CACHE_SUFFIX', '.timthumb.tx
 if(! defined('FILE_CACHE_PREFIX') ) 		define ('FILE_CACHE_PREFIX', 'timthumb');
 if(! defined('FILE_CACHE_DIRECTORY') ) 		define ('FILE_CACHE_DIRECTORY', './cache');
 if(! defined('MAX_FILE_SIZE') )				define ('MAX_FILE_SIZE', 10485760);
-if(! defined('CURL_TIMEOUT') )				define ('CURL_TIMEOUT', 20);	
-if(! defined('WAIT_BETWEEN_FETCH_ERRORS') )	define ('WAIT_BETWEEN_FETCH_ERRORS', 3600);				// Time to wait between errors fetching remote file
-
+if(! defined('CURL_TIMEOUT') )				define ('CURL_TIMEOUT', 20);
+if(! defined('WAIT_BETWEEN_FETCH_ERRORS') )	define ('WAIT_BETWEEN_FETCH_ERRORS', 3600);
 //Browser caching
-if(! defined('BROWSER_CACHE_MAX_AGE') ) 	define ('BROWSER_CACHE_MAX_AGE', 864000);				// Time to cache in the browser
+if(! defined('BROWSER_CACHE_MAX_AGE') ) 	define ('BROWSER_CACHE_MAX_AGE', 864000);
 if(! defined('BROWSER_CACHE_DISABLE') ) 	define ('BROWSER_CACHE_DISABLE', false);
-if(! defined('MAX_WIDTH') )					define ('MAX_WIDTH', 1500);								// Maximum image width
-if(! defined('MAX_HEIGHT') )				define ('MAX_HEIGHT', 1500);							// Maximum image height
-if(! defined('NOT_FOUND_IMAGE') )			define ('NOT_FOUND_IMAGE', '');							// Image to serve if any 404 occurs
-if(! defined('ERROR_IMAGE') )				define ('ERROR_IMAGE', '');								// Image to serve if an error occurs instead of showing error message
+if(! defined('MAX_WIDTH') )					define ('MAX_WIDTH', 1500);
+if(! defined('MAX_HEIGHT') )				define ('MAX_HEIGHT', 1500);
+if(! defined('NOT_FOUND_IMAGE') )			define ('NOT_FOUND_IMAGE', '');
+if(! defined('ERROR_IMAGE') )				define ('ERROR_IMAGE', '');
 if(! defined('PNG_IS_TRANSPARENT') )		define ('PNG_IS_TRANSPARENT', FALSE);
-if(! defined('DEFAULT_Q') )					define ('DEFAULT_Q', 90);								// Default image quality. Allows overrid in timthumb-config.php
-if(! defined('DEFAULT_ZC') )				define ('DEFAULT_ZC', 1);								// Default zoom/crop setting. Allows overrid in timthumb-config.php
-if(! defined('DEFAULT_F') )					define ('DEFAULT_F', '');								// Default image filters. Allows overrid in timthumb-config.php
-if(! defined('DEFAULT_S') )					define ('DEFAULT_S', 0);								// Default sharpen value. Allows overrid in timthumb-config.php
-if(! defined('DEFAULT_CC') )				define ('DEFAULT_CC', 'ffffff');						// Default canvas colour. Allows overrid in timthumb-config.php
-if(! defined('DEFAULT_WIDTH') )				define ('DEFAULT_WIDTH', 100);							// Default thumbnail width. Allows overrid in timthumb-config.php
+if(! defined('DEFAULT_Q') )					define ('DEFAULT_Q', 90);
+if(! defined('DEFAULT_ZC') )				define ('DEFAULT_ZC', 1);
+if(! defined('DEFAULT_F') )					define ('DEFAULT_F', '');
+if(! defined('DEFAULT_S') )					define ('DEFAULT_S', 0);
+if(! defined('DEFAULT_CC') )				define ('DEFAULT_CC', 'ffffff');
+if(! defined('DEFAULT_WIDTH') )				define ('DEFAULT_WIDTH', 100);
 if(! defined('DEFAULT_HEIGHT') )			define ('DEFAULT_HEIGHT', 100);
 if(! defined('OPTIPNG_ENABLED') ) 		define ('OPTIPNG_ENABLED', false);
-if(! defined('OPTIPNG_PATH') ) 			define ('OPTIPNG_PATH', '/usr/bin/optipng'); //This will run first because it gives better compression than pngcrush.
+if(! defined('OPTIPNG_PATH') ) 			define ('OPTIPNG_PATH', '/usr/bin/optipng');
 if(! defined('PNGCRUSH_ENABLED') ) 		define ('PNGCRUSH_ENABLED', false);
 if(! defined('PNGCRUSH_PATH') ) 		define ('PNGCRUSH_PATH', '/usr/bin/pngcrush');
 
 if(! defined('WEBSHOT_ENABLED') ) 	define ('WEBSHOT_ENABLED', false);
-if(! defined('WEBSHOT_CUTYCAPT') ) 	define ('WEBSHOT_CUTYCAPT', '/usr/local/bin/CutyCapt'); //The path to CutyCapt.
-if(! defined('WEBSHOT_XVFB') ) 		define ('WEBSHOT_XVFB', '/usr/bin/xvfb-run');		//The path to the Xvfb server
+if(! defined('WEBSHOT_CUTYCAPT') ) 	define ('WEBSHOT_CUTYCAPT', '/usr/local/bin/CutyCapt');
+if(! defined('WEBSHOT_XVFB') ) 		define ('WEBSHOT_XVFB', '/usr/bin/xvfb-run');
 if(! defined('WEBSHOT_SCREEN_X') ) 	define ('WEBSHOT_SCREEN_X', '1024');			//1024 works ok
 if(! defined('WEBSHOT_SCREEN_Y') ) 	define ('WEBSHOT_SCREEN_Y', '768');			//768 works ok
-if(! defined('WEBSHOT_COLOR_DEPTH') ) 	define ('WEBSHOT_COLOR_DEPTH', '24');			//I haven't tested anything besides 24
-if(! defined('WEBSHOT_IMAGE_FORMAT') ) 	define ('WEBSHOT_IMAGE_FORMAT', 'png');			//png is about 2.5 times the size of jpg but is a LOT better quality
-if(! defined('WEBSHOT_TIMEOUT') ) 	define ('WEBSHOT_TIMEOUT', '20');			//Seconds to wait for a webshot
+if(! defined('WEBSHOT_COLOR_DEPTH') ) 	define ('WEBSHOT_COLOR_DEPTH', '24');
+if(! defined('WEBSHOT_IMAGE_FORMAT') ) 	define ('WEBSHOT_IMAGE_FORMAT', 'png');
+if(! defined('WEBSHOT_TIMEOUT') ) 	define ('WEBSHOT_TIMEOUT', '20');
 if(! defined('WEBSHOT_USER_AGENT') ) 	define ('WEBSHOT_USER_AGENT', "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.2.18) Gecko/20110614 Firefox/3.6.18");
-if(! defined('WEBSHOT_JAVASCRIPT_ON') ) define ('WEBSHOT_JAVASCRIPT_ON', true);	
-if(! defined('WEBSHOT_JAVA_ON') ) 	define ('WEBSHOT_JAVA_ON', false);			//Have only tested this as fase
-if(! defined('WEBSHOT_PLUGINS_ON') ) 	define ('WEBSHOT_PLUGINS_ON', true);			//Enable flash and other plugins
-if(! defined('WEBSHOT_PROXY') ) 	define ('WEBSHOT_PROXY', '');				//In case you're behind a proxy server.
+if(! defined('WEBSHOT_JAVASCRIPT_ON') ) define ('WEBSHOT_JAVASCRIPT_ON', true);
+if(! defined('WEBSHOT_JAVA_ON') ) 	define ('WEBSHOT_JAVA_ON', false);
+if(! defined('WEBSHOT_PLUGINS_ON') ) 	define ('WEBSHOT_PLUGINS_ON', true);
+if(! defined('WEBSHOT_PROXY') ) 	define ('WEBSHOT_PROXY', '');
 if(! defined('WEBSHOT_XVFB_RUNNING') )	define ('WEBSHOT_XVFB_RUNNING', false);
 if(! isset($ALLOWED_SITES)){
 	$ALLOWED_SITES = array (
-		'flickr.com',
-		'staticflickr.com',
+		''.get_bloginfo('url').'',
+		''.get_option('d_cdnurl_b').'',
 		'picasa.com',
 		'images.yusi123.com',
 		'upload.wikimedia.org',
 		'photobucket.com',
 		'yidu.qiniudn.com',
-		'googlo.me',
 		'tinypic.com',
 	);
 }
@@ -88,7 +86,7 @@ class timthumb {
 	protected $cropTop = false;
 	protected $salt = "";
 	protected $fileCacheVersion = 1;
-	protected $filePrependSecurityBlock = "<?php die('Execution denied!'); //"; 
+	protected $filePrependSecurityBlock = "<?php die('Execution denied!'); //";
 	protected static $curlDataWritten = 0;
 	protected static $curlFH = false;
 	public static function start(){
@@ -282,7 +280,7 @@ class timthumb {
 				$this->debug(3, "Got an invalid conditional get modified since time. Returning false.");
 				return false;
 			}
-			if($iftime < $mtime){ 
+			if($iftime < $mtime){
 				$this->debug(3, "File has been modified since last fetch.");
 				return false;
 			} else { //Otherwise serve a 304
