@@ -1488,5 +1488,13 @@ function get_simple_local_avatar( $id_or_email, $size = '96', $default = '', $al
 	return $html;
 }
 }
-
+//自动替换媒体库图片的域名
+function attachment_replace($text){
+	$replace = array(''.get_bloginfo('url').'' => ''.get_option('d_cdnurl_b').'');
+	$text = str_replace(array_keys($replace), $replace, $text);
+	return $text;
+}
+if ( is_admin() && dopt('d_qiniucdn_b') ) {
+add_filter('wp_get_attachment_url', 'attachment_replace');
+}
 ?>
