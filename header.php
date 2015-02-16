@@ -33,7 +33,14 @@ window._deel = {name: '<?php bloginfo('name') ?>',url: '<?php echo get_bloginfo(
 <?php if( dopt('d_red_b') ) echo '<header id="header" class="header" style="background-color: #E74C3C;">'; ?><?php if( dopt('d_blue_b') ) echo '<header id="header" class="header" style="background-color: #3B5998;">'; ?><?php if( dopt('d_black_b') ) echo '<header id="header" class="header" style="background-color: #616161;">'; ?><?php if( dopt('d_purple_b') ) echo '<header id="header" class="header" style="background-color: #9932CC;">'; ?><?php if( dopt('d_yellow_b') ) echo '<header id="header" class="header" style="background-color: #f5e011;">'; ?>
 <?php if( !dopt('d_red_b')&&!dopt('d_blue_b')&&!dopt('d_black_b')&&!dopt('d_purple_b')&&!dopt('d_yellow_b') ) echo '<header id="header" class="header" style="background-color: #03A9F4;">'; ?>
 <?php } ?>
-<?php if( dopt('d_pichead_b') ){?><header style="background: url('<?php bloginfo('template_url'); ?>/img/header.jpg') center 0px repeat-x;background-size: cover;" id="header" class="header"><?php } ?>
+<?php if( dopt('d_pichead_b') ){?>
+<?php if( dopt('d_customhead_b') ){?>
+<header style="background: url('<?php echo dopt('d_customhead'); ?>') center 0px repeat-x;background-size: cover;" id="header" class="header">
+<?php } ?>
+<?php if( !dopt('d_customhead_b') ){?>
+<header style="background: url('<?php bloginfo('template_url'); ?>/img/header.jpg') center 0px repeat-x;background-size: cover;" id="header" class="header">
+<?php } ?>
+<?php } ?>
 <?php if( dopt('d_pichead_b') ) echo '<style type="text/css">#nav-header{background-color: rgba(85,84,85, 0.5);background: rgba(85,84,85, 0.5);color: rgba(85,84,85, 0.5);}</style>'; ?>
 <?php if( dopt('d_red_b') ) echo '<style type="text/css">.navbar .nav li:hover a, .navbar .nav li.current-menu-item a, .navbar .nav li.current-menu-parent a, .navbar .nav li.current_page_item a, .navbar .nav li.current-post-ancestor a,.toggle-search ,#submit ,.btn{background: #E74C3C;}.pagination ul>li>a:hover,.pagination ul>.active>a,.pagination ul>.active>span,.navbar .nav li a:focus, .navbar .nav li a:hover {background-color: #E74C3C;}.footer{color: #E74C3C;}#footbar{border-top:#E74C3C;}#submit:hover,.btn:hover ,.toggle-search:hover {background: #ac171e;} </style>'; ?>
 <?php if( dopt('d_blue_b') ) echo '<style type="text/css">.navbar .nav li:hover a, .navbar .nav li.current-menu-item a, .navbar .nav li.current-menu-parent a, .navbar .nav li.current_page_item a, .navbar .nav li.current-post-ancestor a,.toggle-search ,#submit ,.btn{background: #3B5998;}.pagination ul>li>a:hover,.pagination ul>.active>a,.pagination ul>.active>span,.navbar .nav li a:focus, .navbar .nav li a:hover {background-color: #3B5998;}.footer{color: #3B5998;}#submit:hover,.btn:hover ,.toggle-search:hover {background: #2f477a;}</style>'; ?>
@@ -44,8 +51,14 @@ window._deel = {name: '<?php bloginfo('name') ?>',url: '<?php echo get_bloginfo(
 
 <?php if( dopt('d_avataer_b') ) echo '<style type="text/css">.avatar{-webkit-transition:0.4s;-webkit-transition:-webkit-transform 0.4s ease-out;transition:transform 0.4s ease-out;-moz-transition:-moz-transform 0.4s ease-out;}.avatar:hover{transform:rotateZ(360deg);-webkit-transform:rotateZ(360deg);-moz-transform:rotateZ(360deg);}</style>'; ?>
 <div class="container-inner"><div class="g-logo"><a href="/">
-<h1><?php if( !dopt('d_pichead_b') ){?><span class="g-mono" style="font-family:楷体;"><?php bloginfo('name'); ?></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="g-bloger" style="font-family:楷体;"><?php bloginfo('description'); ?></span><?php } ?>
-<?php if( dopt('d_pichead_b') ){?><img src="<?php bloginfo('template_url'); ?>/img/logo.png"><?php } ?>
+<h1>
+
+<?php if( !dopt('d_piclogo_b') ){?>
+<span class="g-mono" style="font-family:楷体;"><?php bloginfo('name'); ?></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="g-bloger" style="font-family:楷体;"><?php bloginfo('description'); ?></span>
+<?php } ?>
+<?php if( dopt('d_piclogo_b') ){?>
+<?php if( dopt('d_customlogo_b') ){?><img src="<?php echo dopt('d_customlogo'); ?>"><?php } ?>
+<?php if( !dopt('d_customlogo_b') ){?><img src="<?php bloginfo('template_url'); ?>/img/logo.png"><?php } ?><?php } ?>
 </h1></a></div></div>
 <?php if( dopt('d_red_b') ) echo '<div id="nav-header" class="navbar" style="border-bottom: 4px solid #E74C3C ;">'; ?>
 <?php if( dopt('d_blue_b') ) echo '<div id="nav-header" class="navbar" style="border-bottom: 4px solid #3B5998 ;">'; ?>
