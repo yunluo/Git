@@ -28,7 +28,7 @@ function mytheme_admin() {
 <div class="wrap d_wrap">
     <link rel="stylesheet" href="<?php bloginfo('template_url') ?>/admin/admin.css"/>
     <h2><?php echo $themename; ?>设置
-        <span class="d_themedesc">发布来源：<a href="http://googlo.me/" target="_blank">乐趣公园</a> &nbsp;&nbsp; <a href="http://googlo.me/3011.html" target="_blank">访问发布页</a></span><span style="font-size:16px;color: rgb(245, 99, 99);padding-left:20px;">更多问题，请查看 -><a href="http://googlo.me/3275.html" target="_blank">主题食用说明</a>  注意：设置项含(★)的是单选项</span> <input class="button-primary" type="button" value="主题更新日志" onclick="window.open('http://git.oschina.net/yunluo/yusi/commits/master')">&nbsp;&nbsp;<input class="button-primary" type="button" value="主题反馈" onclick="window.open('http://googlo.me/go/mail')">
+        <span class="d_themedesc">发布来源：<a href="http://googlo.me/" target="_blank">乐趣公园</a> &nbsp;&nbsp; <a href="http://googlo.me/3011.html" target="_blank">主页</a></span><span style="font-size:16px;color: rgb(245, 99, 99);padding-left:20px;">更多问题，请查看 -><a href="http://googlo.me/3275.html" target="_blank">猪蹄食用说明</a>  注意：设置项含(★)的是单选项</span> <input class="button-primary" type="button" value="主题更新日志" onclick="window.open('http://git.oschina.net/yunluo/yusi/commits/master')">&nbsp;&nbsp;<input class="button-primary" type="button" value="主题反馈" onclick="window.open('http://googlo.me/go/mail')">
     </h2>
 
 <form method="post" class="d_formwrap">
