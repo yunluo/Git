@@ -737,7 +737,7 @@ function no_category_base_request($query_vars) {
 //添加文章版权信息
 function copyright($content) {
 if(is_single()||is_feed()) {
-$content.='<hr /><div class="open-message"  style="border:#00a67c 1px solid;border-radius:5px 5px 5px 5px;">&nbsp;&nbsp;<i class="fa fa-bullhorn"></i><span class="sitename">'.bloginfo('name').'</span>，版权所有丨如未注明，均为原创丨本网站采用<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" rel="nofollow" target="_blank" title="BY-NC-SA授权协议">BY-NC-SA</a>协议进行授权，转载请注明转自：<a href="'.get_permalink().'" title="'.get_the_title().'">'.get_permalink().'</a></div>';
+$content.='<hr /><div align="center" class="open-message"  style="border:#00a67c 1px solid;border-radius:5px 5px 5px 5px;"><i class="fa fa-bullhorn"></i>'.dopt('d_copyright_b').'</div>';
 }
 return $content;
 }
