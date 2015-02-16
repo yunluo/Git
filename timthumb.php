@@ -54,8 +54,6 @@ if(! defined('WEBSHOT_PROXY') ) 	define ('WEBSHOT_PROXY', '');
 if(! defined('WEBSHOT_XVFB_RUNNING') )	define ('WEBSHOT_XVFB_RUNNING', false);
 if(! isset($ALLOWED_SITES)){
 	$ALLOWED_SITES = array (
-		''.get_bloginfo('url').'',
-		''.get_option('d_cdnurl_b').'',
 		'picasa.com',
 		'images.yusi123.com',
 		'upload.wikimedia.org',
