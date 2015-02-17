@@ -478,7 +478,7 @@ function mytheme_admin() {
     <tr>
         <td class="d_tit">文章版权声明</td>
         <td>
-		<textarea placeholder="copyright内容" name="d_copyright_b" id="d_copyright_b" type="textarea" rows=""><?php echo dopt('d_copyright_b'); ?></textarea><br><hr />
+		<textarea placeholder="此处输入的文字将出现在每篇文章最底部" name="d_copyright_b" id="d_copyright_b" type="textarea" rows=""><?php echo dopt('d_copyright_b'); ?></textarea><br><hr />
         </td>
     </tr>
     <tr>
