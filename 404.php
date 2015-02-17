@@ -32,5 +32,6 @@ echo '
   <embed type="application/x-shockwave-flash" width="600" height="400" src="http://images.yusi123.com/zhuamao.swf" wmode="transparent" quality="high" scale="noborder" flashvars="width=600&amp;height=400" allowscriptaccess="sameDomain" align="L">
 </div>';
 } ?>
+<?php if( dopt('d_404ad_b') ) echo dopt('d_404ad'); ?>
 </div>
 <?php get_footer(); ?>
