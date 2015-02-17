@@ -1506,8 +1506,8 @@ function get_simple_local_avatar( $id_or_email, $size = '96', $default = '', $al
 	function Googlo_qiniu_cdn_replace($html){
 	$local_host = ''.get_bloginfo('url').''; //博客域名
 	$qiniu_host = ''.get_option('d_cdnurl_b').''; //七牛域名
-	$cdn_exts   = 'png|jpg|jpeg|gif|ico|html|7z|zip|rar|js|pdf|ppt|wmv|mp4|avi|mp3|txt'; //扩展名（使用|分隔）
-	$cdn_dirs   = 'wp-content|wp-includes|avater'; //目录（使用|分隔）
+	$cdn_exts   = 'png|jpg|jpeg|gif|ico|html|7z|zip|rar|pdf|ppt|wmv|mp4|avi|mp3|txt'; //扩展名（使用|分隔）
+	$cdn_dirs   = 'wp-content|wp-includes'; //目录（使用|分隔）
 
 	$cdn_dirs   = str_replace('-', '\-', $cdn_dirs);
 
