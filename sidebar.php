@@ -4,7 +4,7 @@
 <?php if( dopt('d_weibo_b') ) echo '<a href="'.dopt('d_weibo').'" rel="external nofollow" title="新浪微博" target="_blank"><i class="sinaweibo fa fa-weibo"></i></a>'; ?>
 <?php if( dopt('d_tqq_b') ) echo '<a  href="'.dopt('d_tqq').'" rel="external nofollow" title="腾讯微博" target="_blank"><i class="tencentweibo fa fa-tencent-weibo"></i></a>'; ?>
 <?php if( dopt('d_git_b') ) echo '<a href="'.dopt('d_git').'" rel="external nofollow" title="GIT系统" target="_blank"><i class="git fa fa-git"></i></a>'; ?>
-<?php if( dopt('d_baidu_b') ) echo '<a href="'.dopt('d_baidu').'" rel="external nofollow" title="baidu" target="_blank"><i class="baidu fa fa-paw"></i></a>'; ?>
+<?php if( dopt('d_baidu_b') ) echo '<a href="'.dopt('d_baidu').'" rel="external nofollow" title="百度贴吧" target="_blank"><i class="baidu fa fa-paw"></i></a>'; ?>
 <?php if( dopt('d_weixin_b') ) echo '<a class="weixin"><i class="weixins fa fa-weixin"></i><div class="weixin-popover"><div class="popover bottom in"><div class="arrow"></div><div class="popover-title">订阅号“'.dopt('d_weixin').'”</div><div class="popover-content"><img src="'.dopt('d_weixin_qr').'" ></div></div></div></a>';?>
 <?php if( dopt('d_pay_b') ) echo '<a class="weixin"><i class="pay fa fa-paypal"></i>
 </i><div class="weixin-popover"><div class="popover bottom in"><div class="arrow"></div><div class="popover-title">支付宝“'.dopt('d_pay').'”</div><div class="popover-content"><img src="'.dopt('d_pay_qr').'" ></div></div></div></a>';?>
