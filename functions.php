@@ -241,19 +241,19 @@ function deel_avatar($avatar) {
 add_filter('get_avatar','deel_avatar');
 }
 //头像SSL链接
-function get_ssl_avatar($avatar) {
+function googlo_ssl_avatar($avatar) {
   $avatar = preg_replace('/.*\/avatar\/(.*)\?s=([\d]+)&.*/','<img src="https://secure.gravatar.com/avatar/$1?s=$2" class="avatar avatar-$2" height="$2" width="$2">',$avatar);
     return $avatar;
   }if( dopt('d_avatar_ssl') ){
-add_filter('get_avatar', 'get_ssl_avatar');
+add_filter('get_avatar', 'googlo_ssl_avatar');
 }
 //七牛头像镜像(奶子提供)
-function v7v3_get_avatar($avatar) {
+function googlo_get_avatar($avatar) {
  $avatar = str_replace(array("www.gravatar.com","secure.gravatar.com","0.gravatar.com","1.gravatar.com","2.gravatar.com"),
 "cd.v7v3.com",$avatar);
  return $avatar;
 }if( dopt('d_avatar_qn') ){
-add_filter( 'get_avatar', 'v7v3_get_avatar', 10, 3 );
+add_filter( 'get_avatar', 'googlo_get_avatar', 10, 3 );
 }
 //多说头像镜像
 function duoshuo_avatar($avatar) {
@@ -660,13 +660,13 @@ add_theme_support ( 'custom-background', array (
 ) );
 
 //禁用谷歌字体
-function coolwp_remove_open_sans_from_wp_core() {
+function googlo_remove_open_sans_from_wp_core() {
     wp_deregister_style( 'open-sans' );
     wp_register_style( 'open-sans', false );
     wp_enqueue_style('open-sans','');
 }
 if( dopt('d_fuckziti_b') ){
-add_action( 'init', 'coolwp_remove_open_sans_from_wp_core' );
+add_action( 'init', 'googlo_remove_open_sans_from_wp_core' );
 }
 
 //免插件去除Category
