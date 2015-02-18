@@ -6,7 +6,7 @@ QTags.addButton( 'sb', '上标', "<sup>","</sup>" );
 QTags.addButton( 'xb', '下标', "<sub>","</sub>" );
 QTags.addButton( 'shsj', '首行缩进', "&nbsp;&nbsp;" );
 QTags.addButton( 'tm', 'TM', "&trade;" );
-QTags.addButton( 'tips', '小贴士', "[tooltip tip=""]" );
+QTags.addButton( 'tips', '小贴士', '[tooltip tip=""]', "" );
 QTags.addButton( 'jz', '居中', "<center>","</center>" );
 QTags.addButton( 'mark', '黄字', "<mark>","</mark>" );
 QTags.addButton( 'xzt', '小字体', "<small>","</small>" );
