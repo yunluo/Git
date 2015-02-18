@@ -1077,7 +1077,7 @@ function post_to_sina_weibo($post_ID) {
        }
 
        /* 修改了下风格，并添加文章关键词作为微博话题，提高与其他相关微博的关联率 */
-       $status = '【' . strip_tags( $get_post_title ).'】:'.mb_strimwidth(strip_tags( apply_filters('the_content', $get_post_centent)),0, 180,'...') .$keywords. '' . get_permalink($post_ID) ;
+       $status = '【' . strip_tags( $get_post_title ).'】：'.mb_strimwidth(strip_tags( apply_filters('the_content', $get_post_centent)),0, 180,'...') .$keywords. '' . get_permalink($post_ID) ;
 
        /* 判断是否存在图片，定义不同的接口 */
        if(!empty($url)){
