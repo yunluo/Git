@@ -834,17 +834,6 @@ function reply_to_read($atts, $content=null){
 }
 add_shortcode('reply', 'reply_to_read');
 
-//编辑器添加框架按钮
-function GenerateIframe( $atts ) {
-    extract( shortcode_atts( array(
-        'href' => '',
-        'height' => '400px',
-        'width' => '810px',
-    ), $atts ) );
-
-    return '<iframe src="'.$href.'" width="'.$width.'" height="'.$height.'"> <p>您的浏览器不支持框架</p></iframe>';
-}
-add_shortcode('iframe', 'GenerateIframe');
 //后台图标LOGO链接
 function custom_loginlogo_url($url) {
 return '<?php site_url(); ?>';
