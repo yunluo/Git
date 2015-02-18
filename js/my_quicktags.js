@@ -32,6 +32,5 @@ QTags.addButton( 'yb', '黄色按钮', "[yb href='']", "[/yb]" );
 QTags.addButton( 'music', '音乐按钮', "[music]", "[/music]" );
 QTags.addButton( 'collapse', '隐藏收缩', "[collapse]", "[/collapse]" );
 QTags.addButton( 'reply', '回复可见', "[reply]", "[/reply]" );
-QTags.addButton( 'iframe', '网页框架', '[iframe href=""]', "" );
 QTags.addButton( 'nextpage', '下一页', '<!--nextpage-->', "" );
 //这儿共有四对引号，分别是按钮的ID、显示名、点一下输入内容、再点一下关闭内容（此为空则一次输入全部内容），\n表示换行。
