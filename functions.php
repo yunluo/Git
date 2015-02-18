@@ -956,6 +956,19 @@ function tol($atts, $content=null){
     return '<audio style="width:100%;max-height:40px;" src="'.$content.'" controls preload loop>您的浏览器不支持HTML5的 audio 标签，无法为您播放！</audio>';
 }
 add_shortcode('music','tol');
+//提示符号
+function shortcode_tooltip($attrs, $content = null) {
+	$return = '';
+	extract(shortcode_atts(array(
+		'tip' => "",
+	), $attrs));
+		ob_start(); ?>
+		<span class="tooltip"><span class="tooltip-icon">?</span><span class="tip-content"><span class="tip-content-inner"><?php echo $tip; ?></span></span></span>
+		<?php
+		$return = ob_get_clean();
+	return $return;
+}
+add_shortcode('tooltip', 'shortcode_tooltip');
 /* 短代码信息框 完毕*/
 //为WordPress添加展开收缩功能
 function xcollapse($atts, $content = null){
