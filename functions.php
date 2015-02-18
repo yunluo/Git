@@ -887,12 +887,19 @@ function reply_to_read($atts, $content=null){
 }
 add_shortcode('reply', 'reply_to_read');
 
-//后台图标LOGO链接
-function custom_loginlogo_url($url) {
-return '<?php site_url(); ?>';
+function custom_headerurl( $url ) {
+    return get_bloginfo( 'url' );
 }
+add_filter( 'login_headerurl', 'custom_headerurl' );
 
-
+function custom_login_head(){
+    echo'<style type="text/css">body{background: url("http://ihuan.me/bing");}</style>';
+}
+add_action('login_head', 'custom_login_head');
+function custom_headertitle ( $title ) {
+    return __( '欢迎来到'.get_bloginfo( 'name' ).'' );
+}
+add_filter('login_headertitle','custom_headertitle');
 /*
  * 强制阻止WordPress代码转义，关于代码高亮可以看这里http://googlo.me/2986.html
  */
