@@ -798,12 +798,65 @@ function fa_get_wpsmiliestrans(){
     }
     return $output;
 }
-
 add_action('media_buttons_context', 'fa_smilies_custom_button');
+
 function fa_smilies_custom_button($context) {
     $context .= '<style>.smilies-wrap{background:#fff;border: 1px solid #ccc;box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.24);padding: 10px;position: absolute;top: 60px;width: 375px;display:none}.smilies-wrap img{height:24px;width:24px;cursor:pointer;margin-bottom:5px} .is-active.smilies-wrap{display:block}</style><a id="insert-media-button" style="position:relative" class="button insert-smilies add_smilies" title="添加表情" data-editor="content" href="javascript:;">添加表情</a><div class="smilies-wrap">'. fa_get_wpsmiliestrans() .'</div><script>jQuery(document).ready(function(){jQuery(document).on("click", ".insert-smilies",function() { if(jQuery(".smilies-wrap").hasClass("is-active")){jQuery(".smilies-wrap").removeClass("is-active");}else{jQuery(".smilies-wrap").addClass("is-active");}});jQuery(document).on("click", ".add-smily",function() { send_to_editor(" " + jQuery(this).data("smilies") + " ");jQuery(".smilies-wrap").removeClass("is-active");return false;});});</script>';
     return $context;
 }
+
+//////// 后台评论列表获取表情按钮//////
+function zfunc_smiley_button($custom=false, $before='', $after=''){
+	if ($custom==true)
+		$smiley_url=site_url().'/wp-includes/images/smilies';
+	else
+		$customsmiley_url= get_template_directory_uri().'/img/smilies';
+	echo $before;
+	?>
+		<a href="javascript:grin(':?:')"><img src="<?php echo $customsmiley_url; ?>/icon_question.gif" alt="" /></a>
+		<a href="javascript:grin(':razz:')"><img src="<?php echo $customsmiley_url; ?>/icon_razz.gif" alt="" /></a>
+		<a href="javascript:grin(':sad:')"><img src="<?php echo $customsmiley_url; ?>/icon_sad.gif" alt="" /></a>
+		<a href="javascript:grin(':evil:')"><img src="<?php echo $customsmiley_url; ?>/icon_evil.gif" alt="" /></a>
+		<a href="javascript:grin(':!:')"><img src="<?php echo $customsmiley_url; ?>/icon_exclaim.gif" alt="" /></a>
+		<a href="javascript:grin(':smile:')"><img src="<?php echo $customsmiley_url; ?>/icon_smile.gif" alt="" /></a>
+		<a href="javascript:grin(':oops:')"><img src="<?php echo $customsmiley_url; ?>/icon_redface.gif" alt="" /></a>
+		<a href="javascript:grin(':grin:')"><img src="<?php echo $customsmiley_url; ?>/icon_biggrin.gif" alt="" /></a>
+		<a href="javascript:grin(':eek:')"><img src="<?php echo $customsmiley_url; ?>/icon_surprised.gif" alt="" /></a>
+		<a href="javascript:grin(':shock:')"><img src="<?php echo $customsmiley_url; ?>/icon_eek.gif" alt="" /></a>
+		<a href="javascript:grin(':???:')"><img src="<?php echo $customsmiley_url; ?>/icon_confused.gif" alt="" /></a>
+		<a href="javascript:grin(':cool:')"><img src="<?php echo $customsmiley_url; ?>/icon_cool.gif" alt="" /></a>
+		<a href="javascript:grin(':lol:')"><img src="<?php echo $customsmiley_url; ?>/icon_lol.gif" alt="" /></a>
+		<a href="javascript:grin(':mad:')"><img src="<?php echo $customsmiley_url; ?>/icon_mad.gif" alt="" /></a>
+		<a href="javascript:grin(':twisted:')"><img src="<?php echo $customsmiley_url; ?>/icon_twisted.gif" alt="" /></a>
+		<a href="javascript:grin(':roll:')"><img src="<?php echo $customsmiley_url; ?>/icon_rolleyes.gif" alt="" /></a>
+		<a href="javascript:grin(':wink:')"><img src="<?php echo $customsmiley_url; ?>/icon_wink.gif" alt="" /></a>
+		<a href="javascript:grin(':idea:')"><img src="<?php echo $customsmiley_url; ?>/icon_idea.gif" alt="" /></a>
+		<a href="javascript:grin(':arrow:')"><img src="<?php echo $customsmiley_url; ?>/icon_arrow.gif" alt="" /></a>
+		<a href="javascript:grin(':neutral:')"><img src="<?php echo $customsmiley_url; ?>/icon_neutral.gif" alt="" /></a>
+		<a href="javascript:grin(':cry:')"><img src="<?php echo $customsmiley_url; ?>/icon_cry.gif" alt="" /></a>
+		<a href="javascript:grin(':mrgreen:')"><img src="<?php echo $customsmiley_url; ?>/icon_mrgreen.gif" alt="" /></a>
+<?php
+	echo $after;
+}
+
+//Ajax_data_zfunc_smiley_button
+function Ajax_data_zfunc_smiley_button(){
+	if( isset($_GET['action'])&& $_GET['action'] == 'Ajax_data_zfunc_smiley_button'  ){
+		nocache_headers();
+
+		zfunc_smiley_button(false, '<br />');
+
+		die();
+	}
+}
+add_action('init', 'Ajax_data_zfunc_smiley_button');
+
+//后台回复评论支持表情插入
+function zfunc_admin_enqueue_scripts( $hook_suffix ) {
+	wp_enqueue_script( 'zfunc-comment-reply', get_template_directory_uri() . '/js/admin_reply.js' );
+}
+add_action( 'admin_print_styles', 'zfunc_admin_enqueue_scripts' );
+
 
 //使用短代码添加回复后可见内容开始
 function reply_to_read($atts, $content=null){
