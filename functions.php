@@ -887,20 +887,14 @@ function reply_to_read($atts, $content=null){
 }
 add_shortcode('reply', 'reply_to_read');
 
-function custom_headerurl( $url ) {
-    return get_bloginfo( 'url' );
-}
-add_filter( 'login_headerurl', 'custom_headerurl' );
+add_filter('login_headerurl', create_function(false,"return get_bloginfo('url');"));
+add_filter('login_headertitle', create_function(false,"return get_bloginfo('name');"));
 
 function custom_login_head(){
     echo'<style type="text/css">body{background: url(//tu.ihuan.me/api/me_all_pic);width:100%;height:100%;background-image:url(//tu.ihuan.me/api/me_all_pic);-moz-background-size: 100% 100%;-o-background-size: 100% 100%;-webkit-background-size: 100% 100%;background-size: 100% 100%;-moz-border-image: url(//tu.ihuan.me/api/me_all_pic) 0;background-repeat:no-repeat\9;background-image:none\9;}</style>';
 }
 add_action('login_head', 'custom_login_head');
 
-function custom_headertitle ( $title ) {
-    return __( '欢迎来到'.get_bloginfo( 'name' ).'' );
-}
-add_filter('login_headertitle','custom_headertitle');
 /*
  * 强制阻止WordPress代码转义，关于代码高亮可以看这里http://googlo.me/2986.html
  */
