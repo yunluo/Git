@@ -891,7 +891,7 @@ add_filter('login_headerurl', create_function(false,"return get_bloginfo('url');
 add_filter('login_headertitle', create_function(false,"return get_bloginfo('name');"));
 
 function custom_login_head(){
-    echo'<style type="text/css">body{background: url(//tu.ihuan.me/api/me_all_pic);width:100%;height:100%;background-image:url(//tu.ihuan.me/api/me_all_pic);-moz-background-size: 100% 100%;-o-background-size: 100% 100%;-webkit-background-size: 100% 100%;background-size: 100% 100%;-moz-border-image: url(//tu.ihuan.me/api/me_all_pic) 0;background-repeat:no-repeat\9;background-image:none\9;}</style>';
+    echo'<style type="text/css">body{background: url(//tu.ihuan.me/api/me_all_pic);width:100%;height:100%;background-image:url(//tu.ihuan.me/api/me_all_pic);-moz-background-size: 100% 100%;-o-background-size: 100% 100%;-webkit-background-size: 100% 100%;background-size: 100% 100%;-moz-border-image: url(//tu.ihuan.me/api/me_all_pic) 0;background-repeat:no-repeat\9;background-image:none\9;}h1 a { background-image:url('.get_bloginfo('url').'/favicon.ico)!important;width:32px;height:32px;-webkit-border-radius:50px;-moz-border-radius:50px;border-radius:50px;}</style>';
 }
 add_action('login_head', 'custom_login_head');
 
