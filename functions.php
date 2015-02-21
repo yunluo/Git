@@ -7,7 +7,7 @@ include('widgets/index.php');
 
 function deel_setup(){
 
-	//去除头部冗余代码
+    //去除头部冗余代码
 	remove_action( 'wp_head',   'feed_links_extra', 3 );
 	remove_action( 'wp_head',   'rsd_link' );
 	remove_action( 'wp_head',   'wlwmanifest_link' );
@@ -1080,6 +1080,14 @@ function add_redirect_comment_link($text = ''){
 }
 function redirect_comment_link(){
     $redirect = $_GET['r'];
+	$redirect = trim($redirect); //去除空格
+	$redirect = str_replace("\t","",$redirect); //去除制表符号
+	$redirect = str_replace("\n", "", str_replace(" ", "", $redirect));//去除空格和换行
+	$redirect = str_replace("'","",$redirect); //去除单引号
+	$redirect = strip_tags($redirect,""); //去除HTML代码
+	$redirect = str_replace("\r\n","",$redirect); //去除回车换行符号
+	$redirect = str_replace("\r","",$redirect); //去除回车
+	$redirect = trim($redirect); //去除空格
     if($redirect){
         if(strpos($_SERVER['HTTP_REFERER'],get_option('home')) !== false){
             header("Location: $redirect");
