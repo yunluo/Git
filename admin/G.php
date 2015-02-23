@@ -672,7 +672,7 @@ function mytheme_admin() {
         <td>
             <label class="checkbox inline">
                 <input type="checkbox" id="d_updates_b" name="d_updates_b" <?php if(dopt('d_updates_b')) echo 'checked="checked"' ?>> 禁止主题更新
-            </label><br><hr />
+            </label><span class="d_tip">选择后，您将无法收到本主题的更新推送，所以云落墙裂不推荐选择勾选</span><br><hr />
         </td>
     </tr>
     <tr>
