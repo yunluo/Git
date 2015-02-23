@@ -1571,4 +1571,5 @@ function attachment_replace($text){
 if ( is_admin() && dopt('d_qiniucdn_b') ) {
 add_filter('wp_get_attachment_url', 'attachment_replace');
 }
+
 ?>
