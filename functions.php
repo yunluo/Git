@@ -261,7 +261,7 @@ function duoshuo_avatar($avatar) {
  $avatar = str_replace(array("www.gravatar.com","0.gravatar.com","1.gravatar.com","2.gravatar.com"),"gravatar.duoshuo.com",$avatar);
  return $avatar;
 }if( dopt('d_avatar_ds') ){
- add_filter( 'get_avatar', 'duoshuo_avatar', 10, 3 );
+ add_filter( 'get_avatar', 'googlo_duoshuo_avatar', 10, 3 );
  }
 //关键字
 function deel_keywords() {
@@ -661,22 +661,21 @@ add_theme_support ( 'custom-background', array (
 ) );
 
 //禁用谷歌字体
+if( dopt('d_fuckziti_b') ):
 function googlo_remove_open_sans_from_wp_core() {
     wp_deregister_style( 'open-sans' );
     wp_register_style( 'open-sans', false );
     wp_enqueue_style('open-sans','');
 }
-if( dopt('d_fuckziti_b') ){
 add_action( 'init', 'googlo_remove_open_sans_from_wp_core' );
-}
+endif;
 
 //免插件去除Category
-if( dopt('d_category_b') ){
+if( dopt('d_category_b') ):
 add_action( 'load-themes.php',  'no_category_base_refresh_rules');
 add_action('created_category', 'no_category_base_refresh_rules');
 add_action('edited_category', 'no_category_base_refresh_rules');
 add_action('delete_category', 'no_category_base_refresh_rules');
-}
 function no_category_base_refresh_rules() {
 	global $wp_rewrite;
 	$wp_rewrite -> flush_rules();
@@ -734,6 +733,7 @@ function no_category_base_request($query_vars) {
 	}
 	return $query_vars;
 }
+endif;
 
 //添加文章版权信息
 function copyright($content) {
@@ -745,6 +745,7 @@ return $content;
 add_filter ('the_content', 'copyright');
 
 //fancybox图片灯箱效果
+if( dopt('d_fancybox_b') ):
 function fancybox ($content)
 { global $post;
 $pattern = "/<a(.*?)href=('|\")([^>]*).(bmp|gif|jpeg|jpg|png|swf)('|\")(.*?)>(.*?)<\/a>/i";
@@ -752,9 +753,8 @@ $replacement = '<a$1href=$2$3.$4$5 rel="box" class="fancybox"$6>$7</a>';
 $content = preg_replace($pattern, $replacement, $content);
 return $content;
 }
-if( dopt('d_fancybox_b') ){
 add_filter('the_content', 'fancybox');
-}
+endif;
 
 //WordPress文字标签关键词自动内链
 $match_num_from = 1;		//一篇文章中同一個標籤少於幾次不自動鏈接
@@ -772,7 +772,7 @@ function tag_link($content){
 				$link = get_tag_link($tag->term_id);
 				$keyword = $tag->name;
 				$cleankeyword = stripslashes($keyword);
-				$url = "<a href=\"$link\" title=\"".str_replace('%s',addcslashes($cleankeyword, '$'),__('查看更多关于 %s 的文章'))."\"";
+				$url = "<a href=\"$link\" title=\"".str_replace('%s',addcslashes($cleankeyword, '$'),__('查看更多关于%s的文章'))."\"";
 				$url .= ' target="_blank"';
 				$url .= ">".addcslashes($cleankeyword, '$')."</a>";
 				$limit = rand($match_num_from,$match_num_to);
@@ -892,7 +892,7 @@ add_filter('login_headerurl', create_function(false,"return get_bloginfo('url');
 add_filter('login_headertitle', create_function(false,"return get_bloginfo('name');"));
 
 function custom_login_head(){
-    echo'<style type="text/css">body{background: url(//tu.ihuan.me/api/me_all_pic);width:100%;height:100%;background-image:url(//tu.ihuan.me/api/me_all_pic);-moz-background-size: 100% 100%;-o-background-size: 100% 100%;-webkit-background-size: 100% 100%;background-size: 100% 100%;-moz-border-image: url(//tu.ihuan.me/api/me_all_pic) 0;background-repeat:no-repeat\9;background-image:none\9;}h1 a { background-image:url('.get_bloginfo('url').'/favicon.ico)!important;width:32px;height:32px;-webkit-border-radius:50px;-moz-border-radius:50px;border-radius:50px;}</style>';
+    echo'<style type="text/css">body{background: url(//tu.ihuan.me/api/me_all_pic_go);width:100%;height:100%;background-image:url(//tu.ihuan.me/api/me_all_pic_go);-moz-background-size: 100% 100%;-o-background-size: 100% 100%;-webkit-background-size: 100% 100%;background-size: 100% 100%;-moz-border-image: url(//tu.ihuan.me/api/me_all_pic_go) 0;background-repeat:no-repeat\9;background-image:none\9;}h1 a { background-image:url('.get_bloginfo('url').'/favicon.ico)!important;width:32px;height:32px;-webkit-border-radius:50px;-moz-border-radius:50px;border-radius:50px;}</style>';
 }
 add_action('login_head', 'custom_login_head');
 
@@ -1037,7 +1037,7 @@ function wp_iframe_handler_youku( $matches, $attr, $url, $rawattr ) {
         $width  = (int) $rawattr['width'];
         $height = (int) $rawattr['height'];
     } else {
-        list( $width, $height ) = wp_expand_dimensions( 480, 400, $attr['width'], $attr['height'] );
+        list( $width, $height ) = wp_expand_dimensions( 500, 400, $attr['width'], $attr['height'] );
     }
     $iframe = '<iframe width='. esc_attr($width) .' height='. esc_attr($height) .' src="http://player.youku.com/embed/'. esc_attr($matches[1]) .'" frameborder=0 allowfullscreen></iframe>';
     return apply_filters( 'iframe_youku', $iframe, $matches, $attr, $url, $ramattr );
@@ -1050,7 +1050,7 @@ function wp_iframe_handler_tudou( $matches, $attr, $url, $rawattr ) {
         $width  = (int) $rawattr['width'];
         $height = (int) $rawattr['height'];
     } else {
-        list( $width, $height ) = wp_expand_dimensions( 480, 400, $attr['width'], $attr['height'] );
+        list( $width, $height ) = wp_expand_dimensions( 500, 400, $attr['width'], $attr['height'] );
     }
     $iframe = '<iframe width='. esc_attr($width) .' height='. esc_attr($height) .' src="http://www.tudou.com/programs/view/html5embed.action?code='. esc_attr($matches[1]) .'" frameborder=0 allowfullscreen></iframe>';
     return apply_filters( 'iframe_tudou', $iframe, $matches, $attr, $url, $ramattr );
