@@ -1,6 +1,5 @@
 <aside class="sidebar">
 <div class="widget widget_text"><div class="textwidget"><div class="social">
-<?php if( dopt('d_tqq_b') || dopt('d_weibo_b') || dopt('d_baidu_b') || dopt('d_git_b') ){ ?>
 <?php if( dopt('d_weibo_b') ) echo '<a href="'.dopt('d_weibo').'" rel="external nofollow" title="新浪微博" target="_blank"><i class="sinaweibo fa fa-weibo"></i></a>'; ?>
 <?php if( dopt('d_tqq_b') ) echo '<a  href="'.dopt('d_tqq').'" rel="external nofollow" title="腾讯微博" target="_blank"><i class="tencentweibo fa fa-tencent-weibo"></i></a>'; ?>
 <?php if( dopt('d_git_b') ) echo '<a href="'.dopt('d_git').'" rel="external nofollow" title="GIT系统" target="_blank"><i class="git fa fa-git"></i></a>'; ?>
@@ -12,7 +11,6 @@
 <?php if( dopt('d_qqContact_b') ) echo '<a href="tencent://message/?uin='.dopt('d_qqContact').'&Site=&Menu=yes " rel="external nofollow" title="联系QQ" target="_blank"><i class="qq fa fa-qq"></i></a>'; ?>
 <?php echo'<a href="'.dopt('d_rss').'" rel="external nofollow" target="_blank"  title="订阅本站"><i class="rss fa fa-rss"></i></a>'; ?>
 </div></div></div>
-<?php } ?>
 <?php
 if (function_exists('dynamic_sidebar') && dynamic_sidebar('widget_sitesidebar')) : endif;
 
