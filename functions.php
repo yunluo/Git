@@ -5,7 +5,6 @@ add_action( 'after_setup_theme', 'deel_setup' );
 include('admin/G.php');
 include('widgets/index.php');
 
-
 function deel_setup(){
 
     //去除头部冗余代码
@@ -1032,27 +1031,15 @@ add_filter('the_content', 'make_clickable');
 
 // add youku using iframe
 function wp_iframe_handler_youku( $matches, $attr, $url, $rawattr ) {
-    // If the user supplied a fixed width AND height, use it
-    if ( !empty($rawattr['width']) && !empty($rawattr['height']) ) {
-        $width  = (int) $rawattr['width'];
-        $height = (int) $rawattr['height'];
-    } else {
-        list( $width, $height ) = wp_expand_dimensions( 500, 400, $attr['width'], $attr['height'] );
-    }
-    $iframe = '<iframe width='. esc_attr($width) .' height='. esc_attr($height) .' src="http://player.youku.com/embed/'. esc_attr($matches[1]) .'" frameborder=0 allowfullscreen></iframe>';
+	if(wp_is_mobile()){ $height = 250; } else { $height = 485; }
+    $iframe = '<iframe width=100% height='.$height.'px src="http://player.youku.com/embed/'. esc_attr($matches[1]) .'" frameborder=0 allowfullscreen></iframe>';
     return apply_filters( 'iframe_youku', $iframe, $matches, $attr, $url, $ramattr );
 }
 wp_embed_register_handler( 'youku_iframe', '#http://v.youku.com/v_show/id_(.*?).html#i', 'wp_iframe_handler_youku' );
 // add tudou using iframe
 function wp_iframe_handler_tudou( $matches, $attr, $url, $rawattr ) {
-    // If the user supplied a fixed width AND height, use it
-    if ( !empty($rawattr['width']) && !empty($rawattr['height']) ) {
-        $width  = (int) $rawattr['width'];
-        $height = (int) $rawattr['height'];
-    } else {
-        list( $width, $height ) = wp_expand_dimensions( 500, 400, $attr['width'], $attr['height'] );
-    }
-    $iframe = '<iframe width='. esc_attr($width) .' height='. esc_attr($height) .' src="http://www.tudou.com/programs/view/html5embed.action?code='. esc_attr($matches[1]) .'" frameborder=0 allowfullscreen></iframe>';
+	if(wp_is_mobile()){ $height = 250; } else { $height = 485; }
+    $iframe = '<iframe width=100% height='.$height.'px src="http://www.tudou.com/programs/view/html5embed.action?code='. esc_attr($matches[1]) .'" frameborder=0 allowfullscreen></iframe>';
     return apply_filters( 'iframe_tudou', $iframe, $matches, $attr, $url, $ramattr );
 }
 wp_embed_register_handler( 'tudou_iframe', '#http://www.tudou.com/programs/view/(.*?)/#i', 'wp_iframe_handler_tudou' );
