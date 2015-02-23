@@ -1324,12 +1324,13 @@ function baidu_record() {
 }
 
 //主题自动更新服务
+if ( !dopt('d_updates_b') ) :
 require 'modules/updates.php';
 $example_update_checker = new ThemeUpdateChecker(
     'yusi',
     'https://git.oschina.net/yunluo/API/raw/master/info.json'//此处链接不可改
 );
-
+endif;
 
 //本地头像
 class Simple_Local_Avatars {
