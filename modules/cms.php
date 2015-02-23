@@ -10,12 +10,10 @@
 <div class="relates"><h2 class="title"><small>最新文章</small><span class="more" style="float:right;"><a style="left: 0px;" href="/archives" title="阅读更多" target="_blank"><small>阅读更多</small></a></span></h2>
 
 <ul style="padding: 5px 0px 15px 20px;">
-<?php
- $recent_posts = wp_get_recent_posts();
- foreach( $recent_posts as $recent ){
- echo '<li><i class="fa fa-minus"></i><a href="' . get_permalink($recent["ID"]) . '" title="Look '.esc_attr($recent["post_title"]).'" >' . $recent["post_title"].'</a> ' . $recent["post_date"].'</li> ';
- }
-?>
+<?php query_posts('showposts=5'); ?>
+<?php while (have_posts()) : the_post(); ?>
+<li><i class="fa fa-minus"></i><a href="<?php the_permalink() ?>"><?php the_title(); ?></a>[<?php the_time(‘m-d-y’); ?>]</li>
+<?php endwhile;?>
 </ul>
 </div>
 <!-- 最新文章结束 -->

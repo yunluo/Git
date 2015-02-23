@@ -5,6 +5,7 @@ add_action( 'after_setup_theme', 'deel_setup' );
 include('admin/G.php');
 include('widgets/index.php');
 
+
 function deel_setup(){
 
     //去除头部冗余代码
