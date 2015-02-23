@@ -670,11 +670,12 @@ add_action( 'init', 'googlo_remove_open_sans_from_wp_core' );
 endif;
 
 //免插件去除Category
-if( dopt('d_category_b') ):
+if( dopt('d_category_b') ){
 add_action( 'load-themes.php',  'no_category_base_refresh_rules');
 add_action('created_category', 'no_category_base_refresh_rules');
 add_action('edited_category', 'no_category_base_refresh_rules');
 add_action('delete_category', 'no_category_base_refresh_rules');
+}
 function no_category_base_refresh_rules() {
 	global $wp_rewrite;
 	$wp_rewrite -> flush_rules();
@@ -732,7 +733,7 @@ function no_category_base_request($query_vars) {
 	}
 	return $query_vars;
 }
-endif;
+
 
 //添加文章版权信息
 function copyright($content) {
