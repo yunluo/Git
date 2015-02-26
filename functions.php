@@ -863,7 +863,9 @@ add_action( 'admin_print_styles', 'zfunc_admin_enqueue_scripts' );
 function reply_to_read($atts, $content=null){
 	extract(shortcode_atts(array("notice" => '<blockquote><p class="reply-to-read" style="color: blue;">注意：本段内容须成功“<a href="'. get_permalink().'#respond" title="回复本文">回复本文</a>”后“<a href="javascript:window.location.reload();" title="刷新本页">刷新本页</a>”方可查看！</p></blockquote>'), $atts));
 	if(is_super_admin()){
-		return $content;	//如果用户是管理员则直接显示内容
+		$return = '<div class="showhide"><h4>本文隐藏的内容</h4>';
+		$return .= $content;
+		$return .= '</div>';//如果用户是管理员则直接显示内容
 	}
 	$email = null;
 	$user_ID = (int)wp_get_current_user()->ID;
@@ -872,7 +874,9 @@ function reply_to_read($atts, $content=null){
 	}else if(isset($_COOKIE['comment_author_email_'.COOKIEHASH])){
 		$email = str_replace('%40', '@', $_COOKIE['comment_author_email_'.COOKIEHASH]);		//如果用户尚未登入但COOKIE内储存有邮箱信息
 	}else{
-		return $notice;		//如无法获取邮箱则返回提示信息
+			$return = '<div class="showhide"><h4>本文隐藏的内容</h4>';
+			$return .= $content;
+			$return .= '</div>';//如无法获取邮箱则返回提示信息
 	}
 	if(empty($email)){
 		return $notice;		//如邮箱为空则返回提示信息
@@ -881,7 +885,9 @@ function reply_to_read($atts, $content=null){
 	$post_id = get_the_ID();	//获取文章的ID
 	$query = "SELECT `comment_ID` FROM {$wpdb->comments} WHERE `comment_post_ID`={$post_id} and `comment_approved`='1' and `comment_author_email`='{$email}' LIMIT 1";
 	if($wpdb->get_results($query)){
-		return $content;		//查询到对应的评论即正常显示内容
+			$return = '<div class="showhide"><h4>本文隐藏的内容</h4>';
+			$return .= $content;
+			$return .= '</div>';//查询到对应的评论即正常显示内容
 	}else{
 		return $notice;			//否则返回提示信息
 	}
