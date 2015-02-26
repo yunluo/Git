@@ -242,7 +242,7 @@ add_filter('get_avatar','deel_avatar');
 }
 //头像SSL链接
 function googlo_ssl_avatar($avatar) {
-  $avatar = preg_replace('/.*\/avatar\/(.*)\?s=([\d]+)&.*/','<img src="https://secure.gravatar.com/avatar/$1?s=$2" class="avatar avatar-$2" height="$2" width="$2">',$avatar);
+  $avatar = preg_replace('/.*\/avatar\/(.*)\?s=([\d]+)&.*/','<img src="//sdn.geekzu.org/avatar/$1?s=$2" class="avatar avatar-$2" height="$2" width="$2">',$avatar);
     return $avatar;
   }if( dopt('d_avatar_ssl') ){
 add_filter('get_avatar', 'googlo_ssl_avatar');
@@ -255,9 +255,9 @@ function googlo_get_avatar($avatar) {
 }if( dopt('d_avatar_qn') ){
 add_filter( 'get_avatar', 'googlo_get_avatar', 10, 3 );
 }
-//多说头像镜像
+//极客族头像镜像
 function duoshuo_avatar($avatar) {
- $avatar = str_replace(array("www.gravatar.com","0.gravatar.com","1.gravatar.com","2.gravatar.com"),"gravatar.duoshuo.com",$avatar);
+ $avatar = str_replace(array("www.gravatar.com","0.gravatar.com","1.gravatar.com","2.gravatar.com"),"fdn.geekzu.org/avatar",$avatar);
  return $avatar;
 }if( dopt('d_avatar_ds') ){
  add_filter( 'get_avatar', 'googlo_duoshuo_avatar', 10, 3 );
