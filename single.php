@@ -52,4 +52,7 @@
 		<?php if( dopt('d_adpost_03_b') ) echo '<div class="banner banner-comment">'.dopt('d_adpost_03').'</div>'; ?>
 	</div>
 </div>
-<?php get_sidebar(); get_footer(); ?>
+<?php if(!G_is_mobile() ){?>
+<?php get_sidebar();?>
+<?php }?>
+<?php get_footer(); ?>

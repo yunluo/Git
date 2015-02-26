@@ -24,4 +24,7 @@
 		<?php endif; ?>
 	</div>
 </div>
-<?php get_sidebar(); get_footer(); ?>
+<?php if(!G_is_mobile() ){?>
+<?php get_sidebar();?>
+<?php }?>
+<?php get_footer(); ?>
