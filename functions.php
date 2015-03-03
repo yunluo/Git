@@ -249,14 +249,14 @@ add_filter('get_avatar', 'googlo_ssl_avatar');
 }
 //七牛头像镜像(奶子提供)
 function googlo_get_avatar($avatar) {
- $avatar = str_replace(array("www.gravatar.com","secure.gravatar.com","0.gravatar.com","1.gravatar.com","2.gravatar.com"),
+ $avatar = str_replace(array("www.gravatar.com","0.gravatar.com","1.gravatar.com","2.gravatar.com"),
 "cd.v7v3.com",$avatar);
  return $avatar;
 }if( dopt('d_avatar_qn') ){
 add_filter( 'get_avatar', 'googlo_get_avatar', 10, 3 );
 }
 //极客族头像镜像
-function duoshuo_avatar($avatar) {
+function googlo_duoshuo_avatar($avatar) {
  $avatar = str_replace(array("www.gravatar.com","0.gravatar.com","1.gravatar.com","2.gravatar.com"),"fdn.geekzu.org/avatar",$avatar);
  return $avatar;
 }if( dopt('d_avatar_ds') ){
