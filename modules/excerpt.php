@@ -37,7 +37,7 @@ echo '<img class="thumb" src="';echo post_thumbnail_src();echo '?imageView2/1/w/
 echo '<img class="thumb" src="'.get_bloginfo("template_url").'/timthumb.php?src=';echo post_thumbnail_src();echo '&h=123&w=200&q=90&zc=1&ct=1" alt="'.get_the_title().'" height="123" width="200" />'; } ?>
 </a></div>
 	<?php } ?>
-		<span class="note"> <?php echo deel_strimwidth(strip_tags(apply_filters('the_content', $post->post_content)), 0, 160, '……<a href="'.post_permalink().'" rel="nofollow" class="more-link">继续阅读 &raquo;</a>'); ?></span>
+		<span class="note"> <?php echo deel_strimwidth(strip_tags(apply_filters('the_content', strip_shortcodes($post->post_content))), 0, 160, '……<a href="'.post_permalink().'" rel="nofollow" class="more-link">继续阅读 &raquo;</a>'); ?></span>
 <p class="auth-span">
 <?php if( !is_author() && !$_author ){ ?>
 		<span class="muted"><i class="fa fa-user"></i> <a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ) ?>"><?php echo get_the_author() ?></a></span>
