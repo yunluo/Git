@@ -198,7 +198,7 @@ function mytheme_admin() {
             </label>
         黄色<label class="checkbox inline">
                 <input type="checkbox" id="d_yellow_b" name="d_yellow_b" <?php if(dopt('d_yellow_b')) echo 'checked="checked"' ?>>
-            </label><span class="d_tip">不选择的话，默认是琴蓝色</span><br><hr />
+            </label><span class="d_tip">不选择的话，默认是轻蓝色</span><br><hr />
         </td>
     </tr>
 	    <tr>

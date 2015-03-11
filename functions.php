@@ -479,10 +479,10 @@ function refused_spam_comments( $comment_data ) {
 $pattern = '/[一-龥]/u';
 $jpattern ='/[ぁ-ん]+|[ァ-ヴ]+/u';
 if(!preg_match($pattern,$comment_data['comment_content'])) {
-err('写点汉字吧，博主外语很捉急！You should type some Chinese word!');
+err(__('写点汉字吧，博主外语很捉急！You should type some Chinese word!'));
 }
 if(preg_match($jpattern, $comment_data['comment_content'])){
-err('日文滚粗！Japanese Get out！日本語出て行け！ You should type some Chinese word！');
+err(__('日文滚粗！Japanese Get out！日本語出て行け！ You should type some Chinese word！'));
 }
 return( $comment_data );
 }
@@ -493,10 +493,9 @@ add_filter('preprocess_comment','refused_spam_comments');
 //屏蔽关键词，email，url，ip
 function Googlofuckspam($comment) {
     if(  is_user_logged_in()){ return $comment;} //登录用户无压力...
-
     if( wp_blacklist_check($comment['comment_author'],$comment['comment_author_email'],$comment['comment_author_url'], $comment['comment_content'], $comment['comment_author_IP'], $comment['comment_agent'] )){
             header("Content-type: text/html; charset=utf-8");
-            err('不好意思，您的评论违反本站评论规则');
+            err(__('不好意思，您的评论违反本站评论规则'));
     }  else  {
        return $comment;
     }
@@ -516,7 +515,7 @@ add_filter( 'pre_comment_approved', 'lang_url_spamcheck', 99, 2 );
 function Googlolink( $comment_data ) {
 		$links = '/http:\/\/|https:\/\/|www\./u';
 		if( preg_match($links,$comment_data['comment_author']) || preg_match($links,$comment_data['comment_content']) ){
-			err('在昵称和评论里面是不准发链接滴.');
+			err(__('在昵称和评论里面是不准发链接滴.'));
 		}
 		return( $comment_data );
 }if( dopt('d_spamComments_b') ){
