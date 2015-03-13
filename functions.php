@@ -897,8 +897,11 @@ add_filter('login_headerurl', create_function(false,"return get_bloginfo('url');
 add_filter('login_headertitle', create_function(false,"return get_bloginfo('name');"));
 
 function custom_login_head(){
-    echo'<style type="text/css">body{background: url(//tu.ihuan.me/api/me_all_pic_go);width:100%;height:100%;background-image:url(//tu.ihuan.me/api/me_all_pic_go);-moz-background-size: 100% 100%;-o-background-size: 100% 100%;-webkit-background-size: 100% 100%;background-size: 100% 100%;-moz-border-image: url(//tu.ihuan.me/api/me_all_pic_go) 0;background-repeat:no-repeat\9;background-image:none\9;}h1 a { background-image:url('.get_bloginfo('url').'/favicon.ico)!important;width:32px;height:32px;-webkit-border-radius:50px;-moz-border-radius:50px;border-radius:50px;}</style>';
-}
+$str=file_get_contents('http://cn.bing.com/HPImageArchive.aspx?idx=0&n=1');
+if(preg_match("/<url>(.+?)<\/url>/ies",$str,$matches)){
+$imgurl='http://cn.bing.com'.$matches[1];
+    echo'<style type="text/css">body{background: url('.$imgurl.');width:100%;height:100%;background-image:url('.$imgurl.');-moz-background-size: 100% 100%;-o-background-size: 100% 100%;-webkit-background-size: 100% 100%;background-size: 100% 100%;-moz-border-image: url('.$imgurl.') 0;background-repeat:no-repeat\9;background-image:none\9;}h1 a { background-image:url('.get_bloginfo('url').'/favicon.ico)!important;width:32px;height:32px;-webkit-border-radius:50px;-moz-border-radius:50px;border-radius:50px;}</style>';
+}}
 add_action('login_head', 'custom_login_head');
 
 /*
@@ -1577,5 +1580,54 @@ function attachment_replace($text){
 if ( is_admin() && dopt('d_qiniucdn_b') ) {
 add_filter('wp_get_attachment_url', 'attachment_replace');
 }
+
+if(!defined('ABSPATH')){ exit; }
+
+function googlo_register_form() {
+
+		$pass1=stripslashes( trim( $_POST['pass1'] ) );
+		$pass2=stripslashes( trim( $_POST['pass2'] ) );
+		$pass1=$pass1?$pass1:'';
+		$pass2=$pass2?$pass2:'';
+        ?>
+        <p>
+            <label for="pass1"><?php _e('填写密码'); ?><br />
+                <input type="password" name="pass1" id="pass1" class="input" value="<?php echo esc_attr( wp_unslash( $pass1 ) ); ?>" size="25" /></label>
+        </p>
+        <p>
+            <label for="pass2"><?php _e('重写密码'); ?><br />
+                <input type="password" name="pass2" id="pass2" class="input" value="<?php echo esc_attr( wp_unslash( $pass2 ) ); ?>" size="25" /></label>
+        </p>
+		<style type="text/css">#reg_passmail {display: none;}</style>
+        <?php
+    }
+add_action( 'register_form', 'googlo_register_form' );
+
+
+    function googlo_registration_errors( $errors, $sanitized_user_login, $user_email ) {
+        if ( empty( $_POST['pass1'] ) || ! empty( $_POST['pass1'] ) && trim( $_POST['pass1'] ) == '' ) {
+            $errors->add( 'pass1_error', __( '<strong>发生错误</strong>:请输入您的密码' ) );
+        }
+        if ( empty( $_POST['pass2'] ) || ! empty( $_POST['pass2'] ) && trim( $_POST['pass1'] ) == '' ) {
+            $errors->add( 'pass2_error', __( '<strong>发生错误</strong>:请再次输入您的密码' ) );
+        }
+        if (( !empty( $_POST['pass1'] ) &&  trim( $_POST['pass1'] ) != '' )&&( !empty( $_POST['pass2'] ) &&  trim( $_POST['pass2'] ) != '' )&&(trim( $_POST['pass1'])!=trim( $_POST['pass2'] ) )) {
+            $errors->add( 'pass2_error', __( '<strong>发生错误</strong>: 您两次输入的密码不一致' ) );
+        }
+        return $errors;
+    }
+add_filter( 'registration_errors', 'googlo_registration_errors', 10, 3 );
+
+
+function googlo_user_register( $user_id ) {
+    if ( ! empty( $_POST['pass1'] ) &&!empty( $_POST['pass2'] ) &&(trim( $_POST['pass1'])==trim( $_POST['pass2'] ))) {
+    	$pass=stripslashes( trim( $_POST['pass1'] ) );
+    	$userdata=array();
+    	$userdata['ID'] = $user_id;
+		$userdata['user_pass'] = $pass;
+		$user_id = wp_update_user( $userdata );
+    }
+}
+add_action( 'user_register', 'googlo_user_register' );
 
 ?>
