@@ -486,7 +486,7 @@ err(__('日文滚粗！Japanese Get out！日本語出て行け！ You should ty
 }
 return( $comment_data );
 }
-if( dopt('d_spamComments_b') ){
+if( dopt('d_spamComments_b')&& !is_user_logged_in() ){
 add_filter('preprocess_comment','refused_spam_comments');
 }
 
