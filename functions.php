@@ -1201,86 +1201,124 @@ function arr_split_zh($tempaddtext){
 }
 
 //自动下载外部图片开始
-function save_post_fix($content){
-   global $wpdb;
-    $post_id = get_the_ID();
-    $upload_dir = wp_upload_dir();
-    $path = $upload_dir["url"];
-    $realPath = $upload_dir["path"];
-    $pathbase = $upload_dir["baseurl"].'/';
+if( dopt('d_yuanpic_b') ):
+add_filter('content_save_pre', 'auto_save_image');
+function auto_save_image($content) {
+        $upload_path = '';
+        $upload_url_path = 'wp-content/uploads';
 
-   if(!is_dir($realPath)){
-    mkdirs($realPath);
-    }
+        //上传目录
+        if (($var = get_option('upload_path')) !=''){
+            $upload_path = $var;
+        } else {
+            $upload_path = 'wp-content/uploads';
+        }
+        if(get_option('uploads_use_yearmonth_folders')) {
+            $upload_path .= '/'.date("Y",time()).'/'.date("m",time());
+        }
 
-    $pagelink=array();
-    $pattern_page = '/<img([\s\S]*?)src=\\\\[\"|\'](.*?)\\\\[\"|\']([\s\S]*?)>/i';
-    preg_match_all($pattern_page, $content, $pagelink[]);
-    foreach ($pagelink[0][2] as $key => $value) {
-    $pic_url = $value;
-    $url_feter = parse_url($pic_url);
-    if(stripos($url_feter["host"],"'.get_bloginfo('url').'")){ //此处修改成自己的网址
-    continue;
-    }else{
-    $ch = curl_init();
-    curl_setopt($ch,CURLOPT_HEADER,1);
-    curl_setopt($ch, CURLOPT_NOBODY, TRUE);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-    curl_setopt($ch,CURLOPT_URL,$pic_url);
-    $hd = curl_exec($ch);
-   if(!empty($hd) && !(stripos($hd,'Content-Length: image/png')||stripos($hd,'Content-Length: image/jpg'))){
-    $fp =file_get_contents($pic_url);
-    $pic_name =basename($url_feter["path"]);
-    $savePath = $realPath.'/'.$pic_name;
-    $fullPath = $path.'/'.$pic_name;
-    if(file_exists($savePath)){
-    $savePath = $realPath.'/'.str_replace('.','_'.date("YmdHis").'.' ,$pic_name);
-    $fullPath = $path.'/'.str_replace('.','_'.date("YmdHis").'.' ,$pic_name);
-    }
+        //文件地址
+        if(($var = get_option('upload_url_path')) != '') {
+            $upload_url_path = $var;
+        } else {
+            $upload_url_path = 'wp-content/uploads';
+        }
+        if(get_option('uploads_use_yearmonth_folders')) {
+            $upload_url_path .= '/'.date("Y",time()).'/'.date("m",time());
+        }
 
-   if(file_put_contents($savePath,$fp)){
-    $content = str_replace($pic_url, $fullPath, $content);
-    $pic_xiangdui = str_replace($pathbase,'',$fullPath);
-    $wpdb->query("INSERT INTO wp_postmeta (post_id, meta_key, meta_value) VALUES ('{$post_id}', '_wp_attached_file' ,'{$pic_xiangdui}')");
-    $picInfo =array();
-    $picInfo['file'] = $pic_xiangdui;
-    $picInfo['width'] = $picSize[0];
-    $picInfo['height'] = $picSize[1];
-    $picInfo['sizes'] = array();
-    $picInfo['image_meta'] = array(
-    'aperture' => '0',
-    'credit'	=> '',
-    'camera'	=>'',
-    'caption' =>'',
-    'created_timestamp' =>'0',
-    'copyright' =>'0',
-    'focal_length' =>'0',
-    'iso'	=>'0',
-    'shutter_speed' =>'0',
-    'title' => ''
-    );
-    $picStr = serialize($picInfo);
-    $wpdb->query("INSERT INTO wp_postmeta (post_id, meta_key, meta_value) VALUES ('{$post_id}', '_wp_attachment_metadata' ,'{$picStr}')");
+        require_once ("../wp-includes/class-snoopy.php");
+        $snoopy_Auto_Save_Image = new Snoopy;
 
-    $daytime= date("Y-m-d H:i:s");
-    $daytimegmt =date("Y-m-d H:i:s",strtotime('-8 hours'));
-    list($pictitle)=explode('.',$pic_name);
-    $wpdb->query("
-    INSERT INTO wp_posts (post_author, post_date, post_date_gmt,post_content,post_title,post_excerpt,
-    post_status,comment_status,ping_status,post_password,post_name,to_ping,pinged,post_modified,post_modified_gmt,
-    post_content_filtered,post_parent,guid,menu_order,post_type,post_mime_type,comment_count) VALUES (
-    '1','{$daytime}','{$daytimegmt}','','{$pictitle}','','inherit','open','open','','{$pictitle}','','',
-    '{$daytime}','{$daytimegmt}','','0','{$fullPath}','0','attachment','".$picSize['mime']."','0')");
-    }
-    }
+        $img = array();
 
-    }
-    }
-    return $content;
-    }
-if( dopt('d_yuanpic_b') ){
-add_filter( 'content_save_pre', 'save_post_fix');
+        //以文章的标题作为图片的标题
+        if ( !empty( $_REQUEST['post_title'] ) )
+            $post_title = wp_specialchars( stripslashes( $_REQUEST['post_title'] ));
+        $text = stripslashes($content);
+        if (get_magic_quotes_gpc()) $text = stripslashes($text);
+        preg_match_all("/ src=(\"|\'){0,}(http:\/\/(.+?))(\"|\'|\s)/is",$text,$img);
+        $img = array_unique(dhtmlspecialchars($img[2]));
+        foreach ($img as $key => $value){
+            set_time_limit(180); //每个图片最长允许下载时间,秒
+            if(str_replace(get_bloginfo('url'),"",$value)==$value&&str_replace(get_bloginfo('home'),"",$value)==$value){
+                //判断是否是本地图片，如果不是，则保存到服务器
+                $fileext = substr(strrchr($value,'.'),1);
+                $fileext = strtolower($fileext);
+                if($fileext==""||strlen($fileext)>4)
+                    $fileext = "jpg";
+                $savefiletype = array('jpg','gif','png','bmp');
+                if (in_array($fileext, $savefiletype)){
+                    if($snoopy_Auto_Save_Image->fetch($value)){
+                        $get_file = $snoopy_Auto_Save_Image->results;
+                    }else{
+                        echo "error fetching file: ".$snoopy_Auto_Save_Image->error."<br>";
+                        echo "error url: ".$value;
+                        die();
+                    }
+                    $filetime = time();
+                    $filepath = "/".$upload_path;//图片保存的路径目录
+                    !is_dir("..".$filepath) ? mkdirs("..".$filepath) : null;
+                    $filename = date("His",$filetime).random(5);
+
+                    //$e = '../'.$filepath.$filename.'.'.$fileext;
+                    //if(!is_file($e)) {
+                    //  copy(htmlspecialchars_decode($value),$e);
+                    //}
+                    $fp = @fopen("..".$filepath.$filename.".".$fileext,"w");
+                    @fwrite($fp,$get_file);
+                    fclose($fp);
+
+                    $wp_filetype = wp_check_filetype( $filename.".".$fileext, false );
+                    $type = $wp_filetype['type'];
+                    $post_id = (int)$_POST['temp_ID2'];
+                    $title = $post_title;
+                    $url = $upload_url_path.$filename.".".$fileext;
+                    $file = $_SERVER['DOCUMENT_ROOT'].$filepath.$filename.".".$fileext;
+
+                    //添加数据库记录
+                    $attachment = array(
+                        'post_type' => 'attachment',
+                        'post_mime_type' => $type,
+                        'guid' => $url,
+                        'post_parent' => $post_id,
+                        'post_title' => $title,
+                        'post_content' => '',
+                    );
+                    $id = wp_insert_attachment($attachment, $file, $post_parent);
+                    $text = str_replace($value,$url,$text); //替换文章里面的图片地址
+                }
+            }
+        }
+        $content = AddSlashes($text);
+        remove_filter('content_save_pre', 'auto_save_image');
+        return $content;
 }
+
+function mkdirs($dir)
+{
+    if(!is_dir($dir))
+    {
+        mkdirs(dirname($dir));
+        mkdir($dir);
+    }
+    return ;
+}
+function dhtmlspecialchars($string) {
+    if(is_array($string)) {
+        foreach($string as $key => $val) {
+            $string[$key] = dhtmlspecialchars($val);
+        }
+    }else{
+        $string = str_replace('&', '&', $string);
+        $string = str_replace('"', '"', $string);
+        $string = str_replace('<', '<', $string);
+        $string = str_replace('>', '>', $string);
+        $string = preg_replace('/&(#\d;)/', '&\1', $string);
+    }
+    return $string;
+}
+endif;
 
 //百度收录提示
 function baidu_check($url){
@@ -1630,4 +1668,17 @@ function googlo_user_register( $user_id ) {
 }
 add_action( 'user_register', 'googlo_user_register' );
 
+//SMTP邮箱设置
+function googlo_mail_smtp( $phpmailer ){
+$phpmailer->From = ''.get_option('d_maildizhi_b').'';//发件人地址
+$phpmailer->FromName = ''.get_option('d_mailnichen_b').'';//发件人昵称
+$phpmailer->Host = ''.get_option('d_mailsmtp_b').'';//SMTP服务器地址
+$phpmailer->Port = ''.get_option('d_mailport_b').'';//SMTP邮件发送端口, 常用端口有：25、465、587, 具体联系邮件服务商
+$phpmailer->SMTPSecure = '';//SMTP加密方式(SSL/TLS)没有为空即可，具体联系邮件服务商, 以免设置错误, 无法正常发送邮件
+$phpmailer->Username = ''.get_option('d_mailuser_b').'';//邮箱帐号
+$phpmailer->Password = ''.get_option('d_mailpass_b').'';//邮箱密码
+$phpmailer->IsSMTP();
+$phpmailer->SMTPAuth = true;//启用SMTPAuth服务
+}
+add_action('phpmailer_init','googlo_mail_smtp');
 ?>
