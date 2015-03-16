@@ -164,15 +164,15 @@ function mytheme_admin() {
 	    <tr>
         <td class="d_tit">STMP邮箱设置</td>
         <td>
-		七牛CDN<label class="checkbox inline">
+		<label class="checkbox inline">
                 <input type="checkbox" id="d_stmpmail_b" name="d_stmpmail_b" <?php if(dopt('d_stmpmail_b')) echo 'checked="checked"' ?>>开启
 				</label>&nbsp;
-		发件人地址：<input placeholder="请输入您的七牛域名，结尾不带 / " type="text" id="d_maildizhi_b" name="d_maildizhi_b" value="<?php echo dopt('d_maildizhi_b'); ?>">
-		发件人昵称：<input placeholder="请输入您的七牛域名，结尾不带 / " type="text" id="d_mailnichen_b" name="d_mailnichen_b" value="<?php echo dopt('d_mailnichen_b'); ?>">
-		SMTP服务器地址：<input placeholder="请输入您的七牛域名，结尾不带 / " type="text" id="d_mailsmtp_b" name="d_mailsmtp_b" value="<?php echo dopt('d_mailsmtp_b'); ?>">
-		SMTP服务器端口：<input placeholder="请输入您的七牛域名，结尾不带 / " type="number" id="d_mailport_b" name="d_mailport_b" value="<?php echo dopt('d_mailport_b'); ?>">
-		邮箱账号：<input placeholder="请输入您的七牛域名，结尾不带 / " type="text" id="d_mailuser_b" name="d_mailuser_b" value="<?php echo dopt('d_mailuser_b'); ?>">
-		邮箱密码：<input placeholder="请输入您的七牛域名，结尾不带 / " type="text" id="d_mailpass_b" name="d_mailpass_b" value="<?php echo dopt('d_mailpass_b'); ?>">
+		发件人地址：<input placeholder="邮箱地址" type="smalltext" id="d_maildizhi_b" name="d_maildizhi_b" value="<?php echo dopt('d_maildizhi_b'); ?>">
+		发件人昵称：<input placeholder="随意输" type="smalltext" id="d_mailnichen_b" name="d_mailnichen_b" value="<?php echo dopt('d_mailnichen_b'); ?>">
+		SMTP服务器地址：<input type="smalltext" id="d_mailsmtp_b" name="d_mailsmtp_b" value="<?php echo dopt('d_mailsmtp_b'); ?>"><br><hr />
+		SMTP服务器端口：<input placeholder="25" type="number" id="d_mailport_b" name="d_mailport_b" value="<?php echo dopt('d_mailport_b'); ?>">
+		邮箱账号：<input placeholder="请输入您的账号" type="smalltext" id="d_mailuser_b" name="d_mailuser_b" value="<?php echo dopt('d_mailuser_b'); ?>">
+		邮箱密码：<input placeholder="请输入您的密码" type="smalltext" id="d_mailpass_b" name="d_mailpass_b" value="<?php echo dopt('d_mailpass_b'); ?>">
             &nbsp;&nbsp;
 		<br><hr />
         </td>
