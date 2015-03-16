@@ -21,7 +21,7 @@ class d_tag extends WP_Widget {
 		$link = $instance['link'];
 
 		$mo='';
-		if( $more!='' && $link!='' ) $mo='<a class="btn" href="'.$link.'">'.$more.'</a>';
+		if( $more!='' && $link!='' ) $mo='<a class="btn" target="_blank" href="'.$link.'">'.$more.'</a>';
 
 		echo $before_widget;
 		echo $before_title.$mo.$title.$after_title;
@@ -29,7 +29,7 @@ class d_tag extends WP_Widget {
 		$tags_list = get_tags('orderby=count&order=DESC&number='.$count.'&offset='.$offset);
 		if ($tags_list) {
 			foreach($tags_list as $tag) {
-				echo '<a title="'. $tag->count .'个话题" href="'.get_tag_link($tag).'">'. $tag->name .' ('. $tag->count .')</a>';
+				echo '<a title="'. $tag->count .'个话题" target="_blank" href="'.get_tag_link($tag).'">'. $tag->name .' ('. $tag->count .')</a>';
 			}
 		}else{
 			echo '暂无标签！';

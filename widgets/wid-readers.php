@@ -23,7 +23,7 @@ class d_reader extends WP_Widget {
 		$link = $instance['link'];
 
 		$mo='';
-		if( $more!='' && $link!='' ) $mo='<a class="btn" href="'.$link.'">'.$more.'</a>';
+		if( $more!='' && $link!='' ) $mo='<a class="btn" target="_blank" href="'.$link.'">'.$more.'</a>';
 
 		echo $before_widget;
 		echo $before_title.$mo.$title.$after_title;

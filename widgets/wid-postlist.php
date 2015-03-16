@@ -24,7 +24,7 @@ class d_postlist extends WP_Widget {
 
 		$mo='';
 		$style='';
-		if( $more!='' && $link!='' ) $mo='<a class="btn" href="'.$link.'">'.$more.'</a>';
+		if( $more!='' && $link!='' ) $mo='<a class="btn" target="_blank" href="'.$link.'">'.$more.'</a>';
 		if( !$img ) $style = ' class="nopic"';
 		echo $before_widget;
 		echo $before_title.$mo.$title.$after_title;
@@ -100,7 +100,7 @@ function dtheme_posts_list($orderby,$limit,$cat,$img) {
 	while (have_posts()) : the_post();
 ?>
 <li>
-<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" ><?php if( dopt('d_qiniucdn_b') ){ if( $img ){echo '<span class="thumbnail">';echo '<img src="';echo post_thumbnail_src();echo '?imageView2/1/w/100/h/64/q/85" alt="'.get_the_title().'" /></span>'; }else{$img = '';}}else{if( $img ){echo '<span class="thumbnail">';echo '<img src="'.get_bloginfo("template_url").'/timthumb.php?src=';echo post_thumbnail_src();echo '&h=64&w=100&q=90&zc=1&ct=1" alt="'.get_the_title().'" /></span>'; }else{$img = '';}}?><span class="text"><?php the_title(); ?></span><span class="muted"><?php the_time('Y-m-d');?></span><span class="muted"><?php comments_number('0', '1评论', '%评论'); ?></span></a>
+<a target="_blank" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" ><?php if( dopt('d_qiniucdn_b') ){ if( $img ){echo '<span class="thumbnail">';echo '<img src="';echo post_thumbnail_src();echo '?imageView2/1/w/100/h/64/q/85" alt="'.get_the_title().'" /></span>'; }else{$img = '';}}else{if( $img ){echo '<span class="thumbnail">';echo '<img src="'.get_bloginfo("template_url").'/timthumb.php?src=';echo post_thumbnail_src();echo '&h=64&w=100&q=90&zc=1&ct=1" alt="'.get_the_title().'" /></span>'; }else{$img = '';}}?><span class="text"><?php the_title(); ?></span><span class="muted"><?php the_time('Y-m-d');?></span><span class="muted"><?php comments_number('0', '1评论', '%评论'); ?></span></a>
 </li>
 <?php
 
