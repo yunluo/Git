@@ -8,7 +8,7 @@ function d_slides() {
 class d_slide extends WP_Widget {
 	function d_slide() {
 		$widget_ops = array( 'classname' => 'd_slide', 'description' => '侧边栏小幻灯片' );
-		$this->WP_Widget( 'd_slide', 'G-幻灯片', $widget_ops, $control_ops );
+		$this->WP_Widget( 'd_slide', 'G-幻灯片', $widget_ops );
 	}
 
 	function widget( $args, $instance ) {

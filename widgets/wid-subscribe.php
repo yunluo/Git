@@ -8,7 +8,7 @@ function d_subscribes() {
 class d_subscribe extends WP_Widget {
 	function d_subscribe() {
 		$widget_ops = array( 'classname' => 'd_subscribe', 'description' => '显示邮箱订阅组件' );
-		$this->WP_Widget( 'd_subscribe', 'G-邮箱订阅', $widget_ops, $control_ops );
+		$this->WP_Widget( 'd_subscribe', 'G-邮箱订阅', $widget_ops );
 	}
 
 	function widget( $args, $instance ) {

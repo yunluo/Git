@@ -8,7 +8,7 @@ function d_banners() {
 class d_banner extends WP_Widget {
 	function d_banner() {
 		$widget_ops = array( 'classname' => 'd_banner', 'description' => '显示一个广告(包括富媒体)' );
-		$this->WP_Widget( 'd_banner', 'G-广告', $widget_ops, $control_ops );
+		$this->WP_Widget( 'd_banner', 'G-广告', $widget_ops );
 	}
 
 	function widget( $args, $instance ) {
