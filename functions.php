@@ -1680,5 +1680,7 @@ $phpmailer->Password = ''.get_option('d_mailpass_b').'';//邮箱密码
 $phpmailer->IsSMTP();
 $phpmailer->SMTPAuth = true;//启用SMTPAuth服务
 }
+if(dopt('d_stmpmail_b')){
 add_action('phpmailer_init','googlo_mail_smtp');
+}
 ?>
