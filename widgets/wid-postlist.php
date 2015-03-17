@@ -8,7 +8,7 @@ function d_postlists() {
 class d_postlist extends WP_Widget {
 	function d_postlist() {
 		$widget_ops = array( 'classname' => 'd_postlist', 'description' => '图文展示（最新文章+热门文章+随机文章）' );
-		$this->WP_Widget( 'd_postlist', 'G-聚合文章', $widget_ops, $control_ops );
+		$this->WP_Widget( 'd_postlist', 'G-聚合文章', $widget_ops );
 	}
 
 	function widget( $args, $instance ) {

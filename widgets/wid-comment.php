@@ -8,7 +8,7 @@ function d_comments() {
 class d_comment extends WP_Widget {
 	function d_comment() {
 		$widget_ops = array( 'classname' => 'd_comment', 'description' => '显示网友最新评论（头像+名称+评论）' );
-		$this->WP_Widget( 'd_comment', 'G-最新评论', $widget_ops, $control_ops );
+		$this->WP_Widget( 'd_comment', 'G-最新评论', $widget_ops );
 	}
 
 	function widget( $args, $instance ) {

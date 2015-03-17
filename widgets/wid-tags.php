@@ -8,7 +8,7 @@ function d_tags() {
 class d_tag extends WP_Widget {
 	function d_tag() {
 		$widget_ops = array( 'classname' => 'd_tag', 'description' => '显示热门标签' );
-		$this->WP_Widget( 'd_tag', 'G-标签云', $widget_ops, $control_ops );
+		$this->WP_Widget( 'd_tag', 'G-标签云', $widget_ops );
 	}
 
 	function widget( $args, $instance ) {
