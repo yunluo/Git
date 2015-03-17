@@ -1069,37 +1069,6 @@ function hui_admin_comment_ctrlenter(){
     </script>';
 };
 
-//评论链接重写
-function add_redirect_comment_link($text = ''){
-    $text=str_replace('href="', 'href="'.get_option('home').'/?r=', $text);
-    $text=str_replace("href='", "href='".get_option('home')."/?r=", $text);
-    return $text;
-}
-function redirect_comment_link(){
-    $redirect = $_GET['r'];
-	$redirect = trim($redirect); //去除空格
-	$redirect = str_replace("\t","",$redirect); //去除制表符号
-	$redirect = str_replace("\n", "", str_replace(" ", "", $redirect));//去除空格和换行
-	$redirect = str_replace("'","",$redirect); //去除单引号
-	$redirect = strip_tags($redirect,""); //去除HTML代码
-	$redirect = str_replace("\r\n","",$redirect); //去除回车换行符号
-	$redirect = str_replace("\r","",$redirect); //去除回车
-	$redirect = trim($redirect); //去除空格
-    if($redirect){
-        if(strpos($_SERVER['HTTP_REFERER'],get_option('home')) !== false){
-            header("Location: $redirect");
-            exit;
-        }
-        else {
-            header("Location: ".bloginfo('url')."/");
-            exit;
-        }
-    }
-}
-add_action('init', 'redirect_comment_link');
-add_filter('get_comment_author_link', 'add_redirect_comment_link', 5);
-add_filter('comment_text', 'add_redirect_comment_link', 99);
-
 //获取所有站点分类id
 function Bing_show_category() {
 	global $wpdb;
