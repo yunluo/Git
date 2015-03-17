@@ -3,7 +3,7 @@
 	Template Name: 用户投稿
 	description: template for G theme
 */
-if( !dopt('d_tougao_b') ) die('off');
+if( !dopt('d_tougao_b') ) die('逗比，你确定你投稿功能开启了吗？→_→ ');
 if( isset($_POST['tougao_form']) && $_POST['tougao_form'] == 'send') {
 global $wpdb;
 $current_url = ''.get_permalink().''; // 注意修改此处的链接地址
@@ -15,6 +15,7 @@ wp_die('您投稿也太勤快了吧，先歇会儿！<a href="'.$current_url.'">
 $name = isset( $_POST['tougao_authorname'] ) ? trim(htmlspecialchars($_POST['tougao_authorname'], ENT_QUOTES)) : '';
 $title = isset( $_POST['tougao_title'] ) ? trim(htmlspecialchars($_POST['tougao_title'], ENT_QUOTES)) : '';
 $content = isset( $_POST['tougao_content'] ) ? trim(htmlspecialchars($_POST['tougao_content'], ENT_QUOTES)) : '';
+$tomail = get_option('d_tougao_mailto');
 // 表单项数据验证
 if ( empty($name) || mb_strlen($name) > 20 ) {
 wp_die('昵称必须填写，且长度不得超过20字。<a href="'.$current_url.'">点此返回</a>');
@@ -30,9 +31,9 @@ $tougao = array('post_title' => $title,'post_content' => $post_content);
 // 将文章插入数据库
 $status = wp_insert_post( $tougao );
 
-if ($status != 0) {
+if ($status != 0 ) {
 // 投稿成功给博主发送邮件
-if( dopt('d_tougao_mailto') ) mail(dopt('d_tougao_mailto'), "站长，有新投稿！ ".$title, $post_content);
+wp_mail($tomail, "站长，有新投稿！ ", $title, $post_content);
 wp_die('投稿成功！感谢投稿！<a href="'.$current_url.'">点此返回</a>', '投稿成功');
 }
 else {
@@ -52,9 +53,6 @@ get_header();
 <h1 class="pull-left">
 <a href="<?php the_permalink() ?>"><?php the_title(); ?></a>
 </h1>
-<div class="pull-right"><!-- 百度分享 -->
-<?php deel_share() ?>
-</div>
 </header>
 <?php while (have_posts()) : the_post(); ?>
 <div class="article-content">
@@ -66,8 +64,8 @@ get_header();
 <div style="text-align: left; padding-top: 10px;">
 <label for="tougao_title">标题:*</label><input style="width : 98%;" type="text" size="80" value="" id="tougao_title" name="tougao_title" />
 </div>
-<div style="text-align: left; padding: 8px;border:#ECF0F1 2px solid;">
-<?php wp_editor( '', 'tougao_content', array('media_buttons' => false )); ?>
+<div style="text-align: left; padding-top: 10px;">
+<label for="tougao_content">内容:*</label><textarea style="width : 98%;" name="tougao_content" rows="12" cols=""></textarea>
 </div>
 <div style="text-align: center; padding-top: 10px;">
 <input type="hidden" value="send" name="tougao_form" />
@@ -78,5 +76,4 @@ get_header();
 <?php comments_template('', true); endwhile; ?>
 </div>
 </div>
-
 <?php get_footer(); ?>
