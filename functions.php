@@ -1117,8 +1117,19 @@ function Bing_show_category() {
 	}
 }
 
+
 //新文章同步到新浪微博
 function post_to_sina_weibo($post_ID) {
+
+  function catch_first_image() {
+    global $post, $posts;
+    $first_img = '';
+    ob_start();
+    ob_end_clean();
+    $output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content,$matches);
+    $first_img = $matches [1] [0];
+    return $first_img;
+}
 
    /* 此处修改为通过文章自定义栏目来判断是否同步 */
    if(get_post_meta($post_ID,'weibo_sync',true) == 1) return;
@@ -1138,10 +1149,22 @@ function post_to_sina_weibo($post_ID) {
        foreach ($tags as $tag ) {
           $keywords = $keywords.'#'.$tag->name."#";
        }
+	    /* 修改了下风格，并添加文章关键词作为微博话题，提高与其他相关微博的关联率 */
+		$string1 = '【' . strip_tags( $get_post_title ).'】：';
+		$string2 = $keywords.' [阅读全文]：'.get_permalink($post_ID);
 
-       /* 修改了下风格，并添加文章关键词作为微博话题，提高与其他相关微博的关联率 */
-       $status = '【' . strip_tags( $get_post_title ).'】：'.mb_strimwidth(strip_tags( apply_filters('the_content', $get_post_centent)),0, 180,'...') .$keywords. '[阅读全文]:' . get_permalink($post_ID) ;
+		/* 微博字数控制，避免超标同步失败 */
+		$wb_num = (138 - WeiboLength($string1.$string2))*2;
+		$status = $string1.mb_strimwidth(strip_tags( apply_filters('the_content', $get_post_centent)),0, $wb_num,'...').$string2;
 
+       /* 获取特色图片，如果没设置就抓取文章第一张图片 */
+       if (has_post_thumbnail()) {
+          $timthumb_src = wp_get_attachment_image_src( get_post_thumbnail_id($post_ID), 'full' );
+          $url = $timthumb_src[0];
+       /* 抓取第一张图片作为特色图片，需要主题函数支持 */
+       } else if(function_exists('catch_first_image')) {
+          $url = catch_first_image();
+       }
        /* 判断是否存在图片，定义不同的接口 */
        if(!empty($url)){
            $api_url = 'https://api.weibo.com/2/statuses/upload_url_text.json'; /* 新的API接口地址 */
@@ -1156,8 +1179,7 @@ function post_to_sina_weibo($post_ID) {
        /* 若同步成功，则给新增自定义栏目weibo_sync，避免以后更新文章重复同步 */
        add_post_meta($post_ID, 'weibo_sync', 1, true);
     }
-}
-if( dopt('d_sinasync_b') ){
+}if( dopt('d_sinasync_b') ){
 add_action('publish_post', 'post_to_sina_weibo', 0);
 }
 /*
