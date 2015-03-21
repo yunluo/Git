@@ -123,6 +123,7 @@ if (function_exists('register_sidebar')){
 }
 
 //页面伪静态
+if(dopt('d_pagehtml_b')):
 add_action('init', 'html_page_permalink', -1);
 register_activation_hook(__FILE__, 'active');
 register_deactivation_hook(__FILE__, 'deactive');
@@ -155,7 +156,7 @@ function active() {
 		$wp_rewrite->page_structure = str_replace(".html","",$wp_rewrite->page_structure);
 		$wp_rewrite->flush_rules();
 }
-
+endif;
 //面包屑导航
 function deel_breadcrumbs(){
     if( !is_single() ) return false;
