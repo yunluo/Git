@@ -24,7 +24,6 @@ if( is_singular() ){
 window._deel = {name: '<?php bloginfo('name') ?>',url: '<?php echo get_bloginfo("template_url") ?>', ajaxpager: '<?php echo dopt('d_ajaxpager_b') ?>', commenton: <?php echo $commenton ?>, roll: [<?php echo $sr_1 ?>,<?php echo $sr_2 ?>]}
 </script>
 <!--[if lt IE 9]><script src="<?php bloginfo('template_url'); ?>/js/html5.js"></script><![endif]-->
-<?php if( dopt('d_danru_b') ) echo '<style type="text/css">@keyframes fade-in{0%{opacity:0}40%{opacity:0}100%{opacity:1}}@-webkit-keyframes fade-in{0%{opacity:0}40%{opacity:0}100%{opacity:1}}.container{animation:fade-in;animation-duration:2.5s;-webkit-animation:fade-in 2.5s}</style>'; ?>
 <?php if( dopt('d_nosuojin_b') ) echo '<style type="text/css">.article-content{text-indent:0px;}</style>'; ?>
 </head>
 <body <?php body_class(); ?>>
