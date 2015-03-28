@@ -10,6 +10,7 @@
 			printf('<header class="archive-header"><h1>最新发布 第'.$paged.'页</h1><div class="archive-header-info"><p>'.get_option('blogname').get_option('blogdescription').'</p></div></header>');
 		}else{
 			if( dopt('d_sticky_b') ) include 'modules/sticky.php';
+			if( dopt('d_slick_b')&&!G_is_mobile() ) include 'modules/slick.php';
 		}
 		if( dopt('d_cms_b') ){
 			include 'modules/cms.php';
