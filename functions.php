@@ -1271,6 +1271,16 @@ function post_to_sina_weibo($post_ID) {
 		$wb_num = (138 - WeiboLength($string1.$string2))*2;
 		$status = $string1.mb_strimwidth(strip_tags( apply_filters('the_content', $get_post_centent)),0, $wb_num,'...').$string2;
 
+		function catch_first_image() {
+		global $post, $posts;
+		$first_img = '';
+		ob_start();
+		ob_end_clean();
+		$output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content,$matches);
+		$first_img = $matches [1] [0];
+		return $first_img;
+		}
+
        /* 获取特色图片，如果没设置就抓取文章第一张图片 */
        if (has_post_thumbnail()) {
           $timthumb_src = wp_get_attachment_image_src( get_post_thumbnail_id($post_ID), 'full' );
