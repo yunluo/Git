@@ -267,9 +267,9 @@ function dhtmlspecialchars($string) {
         $string = preg_replace('/&(#\d;)/', '&\1', $string);
     }
     return $string;
-}
+}if(dopt('d_yuanpic_b')){
 add_filter('content_save_pre', 'auto_save_image');
-
+}
 //面包屑导航
 function deel_breadcrumbs(){
     if( !is_single() ) return false;
