@@ -29,8 +29,12 @@ QTags.addButton( 'v_pink', '粉色文本', "[v_pink]", "[/v_pink]" );
 QTags.addButton( 'gb', '绿色按钮', "[gb href='']", "[/gb]" );
 QTags.addButton( 'bb', '蓝色按钮', "[bb href='']", "[/bb]" );
 QTags.addButton( 'yb', '黄色按钮', "[yb href='']", "[/yb]" );
+QTags.addButton( 'lhb', '透明按钮', "[lhb href='']", "[/lhb]" );
 QTags.addButton( 'music', '音乐按钮', "[music]", "[/music]" );
 QTags.addButton( 'collapse', '隐藏收缩', "[collapse]", "[/collapse]" );
 QTags.addButton( 'reply', '回复可见', "[reply]", "[/reply]" );
+QTags.addButton( 'imobv', '手机可见', "[mb_view]", "[/mb_view]" );
+QTags.addButton( 'ipcv', '电脑可见', "[pc_view]", "[/pc_view]" );
+QTags.addButton( 'fancydl', '弹窗下载', "[fanctdl href='']", "[/fanctdl]" );
 QTags.addButton( 'nextpage', '下一页', '<!--nextpage-->', "" );
 //这儿共有四对引号，分别是按钮的ID、显示名、点一下输入内容、再点一下关闭内容（此为空则一次输入全部内容），\n表示换行。
