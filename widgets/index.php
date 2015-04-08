@@ -1,5 +1,5 @@
 <?php
-
+include('wid-social.php');
 include('wid-banner.php');
 include('wid-readers.php');
 include('wid-postlist.php');
