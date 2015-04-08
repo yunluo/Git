@@ -27,7 +27,9 @@ window._deel = {name: '<?php bloginfo('name') ?>',url: '<?php echo get_bloginfo(
 <?php if( dopt('d_nosuojin_b') ) echo '<style type="text/css">.article-content{text-indent:0px;}</style>'; ?>
 </head>
 <body <?php body_class(); ?>>
+<?php if( dopt('d_topnav_b')&& !G_is_mobile() ){?>
 <div id="topnav"><?php echo str_replace("</ul></div>", "", ereg_replace("<div[^>]*><ul[^>]*>", "", wp_nav_menu(array('theme_location' => 'topnav', 'echo' => false)) )); ?></div>
+<?php } ?>
 <?php if( !dopt('d_pichead_b') ){?>
 <?php if(dopt('d_red_b')){ echo '<header id="header" class="header" style="background-color: #E74C3C;">';}elseif(dopt('d_blue_b')){ echo '<header id="header" class="header" style="background-color: #3B5998;">';}elseif(dopt('d_black_b')){echo '<header id="header" class="header" style="background-color: #616161;">';}elseif(dopt('d_purple_b')){echo '<header id="header" class="header" style="background-color: #9932CC;">';}elseif(dopt('d_yellow_b')){echo '<header id="header" class="header" style="background-color: #f5e011;">';}elseif(dopt('d_custom_color')){echo '<header id="header" class="header" style="background-color: '.dopt('d_color_nom').';">';}else{echo '<header id="header" class="header" style="background-color: #03A9F4;">';}?>
 <?php } ?>
