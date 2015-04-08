@@ -27,6 +27,7 @@ window._deel = {name: '<?php bloginfo('name') ?>',url: '<?php echo get_bloginfo(
 <?php if( dopt('d_nosuojin_b') ) echo '<style type="text/css">.article-content{text-indent:0px;}</style>'; ?>
 </head>
 <body <?php body_class(); ?>>
+<div id="topnav"><?php echo str_replace("</ul></div>", "", ereg_replace("<div[^>]*><ul[^>]*>", "", wp_nav_menu(array('theme_location' => 'topnav', 'echo' => false)) )); ?></div>
 <?php if( !dopt('d_pichead_b') ){?>
 <?php if(dopt('d_red_b')){ echo '<header id="header" class="header" style="background-color: #E74C3C;">';}elseif(dopt('d_blue_b')){ echo '<header id="header" class="header" style="background-color: #3B5998;">';}elseif(dopt('d_black_b')){echo '<header id="header" class="header" style="background-color: #616161;">';}elseif(dopt('d_purple_b')){echo '<header id="header" class="header" style="background-color: #9932CC;">';}elseif(dopt('d_yellow_b')){echo '<header id="header" class="header" style="background-color: #f5e011;">';}elseif(dopt('d_custom_color')){echo '<header id="header" class="header" style="background-color: '.dopt('d_color_nom').';">';}else{echo '<header id="header" class="header" style="background-color: #03A9F4;">';}?>
 <?php } ?>
@@ -49,7 +50,8 @@ window._deel = {name: '<?php bloginfo('name') ?>',url: '<?php echo get_bloginfo(
 <?php if( dopt('d_bdshare_b') ) echo '<style type="text/css">.bdsharebuttonbox a{cursor:pointer;border-bottom:0;margin-right:5px;width:28px;height:28px;line-height:28px;color:#fff}.bds_renren{background:#94b3eb}.bds_qzone{background:#fac33f}.bds_more{background:#40a57d}.bds_weixin{background:#7ad071}.bdsharebuttonbox a:hover{background-color:#7fb4ab;color:#fff;border-bottom:0}</style>'; ?>
 
 <ul class="nav"><?php echo str_replace("</ul></div>", "", ereg_replace("<div[^>]*><ul[^>]*>", "", wp_nav_menu(array('theme_location' => 'nav', 'echo' => false)) )); ?>
-<li style="float:right;"><div class="toggle-search"><i class="fa fa-search"></i></div><div class="search-expand" style="display: none;"><div class="search-expand-inner"><form method="get" class="searchform themeform" onsubmit="location.href='<?php echo home_url('/search/'); ?>' + encodeURIComponent(this.s.value).replace(/%20/g, '+'); return false;" action="/"><div> <input type="ext" class="search" name="s" onblur="if(this.value=='')this.value='search...';" onfocus="if(this.value=='search...')this.value='';" value="search..."></div></form></div></div>
+<li style="float:right;"><div class="toggle-search"><i class="fa fa-search"></i></div><div class="search-expand" style="display: none;"><div class="search-expand-inner"><form method="get" class="searchform themeform" action="<?php echo site_url(); ?>"> <div><input value="" class="search" name="s" id="s" placeholder="输入搜索内容并会车" required="" type="ext"></div></form>
+</div></div>
 </li>
 </ul>
 </div></div>

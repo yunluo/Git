@@ -23,16 +23,18 @@ function deel_setup(){
 	if( dopt('d_keywords_b') ){
 	add_action('wp_head','deel_keywords');
 	}
-
+	//后台评论处新标签打开链接
+	function googlo_admin_comment_ctrlenter(){
+		echo '<script type="text/javascript">
+			$(".author a[href^=http]").attr({target:"_blank"});
+			});
+		</script>';
+	};
+	add_action('admin_footer', 'googlo_admin_comment_ctrlenter');
 	//页面描述 d_description
 	if( dopt('d_description_b') ){
 	add_action('wp_head','deel_description');
 	}
-	function left_admin_footer_text($text) {
-	$text = '感谢使用<a target="_blank" href=http://googlo.me/ >乐趣公园修改版主题3.8</a>进行创作';
-	return $text;
-	}
-	add_filter('admin_footer_text','left_admin_footer_text');
 	//阻止站内PingBack
 	if( dopt('d_pingback_b') ){
 		add_action('pre_ping','deel_noself_ping');
@@ -73,6 +75,7 @@ function deel_setup(){
 	if (function_exists('register_nav_menus')){
 		register_nav_menus( array(
 			'nav' => __('网站导航'),
+			'topnav' => __('顶部导航'),
 			'pagemenu' => __('页面导航')
 		));
 	}
@@ -158,6 +161,7 @@ function active() {
 }
 endif;
 //远程图片保存
+/*
 function auto_save_image($content) {
         $upload_path = '';
         $upload_url_path = get_option('upload_path');
@@ -270,6 +274,7 @@ function dhtmlspecialchars($string) {
 }if(dopt('d_yuanpic_b')){
 add_filter('content_save_pre', 'auto_save_image');
 }
+*/
 //面包屑导航
 function deel_breadcrumbs(){
     if( !is_single() ) return false;
@@ -580,13 +585,17 @@ function deel_comment_list($comment, $args, $depth) {
 	}
 	//信息
 	echo '<div class="c-meta">';
-		echo '<span class="c-author">'.get_comment_author_link().'</span>';
+		if(dopt('d_autherqr_b')&& !G_is_mobile() ){
+			echo '<span class="c-author"><a href="'. get_comment_author_url().'" class="weixin" style="cursor:pointer;">'.get_comment_author().'<span class="qr weixin-popover"><img style="position:absolute;z-index:99999;" src="http://s.jiathis.com/qrcode.php?url='. get_comment_author_url() .'"></span></a></span>';}else{
+		echo '<span class="c-author">'.get_comment_author_link().'</span>';}
 		if ($comment->user_id == '1')
 		echo '<img src="'.get_bloginfo('template_directory').'/img/webmaster.png" id="comment_is_admin" title="博主大人">&nbsp;&nbsp;';
 		echo get_comment_time('Y-m-d H:i '); echo time_ago();
 		if ($comment->comment_approved !== '0'){
 			echo comment_reply_link( array_merge( $args, array('add_below' => 'div-comment', 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) );
 		echo edit_comment_link(__('(编辑)'),' - ','');
+		echo '<span id="brsName" style="color: #ff6600;"> '.user_agent($comment->comment_agent).'</span>';
+
 	  }
 	echo '</div>';
 
@@ -1040,9 +1049,7 @@ function reply_to_read($atts, $content=null){
 }
 add_shortcode('reply', 'reply_to_read');
 
-add_filter('login_headerurl', create_function(false,"return get_bloginfo('url');"));
-add_filter('login_headertitle', create_function(false,"return get_bloginfo('name');"));
-
+//bing美图自定义登录页面背景
 function custom_login_head(){
 $str=file_get_contents('http://cn.bing.com/HPImageArchive.aspx?idx=0&n=1');
 if(preg_match("/<url>(.+?)<\/url>/ies",$str,$matches)){
@@ -1050,7 +1057,8 @@ $imgurl='http://cn.bing.com'.$matches[1];
     echo'<style type="text/css">body{background: url('.$imgurl.');background-attachment:fixed;width:100%;height:100%;background-image:url('.$imgurl.');background-attachment:fixed;-moz-background-size: 100% 100%;-o-background-size: 100% 100%;-webkit-background-size: 100% 100%;background-size: 100% 100%;-moz-border-image: url('.$imgurl.') 0;background-attachment:fixed;background-repeat:no-repeat\9;background-image:none\9;}h1 a { background-image:url('.get_bloginfo('url').'/favicon.ico)!important;width:32px;height:32px;-webkit-border-radius:50px;-moz-border-radius:50px;border-radius:50px;}#loginform {background-color:rgba(251,251,251,0.3)!important;}.login label,a{color:#000!important;}</style>';
 }}
 add_action('login_head', 'custom_login_head');
-
+add_filter('login_headerurl', create_function(false,"return get_bloginfo('url');"));
+add_filter('login_headertitle', create_function(false,"return get_bloginfo('name');"));
 /*
  * 强制阻止WordPress代码转义，关于代码高亮可以看这里http://googlo.me/2986.html
  */
@@ -1213,8 +1221,7 @@ function xcollapse($atts, $content = null){
 	extract(shortcode_atts(array("title"=>""),$atts));
 	return '<div style="margin: 0.5em 0;">
 		<div class="xControl">
-			<span class="xTitle">'.$title.'</span>
-			<a href="javascript:void(0)" class="collapseButton xButton"><i class="fa fa-plus-square"></i> 点此展开查看更多内容</a>
+			<a href="javascript:void(0)" class="collapseButton xButton"><i class="fa fa-plus-square"></i> '.$title.'</a>
 			<div style="clear: both;"></div>
 		</div>
 		<div class="xContent" style="display: none;">'.$content.'</div>
@@ -1243,7 +1250,6 @@ wp_embed_unregister_handler('youku');
 wp_embed_unregister_handler('tudou');
 
 //后台快捷键回复
-add_action('admin_footer', 'hui_admin_comment_ctrlenter');
 function hui_admin_comment_ctrlenter(){
     echo '<script type="text/javascript">
         jQuery(document).ready(function($){
@@ -1255,6 +1261,7 @@ function hui_admin_comment_ctrlenter(){
         });
     </script>';
 };
+add_action('admin_footer', 'hui_admin_comment_ctrlenter');
 
 //获取所有站点分类id
 function Bing_show_category() {
@@ -1725,4 +1732,69 @@ return $file;
 }
 add_filter('wp_handle_upload_prefilter', 'googlo_wp_upload_filter');
 
+//UA信息
+if ( dopt('d_ua_b') ) :
+function user_agent($ua) {
+ //开始解析操作系统
+ $os = null;
+ if (preg_match('/Windows NT 6.0/i', $ua)) {
+   $os = "Windows Vista";
+ } elseif (preg_match('/Windows NT 6.1/i', $ua)) {
+   $os = "Windows 7";
+ } elseif (preg_match('/Windows NT 6.2/i', $ua)) {
+   $os = "Windows 8";
+ } elseif (preg_match('/Windows NT 6.3/i', $ua)) {
+   $os = "Windows 8.1";
+ } elseif (preg_match('/Windows NT 10.0/i', $ua)) {
+   $os = "Windows 10";
+ } elseif (preg_match('/Windows NT 5.1/i', $ua)) {
+   $os = "Windows XP";
+ } elseif (preg_match('/Windows NT 5.2/i', $ua) && preg_match('/Win64/i', $ua)) {
+   $os = "Windows XP 64 bit";
+ } elseif (preg_match('/Android ([0-9.]+)/i',$ua,$matches)) {
+   $os = "Android " . $matches[1];
+ } elseif (preg_match('/iPhone OS ([_0-9]+)/i' , $ua , $matches)) {
+   $os = 'iPhone ' . $matches[1];
+ } else {
+   $os = '未知操作系统';
+ }
+ if (preg_match('#(Camino|Chimera)[ /]([a-zA-Z0-9.]+)#i', $ua, $matches)) {
+   $browser = 'Camino ' . $matches[2];
+ } elseif (preg_match('#SE 2([a-zA-Z0-9.]+)#i', $ua, $matches)) {
+   $browser = '搜狗浏览器 2' . $matches[1];
+ } elseif (preg_match('#360([a-zA-Z0-9.]+)#i', $ua, $matches)) {
+   $browser = '360浏览器 ' . $matches[1];
+ } elseif (preg_match('#Maxthon( |\/)([a-zA-Z0-9.]+)#i', $ua, $matches)) {
+   $browser = 'Maxthon ' . $matches[2];
+ } elseif (preg_match('#Chrome/([a-zA-Z0-9.]+)#i', $ua, $matches)) {
+   $browser = 'Chrome ' . $matches[1];
+ } elseif (preg_match('#XiaoMi/MiuiBrowser/([0-9.]+)#i' , $ua , $matches)) {
+   $browser = '小米浏览器 ' . $matches[1];
+ } elseif (preg_match('#Safari/([a-zA-Z0-9.]+)#i', $ua, $matches)) {
+   $browser = 'Safari ' . $matches[1];
+ } elseif (preg_match('#opera mini#i', $ua)) {
+   preg_match('#Opera/([a-zA-Z0-9.]+)#i', $ua, $matches);
+   $browser = 'Opera Mini ' . $matches[1];
+ } elseif (preg_match('#Opera.([a-zA-Z0-9.]+)#i', $ua, $matches)) {
+   $browser = 'Opera ' . $matches[1];
+ } elseif (preg_match('#TencentTraveler ([a-zA-Z0-9.]+)#i', $ua, $matches)) {
+   $browser = '腾讯TT浏览器 ' . $matches[1];
+ } elseif (preg_match('#UCWEB([a-zA-Z0-9.]+)#i', $ua, $matches)) {
+   $browser = 'UCWEB ' . $matches[1];
+ } elseif (preg_match('#MSIE ([a-zA-Z0-9.]+)#i', $ua, $matches)) {
+   $browser = 'Internet Explorer ' . $matches[1];
+ } elseif (preg_match('#(Firefox|Phoenix|Firebird|BonEcho|GranParadiso|Minefield|Iceweasel)/([a-zA-Z0-9.]+)#i', $ua, $matches)) {
+   $browser = 'Firefox ' . $matches[2];
+ } else {
+   $browser = '未知浏览器';
+ }
+ return  $os . "  |  " . $browser;
+}
+endif;
+	//添加后台左下角文字
+	function left_admin_footer_text($text) {
+	$text = '感谢使用<a target="_blank" href=http://googlo.me/ >乐趣公园修改版主题4.0</a>进行创作';
+	return $text;
+	}
+	add_filter('admin_footer_text','left_admin_footer_text');
 ?>
