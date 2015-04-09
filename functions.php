@@ -161,7 +161,6 @@ function active() {
 }
 endif;
 //远程图片保存
-/*
 function auto_save_image($content) {
         $upload_path = '';
         $upload_url_path = get_option('upload_path');
@@ -274,7 +273,7 @@ function dhtmlspecialchars($string) {
 }if(dopt('d_yuanpic_b')){
 add_filter('content_save_pre', 'auto_save_image');
 }
-*/
+
 //面包屑导航
 function deel_breadcrumbs(){
     if( !is_single() ) return false;
