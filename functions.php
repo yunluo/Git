@@ -594,7 +594,7 @@ function deel_comment_list($comment, $args, $depth) {
 		if ($comment->comment_approved !== '0'){
 			echo comment_reply_link( array_merge( $args, array('add_below' => 'div-comment', 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) );
 		echo edit_comment_link(__('(编辑)'),' - ','');
-		echo '<span id="brsName" style="color: #ff6600;"> '.user_agent($comment->comment_agent).'</span>';
+		echo '<span style="color: #ff6600;"> '.user_agent($comment->comment_agent).'</span>';
 
 	  }
 	echo '</div>';
