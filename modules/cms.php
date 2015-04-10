@@ -17,7 +17,7 @@
 </ul>
 </div>
 <!-- 最新文章结束 -->
-<?php if( !empty(dopt('d_cat_1') ) ){?>
+
         <div class="widget-title">
 			<h2 class="title-h2"><small><?php echo get_cat_name(dopt('d_cat_1') );?></small><span class="more" style="float:right;"><a style="left: 0px;" href="<?php echo get_category_link(dopt('d_cat_1') );?>" title="阅读更多" target="_blank"><small>阅读更多</small></a></span></h2>
 		<div class="related_posts">
@@ -26,8 +26,8 @@
 				<ul class="related_img" style="display:inline" ><li class="related_box" ><a href="<?php the_permalink();?>" title="<?php the_title();?>" target="_blank"><?php if( dopt('d_qiniucdn_b') ){ echo '<img src="';echo post_thumbnail_src();echo '?imageView2/1/w/185/h/110/q/85" alt="'.get_the_title().'" />'; }else{ echo '<img src="'.get_bloginfo("template_url").'/timthumb.php?src=';echo post_thumbnail_src();echo '&h=110&w=185&q=90&zc=1&ct=1" alt="'.get_the_title().'" />';}?><br><span class="r_title"><?php the_title();?></span></a></li></ul>
             <?php endwhile; ?>
 		</div></div>
-<?php } ?>
-<?php if( !empty(dopt('d_cat_2') ) ){?>
+
+
         <div class="widget-title">
 			<h2 class="title-h2"><small><?php echo get_cat_name(dopt('d_cat_2') );?></small><span class="more" style="float:right;"><a style="left: 0px;" href="<?php echo get_category_link(dopt('d_cat_2') );?>" title="阅读更多" target="_blank"><small>阅读更多</small></a></span></h2>
 			<div class="related_posts">
@@ -36,8 +36,8 @@
 				<ul class="related_img" style="display:inline" ><li class="related_box" ><a href="<?php the_permalink();?>" title="<?php the_title();?>" target="_blank"><?php if( dopt('d_qiniucdn_b') ){ echo '<img src="';echo post_thumbnail_src();echo '?imageView2/1/w/185/h/110/q/85" alt="'.get_the_title().'" />'; }else{ echo '<img src="'.get_bloginfo("template_url").'/timthumb.php?src=';echo post_thumbnail_src();echo '&h=110&w=185&q=90&zc=1&ct=1" alt="'.get_the_title().'" />';}?><br><span class="r_title"><?php the_title();?></span></a></li></ul>
             <?php endwhile; ?>
 		</div></div>
-<?php } ?>
-<?php if( !empty(dopt('d_cat_3') ) ){?>
+
+
         <div class="widget-title">
 			<h2 class="title-h2"><small><?php echo get_cat_name(dopt('d_cat_3') );?></small><span class="more" style="float:right;"><a style="left: 0px;" href="<?php echo get_category_link(dopt('d_cat_3') );?>" title="阅读更多" target="_blank"><small>阅读更多</small></a></span></h2>
 		<div class="related_posts">
@@ -46,8 +46,8 @@
 				<ul class="related_img" style="display:inline" ><li class="related_box" ><a href="<?php the_permalink();?>" title="<?php the_title();?>" target="_blank"><?php if( dopt('d_qiniucdn_b') ){ echo '<img src="';echo post_thumbnail_src();echo '?imageView2/1/w/185/h/110/q/85" alt="'.get_the_title().'" />'; }else{ echo '<img src="'.get_bloginfo("template_url").'/timthumb.php?src=';echo post_thumbnail_src();echo '&h=110&w=185&q=90&zc=1&ct=1" alt="'.get_the_title().'" />';}?><br><span class="r_title"><?php the_title();?></span></a></li></ul>
             <?php endwhile; ?>
 		</div></div>
-<?php } ?>
-<?php if( !empty(dopt('d_cat_4') ) ){?>
+
+
         <div class="widget-title">
 			<h2 class="title-h2"><small><?php echo get_cat_name(dopt('d_cat_4') );?></small><span class="more" style="float:right;"><a style="left: 0px;" href="<?php echo get_category_link(dopt('d_cat_4') );?>" title="阅读更多" target="_blank"><small>阅读更多</small></a></span></h2>
 		<div class="related_posts">
@@ -56,8 +56,8 @@
 				<ul class="related_img" style="display:inline" ><li class="related_box" ><a href="<?php the_permalink();?>" title="<?php the_title();?>" target="_blank"><?php if( dopt('d_qiniucdn_b') ){ echo '<img src="';echo post_thumbnail_src();echo '?imageView2/1/w/185/h/110/q/85" alt="'.get_the_title().'" />'; }else{ echo '<img src="'.get_bloginfo("template_url").'/timthumb.php?src=';echo post_thumbnail_src();echo '&h=110&w=185&q=90&zc=1&ct=1" alt="'.get_the_title().'" />';}?><br><span class="r_title"><?php the_title();?></span></a></li></ul>
             <?php endwhile; ?>
 		</div></div>
-<?php } ?>
-<?php if( !empty(dopt('d_cat_5') ) ){?>
+
+
         <div class="widget-title">
 			<h2 class="title-h2"><small><?php echo get_cat_name(dopt('d_cat_5') );?></small><span class="more" style="float:right;"><a style="left: 0px;" href="<?php echo get_category_link(dopt('d_cat_5') );?>" title="阅读更多" target="_blank"><small>阅读更多</small></a></span></h2>
 		<div class="related_posts">
@@ -66,8 +66,8 @@
 				<ul class="related_img" style="display:inline" ><li class="related_box" ><a href="<?php the_permalink();?>" title="<?php the_title();?>" target="_blank"><?php if( dopt('d_qiniucdn_b') ){ echo '<img src="';echo post_thumbnail_src();echo '?imageView2/1/w/185/h/110/q/85" alt="'.get_the_title().'" />'; }else{ echo '<img src="'.get_bloginfo("template_url").'/timthumb.php?src=';echo post_thumbnail_src();echo '&h=110&w=185&q=90&zc=1&ct=1" alt="'.get_the_title().'" />';}?><br><span class="r_title"><?php the_title();?></span></a></li></ul>
             <?php endwhile; ?>
 		</div></div>
-<?php } ?>
-<?php if( !empty(dopt('d_cat_6') ) ){?>
+
+
         <div class="widget-title">
 			<h2 class="title-h2"><small><?php echo get_cat_name(dopt('d_cat_6') );?></small><span class="more" style="float:right;"><a style="left: 0px;" href="<?php echo get_category_link(dopt('d_cat_6') );?>" title="阅读更多" target="_blank"><small>阅读更多</small></a></span></h2>
 		<div class="related_posts">
@@ -76,24 +76,3 @@
 				<ul class="related_img" style="display:inline" ><li class="related_box" ><a href="<?php the_permalink();?>" title="<?php the_title();?>" target="_blank"><?php if( dopt('d_qiniucdn_b') ){ echo '<img src="';echo post_thumbnail_src();echo '?imageView2/1/w/185/h/110/q/85" alt="'.get_the_title().'" />'; }else{ echo '<img src="'.get_bloginfo("template_url").'/timthumb.php?src=';echo post_thumbnail_src();echo '&h=110&w=185&q=90&zc=1&ct=1" alt="'.get_the_title().'" />';}?><br><span class="r_title"><?php the_title();?></span></a></li></ul>
             <?php endwhile; ?>
 		</div></div>
-<?php } ?>
-<?php if( !empty(dopt('d_cat_7') ) ){?>
-        <div class="widget-title">
-			<h2 class="title-h2"><small><?php echo get_cat_name(dopt('d_cat_7') );?></small><span class="more" style="float:right;"><a style="left: 0px;" href="<?php echo get_category_link(dopt('d_cat_7') );?>" title="阅读更多" target="_blank"><small>阅读更多</small></a></span></h2>
-		<div class="related_posts">
-			<?php query_posts( array( 'showposts' => 4, 'cat' => dopt('d_cat_7') ) ); ?>
-            <?php while (have_posts()) : the_post(); ?>
-				<ul class="related_img" style="display:inline" ><li class="related_box" ><a href="<?php the_permalink();?>" title="<?php the_title();?>" target="_blank"><?php if( dopt('d_qiniucdn_b') ){ echo '<img src="';echo post_thumbnail_src();echo '?imageView2/1/w/185/h/110/q/85" alt="'.get_the_title().'" />'; }else{ echo '<img src="'.get_bloginfo("template_url").'/timthumb.php?src=';echo post_thumbnail_src();echo '&h=110&w=185&q=90&zc=1&ct=1" alt="'.get_the_title().'" />';}?><br><span class="r_title"><?php the_title();?></span></a></li></ul>
-            <?php endwhile; ?>
-		</div></div>
-<?php } ?>
-<?php if( !empty(dopt('d_cat_8') ) ){?>
-        <div class="widget-title">
-			<h2 class="title-h2"><small><?php echo get_cat_name(dopt('d_cat_8') );?></small><span class="more" style="float:right;"><a style="left: 0px;" href="<?php echo get_category_link(dopt('d_cat_8') );?>" title="阅读更多" target="_blank"><small>阅读更多</small></a></span></h2>
-		<div class="related_posts">
-			<?php query_posts( array( 'showposts' => 4, 'cat' => dopt('d_cat_8') ) ); ?>
-            <?php while (have_posts()) : the_post(); ?>
-				<ul class="related_img" style="display:inline" ><li class="related_box" ><a href="<?php the_permalink();?>" title="<?php the_title();?>" target="_blank"><?php if( dopt('d_qiniucdn_b') ){ echo '<img src="';echo post_thumbnail_src();echo '?imageView2/1/w/185/h/110/q/85" alt="'.get_the_title().'" />'; }else{ echo '<img src="'.get_bloginfo("template_url").'/timthumb.php?src=';echo post_thumbnail_src();echo '&h=110&w=185&q=90&zc=1&ct=1" alt="'.get_the_title().'" />';}?><br><span class="r_title"><?php the_title();?></span></a></li></ul>
-            <?php endwhile; ?>
-		</div></div>
-<?php } ?>
