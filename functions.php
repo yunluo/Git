@@ -25,10 +25,7 @@ function deel_setup(){
 	}
 	//后台评论处新标签打开链接
 	function googlo_admin_comment_ctrlenter(){
-		echo '<script type="text/javascript">
-			$(".author a[href^=http]").attr({target:"_blank"});
-			});
-		</script>';
+		echo '<script type="text/javascript">$("a").attr("target","_blank");</script>';
 	};
 	add_action('admin_footer', 'googlo_admin_comment_ctrlenter');
 	//页面描述 d_description
