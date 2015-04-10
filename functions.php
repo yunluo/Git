@@ -158,7 +158,7 @@ function active() {
 }
 endif;
 //远程图片保存
-function auto_save_image($content) {
+function googlo_auto_save_image($content) {
         $upload_path = '';
         $upload_url_path = get_option('upload_path');
 
@@ -241,7 +241,7 @@ function auto_save_image($content) {
             }
         }
         $content = AddSlashes($text);
-        remove_filter('content_save_pre', 'auto_save_image');
+        remove_filter('content_save_pre', 'googlo_auto_save_image');
         return $content;
 }
 
@@ -268,7 +268,7 @@ function dhtmlspecialchars($string) {
     }
     return $string;
 }if(dopt('d_yuanpic_b')){
-add_filter('content_save_pre', 'auto_save_image');
+add_filter('content_save_pre', 'googlo_auto_save_image');
 }
 
 //面包屑导航
