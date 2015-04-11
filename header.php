@@ -52,8 +52,7 @@ window._deel = {name: '<?php bloginfo('name') ?>',url: '<?php echo get_bloginfo(
 <?php if( dopt('d_bdshare_b') ) echo '<style type="text/css">.bdsharebuttonbox a{cursor:pointer;border-bottom:0;margin-right:5px;width:28px;height:28px;line-height:28px;color:#fff}.bds_renren{background:#94b3eb}.bds_qzone{background:#fac33f}.bds_more{background:#40a57d}.bds_weixin{background:#7ad071}.bdsharebuttonbox a:hover{background-color:#7fb4ab;color:#fff;border-bottom:0}</style>'; ?>
 
 <ul class="nav"><?php echo str_replace("</ul></div>", "", ereg_replace("<div[^>]*><ul[^>]*>", "", wp_nav_menu(array('theme_location' => 'nav', 'echo' => false)) )); ?>
-<li style="float:right;"><div class="toggle-search"><i class="fa fa-search"></i></div><div class="search-expand" style="display: none;"><div class="search-expand-inner"><form method="get" class="searchform themeform" action="<?php echo site_url(); ?>"> <div><input value="" class="search" name="s" id="s" placeholder="输入搜索内容并会车" required="" type="ext"></div></form>
-</div></div>
+<li style="float:right;"><div class="toggle-search"><i class="fa fa-search"></i></div><div class="search-expand" style="display: none;"><div class="search-expand-inner"><form method="get" class="searchform themeform" onsubmit="location.href='<?php echo home_url('/search/'); ?>' + encodeURIComponent(this.s.value).replace(/%20/g, '+'); return false;" action="/"><div> <input type="ext" class="search" name="s" onblur="if(this.value=='')this.value='输入内容并回车';" onfocus="if(this.value=='输入内容并回车')this.value='';" value="输入内容并回车"></div></form></div></div>
 </li>
 </ul>
 </div></div>
