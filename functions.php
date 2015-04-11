@@ -1770,9 +1770,9 @@ if (dopt('d_ua_b')):
     }
 endif;
 //添加后台左下角文字
-function left_admin_footer_text($text,$ver) {
-	$ver = echo wp_get_theme( 'Version' );
-    $text = '感谢使用<a target="_blank" href=http://googlo.me/ >乐趣公园修改版主题'.$ver.'</a>进行创作';
+function left_admin_footer_text($text,$my_theme) {
+	$my_theme = wp_get_theme();
+    $text = '感谢使用<a target="_blank" href=http://googlo.me/ >云落版主题' . $my_theme->get( 'Version' ).'</a>进行创作';
     return $text;
 }
 add_filter('admin_footer_text', 'left_admin_footer_text');
