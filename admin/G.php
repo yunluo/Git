@@ -1,7 +1,7 @@
 <?php
-
 $themename = 'G+主题';
 $options = array(
+    "d_cattu_b",
     "d_topnav_b",
     "d_autherqr_b",
     "d_ua_b",
@@ -436,11 +436,11 @@ function mytheme_admin() {
         </td>
     </tr>
     <tr>
-        <td class="d_tit">顶部悬浮菜单（该功能将于4.2版本退出）</td>
+        <td class="d_tit">顶部悬浮菜单导航</td>
         <td>
 			<label class="checkbox inline">
                 <input type="checkbox" id="d_topnav_b" name="d_topnav_b" <?php
-    if (dopt('d_topnav_b')) echo 'checked="checked"' ?>>开启&nbsp;&nbsp;<span class="d_tip">开启后请再外观-菜单选项里面选择顶部菜单，这里如果不选，则顶部菜单无效</span>
+    if (dopt('d_topnav_b')) echo 'checked="checked"' ?>>开启&nbsp;&nbsp;<span class="d_tip">开启后您的菜单导航就会悬停在网站顶部</span>
             </label><br><hr />
         </td>
     </tr>
@@ -642,7 +642,10 @@ function mytheme_admin() {
                 <input type="checkbox" id="d_ua_b" name="d_ua_b" <?php
     if (dopt('d_ua_b')) echo 'checked="checked"' ?>>开启
             </label>
-
+            分类banner图<label class="checkbox inline">
+                <input type="checkbox" id="d_cattu_b" name="d_cattu_b" <?php
+    if (dopt('d_cattu_b')) echo 'checked="checked"' ?>>开启
+            </label>
         </td>
     </tr>
  <tr>
