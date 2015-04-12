@@ -42,15 +42,19 @@ if (dopt('d_nosuojin_b')) echo '<style type="text/css">.article-content{text-ind
 </head>
 <body <?php
 body_class(); ?>>
-<?php
-if (dopt('d_topnav_b') && !G_is_mobile()) { ?>
-<div id="topnav"><?php
-    echo str_replace("</ul></div>", "", ereg_replace("<div[^>]*><ul[^>]*>", "", wp_nav_menu(array(
-        'theme_location' => 'topnav',
-        'echo' => false
-    )))); ?></div>
-<?php
-} ?>
+<?php if (dopt('d_topnav_b') && !G_is_mobile()) { ?>
+<script type="text/Javascript">
+$(function(){
+	$('#nav-header').posfixed({
+		distance : 0,
+		pos : 'top',
+		type : 'while',
+		hide : false
+	});
+});
+</script>
+<style type="text/css">#nav-header{background-color: rgba(85,84,85);background: rgba(85,84,85);color: rgba(85,84,85,);}</style>
+<?php } ?>
 <?php
 if (!dopt('d_pichead_b')) { ?>
 <?php
@@ -87,7 +91,7 @@ if (dopt('d_pichead_b')) { ?>
     } ?><?php
 } ?>
 <?php
-if (dopt('d_pichead_b')) echo '<style type="text/css">#nav-header{background-color: rgba(85,84,85, 0.5);background: rgba(85,84,85, 0.5);color: rgba(85,84,85, 0.5);}</style>'; ?>
+if (dopt('d_pichead_b') || !dopt('d_topnav_b') ) echo '<style type="text/css">#nav-header{background-color: rgba(85,84,85, 0.5);background: rgba(85,84,85, 0.5);color: rgba(85,84,85, 0.5);}</style>'; ?>
 <?php
 if (dopt('d_red_b')) {
     echo '<style type="text/css">.navbar .nav li:hover a, .navbar .nav li.current-menu-item a, .navbar .nav li.current-menu-parent a, .navbar .nav li.current_page_item a, .navbar .nav li.current-post-ancestor a,.toggle-search ,#submit ,.btn,.pagination ul>.active>a,.pagination ul>.active>span{background: #E74C3C;}.pagination ul>li>a:hover,.navbar .nav li a:focus, .navbar .nav li a:hover,.toggle-search:hover,#submit:hover,.btn:hover{background-color: #E74C3C;}.footer{color: #E74C3C;}#footbar{border-top:#E74C3C;} </style>';

@@ -20,7 +20,9 @@ function deel_setup() {
         add_action('wp_head', 'deel_keywords');
     }
     //分类描述添加图片
+    if (dopt('d_cattu_b')) {
     remove_filter('pre_term_description', 'wp_filter_kses');
+    }
     //后台评论处新标签打开链接
     function googlo_admin_comment_ctrlenter() {
         echo '<script type="text/javascript">$("a").attr("target","_blank");</script>';
@@ -60,7 +62,6 @@ function deel_setup() {
     if (function_exists('register_nav_menus')) {
         register_nav_menus(array(
             'nav' => __('网站导航') ,
-            'topnav' => __('顶部导航') ,
             'pagemenu' => __('页面导航')
         ));
     }
@@ -1042,7 +1043,7 @@ function custom_login_head() {
     $str = file_get_contents('http://cn.bing.com/HPImageArchive.aspx?idx=0&n=1');
     if (preg_match("/<url>(.+?)<\/url>/ies", $str, $matches)) {
         $imgurl = 'http://cn.bing.com' . $matches[1];
-        echo '<style type="text/css">body{background: url(' . $imgurl . ');background-attachment:fixed;width:100%;height:100%;background-image:url(' . $imgurl . ');background-attachment:fixed;-moz-background-size: 100% 100%;-o-background-size: 100% 100%;-webkit-background-size: 100% 100%;background-size: 100% 100%;-moz-border-image: url(' . $imgurl . ') 0;background-attachment:fixed;background-repeat:no-repeat\9;background-image:none\9;}h1 a { background-image:url(' . get_bloginfo('url') . '/favicon.ico)!important;width:32px;height:32px;-webkit-border-radius:50px;-moz-border-radius:50px;border-radius:50px;}#loginform {background-color:rgba(251,251,251,0.3)!important;}.login label,a{color:#000!important;}</style>';
+        echo '<style type="text/css">body{background: url(' . $imgurl . ');z-index:9999;background-attachment:fixed;width:100%;height:100%;background-image:url(' . $imgurl . ');z-index:9999;background-attachment:fixed;-moz-background-size: 100% 100%;-o-background-size: 100% 100%;-webkit-background-size: 100% 100%;background-size: 100% 100%;-moz-border-image: url(' . $imgurl . ') 0;background-attachment:fixed;background-repeat:no-repeat\9;background-image:none\9;}h1 a { background-image:url(' . get_bloginfo('url') . '/favicon.ico)!important;width:32px;height:32px;-webkit-border-radius:50px;-moz-border-radius:50px;border-radius:50px;}#loginform {background-color:rgba(251,251,251,0.3)!important;}.login label,a{color:#000!important;}</style>';
     }
 }
 add_action('login_head', 'custom_login_head');
@@ -1771,7 +1772,7 @@ if (dopt('d_ua_b')):
 endif;
 //添加后台左下角文字
 function left_admin_footer_text($text) {
-    $text = '感谢使用<a target="_blank" href=http://googlo.me/ >云落版主题 4.0.3</a>进行创作';
+    $text = '感谢使用<a target="_blank" href=http://googlo.me/ >云落版主题 4.1</a>进行创作';
     return $text;
 }
 add_filter('admin_footer_text', 'left_admin_footer_text');
