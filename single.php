@@ -127,4 +127,5 @@ if (!G_is_mobile()) { ?>
 <?php
 } ?>
 <?php
-get_footer(); ?>
+get_footer(); 
+?>
