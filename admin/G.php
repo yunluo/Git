@@ -1,6 +1,8 @@
 <?php
+
 $themename = 'G+主题';
 $options = array(
+    "d_tmnav_b",
     "d_cattu_b",
     "d_topnav_b",
     "d_autherqr_b",
@@ -441,7 +443,12 @@ function mytheme_admin() {
 			<label class="checkbox inline">
                 <input type="checkbox" id="d_topnav_b" name="d_topnav_b" <?php
     if (dopt('d_topnav_b')) echo 'checked="checked"' ?>>开启&nbsp;&nbsp;<span class="d_tip">开启后您的菜单导航就会悬停在网站顶部</span>
-            </label><br><hr />
+            </label>
+            <label class="checkbox inline">
+                透明导航栏<input type="checkbox" id="d_tmnav_b" name="d_tmnav_b" <?php
+    if (dopt('d_tmnav_b')) echo 'checked="checked"' ?>>开启&nbsp;&nbsp;<span class="d_tip">开启后您的菜单导航栏就会变成半透明</span>
+            </label>
+            <br><hr />
         </td>
     </tr>
     <tr>
