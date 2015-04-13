@@ -1,4 +1,5 @@
-<?php get_header(); ?>
+<?php get_header(); 
+?>
 <div class="content-wrap">
 <?php if( dopt('d_sj404_b') ){
 echo '
