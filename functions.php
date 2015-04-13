@@ -1772,7 +1772,7 @@ if (dopt('d_ua_b')):
 endif;
 //添加后台左下角文字
 function left_admin_footer_text($text) {
-    $text = '感谢使用<a target="_blank" href=http://googlo.me/ >云落版主题 4.1</a>进行创作';
+    $text = '感谢使用<a target="_blank" href=http://googlo.me/ >云落版主题 4.1.1</a>进行创作';
     return $text;
 }
 add_filter('admin_footer_text', 'left_admin_footer_text');
