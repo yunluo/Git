@@ -1,4 +1,8 @@
-<!-- 苍茫的代码是我的爱！！！  -->
+<!--
+苍茫的代码是我的爱！！！
+如果你觉得主题的某个功能非常的棒，那么那肯定是云落（me@googlo.me）写的
+如果你觉得主题的某个功能非常的弱智脑残，嗯，那肯定不是我写的
+-->
 <!DOCTYPE HTML>
 <html xmlns:wb=“http://open.weibo.com/wb”>
 <head>
@@ -7,7 +11,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=10,IE=9,IE=8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 <?php
-
 wp_head();
 if (dopt('d_headcode_b')) echo dopt('d_headcode'); ?>
 <title><?php
@@ -53,7 +56,6 @@ $(function(){
 	});
 });
 </script>
-<style type="text/css">#nav-header{background-color: rgba(85,84,85);background: rgba(85,84,85);color: rgba(85,84,85,);}</style>
 <?php } ?>
 <?php
 if (!dopt('d_pichead_b')) { ?>
@@ -91,7 +93,7 @@ if (dopt('d_pichead_b')) { ?>
     } ?><?php
 } ?>
 <?php
-if (dopt('d_pichead_b') || !dopt('d_topnav_b') ) echo '<style type="text/css">#nav-header{background-color: rgba(85,84,85, 0.5);background: rgba(85,84,85, 0.5);color: rgba(85,84,85, 0.5);}</style>'; ?>
+if (dopt('d_tmnav_b') ) echo '<style type="text/css">#nav-header{background-color: rgba(85,84,85, 0.5);background: rgba(85,84,85, 0.5);color: rgba(85,84,85, 0.5);}</style>'; ?>
 <?php
 if (dopt('d_red_b')) {
     echo '<style type="text/css">.navbar .nav li:hover a, .navbar .nav li.current-menu-item a, .navbar .nav li.current-menu-parent a, .navbar .nav li.current_page_item a, .navbar .nav li.current-post-ancestor a,.toggle-search ,#submit ,.btn,.pagination ul>.active>a,.pagination ul>.active>span{background: #E74C3C;}.pagination ul>li>a:hover,.navbar .nav li a:focus, .navbar .nav li a:hover,.toggle-search:hover,#submit:hover,.btn:hover{background-color: #E74C3C;}.footer{color: #E74C3C;}#footbar{border-top:#E74C3C;} </style>';
