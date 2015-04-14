@@ -23,11 +23,34 @@ function deel_setup() {
     if (dopt('d_cattu_b')) {
     remove_filter('pre_term_description', 'wp_filter_kses');
     }
-    //后台评论处新标签打开链接
+    //新标签打开文章链接
+    function googlo_admin_aritical_ctrlenter() {
+        echo '<script type="text/javascript">
+    var alink = document.getElementsByClassName("button button-small");
+        for(var i=0;i<alink.length;i++)
+    { alink[i].target = "_blank"; }
+        </script>';
+    };
+    add_action('admin_footer', 'googlo_admin_aritical_ctrlenter');  
+    
+    //新标签打开评论链接
     function googlo_admin_comment_ctrlenter() {
-        echo '<script type="text/javascript">$("a").attr("target","_blank");</script>';
+        echo '<script type="text/javascript">
+    var alink = document.getElementsByClassName("ab-item");
+        for(var i=0;i<alink.length;i++)
+    { alink[i].target = "_blank"; }
+        </script>';
     };
     add_action('admin_footer', 'googlo_admin_comment_ctrlenter');
+    //新标签打开网站链接
+    function googlo_admin_site_ctrlenter() {
+        echo '<script type="text/javascript">
+    var alink = document.getElementsByClassName("url");
+        for(var i=0;i<alink.length;i++)
+    { alink[i].target = "_blank"; }
+        </script>';
+    };
+    add_action('admin_footer', 'googlo_admin_site_ctrlenter');
     //页面描述 d_description
     if (dopt('d_description_b')) {
         add_action('wp_head', 'deel_description');
