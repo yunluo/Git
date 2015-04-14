@@ -1,5 +1,4 @@
 <?php
-
 add_action('after_setup_theme', 'deel_setup');
 include ('admin/G.php');
 include ('widgets/index.php');
@@ -32,7 +31,6 @@ function deel_setup() {
         </script>';
     };
     add_action('admin_footer', 'googlo_admin_aritical_ctrlenter');  
-    
     //新标签打开评论链接
     function googlo_admin_comment_ctrlenter() {
         echo '<script type="text/javascript">
@@ -659,7 +657,7 @@ function Googlofuckspam($comment) {
     } //登录用户无压力...
     if (wp_blacklist_check($comment['comment_author'], $comment['comment_author_email'], $comment['comment_author_url'], $comment['comment_content'], $comment['comment_author_IP'], $comment['comment_agent'])) {
         header("Content-type: text/html; charset=utf-8");
-        err(__('不好意思，您的评论违反本站评论规则'));
+        err(__('不好意思，您的评论违反本站评论���则'));
     } else {
         return $comment;
     }
@@ -716,7 +714,7 @@ function hot_posts_list($days = 7, $nums = 10) {
     $result = $wpdb->get_results("SELECT comment_count, ID, post_title, post_date FROM $wpdb->posts WHERE post_date BETWEEN '$daysago' AND '$today' ORDER BY comment_count DESC LIMIT 0 , $nums");
     $output = '';
     if (empty($result)) {
-        $output = '<li>嗨喽，粗线这段话的话，意味着您的网站很久没人评论了</li>';
+        $output = '<li>嗨喽，粗线这段话的���，意味着您的网站很久没人评论了</li>';
     } else {
         $i = 1;
         foreach ($result as $topten) {
