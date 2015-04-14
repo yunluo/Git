@@ -10,4 +10,5 @@
 <?php if(!G_is_mobile() ){?>
 <?php get_sidebar();?>
 <?php }?>
-<?php get_footer(); ?>
+<?php get_footer(); 
+?>
