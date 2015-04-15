@@ -1,7 +1,45 @@
 <?php
+if (!function_exists('optionsframework_init')){
+	define('OPTIONS_FRAMEWORK_DIRECTORY', get_template_directory_uri().'/inc/');
+	require_once dirname(__FILE__).'/inc/options-framework.php';
+}
+//关于主题框架屏蔽<>标签的解决方案
+add_action('admin_init','optionscheck_change_santiziation', 100);
+function optionscheck_change_santiziation() {
+    remove_filter( 'of_sanitize_textarea', 'of_sanitize_textarea' );
+    add_filter( 'of_sanitize_textarea', 'custom_sanitize_textarea' );
+}
+function custom_sanitize_textarea($input) {
+    global $allowedposttags;
+    $custom_allowedtags["embed"] = array(
+        "src" => array(),
+        "type" => array(),
+        "allowfullscreen" => array(),
+        "allowscriptaccess" => array(),
+        "height" => array(),
+        "width" => array()
+      );
+    $custom_allowedtags["script"] = array( "type" => array(),"src" => array() );
+    $custom_allowedtags = array_merge($custom_allowedtags, $allowedposttags);
+    $output = wp_kses( $input, $custom_allowedtags);
+    return $output;
+}
+add_action('optionsframework_custom_scripts', 'optionsframework_custom_scripts');
+function optionsframework_custom_scripts(){ ?>
+    <script type="text/javascript">
+function about(){
+alert("首先去微博开放平台创建网站应用，然后静等通过（未备案域名发送域名证书截图即可）\n将新浪的代码放进下方的head代码框，然后将appkey，用户名，密码输入即可！\n 如果审核不通过的话，看原因.审核通过后再申请高级写入权限");
+}
+function qiniu(){
+alert("七牛可以视为免备案免费CDN，可以加速网站静态资源加载\n另外七牛可以免费拥有10G储存，10G流量（可提升），可以为主题提供稳定的缩略图服务\n本主题采用七牛云储存之后，可以直接删除占网站空间最大的uploads目录文件\n可以为有流量限制，空间大小限制的主机大幅节约成本\n如果你觉得七牛不错，点击右侧注册按钮立即注册七牛吧(邀请链接，若在意，请勿点)");
+}
+    </script>
+<?php
+}
 add_action('after_setup_theme', 'deel_setup');
 include ('admin/G.php');
 include ('widgets/index.php');
+
 function deel_setup() {
     //去除头部冗余代码
     remove_action('wp_head', 'feed_links_extra', 3);
@@ -886,7 +924,8 @@ function no_category_base_request($query_vars) {
 //添加文章版权信息
 function copyright($content) {
     if (is_single() || is_feed()) {
-        $content.= '<hr /><div align="center" class="open-message"><i class="fa fa-bullhorn"></i>' . dopt('d_copyright_b') . '</div>';
+        $copyright = str_replace(array('{{title}}', '{{link}}'), array(get_the_title(), get_permalink()), stripslashes(dopt('d_copyright_b')));
+        $content.= '<hr /><div align="center" class="open-message"><i class="fa fa-bullhorn"></i>' . $copyright . '</div>';
     }
     return $content;
 }
@@ -1661,9 +1700,7 @@ function attachment_replace($text) {
 if (is_admin() && dopt('d_qiniucdn_b')) {
     add_filter('wp_get_attachment_url', 'attachment_replace');
 }
-if (!defined('ABSPATH')) {
-    exit;
-}
+//添加注册密码功能
 function googlo_register_form() {
     $pass1 = stripslashes(trim($_POST['pass1']));
     $pass2 = stripslashes(trim($_POST['pass2']));
