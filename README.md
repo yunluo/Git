@@ -1,10 +1,13 @@
 > 这个主题是本来是自己改着玩的。原来最初的主题后台框架是D8的二点几版本还是多少，忘了。后来自己修修改改。增加和删减了不少东西。本来只是自己用用。后来见好几个朋友求主题。所以免费共享出来。这个主题可以个人使用修改，但是请不要进行售卖和添加恶意代码等无耻行为。至于留链接什么的，就不奢望了。
 
+##注意：主题正在大规模修改中，暂时不可用，请勿下载，推荐下载之前的稳定版本[下载地址](http://files.git.oschina.net/group1/M00/00/69/fMqNk1UzJPqANMbVABThCopmbm8900.zip?token=557c0bb24d311361825cb43ad2645340&ts=1429414967&filename=git.zip)
+
 因为并非是纯原创主题，所以随意取博客的域名为主题取了个名字：Yusi。这是一款WordPress 扁平化+响应式式主题，支持WordPress 3.8 及以上最新版，兼容 IE9+、Chrome、Firefox 等主流浏览器。部分浏览器不兼容一些新特效，请使用现代浏览器！
 
 废话不多说，来一张首页截图吧：
 
 [![yusi-theme](http://sandbox.runjs.cn/uploads/rs/60/mvjplrno/2014-11-22_230020.jpg)](http://sandbox.runjs.cn/uploads/rs/60/mvjplrno/2014-11-22_230020.jpg)
+
 
 ## 主题特色
 
