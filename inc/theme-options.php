@@ -479,7 +479,7 @@ $options = array(
         'desc'  => '在这里输入您的幻灯片的图片路径',
         'id'    => "git_slick1img_b",
         'type'  => 'text',
-        'std'   => 'http://www.opendrive.com/files/OTlfMTYyMzJfRWFOQk8/2015040315385878.png'
+        'std'   => 'http://i1.tietuku.com/4d78aebacd716fa1.png'
     ),
     array(
         'name'  => '幻灯片一链接',
@@ -500,7 +500,7 @@ $options = array(
         'desc'  => '在这里输入您的幻灯片的图片路径',
         'id'    => "git_slick2img_b",
         'type'  => 'text',
-        'std'   => 'http://www.opendrive.com/files/OTlfMTYyMzRfTVVWZHQ/2015040315390632.png'
+        'std'   => 'http://i1.tietuku.com/8cc27226d364646d.png'
     ),
     array(
         'name'  => '幻灯片二链接',
@@ -521,7 +521,7 @@ $options = array(
         'desc'  => '在这里输入您的幻灯片的图片路径',
         'id'    => "git_slick3img_b",
         'type'  => 'text',
-        'std'   => 'http://www.opendrive.com/files/OTlfMTYyMzNfanJua1A/2015040315391613.png'
+        'std'   => 'http://i1.tietuku.com/10b38e0699c19f13.png'
     ),
     array(
         'name'  => '幻灯片三链接',
@@ -542,7 +542,7 @@ $options = array(
         'desc'  => '在这里输入您的幻灯片的图片路径',
         'id'    => "git_slick4img_b",
         'type'  => 'text',
-        'std'   => 'http://www.opendrive.com/files/OTlfMTYyMzFfTTBBS20/2015040315392749.png'
+        'std'   => 'http://i1.tietuku.com/e363019d7956a1b8.png'
     ),
     array(
         'name'  => '幻灯片四链接',
@@ -563,7 +563,7 @@ $options = array(
         'desc'  => '在这里输入您的幻灯片的图片路径',
         'id'    => "git_slick5img_b",
         'type'  => 'text',
-        'std'   => 'http://www.opendrive.com/files/OTlfMTYyMzBfMU5rZGk/2015040315393891.png'
+        'std'   => 'http://i1.tietuku.com/4be202dae236d98e.png'
     ),
     array(
         'name'  => '幻灯片五链接',
@@ -584,7 +584,7 @@ $options = array(
         'desc'  => '在这里输入您的幻灯片的图片路径',
         'id'    => "git_slick6img_b",
         'type'  => 'text',
-        'std'   => 'http://www.opendrive.com/files/OTlfMTYyMjlfcDM5RzE/2015040315394784.png'
+        'std'   => 'http://i1.tietuku.com/15ff831524d8bbde.png'
     ),
     array(
         'name'  => '幻灯片六链接',
