@@ -4,16 +4,16 @@
 
 废话不多说，来一张首页截图吧：
 
-[![yusi-theme](http://sandbox.runjs.cn/uploads/rs/60/mvjplrno/2014-11-22_230020.jpg)](http://sandbox.runjs.cn/uploads/rs/60/mvjplrno/2014-11-22_230020.jpg)
+[![git-theme](http://www.opendrive.com/files/OTlfMTYyMzdfQmtmc1o/CaptureAll_2015.04.19_120122.png)](http://www.opendrive.com/files/OTlfMTYyMzdfQmtmc1o/CaptureAll_2015.04.19_120122.png)
 
 ## 主题特色
 
 *   兼容 IE9+、谷歌 Chrome 、火狐 Firefox 等主流浏览器
-*   扁平化+[响应式设计](http://yusi123.com/tag/%e5%93%8d%e5%ba%94%e5%bc%8f%e7%bd%91%e9%a1%b5%e8%ae%be%e8%ae%a1)，兼容电脑、平板和手机访问
+*   扁平化+响应式设计，兼容电脑、平板和手机访问
 *   主题设置面板新增多种广告位，PC端和移动设备各不相同
 *   自带7+小工具，可随意设置侧栏分类和浮动块。
 *   基本SEO：首页、分类、文章等页面都可以设置关键词和描述
-*   内置实用功能：<span style="color: #444444;">Ajax加载分页</span>、垃圾广告拦截、缓存头像、社交账户图标等
+*   内置实用功能：Ajax加载分页、垃圾广告拦截、缓存头像、社交账户图标等
 *   短代码包括dm和dl、gt等,可自主选择。
 
 ## 首页导航、最新消息和置顶推荐+热门排行
@@ -58,9 +58,9 @@
 
 ## 前言
 
-乐趣公园一直在使用欲思[主题](http://googlo.me/tag/theme "查看更多关于 主题 的文章")，然后自己改改，如果有朋友觉得不错的，可以拿走使用，如果有问题的希望给我反馈或者给我提意见
+乐趣公园一直在使用欲思主题，然后自己改改，如果有朋友觉得不错的，可以拿走使用，如果有问题的希望给我反馈或者给我提意见
 
-## [主题](http://googlo.me/tag/theme "查看更多关于 主题 的文章")说明
+## 主题说明
 
 *   修改了一些小问题
 *   给主题SEO功能添加开关
