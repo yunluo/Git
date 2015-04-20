@@ -1,14 +1,14 @@
 <?php
-add_action( 'widgets_init', 'd_recs' );
+add_action( 'widgets_init', 'git_recs' );
 
-function d_recs() {
-	register_widget( 'd_rec' );
+function git_recs() {
+	register_widget( 'git_rec' );
 }
 
-class d_rec extends WP_Widget {
-	function d_rec() {
-		$widget_ops = array( 'classname' => 'd_rec', 'description' => '五个推荐块' );
-		$this->WP_Widget( 'd_rec', 'G-推荐模块', $widget_ops );
+class git_rec extends WP_Widget {
+	function git_rec() {
+		$widget_ops = array( 'classname' => 'git_rec', 'description' => '五个推荐块' );
+		$this->WP_Widget( 'git_rec', 'Git-推荐模块', $widget_ops );
 	}
 
 	function widget( $args, $instance ) {

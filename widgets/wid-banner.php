@@ -1,14 +1,14 @@
 <?php
-add_action( 'widgets_init', 'd_banners' );
+add_action( 'widgets_init', 'git_banners' );
 
-function d_banners() {
-	register_widget( 'd_banner' );
+function git_banners() {
+	register_widget( 'git_banner' );
 }
 
-class d_banner extends WP_Widget {
-	function d_banner() {
-		$widget_ops = array( 'classname' => 'd_banner', 'description' => '显示一个广告(包括富媒体)' );
-		$this->WP_Widget( 'd_banner', 'G-广告', $widget_ops );
+class git_banner extends WP_Widget {
+	function git_banner() {
+		$widget_ops = array( 'classname' => 'git_banner', 'description' => '显示一个广告(包括富媒体)' );
+		$this->WP_Widget( 'git_banner', 'Git-广告', $widget_ops );
 	}
 
 	function widget( $args, $instance ) {
@@ -18,7 +18,7 @@ class d_banner extends WP_Widget {
 		$code = $instance['code'];
 
 		echo $before_widget;
-		echo '<div class="d_banner_inner">'.$code.'</div>';
+		echo '<div class="git_banner_inner">'.$code.'</div>';
 		echo $after_widget;
 	}
 

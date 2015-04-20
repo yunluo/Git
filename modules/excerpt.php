@@ -1,32 +1,32 @@
 <?php
-if (dopt('d_adindex_02_b')) printf('<div class="banner banner-sticky">' . dopt('d_adindex_02') . '</div>'); ?>
+if (git_get_option('git_adindex_02')) printf('<div class="banner banner-sticky">' . git_get_option('git_adindex_02') . '</div>'); ?>
 <?php
-if (is_home() && dopt('hot_list_check')) { ?>
+if (is_home() && git_get_option('hot_list_check')) { ?>
 		<div><div class="left-ad" style="clear: both;background-color: #fff; width: 30%;float: left;margin-right:2%;"></div><div class="hot-posts">
 			<h2 class="title"><?php
-    echo dopt('hot_list_title') ?></h2>
+    echo git_get_option('hot_list_title') ?></h2>
 			<ul><?php
-    hot_posts_list($days = dopt('hot_list_date') , $nums = dopt('hot_list_number')); ?></ul>
+    hot_posts_list($days = git_get_option('hot_list_date' )?git_get_option('hot_list_date' ):30 , $nums = git_get_option('hot_list_number' )?git_get_option('hot_list_number' ):5 ); ?></ul>
 		</div></div>
 		<?php
 } ?>
 <?php
 if (wp_is_mobile()): ?><?php
-    if (dopt('Mobiled_adindex_02_b')) printf('<div class="banner-sticky">' . dopt('Mobiled_adindex_02') . '</div>'); ?><?php
+    if (git_get_option('Mobiled_adindex_02')) printf('<div class="banner-sticky">' . git_get_option('Mobiled_adindex_02') . '</div>'); ?><?php
 endif; ?>
 <?php
-$_author = dopt('d_post_author_b');
-$_time = dopt('d_post_time_b');
-$_views = dopt('d_post_views_b');
-$_comment = dopt('d_post_comment_b');
-$_like = dopt('d_post_like_b');
+$_author = git_get_option('git_post_author_b');
+$_time = git_get_option('git_post_time_b');
+$_views = git_get_option('git_post_views_b');
+$_comment = git_get_option('git_post_comment_b');
+$_like = git_get_option('git_post_like_b');
 ?>
 <?php
 while (have_posts()):
     the_post(); ?>
 <?php
     $_thumbnail = false;
-    if (has_post_thumbnail() || !dopt('d_thumbnail_b')) {
+    if (has_post_thumbnail() || !git_get_option('git_thumbnail_b')) {
         $_thumbnail = true;
     }
 ?>
@@ -55,28 +55,28 @@ while (have_posts()):
 <div class="focus"><a target="_blank" href="<?php
         the_permalink(); ?>">
 <?php
-        if (dopt('d_qiniucdn_b')) {
+        if (git_get_option('git_cdnurl_b')) {
             echo '<img class="thumb" src="';
             echo post_thumbnail_src();
             echo '?imageView2/1/w/';
-            echo dopt('d_thumb_width') ? dopt('d_thumb_width') : 200;
+            echo git_get_option('git_thumb_width') ? git_get_option('git_thumb_width') : 200;
             echo '/h/';
-            echo dopt('d_thumb_height') ? dopt('d_thumb_height') : 123;
+            echo git_get_option('git_thumb_height') ? git_get_option('git_thumb_height') : 123;
             echo '/q/85" alt="' . get_the_title() . '" />';
         } else {
             echo '<img class="thumb" src="' . get_bloginfo("template_url") . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=';
-            echo dopt('d_thumb_height') ? dopt('d_thumb_height') : 123;
+            echo git_get_option('git_thumb_height') ? git_get_option('git_thumb_height') : 123;
             echo '&w=';
-            echo dopt('d_thumb_width') ? dopt('d_thumb_width') : 200;
+            echo git_get_option('git_thumb_width') ? git_get_option('git_thumb_width') : 200;
             echo '&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
         } ?>
 </a></div>
 	<?php
     } ?>
 		<span class="note"> <?php
-    echo deel_strimwidth(strip_tags(apply_filters('the_content', strip_shortcodes($post->post_content))) , 0, 160, '……<a href="' . post_permalink() . '" rel="nofollow" class="more-link">继续阅读 &raquo;</a>'); ?></span>
+    echo deel_strimwidth(strip_tags(apply_filters('the_content', strip_shortcodes($post->post_content))) , 0, git_get_option('git_excerpt_length') ? git_get_option('git_excerpt_length') : 260 , '……<a href="' . post_permalink() . '" rel="nofollow" class="more-link">继续阅读 &raquo;</a>'); ?></span>
 <p class="auth-span">
 <?php
     if (!is_author() && !$_author) { ?>

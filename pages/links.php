@@ -25,7 +25,7 @@ get_header();
 				<?php the_content(); ?>
 			</article>
 <?php
-$bookmarks = get_bookmarks(array('category' => dopt('d_linkpage_cat')?dopt('d_linkpage_cat'):''));
+$bookmarks = get_bookmarks(array('category' => git_get_option('git_linkpage_cat')?git_get_option('git_linkpage_cat'):''));
 
 if ( !empty($bookmarks) ){
     echo '<ul class="link-content clearfix">';

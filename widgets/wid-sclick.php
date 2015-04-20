@@ -1,14 +1,14 @@
 <?php
-add_action( 'widgets_init', 'd_slicks' );
+add_action( 'widgets_init', 'git_slicks' );
 
-function d_slicks() {
-	register_widget( 'd_slick' );
+function git_slicks() {
+	register_widget( 'git_slick' );
 }
 
-class d_slick extends WP_Widget {
-	function d_slick() {
-		$widget_ops = array( 'classname' => 'd_slick', 'description' => '侧边栏小幻灯片' );
-		$this->WP_Widget( 'd_slick', 'G-幻灯片(风格二)', $widget_ops );
+class git_slick extends WP_Widget {
+	function git_slick() {
+		$widget_ops = array( 'classname' => 'git_slick', 'description' => '侧边栏小幻灯片' );
+		$this->WP_Widget( 'git_slick', 'Git-幻灯片(风格二)', $widget_ops );
 	}
 
 	function widget( $args, $instance ) {
@@ -39,7 +39,7 @@ class d_slick extends WP_Widget {
 ?>
 		<p>
 			<label>
-				幻灯一图片：<span class="d_tip">360×200</span>
+				幻灯一图片：<span class="git_tip">360×200</span>
 				<input id="<?php echo $this->get_field_id('simg1'); ?>" name="<?php echo $this->get_field_name('simg1'); ?>" type="text" value="<?php echo $instance['simg1']; ?>" class="widefat" />
 			</label>
 		</p>
@@ -57,7 +57,7 @@ class d_slick extends WP_Widget {
 		</p><hr />
 		<p>
 			<label>
-				幻灯二图片：<span class="d_tip">360×200</span>
+				幻灯二图片：<span class="git_tip">360×200</span>
 				<input id="<?php echo $this->get_field_id('simg2'); ?>" name="<?php echo $this->get_field_name('simg2'); ?>" type="text" value="<?php echo $instance['simg2']; ?>" class="widefat" />
 			</label>
 		</p>
@@ -75,7 +75,7 @@ class d_slick extends WP_Widget {
 		</p><hr />
 		<p>
 			<label>
-				幻灯三图片：<span class="d_tip">360×200</span>
+				幻灯三图片：<span class="git_tip">360×200</span>
 				<input id="<?php echo $this->get_field_id('simg3'); ?>" name="<?php echo $this->get_field_name('simg3'); ?>" type="text" value="<?php echo $instance['simg3']; ?>" class="widefat" />
 			</label>
 		</p>
@@ -93,7 +93,7 @@ class d_slick extends WP_Widget {
 		</p><hr />
 		<p>
 			<label>
-				幻灯四图片：<span class="d_tip">360×200</span>
+				幻灯四图片：<span class="git_tip">360×200</span>
 				<input id="<?php echo $this->get_field_id('simg4'); ?>" name="<?php echo $this->get_field_name('simg4'); ?>" type="text" value="<?php echo $instance['simg4']; ?>" class="widefat" />
 			</label>
 		</p>

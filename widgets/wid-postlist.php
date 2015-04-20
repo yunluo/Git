@@ -1,14 +1,14 @@
 <?php
-add_action( 'widgets_init', 'd_postlists' );
+add_action( 'widgets_init', 'git_postlists' );
 
-function d_postlists() {
-	register_widget( 'd_postlist' );
+function git_postlists() {
+	register_widget( 'git_postlist' );
 }
 
-class d_postlist extends WP_Widget {
-	function d_postlist() {
-		$widget_ops = array( 'classname' => 'd_postlist', 'description' => '图文展示（最新文章+热门文章+随机文章）' );
-		$this->WP_Widget( 'd_postlist', 'G-聚合文章', $widget_ops );
+class git_postlist extends WP_Widget {
+	function git_postlist() {
+		$widget_ops = array( 'classname' => 'git_postlist', 'description' => '图文展示（最新文章+热门文章+随机文章）' );
+		$this->WP_Widget( 'git_postlist', 'Git-聚合文章', $widget_ops );
 	}
 
 	function widget( $args, $instance ) {
@@ -100,7 +100,7 @@ function dtheme_posts_list($orderby,$limit,$cat,$img) {
 	while (have_posts()) : the_post();
 ?>
 <li>
-<a target="_blank" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" ><?php if( dopt('d_qiniucdn_b') ){ if( $img ){echo '<span class="thumbnail">';echo '<img src="';echo post_thumbnail_src();echo '?imageView2/1/w/100/h/64/q/85" alt="'.get_the_title().'" /></span>'; }else{$img = '';}}else{if( $img ){echo '<span class="thumbnail">';echo '<img src="'.get_bloginfo("template_url").'/timthumb.php?src=';echo post_thumbnail_src();echo '&h=64&w=100&q=90&zc=1&ct=1" alt="'.get_the_title().'" /></span>'; }else{$img = '';}}?><span class="text"><?php the_title(); ?></span><span class="muted"><?php the_time('Y-m-d');?></span><span class="muted"><?php comments_number('0', '1评论', '%评论'); ?></span></a>
+<a target="_blank" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" ><?php if( git_get_option('git_cdnurl_b') ){ if( $img ){echo '<span class="thumbnail">';echo '<img src="';echo post_thumbnail_src();echo '?imageView2/1/w/100/h/64/q/85" alt="'.get_the_title().'" /></span>'; }else{$img = '';}}else{if( $img ){echo '<span class="thumbnail">';echo '<img src="'.get_bloginfo("template_url").'/timthumb.php?src=';echo post_thumbnail_src();echo '&h=64&w=100&q=90&zc=1&ct=1" alt="'.get_the_title().'" /></span>'; }else{$img = '';}}?><span class="text"><?php the_title(); ?></span><span class="muted"><?php the_time('Y-m-d');?></span><span class="muted"><?php comments_number('0', '1评论', '%评论'); ?></span></a>
 </li>
 <?php
 

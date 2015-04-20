@@ -3,19 +3,19 @@
  Template Name: 用户投稿
  description: template for G theme
  */
-if (!dopt('d_tougao_b')) die('逗比，你确定你投稿功能开启了吗？→_→ ');
+if (!git_get_option('git_tougao_b')) die('逗比，你确定你投稿功能开启了吗？→_→ ');
 if (isset($_POST['tougao_form']) && $_POST['tougao_form'] == 'send') {
     global $wpdb;
     $current_url = '' . get_permalink() . ''; // 注意修改此处的链接地址
     $last_post = $wpdb->get_var("SELECT `post_date` FROM `$wpdb->posts` ORDER BY `post_date` DESC LIMIT 1");
-    if ((current_time('timestamp') - strtotime($last_post)) < (dopt('d_tougao_time') ? dopt('d_tougao_time') : 240)) {
+    if ((current_time('timestamp') - strtotime($last_post)) < (git_get_option('git_tougao_time') ? git_get_option('git_tougao_time') : 240)) {
         wp_die('您投稿也太勤快了吧，先歇会儿！<a href="' . $current_url . '">点此返回</a>');
     }
     // 表单变量初始化
     $name = isset($_POST['tougao_authorname']) ? trim(htmlspecialchars($_POST['tougao_authorname'], ENT_QUOTES)) : '';
     $title = isset($_POST['tougao_title']) ? trim(htmlspecialchars($_POST['tougao_title'], ENT_QUOTES)) : '';
     $content = isset($_POST['tougao_content']) ? trim(htmlspecialchars($_POST['tougao_content'], ENT_QUOTES)) : '';
-    $tomail = get_option('d_tougao_mailto');
+    $tomail = git_get_option('git_tougao_mailto');
     // 表单项数据验证
     if (empty($name) || mb_strlen($name) > 20) {
         wp_die('昵称必须填写，且长度不得超过20字。<a href="' . $current_url . '">点此返回</a>');

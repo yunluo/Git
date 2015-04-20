@@ -11,7 +11,7 @@
 if ( !class_exists('ThemeUpdateChecker') ):
 
 class ThemeUpdateChecker {
-	public $theme = 'yusi';              //待检查更新的主题名
+	public $theme = 'git';              //待检查更新的主题名
 	public $metadataUrl = 'https://git.oschina.net/yunluo/API/raw/master/info.json';  //元数据文件的路径
 	public $enableAutomaticChecking = true; //是否启用自动更新
 	protected $optionName = '';      //更新时候的文字信息
@@ -48,7 +48,7 @@ class ThemeUpdateChecker {
 
 		//Various options for the wp_remote_get() call. Themes can filter these, too.
 		$options = array(
-			'timeout' => 10, //seconds
+			'timeout' => 20, //seconds
 		);
 		$options = apply_filters(self::$filterPrefix.'options-'.$this->theme, $options);
 

@@ -22,7 +22,7 @@ if ($posttags) {
 		<a href="<?php
         the_permalink(); ?>" title="<?php
         the_title(); ?>" target="_blank"><?php
-        if (dopt('d_qiniucdn_b')) {
+        if (git_get_option('git_cdnurl_b')) {
             echo '<img src="';
             echo post_thumbnail_src();
             echo '?imageView2/1/w/185/h/110/q/85" alt="' . get_the_title() . '" />';
@@ -57,7 +57,7 @@ if ($i < $post_num) {
 		<a href="<?php
         the_permalink(); ?>" title="<?php
         the_title(); ?>" target="_blank"><?php
-        if (dopt('d_qiniucdn_b')) {
+        if (git_get_option('git_cdnurl_b')) {
             echo '<img src="';
             echo post_thumbnail_src();
             echo '?imageView2/1/w/185/h/110/q/85" alt="' . get_the_title() . '" />';

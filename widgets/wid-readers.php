@@ -1,14 +1,14 @@
 <?php
-add_action( 'widgets_init', 'd_readers' );
+add_action( 'widgets_init', 'git_readers' );
 
-function d_readers() {
-	register_widget( 'd_reader' );
+function git_readers() {
+	register_widget( 'git_reader' );
 }
 
-class d_reader extends WP_Widget {
-	function d_reader() {
-		$widget_ops = array( 'classname' => 'd_reader', 'description' => '显示近期评论频繁的网友头像等' );
-		$this->WP_Widget( 'd_reader', 'G-活跃读者', $widget_ops );
+class git_reader extends WP_Widget {
+	function git_reader() {
+		$widget_ops = array( 'classname' => 'git_reader', 'description' => '显示近期评论频繁的网友头像等' );
+		$this->WP_Widget( 'git_reader', 'Git-活跃读者', $widget_ops );
 	}
 
 	function widget( $args, $instance ) {

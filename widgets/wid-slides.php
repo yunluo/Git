@@ -1,14 +1,14 @@
 <?php
-add_action( 'widgets_init', 'd_slides' );
+add_action( 'widgets_init', 'git_slides' );
 
-function d_slides() {
-	register_widget( 'd_slide' );
+function git_slides() {
+	register_widget( 'git_slide' );
 }
 
-class d_slide extends WP_Widget {
-	function d_slide() {
-		$widget_ops = array( 'classname' => 'd_slide', 'description' => '侧边栏小幻灯片' );
-		$this->WP_Widget( 'd_slide', 'G-幻灯片(风格一)', $widget_ops );
+class git_slide extends WP_Widget {
+	function git_slide() {
+		$widget_ops = array( 'classname' => 'git_slide', 'description' => '侧边栏小幻灯片' );
+		$this->WP_Widget( 'git_slide', 'Git-幻灯片(风格一)', $widget_ops );
 	}
 
 	function widget( $args, $instance ) {
@@ -39,7 +39,7 @@ class d_slide extends WP_Widget {
 ?>
 		<p>
 			<label>
-				幻灯一图片：<span class="d_tip">360×149</span>
+				幻灯一图片：<span class="git_tip">360×149</span>
 				<input id="<?php echo $this->get_field_id('img1'); ?>" name="<?php echo $this->get_field_name('img1'); ?>" type="text" value="<?php echo $instance['img1']; ?>" class="widefat" />
 			</label>
 		</p>
@@ -57,7 +57,7 @@ class d_slide extends WP_Widget {
 		</p><hr />
 		<p>
 			<label>
-				幻灯二图片：<span class="d_tip">360×149</span>
+				幻灯二图片：<span class="git_tip">360×149</span>
 				<input id="<?php echo $this->get_field_id('img2'); ?>" name="<?php echo $this->get_field_name('img2'); ?>" type="text" value="<?php echo $instance['img2']; ?>" class="widefat" />
 			</label>
 		</p>
@@ -75,7 +75,7 @@ class d_slide extends WP_Widget {
 		</p><hr />
 		<p>
 			<label>
-				幻灯三图片：<span class="d_tip">360×149</span>
+				幻灯三图片：<span class="git_tip">360×149</span>
 				<input id="<?php echo $this->get_field_id('img3'); ?>" name="<?php echo $this->get_field_name('img3'); ?>" type="text" value="<?php echo $instance['img3']; ?>" class="widefat" />
 			</label>
 		</p>
@@ -93,7 +93,7 @@ class d_slide extends WP_Widget {
 		</p><hr />
 		<p>
 			<label>
-				幻灯四图片：<span class="d_tip">360×149</span>
+				幻灯四图片：<span class="git_tip">360×149</span>
 				<input id="<?php echo $this->get_field_id('img4'); ?>" name="<?php echo $this->get_field_name('img4'); ?>" type="text" value="<?php echo $instance['img4']; ?>" class="widefat" />
 			</label>
 		</p>

@@ -1,14 +1,14 @@
 <?php
-add_action( 'widgets_init', 'd_comments' );
+add_action( 'widgets_init', 'git_comments' );
 
-function d_comments() {
-	register_widget( 'd_comment' );
+function git_comments() {
+	register_widget( 'git_comment' );
 }
 
-class d_comment extends WP_Widget {
-	function d_comment() {
-		$widget_ops = array( 'classname' => 'd_comment', 'description' => '显示网友最新评论（头像+名称+评论）' );
-		$this->WP_Widget( 'd_comment', 'G-最新评论', $widget_ops );
+class git_comment extends WP_Widget {
+	function git_comment() {
+		$widget_ops = array( 'classname' => 'git_comment', 'description' => '显示网友最新评论（头像+名称+评论）' );
+		$this->WP_Widget( 'git_comment', 'Git-最新评论', $widget_ops );
 	}
 
 	function widget( $args, $instance ) {

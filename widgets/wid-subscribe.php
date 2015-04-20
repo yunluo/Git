@@ -1,14 +1,14 @@
 <?php
-add_action( 'widgets_init', 'd_subscribes' );
+add_action( 'widgets_init', 'git_subscribes' );
 
-function d_subscribes() {
-	register_widget( 'd_subscribe' );
+function git_subscribes() {
+	register_widget( 'git_subscribe' );
 }
 
-class d_subscribe extends WP_Widget {
-	function d_subscribe() {
-		$widget_ops = array( 'classname' => 'd_subscribe', 'description' => '显示邮箱订阅组件' );
-		$this->WP_Widget( 'd_subscribe', 'G-邮箱订阅', $widget_ops );
+class git_subscribe extends WP_Widget {
+	function git_subscribe() {
+		$widget_ops = array( 'classname' => 'git_subscribe', 'description' => '显示邮箱订阅组件' );
+		$this->WP_Widget( 'git_subscribe', 'Git-邮箱订阅', $widget_ops );
 	}
 
 	function widget( $args, $instance ) {

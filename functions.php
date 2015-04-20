@@ -1,45 +1,11 @@
 <?php
-if (!function_exists('optionsframework_init')){
-	define('OPTIONS_FRAMEWORK_DIRECTORY', get_template_directory_uri().'/inc/');
-	require_once dirname(__FILE__).'/inc/options-framework.php';
-}
-//关于主题框架屏蔽<>标签的解决方案
-add_action('admin_init','optionscheck_change_santiziation', 100);
-function optionscheck_change_santiziation() {
-    remove_filter( 'of_sanitize_textarea', 'of_sanitize_textarea' );
-    add_filter( 'of_sanitize_textarea', 'custom_sanitize_textarea' );
-}
-function custom_sanitize_textarea($input) {
-    global $allowedposttags;
-    $custom_allowedtags["embed"] = array(
-        "src" => array(),
-        "type" => array(),
-        "allowfullscreen" => array(),
-        "allowscriptaccess" => array(),
-        "height" => array(),
-        "width" => array()
-      );
-    $custom_allowedtags["script"] = array( "type" => array(),"src" => array() );
-    $custom_allowedtags = array_merge($custom_allowedtags, $allowedposttags);
-    $output = wp_kses( $input, $custom_allowedtags);
-    return $output;
-}
-add_action('optionsframework_custom_scripts', 'optionsframework_custom_scripts');
-function optionsframework_custom_scripts(){ ?>
-    <script type="text/javascript">
-function about(){
-alert("首先去微博开放平台创建网站应用，然后静等通过（未备案域名发送域名证书截图即可）\n将新浪的代码放进下方的head代码框，然后将appkey，用户名，密码输入即可！\n 如果审核不通过的话，看原因.审核通过后再申请高级写入权限");
-}
-function qiniu(){
-alert("七牛可以视为免备案免费CDN，可以加速网站静态资源加载\n另外七牛可以免费拥有10G储存，10G流量（可提升），可以为主题提供稳定的缩略图服务\n本主题采用七牛云储存之后，可以直接删除占网站空间最大的uploads目录文件\n可以为有流量限制，空间大小限制的主机大幅节约成本\n如果你觉得七牛不错，点击右侧注册按钮立即注册七牛吧(邀请链接，若在意，请勿点)");
-}
-    </script>
-<?php
-}
-add_action('after_setup_theme', 'deel_setup');
-include ('admin/G.php');
-include ('widgets/index.php');
 
+add_action('after_setup_theme', 'deel_setup');
+$currentTheme = wp_get_theme();
+$themename = $currentTheme->get('Name');
+$shortname = strtolower($themename);
+include ('inc/theme-options.php');
+include ('widgets/index.php');
 function deel_setup() {
     //去除头部冗余代码
     remove_action('wp_head', 'feed_links_extra', 3);
@@ -53,46 +19,37 @@ function deel_setup() {
     //隐藏admin Bar
     add_filter('show_admin_bar', 'hide_admin_bar');
     //关键字
-    if (dopt('d_keywords_b')) {
+    if (git_get_option('git_keywords')) {
         add_action('wp_head', 'deel_keywords');
     }
     //分类描述添加图片
-    if (dopt('d_cattu_b')) {
+    if (git_get_option('git_cattu_b')) {
     remove_filter('pre_term_description', 'wp_filter_kses');
     }
-    //新标签打开文章链接
-    function googlo_admin_aritical_ctrlenter() {
-        echo '<script type="text/javascript">
+	//新标签打开文章链接
+function googlo_admin_aritical_ctrlenter() {
+    echo '<script type="text/javascript">
     var alink = document.getElementsByClassName("button button-small");
         for(var i=0;i<alink.length;i++)
     { alink[i].target = "_blank"; }
         </script>';
-    };
-    add_action('admin_footer', 'googlo_admin_aritical_ctrlenter');  
-    //新标签打开评论链接
-    function googlo_admin_comment_ctrlenter() {
-        echo '<script type="text/javascript">
+};
+add_action('admin_footer', 'googlo_admin_aritical_ctrlenter');
+//新标签打开评论链接
+function googlo_admin_comment_ctrlenter() {
+    echo '<script type="text/javascript">
     var alink = document.getElementsByClassName("ab-item");
         for(var i=0;i<alink.length;i++)
     { alink[i].target = "_blank"; }
         </script>';
-    };
-    add_action('admin_footer', 'googlo_admin_comment_ctrlenter');
-    //新标签打开网站链接
-    function googlo_admin_site_ctrlenter() {
-        echo '<script type="text/javascript">
-    var alink = document.getElementsByClassName("url");
-        for(var i=0;i<alink.length;i++)
-    { alink[i].target = "_blank"; }
-        </script>';
-    };
-    add_action('admin_footer', 'googlo_admin_site_ctrlenter');
+};
+add_action('admin_footer', 'googlo_admin_comment_ctrlenter');
     //页面描述 d_description
-    if (dopt('d_description_b')) {
+    if (git_get_option('git_description')) {
         add_action('wp_head', 'deel_description');
     }
     //阻止站内PingBack
-    if (dopt('d_pingback_b')) {
+    if (git_get_option('git_pingback_b')) {
         add_action('pre_ping', 'deel_noself_ping');
     }
     // 友情链接扩展
@@ -104,7 +61,7 @@ function deel_setup() {
     //评论表情改造，如需更换表情，img/smilies/下替换
     add_filter('smilies_src', 'deel_smilies_src', 1, 10);
     //移除自动保存和修订版本
-    if (dopt('d_autosave_b')) {
+    if (git_get_option('git_autosave_b')) {
         add_action('wp_print_scripts', 'deel_disable_autosave');
         remove_action('pre_post_update', 'wp_save_post_revision');
     }
@@ -168,7 +125,7 @@ if (function_exists('register_sidebar')) {
     ));
 }
 //页面伪静态
-if (dopt('d_pagehtml_b')):
+if (git_get_option('git_pagehtml_b')):
     add_action('init', 'html_page_permalink', -1);
     register_activation_hook(__FILE__, 'active');
     register_deactivation_hook(__FILE__, 'deactive');
@@ -201,7 +158,7 @@ if (dopt('d_pagehtml_b')):
     }
 endif;
 //远程图片保存
-if (dopt('d_yuanpic_b')):
+if (git_get_option('git_yuanpic_b')):
     function googlo_auto_save_image($content) {
         $upload_path = '';
         $upload_url_path = get_option('upload_path');
@@ -322,7 +279,7 @@ function footerScript() {
         wp_deregister_script('jquery');
         wp_register_script('jquery', '' . get_bloginfo('template_directory') . '/js/jquery.min.js', false, '1.0');
         wp_enqueue_script('jquery');
-        wp_register_script('default', get_template_directory_uri() . '/js/global.js', false, '1.0', dopt('d_jquerybom_b') ? true : false);
+        wp_register_script('default', get_template_directory_uri() . '/js/global.js', false, '1.0', git_get_option('git_jquerybom_b') ? true : false);
         wp_enqueue_script('default');
         wp_register_style('style', get_template_directory_uri() . '/style.css', false, '1.0');
         wp_enqueue_style('style');
@@ -364,7 +321,7 @@ function deel_strimwidth($str, $start, $width, $trimmarker) {
     $output = preg_replace('/^(?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){0,' . $start . '}((?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){0,' . $width . '}).*/s', '\1', $str);
     return $output . $trimmarker;
 }
-function dopt($e) {
+function git_get_option($e) {
     return stripslashes(get_option($e));
 }
 if (!function_exists('deel_views')):
@@ -391,7 +348,7 @@ endif;
 //baidu分享
 $dHasShare = false;
 function deel_share() {
-    if (!dopt('d_bdshare_b')) return false;
+    if (!git_get_option('git_bdshare_b')) return false;
     echo '<span class="action action-share bdsharebuttonbox"><i class="fa fa-share-alt"></i>分享 (<span class="bds_count" data-cmd="count" title="累计分享0次">0</span>)<div class="action-popover"><div class="popover top in"><div class="arrow"></div><div class="popover-content"><a href="#" class="sinaweibo fa fa-weibo" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_qzone fa fa-star" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="tencentweibo fa fa-tencent-weibo" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="qq fa fa-qq" data-cmd="sqq" title="分享到QQ好友"></a><a href="#" class="bds_renren fa fa-renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin fa fa-weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_more fa fa-ellipsis-h" data-cmd="more"></a></div></div></div></span>';
     global $dHasShare;
     $dHasShare = true;
@@ -407,7 +364,7 @@ function deel_avatar($avatar) {
     $f = substr($g, $tmp, strpos($g, "?", $tmp) - $tmp);
     $w = get_bloginfo('wpurl');
     $e = ABSPATH . 'avatar/' . $f . '.png';
-    $t = dopt('d_avatarDate') * 24 * 60 * 60;
+    $t = git_get_option('git_avatarDate') * 24 * 60 * 60;
     if (!is_file($e) || (time() - filemtime($e)) > $t) copy(htmlspecialchars_decode($g) , $e);
     else $avatar = strtr($avatar, array(
         $g => $w . '/avatar/' . $f . '.png'
@@ -415,7 +372,7 @@ function deel_avatar($avatar) {
     if (filesize($e) < 500) copy(get_bloginfo('template_directory') . '/img/default.png', $e);
     return $avatar;
 }
-if (dopt('d_avatar_b')) {
+if (git_get_option('git_avatar_b')) {
     add_filter('get_avatar', 'deel_avatar');
 }
 //头像SSL链接
@@ -423,7 +380,7 @@ function googlo_ssl_avatar($avatar) {
     $avatar = preg_replace('/.*\/avatar\/(.*)\?s=([\d]+)&.*/', '<img src="//sdn.geekzu.org/avatar/$1?s=$2" class="avatar avatar-$2" height="$2" width="$2">', $avatar);
     return $avatar;
 }
-if (dopt('d_avatar_ssl')) {
+if (git_get_option('git_avatar_ssl')) {
     add_filter('get_avatar', 'googlo_ssl_avatar');
 }
 //七牛头像镜像(奶子提供)
@@ -436,7 +393,7 @@ function googlo_get_avatar($avatar) {
     ) , "cd.v7v3.com", $avatar);
     return $avatar;
 }
-if (dopt('d_avatar_qn')) {
+if (git_get_option('git_avatar_qn')) {
     add_filter('get_avatar', 'googlo_get_avatar', 10, 3);
 }
 //极客族头像镜像
@@ -449,7 +406,7 @@ function googlo_duoshuo_avatar($avatar) {
     ) , "fdn.geekzu.org/avatar", $avatar);
     return $avatar;
 }
-if (dopt('d_avatar_ds')) {
+if (git_get_option('git_avatar_ds')) {
     add_filter('get_avatar', 'googlo_duoshuo_avatar', 10, 3);
 }
 //关键字
@@ -463,7 +420,7 @@ function deel_keywords() {
         foreach (get_the_category($post->ID) as $category) $keywords.= $category->cat_name . ', ';
         $keywords = substr_replace($keywords, '', -2);
     } elseif (is_home()) {
-        $keywords = dopt('d_keywords');
+        $keywords = git_get_option('git_keywords');
     } elseif (is_tag()) {
         $keywords = single_tag_title('', false);
     } elseif (is_category()) {
@@ -497,7 +454,7 @@ function deel_description() {
         ) , " ", str_replace("\"", "'", strip_tags($text))));
         if (!($description)) $description = $blog_name . "-" . trim(wp_title('', false));
     } elseif (is_home()) {
-        $description = dopt('d_description'); // 首頁要自己加
+        $description = git_get_option('git_description'); // 首頁要自己加
 
     } elseif (is_tag()) {
         $description = $blog_name . "'" . single_tag_title('', false) . "'";
@@ -622,7 +579,7 @@ function deel_comment_list($comment, $args, $depth) {
     }
     //信息
     echo '<div class="c-meta">';
-    if (dopt('d_autherqr_b') && !G_is_mobile()) {
+    if (git_get_option('git_autherqr_b') && !G_is_mobile()) {
         echo '<span class="c-author"><a href="' . get_comment_author_url() . '" class="weixin" style="cursor:pointer;">' . get_comment_author() . '<span class="qr weixin-popover"><img style="position:absolute;z-index:99999;" src="http://s.jiathis.com/qrcode.php?url=' . get_comment_author_url() . '"></span></a></span>';
     } else {
         echo '<span class="c-author">' . get_comment_author_link() . '</span>';
@@ -637,7 +594,7 @@ function deel_comment_list($comment, $args, $depth) {
             'max_depth' => $args['max_depth']
         )));
         echo edit_comment_link(__('(编辑)') , ' - ', '');
-        if (dopt('d_ua_b')) echo '<span style="color: #ff6600;"> ' . user_agent($comment->comment_agent) . '</span>';
+        if (git_get_option('git_ua_b')) echo '<span style="color: #ff6600;"> ' . user_agent($comment->comment_agent) . '</span>';
     }
     echo '</div>';
     echo '</div></div>';
@@ -685,7 +642,7 @@ function refused_spam_comments($comment_data) {
     }
     return ($comment_data);
 }
-if (dopt('d_spamComments_b') && !is_user_logged_in()) {
+if (git_get_option('git_spamComments_b') && !is_user_logged_in()) {
     add_filter('preprocess_comment', 'refused_spam_comments');
 }
 //屏蔽关键词，email，url，ip
@@ -695,12 +652,12 @@ function Googlofuckspam($comment) {
     } //登录用户无压力...
     if (wp_blacklist_check($comment['comment_author'], $comment['comment_author_email'], $comment['comment_author_url'], $comment['comment_content'], $comment['comment_author_IP'], $comment['comment_agent'])) {
         header("Content-type: text/html; charset=utf-8");
-        err(__('不好意思，您的评论违反本站评论���则'));
+        err(__('不好意思，您的评论违反本站评论规则'));
     } else {
         return $comment;
     }
 }
-if (dopt('d_spamComments_b')) {
+if (git_get_option('git_spamComments_b')) {
     add_filter('preprocess_comment', 'Googlofuckspam');
 }
 //屏蔽长连接评论
@@ -709,7 +666,7 @@ function lang_url_spamcheck($approved, $commentdata) {
     //表示评论中链接长度超过50为垃圾评论
     'spam' : $approved;
 }
-if (dopt('d_spamComments_b')) {
+if (git_get_option('git_spamComments_b')) {
     add_filter('pre_comment_approved', 'lang_url_spamcheck', 99, 2);
 }
 //屏蔽昵称，评论内容带链接的评论
@@ -720,7 +677,7 @@ function Googlolink($comment_data) {
     }
     return ($comment_data);
 }
-if (dopt('d_spamComments_b')) {
+if (git_get_option('git_spamComments_b')) {
     add_filter('preprocess_comment', 'Googlolink');
 }
 //点赞
@@ -752,7 +709,7 @@ function hot_posts_list($days = 7, $nums = 10) {
     $result = $wpdb->get_results("SELECT comment_count, ID, post_title, post_date FROM $wpdb->posts WHERE post_date BETWEEN '$daysago' AND '$today' ORDER BY comment_count DESC LIMIT 0 , $nums");
     $output = '';
     if (empty($result)) {
-        $output = '<li>嗨喽，粗线这段话的���，意味着您的网站很久没人评论了</li>';
+        $output = '<li>嗨喽，粗线这段话的话，意味着您的网站很久没人评论了</li>';
     } else {
         $i = 1;
         foreach ($result as $topten) {
@@ -850,7 +807,7 @@ add_theme_support('custom-background', array(
     'default-image' => '%s/img/bg.png'
 ));
 //禁用谷歌字体
-if (dopt('d_fuckziti_b')):
+if (git_get_option('git_fuckziti_b')):
     function googlo_remove_open_sans_from_wp_core() {
         wp_deregister_style('open-sans');
         wp_register_style('open-sans', false);
@@ -859,7 +816,7 @@ if (dopt('d_fuckziti_b')):
     add_action('init', 'googlo_remove_open_sans_from_wp_core');
 endif;
 //免插件去除Category
-if (dopt('d_category_b')) {
+if (git_get_option('git_category_b')) {
     add_action('load-themes.php', 'no_category_base_refresh_rules');
     add_action('created_category', 'no_category_base_refresh_rules');
     add_action('edited_category', 'no_category_base_refresh_rules');
@@ -922,16 +879,16 @@ function no_category_base_request($query_vars) {
     return $query_vars;
 }
 //添加文章版权信息
-function copyright($content) {
+function copyright($content,$copyright) {
     if (is_single() || is_feed()) {
-        $copyright = str_replace(array('{{title}}', '{{link}}'), array(get_the_title(), get_permalink()), stripslashes(dopt('d_copyright_b')));
+		$copyright = str_replace(array('{{title}}', '{{link}}'), array(get_the_title(), get_permalink()), stripslashes(git_get_option('git_copyright_b')));
         $content.= '<hr /><div align="center" class="open-message"><i class="fa fa-bullhorn"></i>' . $copyright . '</div>';
     }
     return $content;
 }
 add_filter('the_content', 'copyright');
 //fancybox图片灯箱效果
-if (dopt('d_fancybox_b')):
+if (git_get_option('git_fancybox_b')):
     function fancybox($content) {
         global $post;
         $pattern = "/<a(.*?)href=('|\")([^>]*).(bmp|gif|jpeg|jpg|png|swf)('|\")(.*?)>(.*?)<\/a>/i";
@@ -971,7 +928,7 @@ function tag_link($content) {
     }
     return $content;
 }
-if (dopt('d_autolink_b')) {
+if (git_get_option('git_autolink_b')) {
     add_filter('the_content', 'tag_link', 1);
 }
 //输出WordPress表情
@@ -1129,12 +1086,12 @@ add_filter('comment_text', 'googlo_esc_html', 2);
 //首页隐藏一些分类
 function exclude_category_home($query) {
     if ($query->is_home) {
-        $query->set('cat', '-' . get_option('d_blockcat_1') . ',-' . get_option('d_blockcat_2') . ''); //隐藏10和20这两个分类
+        $query->set('cat', '-' . git_get_option('git_blockcat_1') . ',-' . git_get_option('git_blockcat_2') . ''); //隐藏10和20这两个分类
 
     }
     return $query;
 }
-if (dopt('d_blockcat_b')) {
+if (git_get_option('git_blockcat_b')) {
     add_filter('pre_get_posts', 'exclude_category_home');
 }
 //后台日志阅读统计
@@ -1260,8 +1217,8 @@ function ton($atts, $content = null) {
     ) , $atts));
     return '<a class="lhb" id="showdiv" href="#fancydlbox" >文件下载</a>
     <div id="fancydlbox" style="cursor:default;display:none;width:500px;">
-    <div class="fancydlads" align="center">' . dopt('d_fancydlad') . '</div>
-    <div class="dlnotice" align="center">' . dopt('d_fancydlcp') . '</div><br />
+    <div class="fancydlads" align="center">' . git_get_option('git_fancydlad') . '</div>
+    <div class="dlnotice" align="center">' . git_get_option('git_fancydlcp') . '</div><br />
     <div class="fancydl" align="center" >
     <a class="bluebtn" href="' . $href . '" target="_blank" rel="nofollow">' . $content . '</a>
     </div>
@@ -1284,7 +1241,9 @@ function xcollapse($atts, $content = null) {
 }
 add_shortcode('collapse', 'xcollapse');
 //自动为文章内链接生成超链接
+if (git_get_option('git_linktrue_b')) {
 add_filter('the_content', 'make_clickable');
+}
 // add youku using iframe
 function wp_iframe_handler_youku($matches, $attr, $url, $rawattr) {
     if (wp_is_mobile()) {
@@ -1343,9 +1302,9 @@ function post_to_sina_weibo($post_ID) {
     $get_post_centent = get_post($post_ID)->post_content;
     $get_post_title = get_post($post_ID)->post_title;
     if ($get_post_info->post_status == 'publish' && $_POST['original_post_status'] != 'publish') {
-        $appkey = '' . get_option('d_wbapky_b') . ''; /* 此处是你的新浪微博appkey */
-        $username = '' . get_option('d_wbuser_b') . '';
-        $userpassword = '' . get_option('d_wbpasd_b') . '';
+        $appkey = '' . git_get_option('git_wbapky_b') . ''; /* 此处是你的新浪微博appkey */
+        $username = '' . git_get_option('git_wbuser_b') . '';
+        $userpassword = '' . git_get_option('git_wbpasd_b') . '';
         $request = new WP_Http;
         $keywords = "";
         /* 获取文章标签关键词 */
@@ -1375,7 +1334,7 @@ function post_to_sina_weibo($post_ID) {
         add_post_meta($post_ID, 'weibo_sync', 1, true);
     }
 }
-if (dopt('d_sinasync_b')) {
+if (git_get_option('git_sinasync_b')) {
     add_action('publish_post', 'post_to_sina_weibo', 0);
 }
 /*
@@ -1455,9 +1414,9 @@ function baidu_record() {
     }
 }
 //主题自动更新服务
-if (!dopt('d_updates_b')):
+if (!git_get_option('git_updates_b')):
     require 'modules/updates.php';
-    $example_update_checker = new ThemeUpdateChecker('yusi', 'https://git.oschina.net/yunluo/API/raw/master/info.json'
+    $example_update_checker = new ThemeUpdateChecker('git', 'https://git.oschina.net/yunluo/API/raw/master/info.json'
     //此处链接不可改
     );
 endif;
@@ -1593,7 +1552,7 @@ class Simple_Local_Avatars {
                 'tif|tiff' => 'image/tiff'
             );
             // front end (theme my profile etc) support
-            if (!function_exists('wp_handle_upload')) require_once (ABSPATH . 'wp-admin/includes/file.php');
+            if (!function_exists('wp_handle_upload')) require_once (ABSPATH . 'wp-inc/includes/file.php');
             $this->avatar_delete($user_id); // delete old images if successful
             // need to be more secure since low privelege users can upload
             if (strstr($_FILES['simple-local-avatar']['name'], '.php')) wp_die('For security reasons, the extension ".php" cannot be in your file name.');
@@ -1668,14 +1627,14 @@ function get_simple_local_avatar($id_or_email, $size = '96', $default = '', $alt
     return $avatar;
 }
 //七牛CDN
-if (!is_admin() && dopt('d_qiniucdn_b')) {
+if (!is_admin() && git_get_option('git_cdnurl_b')) {
     add_action('wp_loaded', 'Googlo_ob_start');
     function Googlo_ob_start() {
         ob_start('Googlo_qiniu_cdn_replace');
     }
     function Googlo_qiniu_cdn_replace($html) {
         $local_host = '' . get_bloginfo('url') . ''; //博客域名
-        $qiniu_host = '' . get_option('d_cdnurl_b') . ''; //七牛域名
+        $qiniu_host = '' . git_get_option('git_cdnurl_b') . ''; //七牛域名
         $cdn_exts = 'png|jpg|jpeg|gif|ico|html|7z|zip|rar|pdf|ppt|wmv|mp4|avi|mp3|txt'; //扩展名（使用|分隔）
         $cdn_dirs = 'wp-content|wp-includes'; //目录（使用|分隔）
         $cdn_dirs = str_replace('-', '\-', $cdn_dirs);
@@ -1692,15 +1651,17 @@ if (!is_admin() && dopt('d_qiniucdn_b')) {
 //自动替换媒体库图片的域名
 function attachment_replace($text) {
     $replace = array(
-        '' . get_bloginfo('url') . '' => '' . get_option('d_cdnurl_b') . ''
+        '' . get_bloginfo('url') . '' => '' . git_get_option('git_cdnurl_b') . ''
     );
     $text = str_replace(array_keys($replace) , $replace, $text);
     return $text;
 }
-if (is_admin() && dopt('d_qiniucdn_b')) {
+if (is_admin() && git_get_option('git_cdnurl_b')) {
     add_filter('wp_get_attachment_url', 'attachment_replace');
 }
-//添加注册密码功能
+if (!defined('ABSPATH')) {
+    exit;
+}
 function googlo_register_form() {
     $pass1 = stripslashes(trim($_POST['pass1']));
     $pass2 = stripslashes(trim($_POST['pass2']));
@@ -1748,18 +1709,18 @@ function googlo_user_register($user_id) {
 add_action('user_register', 'googlo_user_register');
 //SMTP邮箱设置
 function googlo_mail_smtp($phpmailer) {
-    $phpmailer->From = '' . get_option('d_maildizhi_b') . ''; //发件人地址
-    $phpmailer->FromName = '' . get_option('d_mailnichen_b') . ''; //发件人昵称
-    $phpmailer->Host = '' . get_option('d_mailsmtp_b') . ''; //SMTP服务器地址
-    $phpmailer->Port = '' . get_option('d_mailport_b') . ''; //SMTP邮件发送端口, 常用端口有：25、465、587, 具体联系邮件服务商
+    $phpmailer->From = '' . git_get_option('git_maildizhi_b') . ''; //发件人地址
+    $phpmailer->FromName = '' . git_get_option('git_mailnichen_b') . ''; //发件人昵称
+    $phpmailer->Host = '' . git_get_option('git_mailsmtp_b') . ''; //SMTP服务器地址
+    $phpmailer->Port = '' . git_get_option('git_mailport_b') . ''; //SMTP邮件发送端口, 常用端口有：25、465、587, 具体联系邮件服务商
     $phpmailer->SMTPSecure = ''; //SMTP加密方式(SSL/TLS)没有为空即可，具体联系邮件服务商, 以免设置错误, 无法正常发送邮件
-    $phpmailer->Username = '' . get_option('d_mailuser_b') . ''; //邮箱帐号
-    $phpmailer->Password = '' . get_option('d_mailpass_b') . ''; //邮箱密码
+    $phpmailer->Username = '' . git_get_option('git_mailuser_b') . ''; //邮箱帐号
+    $phpmailer->Password = '' . git_get_option('git_mailpass_b') . ''; //邮箱密码
     $phpmailer->IsSMTP();
     $phpmailer->SMTPAuth = true; //启用SMTPAuth服务
 
 }
-if (dopt('d_stmpmail_b')) {
+if (git_get_option('git_stmpmail_b')) {
     add_action('phpmailer_init', 'googlo_mail_smtp');
 }
 //中文文件重命名
@@ -1770,7 +1731,7 @@ function googlo_wp_upload_filter($file) {
 }
 add_filter('wp_handle_upload_prefilter', 'googlo_wp_upload_filter');
 //UA信息
-if (dopt('d_ua_b')):
+if (git_get_option('git_ua_b')):
     function user_agent($ua) {
         //开始解析操作系统
         $os = null;
@@ -1830,7 +1791,7 @@ if (dopt('d_ua_b')):
 endif;
 //添加后台左下角文字
 function left_admin_footer_text($text) {
-    $text = '感谢使用<a target="_blank" href=http://googlo.me/ >云落版主题 4.1.1</a>进行创作';
+    $text = '感谢使用<a target="_blank" href=http://googlo.me/ >云落版主题 4.1</a>进行创作';
     return $text;
 }
 add_filter('admin_footer_text', 'left_admin_footer_text');

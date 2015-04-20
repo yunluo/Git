@@ -1,14 +1,14 @@
 <?php
-add_action( 'widgets_init', 'd_textbanners' );
+add_action( 'widgets_init', 'git_textbanners' );
 
-function d_textbanners() {
-	register_widget( 'd_textbanner' );
+function git_textbanners() {
+	register_widget( 'git_textbanner' );
 }
 
-class d_textbanner extends WP_Widget {
-	function d_textbanner() {
-		$widget_ops = array( 'classname' => 'd_textbanner', 'description' => '显示一个文本特别推荐' );
-		$this->WP_Widget( 'd_textbanner', 'G-特别推荐', $widget_ops );
+class git_textbanner extends WP_Widget {
+	function git_textbanner() {
+		$widget_ops = array( 'classname' => 'git_textbanner', 'description' => '显示一个文本特别推荐' );
+		$this->WP_Widget( 'git_textbanner', 'Git-特别推荐', $widget_ops );
 	}
 
 	function widget( $args, $instance ) {

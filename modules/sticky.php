@@ -1,5 +1,5 @@
 <?php
-if (dopt('d_mobilesticky_b')) echo '<style type="text/css">@media screen and (max-width:1100px){ #wowslider-container1{display:none !important ;}}</style>'; ?>
+if (git_get_option('git_mobilesticky_b')) echo '<style type="text/css">@media screen and (max-width:1100px){ #wowslider-container1{display:none !important ;}}</style>'; ?>
 <div id="wowslider-container1">
 	<div class="ws_images"><ul>
 <?php
@@ -8,7 +8,7 @@ rsort($sticky);
 query_posts(array(
     'post__in' => $sticky,
     'caller_get_posts' => 1,
-    'showposts' => dopt('d_sticky_count') ? dopt('d_sticky_count') : 4
+    'showposts' => git_get_option('git_sticky_count') ? git_get_option('git_sticky_count') : 4
 ));
 while (have_posts()):
     the_post();
@@ -25,13 +25,13 @@ wp_reset_query();
 <div class="ws_thumbs">
 <div>
 <?php
-if (dopt('d_qiniucdn_b')) {
+if (git_get_option('git_cdnurl_b')) {
     $sticky = get_option('sticky_posts');
     rsort($sticky);
     query_posts(array(
         'post__in' => $sticky,
         'caller_get_posts' => 1,
-        'showposts' => dopt('d_sticky_count') ? dopt('d_sticky_count') : 4
+        'showposts' => git_get_option('git_sticky_count') ? git_get_option('git_sticky_count') : 4
     ));
     while (have_posts()):
         the_post();
@@ -47,7 +47,7 @@ if (dopt('d_qiniucdn_b')) {
     query_posts(array(
         'post__in' => $sticky,
         'caller_get_posts' => 1,
-        'showposts' => dopt('d_sticky_count') ? dopt('d_sticky_count') : 4
+        'showposts' => git_get_option('git_sticky_count') ? git_get_option('git_sticky_count') : 4
     ));
     while (have_posts()):
         the_post();

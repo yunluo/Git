@@ -1,18 +1,15 @@
 > 这个主题是本来是自己改着玩的。原来最初的主题后台框架是D8的二点几版本还是多少，忘了。后来自己修修改改。增加和删减了不少东西。本来只是自己用用。后来见好几个朋友求主题。所以免费共享出来。这个主题可以个人使用修改，但是请不要进行售卖和添加恶意代码等无耻行为。至于留链接什么的，就不奢望了。
 
-##注意：主题正在大规模修改中，暂时不可用，请勿下载，推荐下载之前的稳定版本[下载地址](http://www.opendrive.com/files/OTlfMTYyMzhfZlNyaXg/git.zip)
-
 因为并非是纯原创主题，所以随意取博客的域名为主题取了个名字：Yusi。这是一款WordPress 扁平化+响应式式主题，支持WordPress 3.8 及以上最新版，兼容 IE9+、Chrome、Firefox 等主流浏览器。部分浏览器不兼容一些新特效，请使用现代浏览器！
 
 废话不多说，来一张首页截图吧：
 
-[![yusi-theme](http://www.opendrive.com/files/OTlfMTYyMzdfQmtmc1o/CaptureAll_2015.04.19_120122.png)](http://www.opendrive.com/files/OTlfMTYyMzdfQmtmc1o/CaptureAll_2015.04.19_120122.png)
-
+[![yusi-theme](http://sandbox.runjs.cn/uploads/rs/60/mvjplrno/2014-11-22_230020.jpg)](http://sandbox.runjs.cn/uploads/rs/60/mvjplrno/2014-11-22_230020.jpg)
 
 ## 主题特色
 
 *   兼容 IE9+、谷歌 Chrome 、火狐 Firefox 等主流浏览器
-*   扁平化+响应式设计，兼容电脑、平板和手机访问
+*   扁平化+[响应式设计](http://yusi123.com/tag/%e5%93%8d%e5%ba%94%e5%bc%8f%e7%bd%91%e9%a1%b5%e8%ae%be%e8%ae%a1)，兼容电脑、平板和手机访问
 *   主题设置面板新增多种广告位，PC端和移动设备各不相同
 *   自带7+小工具，可随意设置侧栏分类和浮动块。
 *   基本SEO：首页、分类、文章等页面都可以设置关键词和描述
@@ -113,9 +110,9 @@
 &lt;title&gt;&lt;?php wp_title(&#039;-&#039;, true, &#039;right&#039;); echo get_option(&#039;blogname&#039;); if (is_home ()) echo &#039; — &#039; ,get_option(&#039;blogdescription&#039;); if ($paged &gt; 1) echo &#039;-Page &#039;, $paged; ?&gt;&lt;/title&gt;
 &lt;?php
 $sr_1 = 0; $sr_2 = 0; $commenton = 0;
-if( dopt(&#039;d_sideroll_b&#039;) ){
-    $sr_1 = dopt(&#039;d_sideroll_1&#039;);
-    $sr_2 = dopt(&#039;d_sideroll_2&#039;);
+if( get_option(&#039;d_sideroll_b&#039;) ){
+    $sr_1 = get_option(&#039;d_sideroll_1&#039;);
+    $sr_2 = get_option(&#039;d_sideroll_2&#039;);
 }
 if( is_singular() ){
     if( comments_open() ) $commenton = 1;
