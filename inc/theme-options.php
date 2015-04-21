@@ -44,6 +44,12 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+        'name'  => '图片自动添加alt',
+        'desc'  => '启用',
+        'id'    => "git_imgalt_b",
+        'type'  => 'checkbox'
+    ),
+    array(
         'name'  => '友情链接页面',
         'desc'  => '只显示输入分类的链接，id之间用英文逗号隔开，一般默认空着就行',
         'id'    => 'git_linkpage_cat',

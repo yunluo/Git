@@ -931,6 +931,30 @@ function tag_link($content) {
 if (git_get_option('git_autolink_b')) {
     add_filter('the_content', 'tag_link', 1);
 }
+
+//图片添加alt属性
+function image_alt( $imgalt ){
+        global $post;
+        $title = $post->post_title;
+        $imgUrl = "<img\s[^>]*src=(\"??)([^\" >]*?)\\1[^>]*>";
+        if(preg_match_all("/$imgUrl/siU",$imgalt,$matches,PREG_SET_ORDER)){
+                if( !empty($matches) ){
+                        for ($i=0; $i < count($matches); $i++){
+                                $tag = $url = $matches[$i][0];
+                                $judge = '/alt=/';
+                                preg_match($judge,$tag,$match,PREG_OFFSET_CAPTURE);
+                                if( count($match) < 1 )
+                                $altURL = ' alt="'.$title.'" ';
+                                $url = rtrim($url,'>');
+                                $url .= $altURL.'>';
+                                $imgalt = str_replace($tag,$url,$imgalt);
+                        }
+                }
+        }
+        return $imgalt;
+}if (git_get_option('git_imgalt_b')) {
+add_filter( 'the_content','image_alt');
+}
 //输出WordPress表情
 function fa_get_wpsmiliestrans() {
     global $wpsmiliestrans;
