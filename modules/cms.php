@@ -16,8 +16,8 @@ if (is_home() && git_get_option('hot_list_check')) { ?>
 <div class="relates"><h2 class="title"><small>最新文章</small><span class="more" style="float:right;"><a style="left: 0px;" href="/archives" title="阅读更多" target="_blank"><small>阅读更多</small></a></span></h2>
 
 <ul style="padding: 5px 0px 15px 20px;">
-<?php 
-get_archives('postbypost', 10); ?>
+<?php
+query_posts('showposts=5'); ?>
 <?php
 while (have_posts()):
     the_post(); ?>

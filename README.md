@@ -4,7 +4,7 @@
 
 废话不多说，来一张首页截图吧：
 
-[![git-theme](http://www.opendrive.com/files/OTlfMTYyMzdfQmtmc1o/CaptureAll_2015.04.19_120122.png)](http://www.opendrive.com/files/OTlfMTYyMzdfQmtmc1o/CaptureAll_2015.04.19_120122.png)
+[![git-theme](http://i2.tietuku.com/b6e0e01e7c88d928.png)](http://i2.tietuku.com/b6e0e01e7c88d928.png)
 
 ## 主题特色
 

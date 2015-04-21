@@ -1,7 +1,7 @@
 <!--
 苍茫的代码是我的爱！！！
 如果你觉得主题的某个功能非常的棒，那么那肯定是云落（me@googlo.me）写的
-如果你觉得主题的某个功能非常的弱智脑残，嗯，那肯定不是我写的
+如果你觉得主题的某个功能非常的弱智脑残，哦，鬼知道谁写的，反正不是我写的
 -->
 <!DOCTYPE HTML>
 <html xmlns:wb=“http://open.weibo.com/wb”>
@@ -61,19 +61,19 @@ $(function(){
 <?php
 if (!git_get_option('git_pichead_b')) { ?>
 <?php
-    if (git_get_option('git_red_b')) {
+    if ( git_get_option('git_skin_b') == 'git_red_b' ) {
         echo '<header id="header" class="header" style="background-color: #E74C3C;">';
-    } elseif (git_get_option('git_blue_b')) {
+    } elseif ( git_get_option('git_skin_b') == 'git_blue_b' ) {
         echo '<header id="header" class="header" style="background-color: #003399;">';
-    } elseif (git_get_option('git_black_b')) {
+    } elseif ( git_get_option('git_skin_b') == 'git_black_b' ) {
         echo '<header id="header" class="header" style="background-color: #616161;">';
-    } elseif (git_get_option('git_purple_b')) {
+    } elseif ( git_get_option('git_skin_b') == 'git_purple_b' ) {
         echo '<header id="header" class="header" style="background-color: #9932CC;">';
-    } elseif (git_get_option('git_yellow_b')) {
+    } elseif ( git_get_option('git_skin_b') == 'git_yellow_b' ) {
         echo '<header id="header" class="header" style="background-color: #f5e011;">';
-    }elseif (git_get_option('git_light_b')) {
+    }elseif ( git_get_option('git_skin_b') == 'git_light_b' ) {
         echo '<header id="header" class="header" style="background-color: #03A9F4;">';
-    }elseif (git_get_option('git_green_b')) {
+    }elseif ( git_get_option('git_skin_b') == 'git_green_b' ) {
         echo '<header id="header" class="header" style="background-color: #4CAF50;">';
     } elseif (git_get_option('git_custom_color')) {
         echo '<header id="header" class="header" style="background-color: ' . git_get_option('git_color_nom') . ';">';

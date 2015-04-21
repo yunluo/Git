@@ -952,14 +952,14 @@ $options = array(
         'desc'  => '开启',
         'id'    => 'git_adpost_01',
         'type'  => 'textarea',
-        'std'   => ''
+        'std'   => '<a target="_blank" href="http://googlo.me/go/hengtian"><img style="width:100%" src="http://i2.tietuku.com/24a66f5351e84813.jpg" title="立刻购买专业WordPress主机-衡天主机" alt="立刻购买专业WordPress主机-衡天主机" ></a>'
     ),
     array(
         'name'  => '广告：文章页 - 相关文章下',
         'desc'  => '开启',
         'id'    => 'git_adpost_02',
         'type'  => 'textarea',
-        'std'   => ''
+        'std'   => '<a target="_blank" href="http://googlo.me/go/hengtian"><img style="width:100%" src="http://i2.tietuku.com/24a66f5351e84813.jpg" title="立刻购买专业WordPress主机-衡天主机" alt="立刻购买专业WordPress主机-衡天主机" ></a>'
     ),
     array(
         'name'  => '广告：文章页 - 网友评论下',
@@ -1178,7 +1178,7 @@ $options = array(
         array(
         'name'  => 'Gravatar头像设置',
         'desc'  => '任选一个合适的头像解决方案，另外，如果选择本地缓存的话，请在WordPress根目录（wp-content同级）',
-        'id'    => "git_avater_b",
+        'id'    => "git_avater",
         'type'  => 'radio',
         'options' => array(
             'SSL访问' => 'git_avatar_ssl',
@@ -1230,7 +1230,7 @@ function git_options_page() {
 <div class="wrap">
     <h2>Git 主题选项&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="button-primary" type="button" value="主题主页" onclick="window.open('http://googlo.me/archives/3011.html')">&nbsp;&nbsp;<input class="button-primary" type="button" value="邮箱反馈" onclick="window.open('http://googlo.me/go/mail')">&nbsp;&nbsp;<input class="button-primary" type="button" value="支持主题" onclick="window.open('http://googlo.me/pay')">&nbsp;&nbsp;<input class="button-primary" type="button" value="功能建议" onclick="window.open('http://googlo.me/about.html')">&nbsp;&nbsp;<input class="button-primary" type="button" value="食用文档" onclick="window.open('http://googlo.me/archives/3275.html')">&nbsp;&nbsp;<input class="button-primary" type="button" value="定制修改" onclick="window.open('http://googlo.me/go/qq')">&nbsp;&nbsp;<input class="button-primary" type="button" value="加入QQ群" onclick="window.open('http://googlo.me/go/qun')"></h2>
     <input placeholder="筛选主题选项…" type="search" id="theme-options-search" />
-    <div class="yunluotips"><?php echo file_get_contents( "http://git.oschina.net/yunluo/API/raw/master/notice.txt" ); ?></div>
+    <div class="yunluotips"><?php echo file_get_contents( "https://coding.net/u/googlo/p/api/git/raw/master/notice.txt" ); ?></div>
     <div class="catlist">您的网站分类列表：<?php echo Bing_show_category(); ?></div>
     <form method="post">
         <h2 class="nav-tab-wrapper">

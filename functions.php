@@ -364,7 +364,7 @@ function deel_avatar($avatar) {
     $f = substr($g, $tmp, strpos($g, "?", $tmp) - $tmp);
     $w = get_bloginfo('wpurl');
     $e = ABSPATH . 'avatar/' . $f . '.png';
-    $t = git_get_option('git_avatarDate') * 24 * 60 * 60;
+    $t = 30 * 24 * 60 * 60;
     if (!is_file($e) || (time() - filemtime($e)) > $t) copy(htmlspecialchars_decode($g) , $e);
     else $avatar = strtr($avatar, array(
         $g => $w . '/avatar/' . $f . '.png'
@@ -372,7 +372,7 @@ function deel_avatar($avatar) {
     if (filesize($e) < 500) copy(get_bloginfo('template_directory') . '/img/default.png', $e);
     return $avatar;
 }
-if (git_get_option('git_avatar_b')) {
+if (git_get_option('git_avatar')=='git_avatar_b') {
     add_filter('get_avatar', 'deel_avatar');
 }
 //头像SSL链接
@@ -380,7 +380,7 @@ function googlo_ssl_avatar($avatar) {
     $avatar = preg_replace('/.*\/avatar\/(.*)\?s=([\d]+)&.*/', '<img src="//sdn.geekzu.org/avatar/$1?s=$2" class="avatar avatar-$2" height="$2" width="$2">', $avatar);
     return $avatar;
 }
-if (git_get_option('git_avatar_ssl')) {
+if (git_get_option('git_avatar')=='git_avatar_ssl') {
     add_filter('get_avatar', 'googlo_ssl_avatar');
 }
 //七牛头像镜像(奶子提供)
@@ -393,7 +393,7 @@ function googlo_get_avatar($avatar) {
     ) , "cd.v7v3.com", $avatar);
     return $avatar;
 }
-if (git_get_option('git_avatar_qn')) {
+if (git_get_option('git_avatar')=='git_avatar_qn') {
     add_filter('get_avatar', 'googlo_get_avatar', 10, 3);
 }
 //极客族头像镜像
@@ -406,7 +406,7 @@ function googlo_duoshuo_avatar($avatar) {
     ) , "fdn.geekzu.org/avatar", $avatar);
     return $avatar;
 }
-if (git_get_option('git_avatar_ds')) {
+if (git_get_option('git_avatar')=='git_avatar_ds') {
     add_filter('get_avatar', 'googlo_duoshuo_avatar', 10, 3);
 }
 //关键字
@@ -1416,7 +1416,7 @@ function baidu_record() {
 //主题自动更新服务
 if (!git_get_option('git_updates_b')):
     require 'modules/updates.php';
-    $example_update_checker = new ThemeUpdateChecker('git', 'https://git.oschina.net/yunluo/API/raw/master/info.json'
+    $example_update_checker = new ThemeUpdateChecker('Git', 'https://coding.net/u/googlo/p/api/git/raw/master/info.json'
     //此处链接不可改
     );
 endif;
@@ -1791,7 +1791,7 @@ if (git_get_option('git_ua_b')):
 endif;
 //添加后台左下角文字
 function left_admin_footer_text($text) {
-    $text = '感谢使用<a target="_blank" href=http://googlo.me/ >云落版主题 4.1</a>进行创作';
+    $text = '感谢使用<a target="_blank" href=http://googlo.me/ >Git主题 5.0</a>进行创作';
     return $text;
 }
 add_filter('admin_footer_text', 'left_admin_footer_text');
