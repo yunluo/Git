@@ -1021,25 +1021,20 @@ function reply_to_read($atts, $content = null) {
         $return = '<div class="showhide"><h4>本文隐藏的内容</h4>';
         $return.= $content;
         $return.= '</div>'; //如果用户是管理员则直接显示内容
-
     }
     $email = null;
     $user_ID = (int)wp_get_current_user()->ID;
     if ($user_ID > 0) {
         $email = get_userdata($user_ID)->user_email; //如果用户已经登入则从用户信息中取得邮箱
-
     } else if (isset($_COOKIE['comment_author_email_' . COOKIEHASH])) {
         $email = str_replace('%40', '@', $_COOKIE['comment_author_email_' . COOKIEHASH]); //如果用户尚未登入但COOKIE内储存有邮箱信息
-
     } else {
         $return = '<div class="showhide"><h4>本文隐藏的内容</h4>';
         $return.= $content;
         $return.= '</div>'; //如无法获取邮箱则返回提示信息
-
     }
     if (empty($email)) {
         return $notice; //如邮箱为空则返回提示信息
-
     }
     global $wpdb;
     $post_id = get_the_ID(); //获取文章的ID
@@ -1048,10 +1043,8 @@ function reply_to_read($atts, $content = null) {
         $return = '<div class="showhide"><h4>本文隐藏的内容</h4>';
         $return.= $content;
         $return.= '</div>'; //查询到对应的评论即正常显示内容
-
     } else {
         return $notice; //否则返回提示信息
-
     }
 }
 add_shortcode('reply', 'reply_to_read');
