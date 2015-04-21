@@ -933,7 +933,7 @@ if (git_get_option('git_autolink_b')) {
 }
 
 //图片添加alt属性
-function image_alt( $imgalt ){
+function googlo_image_alt( $imgalt ){
         global $post;
         $title = $post->post_title;
         $imgUrl = "<img\s[^>]*src=(\"??)([^\" >]*?)\\1[^>]*>";
@@ -953,7 +953,7 @@ function image_alt( $imgalt ){
         }
         return $imgalt;
 }if (git_get_option('git_imgalt_b')) {
-add_filter( 'the_content','image_alt');
+add_filter( 'the_content','googlo_image_alt');
 }
 //输出WordPress表情
 function fa_get_wpsmiliestrans() {
