@@ -733,7 +733,6 @@ function hot_posts_list($days = 7, $nums = 10) {
     echo $output;
 }
 //在 WordPress 编辑器添加“下一页”按钮
-add_filter('mce_buttons', 'add_next_page_button');
 function add_next_page_button($mce_buttons) {
     $pos = array_search('wp_more', $mce_buttons, true);
     if ($pos !== false) {
@@ -743,6 +742,7 @@ function add_next_page_button($mce_buttons) {
     }
     return $mce_buttons;
 }
+
 //判断手机广告
 function G_is_mobile() {
     if (empty($_SERVER['HTTP_USER_AGENT'])) {
