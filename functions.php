@@ -742,7 +742,7 @@ function add_next_page_button($mce_buttons) {
     }
     return $mce_buttons;
 }
-
+add_filter('mce_buttons', 'add_next_page_button');
 //判断手机广告
 function G_is_mobile() {
     if (empty($_SERVER['HTTP_USER_AGENT'])) {
@@ -919,7 +919,7 @@ function tag_link($content) {
             $url.= ">" . addcslashes($cleankeyword, '$') . "</a>";
             $limit = rand($match_num_from, $match_num_to);
             $content = preg_replace('|(<a[^>]+>)(.*)<pre.*?>(' . $ex_word . ')(.*)<\/pre>(</a[^>]*>)|U' . $case, '$1$2%&&&&&%$4$5', $content);
-            $content = preg_replace('|(<img)(.*?)(' . $ex_word . ')(.*?)(>)|U' . $case, '$1$2%&&&&&%$4$5', $content);
+            $content = preg_replace('|([<img)(.*?)(' . $ex_word . ')(.*?)(>])|U' . $case, '$1$2%&&&&&%$4$5', $content);
             $cleankeyword = preg_quote($cleankeyword, '\'');
             $regEx = '\'(?!((<.*?)|(<a.*?)))(' . $cleankeyword . ')(?!(([^<>]*?)>)|([^>]*?</a>))\'s' . $case;
             $content = preg_replace($regEx, $url, $content, $limit);
