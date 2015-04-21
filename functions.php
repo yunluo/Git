@@ -918,8 +918,8 @@ function tag_link($content) {
             $url.= ' target="_blank"';
             $url.= ">" . addcslashes($cleankeyword, '$') . "</a>";
             $limit = rand($match_num_from, $match_num_to);
-            $content = preg_replace('|(<a[^>]+>)(.*)<pre.*?>(' . $ex_word . ')(.*)<\/pre>(</a[^>]*>)|U' . $case, '$1$2%&&&&&%$4$5', $content);
-            $content = preg_replace('|([<img)(.*?)(' . $ex_word . ')(.*?)(>])|U' . $case, '$1$2%&&&&&%$4$5', $content);
+            $content = preg_replace('|(<a[^>]+>)(.*)(' . $ex_word . ')(.*)(</a[^>]*>)|U' . $case, '$1$2%&&&&&%$4$5', $content);
+            $content = preg_replace('|(<img)(.*?)(' . $ex_word . ')(.*?)(>)|U' . $case, '$1$2%&&&&&%$4$5', $content);
             $cleankeyword = preg_quote($cleankeyword, '\'');
             $regEx = '\'(?!((<.*?)|(<a.*?)))(' . $cleankeyword . ')(?!(([^<>]*?)>)|([^>]*?</a>))\'s' . $case;
             $content = preg_replace($regEx, $url, $content, $limit);
