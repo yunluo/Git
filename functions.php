@@ -26,7 +26,7 @@ function deel_setup() {
     if (git_get_option('git_cattu_b')) {
     remove_filter('pre_term_description', 'wp_filter_kses');
     }
-	//新标签打开文章链接
+    //新标签打开文章链接
 function googlo_admin_aritical_ctrlenter() {
     echo '<script type="text/javascript">
     var alink = document.getElementsByClassName("button button-small");
@@ -157,59 +157,8 @@ if (git_get_option('git_pagehtml_b')):
         $wp_rewrite->flush_rules();
     }
 endif;
-// 给文章的编辑页添加选项
-function git_remote_pic_box() {    
-  add_meta_box('git_remote_pic', 'Git远程图片设置', 'git_remote_pic', 'post', 'side', 'high');
-}
-add_action('add_meta_boxes', 'git_remote_pic_box');
-
-function git_remote_pic() {
-  global $post;
-  //添加验证字段
-  wp_nonce_field('git_remote_pic', 'git_remote_pic_nonce');
- 
-  $meta_value = get_post_meta($post->ID, 'git_remote_pic', true);
-  if($meta_value)
-    echo '<input name="git_remote_pic" type="checkbox" checked="checked" value="1" /> 使用远程图片功能';
-  else
-    echo '<input name="git_remote_pic" type="checkbox" value="1" /> 使用远程图片功能';
-}
-
-// 保存选项设置
-function git_save_postdata($post_id) {
-  // 验证
-  if ( !isset( $_POST['git_remote_pic_nonce']))
-    return $post_id;
-  $nonce = $_POST['git_remote_pic_nonce'];
- 
-  // 验证字段是否合法
-  if (!wp_verify_nonce( $nonce, 'git_remote_pic'))
-    return $post_id;
-   
-  // 判断是否自动保存
-  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
-      return $post_id;
-     
-  // 验证用户权限
-  if ('page' == $_POST['post_type']) {
-    if ( !current_user_can('edit_page', $post_id))
-      return $post_id;
-  }
-  else {
-    if (!current_user_can('edit_post', $post_id))
-      return $post_id;
-  }
- 
-  // 更新设置
-  if(!empty($_POST['git_remote_pic']))
-    update_post_meta($post_id, 'git_remote_pic', '1');
-  else
-    delete_post_meta($post_id, 'git_remote_pic');
-}
-add_action('save_post', 'git_save_postdata');
 //远程图片保存
-$git_remote_pic = get_post_meta($post->ID, 'git_remote_pic', true);
-if (git_get_option('git_yuanpic_b')&&!empty($_POST['git_remote_pic'])):
+if (git_get_option('git_yuanpic_b')):
     function googlo_auto_save_image($content) {
         $upload_path = '';
         $upload_url_path = get_option('upload_path');
@@ -428,7 +377,7 @@ if (git_get_option('git_avatar')=='git_avatar_b') {
 }
 //头像SSL链接
 function googlo_ssl_avatar($avatar) {
-    $avatar = preg_replace('/.*\/avatar\/(.*)\?s=([\d]+)&.*/', '<img src="//secure.gravatar.com/avatar/$1?s=$2" class="avatar avatar-$2" height="$2" width="$2">', $avatar);
+    $avatar = preg_replace('/.*\/avatar\/(.*)\?s=([\d]+)&.*/', '<img src="//sdn.geekzu.org/avatar/$1?s=$2" class="avatar avatar-$2" height="$2" width="$2">', $avatar);
     return $avatar;
 }
 if (git_get_option('git_avatar')=='git_avatar_ssl') {
@@ -454,7 +403,7 @@ function googlo_duoshuo_avatar($avatar) {
         "0.gravatar.com",
         "1.gravatar.com",
         "2.gravatar.com"
-    ) , "gravatar.duoshuo.com", $avatar);
+    ) , "fdn.geekzu.org/avatar", $avatar);
     return $avatar;
 }
 if (git_get_option('git_avatar')=='git_avatar_ds') {
@@ -1246,7 +1195,7 @@ function tok($atts, $content = null) {
 add_shortcode('yb', 'tok');
 /*添加音乐按钮*/
 function tol($atts, $content = null) {
-    return '<audio style="width:100%;max-height:40px;" src="' . $content . '" controls preload loop>您的浏览器不支持HTML5的 audio ���签，无法为���播放！</audio>';
+    return '<audio style="width:100%;max-height:40px;" src="' . $content . '" controls preload loop>您的浏览器不支持HTML5的 audio 标签，无法为���播放！</audio>';
 }
 add_shortcode('music', 'tol');
 /*灵魂按钮*/
@@ -1484,7 +1433,7 @@ function baidu_record() {
 //主题自动更新服务
 if (!git_get_option('git_updates_b')):
     require 'modules/updates.php';
-    $example_update_checker = new ThemeUpdateChecker('git', 'http://git.oschina.net/yunluo/API/raw/master/info.json'
+    $example_update_checker = new ThemeUpdateChecker('git', 'https://coding.net/u/googlo/p/api/git/raw/master/info.json'
     //此处链接不可改
     );
 endif;
@@ -1798,26 +1747,6 @@ function googlo_wp_upload_filter($file) {
     return $file;
 }
 add_filter('wp_handle_upload_prefilter', 'googlo_wp_upload_filter');
-//CMS模板需要的
-function get_page_id_from_template($template) {
-   global $wpdb;
-   $page_id = $wpdb->get_var($wpdb->prepare("SELECT `post_id`
-                              FROM `$wpdb->postmeta`, `$wpdb->posts`
-                              WHERE `post_id` = `ID`
-                                    AND `post_status` = 'publish'
-                                    AND `meta_key` = '_wp_page_template'
-                                    AND `meta_value` = %s
-                                    LIMIT 1;", $template));
-   return $page_id;
-}
-//后台文章重新排序
-function git_post_order_in_admin( $wp_query ) {
-  if ( is_admin() ) {
-    $wp_query->set( 'orderby', 'modified' );
-    $wp_query->set( 'order', 'DESC' );
-  }
-}
-add_filter('pre_get_posts', 'git_post_order_in_admin' );
 //UA信息
 if (git_get_option('git_ua_b')):
     function user_agent($ua) {
@@ -1883,6 +1812,4 @@ function left_admin_footer_text($text) {
     return $text;
 }
 add_filter('admin_footer_text', 'left_admin_footer_text');
-
-
 ?>
