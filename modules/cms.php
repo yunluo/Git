@@ -13,7 +13,9 @@ if (is_home() && git_get_option('hot_list_check')) { ?>
 } ?>
 <style type="text/css">.widget-title{background:#FFFFFF;} .title-h2{ height: 45px; border-bottom: 1px solid #90BBA8; margin: 5px 20px;}</style>
 <!-- 最新文章开始 -->
-<div class="relates"><h2 class="title"><small>最新文章</small><span class="more" style="float:right;"><a style="left: 0px;" href="/archives" title="阅读更多" target="_blank"><small>阅读更多</small></a></span></h2>
+<div class="relates"><h2 class="title"><small>最新文章</small><span class="more" style="float:right;"><a style="left: 0px;" href="<?php
+echo get_permalink(get_page_id_from_template('archives.php'))
+?>" title="阅读更多" target="_blank"><small>阅读更多</small></a></span></h2>
 
 <ul style="padding: 5px 0px 15px 20px;">
 <?php

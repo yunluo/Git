@@ -11,13 +11,18 @@
 <meta http-equiv="X-UA-Compatible" content="IE=10,IE=9,IE=8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 <link href="/favicon.ico" rel="icon" type="image/x-icon" />
+<?php if (is_single() || is_page() || is_home() ) : ?>
+<meta name="robots" content="index,follow" />
+<?php else : ?>
+<meta name="robots" content="noindex,follow" />
+<?php endif; ?>
 <?php
 wp_head();
 if (git_get_option('git_headcode')) echo git_get_option('git_headcode'); ?>
 <title><?php
-wp_title('-', true, 'right');
+wp_title(''.git_get_option('git_delimiter').'', true, 'right');
 echo get_option('blogname');
-if (is_home()) echo ' _ ', get_option('blogdescription');
+if (is_home()) echo ''.git_get_option('git_delimiter').'', get_option('blogdescription');
 if ($paged > 1) echo '-Page ', $paged; ?></title>
 <?php
 $sr_1 = 0;

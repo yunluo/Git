@@ -13,42 +13,13 @@ $options = array(
         'type'  => 'panelstart' //panelatart 是顶部标签的意思
     ),
     array(
-        'title' => '搜索引擎优化（SEO）',//标题文字
-        'type'  => 'subtitle'//subtitle 是标签下的标题
-    ),
-    array(
-        'name'  => '网站关键字',//选项显示的文字，选填
-        'desc'  => '各关键字间用半角逗号","分割，数量在6个以内最佳。',//选项显示的一段描述文字，选填
-        'id'    => "git_keywords",//选项的id，必须是唯一，后面根据这个获取值，必填
-        'type'  => 'text',//种类，这个是普通的文字输入，必填
-        'std'   => ''//选项的默认值，选填
-    ),
-    array(
-        'name'  => '网站描述',
-        'desc'  => '用简洁的文字描述本站点，字数建议在120个字以内。',
-        'id'    => "git_description",
-        'type'  => 'text',
-        'std'   => ''
-    ),
-    array(
         'name'  => '公告栏信息',
         'desc'  => '最新消息显示在全站导航条下方，非常给力的推广位置',
         'id'    => "git_tui",
         'type'  => 'textarea',
         'std'   => ''
     ),
-    array(
-        'name'  => '自动内链',
-        'desc'  => '启用',
-        'id'    => "git_autolink_b",
-        'type'  => 'checkbox'
-    ),
-    array(
-        'name'  => '图片自动添加alt',
-        'desc'  => '启用',
-        'id'    => "git_imgalt_b",
-        'type'  => 'checkbox'
-    ),
+    
     array(
         'name'  => '友情链接页面',
         'desc'  => '只显示输入分类的链接，id之间用英文逗号隔开，一般默认空着就行',
@@ -183,6 +154,12 @@ $options = array(
         'type'  => 'textarea'
     ),
     array(
+        'name'  => '去除主题版权声明',
+        'desc'  => '我知道即便没有这个选项，也基本没人会保留主题版权文字，所以留下这个，可以让你们更方便的去掉主题版权声明文字，尽管我并不希望这个选项被选中',
+        'id'    => 'git_yunright',
+        'type'  => 'checkbox'
+    ),
+    array(
         'name'  => '主题更新设置',
         'desc'  => '禁止主题更新&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 选择后，您将无法收到本主题的更新推送，所以云落墙裂不推荐选择勾选',
         'id'    => 'git_updates_b',
@@ -192,8 +169,51 @@ $options = array(
     array(
         'type'  => 'panelend'//标签段的结束
     ),
-    
-    
+    array(
+        'title' => 'SEO设置',
+        'id'    => 'panel_aritical',
+        'type'  => 'panelstart'
+    ),
+    array(
+        'title' => '（SEO）是指搜索引擎优化，主要是让搜索引擎更顺利更容易的搜索到本站内容，从而',//标题文字
+        'type'  => 'subtitle'//subtitle 是标签下的标题
+    ),
+    array(
+        'name'  => '网站关键字',//选项显示的文字，选填
+        'desc'  => '各关键字间用半角逗号","分割，数量在6个以内最佳。',//选项显示的一段描述文字，选填
+        'id'    => "git_keywords",//选项的id，必须是唯一，后面根据这个获取值，必填
+        'type'  => 'text',//种类，这个是普通的文字输入，必填
+        'std'   => ''//选项的默认值，选填
+    ),
+    array(
+        'name'  => '网站描述',
+        'desc'  => '用简洁的文字描述本站点，字数建议在120个字以内。',
+        'id'    => "git_description",
+        'type'  => 'text',
+        'std'   => ''
+    ),
+    array(
+        'name'  => 'title分隔符',
+        'desc'  => '显示在浏览器标题栏的一个用来风格网站名字的',
+        'id'    => "git_delimiter",
+        'type'  => 'text',
+        'std'   => '|'
+    ),
+    array(
+        'name'  => '自动内链',
+        'desc'  => '启用',
+        'id'    => "git_autolink_b",
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '图片自动添加alt',
+        'desc'  => '启用',
+        'id'    => "git_imgalt_b",
+        'type'  => 'checkbox'
+    ),
+    array(
+        'type'  => 'panelend'//标签段的结束
+    ),
     array(
         'title' => '文章设置',
         'id'    => 'panel_aritical',
@@ -1120,7 +1140,7 @@ $options = array(
     array(
         'name'  => '新浪appkey',
         'desc'  => '请输入您的微博appkey，这个需要您自己去<a class="button-primary" target="_blank" href="http://open.weibo.com/webmaster/add" title="微博开放平台">微博开放平台</a>申请',
-        'id'    => "git_wbpasd_b",
+        'id'    => "git_wbapky_b",
         'type'  => 'text',
         'std'   => ''
     ),
@@ -1395,7 +1415,7 @@ switch ( $value['type'] ) {
 </form>
 <form method="post">
 <p>
-    <input name="reset" type="submit" class="button button-secondary" value="重置选项" onclick="return confirm('你确定要重置选项吗？');"/>
+    <input name="reset" type="submit" class="button button-secondary" value="重置选项" onclick="return confirm('你确定要重置选项吗？重置之后您的全部设置将被清空，您确定您不是手残了？？？→_→ ');"/>
     <input type="hidden" name="action" value="reset" />
 </p>
 </form>
