@@ -17,7 +17,7 @@ while (have_posts()):
 ?><?php
     $s = trim(get_search_query()) ? trim(get_search_query()) : 0;
     $title = get_the_title();
-    $content = mb_strimwidth(strip_tags(apply_filters('the_content', $post->post_content)) , 0, git_get_option('git_excerpt_length') ? git_get_option('git_excerpt_length') : 260, "......", 'utf-8'); //300是摘要字符数，......是结束符号。
+    $content = mb_strimwidth(strip_tags(apply_filters('the_content', $post->post_content)) , 0, git_get_option('git_excerpt_length') ? git_get_option('git_excerpt_length') : 180, "......", 'utf-8'); //300是摘要字符数，......是结束符号。
     if ($s) {
         $keys = explode(" ", $s);
         $title = preg_replace('/(' . implode('|', $keys) . ')/iu', '<span style="color:#b94a48;">\0</span>', $title);

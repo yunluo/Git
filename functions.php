@@ -879,7 +879,7 @@ function no_category_base_request($query_vars) {
     return $query_vars;
 }
 //添加文章版权信息
-function copyright($content,$copyright) {
+function copyright($content ) {
     if (is_single() || is_feed()) {
 		$copyright = str_replace(array('{{title}}', '{{link}}'), array(get_the_title(), get_permalink()), stripslashes(git_get_option('git_copyright_b')));
         $content.= '<hr /><div align="center" class="open-message"><i class="fa fa-bullhorn"></i>' . $copyright . '</div>';
@@ -1195,7 +1195,7 @@ function tok($atts, $content = null) {
 add_shortcode('yb', 'tok');
 /*添加音乐按钮*/
 function tol($atts, $content = null) {
-    return '<audio style="width:100%;max-height:40px;" src="' . $content . '" controls preload loop>您的浏览器不支持HTML5的 audio 标签，无法为您播放！</audio>';
+    return '<audio style="width:100%;max-height:40px;" src="' . $content . '" controls preload loop>您的浏览器不支持HTML5的 audio 标签，无法为���播放！</audio>';
 }
 add_shortcode('music', 'tol');
 /*灵魂按钮*/

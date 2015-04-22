@@ -239,7 +239,7 @@ $options = array(
         'desc'  => '个字',
         'id'    => 'git_excerpt_length',
         'type'  => 'number',
-        'std'   => 260
+        'std'   => 180
     ),
     array(
         'name'  => '文章二维码',
