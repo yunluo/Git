@@ -377,7 +377,7 @@ if (git_get_option('git_avatar')=='git_avatar_b') {
 }
 //头像SSL链接
 function googlo_ssl_avatar($avatar) {
-    $avatar = preg_replace('/.*\/avatar\/(.*)\?s=([\d]+)&.*/', '<img src="//sdn.geekzu.org/avatar/$1?s=$2" class="avatar avatar-$2" height="$2" width="$2">', $avatar);
+    $avatar = preg_replace('/.*\/avatar\/(.*)\?s=([\d]+)&.*/', '<img src="//secure.gravatar.com/avatar/$1?s=$2" class="avatar avatar-$2" height="$2" width="$2">', $avatar);
     return $avatar;
 }
 if (git_get_option('git_avatar')=='git_avatar_ssl') {
@@ -403,7 +403,7 @@ function googlo_duoshuo_avatar($avatar) {
         "0.gravatar.com",
         "1.gravatar.com",
         "2.gravatar.com"
-    ) , "fdn.geekzu.org/avatar", $avatar);
+    ) , "gravatar.duoshuo.com", $avatar);
     return $avatar;
 }
 if (git_get_option('git_avatar')=='git_avatar_ds') {
@@ -1195,7 +1195,7 @@ function tok($atts, $content = null) {
 add_shortcode('yb', 'tok');
 /*添加音乐按钮*/
 function tol($atts, $content = null) {
-    return '<audio style="width:100%;max-height:40px;" src="' . $content . '" controls preload loop>您的浏览器不支持HTML5的 audio 标签，无法为���播放！</audio>';
+    return '<audio style="width:100%;max-height:40px;" src="' . $content . '" controls preload loop>您的浏览器不支持HTML5的 audio ���签，无法为���播放！</audio>';
 }
 add_shortcode('music', 'tol');
 /*灵魂按钮*/

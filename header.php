@@ -27,9 +27,7 @@ if (git_get_option('git_sideroll_b')) {
     $sr_1 = git_get_option('git_sideroll_1');
     $sr_2 = git_get_option('git_sideroll_2');
 }
-if (is_singular()) {
-    if (comments_open()) $commenton = 1;
-}
+
 ?>
 <script>
 window._deel = {name: '<?php
@@ -130,14 +128,14 @@ if (git_get_option('git_piclogo_left') && !G_is_mobile()) {
 } ?><a href="/"><h1><?php
 if (!git_get_option('git_piclogo_b')) { ?>
 <span class="g-mono" style="font-family:楷体;"><?php
-    bloginfo('name'); ?></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="g-bloger" style="font-family:楷体;"><?php
+    bloginfo('name'); ?></span>  <span class="g-bloger" style="font-family:楷体;"><?php
     bloginfo('description'); ?></span><?php
 } ?><?php
 if (git_get_option('git_piclogo_b')) { ?><?php
     if (git_get_option('git_customlogo')) { ?><img src="<?php
         echo git_get_option('git_customlogo'); ?>"><?php
     } ?><?php
-    if (!git_get_option('git_customlogo_b')) { ?><img src="<?php
+    if (!git_get_option('git_customlogo')) { ?><img src="<?php
         bloginfo('template_url'); ?>/img/logo.png"><?php
     } ?><?php
 } ?></h1></a></div></div><div id="toubuads"><?php
@@ -194,7 +192,7 @@ if (git_get_option('git_tui')) { ?><div class="speedbar">
         } else {
             echo '<i class="fa fa-user"></i> <a href="/wp-login.php?action=register">注册</a>';
         };
-        echo ' &nbsp; <i class="fa fa-power-off"></i> ';
+        echo '  <i class="fa fa-power-off"></i> ';
         echo wp_loginout();
         echo ''; ?>
 			</div>

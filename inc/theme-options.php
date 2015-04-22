@@ -166,7 +166,7 @@ $options = array(
     ),
     array(
         'name'  => '评论内容过滤',
-        'desc'  => '开启&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 启用后，屏蔽外文评论，屏蔽含有WordPress设置黑名单内容的评论，屏蔽过长网址的评论，屏蔽字数少于2或者多余200的评论，屏蔽内容或者评论昵称含有链接的评论。另，在WordPress-设置-讨论-黑名单中添加想要屏蔽的关键词，邮箱，网址，IP地址，每行一个。',
+        'desc'  => '开启【启用后，屏蔽外文评论，屏蔽含有WordPress设置黑名单内容的评论，屏蔽过长网址的评论，屏蔽字数少于2或者多余200的评论，屏蔽内容或者评论昵称含有链接的评论。另，在WordPress-设置-讨论-黑名单中添加想要屏蔽的关键词，邮箱，网址，IP地址，每行一个。】',
         'id'    => 'git_spamComments_b',
         'type'  => 'checkbox'
     ),
@@ -725,7 +725,7 @@ $options = array(
     array(
         'name'  => 'RSS订阅地址',
         'desc'  => '如果您想使用自定义的RSS地址，请在这里输入您期望的地址。',
-        'id'    => 'git_rss_url',
+        'id'    => 'git_rss',
         'type'  => 'text',
         'std'   => get_bloginfo('rss2_url')
     ),
@@ -746,7 +746,7 @@ $options = array(
     array(
         'name'  => '腾讯微信',
         'desc'  => '请输入您的微信号',
-        'id'    => 'git_weixin_b',
+        'id'    => 'git_weixin',
         'type'  => 'text',
         'std'   => 'yunluoV587'
     ),
