@@ -269,7 +269,7 @@ $options = array(
     ),
     array(
         'name'  => '自动超链接',
-        'desc'  => '启用【就是那种可以把一个链接自动变成可以点击的超链接】',
+        'desc'  => '启用 【就是那种可以把一个链接自动变成可以点击的超链接】',
         'id'    => 'git_linktrue_b',
         'type'  => 'checkbox'
     ),
