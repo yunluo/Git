@@ -171,7 +171,7 @@ $options = array(
     ),
     array(
         'title' => 'SEO设置',
-        'id'    => 'panel_aritical',
+        'id'    => 'panel_seo',
         'type'  => 'panelstart'
     ),
     array(
