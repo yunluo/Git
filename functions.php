@@ -1,9 +1,5 @@
 <?php
-
 add_action('after_setup_theme', 'deel_setup');
-$currentTheme = wp_get_theme();
-$themename = $currentTheme->get('Name');
-$shortname = strtolower($themename);
 include ('inc/theme-options.php');
 include ('widgets/index.php');
 function deel_setup() {
@@ -1883,6 +1879,6 @@ function left_admin_footer_text($text) {
     return $text;
 }
 add_filter('admin_footer_text', 'left_admin_footer_text');
-
+/*WordPress函数代码结束*/
 
 ?>
