@@ -419,7 +419,7 @@ function deel_avatar($avatar) {
     if (filesize($e) < 500) copy(get_bloginfo('template_directory') . '/img/default.png', $e);
     return $avatar;
 }
-if (git_get_option('git_avatar')=='git_avatar_b') {
+if (git_get_option('git_avater')=='git_avatar_b') {
     add_filter('get_avatar', 'deel_avatar');
 }
 //头像SSL链接
@@ -427,7 +427,7 @@ function googlo_ssl_avatar($avatar) {
     $avatar = preg_replace('/.*\/avatar\/(.*)\?s=([\d]+)&.*/', '<img src="//secure.gravatar.com/avatar/$1?s=$2" class="avatar avatar-$2" height="$2" width="$2">', $avatar);
     return $avatar;
 }
-if (git_get_option('git_avatar')=='git_avatar_ssl') {
+if (git_get_option('git_avater')=='git_avatar_ssl') {
     add_filter('get_avatar', 'googlo_ssl_avatar');
 }
 //七牛头像镜像(奶子提供)
@@ -440,7 +440,7 @@ function googlo_get_avatar($avatar) {
     ) , "cd.v7v3.com", $avatar);
     return $avatar;
 }
-if (git_get_option('git_avatar')=='git_avatar_qn') {
+if (git_get_option('git_avater')=='git_avatar_qn') {
     add_filter('get_avatar', 'googlo_get_avatar', 10, 3);
 }
 //极客族头像镜像
@@ -453,7 +453,7 @@ function googlo_duoshuo_avatar($avatar) {
     ) , "gravatar.duoshuo.com", $avatar);
     return $avatar;
 }
-if (git_get_option('git_avatar')=='git_avatar_ds') {
+if (git_get_option('git_avater')=='git_avatar_ds') {
     add_filter('get_avatar', 'googlo_duoshuo_avatar', 10, 3);
 }
 //关键字
