@@ -318,7 +318,7 @@ $options = array(
     
     array(
         'title' => '样式设置',
-        'id'    => 'panel_header',
+        'id'    => 'panel_stylish',
         'type'  => 'panelstart'
     ),
     array(
@@ -735,7 +735,7 @@ $options = array(
     ),
     array(
         'title' => '社交设置',
-        'id'    => 'panel_ad',
+        'id'    => 'panel_social',
         'type'  => 'panelstart'
     ),
     array(
