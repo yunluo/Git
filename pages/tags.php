@@ -1,12 +1,12 @@
 <?php
 /*
  	template name: 标签云
- 	description: template for yusi123.com Yusi theme
+ 	description: template for G theme
 */
 get_header();
 ?>
 <div class="pagewrapper clearfix">
-<style type="text/css">.tag-clouds a{width:44%;opacity:.70;filter:alpha(opacity=80);color:#fff;background-color:#00a67c;display:inline-block;margin:0 5px 5px 0;padding:2px 6px;line-height:21px}.tag-clouds a:hover{opacity:1;filter:alpha(opacity=100)}</style>
+<style type="text/css">.tag-clouds a{width:44%;opacity:.70;filter:alpha(opacity=80);color:#fff;display:inline-block;margin:0 5px 5px 0;padding:2px 6px;line-height:21px}.tag-clouds a:hover{opacity:1;filter:alpha(opacity=100)}</style>
 	<aside class="pagesidebar">
 		<ul class="pagesider-menu">
 			<?php echo str_replace("</ul></div>", "", ereg_replace("<div[^>]*><ul[^>]*>", "", wp_nav_menu(array('theme_location' => 'pagemenu', 'echo' => false)) )); ?>

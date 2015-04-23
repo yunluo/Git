@@ -6,7 +6,7 @@ foreach ( $comments as $comment ) {
 	if (get_comment_type() == "comment") {
 		$comment_ids[get_comment_id()] = ++$comment_i;
 	}
-} 
+}
 
 if ( !comments_open() ) return;
 
@@ -28,24 +28,24 @@ $closeTimer = (strtotime(date('Y-m-d G:i:s'))-strtotime(get_the_time('Y-m-d G:i:
 	</h3>
 	<?php }else{ ?>
 	<form action="<?php echo get_option('siteurl'); ?>/wp-comments-post.php" method="post" id="commentform">
-		
+
 		<div class="comt-title">
 			<div class="comt-avatar pull-left">
-				<?php 
+				<?php
 					global $current_user;
 					get_currentuserinfo();
-					if ( is_user_logged_in() ) 
+					if ( is_user_logged_in() )
 						echo get_avatar( $current_user->user_email, $size = '54' , deel_avatar_default() );
-					elseif( !is_user_logged_in() && get_option('require_name_email') && $comment_author_email=='' ) 
+					elseif( !is_user_logged_in() && get_option('require_name_email') && $comment_author_email=='' )
 						echo get_avatar( $current_user->user_email, $size = '54' , deel_avatar_default() );
-					elseif( !is_user_logged_in() && get_option('require_name_email') && $comment_author_email!=='' )  
+					elseif( !is_user_logged_in() && get_option('require_name_email') && $comment_author_email!=='' )
 						echo get_avatar( $comment->comment_author_email, $size = '54' , deel_avatar_default() );
 					else
 						echo get_avatar( $comment->comment_author_email, $size = '54' , deel_avatar_default() );
 				?>
 			</div>
 			<div class="comt-author pull-left">
-			<?php 
+			<?php
 				if ( is_user_logged_in() ) {
 					printf($user_identity.'<span>发表我的评论</span>');
 				}else{
@@ -59,14 +59,20 @@ $closeTimer = (strtotime(date('Y-m-d G:i:s'))-strtotime(get_the_time('Y-m-d G:i:
 			</div>
 			<a id="cancel-comment-reply-link" class="pull-right" href="javascript:;">取消评论</a>
 		</div>
-		
+
 		<div class="comt">
 			<div class="comt-box">
-				<textarea placeholder="写点什么..." class="input-block-level comt-area" name="comment" id="comment" cols="100%" rows="3" tabindex="1" onkeydown="if(event.ctrlKey&amp;&amp;event.keyCode==13){document.getElementById('submit').click();return false};"></textarea>
+				<textarea placeholder="<?php echo git_get_option('git_comment_placeholder','说点什么吧……'); ?>" class="input-block-level comt-area" name="comment" id="comment" cols="100%" rows="3" tabindex="1" onkeydown="if(event.ctrlKey&amp;&amp;event.keyCode==13){document.getElementById('submit').click();return false};"></textarea>
 				<div class="comt-ctrl">
 					<button class="btn btn-primary pull-right" type="submit" name="submit" id="submit" tabindex="5"><i class="fa fa-check-square-o"></i> 提交评论</button>
 					<div class="comt-tips pull-right"><?php comment_id_fields(); do_action('comment_form', $post->ID); ?></div>
 					<span data-type="comment-insert-smilie" class="muted comt-smilie"><i class="fa fa-smile-o"></i> 表情</span>
+					<span class="muted ml5 comt-img"><i class="fa fa-picture-o"></i><a href="javascript:SIMPALED.Editor.img()" style="color:#999999"> 贴图</a></span>
+					<span class="muted ml5 comt-strong"><i class="fa fa-bold"></i><a href="javascript:SIMPALED.Editor.strong()" style="color:#999999"> 加粗</a></span>
+					<span class="muted ml5 comt-del"><i class="fa fa-strikethrough"></i><a href="javascript:SIMPALED.Editor.del()" style="color:#999999"> 删除线</a></span>
+					<span class="muted ml5 comt-center"><i class="fa fa-align-center"></i><a href="javascript:SIMPALED.Editor.center()" style="color:#999999"> 居中</a></span>
+					<span class="muted ml5 comt-italic"><i class="fa fa-italic"></i><a href="javascript:SIMPALED.Editor.italic()" style="color:#999999"> 斜体</a></span>
+					<span class="muted ml5 comt-sign"><i class="fa fa-pencil-square-o"></i><a href="javascript:SIMPALED.Editor.daka()" style="color:#999999"> 签到</a></span>
 					<span class="muted comt-mailme"><?php deel_add_checkbox() ?></span>
 				</div>
 			</div>
@@ -85,13 +91,13 @@ $closeTimer = (strtotime(date('Y-m-d G:i:s'))-strtotime(get_the_time('Y-m-d G:i:
 			<?php } ?>
 		</div>
 
-		
+
 	</form>
 	<?php } ?>
 </div>
-<?php  
+<?php
 
-if ( have_comments() ) { 
+if ( have_comments() ) {
 ?>
 <div id="postcomments">
 	<div id="comments">
@@ -104,6 +110,6 @@ if ( have_comments() ) {
 		<?php paginate_comments_links('prev_text=«&next_text=»');?>
 	</div>
 </div>
-<?php 
-} 
+<?php
+}
 ?>

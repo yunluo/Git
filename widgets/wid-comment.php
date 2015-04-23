@@ -1,14 +1,14 @@
-<?php  
-add_action( 'widgets_init', 'd_comments' );
+<?php
+add_action( 'widgets_init', 'git_comments' );
 
-function d_comments() {
-	register_widget( 'd_comment' );
+function git_comments() {
+	register_widget( 'git_comment' );
 }
 
-class d_comment extends WP_Widget {
-	function d_comment() {
-		$widget_ops = array( 'classname' => 'd_comment', 'description' => '显示网友最新评论（头像+名称+评论）' );
-		$this->WP_Widget( 'd_comment', 'Yusi-最新评论', $widget_ops, $control_ops );
+class git_comment extends WP_Widget {
+	function git_comment() {
+		$widget_ops = array( 'classname' => 'git_comment', 'description' => '显示网友最新评论（头像+名称+评论）' );
+		$this->WP_Widget( 'git_comment', 'Git-最新评论', $widget_ops );
 	}
 
 	function widget( $args, $instance ) {
@@ -22,10 +22,10 @@ class d_comment extends WP_Widget {
 		$link = $instance['link'];
 
 		$mo='';
-		if( $more!='' && $link!='' ) $mo='<a class="btn" href="'.$link.'">'.$more.'</a>';
-		
+		if( $more!='' && $link!='' ) $mo='<a class="btn" target="_blank" href="'.$link.'">'.$more.'</a>';
+
 		echo $before_widget;
-		echo $before_title.$mo.$title.$after_title; 
+		echo $before_title.$mo.$title.$after_title;
 		echo '<ul>';
 		echo mod_newcomments( $limit,$outpost,$outer );
 		echo '</ul>';
@@ -81,9 +81,9 @@ function mod_newcomments( $limit,$outpost,$outer ){
 	$sql = "SELECT DISTINCT ID, post_title, post_password, comment_ID, comment_post_ID, comment_author, comment_date_gmt, comment_approved,comment_author_email, comment_type,comment_author_url, SUBSTRING(comment_content,1,40) AS com_excerpt FROM $wpdb->comments LEFT OUTER JOIN $wpdb->posts ON ($wpdb->comments.comment_post_ID = $wpdb->posts.ID) WHERE comment_post_ID!='".$outpost."' AND user_id!='".$outer."' AND comment_approved = '1' AND comment_type = '' AND post_password = '' ORDER BY comment_date_gmt DESC LIMIT $limit";
 	$comments = $wpdb->get_results($sql);
 	foreach ( $comments as $comment ) {
-		$output .= '<li><a href="'.get_permalink($comment->ID).'#comment-'.$comment->comment_ID.'" title="'.$comment->post_title.'上的评论">'.str_replace(' src=', ' data-original=', get_avatar( $comment->comment_author_email, $size = '36' , deel_avatar_default())).' <div class="muted"><i>'.strip_tags($comment->comment_author).'</i>'.timeago( $comment->comment_date_gmt ).'说：'.str_replace(' src=', ' data-original=', convert_smilies(strip_tags($comment->com_excerpt))).'</div></a></li>';
+		$output .= '<li><a target="_blank" href="'.get_permalink($comment->ID).'#comment-'.$comment->comment_ID.'" title="'.$comment->post_title.'上的评论">'.str_replace(' src=', ' data-original=', get_avatar( $comment->comment_author_email, $size = '36' , deel_avatar_default())).' <div class="muted"><i>'.strip_tags($comment->comment_author).'</i>'.timeago( $comment->comment_date_gmt ).'说：'.str_replace(' src=', ' data-original=', convert_smilies(strip_tags($comment->com_excerpt))).'</div></a></li>';
 	}
-	
+
 	echo $output;
 };
 
