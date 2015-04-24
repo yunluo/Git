@@ -19,9 +19,7 @@
 <?php
 wp_head();
 if (git_get_option('git_headcode')) echo git_get_option('git_headcode'); ?>
-<title><?php
-wp_title(''.git_get_option('git_delimiter').'', true, 'right');
-echo get_option('blogname');
+<title><?php wp_title(''.git_get_option('git_delimiter').'', true, 'right');echo get_option('blogname');
 if (is_home()) echo ''.git_get_option('git_delimiter').'', get_option('blogdescription');
 if ($paged > 1) echo '-Page ', $paged; ?></title>
 <?php
