@@ -7606,6 +7606,12 @@ pre.prettyprint.linenums ol li:before {
 	background-color: #fff4b9;
 	overflow: visible
 }
+  .git_tongji li {
+float: left;
+    width: 50%;
+}
+  .tongji{padding: 10px 20px 20px 20px}
+}
 #nav-header,
 .archive-header-banner {
 	width: 100% !important

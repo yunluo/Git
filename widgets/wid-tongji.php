@@ -38,9 +38,9 @@ class git_tongji extends WP_Widget {
         $establish_time = empty($instance['establish_time']) ? '2013-01-27' : $instance['establish_time'];
         echo $before_widget;
         echo $before_title . $title . $after_title;
-        echo '<ul>';
+        echo '<div class="tongji" ><ul>';
         $this->efan_get_blogstat($establish_time);
-        echo '</ul>';
+        echo '</ul></div>';
         echo $after_widget;
     }
     function efan_get_blogstat($establish_time /*, $instance */) {
