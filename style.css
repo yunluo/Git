@@ -5,7 +5,7 @@
 	Author: 云落
 	Author URI: http://googlo.me/
 	details URI: https://gitcafe.com/googlo/File/raw/master/detial.txt
-	Version: 5.0.5
+	Version: 5.0.6
 */
 
 @font-face {
@@ -3197,7 +3197,6 @@ input[type="submit"].btn.btn-mini {
 	-o-perspective: 400px;
 	perspective: 400px
 }
-
 .sub-menu li {
 	opacity: 0;
 	-webkit-transform: rotateY(90deg);
@@ -3211,13 +3210,11 @@ input[type="submit"].btn.btn-mini {
 	-o-transition: opacity .4s, -o-transform .5s;
 	transition: opacity .4s, transform .5s
 }
-
 .nav>li:hover .sub-menu,
 .nav>li:focus .sub-menu {
 	max-height: 1000px;
 	z-index: 10
 }
-
 .nav>li:hover .sub-menu li,
 .nav>li:focus .sub-menu li {
 	opacity: 1;
@@ -3341,6 +3338,7 @@ input[type="submit"].btn.btn-mini {
 	transition-delay: 0
 }
 */
+
 .navbar .btn-navbar {
 	display: none;
 	float: right;
@@ -7606,11 +7604,12 @@ pre.prettyprint.linenums ol li:before {
 	background-color: #fff4b9;
 	overflow: visible
 }
-  .git_tongji li {
-float: left;
-    width: 50%;
+.git_tongji li {
+	float: left;
+	width: 50%;
 }
-  .tongji{padding: 10px 20px 20px 20px}
+.tongji {
+	padding: 10px 20px 20px 20px
 }
 #nav-header,
 .archive-header-banner {
