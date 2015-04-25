@@ -10,6 +10,7 @@ include('wid-subscribe.php');
 include('wid-slides.php');
 include('wid-rec.php');
 include('wid-sclick.php');
+include('wid-tongji.php');
 add_action('widgets_init','unregister_d_widget');
 function unregister_d_widget(){
     unregister_widget('WP_Widget_Search');

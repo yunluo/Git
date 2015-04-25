@@ -407,19 +407,10 @@ $options = array(
             '亮紫色' => 'git_purple_b',
             '淡黄色' => 'git_yellow_b',
             '轻蓝色' => 'git_light_b',
-            '鲜绿色' => 'git_green_b'
+            '鲜绿色' => 'git_green_b',
+            '自定义' => 'git_custom_color'
         ),
         'std'   => 'git_light_b'
-    ),
-/*
-获取单选的方法是
-<?php if (git_get_option('git_skin_b') == 'git_red_b') ?>
-*/ 
-    array(
-        'name'  => '自定义皮肤设置',
-        'desc'  => '开启【开启后将使用下面的配色方案】<a rel="nofollow" href="http://tool.c7sky.com/webcolor/" target="_blank">获取颜色代码</a>',
-        'id'    => "git_custom_color",
-        'type'  => 'checkbox'
     ),
     array(
         'name'  => '颜色代码',

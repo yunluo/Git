@@ -76,7 +76,7 @@ if (!git_get_option('git_pichead_b')) { ?>
         echo '<header id="header" class="header" style="background-color: #03A9F4;">';
     }elseif ( git_get_option('git_skin_b') == 'git_green_b' ) {
         echo '<header id="header" class="header" style="background-color: #4CAF50;">';
-    } elseif (git_get_option('git_custom_color')) {
+    } elseif ( git_get_option('git_skin_b') == 'git_custom_color' ) {
         echo '<header id="header" class="header" style="background-color: ' . git_get_option('git_color_nom') . ';">';
     } else {
         echo '<header id="header" class="header" style="background-color: #009966;">';
@@ -115,7 +115,7 @@ if ( git_get_option('git_skin_b') == 'git_red_b' ) {
     echo '<style type="text/css">.navbar .nav li:hover a, .navbar .nav li.current-menu-item a, .navbar .nav li.current-menu-parent a, .navbar .nav li.current_page_item a, .navbar .nav li.current-post-ancestor a,.toggle-search ,#submit ,.btn,.pagination ul>.active>a,.pagination ul>.active>span{background: #03A9F4;}.footer{color: #03A9F4;}.pagination ul>li>a:hover,.navbar .nav li a:focus, .navbar .nav li a:hover,.toggle-search:hover,#submit:hover,.btn:hover {background-color: #2196F3;}</style>';
 }elseif ( git_get_option('git_skin_b') == 'git_green_b' ) {
     echo '<style type="text/css">.navbar .nav li:hover a, .navbar .nav li.current-menu-item a, .navbar .nav li.current-menu-parent a, .navbar .nav li.current_page_item a, .navbar .nav li.current-post-ancestor a,.toggle-search ,#submit ,.btn,.pagination ul>.active>a,.pagination ul>.active>span{background: #4CAF50;}.footer{color: #4CAF50;}.pagination ul>li>a:hover,.navbar .nav li a:focus, .navbar .nav li a:hover,.toggle-search:hover,#submit:hover,.btn:hover {background-color: #388E3C;}</style>';
-}elseif (git_get_option('git_custom_color')) {
+}elseif ( git_get_option('git_skin_b') == 'git_custom_color' ) {
     echo '<style type="text/css">.navbar .nav li:hover a, .navbar .nav li.current-menu-item a, .navbar .nav li.current-menu-parent a, .navbar .nav li.current_page_item a, .navbar .nav li.current-post-ancestor a,.toggle-search ,#submit ,.btn,.pagination ul>.active>a,.pagination ul>.active>span{background: ' . git_get_option('git_color_nom') . ';}.footer{color: ' . git_get_option('git_color_nom') . ';}.pagination ul>li>a:hover,.navbar .nav li a:focus, .navbar .nav li a:hover,.toggle-search:hover,#submit:hover,.btn:hover {background-color: ' . git_get_option('git_color_hover') . ';}</style>';
 } else {
     echo '<style type="text/css">.navbar .nav li:hover a, .navbar .nav li.current-menu-item a, .navbar .nav li.current-menu-parent a, .navbar .nav li.current_page_item a, .navbar .nav li.current-post-ancestor a,.toggle-search ,#submit ,.btn,.pagination ul>.active>a,.pagination ul>.active>span{background: #009966;}.footer{color: #009966;}.pagination ul>li>a:hover,.navbar .nav li a:focus, .navbar .nav li a:hover,.toggle-search:hover,#submit:hover,.btn:hover {background-color: #008055;}</style>';
@@ -159,7 +159,7 @@ if ( git_get_option('git_skin_b') == 'git_red_b' ) {
     echo '<div id="nav-header" class="navbar" style="border-bottom: 4px solid #03A9F4 ;">';
 }elseif ( git_get_option('git_skin_b') == 'git_green_b' ) {
     echo '<div id="nav-header" class="navbar" style="border-bottom: 4px solid #4CAF50 ;">';
-} elseif ( git_get_option('git_custom_color')) {
+} elseif ( git_get_option('git_skin_b') == 'git_custom_color' ) {
     echo '<div id="nav-header" class="navbar" style="border-bottom: 4px solid ' . git_get_option('git_color_nom') . ' ;">';
 } else {
     echo '<div id="nav-header" class="navbar" style="border-bottom: 4px solid #009966 ;">';
@@ -179,8 +179,8 @@ echo home_url('/search/'); ?>' + encodeURIComponent(this.s.value).replace(/%20/g
 </ul>
 </div></div>
 </header>
-<section class="container"><?php
-if (git_get_option('git_tui')) { ?><div class="speedbar">
+<section class="container">
+<div class="speedbar">
 		<?php
     if (git_get_option('git_sign_b')) {
         global $current_user;
@@ -204,7 +204,5 @@ if (git_get_option('git_tui')) { ?><div class="speedbar">
 		<div class="toptip"><strong class="text-success"><i class="fa fa-volume-up"></i> </strong> <?php
     echo git_get_option('git_tui'); ?></div>
 	</div>
-	<?php
-} ?>
 	<?php
 if (git_get_option('git_adsite_01')) echo '<div class="banner banner-site">' . git_get_option('git_adsite_01') . '</div>'; ?>
