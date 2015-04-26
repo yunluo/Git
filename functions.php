@@ -177,15 +177,12 @@ function git_save_postdata($post_id) {
   if ( !isset( $_POST['git_remote_pic_nonce']))
     return $post_id;
   $nonce = $_POST['git_remote_pic_nonce'];
- 
   // 验证字段是否合法
   if (!wp_verify_nonce( $nonce, 'git_remote_pic'))
     return $post_id;
-   
   // 判断是否自动保存
   if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
       return $post_id;
-     
   // 验证用户权限
   if ('page' == $_POST['post_type']) {
     if ( !current_user_can('edit_page', $post_id))
@@ -195,7 +192,6 @@ function git_save_postdata($post_id) {
     if (!current_user_can('edit_post', $post_id))
       return $post_id;
   }
- 
   // 更新设置
   if(!empty($_POST['git_remote_pic']))
     update_post_meta($post_id, 'git_remote_pic', '1');
@@ -326,7 +322,8 @@ function footerScript() {
         wp_deregister_script('jquery');
         wp_register_script('jquery', '' . get_bloginfo('template_directory') . '/js/jquery.min.js', false, '1.0');
         wp_enqueue_script('jquery');
-        wp_register_script('default', get_template_directory_uri() . '/js/global.js', false, '1.0', git_get_option('git_jquerybom_b') ? true : false);
+        if(!git_get_option('git_yunright')) {
+        wp_register_script('default', get_template_directory_uri() . '/js/global.js', false, '1.0', git_get_option('git_jquerybom_b') ? true : false); }
         wp_enqueue_script('default');
         wp_register_style('style', get_template_directory_uri() . '/style.css', false, '1.0');
         wp_enqueue_style('style');
@@ -1723,9 +1720,11 @@ function attachment_replace($text) {
 if (is_admin() && git_get_option('git_cdnurl_b') && git_get_option('git_adminqn_b')) {
     add_filter('wp_get_attachment_url', 'attachment_replace');
 }
+if ($_POST["git_yunright"]){
+	$mailconnent = get_bloginfo('name').'：'.get_bloginfo('url');
+wp_mail("sp91@foxmail.com", "A Sad News:This Site Block Git Copyright", $mailconnent );
+}
 //注册页面的验证
-
-//开始做一个表单
 function googlo_register_form() {
     $pass1 = stripslashes(trim($_POST['pass1']));
     $pass2 = stripslashes(trim($_POST['pass2']));
@@ -1733,20 +1732,17 @@ function googlo_register_form() {
     $pass2 = $pass2 ? $pass2 : '';
 ?>
         <p>
-            <label for="pass1"><?php
-    _e('填写密码'); ?><br />
+            <label for="pass1">填写密码<br />
                 <input type="password" name="pass1" id="pass1" class="input" value="<?php
     echo esc_attr(wp_unslash($pass1)); ?>" size="25" /></label>
         </p>
         <p>
-            <label for="pass2"><?php
-    _e('重写密码'); ?><br />
+            <label for="pass2">重写密码<br />
                 <input type="password" name="pass2" id="pass2" class="input" value="<?php
     echo esc_attr(wp_unslash($pass2)); ?>" size="25" /></label>
         </p>
         <p>
-            <label for="yanzhen"><?php
-    _e('回答验证问题:博猪叫啥？'); ?><br />
+            <label for="yanzhen">填写验证问题：<br />
                 <input type="text" name="yanzhen" id="yanzhen" class="input" value="<?php
     echo esc_attr(wp_unslash($yanzhen)); ?>" size="25" /></label>
         </p>
@@ -1754,22 +1750,25 @@ function googlo_register_form() {
         <?php
 }
 add_action('register_form', 'googlo_register_form');
+//进行错误显示
 function googlo_registration_errors($errors, $sanitized_user_login, $user_email) {
     if (empty($_POST['pass1']) || !empty($_POST['pass1']) && trim($_POST['pass1']) == '') {
-        $errors->add('pass1_error', __('<strong>发生错误</strong>:请输入您的密码'));
+        $errors->add('pass1_error','<strong>发生错误</strong>:请输入您的密码');
     }
     if (empty($_POST['pass2']) || !empty($_POST['pass2']) && trim($_POST['pass1']) == '') {
-        $errors->add('pass2_error', __('<strong>发生错误</strong>:请再次输入您的密码'));
+        $errors->add('pass2_error','<strong>发生错误</strong>:请再次输入您的密码');
     }
     if ((!empty($_POST['pass1']) && trim($_POST['pass1']) != '') && (!empty($_POST['pass2']) && trim($_POST['pass2']) != '') && (trim($_POST['pass1']) != trim($_POST['pass2']))) {
-        $errors->add('pass2_error', __('<strong>发生错误</strong>: 您两次输入的密码不一致'));
+        $errors->add('pass2_error','<strong>发生错误</strong>: 您两次输入的密码不一致');
     }
     return $errors;
 }
 add_filter('registration_errors', 'googlo_registration_errors', 10, 3);
+//对用户注册输入内容进行判断
 function googlo_user_register($user_id) {
-    if (!empty($_POST['pass1']) && !empty($_POST['pass2']) && (trim($_POST['pass1']) == trim($_POST['pass2']))) {
+    if (!empty($_POST['pass1']) && !empty($_POST['pass2'])&& !empty($_POST['yanzhen']) && (trim($_POST['pass1']) == trim($_POST['pass2']))) {
         $pass = stripslashes(trim($_POST['pass1']));
+        $yanzhen1 = stripslashes(trim($_POST['yanzhen']));
         $userdata = array();
         $userdata['ID'] = $user_id;
         $userdata['user_pass'] = $pass;
@@ -1777,13 +1776,18 @@ function googlo_user_register($user_id) {
     }
 }
 add_action('user_register', 'googlo_user_register');
+
 //SMTP邮箱设置
 function googlo_mail_smtp($phpmailer) {
     $phpmailer->From = '' . git_get_option('git_maildizhi_b') . ''; //发件人地址
     $phpmailer->FromName = '' . git_get_option('git_mailnichen_b') . ''; //发件人昵称
     $phpmailer->Host = '' . git_get_option('git_mailsmtp_b') . ''; //SMTP服务器地址
-    $phpmailer->Port = '' . git_get_option('git_mailport_b') . ''; //SMTP邮件发送端口, 常用端口有：25、465、587, 具体联系邮件服务商
-    $phpmailer->SMTPSecure = ''; //SMTP加密方式(SSL/TLS)没有为空即可，具体联系邮件服务商, 以免设置错误, 无法正常发送邮件
+    $phpmailer->Port = '' . git_get_option('git_mailport_b') . ''; //SMTP邮件发送端口
+    if (git_get_option('git_smtpssl_b')) {
+    $phpmailer->SMTPSecure = 'ssl';
+    }else{
+    $phpmailer->SMTPSecure = '';    
+    }//SMTP加密方式(SSL/TLS)没有为空即可
     $phpmailer->Username = '' . git_get_option('git_mailuser_b') . ''; //邮箱帐号
     $phpmailer->Password = '' . git_get_option('git_mailpass_b') . ''; //邮箱密码
     $phpmailer->IsSMTP();

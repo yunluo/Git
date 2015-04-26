@@ -27,11 +27,10 @@ if( git_get_option('git_pay') ) echo '<a class="weixin"><i class="pay fa fa-payp
 </i><div class="weixin-popover"><div class="popover bottom in"><div class="arrow"></div><div class="popover-title">支付宝“'.git_get_option('git_pay').'”</div><div class="popover-content"><img src="'.git_get_option('git_pay_qr').'" ></div></div></div></a>';
 if( git_get_option('git_emailContact') ) echo '<a href="'.git_get_option('git_emailContact').'" rel="external nofollow" title="Email" target="_blank"><i class="email fa fa-envelope-o"></i></a>';
 if( git_get_option('git_qqContact') ) echo '<a href="tencent://message/?uin='.git_get_option('git_qqContact').'&Site=&Menu=yes " rel="external nofollow" title="联系QQ" target="_blank"><i class="qq fa fa-qq"></i></a>';
- echo'<a href="'.git_get_option('git_rss').'" rel="external nofollow" target="_blank"  title="订阅本站"><i class="rss fa fa-rss"></i></a>';
+if( git_get_option('git_rss') ) echo'<a href="'.git_get_option('git_rss').'" rel="external nofollow" target="_blank"  title="订阅本站"><i class="rss fa fa-rss"></i></a>';
 echo '</div></div></div>';
 		echo $after_widget;
 	}
-
 	function form($instance) {
 ?>
 		<p>显示一组社交图标，详细设置请至主题后台设置</p>

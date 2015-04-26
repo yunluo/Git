@@ -3,7 +3,6 @@ get_header(); ?>
 <?php
 if (git_get_option('git_adindex_01')) printf('<div class="banner banner-navbar">' . git_get_option('git_adindex_01') . '</div>'); ?>
 <div class="content-wrap">
-
 	<div class="content">
 	<?php
 if (git_get_option('git_adindex_03')) printf('<div class="banner banner-contenttop">' . git_get_option('git_adindex_03') . '</div>');
@@ -26,7 +25,6 @@ if (git_get_option('git_cms_b')) {
 }
 ?>
 	</div>
-
 </div>
 <?php
 if (!G_is_mobile()) { ?>

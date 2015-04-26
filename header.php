@@ -157,7 +157,6 @@ if (git_get_option('git_piclogo_b')) { ?><?php
     } ?><?php
 } ?></h1></a></div></div><div id="toubuads"><?php
 if (git_get_option('git_toubuads_b') && git_get_option('git_piclogo_left') && !G_is_mobile()) echo git_get_option('git_toubuads'); ?></div>
-
 <?php
 if (git_get_option('git_skin_b') == 'git_red_b') {
     echo '<div id="nav-header" class="navbar" style="border-bottom: 4px solid #E74C3C ;">';
@@ -209,7 +208,7 @@ if (git_get_option('git_sign_b')) {
 				<?php
     if (is_user_logged_in()) {
         echo '<i class="fa fa-user"></i> <a href="/wp-admin">' . $u_name . '</a> ';
-    } else {
+    } elseif ( get_option( 'users_can_register' ) ) {
         echo '<i class="fa fa-user"></i> <a href="/wp-login.php?action=register">注册</a>';
     };
     echo '  <i class="fa fa-power-off"></i> ';

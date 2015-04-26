@@ -1,10 +1,5 @@
 <?php
 
-/*
-*使用
-*<?php echo git_get_option('@id', '@defult'); ?>格式获取值
-*举例：<?php echo git_get_option('git_meta_description', '这是一个网站描述文字'); ?>
-*/
 $options = array(
     //开始第一个选项标签
     array(
@@ -1131,7 +1126,7 @@ $options = array(
         'name'  => '新浪密码',
         'desc'  => '请输入您的微博密码',
         'id'    => "git_wbpasd_b",
-        'type'  => 'text',
+        'type'  => 'password',
         'std'   => ''
     ),
     array(
@@ -1159,7 +1154,7 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
-        'title' => 'STMP邮箱设置【为了稳定考虑，未使用HTTPS模式】',
+        'title' => 'STMP邮箱设置',
         'type'  => 'subtitle'
     ),
     array(
@@ -1184,6 +1179,12 @@ $options = array(
         'std'   => 'smtp.qq.com'
     ),
     array(
+        'name'  => 'SSL安全连接',
+        'desc'  => '启用【如果你布吉岛这个是什么东东，那么请不要启用】',
+        'id'    => "git_smtpssl_b",
+        'type'  => 'checkbox'
+    ),
+    array(
         'name'  => 'SMTP服务器端口',
         'desc'  => '请输入您的smtp端口，一般QQ邮箱25就可以了',
         'id'    => "git_mailport_b",
@@ -1201,7 +1202,7 @@ $options = array(
         'name'  => '邮箱密码',
         'desc'  => '请输入您的邮箱密码',
         'id'    => "git_mailpass_b",
-        'type'  => 'text',
+        'type'  => 'password',
         'std'   => ''
     ),
         array(
@@ -1308,6 +1309,19 @@ switch ( $value['type'] ) {
     <td>
         <label>
         <input name="<?php echo $value['id']; ?>" class="small-text" id="<?php echo $value['id']; ?>" type="number" value="<?php if ( $optionsSetup || get_option( $value['id'] ) != '') { echo get_option( $value['id'] ); } else { echo $value['std']; } ?>" />
+        <span class="description"><?php echo $value['desc']; ?></span>
+        </label>
+    </td>
+</tr>
+<?php
+    break;
+    case 'password':
+?>
+<tr>
+    <th><label for="<?php echo $value['id']; ?>"><?php echo $value['name']; ?></label></th>
+    <td>
+        <label>
+        <input name="<?php echo $value['id']; ?>" class="regular-text" id="<?php echo $value['id']; ?>" type="password" value="<?php if ( $optionsSetup || get_option( $value['id'] ) != '') { echo get_option( $value['id'] ); } else { echo $value['std']; } ?>" />
         <span class="description"><?php echo $value['desc']; ?></span>
         </label>
     </td>
@@ -1479,7 +1493,6 @@ function git_enqueue_pointer_script_style( $hook_suffix ) {
     }
 }
 add_action( 'admin_enqueue_scripts', 'git_enqueue_pointer_script_style' );
-
 function git_pointer_print_scripts() {
     ?>
     <script>
