@@ -212,6 +212,12 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+        'name'  => 'Robot.txt优化',
+        'desc'  => '启用【开启本项之后，将只对搜索引擎开放首页，页面，文章页，其他一律屏蔽】',
+        'id'    => "git_robot_b",
+        'type'  => 'checkbox'
+    ),
+    array(
         'type'  => 'panelend'//标签段的结束
     ),
     array(
