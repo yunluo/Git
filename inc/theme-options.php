@@ -170,7 +170,7 @@ $options = array(
         'type'  => 'panelstart'
     ),
     array(
-        'title' => '（SEO）是指搜索引擎优化，主要是让搜索引擎更顺利更容易的搜索到本站内容，从而',//标题文字
+        'title' => '（SEO）是指搜索引擎优化，主要是让搜索引擎更顺利更容易的搜索到本站内容',//标题文字
         'type'  => 'subtitle'//subtitle 是标签下的标题
     ),
     array(
