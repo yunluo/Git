@@ -1720,12 +1720,12 @@ function attachment_replace($text) {
     $text = str_replace(array_keys($replace) , $replace, $text);
     return $text;
 }
-if (is_admin() && git_get_option('git_cdnurl_b')) {
+if (is_admin() && git_get_option('git_cdnurl_b') && git_get_option('git_adminqn_b')) {
     add_filter('wp_get_attachment_url', 'attachment_replace');
 }
-if (!defined('ABSPATH')) {
-    exit;
-}
+//注册页面的验证
+
+//开始做一个表单
 function googlo_register_form() {
     $pass1 = stripslashes(trim($_POST['pass1']));
     $pass2 = stripslashes(trim($_POST['pass2']));
@@ -1743,6 +1743,12 @@ function googlo_register_form() {
     _e('重写密码'); ?><br />
                 <input type="password" name="pass2" id="pass2" class="input" value="<?php
     echo esc_attr(wp_unslash($pass2)); ?>" size="25" /></label>
+        </p>
+        <p>
+            <label for="yanzhen"><?php
+    _e('回答验证问题:博猪叫啥？'); ?><br />
+                <input type="text" name="yanzhen" id="yanzhen" class="input" value="<?php
+    echo esc_attr(wp_unslash($yanzhen)); ?>" size="25" /></label>
         </p>
 		<style type="text/css">#reg_passmail {display: none;}</style>
         <?php
@@ -1784,7 +1790,7 @@ function googlo_mail_smtp($phpmailer) {
     $phpmailer->SMTPAuth = true; //启用SMTPAuth服务
 
 }
-if (git_get_option('git_stmpmail_b')) {
+if (git_get_option('git_mailsmtp_b')) {
     add_action('phpmailer_init', 'googlo_mail_smtp');
 }
 //中文文件重命名

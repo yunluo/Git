@@ -414,7 +414,7 @@ $options = array(
     ),
     array(
         'name'  => '颜色代码',
-        'desc'  => '请在这里输入你选择的颜色代码，举例：#000000',
+        'desc'  => '请在这里输入你选择的颜色代码，举例：#000000<a class="button-primary" rel="nofollow" href="http://web.chacuo.net/color" target="_blank">获取颜色代码</a>',
         'id'    => 'git_color_nom',
         'type'  => 'text',
         'std'   => ''
@@ -777,7 +777,7 @@ $options = array(
     ),
     array(
         'name'  => 'Email',
-        'desc'  => '请填写好您的邮我代码，<a class="button-primary" rel="nofollow" href="http://web.chacuo.net/color" target="_blank">获取颜色代码</a>',
+        'desc'  => '请填写好您的邮我代码，<a class="button-primary" rel="nofollow" href="http://open.mail.qq.com/cgi-bin/qm_help_mailme?sid=,2,zh_CN&t=open_mailme" target="_blank">获取邮我组建代码</a>',
         'id'    => 'git_emailContact',
         'type'  => 'text',
         'std'   => ''
@@ -1145,6 +1145,12 @@ $options = array(
         'id'    => "git_cdnurl_b",
         'type'  => 'text',
         'std'   => ''
+    ),
+    array(
+        'name'  => '七牛云后台化',
+        'desc'  => '启用【一般可不启用，如果您启用七牛之后并删除了本地文件，则必须开启】',
+        'id'    => "git_adminqn_b",
+        'type'  => 'checkbox'
     ),
     array(
         'title' => 'STMP邮箱设置【为了稳定考虑，未使用HTTPS模式】',
