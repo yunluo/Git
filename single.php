@@ -110,14 +110,14 @@ include ('modules/related.php'); ?>
 		<?php
 if (wp_is_mobile()): ?>
 		<?php
-    if (git_get_option('Mobiled_adpost_02_b')) echo '<div id="comment-ad" class="banner-related">' . git_get_option('Mobiled_adpost_02') . '</div>'; ?><?php
+    if (git_get_option('Mobiled_adpost_02')) echo '<div id="comment-ad" class="banner-related">' . git_get_option('Mobiled_adpost_02') . '</div>'; ?><?php
 endif; ?>
 		<?php
-if (git_get_option('git_adpost_02_b')) echo '<div id="comment-ad" class="banner banner-related">' . git_get_option('git_adpost_02') . '</div>'; ?>
+if (git_get_option('git_adpost_02')) echo '<div id="comment-ad" class="banner banner-related">' . git_get_option('git_adpost_02') . '</div>'; ?>
 		<?php
 comments_template('', true); ?>
 		<?php
-if (git_get_option('git_adpost_03_b')) echo '<div class="banner banner-comment">' . git_get_option('git_adpost_03') . '</div>'; ?>
+if (git_get_option('git_adpost_03')) echo '<div class="banner banner-comment">' . git_get_option('git_adpost_03') . '</div>'; ?>
 	</div>
 </div>
 <?php
