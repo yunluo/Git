@@ -1460,6 +1460,7 @@ function arr_split_zh($tempaddtext) {
     return $arr_cont;
 }
 //百度收录提示
+if(git_get_option('git_baidurecord_b')&& function_exists('curl_init')):
 function baidu_check($url) {
     global $wpdb;
     $post_id = (null === $post_id) ? get_the_ID() : $post_id;
@@ -1495,6 +1496,7 @@ function baidu_record() {
         echo '<a style="color:red;" rel="external nofollow" title="点击提交，谢谢您！" target="_blank" href="http://zhanzhang.baidu.com/sitesubmit/index?sitename=' . get_permalink() . '">未收录</a>';
     }
 }
+endif;
 //主题自动更新服务
 if (!git_get_option('git_updates_b')):
     require 'modules/updates.php';

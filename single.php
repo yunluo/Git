@@ -31,7 +31,7 @@ while (have_posts()):
 				<span class="muted"><i class="fa fa-eye"></i> <?php
     deel_views('次浏览'); ?></span>
 				<?php
-    if (git_get_option('git_baidurecord_b')) { ?><span class="muted"><i class="fa fa-flag"></i> <?php
+    if (git_get_option('git_baidurecord_b')&& function_exists('curl_init')) { ?><span class="muted"><i class="fa fa-flag"></i> <?php
         baidu_record(); ?></span><?php
     } ?>
 				<?php
