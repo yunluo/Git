@@ -1274,7 +1274,7 @@ function git_options_page() {
 <div class="wrap">
     <h2>Git 主题选项&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="button-primary" type="button" value="主题主页" onclick="window.open('http://googlo.me/archives/3011.html')">&nbsp;&nbsp;<input class="button-primary" type="button" value="邮箱反馈" onclick="window.open('http://googlo.me/go/mail')">&nbsp;&nbsp;<input class="button-primary" type="button" value="支持主题" onclick="window.open('http://googlo.me/pay')">&nbsp;&nbsp;<input class="button-primary" type="button" value="功能建议" onclick="window.open('http://googlo.me/about.html')">&nbsp;&nbsp;<input class="button-primary" type="button" value="食用文档" onclick="window.open('http://googlo.me/archives/3275.html')">&nbsp;&nbsp;<input class="button-primary" type="button" value="定制修改" onclick="window.open('http://googlo.me/go/qq')">&nbsp;&nbsp;<input class="button-primary" type="button" value="加入QQ群" onclick="window.open('http://googlo.me/go/qun')"></h2>
     <input placeholder="筛选主题选项…" type="search" id="theme-options-search" />
-    <div class="yunluotips"><?php if(!function_exists('file_get_contents')){
+    <div class="yunluotips"><?php if(function_exists('file_get_contents')){
     echo file_get_contents( "https://gitcafe.com/googlo/File/raw/master/notice.txt" );
     }else{
     echo '如果您看到这句话，证明你的file_get_contents函数被禁用了，请开启此函数！';}?></div>
