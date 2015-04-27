@@ -1908,7 +1908,7 @@ if (git_get_option('git_ua_b')):
 endif;
 //添加后台左下角文字
 function left_admin_footer_text($text) {
-    $text = '感谢使用<a target="_blank" href=http://googlo.me/ >Git主题 5.0</a>进行创作';
+    $text = '感谢使用<a target="_blank" href=http://googlo.me/ >Git主题 5.1</a>进行创作';
     return $text;
 }
 add_filter('admin_footer_text', 'left_admin_footer_text');
