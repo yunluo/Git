@@ -322,8 +322,7 @@ function footerScript() {
         wp_deregister_script('jquery');
         wp_register_script('jquery', '' . get_bloginfo('template_directory') . '/js/jquery.min.js', false, '1.0');
         wp_enqueue_script('jquery');
-        if(!git_get_option('git_yunright')) {
-        wp_register_script('default', get_template_directory_uri() . '/js/global.js', false, '1.0', git_get_option('git_jquerybom_b') ? true : false); }
+        wp_register_script('default', get_template_directory_uri() . '/js/global.js', false, '1.0', git_get_option('git_jquerybom_b') ? true : false); 
         wp_enqueue_script('default');
         wp_register_style('style', get_template_directory_uri() . '/style.css', false, '1.0');
         wp_enqueue_style('style');
@@ -1239,7 +1238,7 @@ function tok($atts, $content = null) {
 add_shortcode('yb', 'tok');
 /*添加音乐按钮*/
 function tol($atts, $content = null) {
-    return '<audio style="width:100%;max-height:40px;" src="' . $content . '" controls preload loop>您的浏览器不支持HTML5的 audio ���签，无法为���播放！</audio>';
+    return '<audio style="width:100%;max-height:40px;" src="' . $content . '" controls preload loop>您的浏览器不支持HTML5的 audio 标签，无法为您播放！</audio>';
 }
 add_shortcode('music', 'tol');
 /*灵魂按钮*/
@@ -1250,7 +1249,7 @@ function tom($atts, $content = null) {
     return '<a class="lhb" href="' . $href . '" target="_blank" rel="nofollow">' . $content . '</a>';
 }
 add_shortcode('lhb', 'tom');
-/*添加音乐按钮*/
+/*添加视频按钮*/
 function too($atts, $content = null) {
     return '<video style="width:100%;" src="' . $content . '" controls preload >您的浏览器不支持HTML5的 video 标签，无法为您播放！</video>';
 }
@@ -1276,7 +1275,7 @@ function ton($atts, $content = null) {
     extract(shortcode_atts(array(
         "href" => 'http://'
     ) , $atts));
-    return '<a class="lhb" id="showdiv" href="#fancydlbox" >文件下载</a>
+    return '<a class="bluebtn" id="showdiv" href="#fancydlbox" >文件下载</a>
     <div id="fancydlbox" style="cursor:default;display:none;width:500px;">
     <div class="fancydlads" align="center">' . git_get_option('git_fancydlad') . '</div>
     <div class="dlnotice" align="center">' . git_get_option('git_fancydlcp') . '</div><br />
@@ -1308,7 +1307,7 @@ add_filter('the_content', 'make_clickable');
 // add youku using iframe
 function wp_iframe_handler_youku($matches, $attr, $url, $rawattr) {
     if (wp_is_mobile()) {
-        $height = 250;
+        $height = 200;
     } else {
         $height = 485;
     }
@@ -1319,7 +1318,7 @@ wp_embed_register_handler('youku_iframe', '#http://v.youku.com/v_show/id_(.*?).h
 // add tudou using iframe
 function wp_iframe_handler_tudou($matches, $attr, $url, $rawattr) {
     if (wp_is_mobile()) {
-        $height = 250;
+        $height = 200;
     } else {
         $height = 485;
     }
@@ -1329,6 +1328,28 @@ function wp_iframe_handler_tudou($matches, $attr, $url, $rawattr) {
 wp_embed_register_handler('tudou_iframe', '#http://www.tudou.com/programs/view/(.*?)/#i', 'wp_iframe_handler_tudou');
 wp_embed_unregister_handler('youku');
 wp_embed_unregister_handler('tudou');
+//
+if(git_get_option('git_sitemap_b')):
+function GitPushBaiDu(){
+    global $post_id;
+    global $post;
+    $Push = '' . git_get_option('git_sitemap') . '';
+    $PushUrl = get_permalink($post_id);
+    $PushDate = $post->post_data;
+    $PushXml = '<?xml version="1.0" encoding="UTF-8"?>
+    <urlset>
+        <url>
+            <loc><![CDATA['.$PushUrl.']]></loc>
+            <lastmod>'.$PushDate.'</lastmod>
+            <changefreq>daily</changefreq>
+            <priority>0.9</priority>
+        </url>
+    </urlset>';
+    $wp_http_obj = new WP_Http();
+    return $wp_http_obj->post($Push, array('body' => $PushXml, 'headers' => array('Content-Type' => 'text/xml')));
+}
+add_action('publish_post', 'GitPushBaiDu');
+endif;
 //后台快捷键回复
 function hui_admin_comment_ctrlenter() {
     echo '<script type="text/javascript">

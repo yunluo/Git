@@ -31,6 +31,7 @@ QTags.addButton( 'bb', '蓝色按钮', "[bb href='']", "[/bb]" );
 QTags.addButton( 'yb', '黄色按钮', "[yb href='']", "[/yb]" );
 QTags.addButton( 'lhb', '透明按钮', "[lhb href='']", "[/lhb]" );
 QTags.addButton( 'music', '音乐按钮', "[music]", "[/music]" );
+QTags.addButton( 'video', '视频按钮', "[video]", "[/video]" );
 QTags.addButton( 'collapse', '隐藏收缩', '[collapse title=""]', '[/collapse]' );
 QTags.addButton( 'reply', '回复可见', "[reply]", "[/reply]" );
 QTags.addButton( 'imobv', '手机可见', "[mb_view]", "[/mb_view]" );

@@ -213,6 +213,19 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+        'name'  => '百度Sitemap实时推送',
+        'desc'  => '启用【开启本项之后，首先需要保证您的网站已拥有sitemap提交权限】 <a class="button-primary" rel="nofollow" href="http://zhanzhang.baidu.com/sitemap/index" target="_blank">申请百度Sitemap</a>',
+        'id'    => "git_sitemap_b",
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '百度推送接口地址',
+        'desc'  => '每一个网站第一无二的地址，首先需要保证上面的选项已开启 <a class="button-primary" rel="nofollow" href="http://zhanzhang.baidu.com/sitemap/pingadd" target="_blank">获取接口地址</a>',
+        'id'    => "git_sitemap",
+        'type'  => 'text',
+        'std'   => ''
+    ),
+    array(
         'type'  => 'panelend'//标签段的结束
     ),
     array(
@@ -415,7 +428,7 @@ $options = array(
     ),
     array(
         'name'  => '颜色代码',
-        'desc'  => '请在这里输入你选择的颜色代码，举例：#000000<a class="button-primary" rel="nofollow" href="http://web.chacuo.net/color" target="_blank">获取颜色代码</a>',
+        'desc'  => '请在这里输入你选择的颜色代码，举例：#000000<a class="button-primary" rel="nofollow" href="http://www.58pic.com/peise/" target="_blank">获取颜色代码</a>',
         'id'    => 'git_color_nom',
         'type'  => 'text',
         'std'   => ''

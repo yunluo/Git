@@ -2256,7 +2256,8 @@ a:focus {
 	bottom: 0
 }
 .pagesider-menu .sub-menu {
-	display: none
+	display: none;
+	display:none\9;*display:none;
 }
 .pagesider-menu a {
 	margin-bottom: 1px;
@@ -2345,7 +2346,7 @@ button,
 select,
 textarea {
 	font-weight: normal;
-	line-height: 20px
+	line-height: 2px
 }
 label {
 	display: block;
@@ -7287,6 +7288,9 @@ pre.prettyprint.linenums ol li:before {
 		border-style: solid;
 		border-width: 5px;
 		border-color: transparent
+	}
+	video, iframe {
+		height :200px;
 	}
 	#topnav,
 	#toubuads,

@@ -2153,7 +2153,7 @@ $('.slick').slick({
                 "bdSize": "24"
             },
             share: [{
-                bdCustomStyle: "/wp-content/themes/yusi/share.css"
+                bdCustomStyle: "/wp-content/themes/Git/"
             }],
         };
         if (a(".article-content").length) {
