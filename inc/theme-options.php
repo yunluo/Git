@@ -46,7 +46,7 @@ $options = array(
     ),
     array(
         'name'  => '开启',
-        'desc'  => '【注意，在CMS模式的时候是莫惹打开的，无法关闭】',
+        'desc'  => '【注意，在开启3D幻灯片的时候是默认打开的，无法关闭】',
         'id'    => 'hot_list_check',
         'type'  => 'checkbox'
     ),
