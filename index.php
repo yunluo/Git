@@ -12,6 +12,17 @@ if ($paged && $paged > 1) {
     if (git_get_option('git_sticky_b')) include 'modules/sticky.php';
     if (git_get_option('git_slick_b') && !G_is_mobile()) include 'modules/slick.php';
 }
+
+if (git_get_option('git_adindex_02')) printf('<div class="banner banner-sticky">' . git_get_option('git_adindex_02') . '</div>');
+if (is_home()) {
+    if(git_get_option('hot_list_check') || git_get_option('git_sticky_b')) {
+        echo '<div><div class="left-ad" style="clear: both;background-color: #fff; width: 30%;float: left;margin-right:2%;"></div><div class="hot-posts">
+			<h2 class="title">'.git_get_option('hot_list_title').'</h2>
+			<ul>'.hot_posts_list($days = git_get_option('hot_list_date' )?git_get_option('hot_list_date' ):300 , $nums = git_get_option('hot_list_number' )?git_get_option('hot_list_number' ):5 ).'</ul>
+		</div></div>';
+    }
+}
+if (wp_is_mobile() && git_get_option('Mobiled_adindex_02')) printf('<div class="banner-sticky">' . git_get_option('Mobiled_adindex_02') . '</div>');
 if (git_get_option('git_cms_b')) {
     include 'modules/cms.php';
 } else {

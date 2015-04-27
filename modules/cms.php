@@ -1,16 +1,3 @@
-<?php
-
-if (git_get_option('git_adindex_02')) printf('<div class="banner banner-sticky">' . git_get_option('git_adindex_02') . '</div>'); ?>
-<?php
-if (is_home() && git_get_option('hot_list_check')) { ?>
-		<div><div class="left-ad" style="clear: both;background-color: #fff; width: 30%;float: left;margin-right:2%;"></div><div class="hot-posts">
-			<h2 class="title"><?php
-    echo git_get_option('hot_list_title') ?></h2>
-			<ul><?php
-    hot_posts_list($days = git_get_option('hot_list_date' )?git_get_option('hot_list_date' ):30 , $nums = git_get_option('hot_list_number' )?git_get_option('hot_list_number' ):5 ); ?></ul>
-		</div></div>
-		<?php
-} ?>
 <style type="text/css">.widget-title{background:#FFFFFF;} .title-h2{ height: 45px; border-bottom: 1px solid #90BBA8; margin: 5px 20px;}</style>
 <!-- 最新文章开始 -->
 <div class="relates"><h2 class="title"><small>最新文章</small><span class="more" style="float:right;"><a style="left: 0px;" href="<?php

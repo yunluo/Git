@@ -46,15 +46,16 @@ $options = array(
     ),
     array(
         'name'  => '开启',
+        'desc'  => '【注意，在CMS模式的时候是莫惹打开的，无法关闭】',
         'id'    => 'hot_list_check',
         'type'  => 'checkbox'
     ),
     array(
         'name'  => '显示天数',
-        'desc'  => '天（默认30天）',
+        'desc'  => '天（默认300天）',
         'id'    => 'hot_list_date',
         'type'  => 'number',
-        'std'   => 30
+        'std'   => 300
     ),
     array(
         'name'  => '显示数量',
@@ -478,7 +479,7 @@ $options = array(
     ),
     array(
         'name'  => '是否开启',
-        'desc'  => '开启【开启后请设置4篇以上的置顶文章,文章第一张图片为716*297】',
+        'desc'  => '开启【开启后请设置4篇以上的置顶文章,文章第一张图片为716*297，注意，开启3D幻灯片的时候默认同时打开热门排行，即便你的热门排行没开启】',
         'id'    => "git_sticky_b",
         'type'  => 'checkbox'
     ),
@@ -651,7 +652,7 @@ $options = array(
     ),
     array(
         'name'  => '是否开启',
-        'desc'  => '启用',
+        'desc'  => '启用 【不启用的话，显示是博客模式】',
         'id'    => "git_cms_b",
         'type'  => 'checkbox'
     ),

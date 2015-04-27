@@ -2281,7 +2281,7 @@ $('.slick').slick({
                     um_id: z,
                     um_action: y
                 };
-                a.post("/wp-inc/admin-ajax.php", w, function(A) {
+                a.post("/wp-admin/admin-ajax.php", w, function(A) {
                     a(x).html(A)
                 });
                 a.tipsBox({

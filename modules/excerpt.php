@@ -1,20 +1,4 @@
 <?php
-if (git_get_option('git_adindex_02')) printf('<div class="banner banner-sticky">' . git_get_option('git_adindex_02') . '</div>'); ?>
-<?php
-if (is_home() && git_get_option('hot_list_check')) { ?>
-		<div><div class="left-ad" style="clear: both;background-color: #fff; width: 30%;float: left;margin-right:2%;"></div><div class="hot-posts">
-			<h2 class="title"><?php
-    echo git_get_option('hot_list_title') ?></h2>
-			<ul><?php
-    hot_posts_list($days = git_get_option('hot_list_date' )?git_get_option('hot_list_date' ):30 , $nums = git_get_option('hot_list_number' )?git_get_option('hot_list_number' ):5 ); ?></ul>
-		</div></div>
-		<?php
-} ?>
-<?php
-if (wp_is_mobile()): ?><?php
-    if (git_get_option('Mobiled_adindex_02')) printf('<div class="banner-sticky">' . git_get_option('Mobiled_adindex_02') . '</div>'); ?><?php
-endif; ?>
-<?php
 $_author = git_get_option('git_post_author_b');
 $_time = git_get_option('git_post_time_b');
 $_views = git_get_option('git_post_views_b');
