@@ -150,12 +150,6 @@ $options = array(
         'type'  => 'textarea'
     ),
     array(
-        'name'  => '去除主题版权声明',
-        'desc'  => '我知道即便没有这个选项，也基本没人会保留主题版权文字，所以留下这个，可以让你们更方便的去掉主题版权声明文字，尽管我并不希望这个选项被选中，如果您一定要去除版权，请加googlo.me为全站友链',
-        'id'    => 'git_yunright',
-        'type'  => 'checkbox'
-    ),
-    array(
         'name'  => '主题更新设置',
         'desc'  => '禁止主题更新&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 选择后，您将无法收到本主题的更新推送，所以云落墙裂不推荐选择勾选',
         'id'    => 'git_updates_b',
