@@ -438,7 +438,7 @@ if (git_get_option('git_avater')=='git_avatar_b') {
 }
 //头像SSL链接
 function googlo_ssl_avatar($avatar) {
-   $avatar = preg_replace('/.*\/avatar\/(.*)\?s=([\d]+)&.*/','<img src="https://secure.gravatar.com/avatar/$1?s=$2" class="avatar avatar-$2" height="$2" width="$2">',$avatar);
+   $avatar = preg_replace('/.*\/avatar\/(.*)\?s=([\d]+)&.*/','<img src="https://secure.gravatar.com/avatar/$1?s=$2" class="avatar avatar-$2" height="50" width="50">',$avatar);
    return $avatar;
 }
 if (git_get_option('git_avater')=='git_avatar_ssl') {
