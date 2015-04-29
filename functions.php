@@ -2096,6 +2096,7 @@ function init_gitsmilie() {
 }
 add_action('init', 'init_gitsmilie', 5); 
 //压缩html代码 
+if(git_get_option('git_compress')):
 function wp_compress_html(){
     function wp_compress_html_main ($buffer){
         $initial=strlen($buffer);
@@ -2132,7 +2133,7 @@ function unCompress($content) {
     return $content;
 }
 add_filter( "the_content", "unCompress");
-
+endif;
 /*WordPress函数代码结束*/
 
 ?>
