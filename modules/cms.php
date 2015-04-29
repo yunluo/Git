@@ -41,7 +41,7 @@ if (git_get_option('git_cat_1')) { ?>
 		<div class="related_posts">
 			<?php
     query_posts(array(
-        'showposts' => 4,
+        'showposts' => git_get_option('git_cat_num')?git_get_option('git_cat_num'):4,
         'cat' => git_get_option('git_cat_1')
     )); ?>
             <?php
@@ -74,7 +74,7 @@ if (git_get_option('git_cat_2')) { ?>
 			<div class="related_posts">
 			<?php
     query_posts(array(
-        'showposts' => 4,
+        'showposts' => git_get_option('git_cat_num')?git_get_option('git_cat_num'):4,
         'cat' => git_get_option('git_cat_2')
     )); ?>
             <?php
@@ -107,7 +107,7 @@ if (git_get_option('git_cat_3')) { ?>
 		<div class="related_posts">
 			<?php
     query_posts(array(
-        'showposts' => 4,
+        'showposts' => git_get_option('git_cat_num')?git_get_option('git_cat_num'):4,
         'cat' => git_get_option('git_cat_3')
     )); ?>
             <?php
@@ -140,7 +140,7 @@ if (git_get_option('git_cat_4')) { ?>
 		<div class="related_posts">
 			<?php
     query_posts(array(
-        'showposts' => 4,
+        'showposts' => git_get_option('git_cat_num')?git_get_option('git_cat_num'):4,
         'cat' => git_get_option('git_cat_4')
     )); ?>
             <?php
@@ -173,7 +173,7 @@ if (git_get_option('git_cat_5')) { ?>
 		<div class="related_posts">
 			<?php
     query_posts(array(
-        'showposts' => 4,
+        'showposts' => git_get_option('git_cat_num')?git_get_option('git_cat_num'):4,
         'cat' => git_get_option('git_cat_5')
     )); ?>
             <?php
@@ -206,7 +206,7 @@ if (git_get_option('git_cat_6')) { ?>
 		<div class="related_posts">
 			<?php
     query_posts(array(
-        'showposts' => 4,
+        'showposts' => git_get_option('git_cat_num')?git_get_option('git_cat_num'):4,
         'cat' => git_get_option('git_cat_6')
     )); ?>
             <?php
@@ -239,7 +239,7 @@ if (git_get_option('git_cat_7')) { ?>
 		<div class="related_posts">
 			<?php
     query_posts(array(
-        'showposts' => 4,
+        'showposts' => git_get_option('git_cat_num')?git_get_option('git_cat_num'):4,
         'cat' => git_get_option('git_cat_7')
     )); ?>
             <?php
@@ -272,7 +272,7 @@ if (git_get_option('git_cat_8')) { ?>
 		<div class="related_posts">
 			<?php
     query_posts(array(
-        'showposts' => 4,
+        'showposts' => git_get_option('git_cat_num')?git_get_option('git_cat_num'):4,
         'cat' => git_get_option('git_cat_8')
     )); ?>
             <?php

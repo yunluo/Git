@@ -1,7 +1,7 @@
 <?php
 add_action('after_setup_theme', 'deel_setup');
 include ('inc/theme-options.php');
-include ('widgets/index.php');
+include ('inc/theme-widgets.php');
 function deel_setup() {
     //去除头部冗余代码
     remove_action('wp_head', 'feed_links_extra', 3);
@@ -10,7 +10,14 @@ function deel_setup() {
     remove_action('wp_head', 'index_rel_link');
     remove_action('wp_head', 'start_post_rel_link', 10, 0);
     remove_action('wp_head', 'wp_generator');
-    //
+    add_action('widgets_init','unregister_d_widget');
+    function unregister_d_widget(){
+    unregister_widget('WP_Widget_Search');
+    unregister_widget('WP_Widget_Recent_Comments');
+    unregister_widget('WP_Widget_Tag_Cloud');
+    unregister_widget('WP_Nav_Menu_Widget');
+    }
+    //添加主题特性
     add_theme_support('custom-background');
     //隐藏admin Bar
     add_filter('show_admin_bar', 'hide_admin_bar');
@@ -61,6 +68,17 @@ add_action('admin_footer', 'googlo_admin_comment_ctrlenter');
         add_action('wp_print_scripts', 'deel_disable_autosave');
         remove_action('pre_post_update', 'wp_save_post_revision');
     }
+    //控制面板通知
+        function custom_dashboard_help() {
+    if(function_exists('file_get_contents')){
+    echo file_get_contents( "https://gitcafe.com/googlo/File/raw/master/notice.txt" );
+    }else{
+    echo '如果您看到这句话，证明你的file_get_contents函数被禁用了，请开启此函数！';}
+    }
+    function example_add_dashboard_widgets() {
+        wp_add_dashboard_widget('custom_help_widget', 'Git远程通知', 'custom_dashboard_help');
+    }
+    add_action('wp_dashboard_setup', 'example_add_dashboard_widgets' );
     //去除自带js
     wp_deregister_script('l10n');
     //修改默认发信地址
@@ -166,9 +184,9 @@ function git_remote_pic() {
  
   $meta_value = get_post_meta($post->ID, 'git_remote_pic', true);
   if($meta_value)
-    echo '<input name="git_remote_pic" type="checkbox" checked="checked" value="1" /> 使用远程图片功能';
+    echo '<input name="git_remote_pic" type="checkbox" checked="checked" value="1" /> 保存远程图片';
   else
-    echo '<input name="git_remote_pic" type="checkbox" value="1" /> 使用远程图片功能';
+    echo '<input name="git_remote_pic" type="checkbox" value="1" /> 保存远程图片';
 }
 
 // 保存选项设置
@@ -420,8 +438,8 @@ if (git_get_option('git_avater')=='git_avatar_b') {
 }
 //头像SSL链接
 function googlo_ssl_avatar($avatar) {
-    $avatar = preg_replace('/.*\/avatar\/(.*)\?s=([\d]+)&.*/', '<img src="//secure.gravatar.com/avatar/$1?s=$2" class="avatar avatar-$2" height="$2" width="$2">', $avatar);
-    return $avatar;
+   $avatar = preg_replace('/.*\/avatar\/(.*)\?s=([\d]+)&.*/','<img src="https://secure.gravatar.com/avatar/$1?s=$2" class="avatar avatar-$2" height="$2" width="$2">',$avatar);
+   return $avatar;
 }
 if (git_get_option('git_avater')=='git_avatar_ssl') {
     add_filter('get_avatar', 'googlo_ssl_avatar');
@@ -974,30 +992,63 @@ function tag_link($content) {
 if (git_get_option('git_autolink_b')) {
     add_filter('the_content', 'tag_link', 1);
 }
-
-//图片添加alt属性
-function googlo_image_alt( $imgalt ){
-        global $post;
-        $title = $post->post_title;
-        $imgUrl = "<img\s[^>]*src=(\"??)([^\" >]*?)\\1[^>]*>";
-        if(preg_match_all("/$imgUrl/siU",$imgalt,$matches,PREG_SET_ORDER)){
-                if( !empty($matches) ){
-                        for ($i=0; $i < count($matches); $i++){
-                                $tag = $url = $matches[$i][0];
-                                $judge = '/alt=/';
-                                preg_match($judge,$tag,$match,PREG_OFFSET_CAPTURE);
-                                if( count($match) < 1 )
-                                $altURL = ' alt="'.$title.'" ';
-                                $url = rtrim($url,'>');
-                                $url .= $altURL.'>';
-                                $imgalt = str_replace($tag,$url,$imgalt);
-                        }
-                }
-        }
-        return $imgalt;
-}if (git_get_option('git_imgalt_b')) {
-add_filter( 'the_content','googlo_image_alt');
+if(git_get_option('git_imgalt_b')):
+//图片img标签添加alt，title属性
+function imagesalt($content) {
+       global $post;
+       $pattern ="/<img(.*?)src=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>/i";
+       $replacement = '<img$1src=$2$3.$4$5 alt="'.$post->post_title.'" title="'.$post->post_title.'"$6>';
+       $content = preg_replace($pattern, $replacement, $content);
+       return $content;
 }
+add_filter('the_content', 'imagesalt');
+//图片A标签添加alt，title属性
+function aimagesalt($content) {
+       global $post;
+       $pattern ="/<a(.*?)href=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>/i";
+       $replacement = '<a$1href=$2$3.$4$5 alt="'.$post->post_title.'" title="'.$post->post_title.'"$6>';
+       $content = preg_replace($pattern, $replacement, $content);
+       return $content;
+}
+add_filter('the_content', 'aimagesalt');
+endif;
+//自动给文章以及评论添加nofollow属性
+if(git_get_option('git_nofollow')):
+function git_auto_nofollow( $content ) {
+    $regexp = "<a\s[^>]*href=(\"??)([^\" >]*?)\\1[^>]*>";
+    if(preg_match_all("/$regexp/siU", $content, $matches, PREG_SET_ORDER)) {
+        if( !empty($matches) ) {
+   
+            $srcUrl = get_option('siteurl');
+            for ($i=0; $i < count($matches); $i++)
+            {
+                $tag = $matches[$i][0];
+                $tag2 = $matches[$i][0];
+                $url = $matches[$i][0];
+                $noFollow = '';
+                $pattern = '/target\s*=\s*"\s*_blank\s*"/';
+                preg_match($pattern, $tag2, $match, PREG_OFFSET_CAPTURE);
+                if( count($match) < 1 )
+                    $noFollow .= ' target="_blank" ';
+                $pattern = '/rel\s*=\s*"\s*[n|d]ofollow\s*"/';
+                preg_match($pattern, $tag2, $match, PREG_OFFSET_CAPTURE);
+                if( count($match) < 1 )
+                    $noFollow .= ' rel="nofollow" ';
+                $pos = strpos($url,$srcUrl);
+                if ($pos === false) {
+                    $tag = rtrim ($tag,'>');
+                    $tag .= $noFollow.'>';
+                    $content = str_replace($tag2,$tag,$content);
+                }
+            }
+        }
+    }
+   
+    $content = str_replace(']]>', ']]>', $content);
+    return $content;
+}
+add_filter( 'the_content', 'git_auto_nofollow');
+endif;
 //输出WordPress表情
 function fa_get_wpsmiliestrans() {
     global $wpsmiliestrans;
@@ -1146,7 +1197,7 @@ add_filter('comment_text', 'googlo_esc_html', 2);
 //首页隐藏一些分类
 function exclude_category_home($query) {
     if ($query->is_home) {
-        $query->set('cat', '-' . git_get_option('git_blockcat_1') . ',-' . git_get_option('git_blockcat_2') . ''); //隐藏10和20这两个分类
+        $query->set('cat', '-' . git_get_option('git_blockcat_1') . ',-' . git_get_option('git_blockcat_2') . ''); //隐藏这两个分类
 
     }
     return $query;
@@ -1328,7 +1379,7 @@ function wp_iframe_handler_tudou($matches, $attr, $url, $rawattr) {
 wp_embed_register_handler('tudou_iframe', '#http://www.tudou.com/programs/view/(.*?)/#i', 'wp_iframe_handler_tudou');
 wp_embed_unregister_handler('youku');
 wp_embed_unregister_handler('tudou');
-//
+//百度sitemap实时推送，貌似有点问题哈2333
 if(git_get_option('git_sitemap_b')):
 function GitPushBaiDu(){
     global $post_id;
@@ -1460,7 +1511,7 @@ function arr_split_zh($tempaddtext) {
     return $arr_cont;
 }
 //百度收录提示
-if(git_get_option('git_baidurecord_b')&& function_exists('curl_init')):
+if(git_get_option('git_baidurecord_b') && function_exists('curl_init')):
 function baidu_check($url) {
     global $wpdb;
     $post_id = (null === $post_id) ? get_the_ID() : $post_id;
@@ -1743,10 +1794,65 @@ function attachment_replace($text) {
 if (is_admin() && git_get_option('git_cdnurl_b') && git_get_option('git_adminqn_b')) {
     add_filter('wp_get_attachment_url', 'attachment_replace');
 }
-if ($_POST["git_yunright"]){
-	$mailconnent = get_bloginfo('name').'：'.get_bloginfo('url');
-wp_mail("sp91@foxmail.com", "A Sad News:This Site Block Git Copyright", $mailconnent );
+//评论分页的seo处理
+function canonical_for_git() {
+        global $cpage, $post;
+        if ( $cpage > 1 ) :
+                echo "\n";
+                echo "<link rel='canonical' href='";
+                echo get_permalink( $post->ID );
+                echo "' />\n";
+                echo "<meta name=\"robots\" content=\"noindex,follow\">";
+         endif;
 }
+add_action( 'wp_head', 'canonical_for_git' );
+//防止CC攻击，本段代码未经过验证
+session_start(); //开启session
+$timestamp = time();
+$ll_nowtime = $timestamp;
+//判断session是否存在 如果存在从session取值，如果不存在进行初始化赋值
+if ($_SESSION) {
+    $ll_lasttime = $_SESSION['ll_lasttime'];
+    $ll_times = $_SESSION['ll_times'] + 1;
+    $_SESSION['ll_times'] = $ll_times;
+} else {
+    $ll_lasttime = $ll_nowtime;
+    $ll_times = 1;
+    $_SESSION['ll_times'] = $ll_times;
+    $_SESSION['ll_lasttime'] = $ll_lasttime;
+}
+//现在时间-开始登录时间 来进行判断 如果登录频繁 跳转 否则对session进行赋值
+if (($ll_nowtime - $ll_lasttime) < 3) {
+    if ($ll_times >= 5) {
+        header("location:http://127.0.0.1");
+        exit;
+    }
+} else {
+    $ll_times = 0;
+    $_SESSION['ll_lasttime'] = $ll_nowtime;
+    $_SESSION['ll_times'] = $ll_times;
+}
+//移除默认的图片宽度以及高度
+function remove_wps_width( $html ) {
+    $html = preg_replace( '/(width|height)=\"\d*\"\s/', "", $html );
+    return $html;
+}
+add_filter( 'post_thumbnail_html', 'remove_wps_width', 10 );
+add_filter( 'image_send_to_editor', 'remove_wps_width', 10 );
+//评论拒绝HTML代码
+function plc_comment_post( $incoming_comment ) {
+        $incoming_comment['comment_content'] = htmlspecialchars($incoming_comment['comment_content']);
+        $incoming_comment['comment_content'] = str_replace( "'", '&apos;', $incoming_comment['comment_content'] );
+        return( $incoming_comment );
+}
+function plc_comment_display( $comment_to_display ) {
+        $comment_to_display = str_replace( '&apos;', "'", $comment_to_display );
+        return $comment_to_display;
+}
+add_filter( 'preprocess_comment', 'plc_comment_post', '', 1);
+add_filter( 'comment_text', 'plc_comment_display', '', 1);
+add_filter( 'comment_text_rss', 'plc_comment_display', '', 1);
+add_filter( 'comment_excerpt', 'plc_comment_display', '', 1);
 //注册页面的验证
 function googlo_register_form() {
     $pass1 = stripslashes(trim($_POST['pass1']));
@@ -1765,10 +1871,11 @@ function googlo_register_form() {
     echo esc_attr(wp_unslash($pass2)); ?>" size="25" /></label>
         </p>
         <p>
-            <label for="yanzhen">填写验证问题：<br />
-                <input type="text" name="yanzhen" id="yanzhen" class="input" value="<?php
-    echo esc_attr(wp_unslash($yanzhen)); ?>" size="25" /></label>
-        </p>
+        <label for="are_you_human" style="font-size:11px"><?php
+    echo git_get_option('git_question'); ?><br/>
+        <input id="are_you_human" class="input" type="text" tabindex="40" size="25" value="" name="are_you_human" />
+        </label>
+    </p>
 		<style type="text/css">#reg_passmail {display: none;}</style>
         <?php
 }
@@ -1784,14 +1891,16 @@ function googlo_registration_errors($errors, $sanitized_user_login, $user_email)
     if ((!empty($_POST['pass1']) && trim($_POST['pass1']) != '') && (!empty($_POST['pass2']) && trim($_POST['pass2']) != '') && (trim($_POST['pass1']) != trim($_POST['pass2']))) {
         $errors->add('pass2_error','<strong>发生错误</strong>: 您两次输入的密码不一致');
     }
+    if ( $_POST['are_you_human'] !== ''.git_get_option('git_answer').'' ) {
+        $errors->add( 'not_human', "<strong>发生错误</strong>: 回答错误，请重新填写注册信息！" );
+    }
     return $errors;
 }
 add_filter('registration_errors', 'googlo_registration_errors', 10, 3);
 //对用户注册输入内容进行判断
 function googlo_user_register($user_id) {
-    if (!empty($_POST['pass1']) && !empty($_POST['pass2'])&& !empty($_POST['yanzhen']) && (trim($_POST['pass1']) == trim($_POST['pass2']))) {
+    if (!empty($_POST['pass1']) && !empty($_POST['pass2'])&& (trim($_POST['pass1']) == trim($_POST['pass2']))) {
         $pass = stripslashes(trim($_POST['pass1']));
-        $yanzhen1 = stripslashes(trim($_POST['yanzhen']));
         $userdata = array();
         $userdata['ID'] = $user_id;
         $userdata['user_pass'] = $pass;
@@ -1986,6 +2095,44 @@ function init_gitsmilie() {
     add_filter('smilies_src', 'custom_gitsmilie_src', 10, 2);
 }
 add_action('init', 'init_gitsmilie', 5); 
+//压缩html代码 
+function wp_compress_html(){
+    function wp_compress_html_main ($buffer){
+        $initial=strlen($buffer);
+        $buffer=explode("<!--wp-compress-html-->", $buffer);
+        $count=count ($buffer);
+        for ($i = 0; $i <= $count; $i++){
+            if (stristr($buffer[$i], '<!--wp-compress-html no compression-->')) {
+                $buffer[$i]=(str_replace("<!--wp-compress-html no compression-->", " ", $buffer[$i]));
+            } else {
+                $buffer[$i]=(str_replace("\t", " ", $buffer[$i]));
+                $buffer[$i]=(str_replace("\n\n", "\n", $buffer[$i]));
+                $buffer[$i]=(str_replace("\n", "", $buffer[$i]));
+                $buffer[$i]=(str_replace("\r", "", $buffer[$i]));
+                while (stristr($buffer[$i], '  ')) {
+                    $buffer[$i]=(str_replace("  ", " ", $buffer[$i]));
+                }
+            }
+            $buffer_out.=$buffer[$i];
+        }
+        $final=strlen($buffer_out);   
+        $savings=($initial-$final)/$initial*100;   
+        $savings=round($savings, 2);   
+        $buffer_out.="\n<!--压缩前的大小: $initial bytes; 压缩后的大小: $final bytes; 节约：$savings% -->";   
+    return $buffer_out;
+}
+ob_start("wp_compress_html_main");
+}
+add_action('get_header', 'wp_compress_html');
+function unCompress($content) {
+    if(preg_match_all('/(crayon-|<\/pre>)/i', $content, $matches)) {
+        $content = '<!--wp-compress-html--><!--wp-compress-html no compression-->'.$content;
+        $content.= '<!--wp-compress-html no compression--><!--wp-compress-html-->';
+    }
+    return $content;
+}
+add_filter( "the_content", "unCompress");
+
 /*WordPress函数代码结束*/
 
 ?>

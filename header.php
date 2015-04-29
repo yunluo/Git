@@ -52,27 +52,10 @@ echo $sr_1
 echo $sr_2
 ?>]}
 </script>
-<!--[if lt IE 9]><script src="<?php
-bloginfo('template_url'); ?>/js/html5.js"></script><![endif]-->
-<?php
-if (git_get_option('git_nosuojin_b')) echo '<style type="text/css">.article-content{text-indent:0px;}</style>'; ?>
+<!--[if lt IE 9]><script src="<?php bloginfo('template_url'); ?>/js/html5.js"></script><![endif]-->
 </head>
 <body <?php
 body_class(); ?>>
-<?php
-if (git_get_option('git_topnav_b') && !G_is_mobile()) { ?>
-<script type="text/Javascript">
-$(function(){
-	$('#nav-header').posfixed({
-		distance : 0,
-		pos : 'top',
-		type : 'while',
-		hide : false
-	});
-});
-</script>
-<?php
-} ?>
 <?php
 if (!git_get_option('git_pichead_b')) { ?>
 <?php

@@ -196,9 +196,15 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
-        'name'  => '图片自动添加alt',
+        'name'  => '图片自动添加alt以及title',
         'desc'  => '启用',
         'id'    => "git_imgalt_b",
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '外链自动添加nofollow',
+        'desc'  => '启用',
+        'id'    => "git_nofollow",
         'type'  => 'checkbox'
     ),
     array(
@@ -280,12 +286,6 @@ $options = array(
         'name'  => '自动超链接',
         'desc'  => '启用 【就是那种可以把一个链接自动变成可以点击的超链接】',
         'id'    => 'git_linktrue_b',
-        'type'  => 'checkbox'
-    ),
-    array(
-        'name'  => '首行缩进',
-        'desc'  => '禁用【默认是有首行缩进的，但是某些时候不太好，选择此选项可以禁用】',
-        'id'    => "git_nosuojin_b",
         'type'  => 'checkbox'
     ),
     array(
@@ -649,6 +649,13 @@ $options = array(
         'desc'  => '启用 【不启用的话，显示是博客模式】',
         'id'    => "git_cms_b",
         'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => 'cms 分类文章数目',
+        'desc'  => '默认4个,也可以8个',
+        'id'    => "git_cat_num",
+        'type'  => 'number',
+        'std'   => '4'
     ),
     array(
         'name'  => '分类一',
@@ -1114,6 +1121,12 @@ $options = array(
         'type'  => 'panelstart'
     ),
     array(
+        'name'  => 'HTML代码压缩',
+        'desc'  => '启用【如果你布吉岛这个是什么东东，那么请不要启用】',
+        'id'    => "git_compress",
+        'type'  => 'checkbox'
+    ),
+    array(
         'title' => '新浪微博同步设置',
         'type'  => 'subtitle'
     ),
@@ -1225,6 +1238,24 @@ $options = array(
             '本地缓存' => 'git_avatar_b'
         ),
         'std'   => 'git_avatar_qn'
+    ),
+    array(
+        'title' => '会员注册设置',
+        'type'  => 'subtitle'
+    ),
+    array(
+        'name'  => '验证问题',
+        'desc'  => '请输入网站注册验证问题，比如：“魔都”指的是哪个城市？',
+        'id'    => "git_question",
+        'type'  => 'text',
+        'std'   => ''
+    ),
+    array(
+        'name'  => '验证问题答案',
+        'desc'  => '请输入上面问题的答案，比如：上海。',
+        'id'    => "git_answer",
+        'type'  => 'text',
+        'std'   => ''
     ),
     array(
         'type'  => 'panelend'
