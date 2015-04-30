@@ -1870,12 +1870,14 @@ function googlo_register_form() {
                 <input type="password" name="pass2" id="pass2" class="input" value="<?php
     echo esc_attr(wp_unslash($pass2)); ?>" size="25" /></label>
         </p>
+        <?php if(git_get_option('git_qa_b')):?>
         <p>
         <label for="are_you_human" style="font-size:11px"><?php
     echo git_get_option('git_question'); ?><br/>
         <input id="are_you_human" class="input" type="text" tabindex="40" size="25" value="" name="are_you_human" />
         </label>
     </p>
+    <?php endif; ?>
 		<style type="text/css">#reg_passmail {display: none;}</style>
         <?php
 }
@@ -1891,7 +1893,7 @@ function googlo_registration_errors($errors, $sanitized_user_login, $user_email)
     if ((!empty($_POST['pass1']) && trim($_POST['pass1']) != '') && (!empty($_POST['pass2']) && trim($_POST['pass2']) != '') && (trim($_POST['pass1']) != trim($_POST['pass2']))) {
         $errors->add('pass2_error','<strong>发生错误</strong>: 您两次输入的密码不一致');
     }
-    if ( $_POST['are_you_human'] !== ''.git_get_option('git_answer').'' ) {
+    if ( $_POST['are_you_human'] !== ''.git_get_option('git_answer').'' && git_get_option('git_qa_b') ) {
         $errors->add( 'not_human', "<strong>发生错误</strong>: 回答错误，请重新填写注册信息！" );
     }
     return $errors;

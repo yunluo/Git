@@ -436,6 +436,20 @@ $options = array(
         'std'   => ''
     ),
     array(
+        'name'  => '代码高亮主题',
+        'desc'  => '选择一个色调作为您网站的主色调，如果这里的色彩还不够，您可以使用下面的自定义色彩',
+        'id'    => "git_prettify",
+        'type'  => 'radio',
+        'options' => array(
+            '黑色主题' => 'monokai',
+            '暗色主题' => 'tomorrow',
+            '蓝色主题' => 'solarized',
+            '深绿主题' => 'deepblue',
+            '淡绿主题' => 'yusigreen'
+        ),
+        'std'   => 'yusigreen'
+    ),
+    array(
         'title' => '主题侧边栏跟随设置',
         'type'  => 'subtitle'
     ),
@@ -1077,12 +1091,6 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
-        'name'  => '代码黑色主题',
-        'desc'  => '启用  【启用非常流行的暗色主题】',
-        'id'    => "git_darkhighlight_b",
-        'type'  => 'checkbox'
-    ),
-    array(
         'name'  => '网站禁止复制',
         'desc'  => '启用    【启用后访客无法使用右键复制】',
         'id'    => "git_copy_b",
@@ -1242,6 +1250,12 @@ $options = array(
     array(
         'title' => '会员注册设置',
         'type'  => 'subtitle'
+    ),
+    array(
+        'name'  => '开启',
+        'desc'  => '',
+        'id'    => "git_qa_b",
+        'type'  => 'checkbox'
     ),
     array(
         'name'  => '验证问题',
