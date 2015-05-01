@@ -1049,20 +1049,20 @@ $options = array(
         'type'  => 'subtitle'
     ),
     array(
-        'name'  => '图片弹窗',
-        'desc'  => '启用  【网站常用的功能，建议开启】',
+        'name'  => '弹窗功能',
+        'desc'  => '启用  【网站常用的功能，建议开启，不仅仅是图片弹窗，还有其他弹窗都需要这个支持，比如弹窗下载】',
         'id'    => "git_fancybox_b",
         'type'  => 'checkbox'
     ),
     array(
         'name'  => '屏蔽谷歌字体',
-        'desc'  => '启用  【貌似谷歌字体国内已经可以访问了，是否开启看心情吧】',
+        'desc'  => '启用  【开启后，将屏蔽加载谷歌字体文件，建议开启】',
         'id'    => "git_fuckziti_b",
         'type'  => 'checkbox'
     ),
     array(
         'name'  => '链接去掉Categroy',
-        'desc'  => '启用   【开启这个功能之后如果发生404的话，前往固定链接重新保存一下】',
+        'desc'  => '启用 【开启后，需要至设置——固定连接——重新保存一下，否则会发生404错误】',
         'id'    => "git_categroy_b",
         'type'  => 'checkbox'
     ),
@@ -1074,13 +1074,13 @@ $options = array(
     ),
     array(
         'name'  => '百度收录提示',
-        'desc'  => '启用   【鸡肋功能，其实并不是太准确的，作为一个装X的功能挺不错的】',
+        'desc'  => '启用   【开启后，将会在文章标题下显示百度收录状态，需要curl扩展的支持，否则不生效】',
         'id'    => "git_baidurecord_b",
         'type'  => 'checkbox'
     ),
     array(
         'name'  => '网站下雪特效',
-        'desc'  => '启用    【鸡肋功能，开启后网站会有一定成的卡顿】',
+        'desc'  => '启用    【开启后，将产生全站下雪特效，但是对网站性能略有影响】',
         'id'    => "git_snow_b",
         'type'  => 'checkbox'
     ),
@@ -1098,19 +1098,19 @@ $options = array(
     ),
     array(
         'name'  => '复制弹窗提醒',
-        'desc'  => '启用   【启用之后，访客复制之后会弹出提示弹窗】',
+        'desc'  => '启用   【启用后，访客复制之后会弹出提示弹窗】',
         'id'    => "git_copydialog_b",
         'type'  => 'checkbox'
     ),
     array(
         'name'  => '保存远程图片',
-        'desc'  => '启用   【启用之后，会自动将文章里面的外链图片保存为本地图片，在媒体库里面不显示图片内容，只显示缩略图】',
+        'desc'  => '启用   【启用后，会自动将文章里面的外链图片保存为本地图片，在媒体库里面不显示图片内容，只显示缩略图】',
         'id'    => "git_yuanpic_b",
         'type'  => 'checkbox'
     ),
     array(
         'name'  => '页面伪静态',
-        'desc'  => '启用   【开启之后，请前往固定连接重新保存一下，否则404】',
+        'desc'  => '启用   【开启后，请前往固定连接重新保存一下，否则404】',
         'id'    => "git_pagehtml_b",
         'type'  => 'checkbox'
     ),
@@ -1130,7 +1130,7 @@ $options = array(
     ),
     array(
         'name'  => 'HTML代码压缩',
-        'desc'  => '启用【如果你布吉岛这个是什么东东，那么请不要启用】',
+        'desc'  => '启用 【开启后，将压缩网页HTML代码，可读性会降低，但是性能略有提升】',
         'id'    => "git_compress",
         'type'  => 'checkbox'
     ),
@@ -1139,8 +1139,8 @@ $options = array(
         'type'  => 'subtitle'
     ),
     array(
-        'name'  => '是否开启',
-        'desc'  => '启用',
+        'name'  => '开启',
+        'desc'  => '',
         'id'    => "git_sinasync_b",
         'type'  => 'checkbox'
     ),
@@ -1252,8 +1252,14 @@ $options = array(
         'type'  => 'subtitle'
     ),
     array(
-        'name'  => '开启',
-        'desc'  => '',
+        'name'  => '开启密码注册',
+        'desc'  => ' 【开启后，用户注册的时候需要输入密码】',
+        'id'    => "git_register",
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '开启注册验证',
+        'desc'  => ' 【开启后，请在下面输入相关问题以及答案】',
         'id'    => "git_qa_b",
         'type'  => 'checkbox'
     ),

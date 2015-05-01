@@ -1171,7 +1171,7 @@ function custom_login_head() {
     $str = file_get_contents('http://cn.bing.com/HPImageArchive.aspx?idx=0&n=1');
     if (preg_match("/<url>(.+?)<\/url>/ies", $str, $matches)) {
         $imgurl = 'http://cn.bing.com' . $matches[1];
-        echo '<style type="text/css">body{background: url(' . $imgurl . ');z-index:9999;background-attachment:fixed;width:100%;height:100%;background-image:url(' . $imgurl . ');z-index:9999;background-attachment:fixed;-moz-background-size: 100% 100%;-o-background-size: 100% 100%;-webkit-background-size: 100% 100%;background-size: 100% 100%;-moz-border-image: url(' . $imgurl . ') 0;background-attachment:fixed;background-repeat:no-repeat\9;background-image:none\9;}h1 a { background-image:url(' . get_bloginfo('url') . '/favicon.ico)!important;width:32px;height:32px;-webkit-border-radius:50px;-moz-border-radius:50px;border-radius:50px;}#loginform {background-color:rgba(251,251,251,0.3)!important;}.login label,a{color:#000!important;}</style>';
+        echo '<style type="text/css">body{height:810px !important;background: url(' . $imgurl . ');z-index:9999;background-attachment:fixed;width:100%;height:100%;background-image:url(' . $imgurl . ');z-index:9999;background-attachment:fixed;-moz-background-size: 100% 100%;-o-background-size: 100% 100%;-webkit-background-size: 100% 100%;background-size: 100% 100%;-moz-border-image: url(' . $imgurl . ') 0;background-attachment:fixed;background-repeat:no-repeat\9;background-image:none\9;}h1 a { background-image:url(' . get_bloginfo('url') . '/favicon.ico)!important;width:32px;height:32px;-webkit-border-radius:50px;-moz-border-radius:50px;border-radius:50px;}#loginform {background-color:rgba(251,251,251,0.3)!important;}.login label,a{color:#000!important;}</style>';
     }
 }
 add_action('login_head', 'custom_login_head');
@@ -1854,6 +1854,7 @@ add_filter( 'comment_text', 'plc_comment_display', '', 1);
 add_filter( 'comment_text_rss', 'plc_comment_display', '', 1);
 add_filter( 'comment_excerpt', 'plc_comment_display', '', 1);
 //注册页面的验证
+if(git_get_option('git_register')):
 function googlo_register_form() {
     $pass1 = stripslashes(trim($_POST['pass1']));
     $pass2 = stripslashes(trim($_POST['pass2']));
@@ -1910,6 +1911,7 @@ function googlo_user_register($user_id) {
     }
 }
 add_action('user_register', 'googlo_user_register');
+endif;
 
 //SMTP邮箱设置
 function googlo_mail_smtp($phpmailer) {
