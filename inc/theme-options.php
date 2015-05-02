@@ -41,6 +41,12 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+        'name'  => '网站搜索优化',
+        'desc'  => '如果您的搜索结果是404，请开启，如果您的搜索很正常，请不要开启',
+        'id'    => 'git_search',
+        'type'  => 'checkbox'
+    ),
+    array(
         'title' => '热门排行',
         'type'  => 'subtitle'
     ),
