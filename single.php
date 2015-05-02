@@ -4,7 +4,6 @@ get_header(); ?>
 	<div class="content">
 <?php
 if (git_get_option('git_singlecode')) echo git_get_option('git_singlecode'); ?>
-<style type="text/css">.article-content h2 {border-left: 8px solid #00A67C;border-bottom: 1px solid #00A67C;}.article-content blockquote:before {display:none !important;}.article-content h3 {border-left: 2px solid #0095ff;background-color:#fbfbfb}input{padding:0px 20px;height : 30px;}</style>
 <?php
 if (git_get_option('git_singleMenu_b')) echo '<div class="breadcrumbs">' . deel_breadcrumbs() . '</div>'; ?>
 <?php

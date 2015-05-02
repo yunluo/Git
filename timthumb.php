@@ -38,7 +38,6 @@ if(! defined('OPTIPNG_ENABLED') ) 		define ('OPTIPNG_ENABLED', false);
 if(! defined('OPTIPNG_PATH') ) 			define ('OPTIPNG_PATH', '/usr/bin/optipng');
 if(! defined('PNGCRUSH_ENABLED') ) 		define ('PNGCRUSH_ENABLED', false);
 if(! defined('PNGCRUSH_PATH') ) 		define ('PNGCRUSH_PATH', '/usr/bin/pngcrush');
-
 if(! defined('WEBSHOT_ENABLED') ) 	define ('WEBSHOT_ENABLED', false);
 if(! defined('WEBSHOT_CUTYCAPT') ) 	define ('WEBSHOT_CUTYCAPT', '/usr/local/bin/CutyCapt');
 if(! defined('WEBSHOT_XVFB') ) 		define ('WEBSHOT_XVFB', '/usr/bin/xvfb-run');
@@ -54,6 +53,7 @@ if(! defined('WEBSHOT_PLUGINS_ON') ) 	define ('WEBSHOT_PLUGINS_ON', true);
 if(! defined('WEBSHOT_PROXY') ) 	define ('WEBSHOT_PROXY', '');
 if(! defined('WEBSHOT_XVFB_RUNNING') )	define ('WEBSHOT_XVFB_RUNNING', false);
 if(! isset($ALLOWED_SITES)){
+	//下面输入您的外链图片域名
 	$ALLOWED_SITES = array (
 		'picasa.com',
 		'images.yusi123.com',

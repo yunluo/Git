@@ -317,7 +317,7 @@ $options = array(
     array(
         'name'  => '文章页自定义代码',
         'desc'  => '此选项可放置作用于文章的css代码或者JavaScript代码块',
-        'id'    => "git_singlecode_b",
+        'id'    => "git_singlecode",
         'type'  => 'textarea',
         'std'   => ''
     ),
