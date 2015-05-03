@@ -67,12 +67,12 @@ $closeTimer = (strtotime(date('Y-m-d G:i:s'))-strtotime(get_the_time('Y-m-d G:i:
 					<button class="btn btn-primary pull-right" type="submit" name="submit" id="submit" tabindex="5"><i class="fa fa-check-square-o"></i> 提交评论</button>
 					<div class="comt-tips pull-right"><?php comment_id_fields(); do_action('comment_form', $post->ID); ?></div>
 					<span data-type="comment-insert-smilie" class="muted comt-smilie"><i class="fa fa-smile-o"></i> 表情</span>
-					<span class="muted ml5 comt-img"><i class="fa fa-picture-o"></i><a href="javascript:SIMPALED.Editor.img()" style="color:#999999"> 贴图</a></span>
-					<span class="muted ml5 comt-strong"><i class="fa fa-bold"></i><a href="javascript:SIMPALED.Editor.strong()" style="color:#999999"> 加粗</a></span>
-					<span class="muted ml5 comt-del"><i class="fa fa-strikethrough"></i><a href="javascript:SIMPALED.Editor.del()" style="color:#999999"> 删除线</a></span>
-					<span class="muted ml5 comt-center"><i class="fa fa-align-center"></i><a href="javascript:SIMPALED.Editor.center()" style="color:#999999"> 居中</a></span>
-					<span class="muted ml5 comt-italic"><i class="fa fa-italic"></i><a href="javascript:SIMPALED.Editor.italic()" style="color:#999999"> 斜体</a></span>
-					<span class="muted ml5 comt-sign"><i class="fa fa-pencil-square-o"></i><a href="javascript:SIMPALED.Editor.daka()" style="color:#999999"> 签到</a></span>
+					<?php if(!git_get_option('git_tietu')) echo '<span class="muted ml5 comt-img"><i class="fa fa-picture-o"></i><a href="javascript:SIMPALED.Editor.img()" style="color:#999999"> 贴图</a></span>';?>
+					<?php if(!git_get_option('git_jiacu')) echo '<span class="muted ml5 comt-strong"><i class="fa fa-bold"></i><a href="javascript:SIMPALED.Editor.strong()" style="color:#999999"> 加粗</a></span>';?>
+					<?php if(!git_get_option('git_shanchu')) echo '<span class="muted ml5 comt-del"><i class="fa fa-strikethrough"></i><a href="javascript:SIMPALED.Editor.del()" style="color:#999999"> 删除线</a></span>';?>
+					<?php if(!git_get_option('git_juzhong')) echo '<span class="muted ml5 comt-center"><i class="fa fa-align-center"></i><a href="javascript:SIMPALED.Editor.center()" style="color:#999999"> 居中</a></span>';?>
+					<?php if(!git_get_option('git_xieti')) echo '<span class="muted ml5 comt-italic"><i class="fa fa-italic"></i><a href="javascript:SIMPALED.Editor.italic()" style="color:#999999"> 斜体</a></span>';?>
+					<?php if(!git_get_option('git_qiandao')) echo '<span class="muted ml5 comt-sign"><i class="fa fa-pencil-square-o"></i><a href="javascript:SIMPALED.Editor.daka()" style="color:#999999"> 签到</a></span>';?>
 					<span class="muted comt-mailme"><?php deel_add_checkbox() ?></span>
 				</div>
 			</div>

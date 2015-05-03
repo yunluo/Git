@@ -78,12 +78,6 @@ $options = array(
         'std'   => '本周热门'
     ),
     array(
-        'name'  => 'jQuery底部加载',
-        'desc'  => '开启 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; jQuery默认在head区域加载，如果需要页面载入加速，请开启，但是有可能影响部分依赖jQuery的插件失效。',
-        'id'    => 'git_jquerybom_b',
-        'type'  => 'checkbox'
-    ),
-    array(
         'name'  => '用户登录信息',
         'desc'  => '开启',
         'id'    => 'git_sign_b',
@@ -240,7 +234,6 @@ $options = array(
         'id'    => 'panel_aritical',
         'type'  => 'panelstart'
     ),
-    
     array(
         'title' => '列表文章属性',
         'type'  => 'subtitle'
@@ -276,6 +269,58 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+        'name'  => '文章面包屑',
+        'desc'  => '开启',
+        'id'    => 'git_singleMenu_b',
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '自动首行缩进',
+        'desc'  => '开启 【某些时候可能会有些问题，谨慎使用】',
+        'id'    => 'git_suojin',
+        'type'  => 'checkbox'
+    ),
+    array(
+        'title' => '评论设置属性',
+        'type'  => 'subtitle'
+    ),
+    array(
+        'name'  => '贴图',
+        'desc'  => '不显示',
+        'id'    => 'git_tietu',
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '加粗',
+        'desc'  => '不显示',
+        'id'    => 'git_jiacu',
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '删除线',
+        'desc'  => '不显示',
+        'id'    => 'git_shanchu',
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '居中',
+        'desc'  => '不显示',
+        'id'    => 'git_juzhong',
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '斜体',
+        'desc'  => '不显示',
+        'id'    => 'git_xieti',
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '签到',
+        'desc'  => '不显示',
+        'id'    => 'git_qiandao',
+        'type'  => 'checkbox'
+    ),
+    array(
         'name'  => '文章摘要',
         'desc'  => '个字',
         'id'    => 'git_excerpt_length',
@@ -286,6 +331,12 @@ $options = array(
         'name'  => '文章二维码',
         'desc'  => '启用',
         'id'    => 'git_qr_b',
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '留言链接二维码',
+        'desc'  => '启用  【开启之后，您的留言者的网站会生成一个二维码】',
+        'id'    => "git_autherqr_b",
         'type'  => 'checkbox'
     ),
     array(
@@ -946,7 +997,7 @@ $options = array(
     ),
     array(
         'name'  => '网站顶部广告',
-        'desc'  => '开启',
+        'desc'  => '开启 【这里需要logo居左才可以生效】',
         'id'    => 'git_toubuads',
         'type'  => 'textarea',
         'std'   => ''
@@ -1088,12 +1139,6 @@ $options = array(
         'name'  => '网站下雪特效',
         'desc'  => '启用    【开启后，将产生全站下雪特效，但是对网站性能略有影响】',
         'id'    => "git_snow_b",
-        'type'  => 'checkbox'
-    ),
-    array(
-        'name'  => '留言链接二维码',
-        'desc'  => '启用  【开启之后，您的留言者的网站会生成一个二维码】',
-        'id'    => "git_autherqr_b",
         'type'  => 'checkbox'
     ),
     array(

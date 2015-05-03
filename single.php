@@ -4,6 +4,7 @@ get_header(); ?>
 	<div class="content">
 <?php
 if (git_get_option('git_singlecode')) echo git_get_option('git_singlecode'); ?>
+
 <?php
 if (git_get_option('git_singleMenu_b')) echo '<div class="breadcrumbs">' . deel_breadcrumbs() . '</div>'; ?>
 <?php

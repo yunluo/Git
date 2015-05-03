@@ -47,6 +47,12 @@ function googlo_admin_comment_ctrlenter() {
         </script>';
 };
 add_action('admin_footer', 'googlo_admin_comment_ctrlenter');
+//添加后台左下角文字
+function git_admin_footer_text($text) {
+    $text = '感谢使用<a target="_blank" href=http://googlo.me/ >Git主题 5.1</a>进行创作';
+    return $text;
+}
+add_filter('admin_footer_text', 'git_admin_footer_text');
     //页面描述 d_description
     if (git_get_option('git_description')) {
         add_action('wp_head', 'deel_description');
@@ -179,9 +185,7 @@ add_action('add_meta_boxes', 'git_remote_pic_box');
 
 function git_remote_pic() {
   global $post;
-  //添加验证字段
   wp_nonce_field('git_remote_pic', 'git_remote_pic_nonce');
- 
   $meta_value = get_post_meta($post->ID, 'git_remote_pic', true);
   if($meta_value)
     echo '<input name="git_remote_pic" type="checkbox" checked="checked" value="1" /> 保存远程图片';
@@ -189,19 +193,14 @@ function git_remote_pic() {
     echo '<input name="git_remote_pic" type="checkbox" value="1" /> 保存远程图片';
 }
 
-// 保存选项设置
 function git_save_postdata($post_id) {
-  // 验证
   if ( !isset( $_POST['git_remote_pic_nonce']))
     return $post_id;
   $nonce = $_POST['git_remote_pic_nonce'];
-  // 验证字段是否合法
   if (!wp_verify_nonce( $nonce, 'git_remote_pic'))
     return $post_id;
-  // 判断是否自动保存
   if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
       return $post_id;
-  // 验证用户权限
   if ('page' == $_POST['post_type']) {
     if ( !current_user_can('edit_page', $post_id))
       return $post_id;
@@ -253,7 +252,6 @@ if (git_get_option('git_yuanpic_b')&&!empty($_POST['git_remote_pic'])):
         foreach ($img as $key => $value) {
             set_time_limit(180); //每个图片最长允许下载时间,秒
             if (str_replace(get_bloginfo('url') , "", $value) == $value && str_replace(get_bloginfo('home') , "", $value) == $value) {
-                //判断是否是本地图片，如果不是，则保存到服务器
                 $fileext = substr(strrchr($value, '.') , 1);
                 $fileext = strtolower($fileext);
                 if ($fileext == "" || strlen($fileext) > 4) $fileext = "jpg";
@@ -272,9 +270,8 @@ if (git_get_option('git_yuanpic_b')&&!empty($_POST['git_remote_pic'])):
                         die();
                     }
                     $filetime = time();
-                    $filepath = "/" . $upload_path; //图片保存的路径目录
+                    $filepath = "/" . $upload_path; 
                     !is_dir(".." . $filepath) ? mkdirs(".." . $filepath) : null;
-                    //$filename = date("His",$filetime).random(3);
                     $filename = substr($value, strrpos($value, '/') , strrpos($value, '.') - strrpos($value, '/'));
                     $fp = @fopen(".." . $filepath . $filename . "." . $fileext, "w");
                     @fwrite($fp, $get_file);
@@ -285,7 +282,6 @@ if (git_get_option('git_yuanpic_b')&&!empty($_POST['git_remote_pic'])):
                     $title = $post_title;
                     $url = $upload_url_path . $filename . "." . $fileext;
                     $file = $_SERVER['DOCUMENT_ROOT'] . $filepath . $filename . "." . $fileext;
-                    //添加数据库记录
                     $attachment = array(
                         'post_type' => 'attachment',
                         'post_mime_type' => $type,
@@ -295,7 +291,7 @@ if (git_get_option('git_yuanpic_b')&&!empty($_POST['git_remote_pic'])):
                         'post_content' => '',
                     );
                     $id = wp_insert_attachment($attachment, $file, $post_parent);
-                    $text = str_replace($value, $url, $text); //替换文章里面的图片地址
+                    $text = str_replace($value, $url, $text); 
 
                 }
             }
@@ -338,9 +334,9 @@ function deel_breadcrumbs() {
 function footerScript() {
     if (!is_admin()) {
         wp_deregister_script('jquery');
-        wp_register_script('jquery', '' . get_bloginfo('template_directory') . '/js/jquery.min.js', false, '1.0');
+        wp_register_script('jquery', get_bloginfo('template_directory') . '/js/jquery.min.js', false, '1.0');
         wp_enqueue_script('jquery');
-        wp_register_script('default', get_template_directory_uri() . '/js/global.js', false, '1.0', git_get_option('git_jquerybom_b') ? true : false); 
+        wp_register_script('default', get_template_directory_uri() . '/js/global.js', false, '1.0', true ); 
         wp_enqueue_script('default');
         wp_register_style('style', get_template_directory_uri() . '/style.css', false, '1.0');
         wp_enqueue_style('style');
@@ -1180,11 +1176,11 @@ add_filter('login_headertitle', create_function(false, "return get_bloginfo('nam
 /*
  * 强制阻止WordPress代码转义，关于代码高亮可以看这里http://googlo.me/2986.html
 */
-function googlo_esc_html($content) {
+function git_esc_html($content) {
     $regex = '/(<pre\s+[^>]*?class\s*?=\s*?[",\'].*?prettyprint.*?[",\'].*?>)(.*?)(<\/pre>)/sim';
-    return preg_replace_callback($regex, googlo_esc_callback, $content);
+    return preg_replace_callback($regex, git_esc_callback, $content);
 }
-function googlo_esc_callback($matches) {
+function git_esc_callback($matches) {
     $tag_open = $matches[1];
     $content = $matches[2];
     $tag_close = $matches[3];
@@ -1192,13 +1188,20 @@ function googlo_esc_callback($matches) {
     $content = esc_html($content);
     return $tag_open . $content . $tag_close;
 }
-add_filter('the_content', 'googlo_esc_html', 2);
-add_filter('comment_text', 'googlo_esc_html', 2);
+add_filter('the_content', 'git_esc_html', 2);
+add_filter('comment_text', 'git_esc_html', 2);
+
+//强制兼容<pre>
+function git_prettify_replace($text){
+$replace = array( '<pre>' => '<pre class="prettyprint" >' );
+$text = str_replace(array_keys($replace), $replace, $text);
+return $text;
+}
+add_filter('the_content', 'git_prettify_replace'); 
 //首页隐藏一些分类
 function exclude_category_home($query) {
     if ($query->is_home) {
         $query->set('cat', '-' . git_get_option('git_blockcat_1') . ',-' . git_get_option('git_blockcat_2') . ''); //隐藏这两个分类
-
     }
     return $query;
 }
@@ -1933,7 +1936,9 @@ function googlo_mail_smtp($phpmailer) {
 if (git_get_option('git_mailsmtp_b')) {
     add_action('phpmailer_init', 'googlo_mail_smtp');
 }
-//中文文件重命名
+/*中文文件重命名
+源代码来自：http://www.aips.me/wordpress-upload-pictures-renamed.html
+*/
 function googlo_wp_upload_filter($file) {
     $time = date("YmdHis");
     $file['name'] = $time . "" . mt_rand(1, 100) . "." . pathinfo($file['name'], PATHINFO_EXTENSION);
@@ -1960,7 +1965,10 @@ function git_post_order_in_admin( $wp_query ) {
   }
 }
 add_filter('pre_get_posts', 'git_post_order_in_admin' );
-//UA信息
+/*
+UA信息
+源代码来自：http://wuzhuti.cn/2051.html
+*/
 if (git_get_option('git_ua_b')):
     function user_agent($ua) {
         //开始解析操作系统
@@ -2019,13 +2027,11 @@ if (git_get_option('git_ua_b')):
         return $os . "  |  " . $browser;
     }
 endif;
-//添加后台左下角文字
-function left_admin_footer_text($text) {
-    $text = '感谢使用<a target="_blank" href=http://googlo.me/ >Git主题 5.1</a>进行创作';
-    return $text;
-}
-add_filter('admin_footer_text', 'left_admin_footer_text');
-//修复4.2表情bug
+
+/*
+修复4.2表情bug
+下面代码来自：http://www.9sep.org/remove-emoji-in-wordpress
+*/
 function disable_emoji9s_tinymce($plugins) {
     if (is_array($plugins)) {
         return array_diff($plugins, array(
@@ -2129,14 +2135,49 @@ function wp_compress_html(){
 ob_start("wp_compress_html_main");
 }
 add_action('get_header', 'wp_compress_html');
-function unCompress($content) {
+function git_unCompress($content) {
     if(preg_match_all('/(crayon-|<\/pre>)/i', $content, $matches)) {
         $content = '<!--wp-compress-html--><!--wp-compress-html no compression-->'.$content;
         $content.= '<!--wp-compress-html no compression--><!--wp-compress-html-->';
     }
     return $content;
 }
-add_filter( "the_content", "unCompress");
+add_filter( "the_content", "git_unCompress");
+endif;
+//后台用户按照文章数目排序
+add_filter('manage_users_custom_column', 'wpjam_show_users_column_reg_time', 11, 3);
+function wpjam_show_users_column_reg_time($value, $column_name, $user_id) {
+    if ($column_name == 'posts') {
+        $user = get_userdata($user_id);
+        return get_date_from_gmt($user->user_registered);
+    } else {
+        return $value;
+    }
+}
+add_filter("manage_users_sortable_columns", 'wpjam_users_sortable_columns');
+function wpjam_users_sortable_columns($sortable_columns) {
+    $sortable_columns['posts'] = 'posts';
+    return $sortable_columns;
+}
+add_action('pre_user_query', 'git_users_search_order');
+function git_users_search_order($obj) {
+    if (!isset($_REQUEST['orderby']) || $_REQUEST['orderby'] == 'posts') {
+        if (!in_array($_REQUEST['order'], array(
+            'asc',
+            'desc'
+        ))) {
+            $_REQUEST['order'] = 'asc';
+        }
+        $obj->query_orderby = "ORDER BY user_registered " . $_REQUEST['order'] . "";
+    }
+}
+//自动首行缩进
+if(git_get_option('git_suojin')):
+function git_indent_txt($text){   
+    $return = str_replace('<p', '<p style="text-indent:2em;"',$text);   
+    return $return;   
+}   
+add_filter('the_content','git_indent_txt');
 endif;
 /*WordPress函数代码结束*/
 

@@ -55,12 +55,19 @@ if(! defined('WEBSHOT_XVFB_RUNNING') )	define ('WEBSHOT_XVFB_RUNNING', false);
 if(! isset($ALLOWED_SITES)){
 	//下面输入您的外链图片域名
 	$ALLOWED_SITES = array (
-		'picasa.com',
+		'image.baidu.com',
 		'images.yusi123.com',
-		'upload.wikimedia.org',
-		'photobucket.com',
-		'yidu.qiniudn.com',
+		'clouddn.com',
+		'tietuku.com',
+		'qiniudn.com',
 		'tinypic.com',
+		'neowing.co.jp',
+		'img.moe-acg.us',
+		'img.kan300.com',
+		'sinaimg.cn',
+		'wal8.com',
+		'poco.cn',
+		'upyun.com'
 	);
 }
 /*后面止步*/
