@@ -41,12 +41,6 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
-        'name'  => '网站搜索优化',
-        'desc'  => '如果您的搜索结果是404，请开启，如果您的搜索很正常，请不要开启',
-        'id'    => 'git_search',
-        'type'  => 'checkbox'
-    ),
-    array(
         'title' => '热门排行',
         'type'  => 'subtitle'
     ),
@@ -199,6 +193,12 @@ $options = array(
         'name'  => '图片自动添加alt以及title',
         'desc'  => '启用',
         'id'    => "git_imgalt_b",
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '外链自动go跳转',
+        'desc'  => '启用 【启用插件之后需要新建页面，模板选择Go跳转页面，别名为go】',
+        'id'    => "git_go",
         'type'  => 'checkbox'
     ),
     array(
@@ -1326,6 +1326,29 @@ $options = array(
         'desc'  => '请输入上面问题的答案，比如：上海。',
         'id'    => "git_answer",
         'type'  => 'text',
+        'std'   => ''
+    ),
+    array(
+        'title' => '站内搜索设置',
+        'type'  => 'subtitle'
+    ),
+    array(
+        'name'  => '网站搜索优化',
+        'desc'  => '如果您的自带搜索结果是404，请开启，如果您的搜索很正常，请不要开启',
+        'id'    => 'git_search',
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '百度站内搜索',
+        'desc'  => '开启 【开启百度站内搜索将关闭自带搜索】',
+        'id'    => 'git_search_baidu',
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '百度站内搜索代码',
+        'desc'  => '将从百度搜索获取的代码添加到本输入框',
+        'id'    => 'git_search_code',
+        'type'  => 'textarea',
         'std'   => ''
     ),
     array(

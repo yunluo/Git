@@ -432,40 +432,38 @@ function deel_avatar($avatar) {
 if (git_get_option('git_avater')=='git_avatar_b') {
     add_filter('get_avatar', 'deel_avatar');
 }
-//头像SSL链接
-function googlo_ssl_avatar($avatar) {
-   $avatar = preg_replace('/.*\/avatar\/(.*)\?s=([\d]+)&.*/','<img src="https://secure.gravatar.com/avatar/$1?s=$2" class="avatar avatar-$2" height="50" width="50">',$avatar);
-   return $avatar;
-}
-if (git_get_option('git_avater')=='git_avatar_ssl') {
-    add_filter('get_avatar', 'googlo_ssl_avatar');
-}
-//七牛头像镜像(奶子提供)
-function googlo_get_avatar($avatar) {
-    $avatar = str_replace(array(
-        "www.gravatar.com",
-        "0.gravatar.com",
-        "1.gravatar.com",
-        "2.gravatar.com"
-    ) , "cd.v7v3.com", $avatar);
+//头像镜像
+function git_avatar_cache($avatar) {
+    if(git_get_option('git_avater')=='git_avatar_ds'){
+    $avatar = str_replace(array("www.gravatar.com", "0.gravatar.com", "1.gravatar.com", "2.gravatar.com" ) , "gravatar.duoshuo.com", $avatar);
+    }elseif(git_get_option('git_avater')=='git_avatar_qn'){
+    $avatar = str_replace(array("www.gravatar.com", "0.gravatar.com", "1.gravatar.com", "2.gravatar.com" ) , "cd.v7v3.com", $avatar);
+    }elseif(git_get_option('git_avater')=='git_avatar_ssl'){
+    $avatar = preg_replace('/.*\/avatar\/(.*)\?s=([\d]+)&.*/','<img src="https://secure.gravatar.com/avatar/$1?s=$2" class="avatar avatar-$2" height="50" width="50">',$avatar);
+    }
     return $avatar;
 }
-if (git_get_option('git_avater')=='git_avatar_qn') {
-    add_filter('get_avatar', 'googlo_get_avatar', 10, 3);
+add_filter('get_avatar', 'git_avatar_cache', 10, 3);
+
+/*替换文章或评论内容外链为内链*/
+if(git_get_option('git_go')):
+function git_go_url($content) {
+    preg_match_all('/href="(http.*?)"/', $content, $matches);
+    if ($matches) {
+        foreach ($matches[1] as $val) {
+            if (strpos($val, '://') !== false && strpos($val, 'nofollow') === false && strpos($val, home_url()) === false && strpos($val,home_url())===false ) {
+                if(git_get_option('git_pagehtml_b')) {
+                $content = str_replace("href=\"$val\"", "href=\"" . home_url() . "/go.html?url=" . base64_encode($val) . "\" ", $content);
+                }else{
+                $content = str_replace("href=\"$val\"", "href=\"" . home_url() . "/go?url=" . base64_encode($val) . "\" ", $content);
+                }
+            }
+        }
+    }
+    return $content;
 }
-//极客族头像镜像
-function googlo_duoshuo_avatar($avatar) {
-    $avatar = str_replace(array(
-        "www.gravatar.com",
-        "0.gravatar.com",
-        "1.gravatar.com",
-        "2.gravatar.com"
-    ) , "gravatar.duoshuo.com", $avatar);
-    return $avatar;
-}
-if (git_get_option('git_avater')=='git_avatar_ds') {
-    add_filter('get_avatar', 'googlo_duoshuo_avatar', 10, 3);
-}
+add_filter('the_content', 'git_go_url', 999);
+endif;
 //关键字
 function deel_keywords() {
     global $s, $post;

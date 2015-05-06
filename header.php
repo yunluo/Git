@@ -171,16 +171,20 @@ echo str_replace("</ul></div>", "", ereg_replace("<div[^>]*><ul[^>]*>", "", wp_n
     'echo' => false
 )))); ?>
 <li style="float:right;"><div class="toggle-search"><i class="fa fa-search"></i></div><div class="search-expand" style="display: none;"><div class="search-expand-inner">
-<?php if (git_get_option('git_search')) { ?>
-<form method="get" class="searchform themeform" onsubmit="location.href='/?s=' + encodeURIComponent(this.s.value).replace(/%20/g, '+'); return false;" action="/">
-<?php }else{?>
-<form method="get" class="searchform themeform" onsubmit="location.href='<?php
-echo home_url('/search/'); ?>' + encodeURIComponent(this.s.value).replace(/%20/g, '+'); return false;" action="/">
- <?php } ?>   
-<div> <input type="ext" class="search" name="s" onblur="if(this.value=='')this.value='<?php
+    <?php if (git_get_option('git_search_baidu')) { ?>
+    <?php echo git_get_option('git_search_code'); ?></div></div>
+<?php }elseif (git_get_option('git_search')&&!git_get_option('git_search_baidu')) { ?>
+<form method="get" class="searchform themeform" onsubmit="location.href='/?s=' + encodeURIComponent(this.s.value).replace(/%20/g, '+'); return false;" action="/"><div><input type="ext" class="search" name="s" onblur="if(this.value=='')this.value='<?php
 echo git_get_option('git_search_placeholder', '输入内容并回车'); ?>';" onfocus="if(this.value=='<?php
 echo git_get_option('git_search_placeholder', '输入内容并回车'); ?>')this.value='';" value="<?php
 echo git_get_option('git_search_placeholder', '输入内容并回车'); ?>"></div></form></div></div>
+<?php }elseif (!git_get_option('git_search')&&!git_get_option('git_search_baidu')){?>
+<form method="get" class="searchform themeform" onsubmit="location.href='<?php
+echo home_url('/search/'); ?>' + encodeURIComponent(this.s.value).replace(/%20/g, '+'); return false;" action="/"><div><input type="ext" class="search" name="s" onblur="if(this.value=='')this.value='<?php
+echo git_get_option('git_search_placeholder', '输入内容并回车'); ?>';" onfocus="if(this.value=='<?php
+echo git_get_option('git_search_placeholder', '输入内容并回车'); ?>')this.value='';" value="<?php
+echo git_get_option('git_search_placeholder', '输入内容并回车'); ?>"></div></form></div></div>
+ <?php } ?>
 </li>
 </ul>
 </div></div>
