@@ -37,5 +37,6 @@ QTags.addButton( 'reply', '回复可见', "[reply]", "[/reply]" );
 QTags.addButton( 'imobv', '手机可见', "[mb_view]", "[/mb_view]" );
 QTags.addButton( 'ipcv', '电脑可见', "[pc_view]", "[/pc_view]" );
 QTags.addButton( 'fancydl', '弹窗下载', "[fanctdl href='']", "[/fanctdl]" );
+QTags.addButton( 'dltable', '下载面板', '[dltable file="在此处写下文件名称" size="在这里写下文件大小"]这里留文件下载A标签链接，可以放多个链接[/dltable]' );
 QTags.addButton( 'nextpage', '下一页', '<!--nextpage-->', "" );
 //这儿共有四对引号，分别是按钮的ID、显示名、点一下输入内容、再点一下关闭内容（此为空则一次输入全部内容），\n表示换行。

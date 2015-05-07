@@ -2,7 +2,6 @@
 /*
 Template Name: GO跳转页面
 */
-
 $url = $_GET['url'];
 $url = base64_decode($url);
 ?>
@@ -20,7 +19,13 @@ $url = base64_decode($url);
   <div class="spinner-wrapper">
     <span class="spinner-text">正在努力为您跳转...</span>
     <span class="spinner"></span>
-  </div
+  </div>
 </div>
+<script>
+if (document.referrer=="") {
+ alert("本页面禁止直接访问，点击确定返回网站首页!");
+ window.location.href="/";
+}
+</script>
 </body>
 </html>

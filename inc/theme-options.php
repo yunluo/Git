@@ -1003,20 +1003,6 @@ $options = array(
         'std'   => ''
     ),
     array(
-        'name'  => '广告：弹窗下载广告',
-        'desc'  => '开启【广告区域，任意联盟广告和自定义广告的代码均可】',
-        'id'    => 'git_fancydlad',
-        'type'  => 'textarea',
-        'std'   => ''
-    ),
-    array(
-        'name'  => '弹窗下载版权声明',
-        'desc'  => '开启【就是那种本文件收集自网络，有问题联系站长那些装X的文字】',
-        'id'    => 'git_fancydlcp',
-        'type'  => 'textarea',
-        'std'   => ''
-    ),
-    array(
         'name'  => '广告：404页面广告',
         'desc'  => '开启',
         'id'    => 'git_404ad',
@@ -1348,6 +1334,31 @@ $options = array(
         'name'  => '百度站内搜索代码',
         'desc'  => '将从百度搜索获取的代码添加到本输入框',
         'id'    => 'git_search_code',
+        'type'  => 'textarea',
+        'std'   => ''
+    ),
+    array(
+        'title' => '下载设置',
+        'type'  => 'subtitle'
+    ),
+    array(
+        'name'  => '弹窗下载广告',
+        'desc'  => '开启【广告区域，任意联盟广告和自定义广告的代码均可】',
+        'id'    => 'git_fancydlad',
+        'type'  => 'textarea',
+        'std'   => ''
+    ),
+    array(
+        'name'  => '弹窗下载版权声明',
+        'desc'  => '开启【就是那种本文件收集自网络，有问题联系站长那些装X的文字】',
+        'id'    => 'git_fancydlcp',
+        'type'  => 'textarea',
+        'std'   => ''
+    ),
+    array(
+        'name'  => '下载面板下载声明',
+        'desc'  => '这里的文字在下载面板中粗线，建议文字不要太多，防止错位',
+        'id'    => "git_dltable_b",
         'type'  => 'textarea',
         'std'   => ''
     ),
