@@ -1358,6 +1358,7 @@ function xdltable($atts, $content = null) {
     return '<table class="dltable"><tbody><tr><td style="background-color:#F9F9F9;" rowspan="3"><p>文件下载</p></td><td><i class="fa fa-list-alt"></i>&nbsp;&nbsp;文件名称：' . $file . '</td><td><i class="fa fa-th-large"></i>&nbsp;&nbsp;文件大小：' . $size . '</td></tr><tr><td colspan="2"><i class="fa fa-volume-up"></i>&nbsp;&nbsp;下载声明：'.git_get_option('git_dltable_b').'</td></tr><tr><td colspan="2"><i class="fa fa-download"></i>&nbsp;&nbsp;下载地址：' . $content . '</td></tr></tbody></table>';
 }
 add_shortcode('dltable', 'xdltable');
+
 //自动为文章内链接生成超链接
 if (git_get_option('git_linktrue_b')) {
 add_filter('the_content', 'make_clickable');
@@ -1890,6 +1891,20 @@ function googlo_register_form() {
         <?php
 }
 add_action('register_form', 'googlo_register_form');
+//注册用户名中文化
+function git_znch_login($username, $raw_username, $strict) {
+    if (!$strict) return $username;
+    return sanitize_user(stripslashes($raw_username) , false);
+}
+add_filter('sanitize_user', 'git_znch_login', 10, 3);
+//用户注册成功后自动登录，并跳转到指定页面
+function git_auto_login($user_id) {
+    wp_set_current_user($user_id);
+    wp_set_auth_cookie($user_id);
+    wp_redirect(home_url());
+    exit;
+}
+add_action('user_register', 'git_auto_login');
 //进行错误显示
 function googlo_registration_errors($errors, $sanitized_user_login, $user_email) {
     if (empty($_POST['pass1']) || !empty($_POST['pass1']) && trim($_POST['pass1']) == '') {
@@ -2032,6 +2047,56 @@ if (git_get_option('git_ua_b')):
     }
 endif;
 
+//添加碎语功能
+function git_shuoshuo() {
+    $labels = array(
+        'name' => '说说',
+        'singular_name' => '说说',
+        'add_new' => '发表说说',
+        'add_new_item' => '发表说说',
+        'edit_item' => '编辑说说',
+        'new_item' => '新说说',
+        'view_item' => '查看说说',
+        'search_items' => '搜索说说',
+        'not_found' => '暂无说说',
+        'not_found_in_trash' => '没有已遗弃的说说',
+        'parent_item_colon' => '',
+        'menu_name' => '说说'
+    );
+    $args = array(
+        'labels' => $labels,
+        'public' => true,
+        'publicly_queryable' => true,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'query_var' => true,
+        'rewrite' => true,
+        'capability_type' => 'post',
+        'has_archive' => true,
+        'hierarchical' => false,
+        'menu_position' => 4 ,
+        'supports' => array(
+            'title',
+            'editor',
+            'author'
+        )
+    );
+    register_post_type('shuoshuo', $args);
+}
+add_action('init', 'git_shuoshuo');
+//
+function git_shuoshuo_link($link, $post = 0) {
+    if ($post->post_type == 'shuoshuo') {
+        return home_url('shuoshuo-' . $post->ID . '.html');
+    } else {
+        return $link;
+    }
+}
+add_action('init', 'custom_book_rewrites_init');
+function custom_book_rewrites_init() {
+    add_rewrite_rule('shuoshuo-([0-9]+)?.html$', 'index.php?post_type=shuoshuo&p=$matches[1]', 'top');
+}
+add_filter('post_type_link', 'git_shuoshuo_link', 1, 3);
 /*
 修复4.2表情bug
 下面代码来自：http://www.9sep.org/remove-emoji-in-wordpress
@@ -2183,6 +2248,14 @@ function git_indent_txt($text){
 }   
 add_filter('the_content','git_indent_txt');
 endif;
+//增强编辑器开始
+function git_editor_buttons($buttons) {
+    $buttons[] = 'fontselect';
+    $buttons[] = 'fontsizeselect';
+    $buttons[] = 'backcolor';
+    return $buttons;
+}
+add_filter("mce_buttons_3", "git_editor_buttons");
 /*WordPress函数代码结束*/
 
 ?>
