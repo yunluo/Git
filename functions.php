@@ -637,7 +637,7 @@ function deel_comment_list($comment, $args, $depth) {
     if (git_get_option('git_autherqr_b') && !G_is_mobile()) {
         echo '<span class="c-author"><a href="' . get_comment_author_url() . '" class="weixin" style="cursor:pointer;">' . get_comment_author() . '<span class="qr weixin-popover"><img style="position:absolute;z-index:99999;" src="http://s.jiathis.com/qrcode.php?url=' . get_comment_author_url() . '"></span></a></span>';
     } else {
-        echo '<span class="c-author">' . get_comment_author_link() . '</span>';
+        echo '<span class="c-author">' . get_comment_author_link() . '</span> '.get_author_class($comment->comment_author_email,$comment->user_id).'';
     }
     if ($comment->user_id == '1') echo '<img src="' . get_bloginfo('template_directory') . '/img/webmaster.png" id="comment_is_admin" title="博主大人">&nbsp;&nbsp;';
     echo get_comment_time('Y-m-d H:i ');
@@ -2256,6 +2256,20 @@ function git_editor_buttons($buttons) {
     return $buttons;
 }
 add_filter("mce_buttons_3", "git_editor_buttons");
+//获取访客VIP样式
+function get_author_class($comment_author_email, $user_id) {
+    global $wpdb;
+    $author_count = count($wpdb->get_results("SELECT comment_ID as author_count FROM $wpdb->comments WHERE comment_author_email = '$comment_author_email' "));
+    $adminEmail = get_option('admin_email');
+    if ($comment_author_email == $adminEmail) return;
+    if ($author_count >= 1 && $author_count < 3) echo '<a class="vip1" title="评论达人 LV.1"></a>';
+    else if ($author_count >= 3 && $author_count < 5) echo '<a class="vip2" title="评论达人 LV.2"></a>';
+    else if ($author_count >= 5 && $author_count < 10) echo '<a class="vip3" title="评论达人 LV.3"></a>';
+    else if ($author_count >= 10 && $author_count < 20) echo '<a class="vip4" title="评论达人 LV.4"></a>';
+    else if ($author_count >= 20 && $author_count < 50) echo '<a class="vip5" title="评论达人 LV.5"></a>';
+    else if ($author_count >= 50 && $author_count < 100) echo '<a class="vip6" title="评论达人 LV.6"></a>';
+    else if ($author_count >= 100) echo '<a class="vip7" title="评论达人 LV.7"></a>';
+}
 /*WordPress函数代码结束*/
 
 ?>
