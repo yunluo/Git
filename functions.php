@@ -178,7 +178,7 @@ if (git_get_option('git_pagehtml_b')):
     }
 endif;
 // 给文章的编辑页添加选项
-function git_remote_pic_box() {    
+function git_remote_pic_box() {
   add_meta_box('git_remote_pic', 'Git远程图片设置', 'git_remote_pic', 'post', 'side', 'high');
 }
 add_action('add_meta_boxes', 'git_remote_pic_box');
@@ -270,7 +270,7 @@ if (git_get_option('git_yuanpic_b')&&!empty($_POST['git_remote_pic'])):
                         die();
                     }
                     $filetime = time();
-                    $filepath = "/" . $upload_path; 
+                    $filepath = "/" . $upload_path;
                     !is_dir(".." . $filepath) ? mkdirs(".." . $filepath) : null;
                     $filename = substr($value, strrpos($value, '/') , strrpos($value, '.') - strrpos($value, '/'));
                     $fp = @fopen(".." . $filepath . $filename . "." . $fileext, "w");
@@ -291,7 +291,7 @@ if (git_get_option('git_yuanpic_b')&&!empty($_POST['git_remote_pic'])):
                         'post_content' => '',
                     );
                     $id = wp_insert_attachment($attachment, $file, $post_parent);
-                    $text = str_replace($value, $url, $text); 
+                    $text = str_replace($value, $url, $text);
 
                 }
             }
@@ -336,7 +336,7 @@ function footerScript() {
         wp_deregister_script('jquery');
         wp_register_script('jquery', get_bloginfo('template_directory') . '/js/jquery.min.js', false, '1.0');
         wp_enqueue_script('jquery');
-        wp_register_script('default', get_template_directory_uri() . '/js/global.js', false, '1.0', true ); 
+        wp_register_script('default', get_template_directory_uri() . '/js/global.js', false, '1.0', true );
         wp_enqueue_script('default');
         wp_register_style('style', get_template_directory_uri() . '/style.css', false, '1.0');
         wp_enqueue_style('style');
@@ -637,9 +637,13 @@ function deel_comment_list($comment, $args, $depth) {
     if (git_get_option('git_autherqr_b') && !G_is_mobile()) {
         echo '<span class="c-author"><a href="' . get_comment_author_url() . '" class="weixin" style="cursor:pointer;">' . get_comment_author() . '<span class="qr weixin-popover"><img style="position:absolute;z-index:99999;" src="http://s.jiathis.com/qrcode.php?url=' . get_comment_author_url() . '"></span></a></span>';
     } else {
-        echo '<span class="c-author">' . get_comment_author_link() . '</span> '.get_author_class($comment->comment_author_email,$comment->user_id).'';
+        echo '<span class="c-author">' . get_comment_author_link() . '</span>';
     }
-    if ($comment->user_id == '1') echo '<img src="' . get_bloginfo('template_directory') . '/img/webmaster.png" id="comment_is_admin" title="博主大人">&nbsp;&nbsp;';
+    if ($comment->user_id == '1') {
+		echo '<img src="' . get_bloginfo('template_directory') . '/img/webmaster.png" id="comment_is_admin" title="博主大人">';
+	}else{
+		echo get_author_class($comment->comment_author_email,$comment->user_id);
+	}
     echo get_comment_time('Y-m-d H:i ');
     echo time_ago();
     if ($comment->comment_approved !== '0') {
@@ -1012,7 +1016,7 @@ function git_auto_nofollow( $content ) {
     $regexp = "<a\s[^>]*href=(\"??)([^\" >]*?)\\1[^>]*>";
     if(preg_match_all("/$regexp/siU", $content, $matches, PREG_SET_ORDER)) {
         if( !empty($matches) ) {
-   
+
             $srcUrl = get_option('siteurl');
             for ($i=0; $i < count($matches); $i++)
             {
@@ -1037,7 +1041,7 @@ function git_auto_nofollow( $content ) {
             }
         }
     }
-   
+
     $content = str_replace(']]>', ']]>', $content);
     return $content;
 }
@@ -1195,7 +1199,7 @@ $replace = array( '<pre>' => '<pre class="prettyprint" >' );
 $text = str_replace(array_keys($replace), $replace, $text);
 return $text;
 }
-add_filter('the_content', 'git_prettify_replace'); 
+add_filter('the_content', 'git_prettify_replace');
 //首页隐藏一些分类
 function exclude_category_home($query) {
     if ($query->is_home) {
@@ -1944,7 +1948,7 @@ function googlo_mail_smtp($phpmailer) {
     if (git_get_option('git_smtpssl_b')) {
     $phpmailer->SMTPSecure = 'ssl';
     }else{
-    $phpmailer->SMTPSecure = '';    
+    $phpmailer->SMTPSecure = '';
     }//SMTP加密方式(SSL/TLS)没有为空即可
     $phpmailer->Username = '' . git_get_option('git_mailuser_b') . ''; //邮箱帐号
     $phpmailer->Password = '' . git_get_option('git_mailpass_b') . ''; //邮箱密码
@@ -2173,8 +2177,8 @@ function init_gitsmilie() {
     add_filter('tiny_mce_plugins', 'disable_emoji9s_tinymce');
     add_filter('smilies_src', 'custom_gitsmilie_src', 10, 2);
 }
-add_action('init', 'init_gitsmilie', 5); 
-//压缩html代码 
+add_action('init', 'init_gitsmilie', 5);
+//压缩html代码
 if(git_get_option('git_compress')):
 function wp_compress_html(){
     function wp_compress_html_main ($buffer){
@@ -2195,10 +2199,10 @@ function wp_compress_html(){
             }
             $buffer_out.=$buffer[$i];
         }
-        $final=strlen($buffer_out);   
-        $savings=($initial-$final)/$initial*100;   
-        $savings=round($savings, 2);   
-        $buffer_out.="\n<!--压缩前的大小: $initial bytes; 压缩后的大小: $final bytes; 节约：$savings% -->";   
+        $final=strlen($buffer_out);
+        $savings=($initial-$final)/$initial*100;
+        $savings=round($savings, 2);
+        $buffer_out.="\n<!--压缩前的大小: $initial bytes; 压缩后的大小: $final bytes; 节约：$savings% -->";
     return $buffer_out;
 }
 ob_start("wp_compress_html_main");
@@ -2242,10 +2246,10 @@ function git_users_search_order($obj) {
 }
 //自动首行缩进
 if(git_get_option('git_suojin')):
-function git_indent_txt($text){   
-    $return = str_replace('<p', '<p style="text-indent:2em;"',$text);   
-    return $return;   
-}   
+function git_indent_txt($text){
+    $return = str_replace('<p', '<p style="text-indent:2em;"',$text);
+    return $return;
+}
 add_filter('the_content','git_indent_txt');
 endif;
 //增强编辑器开始
@@ -2271,17 +2275,17 @@ function get_author_class($comment_author_email, $user_id) {
     else if ($author_count >= 100) echo '<a class="vip7" title="评论达人 LV.7"></a>';
 }
 //管理后台添加按钮
-function custom_adminbar_menu() {  
-    global $wp_admin_bar;  
-        if ( !is_user_logged_in() ) { return; }  
-        if ( !is_super_admin() || !is_admin_bar_showing() ) { return; }  
-    $wp_admin_bar->add_menu( array(  
-        'id' => 'custom_menu',  
-        'title' => __( '主题选项' ),  
-        'href' => 'themes.php?page=theme-options.php' )  
-    );  
-}  
-add_action( 'admin_bar_menu', 'custom_adminbar_menu', 100 );  
+function custom_adminbar_menu() {
+    global $wp_admin_bar;
+        if ( !is_user_logged_in() ) { return; }
+        if ( !is_super_admin() || !is_admin_bar_showing() ) { return; }
+    $wp_admin_bar->add_menu( array(
+        'id' => 'custom_menu',
+        'title' => __( '主题选项' ),
+        'href' => 'themes.php?page=theme-options.php' )
+    );
+}
+add_action( 'admin_bar_menu', 'custom_adminbar_menu', 100 );
 /*WordPress函数代码结束*/
 
 ?>
