@@ -29,15 +29,21 @@ function deel_setup() {
     if (git_get_option('git_cattu_b')) {
     remove_filter('pre_term_description', 'wp_filter_kses');
     }
+	//新标签打开文章链接
+function googlo_admin_aritical_ctrlenter() {
+    echo '<script type="text/javascript">
+    var postlink = document.getElementById("view-post-btn").getElementsByClassName("button button-small");
+        for(var i=0;i<postlink.length;i++)
+    { postlink[i].target = "_blank"; }
+        </script>';
+};
+add_action('admin_footer', 'googlo_admin_aritical_ctrlenter');
 //新标签打开评论链接
 function googlo_admin_comment_ctrlenter() {
     echo '<script type="text/javascript">
     var sitelink = document.getElementById("wp-admin-bar-site-name").getElementsByClassName("ab-item");
-	var postlink = document.getElementById("view-post-btn").getElementsByClassName("button button-small");
         for(var i=0;i<sitelink.length;i++)
     { sitelink[i].target = "_blank"; }
-		for(var i=0;i<postlink.length;i++)
-    { postlink[i].target = "_blank"; }
         </script>';
 };
 add_action('admin_footer', 'googlo_admin_comment_ctrlenter');
