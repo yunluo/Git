@@ -29,21 +29,15 @@ function deel_setup() {
     if (git_get_option('git_cattu_b')) {
     remove_filter('pre_term_description', 'wp_filter_kses');
     }
-	//新标签打开文章链接
-function googlo_admin_aritical_ctrlenter() {
-    echo '<script type="text/javascript">
-    var alink = document.getElementsByClassName("button button-small");
-        for(var i=0;i<alink.length;i++)
-    { alink[i].target = "_blank"; }
-        </script>';
-};
-add_action('admin_footer', 'googlo_admin_aritical_ctrlenter');
 //新标签打开评论链接
 function googlo_admin_comment_ctrlenter() {
     echo '<script type="text/javascript">
-    var alink = document.getElementsByClassName("ab-item");
-        for(var i=0;i<alink.length;i++)
-    { alink[i].target = "_blank"; }
+    var sitelink = document.getElementById("wp-admin-bar-site-name").getElementsByClassName("ab-item");
+	var postlink = document.getElementById("view-post-btn").getElementsByClassName("button button-small");
+        for(var i=0;i<sitelink.length;i++)
+    { sitelink[i].target = "_blank"; }
+		for(var i=0;i<postlink.length;i++)
+    { postlink[i].target = "_blank"; }
         </script>';
 };
 add_action('admin_footer', 'googlo_admin_comment_ctrlenter');
@@ -2270,6 +2264,18 @@ function get_author_class($comment_author_email, $user_id) {
     else if ($author_count >= 50 && $author_count < 100) echo '<a class="vip6" title="评论达人 LV.6"></a>';
     else if ($author_count >= 100) echo '<a class="vip7" title="评论达人 LV.7"></a>';
 }
+//管理后台添加按钮
+function custom_adminbar_menu() {  
+    global $wp_admin_bar;  
+        if ( !is_user_logged_in() ) { return; }  
+        if ( !is_super_admin() || !is_admin_bar_showing() ) { return; }  
+    $wp_admin_bar->add_menu( array(  
+        'id' => 'custom_menu',  
+        'title' => __( '主题选项' ),  
+        'href' => 'themes.php?page=theme-options.php' )  
+    );  
+}  
+add_action( 'admin_bar_menu', 'custom_adminbar_menu', 100 );  
 /*WordPress函数代码结束*/
 
 ?>

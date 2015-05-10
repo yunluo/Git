@@ -24,9 +24,9 @@ if (have_posts()):
  <li><span class="tt"><?php
         the_time('Y年n月j日G:H'); ?></span>
  <div class="shuoshuo-content"><?php
-        the_content(); ?><br/><div class="shuoshuo-meta"><span >—<?php
+        the_content(); ?><br/><div class="shuoshuo-meta"><span >— <i class="fa fa-user"></i> <?php
         the_author() ?></span></div></div>
-        <span class="tt"><?php get_avatar(get_the_author_email(),64) ?></span>
+        <span class="zhutou"><?php echo get_avatar(1,64); ?></span>
         <?php
     endwhile;
 endif; ?></li>
