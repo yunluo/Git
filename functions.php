@@ -18,7 +18,7 @@ function deel_setup() {
     unregister_widget('WP_Nav_Menu_Widget');
     }
     //添加主题特性
-    add_theme_support('custom-background');
+    add_theme_support('custom-background', array( 'default-image' => '%s/img/bg.png' ));
     //隐藏admin Bar
     add_filter('show_admin_bar', 'hide_admin_bar');
     //关键字
@@ -451,7 +451,7 @@ function git_go_url($content) {
     preg_match_all('/href="(http.*?)"/', $content, $matches);
     if ($matches) {
         foreach ($matches[1] as $val) {
-            if (strpos($val, '://') !== false && strpos($val, 'nofollow') === false && strpos($val, home_url()) === false && strpos($val,home_url())===false ) {
+            if (strpos($val, '://') !== false && strpos($val, 'nofollow') === false && strpos($val, home_url()) === false && strpos($val, '' . git_get_option('git_cdnurl_b') . '')===false ) {
                 if(git_get_option('git_pagehtml_b')) {
                 $content = str_replace("href=\"$val\"", "href=\"" . home_url() . "/go.html?url=" . base64_encode($val) . "\" ", $content);
                 }else{
@@ -690,6 +690,7 @@ function my_quicktags() {
     ));
 };
 //过滤外文评论
+if (git_get_option('git_spam_lang') && !is_user_logged_in()):
 function refused_spam_comments($comment_data) {
     $pattern = '/[一-龥]/u';
     $jpattern = '/[ぁ-ん]+|[ァ-ヴ]+/u';
@@ -701,14 +702,11 @@ function refused_spam_comments($comment_data) {
     }
     return ($comment_data);
 }
-if (git_get_option('git_spamComments_b') && !is_user_logged_in()) {
     add_filter('preprocess_comment', 'refused_spam_comments');
-}
+endif;
 //屏蔽关键词，email，url，ip
+if (git_get_option('git_spam_keywords') && !is_user_logged_in()):
 function Googlofuckspam($comment) {
-    if (is_user_logged_in()) {
-        return $comment;
-    } //登录用户无压力...
     if (wp_blacklist_check($comment['comment_author'], $comment['comment_author_email'], $comment['comment_author_url'], $comment['comment_content'], $comment['comment_author_IP'], $comment['comment_agent'])) {
         header("Content-type: text/html; charset=utf-8");
         err(__('不好意思，您的评论违反本站评论规则'));
@@ -716,19 +714,18 @@ function Googlofuckspam($comment) {
         return $comment;
     }
 }
-if (git_get_option('git_spamComments_b')) {
-    add_filter('preprocess_comment', 'Googlofuckspam');
-}
+add_filter('preprocess_comment', 'Googlofuckspam');
+endif;
 //屏蔽长连接评论
+if (git_get_option('git_spam_long') && !is_user_logged_in()):
 function lang_url_spamcheck($approved, $commentdata) {
     return (strlen($commentdata['comment_author_url']) > 50) ?
-    //表示评论中链接长度超过50为垃圾评论
     'spam' : $approved;
 }
-if (git_get_option('git_spamComments_b')) {
-    add_filter('pre_comment_approved', 'lang_url_spamcheck', 99, 2);
-}
+add_filter('pre_comment_approved', 'lang_url_spamcheck', 99, 2);
+endif;
 //屏蔽昵称，评论内容带链接的评论
+if (git_get_option('git_spam_url') && !is_user_logged_in()):
 function Googlolink($comment_data) {
     $links = '/http:\/\/|https:\/\/|www\./u';
     if (preg_match($links, $comment_data['comment_author']) || preg_match($links, $comment_data['comment_content'])) {
@@ -736,9 +733,8 @@ function Googlolink($comment_data) {
     }
     return ($comment_data);
 }
-if (git_get_option('git_spamComments_b')) {
     add_filter('preprocess_comment', 'Googlolink');
-}
+endif;
 //点赞
 add_action('wp_ajax_nopriv_bigfa_like', 'bigfa_like');
 add_action('wp_ajax_bigfa_like', 'bigfa_like');
@@ -761,14 +757,24 @@ function bigfa_like() {
     die;
 }
 //最热排行
+/*
 function hot_posts_list($days = 300, $nums = 5) {
     global $wpdb;
     $today = date("Y-m-d H:i:s");
     $daysago = date("Y-m-d H:i:s", strtotime($today) - ($days * 24 * 60 * 60));
     $result = $wpdb->get_results("SELECT comment_count, ID, post_title, post_date FROM $wpdb->posts WHERE post_date BETWEEN '$daysago' AND '$today' ORDER BY comment_count DESC LIMIT 0 , $nums");
+    */
+function hot_posts_list() {
+    if (git_get_option('git_hot_b') == 'git_hot_views') {
+    $result = get_posts("numberposts=5&meta_key=views&orderby=meta_value_num&order=desc");
+    } elseif (git_get_option('git_hot_b') == 'git_hot_zan') {
+    $result = get_posts("numberposts=5&meta_key=bigfa_ding&orderby=meta_value_num&order=desc");
+    } elseif (git_get_option('git_hot_b') == 'git_hot_comment') {
+    $result = get_posts("numberposts=5&orderby=comment_count&order=desc");
+    }
     $output = '';
     if (empty($result)) {
-        $output = '<li>额，似乎还没人评论吧</li>';
+        $output = '<li>暂时无数据</li>';
     } else {
         $i = 1;
         foreach ($result as $topten) {
@@ -861,10 +867,7 @@ function post_thumbnail_src() {
     };
     echo $post_thumbnail_src;
 }
-// 背景图设置
-add_theme_support('custom-background', array(
-    'default-image' => '%s/img/bg.png'
-));
+
 //禁用谷歌字体
 if (git_get_option('git_fuckziti_b')):
     function googlo_remove_open_sans_from_wp_core() {
@@ -1971,12 +1974,12 @@ add_filter('wp_handle_upload_prefilter', 'googlo_wp_upload_filter');
 //CMS模板需要的
 function get_page_id_from_template($template) {
    global $wpdb;
-   $page_id = $wpdb->get_var($wpdb->prepare("SELECT `post_id`
-                              FROM `$wpdb->postmeta`, `$wpdb->posts`
-                              WHERE `post_id` = `ID`
-                                    AND `post_status` = 'publish'
-                                    AND `meta_key` = '_wp_page_template'
-                                    AND `meta_value` = %s
+   $page_id = $wpdb->get_var($wpdb->prepare("SELECT 'post_id'
+                              FROM '$wpdb->postmeta', '$wpdb->posts'
+                              WHERE 'post_id' = 'ID'
+                                    AND 'post_status' = 'publish'
+                                    AND 'meta_key' = '_wp_page_template'
+                                    AND 'meta_value' = %s
                                     LIMIT 1;", $template));
    return $page_id;
 }
@@ -2218,7 +2221,6 @@ function git_unCompress($content) {
 add_filter( "the_content", "git_unCompress");
 endif;
 //后台用户按照文章数目排序
-add_filter('manage_users_custom_column', 'wpjam_show_users_column_reg_time', 11, 3);
 function wpjam_show_users_column_reg_time($value, $column_name, $user_id) {
     if ($column_name == 'posts') {
         $user = get_userdata($user_id);
@@ -2227,12 +2229,12 @@ function wpjam_show_users_column_reg_time($value, $column_name, $user_id) {
         return $value;
     }
 }
-add_filter("manage_users_sortable_columns", 'wpjam_users_sortable_columns');
+add_filter('manage_users_custom_column', 'wpjam_show_users_column_reg_time', 11, 3);
 function wpjam_users_sortable_columns($sortable_columns) {
     $sortable_columns['posts'] = 'posts';
     return $sortable_columns;
 }
-add_action('pre_user_query', 'git_users_search_order');
+add_filter("manage_users_sortable_columns", 'wpjam_users_sortable_columns');
 function git_users_search_order($obj) {
     if (!isset($_REQUEST['orderby']) || $_REQUEST['orderby'] == 'posts') {
         if (!in_array($_REQUEST['order'], array(
@@ -2244,6 +2246,7 @@ function git_users_search_order($obj) {
         $obj->query_orderby = "ORDER BY user_registered " . $_REQUEST['order'] . "";
     }
 }
+add_action('pre_user_query', 'git_users_search_order');
 //自动首行缩进
 if(git_get_option('git_suojin')):
 function git_indent_txt($text){
@@ -2261,19 +2264,21 @@ function git_editor_buttons($buttons) {
 }
 add_filter("mce_buttons_3", "git_editor_buttons");
 //获取访客VIP样式
+if(git_get_option('git_vip')):
 function get_author_class($comment_author_email, $user_id) {
     global $wpdb;
     $author_count = count($wpdb->get_results("SELECT comment_ID as author_count FROM $wpdb->comments WHERE comment_author_email = '$comment_author_email' "));
     $adminEmail = get_option('admin_email');
     if ($comment_author_email == $adminEmail) return;
-    if ($author_count >= 1 && $author_count < 3) echo '<a class="vip1" title="评论达人 LV.1"></a>';
-    else if ($author_count >= 3 && $author_count < 5) echo '<a class="vip2" title="评论达人 LV.2"></a>';
-    else if ($author_count >= 5 && $author_count < 10) echo '<a class="vip3" title="评论达人 LV.3"></a>';
-    else if ($author_count >= 10 && $author_count < 20) echo '<a class="vip4" title="评论达人 LV.4"></a>';
-    else if ($author_count >= 20 && $author_count < 50) echo '<a class="vip5" title="评论达人 LV.5"></a>';
-    else if ($author_count >= 50 && $author_count < 100) echo '<a class="vip6" title="评论达人 LV.6"></a>';
-    else if ($author_count >= 100) echo '<a class="vip7" title="评论达人 LV.7"></a>';
+    if ($author_count >= 1 && $author_count < git_get_option('git_vip1')?git_get_option('git_vip1' ):5 ) echo '<a class="vip1" title="评论达人 LV.1"></a>';
+    else if ($author_count >= git_get_option('git_vip1')?git_get_option('git_vip1' ):5 && $author_count < git_get_option('git_vip2')?git_get_option('git_vip2' ):10) echo '<a class="vip2" title="评论达人 LV.2"></a>';
+    else if ($author_count >= git_get_option('git_vip2')?git_get_option('git_vip2' ):10 && $author_count < git_get_option('git_vip3')?git_get_option('git_vip3' ):20) echo '<a class="vip3" title="评论达人 LV.3"></a>';
+    else if ($author_count >= git_get_option('git_vip3')?git_get_option('git_vip3' ):20 && $author_count < git_get_option('git_vip4')?git_get_option('git_vip4' ):40) echo '<a class="vip4" title="评论达人 LV.4"></a>';
+    else if ($author_count >= git_get_option('git_vip4')?git_get_option('git_vip4' ):40 && $author_count < git_get_option('git_vip5')?git_get_option('git_vip5' ):70) echo '<a class="vip5" title="评论达人 LV.5"></a>';
+    else if ($author_count >= git_get_option('git_vip5')?git_get_option('git_vip5' ):70 && $author_count < git_get_option('git_vip6')?git_get_option('git_vip6' ):110) echo '<a class="vip6" title="评论达人 LV.6"></a>';
+    else if ($author_count >= git_get_option('git_vip6')?git_get_option('git_vip6' ):110) echo '<a class="vip7" title="评论达人 LV.7"></a>';
 }
+endif;
 //管理后台添加按钮
 function custom_adminbar_menu() {
     global $wp_admin_bar;

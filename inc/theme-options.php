@@ -1,5 +1,4 @@
 <?php
-
 $options = array(
     //开始第一个选项标签
     array(
@@ -14,7 +13,6 @@ $options = array(
         'type'  => 'textarea',
         'std'   => ''
     ),
-    
     array(
         'name'  => '友情链接页面',
         'desc'  => '只显示输入分类的链接，id之间用英文逗号隔开，一般默认空着就行',
@@ -50,6 +48,20 @@ $options = array(
         'id'    => 'hot_list_check',
         'type'  => 'checkbox'
     ),
+    
+    array(
+        'name'  => '排序根据',
+        'desc'  => '选择一个参数作为排序的根据，可以选择评论数目，浏览数目或者点赞数目',
+        'id'    => "git_hot_b",
+        'type'  => 'radio',
+        'options' => array(
+            '评论数目' => 'git_hot_comment',
+            '浏览数目' => 'git_hot_views',
+            '点赞数目' => 'git_hot_zan'
+        ),
+        'std'   => 'git_hot_comment'
+    ),
+    /* 暂时取消
     array(
         'name'  => '显示天数',
         'desc'  => '天（默认300天）',
@@ -64,6 +76,7 @@ $options = array(
         'type'  => 'number',
         'std'   => 5
     ),
+    */
     array(
         'name'  => '排行名称',
         'desc'  => '这里是显示在网站首页热门排行那里',
@@ -126,12 +139,6 @@ $options = array(
         'std'   => get_bloginfo( 'admin_email' )
     ),
     array(
-        'name'  => '评论内容过滤',
-        'desc'  => '开启【启用后，屏蔽外文评论，屏蔽含有WordPress设置黑名单内容的评论，屏蔽过长网址的评论，屏蔽字数少于2或者多余200的评论，屏蔽内容或者评论昵称含有链接的评论。另，在WordPress-设置-讨论-黑名单中添加想要屏蔽的关键词，邮箱，网址，IP地址，每行一个。】',
-        'id'    => 'git_spamComments_b',
-        'type'  => 'checkbox'
-    ),
-    array(
         'name'  => '流量统计代码',
         'desc'  => '统计网站流量，推荐使用百度统计，国内比较优秀且速度快；还可使用Google统计、CNZZ等',
         'id'    => 'git_track',
@@ -145,7 +152,7 @@ $options = array(
     ),
     array(
         'name'  => '主题更新设置',
-        'desc'  => '禁止主题更新&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 选择后，您将无法收到本主题的更新推送，所以云落墙裂不推荐选择勾选',
+        'desc'  => '禁止主题更新【 选择后，您将无法收到本主题的更新推送，所以云落墙裂不推荐选择勾选】',
         'id'    => 'git_updates_b',
         'onclick'   => "return confirm('你确定要取消更新吗？');",
         'type'  => 'checkbox'
@@ -209,13 +216,13 @@ $options = array(
     ),
     array(
         'name'  => 'Robot.txt优化',
-        'desc'  => '启用【开启本项之后，将只对搜索引擎开放首页，页面，文章页，其他一律屏蔽】',
+        'desc'  => '启用 【开启本项之后，将只对搜索引擎开放首页，页面，文章页，其他一律屏蔽】',
         'id'    => "git_robot_b",
         'type'  => 'checkbox'
     ),
     array(
         'name'  => '百度Sitemap实时推送',
-        'desc'  => '启用【开启本项之后，首先需要保证您的网站已拥有sitemap提交权限】 <a class="button-primary" rel="nofollow" href="http://zhanzhang.baidu.com/sitemap/index" target="_blank">申请百度Sitemap</a>',
+        'desc'  => '启用 【开启本项之后，首先需要保证您的网站已拥有sitemap提交权限】 <a class="button-primary" rel="nofollow" href="http://zhanzhang.baidu.com/sitemap/index" target="_blank">申请百度Sitemap</a>',
         'id'    => "git_sitemap_b",
         'type'  => 'checkbox'
     ),
@@ -281,6 +288,34 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+        'title' => '垃圾评论屏蔽',
+        'type'  => 'subtitle'
+    ),
+    array(
+        'name'  => '过滤外语评论',
+        'desc'  => '开启 【启用后，将屏蔽所有含有日文以及英语的评论，外贸站慎用】',
+        'id'    => 'git_spam_lang',
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '关键词，IP，邮箱屏蔽',
+        'desc'  => '开启 【启用后，在WordPress-设置-讨论-黑名单中添加想要屏蔽的关键词，邮箱，网址，IP地址，每行一个】<a class="button-primary" target="_blank" href="http://i1.tietuku.com/9fffe8656ba8c85d.png">如图设置</a>',
+        'id'    => 'git_spam_keywords',
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '屏蔽含有链接评论',
+        'desc'  => '开启 【启用后，屏蔽内容或者评论昵称含有链接的评论，如果您的评论需要输入链接或者图片的话，请慎选！！！】',
+        'id'    => 'git_spam_url',
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '屏蔽长链接评论',
+        'desc'  => '开启 【启用后，屏蔽含有过长网址(超过50个字符)的评论，当然如果你已经选择了上面的选项的话，就不用选择了】',
+        'id'    => 'git_spam_long',
+        'type'  => 'checkbox'
+    ),
+    array(
         'title' => '评论设置属性',
         'type'  => 'subtitle'
     ),
@@ -288,6 +323,12 @@ $options = array(
         'name'  => '贴图',
         'desc'  => '不显示',
         'id'    => 'git_tietu',
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '链接',
+        'desc'  => '不显示',
+        'id'    => 'git_lianjie',
         'type'  => 'checkbox'
     ),
     array(
@@ -319,6 +360,58 @@ $options = array(
         'desc'  => '不显示',
         'id'    => 'git_qiandao',
         'type'  => 'checkbox'
+    ),
+    array(
+        'title' => '评论VIP设置',
+        'type'  => 'subtitle'
+    ),
+    array(
+        'name'  => '启用',
+        'desc'  => ' 【启用之后，您需要在下面设置用户的评论数字区间】',
+        'id'    => 'git_vip',
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => 'VIP 1',
+        'desc'  => '输入的数字减一就是VIP 1的所要求的评论数字区间，默认是5',
+        'id'    => 'git_vip1',
+        'type'  => 'number',
+        'std'   => 5
+    ),
+    array(
+        'name'  => 'VIP 2',
+        'desc'  => '输入的数字减去上面的数字就是VIP 2的所要求的评论数字区间，默认是10',
+        'id'    => 'git_vip2',
+        'type'  => 'number',
+        'std'   => 10
+    ),
+    array(
+        'name'  => 'VIP 3',
+        'desc'  => '输入的数字减去上面的数字就是VIP 3的所要求的评论数字区间，默认是20',
+        'id'    => 'git_vip3',
+        'type'  => 'number',
+        'std'   => 20
+    ),
+    array(
+        'name'  => 'VIP 4',
+        'desc'  => '输入的数字减去上面的数字就是VIP 4的所要求的评论数字区间，默认是40',
+        'id'    => 'git_vip4',
+        'type'  => 'number',
+        'std'   => 40
+    ),
+    array(
+        'name'  => 'VIP 5',
+        'desc'  => '输入的数字减去上面的数字就是VIP 5的所要求的评论数字区间，默认是70',
+        'id'    => 'git_vip5',
+        'type'  => 'number',
+        'std'   => 70
+    ),
+    array(
+        'name'  => 'VIP 6',
+        'desc'  => '输入的数字减去上面的数字就是VIP 6的所要求的评论数字区间，默认是110',
+        'id'    => 'git_vip6',
+        'type'  => 'number',
+        'std'   => 110
     ),
     array(
         'name'  => '文章摘要',
@@ -864,7 +957,7 @@ $options = array(
     ),
     array(
         'name'  => 'Email',
-        'desc'  => '请填写好您的邮我代码，<a class="button-primary" rel="nofollow" href="http://open.mail.qq.com/cgi-bin/qm_help_mailme?sid=,2,zh_CN&t=open_mailme" target="_blank">获取邮我组建代码</a>',
+        'desc'  => '请填写好您的邮我代码，<a class="button-primary" rel="nofollow" href="http://open.mail.qq.com/cgi-bin/qm_help_mailme?sid=,2,zh_CN&t=open_mailme" target="_blank">获取邮我组建代码</a>并<a class="button-primary" rel="nofollow" href="http://i1.tietuku.com/34cf2b2ee780db81.png" target="_blank">如图设置</a>',
         'id'    => 'git_emailContact',
         'type'  => 'text',
         'std'   => ''
@@ -1565,7 +1658,7 @@ switch ( $value['type'] ) {
         <p>&nbsp;&nbsp;云落在正式建站的时候选择了这款主题并且一直使用到现在，期间对这款主题进行了N次的代码修改，有的地方是小修改，有的地方事一些大的修改，在欲思主题的基础上面做了很多二次开发，随着主题的修改进程，个人对WordPress的理解也随之加深，对于WordPress的应用也较以前有了更深的熟练。</p>
         <p>&nbsp;&nbsp;故，在经过多次修改后，自觉主题修改的足够对其更名以将其与欲思主题以区分，并且将其代码托管至<a href="http://git.oschina.net/yunluo/git" target="_blank">开源中国</a>，并且将其更名为：Git ！</p>
         <p>&nbsp;&nbsp;定名为Git，首先是因为主题采用Git版本系统管理代码的，写的最多的代码就是git了，另外G代表我的Googlo.Me，并且一直采用开源中国托管代码，遂定名为Git。</p>
-        <p>&nbsp;&nbsp;感谢大前端的D8主题，感谢欲思的欲思主题，感谢小影的主题，感谢知更鸟的主题，感谢露兜博客，感谢devework，感谢开源中国，感谢一直跟随主题版本升级的朋友们</p>
+        <p>&nbsp;&nbsp;感谢大前端的D8主题，感谢欲思的欲思主题，感谢小影的主���，感谢知更鸟的主题，感谢露兜博客，感谢devework，感谢开源中国，感谢一直跟随主题版本升级的朋友们</p>
 <h2>支持云落</h2>
 <p>如果您觉的这款主题很赞，欢迎您扫码支持云落</p>
 <img style="width :300px;height :300px" src="http://i1.tietuku.com/d6c43b39f0c3c64c.jpg"></img>
