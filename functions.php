@@ -144,7 +144,7 @@ if (function_exists('register_sidebar')) {
         'after_title' => '</h2></div>'
     ));
 }
-//页面伪静态
+//页面伪静态，奶子页面静态化插件
 if (git_get_option('git_pagehtml_b')):
     add_action('init', 'html_page_permalink', -1);
     register_activation_hook(__FILE__, 'active');
@@ -445,7 +445,7 @@ function git_avatar_cache($avatar) {
 }
 add_filter('get_avatar', 'git_avatar_cache', 10, 3);
 
-/*替换文章或评论内容外链为内链*/
+/*替换文章或评论内容外链为内链，奶子v7v3*/
 if(git_get_option('git_go')):
 function git_go_url($content) {
     preg_match_all('/href="(http.*?)"/', $content, $matches);
@@ -641,7 +641,7 @@ function deel_comment_list($comment, $args, $depth) {
     }
     if ($comment->user_id == '1') {
 		echo '<img src="' . get_bloginfo('template_directory') . '/img/webmaster.png" id="comment_is_admin" title="博主大人">';
-	}else{
+	}elseif(git_get_option('git_vip')){
 		echo get_author_class($comment->comment_author_email,$comment->user_id);
 	}
     echo get_comment_time('Y-m-d H:i ');
@@ -698,7 +698,7 @@ function refused_spam_comments($comment_data) {
         err(__('写点汉字吧，博主外语很捉急！You should type some Chinese word!'));
     }
     if (preg_match($jpattern, $comment_data['comment_content'])) {
-        err(__('日文滚粗！Japanese Get out！日本語出て行け！ You should type some Chinese word！'));
+        err(__('日文滚粗！Japanese Get out！日���語出て行け！ You should type some Chinese word！'));
     }
     return ($comment_data);
 }
@@ -1898,12 +1898,6 @@ function googlo_register_form() {
         <?php
 }
 add_action('register_form', 'googlo_register_form');
-//注册用户名中文化
-function git_znch_login($username, $raw_username, $strict) {
-    if (!$strict) return $username;
-    return sanitize_user(stripslashes($raw_username) , false);
-}
-add_filter('sanitize_user', 'git_znch_login', 10, 3);
 //用户注册成功后自动登录，并跳转到指定页面
 function git_auto_login($user_id) {
     wp_set_current_user($user_id);
@@ -2286,6 +2280,30 @@ function custom_adminbar_menu() {
     );
 }
 add_action( 'admin_bar_menu', 'custom_adminbar_menu', 100 );
+
+//支持中文名注册
+function git_sanitize_user ($username, $raw_username, $strict) {
+  $username = wp_strip_all_tags( $raw_username );
+  $username = remove_accents( $username );
+  $username = preg_replace( '|%([a-fA-F0-9][a-fA-F0-9])|', '', $username );
+  $username = preg_replace( '/&.+?;/', '', $username ); // Kill entities
+  if ($strict) {
+    $username = preg_replace ('|[^a-z\p{Han}0-9 _.\-@]|iu', '', $username);
+  }
+  $username = trim( $username );
+  $username = preg_replace( '|\s+|', ' ', $username );
+  return $username;
+}
+add_filter ('sanitize_user', 'git_sanitize_user', 10, 3);
+// 评论添加@，奶子：http://www.ludou.org/wordpress-comment-reply-add-at.html
+function git_comment_add_at( $comment_text, $comment = '') {
+  if( $comment->comment_parent > 0) {
+    $comment_text = '@<a href="#comment-' . $comment->comment_parent . '">'.get_comment_author( $comment->comment_parent ) . '</a> ' . $comment_text;
+  }
+
+  return $comment_text;
+}
+add_filter( 'comment_text' , 'git_comment_add_at', 20, 2);
 /*WordPress函数代码结束*/
 
 ?>
