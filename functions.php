@@ -445,13 +445,18 @@ function git_avatar_cache($avatar) {
 }
 add_filter('get_avatar', 'git_avatar_cache', 10, 3);
 
-/*替换文章或评论内容外链为内链，奶子v7v3*/
+/*替换文章或评论内容外链为内链*/
 if(git_get_option('git_go')):
 function git_go_url($content) {
     preg_match_all('/href="(http.*?)"/', $content, $matches);
     if ($matches) {
         foreach ($matches[1] as $val) {
-            if (strpos($val, '://') !== false && strpos($val, 'nofollow') === false && strpos($val, home_url()) === false && strpos($val, '' . git_get_option('git_cdnurl_b') . '')===false ) {
+            if(git_get_option('git_cdnurl_b')) {
+                $hunue = git_get_option('git_cdnurl_b');
+            }else{
+                $hunue = 'http://googlo.me';
+            }
+            if (strpos($val, '://') !== false && strpos($val, 'nofollow') === false && strpos($val, home_url()) === false && strpos($val, '' . $hunue . '')===false ) {
                 if(git_get_option('git_pagehtml_b')) {
                 $content = str_replace("href=\"$val\"", "href=\"" . home_url() . "/go.html?url=" . base64_encode($val) . "\" ", $content);
                 }else{
