@@ -1972,16 +1972,11 @@ function googlo_wp_upload_filter($file) {
 }
 add_filter('wp_handle_upload_prefilter', 'googlo_wp_upload_filter');
 //CMS模板需要的
-function get_page_id_from_template($template) {
-   global $wpdb;
-   $page_id = $wpdb->get_var($wpdb->prepare("SELECT 'post_id'
-                              FROM '$wpdb->postmeta', '$wpdb->posts'
-                              WHERE 'post_id' = 'ID'
-                                    AND 'post_status' = 'publish'
-                                    AND 'meta_key' = '_wp_page_template'
-                                    AND 'meta_value' = %s
-                                    LIMIT 1;", $template));
-   return $page_id;
+function get_pagelink_through_template($page_temp){
+    global $wpdb;
+    $page_id = $wpdb->get_var("SELECT post_id FROM $wpdb->postmeta LEFT OUTER JOIN $wpdb->posts ON ($wpdb->postmeta.post_id = $wpdb->posts.ID ) WHERE meta_key = '_wp_page_template' AND meta_value = '".$page_temp."' AND $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type = 'page'");
+    $pageurl = get_page_link($page_id);
+    return $pageurl;
 }
 //后台文章重新排序
 function git_post_order_in_admin( $wp_query ) {
