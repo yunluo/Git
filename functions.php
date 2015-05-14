@@ -2037,6 +2037,8 @@ if (git_get_option('git_ua_b')):
             $browser = '腾讯TT浏览器 ' . $matches[1];
         } elseif (preg_match('#UCWEB([a-zA-Z0-9.]+)#i', $ua, $matches)) {
             $browser = 'UCWEB ' . $matches[1];
+        }elseif (preg_match('#wp-(iphone|android)/([a-zA-Z0-9.]+)#i', $ua, $matches)) {
+            $browser = 'WordPress客户端 ' . $matches[1];
         } elseif (preg_match('#MSIE ([a-zA-Z0-9.]+)#i', $ua, $matches)) {
             $browser = 'Internet Explorer ' . $matches[1];
         } elseif (preg_match('#(Firefox|Phoenix|Firebird|BonEcho|GranParadiso|Minefield|Iceweasel)/([a-zA-Z0-9.]+)#i', $ua, $matches)) {
