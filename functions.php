@@ -1322,7 +1322,6 @@ add_shortcode('video', 'too');
 function mobv($atts, $content = null) {
     if (G_is_mobile()) {
         return '<div id="mb_view">' . $content . '</div>'; //如果用户是手机则显示内容
-
     }
 }
 add_shortcode('mb_view', 'mobv');
@@ -1330,23 +1329,13 @@ add_shortcode('mb_view', 'mobv');
 function pcv($atts, $content = null) {
     if (!G_is_mobile()) {
         return '<div id="pc_view">' . $content . '</div>'; //如果用户是电脑则显示内容
-
     }
 }
 add_shortcode('pc_view', 'pcv');
 /*弹窗下载*/
 function ton($atts, $content = null) {
-    extract(shortcode_atts(array(
-        "href" => 'http://'
-    ) , $atts));
-    return '<a class="bluebtn" id="showdiv" href="#fancydlbox" >文件下载</a>
-    <div id="fancydlbox" style="cursor:default;display:none;width:500px;">
-    <div class="fancydlads" align="center">' . git_get_option('git_fancydlad') . '</div>
-    <div class="dlnotice" align="center">' . git_get_option('git_fancydlcp') . '</div><br />
-    <div class="fancydl" align="center" >
-    <a class="bluebtn" href="' . $href . '" target="_blank" rel="nofollow">' . $content . '</a>
-    </div>
-    </div>';
+    extract(shortcode_atts(array("href" => 'http://',"filename" => '',"filedate" => '',"filesize" => '',"filedown" => '' ) , $atts));
+    return '<a class="lhb" id="showdiv" href="#fancydlbox" >文件下载</a><div id="fancydlbox" style="cursor:default;display:none;width:500px;"><div class="part" style="padding:20px 0;"><h2>下载声明：</h2> <div class="fancydlads" align="left"><p>' . git_get_option('git_fancydlcp') . '</p></div></div><div class="part" style="padding:20px 0;"><h2>文件信息：</h2> <div class="dlnotice" align="left"><p>文件名称：' . $filename . '<br />文件大小：' . $filesize . '<br />发布日期：' . $filedate . '</p></div></div><div class="part" id="download_button_part"><a id="download_button" target="_blank" href="' . $href . '"><span></span>' . $filedown . '</a> </div><div class="part" style="padding:20px 0;"><div class="moredl" style="text-align:center;">[更多地址]  '.$content.'</div></div><div class="dlfooter">' . git_get_option('git_fancydlad') . '</div></div>';
 }
 add_shortcode('fanctdl', 'ton');
 /* 短代码信息框 完毕*/
@@ -1370,7 +1359,6 @@ function xdltable($atts, $content = null) {
     return '<table class="dltable"><tbody><tr><td style="background-color:#F9F9F9;" rowspan="3"><p>文件下载</p></td><td><i class="fa fa-list-alt"></i>&nbsp;&nbsp;文件名称：' . $file . '</td><td><i class="fa fa-th-large"></i>&nbsp;&nbsp;文件大小：' . $size . '</td></tr><tr><td colspan="2"><i class="fa fa-volume-up"></i>&nbsp;&nbsp;下载声明：'.git_get_option('git_dltable_b').'</td></tr><tr><td colspan="2"><i class="fa fa-download"></i>&nbsp;&nbsp;下载地址：' . $content . '</td></tr></tbody></table>';
 }
 add_shortcode('dltable', 'xdltable');
-
 //自动为文章内链接生成超链接
 if (git_get_option('git_linktrue_b')) {
 add_filter('the_content', 'make_clickable');
@@ -2288,7 +2276,7 @@ function custom_adminbar_menu() {
 }
 add_action( 'admin_bar_menu', 'custom_adminbar_menu', 100 );
 
-//支持中文名注册
+//支持中文名注册，来自肚兜
 function git_sanitize_user ($username, $raw_username, $strict) {
   $username = wp_strip_all_tags( $raw_username );
   $username = remove_accents( $username );
@@ -2311,6 +2299,15 @@ function git_comment_add_at( $comment_text, $comment = '') {
   return $comment_text;
 }
 add_filter( 'comment_text' , 'git_comment_add_at', 20, 2);
+//保护后台登录，来自倡萌：http://www.wpdaxue.com/protected-wp-login.html
+if(git_get_option('git_admin')):
+function git_login_protection() {
+    if ($_GET[''.git_get_option('git_admin_q').''] != ''.git_get_option('git_admin_a').'') {
+     wp_die('本页面仅限管理员浏览，请<a href="' . home_url() . '">点此返回网站首页</a>');   
+    }
+}
+add_action('login_enqueue_scripts', 'git_login_protection');
+endif;
 /*WordPress函数代码结束*/
 
 ?>

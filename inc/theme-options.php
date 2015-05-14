@@ -204,7 +204,7 @@ $options = array(
     ),
     array(
         'name'  => '外链自动go跳转',
-        'desc'  => '启用 【启用插件之后需要新建页面，模板选择Go跳转页面，别名为go】',
+        'desc'  => '启用 【启用之后需要新建页面，模板选择Go跳转页面，别名为go】',
         'id'    => "git_go",
         'type'  => 'checkbox'
     ),
@@ -1251,6 +1251,30 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+        'title' => 'WordPress安全设置',
+        'type'  => 'subtitle'
+    ),
+    array(
+        'name'  => '加密WordPress后台',
+        'desc'  => '启用 【启用之后，请填写下面的问题与答案，访问链接格式：http://yoursite/wp-login.php?问题=答案】',
+        'id'    => "git_admin",
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '访问问题',
+        'desc'  => '这里随便填写一个字符，比如：googlo',
+        'id'    => "git_admin_q",
+        'type'  => 'text',
+        'std'   => ''
+    ),
+    array(
+        'name'  => '访问答案',
+        'desc'  => '这里随便填写一个字符，比如：yunluo',
+        'id'    => "git_admin_a",
+        'type'  => 'text',
+        'std'   => ''
+    ),
+    array(
         'type'  => 'panelend'
     ),
     array(
@@ -1435,18 +1459,18 @@ $options = array(
         'type'  => 'subtitle'
     ),
     array(
-        'name'  => '弹窗下载广告',
-        'desc'  => '开启【广告区域，任意联盟广告和自定义广告的代码均可】',
+        'name'  => '弹窗下载备注',
+        'desc'  => '开启【主要填写一句对文件的普遍性备注，一般是下载方式，加密密码，解压方式等等】',
         'id'    => 'git_fancydlad',
-        'type'  => 'textarea',
-        'std'   => ''
+        'type'  => 'text',
+        'std'   => '本站文件全部采用7Z压缩，请使用7-Zip解压文件'
     ),
     array(
         'name'  => '弹窗下载版权声明',
         'desc'  => '开启【就是那种本文件收集自网络，有问题联系站长那些装X的文字】',
         'id'    => 'git_fancydlcp',
         'type'  => 'textarea',
-        'std'   => ''
+        'std'   => '本站所有软件和资料均为软件作者提供或网友推荐发布而来，仅供学习和研究使用，不得用于任何商业用途。如本站不慎侵犯你的版权请联系我，我将及时处理，并撤下相关内容！ '
     ),
     array(
         'name'  => '下载面板下载声明',

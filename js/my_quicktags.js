@@ -5,12 +5,9 @@ QTags.addButton( 'h3', 'H3标签', "<h3>", "</h3>\n" ); //添加标题3
 QTags.addButton( 'sb', '上标', "<sup>","</sup>" );
 QTags.addButton( 'xb', '下标', "<sub>","</sub>" );
 QTags.addButton( 'shsj', '首行缩进', "&nbsp;&nbsp;" );
-QTags.addButton( 'tm', 'TM', "&trade;" );
 QTags.addButton( 'hc', '回车', "<br />" );
 QTags.addButton( 'jz', '居中', "<center>","</center>" );
 QTags.addButton( 'mark', '黄字', "<mark>","</mark>" );
-QTags.addButton( 'xzt', '小字体', "<small>","</small>" );
-QTags.addButton( 'dzt', '大字体', "<big>","</big>" );
 QTags.addButton( 'xhx', '下划线', "<u>","</u>" );
 QTags.addButton( 'g</>', '</>', "&lt;", "&gt;" );
 QTags.addButton( 'ipre', '代码高亮', '<pre class="prettyprint linenums" >\n\n</pre>', "" );//添加高亮代码
@@ -36,7 +33,7 @@ QTags.addButton( 'collapse', '隐藏收缩', '[collapse title=""]', '[/collapse]
 QTags.addButton( 'reply', '回复可见', "[reply]", "[/reply]" );
 QTags.addButton( 'imobv', '手机可见', "[mb_view]", "[/mb_view]" );
 QTags.addButton( 'ipcv', '电脑可见', "[pc_view]", "[/pc_view]" );
-QTags.addButton( 'fancydl', '弹窗下载', "[fanctdl href='']", "[/fanctdl]" );
+QTags.addButton( 'fancydl', '弹窗下载', "[fanctdl filename='这里填写文件名' filesize='这里填写文件大小' filedate='这里填写的是文件的发布日期' href='这里填写的主下载链接' filedown='这里填写的是文件的主下载名称']这里填写的文件的辅助下载链接，A标签即可！[/fanctdl]" );
 QTags.addButton( 'dltable', '下载面板', '[dltable file="在此处写下文件名称" size="在这里写下文件大小"]这里留文件下载A标签链接，可以放多个链接[/dltable]' );
 QTags.addButton( 'nextpage', '下一页', '<!--nextpage-->', "" );
 //这儿共有四对引号，分别是按钮的ID、显示名、点一下输入内容、再点一下关闭内容（此为空则一次输入全部内容），\n表示换行。
