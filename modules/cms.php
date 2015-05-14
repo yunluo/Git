@@ -26,8 +26,7 @@ foreach ($result as $post) {
     <li><i class="fa fa-minus"></i><a class="lastitle" href="<?php
     echo get_permalink($postid); ?>" title="<?php
     echo $title ?>"><?php
-    echo $title ?></a><span style="float: right">[<?php
-    the_time(‘m - d - y’); ?>]</span></li>
+    echo $title ?></a></li>
     <?php
 } ?>
 </ul>
