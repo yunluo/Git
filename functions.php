@@ -703,7 +703,7 @@ function refused_spam_comments($comment_data) {
         err(__('写点汉字吧，博主外语很捉急！You should type some Chinese word!'));
     }
     if (preg_match($jpattern, $comment_data['comment_content'])) {
-        err(__('日文滚粗！Japanese Get out！日���語出て行け！ You should type some Chinese word！'));
+        err(__('日文滚粗！Japanese Get out！日本语出て行け！ You should type some Chinese word！'));
     }
     return ($comment_data);
 }
@@ -1335,22 +1335,14 @@ add_shortcode('pc_view', 'pcv');
 /*弹窗下载*/
 function ton($atts, $content = null) {
     extract(shortcode_atts(array("href" => 'http://',"filename" => '',"filedate" => '',"filesize" => '',"filedown" => '' ) , $atts));
-    return '<a class="lhb" id="showdiv" href="#fancydlbox" >文件下载</a><div id="fancydlbox" style="cursor:default;display:none;width:500px;"><div class="part" style="padding:20px 0;"><h2>下载声明：</h2> <div class="fancydlads" align="left"><p>' . git_get_option('git_fancydlcp') . '</p></div></div><div class="part" style="padding:20px 0;"><h2>文件信息：</h2> <div class="dlnotice" align="left"><p>文件名称：' . $filename . '<br />文件大小：' . $filesize . '<br />发布日期：' . $filedate . '</p></div></div><div class="part" id="download_button_part"><a id="download_button" target="_blank" href="' . $href . '"><span></span>' . $filedown . '</a> </div><div class="part" style="padding:20px 0;"><div class="moredl" style="text-align:center;">[更多地址]  '.$content.'</div></div><div class="dlfooter">' . git_get_option('git_fancydlad') . '</div></div>';
+    return '<a class="lhb" id="showdiv" href="#fancydlbox" >文件下载</a><div id="fancydlbox" style="cursor:default;display:none;width:800px;"><div class="part" style="padding:20px 0;"><h2>下载声明:</h2> <div class="fancydlads" align="left"><p>' . git_get_option('git_fancydlcp') . '</p></div></div><div class="part" style="padding:20px 0;"><h2>文件信息：</h2> <div class="dlnotice" align="left"><p>文件名称：' . $filename . '<br />文件大小:' . $filesize . '<br />发布日期:' . $filedate . '</p></div></div><div class="part" id="download_button_part"><a id="download_button" target="_blank" href="' . $href . '"><span></span>' . $filedown . '</a> </div><div class="part" style="padding:20px 0;"><div class="moredl" style="text-align:center;">[更多地址] : '.$content.'</div></div><div class="dlfooter">' . git_get_option('git_fancydlad') . '</div></div>';
 }
 add_shortcode('fanctdl', 'ton');
 /* 短代码信息框 完毕*/
 //为WordPress添加展开收缩功能
 function xcollapse($atts, $content = null) {
-    extract(shortcode_atts(array(
-        "title" => ""
-    ) , $atts));
-    return '<div style="margin: 0.5em 0;">
-		<div class="xControl">
-			<a href="javascript:void(0)" class="collapseButton xButton"><i class="fa fa-plus-square"></i> ' . $title . '</a>
-			<div style="clear: both;"></div>
-		</div>
-		<div class="xContent" style="display: none;">' . $content . '</div>
-	</div>';
+    extract(shortcode_atts(array( "title" => "" ) , $atts));
+    return '<div style="margin: 0.5em 0;"><div class="xControl"><a href="javascript:void(0)" class="collapseButton xButton"><i class="fa fa-plus-square"></i> ' . $title . '</a><div style="clear: both;"></div></div><div class="xContent" style="display: none;">' . $content . '</div></div>';
 }
 add_shortcode('collapse', 'xcollapse');
 //简单的下载面板
@@ -2252,29 +2244,85 @@ if(git_get_option('git_vip')):
 function get_author_class($comment_author_email, $user_id) {
     global $wpdb;
     $author_count = count($wpdb->get_results("SELECT comment_ID as author_count FROM $wpdb->comments WHERE comment_author_email = '$comment_author_email' "));
-    $adminEmail = get_option('admin_email');
-    if ($comment_author_email == $adminEmail) return;
-    if ($author_count >= 1 && $author_count < git_get_option('git_vip1')?git_get_option('git_vip1' ):5 ) echo '<a class="vip1" title="评论达人 LV.1"></a>';
-    else if ($author_count >= git_get_option('git_vip1')?git_get_option('git_vip1' ):5 && $author_count < git_get_option('git_vip2')?git_get_option('git_vip2' ):10) echo '<a class="vip2" title="评论达人 LV.2"></a>';
-    else if ($author_count >= git_get_option('git_vip2')?git_get_option('git_vip2' ):10 && $author_count < git_get_option('git_vip3')?git_get_option('git_vip3' ):20) echo '<a class="vip3" title="评论达人 LV.3"></a>';
-    else if ($author_count >= git_get_option('git_vip3')?git_get_option('git_vip3' ):20 && $author_count < git_get_option('git_vip4')?git_get_option('git_vip4' ):40) echo '<a class="vip4" title="评论达人 LV.4"></a>';
-    else if ($author_count >= git_get_option('git_vip4')?git_get_option('git_vip4' ):40 && $author_count < git_get_option('git_vip5')?git_get_option('git_vip5' ):70) echo '<a class="vip5" title="评论达人 LV.5"></a>';
-    else if ($author_count >= git_get_option('git_vip5')?git_get_option('git_vip5' ):70 && $author_count < git_get_option('git_vip6')?git_get_option('git_vip6' ):110) echo '<a class="vip6" title="评论达人 LV.6"></a>';
-    else if ($author_count >= git_get_option('git_vip6')?git_get_option('git_vip6' ):110) echo '<a class="vip7" title="评论达人 LV.7"></a>';
+    if ($author_count >= 1 && $author_count < git_get_option('git_vip1') ? git_get_option('git_vip1' ) : 5 ) echo '<a class="vip1" title="评论达人 LV.1"></a>';
+    else if ($author_count >= git_get_option('git_vip1') && $author_count < git_get_option('git_vip2')) echo '<a class="vip2" title="评论达人 LV.2"></a>';
+    else if ($author_count >= git_get_option('git_vip2') && $author_count < git_get_option('git_vip3')) echo '<a class="vip3" title="评论达人 LV.3"></a>';
+    else if ($author_count >= git_get_option('git_vip3') && $author_count < git_get_option('git_vip4')) echo '<a class="vip4" title="评论达人 LV.4"></a>';
+    else if ($author_count >= git_get_option('git_vip4') && $author_count < git_get_option('git_vip5') ) echo '<a class="vip5" title="评论达人 LV.5"></a>';
+    else if ($author_count >= git_get_option('git_vip5') && $author_count < git_get_option('git_vip6') ) echo '<a class="vip6" title="评论达人 LV.6"></a>';
+    else if ($author_count >= git_get_option('git_vip6') ) echo '<a class="vip7" title="评论达人 LV.7"></a>';
 }
 endif;
 //管理后台添加按钮
-function custom_adminbar_menu() {
+function custom_adminbar_menu($meta = TRUE) {
     global $wp_admin_bar;
-        if ( !is_user_logged_in() ) { return; }
-        if ( !is_super_admin() || !is_admin_bar_showing() ) { return; }
-    $wp_admin_bar->add_menu( array(
+    if (!is_user_logged_in()) {
+        return;
+    }
+    if (!is_super_admin() || !is_admin_bar_showing()) {
+        return;
+    }
+    $wp_admin_bar->add_menu(array(
         'id' => 'custom_menu',
-        'title' => __( '主题选项' ),
-        'href' => 'themes.php?page=theme-options.php' )
-    );
+        'capability_type' => 'post',
+        'title' => __('Git选项')
+    ) /* 设子菜单名 */);
+    /* menu links */
+    $wp_admin_bar->add_menu(array(
+        'parent' => 'custom_menu',
+        'title' => '主题选项', /* 设置链接名 */
+        'href' => 'themes.php?page=theme-options.php' /* 设置链接地址 */
+    ));
+    $wp_admin_bar->add_menu(array(
+        'parent' => 'custom_menu',
+        'title' => 'Yahoo', /* 设置链接名 */
+        'href' => 'http://yahoo.com/', /* 设置链接地址 */
+        'meta' => array(
+            target => '_blank'
+        )
+    ));
+    $wp_admin_bar->add_menu(array(
+        'parent' => 'custom_menu',
+        'title' => 'Yahoo', /* 设置链接名 */
+        'href' => 'http://yahoo.com/', /* 设置链接地址 */
+        'meta' => array(
+            target => '_blank'
+        )
+    ));
+    $wp_admin_bar->add_menu(array(
+        'parent' => 'custom_menu',
+        'title' => 'Yahoo', /* 设置链接名 */
+        'href' => 'http://yahoo.com/', /* 设置链接地址 */
+        'meta' => array(
+            target => '_blank'
+        )
+    ));
+    $wp_admin_bar->add_menu(array(
+        'parent' => 'custom_menu',
+        'title' => 'Yahoo', /* 设置链接名 */
+        'href' => 'http://yahoo.com/', /* 设置链接地址 */
+        'meta' => array(
+            target => '_blank'
+        )
+    ));
+    $wp_admin_bar->add_menu(array(
+        'parent' => 'custom_menu',
+        'title' => 'Yahoo', /* 设置链接名 */
+        'href' => 'http://yahoo.com/', /* 设置链接地址 */
+        'meta' => array(
+            target => '_blank'
+        )
+    ));
+    $wp_admin_bar->add_menu(array(
+        'parent' => 'custom_menu',
+        'title' => 'Yahoo', /* 设置链接名 */
+        'href' => 'http://yahoo.com/', /* 设置链接地址 */
+        'meta' => array(
+            target => '_blank'
+        )
+    ));
 }
-add_action( 'admin_bar_menu', 'custom_adminbar_menu', 100 );
+add_action('admin_bar_menu', 'custom_adminbar_menu', 100);
 
 //支持中文名注册，来自肚兜
 function git_sanitize_user ($username, $raw_username, $strict) {
