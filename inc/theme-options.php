@@ -372,48 +372,6 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
-        'name'  => 'VIP 1',
-        'desc'  => '输入的数字减一就是VIP 1的所要求的评论数字区间，默认是5',
-        'id'    => 'git_vip1',
-        'type'  => 'number',
-        'std'   => 5
-    ),
-    array(
-        'name'  => 'VIP 2',
-        'desc'  => '输入的数字减去上面的数字就是VIP 2的所要求的评论数字区间，默认是10',
-        'id'    => 'git_vip2',
-        'type'  => 'number',
-        'std'   => 10
-    ),
-    array(
-        'name'  => 'VIP 3',
-        'desc'  => '输入的数字减去上面的数字就是VIP 3的所要求的评论数字区间，默认是20',
-        'id'    => 'git_vip3',
-        'type'  => 'number',
-        'std'   => 20
-    ),
-    array(
-        'name'  => 'VIP 4',
-        'desc'  => '输入的数字减去上面的数字就是VIP 4的所要求的评论数字区间，默认是40',
-        'id'    => 'git_vip4',
-        'type'  => 'number',
-        'std'   => 40
-    ),
-    array(
-        'name'  => 'VIP 5',
-        'desc'  => '输入的数字减去上面的数字就是VIP 5的所要求的评论数字区间，默认是70',
-        'id'    => 'git_vip5',
-        'type'  => 'number',
-        'std'   => 70
-    ),
-    array(
-        'name'  => 'VIP 6',
-        'desc'  => '输入的数字减去上面的数字就是VIP 6的所要求的评论数字区间，默认是110',
-        'id'    => 'git_vip6',
-        'type'  => 'number',
-        'std'   => 110
-    ),
-    array(
         'name'  => '文章摘要',
         'desc'  => '个字',
         'id'    => 'git_excerpt_length',
@@ -1519,12 +1477,23 @@ function git_options_page() {
 ?>
 
 <div class="wrap">
-    <h2>Git 主题选项&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="button-primary" type="button" value="主题主页" onclick="window.open('http://googlo.me/archives/3011.html')">&nbsp;&nbsp;<input class="button-primary" type="button" value="邮箱反馈" onclick="window.open('http://googlo.me/go/mail')">&nbsp;&nbsp;<input class="button-primary" type="button" value="支持主题" onclick="window.open('http://googlo.me/pay')">&nbsp;&nbsp;<input class="button-primary" type="button" value="功能建议" onclick="window.open('http://googlo.me/about.html')">&nbsp;&nbsp;<input class="button-primary" type="button" value="食用文档" onclick="window.open('http://googlo.me/archives/3275.html')">&nbsp;&nbsp;<input class="button-primary" type="button" value="定制修改" onclick="window.open('http://googlo.me/go/qq')">&nbsp;&nbsp;<input class="button-primary" type="button" value="加入QQ群" onclick="window.open('http://googlo.me/go/qun')"></h2>
+    <h2>Git 主题选项</h2>
     <input placeholder="筛选主题选项…" type="search" id="theme-options-search" />
-    <div class="yunluotips"><?php if(function_exists('file_get_contents')){
-    echo file_get_contents( "https://gitcafe.com/googlo/File/raw/master/notice.txt" );
-    }else{
-    echo '如果您看到这句话，证明你的file_get_contents函数被禁用了，请开启此函数！';}?></div>
+    <div class="yunluotips">
+    <?php
+        if (function_exists('curl_init')) {
+            $url = "http://git.oschina.net/yunluo/API/raw/master/notice.txt";
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+            $dxycontent = curl_exec($ch);
+            echo $dxycontent;
+        } else {
+            echo '汗！貌似您的服务器尚未开启curl扩展，无法收到来自云落的通知，请联系您的主机商开启，本地调试请无视';
+        }
+    ?>
+    </div>
     <div class="catlist">您的网站分类列表：<?php echo Bing_show_category(); ?></div>
     <form method="post">
         <h2 class="nav-tab-wrapper">
@@ -1682,7 +1651,7 @@ switch ( $value['type'] ) {
         <p>&nbsp;&nbsp;云落在正式建站的时候选择了这款主题并且一直使用到现在，期间对这款主题进行了N次的代码修改，有的地方是小修改，有的地方事一些大的修改，在欲思主题的基础上面做了很多二次开发，随着主题的修改进程，个人对WordPress的理解也随之加深，对于WordPress的应用也较以前有了更深的熟练。</p>
         <p>&nbsp;&nbsp;故，在经过多次修改后，自觉主题修改的足够对其更名以将其与欲思主题以区分，并且将其代码托管至<a href="http://git.oschina.net/yunluo/git" target="_blank">开源中国</a>，并且将其更名为：Git ！</p>
         <p>&nbsp;&nbsp;定名为Git，首先是因为主题采用Git版本系统管理代码的，写的最多的代码就是git了，另外G代表我的Googlo.Me，并且一直采用开源中国托管代码，遂定名为Git。</p>
-        <p>&nbsp;&nbsp;感谢大前端的D8主题，感谢欲思的欲思主题，感谢小影的主���，感谢知更鸟的主题，感谢露兜博客，感谢devework，感谢开源中国，感谢一直跟随主题版本升级的朋友们</p>
+        <p>&nbsp;&nbsp;感谢大前端的D8主题，感谢欲思的欲思主题，感谢小影的主题，感谢知更鸟的主题，感谢露兜博客，感谢devework，感谢开源中国，感谢一直跟随主题版本升级的朋友们</p>
 <h2>支持云落</h2>
 <p>如果您觉的这款主题很赞，欢迎您扫码支持云落</p>
 <img style="width :300px;height :300px" src="http://i1.tietuku.com/d6c43b39f0c3c64c.jpg"></img>
@@ -1701,7 +1670,7 @@ switch ( $value['type'] ) {
 </p>
 </form>
 </div>
-<style>.catlist{background-color:#FFB6C1;border:2px solid #FFB6C1;padding:5px;margin-top: 12px;text-align: center;color:#FFFFFF;}.catlist:hover{background-color:transparent;color: #000000}.yunluotips{border: 2px solid #FFCC33;padding: 20px}.yunluotips:hover{background: #FFCC33;}.panel{display:none}.panel h3{margin:0;font-size:1.2em}#panel_update ul{list-style-type:disc}.nav-tab-wrapper{clear:both}.nav-tab{position:relative}.nav-tab i:before{position:absolute;top:-10px;right:-8px;display:inline-block;padding:2px;border-radius:50%;background:#e14d43;color:#fff;content:"\f463";vertical-align:text-bottom;font:400 18px/1 dashicons;speak:none}#theme-options-search{display:none;float:right;margin-top:-34px;width:280px;font-weight:300;font-size:16px;line-height:1.5}.updated+#theme-options-search{margin-top:-91px}.wrap.searching .nav-tab-wrapper a,.wrap.searching .panel tr,#attrselector{display:none}.wrap.searching .panel{display:block !important}#attrselector[attrselector*=ok]{display:block}</style>
+<style>.catlist{border:2px solid #FFB6C1;padding:5px;margin-top: 12px;text-align: center;color:#000;}.yunluotips{border: 2px solid #FFCC33;padding: 15px}.panel{display:none}.panel h3{margin:0;font-size:1.2em}#panel_update ul{list-style-type:disc}.nav-tab-wrapper{clear:both}.nav-tab{position:relative}.nav-tab i:before{position:absolute;top:-10px;right:-8px;display:inline-block;padding:2px;border-radius:50%;background:#e14d43;color:#fff;content:"\f463";vertical-align:text-bottom;font:400 18px/1 dashicons;speak:none}#theme-options-search{display:none;float:right;margin-top:-34px;width:280px;font-weight:300;font-size:16px;line-height:1.5}.updated+#theme-options-search{margin-top:-91px}.wrap.searching .nav-tab-wrapper a,.wrap.searching .panel tr,#attrselector{display:none}.wrap.searching .panel{display:block !important}#attrselector[attrselector*=ok]{display:block}</style>
 <style id="theme-options-filter"></style>
 <div id="attrselector" attrselector="ok" ></div>
 <script>

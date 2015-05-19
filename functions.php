@@ -74,17 +74,6 @@ add_filter('admin_footer_text', 'git_admin_footer_text');
         add_action('wp_print_scripts', 'deel_disable_autosave');
         remove_action('pre_post_update', 'wp_save_post_revision');
     }
-    //控制面板通知
-        function custom_dashboard_help() {
-    if(function_exists('file_get_contents')){
-    echo file_get_contents( "https://gitcafe.com/googlo/File/raw/master/notice.txt" );
-    }else{
-    echo '如果您看到这句话，证明你的file_get_contents函数被禁用了，请开启此函数！';}
-    }
-    function example_add_dashboard_widgets() {
-        wp_add_dashboard_widget('custom_help_widget', 'Git远程通知', 'custom_dashboard_help');
-    }
-    add_action('wp_dashboard_setup', 'example_add_dashboard_widgets' );
     //去除自带js
     wp_deregister_script('l10n');
     //修改默认发信地址
@@ -2244,13 +2233,13 @@ if(git_get_option('git_vip')):
 function get_author_class($comment_author_email, $user_id) {
     global $wpdb;
     $author_count = count($wpdb->get_results("SELECT comment_ID as author_count FROM $wpdb->comments WHERE comment_author_email = '$comment_author_email' "));
-    if ($author_count >= 1 && $author_count < git_get_option('git_vip1') ? git_get_option('git_vip1' ) : 5 ) echo '<a class="vip1" title="评论达人 LV.1"></a>';
-    else if ($author_count >= git_get_option('git_vip1') && $author_count < git_get_option('git_vip2')) echo '<a class="vip2" title="评论达人 LV.2"></a>';
-    else if ($author_count >= git_get_option('git_vip2') && $author_count < git_get_option('git_vip3')) echo '<a class="vip3" title="评论达人 LV.3"></a>';
-    else if ($author_count >= git_get_option('git_vip3') && $author_count < git_get_option('git_vip4')) echo '<a class="vip4" title="评论达人 LV.4"></a>';
-    else if ($author_count >= git_get_option('git_vip4') && $author_count < git_get_option('git_vip5') ) echo '<a class="vip5" title="评论达人 LV.5"></a>';
-    else if ($author_count >= git_get_option('git_vip5') && $author_count < git_get_option('git_vip6') ) echo '<a class="vip6" title="评论达人 LV.6"></a>';
-    else if ($author_count >= git_get_option('git_vip6') ) echo '<a class="vip7" title="评论达人 LV.7"></a>';
+    if ($author_count >= 1 && 10 ) echo '<a class="vip1" title="评论达人 LV.1"></a>';
+    else if ($author_count >= 10 && $author_count < 30 ) echo '<a class="vip2" title="评论达人 LV.2"></a>';
+    else if ($author_count >= 30 && $author_count < 50) echo '<a class="vip3" title="评论达人 LV.3"></a>';
+    else if ($author_count >= 50 && $author_count < 70) echo '<a class="vip4" title="评论达人 LV.4"></a>';
+    else if ($author_count >= 70 && $author_count < 90) echo '<a class="vip5" title="评论达人 LV.5"></a>';
+    else if ($author_count >= 90 && $author_count < 110) echo '<a class="vip6" title="评论达人 LV.6"></a>';
+    else if ($author_count >= 110) echo '<a class="vip7" title="评论达人 LV.7"></a>';
 }
 endif;
 //管理后台添加按钮
@@ -2265,7 +2254,7 @@ function custom_adminbar_menu($meta = TRUE) {
     $wp_admin_bar->add_menu(array(
         'id' => 'custom_menu',
         'capability_type' => 'post',
-        'title' => __('Git选项')
+        'title' => __('Git主题相关')
     ) /* 设子菜单名 */);
     /* menu links */
     $wp_admin_bar->add_menu(array(
@@ -2275,48 +2264,56 @@ function custom_adminbar_menu($meta = TRUE) {
     ));
     $wp_admin_bar->add_menu(array(
         'parent' => 'custom_menu',
-        'title' => 'Yahoo', /* 设置链接名 */
-        'href' => 'http://yahoo.com/', /* 设置链接地址 */
+        'title' => '主题主页', /* 设置链接名 */
+        'href' => 'http://googlo.me/archives/3589.html', /* 设置链接地址 */
         'meta' => array(
             target => '_blank'
         )
     ));
     $wp_admin_bar->add_menu(array(
         'parent' => 'custom_menu',
-        'title' => 'Yahoo', /* 设置链接名 */
-        'href' => 'http://yahoo.com/', /* 设置链接地址 */
+        'title' => '邮箱反馈', /* 设置链接名 */
+        'href' => 'http://googlo.me/go/mail', /* 设置链接地址 */
         'meta' => array(
             target => '_blank'
         )
     ));
     $wp_admin_bar->add_menu(array(
         'parent' => 'custom_menu',
-        'title' => 'Yahoo', /* 设置链接名 */
-        'href' => 'http://yahoo.com/', /* 设置链接地址 */
+        'title' => '支持主题', /* 设置链接名 */
+        'href' => 'http://googlo.me/pay', /* 设置链接地址 */
         'meta' => array(
             target => '_blank'
         )
     ));
     $wp_admin_bar->add_menu(array(
         'parent' => 'custom_menu',
-        'title' => 'Yahoo', /* 设置链接名 */
-        'href' => 'http://yahoo.com/', /* 设置链接地址 */
+        'title' => '功能建议', /* 设置链接名 */
+        'href' => 'http://googlo.me/about.html', /* 设置链接地址 */
         'meta' => array(
             target => '_blank'
         )
     ));
     $wp_admin_bar->add_menu(array(
         'parent' => 'custom_menu',
-        'title' => 'Yahoo', /* 设置链接名 */
-        'href' => 'http://yahoo.com/', /* 设置链接地址 */
+        'title' => '使用文档', /* 设置链接名 */
+        'href' => 'http://googlo.me/archives/3275.html', /* 设置链接地址 */
         'meta' => array(
             target => '_blank'
         )
     ));
     $wp_admin_bar->add_menu(array(
         'parent' => 'custom_menu',
-        'title' => 'Yahoo', /* 设置链接名 */
-        'href' => 'http://yahoo.com/', /* 设置链接地址 */
+        'title' => '定制修改', /* 设置链接名 */
+        'href' => 'http://googlo.me/go/qq', /* 设置链接地址 */
+        'meta' => array(
+            target => '_blank'
+        )
+    ));
+    $wp_admin_bar->add_menu(array(
+        'parent' => 'custom_menu',
+        'title' => '加入QQ群', /* 设置链接名 */
+        'href' => 'http://googlo.me/go/qun', /* 设置链接地址 */
         'meta' => array(
             target => '_blank'
         )
@@ -2347,7 +2344,7 @@ function git_comment_add_at( $comment_text, $comment = '') {
   return $comment_text;
 }
 add_filter( 'comment_text' , 'git_comment_add_at', 20, 2);
-//保护后台登录，来自倡萌：http://www.wpdaxue.com/protected-wp-login.html
+//保护后台登录，修改自倡萌：http://www.wpdaxue.com/protected-wp-login.html
 if(git_get_option('git_admin')):
 function git_login_protection() {
     if ($_GET[''.git_get_option('git_admin_q').''] != ''.git_get_option('git_admin_a').'') {
