@@ -2229,25 +2229,27 @@ function git_editor_buttons($buttons) {
 }
 add_filter("mce_buttons_3", "git_editor_buttons");
 //获取访客VIP样式
+if(git_get_option('git_vip')):
 function get_author_class($comment_author_email, $user_id){
 	global $wpdb;
 	$author_count = count($wpdb->get_results(
 	"SELECT comment_ID as author_count FROM $wpdb->comments WHERE comment_author_email = '$comment_author_email' "));
-	if($author_count>=10 && $author_count<20)
+	if($author_count>=1 && $author_count< git_get_option('git_vip1'))
 		echo '<a class="vip1" title="评论达人 LV.1"></a>';
-	else if($author_count>=20 && $author_count<40)
+	else if($author_count>=git_get_option('git_vip1') && $author_count< git_get_option('git_vip2'))
 		echo '<a class="vip2" title="评论达人 LV.2"></a>';
-	else if($author_count>=40 && $author_count<80)
+	else if($author_count>=git_get_option('git_vip2') && $author_count< git_get_option('git_vip3'))
 		echo '<a class="vip3" title="评论达人 LV.3"></a>';
-	else if($author_count>=80 && $author_count<160)
+	else if($author_count>=git_get_option('git_vip3') && $author_count< git_get_option('git_vip4'))
 		echo '<a class="vip4" title="评论达人 LV.4"></a>';
-	else if($author_count>=160 &&$author_count<320)
+	else if($author_count>=git_get_option('git_vip4') && $author_count< git_get_option('git_vip5'))
 		echo '<a class="vip5" title="评论达人 LV.5"></a>';
-	else if($author_count>=320 && $author_count<640)
+	else if($author_count>=git_get_option('git_vip5') && $author_count< git_get_option('git_vip6'))
 		echo '<a class="vip6" title="评论达人 LV.6"></a>';
-	else if($author_count>=640)
+	else if($author_count>=git_get_option('git_vip6'))
 		echo '<a class="vip7" title="评论达人 LV.7"></a>';
 }
+endif;
 //管理后台添加按钮
 function custom_adminbar_menu($meta = TRUE) {
     global $wp_admin_bar;

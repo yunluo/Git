@@ -372,6 +372,48 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+        'name'  => 'VIP 1',
+        'desc'  => '输入的数字减一就是VIP 1的所要求的评论数字区间，默认是5',
+        'id'    => 'git_vip1',
+        'type'  => 'number',
+        'std'   => 5
+    ),
+    array(
+        'name'  => 'VIP 2',
+        'desc'  => '输入的数字减去上面的数字就是VIP 2的所要求的评论数字区间，默认是10',
+        'id'    => 'git_vip2',
+        'type'  => 'number',
+        'std'   => 10
+    ),
+    array(
+        'name'  => 'VIP 3',
+        'desc'  => '输入的数字减去上面的数字就是VIP 3的所要求的评论数字区间，默认是20',
+        'id'    => 'git_vip3',
+        'type'  => 'number',
+        'std'   => 20
+    ),
+    array(
+        'name'  => 'VIP 4',
+        'desc'  => '输入的数字减去上面的数字就是VIP 4的所要求的评论数字区间，默认是40',
+        'id'    => 'git_vip4',
+        'type'  => 'number',
+        'std'   => 30
+    ),
+    array(
+        'name'  => 'VIP 5',
+        'desc'  => '输入的数字减去上面的数字就是VIP 5的所要求的评论数字区间，默认是70',
+        'id'    => 'git_vip5',
+        'type'  => 'number',
+        'std'   => 40
+    ),
+    array(
+        'name'  => 'VIP 6',
+        'desc'  => '输入的数字减去上面的数字就是VIP 6的所要求的评论数字区间，默认是110',
+        'id'    => 'git_vip6',
+        'type'  => 'number',
+        'std'   => 50
+    ),
+    array(
         'name'  => '文章摘要',
         'desc'  => '个字',
         'id'    => 'git_excerpt_length',
