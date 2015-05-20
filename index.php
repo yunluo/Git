@@ -12,6 +12,8 @@ if ($paged && $paged > 1) {
     if (git_get_option('git_sticky_b')) include 'modules/sticky.php';
     if (git_get_option('git_slick_b') && !G_is_mobile()) include 'modules/slick.php';
 }
+if (git_get_option('git_adindex_02')) printf('<div class="banner banner-navbar">' . git_get_option('git_adindex_02') . '</div>');
+
 if (git_get_option('git_cms_b')) {
     include 'modules/cms.php';
 } else {

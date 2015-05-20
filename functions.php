@@ -1829,22 +1829,22 @@ function remove_wps_width( $html ) {
 add_filter( 'post_thumbnail_html', 'remove_wps_width', 10 );
 add_filter( 'image_send_to_editor', 'remove_wps_width', 10 );
 //评论拒绝HTML代码
-function plc_comment_post( $incoming_comment ) {
+function git_comment_post( $incoming_comment ) {
         $incoming_comment['comment_content'] = htmlspecialchars($incoming_comment['comment_content']);
         $incoming_comment['comment_content'] = str_replace( "'", '&apos;', $incoming_comment['comment_content'] );
         return( $incoming_comment );
 }
-function plc_comment_display( $comment_to_display ) {
+function git_comment_display( $comment_to_display ) {
         $comment_to_display = str_replace( '&apos;', "'", $comment_to_display );
         return $comment_to_display;
 }
-add_filter( 'preprocess_comment', 'plc_comment_post', '', 1);
-add_filter( 'comment_text', 'plc_comment_display', '', 1);
-add_filter( 'comment_text_rss', 'plc_comment_display', '', 1);
-add_filter( 'comment_excerpt', 'plc_comment_display', '', 1);
+add_filter( 'preprocess_comment', 'git_comment_post', '', 1);
+add_filter( 'comment_text', 'git_comment_display', '', 1);
+add_filter( 'comment_text_rss', 'git_comment_display', '', 1);
+add_filter( 'comment_excerpt', 'git_comment_display', '', 1);
 //注册页面的验证
 if(git_get_option('git_register')):
-function googlo_register_form() {
+function git_register_form() {
     $pass1 = stripslashes(trim($_POST['pass1']));
     $pass2 = stripslashes(trim($_POST['pass2']));
     $pass1 = $pass1 ? $pass1 : '';
@@ -1871,7 +1871,7 @@ function googlo_register_form() {
 		<style type="text/css">#reg_passmail {display: none;}</style>
         <?php
 }
-add_action('register_form', 'googlo_register_form');
+add_action('register_form', 'git_register_form');
 //用户注册成功后自动登录，并跳转到指定页面
 function git_auto_login($user_id) {
     wp_set_current_user($user_id);
@@ -1881,7 +1881,7 @@ function git_auto_login($user_id) {
 }
 add_action('user_register', 'git_auto_login');
 //进行错误显示
-function googlo_registration_errors($errors, $sanitized_user_login, $user_email) {
+function git_registration_errors($errors, $sanitized_user_login, $user_email) {
     if (empty($_POST['pass1']) || !empty($_POST['pass1']) && trim($_POST['pass1']) == '') {
         $errors->add('pass1_error','<strong>发生错误</strong>:请输入您的密码');
     }
@@ -1896,9 +1896,9 @@ function googlo_registration_errors($errors, $sanitized_user_login, $user_email)
     }
     return $errors;
 }
-add_filter('registration_errors', 'googlo_registration_errors', 10, 3);
+add_filter('registration_errors', 'git_registration_errors', 10, 3);
 //对用户注册输入内容进行判断
-function googlo_user_register($user_id) {
+function git_user_register($user_id) {
     if (!empty($_POST['pass1']) && !empty($_POST['pass2'])&& (trim($_POST['pass1']) == trim($_POST['pass2']))) {
         $pass = stripslashes(trim($_POST['pass1']));
         $userdata = array();
@@ -1907,7 +1907,7 @@ function googlo_user_register($user_id) {
         $user_id = wp_update_user($userdata);
     }
 }
-add_action('user_register', 'googlo_user_register');
+add_action('user_register', 'git_user_register');
 endif;
 
 //SMTP邮箱设置
@@ -1933,12 +1933,12 @@ if (git_get_option('git_mailsmtp_b')) {
 /*中文文件重命名
 源代码来自：http://www.aips.me/wordpress-upload-pictures-renamed.html
 */
-function googlo_wp_upload_filter($file) {
+function git_upload_filter($file) {
     $time = date("YmdHis");
     $file['name'] = $time . "" . mt_rand(1, 100) . "." . pathinfo($file['name'], PATHINFO_EXTENSION);
     return $file;
 }
-add_filter('wp_handle_upload_prefilter', 'googlo_wp_upload_filter');
+add_filter('wp_handle_upload_prefilter', 'git_upload_filter');
 //CMS模板需要的
 function get_pagelink_through_template($page_temp){
     global $wpdb;
@@ -2250,6 +2250,13 @@ function get_author_class($comment_author_email, $user_id){
 		echo '<a class="vip7" title="评论达人 LV.7"></a>';
 }
 endif;
+//取消后台登陆错误的提示
+function git_wps_login_error() {
+        remove_action('login_head', 'wp_shake_js', 12);
+}
+add_action('login_head', 'git_wps_login_error');
+//设HTML为默认编辑器
+add_filter( 'wp_default_editor', create_function('', 'return "html";') ); 
 //管理后台添加按钮
 function custom_adminbar_menu($meta = TRUE) {
     global $wp_admin_bar;
