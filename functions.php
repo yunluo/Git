@@ -1341,9 +1341,7 @@ function xdltable($atts, $content = null) {
 }
 add_shortcode('dltable', 'xdltable');
 //自动为文章内链接生成超链接
-if (git_get_option('git_linktrue_b')) {
 add_filter('the_content', 'make_clickable');
-}
 // add youku using iframe
 function wp_iframe_handler_youku($matches, $attr, $url, $rawattr) {
     if (wp_is_mobile()) {
