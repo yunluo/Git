@@ -1368,28 +1368,6 @@ function wp_iframe_handler_tudou($matches, $attr, $url, $rawattr) {
 wp_embed_register_handler('tudou_iframe', '#http://www.tudou.com/programs/view/(.*?)/#i', 'wp_iframe_handler_tudou');
 wp_embed_unregister_handler('youku');
 wp_embed_unregister_handler('tudou');
-//百度sitemap实时推送，貌似有点问题哈2333
-if(git_get_option('git_sitemap_b')):
-function GitPushBaiDu(){
-    global $post_id;
-    global $post;
-    $Push = '' . git_get_option('git_sitemap') . '';
-    $PushUrl = get_permalink($post_id);
-    $PushDate = $post->post_data;
-    $PushXml = '<?xml version="1.0" encoding="UTF-8"?>
-    <urlset>
-        <url>
-            <loc><![CDATA['.$PushUrl.']]></loc>
-            <lastmod>'.$PushDate.'</lastmod>
-            <changefreq>daily</changefreq>
-            <priority>0.9</priority>
-        </url>
-    </urlset>';
-    $wp_http_obj = new WP_Http();
-    return $wp_http_obj->post($Push, array('body' => $PushXml, 'headers' => array('Content-Type' => 'text/xml')));
-}
-add_action('publish_post', 'GitPushBaiDu');
-endif;
 //后台快捷键回复
 function hui_admin_comment_ctrlenter() {
     echo '<script type="text/javascript">
@@ -2368,6 +2346,29 @@ function git_login_protection() {
 }
 add_action('login_enqueue_scripts', 'git_login_protection');
 endif;
+//百度主动推送,来自：百度实时推送插件
+function git_publish_bd_submit($post_ID){
+	global $post;
+	$bd_submit_enabled = git_get_option('git_sitemap_b');
+	if($bd_submit_enabled){
+		$bd_submit_site = get_bloginfo('url');
+		$bd_submit_token = git_get_option('git_sitemap_token');
+		if( empty($post_ID) || empty($bd_submit_site) || empty($bd_submit_token) ) return;
+		$api = 'http://data.zz.baidu.com/urls?site='.$bd_submit_site.'&token='.$bd_submit_token;
+		if( $post->post_status != "publish" ){
+			$url = get_permalink($post_ID);
+			$ch = curl_init();
+			$options =  array(
+				CURLOPT_URL => $api,
+				CURLOPT_POST => true,
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_POSTFIELDS => $url,
+				CURLOPT_HTTPHEADER => array('Content-Type: text/plain')
+			);
+		}
+	}
+}
+add_action('publish_post', 'git_publish_bd_submit', 0);
 /*WordPress函数代码结束*/
 
 

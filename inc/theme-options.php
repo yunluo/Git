@@ -221,15 +221,19 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+        'title' => '百度实时推送 <a href="http://zhanzhang.baidu.com/sitemap/pingindex" target="_blank">查看主动推送效果</a>',//标题文字
+        'type'  => 'subtitle'//subtitle 是标签下的标题
+    ),
+    array(
         'name'  => '百度Sitemap实时推送',
         'desc'  => '启用 【开启本项之后，首先需要保证您的网站已拥有sitemap提交权限】 <a class="button-primary" rel="nofollow" href="http://zhanzhang.baidu.com/sitemap/index" target="_blank">申请百度Sitemap</a>',
         'id'    => "git_sitemap_b",
         'type'  => 'checkbox'
     ),
     array(
-        'name'  => '百度推送接口地址',
-        'desc'  => '每一个网站第一无二的地址，首先需要保证上面的选项已开启 <a class="button-primary" rel="nofollow" href="http://zhanzhang.baidu.com/sitemap/pingadd" target="_blank">获取接口地址</a>',
-        'id'    => "git_sitemap",
+        'name'  => '站点准入密钥',
+        'desc'  => '在站长平台申请的推送用的准入密钥，比如：3sM2Wity6fP8TbR0 , <a class="button-primary" rel="nofollow" href="http://zhanzhang.baidu.com/sitemap/pingadd" target="_blank">获取密钥地址</a>',
+        'id'    => "git_sitemap_token",
         'type'  => 'text',
         'std'   => ''
     ),
@@ -1691,7 +1695,7 @@ switch ( $value['type'] ) {
 <h2>主题的那些事</h2>
         <p>&nbsp;&nbsp;这款主题一开始来自于大前端的D8主题，优秀的D8主题在经过欲思这里，欲思对这款主题进行了大量的修改，对本款主题的流行起到了非常重要的作用。</p>
         <p>&nbsp;&nbsp;云落在正式建站的时候选择了这款主题并且一直使用到现在，期间对这款主题进行了N次的代码修改，有的地方是小修改，有的地方事一些大的修改，在欲思主题的基础上面做了很多二次开发，随着主题的修改进程，个人对WordPress的理解也随之加深，对于WordPress的应用也较以前有了更深的熟练。</p>
-        <p>&nbsp;&nbsp;故，在经过多次修改后，自觉主题修改的足够对其更名以将其与欲思主题以区分，并且将其代码托管至<a href="http://git.oschina.net/yunluo/git" target="_blank">开源中国</a>，并且将其更名为：Git ！</p>
+        <p>&nbsp;&nbsp;故，在经过多次修改后，自觉主题修改的足够���其更名以将其与欲思主题以区分，并且将其代码托管至<a href="http://git.oschina.net/yunluo/git" target="_blank">开源中国</a>，并且将其更名为：Git ！</p>
         <p>&nbsp;&nbsp;定名为Git，首先是因为主题采用Git版本系统管理代码的，写的最多的代码就是git了，另外G代表我的Googlo.Me，并且一直采用开源中国托管代码，遂定名为Git。</p>
         <p>&nbsp;&nbsp;感谢大前端的D8主题，感谢欲思的欲思主题，感谢小影的主题，感谢知更鸟的主题，感谢露兜博客，感谢devework，感谢开源中国，感谢一直跟随主题版本升级的朋友们</p>
 <h2>支持云落</h2>
