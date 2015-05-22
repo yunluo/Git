@@ -23,11 +23,11 @@ if ($posttags) {
         the_permalink(); ?>" title="<?php
         the_title(); ?>" target="_blank"><?php
         if (git_get_option('git_cdnurl_b')) {
-            echo '<img src="';
+            echo '<img width="185px" height="110px" src="';
             echo post_thumbnail_src();
-            echo '?imageView2/1/w/185/h/110/q/85" alt="' . get_the_title() . '" />';
+            echo '?imageView2/1/w/185/h/110/q/75" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img src="' . get_bloginfo("template_url") . '/timthumb.php?src=';
+            echo '<img width="185px" height="110px" src="' . get_bloginfo("template_url") . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=110&w=185&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
         } ?><br><span class="r_title"><?php
@@ -58,11 +58,11 @@ if ($i < $post_num) {
         the_permalink(); ?>" title="<?php
         the_title(); ?>" target="_blank"><?php
         if (git_get_option('git_cdnurl_b')) {
-            echo '<img src="';
+            echo '<img width="185px" height="110px" src="';
             echo post_thumbnail_src();
-            echo '?imageView2/1/w/185/h/110/q/85" alt="' . get_the_title() . '" />';
+            echo '?imageView2/1/w/185/h/110/q/75" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img src="' . get_bloginfo("template_url") . '/timthumb.php?src=';
+            echo '<img width="185px" height="110px" src="' . get_bloginfo("template_url") . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=110&w=185&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
         } ?><br><span class="r_title"><?php

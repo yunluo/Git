@@ -38,7 +38,7 @@ if (git_get_option('git_cdnurl_b')) {
         echo '<a target="_blank" href="#" title="' . get_the_title() . '">';
         echo '<img src="';
         echo post_thumbnail_src();
-        echo '?imageView2/1/w/120/h/62/q/85" /></a>';
+        echo '?imageView2/1/w/120/h/62/q/75" /></a>';
     endwhile;
     wp_reset_query();
 } else {

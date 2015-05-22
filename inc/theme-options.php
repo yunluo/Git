@@ -1524,7 +1524,7 @@ function git_options_page() {
     <div class="yunluotips">
     <?php
         if (function_exists('curl_init')) {
-            $url = "http://git.oschina.net/yunluo/API/raw/master/notice.txt";
+            $url = "https://gitcafe.com/googlo/File/raw/master/notice.txt";
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

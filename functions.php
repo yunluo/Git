@@ -428,7 +428,7 @@ function git_avatar_cache($avatar) {
     }elseif(git_get_option('git_avater')=='git_avatar_qn'){
     $avatar = str_replace(array("www.gravatar.com", "0.gravatar.com", "1.gravatar.com", "2.gravatar.com" ) , "cd.v7v3.com", $avatar);
     }elseif(git_get_option('git_avater')=='git_avatar_ssl'){
-    $avatar = preg_replace('/.*\/avatar\/(.*)\?s=([\d]+)&.*/','<img src="https://secure.gravatar.com/avatar/$1?s=$2" class="avatar avatar-$2" height="50" width="50">',$avatar);
+    $avatar = preg_replace('/.*\/avatar\/(.*)\?s=([\d]+)&.*/','<img src="https://secure.gravatar.com/avatar/$1?s=$2" class="avatar avatar-$2" height="50px" width="50px">',$avatar);
     }
     return $avatar;
 }
@@ -633,8 +633,8 @@ function deel_comment_list($comment, $args, $depth) {
     } else {
         echo '<span class="c-author">' . get_comment_author_link() . '</span>';
     }
-    if ($comment->user_id == '1') {
-		echo '<img src="' . get_bloginfo('template_directory') . '/img/webmaster.png" id="comment_is_admin" title="博主大人">';
+    if(user_can($comment->user_id, 1)){
+        echo '<a title="博主认证" class="vip"></a>';
 	}elseif(git_get_option('git_vip')){
 		echo get_author_class($comment->comment_author_email,$comment->user_id);
 	}
@@ -751,7 +751,7 @@ function bigfa_like() {
     die;
 }
 //最热排行
-/*
+/* 暂时弃用此方法
 function hot_posts_list($days = 300, $nums = 5) {
     global $wpdb;
     $today = date("Y-m-d H:i:s");
@@ -768,7 +768,7 @@ function hot_posts_list() {
     }
     $output = '';
     if (empty($result)) {
-        $output = '<li>暂时无数据</li>';
+        $output = '<li>暂无数据</li>';
     } else {
         $i = 1;
         foreach ($result as $topten) {
@@ -2311,7 +2311,7 @@ function custom_adminbar_menu($meta = TRUE) {
     ));
     $wp_admin_bar->add_menu(array(
         'parent' => 'custom_menu',
-        'title' => '使用文档', /* 设置链接名 */
+        'title' => '使用文档[必看]', /* 设置链接名 */
         'href' => 'http://googlo.me/archives/3275.html', /* 设置链接地址 */
         'meta' => array(
             target => '_blank'
@@ -2350,7 +2350,7 @@ function git_sanitize_user ($username, $raw_username, $strict) {
   return $username;
 }
 add_filter ('sanitize_user', 'git_sanitize_user', 10, 3);
-// 评论添加@，奶子：http://www.ludou.org/wordpress-comment-reply-add-at.html
+// 评论添加@，来自：http://www.ludou.org/wordpress-comment-reply-add-at.html
 function git_comment_add_at( $comment_text, $comment = '') {
   if( $comment->comment_parent > 0) {
     $comment_text = '@<a href="#comment-' . $comment->comment_parent . '">'.get_comment_author( $comment->comment_parent ) . '</a> ' . $comment_text;

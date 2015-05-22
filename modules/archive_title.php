@@ -51,7 +51,7 @@ while (have_posts()):
             echo git_get_option('git_thumb_width') ? git_get_option('git_thumb_width') : 200;
             echo '/h/';
             echo git_get_option('git_thumb_height') ? git_get_option('git_thumb_height') : 123;
-            echo '/q/85" alt="' . get_the_title() . '" />';
+            echo '/q/75" alt="' . get_the_title() . '" />';
         } else {
             echo '<img class="thumb" src="' . get_bloginfo("template_url") . '/timthumb.php?src=';
             echo post_thumbnail_src();

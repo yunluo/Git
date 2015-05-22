@@ -171,7 +171,7 @@ class git_postlist extends WP_Widget {
         echo $before_widget;
         echo $before_title . $mo . $title . $after_title;
         echo '<ul' . $style . '>';
-        echo dtheme_posts_list($orderby, $limit, $cat, $img);
+        echo githeme_posts_list($orderby, $limit, $cat, $img);
         echo '</ul>';
         echo $after_widget;
     }
@@ -250,7 +250,7 @@ class git_postlist extends WP_Widget {
 	<?php
     }
 }
-function dtheme_posts_list($orderby, $limit, $cat, $img) {
+function githeme_posts_list($orderby, $limit, $cat, $img) {
     $args = array(
         'order' => DESC,
         'cat' => $cat,
@@ -269,16 +269,16 @@ function dtheme_posts_list($orderby, $limit, $cat, $img) {
         if (git_get_option('git_cdnurl_b')) {
             if ($img) {
                 echo '<span class="thumbnail">';
-                echo '<img src="';
+                echo '<img width="100px" height="64px" src="';
                 echo post_thumbnail_src();
-                echo '?imageView2/1/w/100/h/64/q/85" alt="' . get_the_title() . '" /></span>';
+                echo '?imageView2/1/w/100/h/64/q/5" alt="' . get_the_title() . '" /></span>';
             } else {
                 $img = '';
             }
         } else {
             if ($img) {
                 echo '<span class="thumbnail">';
-                echo '<img src="' . get_bloginfo("template_url") . '/timthumb.php?src=';
+                echo '<img width="100px" height="64px" src="' . get_bloginfo("template_url") . '/timthumb.php?src=';
                 echo post_thumbnail_src();
                 echo '&h=64&w=100&q=90&zc=1&ct=1" alt="' . get_the_title() . '" /></span>';
             } else {
@@ -320,7 +320,7 @@ class git_reader extends WP_Widget {
         echo $before_widget;
         echo $before_title . $mo . $title . $after_title;
         echo '<ul>';
-        echo dtheme_readers($out = $outer, $tim = $timer, $lim = $limit, $addlink);;
+        echo githeme_readers($out = $outer, $tim = $timer, $lim = $limit, $addlink);;
         echo '</ul>';
         echo $after_widget;
     }
@@ -394,12 +394,12 @@ class git_reader extends WP_Widget {
 }
 /*
  * 读者墙
- * dtheme_readers( $outer='name', $timer='3', $limit='14' );
+ * githeme_readers( $outer='name', $timer='3', $limit='14' );
  * $outer 不显示某人
  * $timer 几个月时间内
  * $limit 显示条数
 */
-function dtheme_readers($out, $tim, $lim, $addlink) {
+function githeme_readers($out, $tim, $lim, $addlink) {
     global $wpdb;
     $counts = $wpdb->get_results("select count(comment_author) as cnt, comment_author, comment_author_url, comment_author_email from (select * from $wpdb->comments left outer join $wpdb->posts on ($wpdb->posts.id=$wpdb->comments.comment_post_id) where comment_date > date_sub( now(), interval $tim day ) and user_id='0' and comment_author != '" . $out . "' and post_password='' and comment_approved='1' and comment_type='') as tempcmt group by comment_author order by cnt desc limit $lim");
     foreach ($counts as $count) {
@@ -659,11 +659,11 @@ class git_slick extends WP_Widget {
         $slink4 = $instance['slink4'];
         $stitle4 = $instance['stitle4'];
         echo $before_widget;
-        echo '<div class="slick" style="height:200px !important ;" >';
-        echo '<div><a target="_blank" href="' . $slink1 . '" title="' . $stitle1 . '" ><img src="' . $simg1 . '" ></a></div>';
-        echo '<div><a target="_blank" href="' . $slink2 . '" title="' . $stitle2 . '" ><img src="' . $simg2 . '" ></a></div>';
-        echo '<div><a target="_blank" href="' . $slink3 . '" title="' . $stitle3 . '" ><img src="' . $simg3 . '" ></a></div>';
-        echo '<div><a target="_blank" href="' . $slink4 . '" title="' . $stitle4 . '" ><img src="' . $simg4 . '" ></a></div>';
+        echo '<div class="slick" >';
+        echo '<div><a target="_blank" href="' . $slink1 . '" title="' . $stitle1 . '" ><img width="360px" height="200px" src="' . $simg1 . '" ></a></div>';
+        echo '<div><a target="_blank" href="' . $slink2 . '" title="' . $stitle2 . '" ><img width="360px" height="200px" src="' . $simg2 . '" ></a></div>';
+        echo '<div><a target="_blank" href="' . $slink3 . '" title="' . $stitle3 . '" ><img width="360px" height="200px" src="' . $simg3 . '" ></a></div>';
+        echo '<div><a target="_blank" href="' . $slink4 . '" title="' . $stitle4 . '" ><img width="360px" height="200px" src="' . $simg4 . '" ></a></div>';
         echo '</div>';
         echo $after_widget;
     }
@@ -809,10 +809,10 @@ class git_slide extends WP_Widget {
         $ttitle4 = $instance['ttitle4'];
         echo $before_widget;
         echo '<div id="wowslider-container1"><div class="ws_images"><ul>';
-        echo '<li><a target="_blank" href="' . $link1 . '" title="' . $ttitle1 . '" ><img src="' . $img1 . '" ></a></li>';
-        echo '<li><a target="_blank" href="' . $link2 . '" title="' . $ttitle2 . '" ><img src="' . $img2 . '" ></a></li>';
-        echo '<li><a target="_blank" href="' . $link3 . '" title="' . $ttitle3 . '" ><img src="' . $img3 . '" ></a></li>';
-        echo '<li><a target="_blank" href="' . $link4 . '" title="' . $ttitle4 . '" ><img src="' . $img4 . '" ></a></li>';
+        echo '<li><a target="_blank" href="' . $link1 . '" title="' . $ttitle1 . '" ><img width="360px" height="149px" src="' . $img1 . '" ></a></li>';
+        echo '<li><a target="_blank" href="' . $link2 . '" title="' . $ttitle2 . '" ><img width="360px" height="149px" src="' . $img2 . '" ></a></li>';
+        echo '<li><a target="_blank" href="' . $link3 . '" title="' . $ttitle3 . '" ><img width="360px" height="149px" src="' . $img3 . '" ></a></li>';
+        echo '<li><a target="_blank" href="' . $link4 . '" title="' . $ttitle4 . '" ><img width="360px" height="149px" src="' . $img4 . '" ></a></li>';
         echo '</ul></div></div>';
         echo $after_widget;
     }
@@ -951,9 +951,9 @@ class git_social extends WP_Widget {
         if (git_get_option('git_tqq')) echo '<a  href="' . git_get_option('git_tqq') . '" rel="external nofollow" title="腾讯微博" target="_blank"><i class="tencentweibo fa fa-tencent-weibo"></i></a>';
         if (git_get_option('git_git')) echo '<a href="' . git_get_option('git_git') . '" rel="external nofollow" title="GIT系统" target="_blank"><i class="git fa fa-git"></i></a>';
         if (git_get_option('git_baidu')) echo '<a href="' . git_get_option('git_baidu') . '" rel="external nofollow" title="百度贴吧" target="_blank"><i class="baidu fa fa-paw"></i></a>';
-        if (git_get_option('git_weixin')) echo '<a class="weixin"><i class="weixins fa fa-weixin"></i><div class="weixin-popover"><div class="popover bottom in"><div class="arrow"></div><div class="popover-title">订阅号“' . git_get_option('git_weixin') . '”</div><div class="popover-content"><img src="' . git_get_option('git_weixin_qr') . '" ></div></div></div></a>';
+        if (git_get_option('git_weixin')) echo '<a class="weixin"><i class="weixins fa fa-weixin"></i><div class="weixin-popover"><div class="popover bottom in"><div class="arrow"></div><div class="popover-title">订阅号“' . git_get_option('git_weixin') . '”</div><div class="popover-content"><img width="200px" height="200px" src="' . git_get_option('git_weixin_qr') . '" ></div></div></div></a>';
         if (git_get_option('git_pay')) echo '<a class="weixin"><i class="pay fa fa-paypal"></i>
-</i><div class="weixin-popover"><div class="popover bottom in"><div class="arrow"></div><div class="popover-title">支付宝“' . git_get_option('git_pay') . '”</div><div class="popover-content"><img src="' . git_get_option('git_pay_qr') . '" ></div></div></div></a>';
+</i><div class="weixin-popover"><div class="popover bottom in"><div class="arrow"></div><div class="popover-title">支付宝“' . git_get_option('git_pay') . '”</div><div class="popover-content"><img width="200px" height="200px" src="' . git_get_option('git_pay_qr') . '" ></div></div></div></a>';
         if (git_get_option('git_emailContact')) echo '<a href="' . git_get_option('git_emailContact') . '" rel="external nofollow" title="Email" target="_blank"><i class="email fa fa-envelope-o"></i></a>';
         if (git_get_option('git_qqContact')) echo '<a href="tencent://message/?uin=' . git_get_option('git_qqContact') . '&Site=&Menu=yes " rel="external nofollow" title="联系QQ" target="_blank"><i class="qq fa fa-qq"></i></a>';
         if (git_get_option('git_rss')) echo '<a href="' . git_get_option('git_rss') . '" rel="external nofollow" target="_blank"  title="订阅本站"><i class="rss fa fa-rss"></i></a>';
@@ -1324,4 +1324,5 @@ class git_tongji extends WP_Widget {
         echo $output;
     }
 }
+
 ?>

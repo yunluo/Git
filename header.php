@@ -86,7 +86,7 @@ if (git_get_option('git_pichead_b')) { ?>
 <?php
     if (git_get_option('git_customhead')) { ?>
 <header style="background: url('<?php
-        echo git_get_option('git_customhead'); ?>') center 0px repeat-x;background-size: cover;" id="header" class="header">
+        echo git_get_option('git_customhead'); ?>') center 0px repeat-x;background-size: cover;background-repeat:repeat-x\9" id="header" class="header">
 <?php
     } ?>
 <?php
