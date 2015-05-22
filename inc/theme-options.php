@@ -1255,7 +1255,13 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
-        'title' => 'WordPress安全设置',
+        'name'  => '取消静态资源的版本查询',
+        'desc'  => '启用',
+        'id'    => "git_query",
+        'type'  => 'checkbox'
+    ),
+    array(
+        'title' => 'WordPress安全设置[小白慎用]',
         'type'  => 'subtitle'
     ),
     array(
@@ -1265,14 +1271,14 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
-        'name'  => '访问问题',
+        'name'  => '访问问题[绝对不准用中文]',
         'desc'  => '这里随便填写一个字符，比如：googlo',
         'id'    => "git_admin_q",
         'type'  => 'text',
         'std'   => ''
     ),
     array(
-        'name'  => '访问答案',
+        'name'  => '访问答案[绝对不准用中文]',
         'desc'  => '这里随便填写一个字符，比如：yunluo',
         'id'    => "git_admin_a",
         'type'  => 'text',

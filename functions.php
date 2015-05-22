@@ -2346,6 +2346,15 @@ function git_login_protection() {
 }
 add_action('login_enqueue_scripts', 'git_login_protection');
 endif;
+//取消静态资源的版本查询
+if(git_get_option('git_query')):
+function _remove_script_version( $src ){
+	$parts = explode( '?ver', $src );
+        return $parts[0];
+}
+add_filter( 'script_loader_src', '_remove_script_version', 15, 1 );
+add_filter( 'style_loader_src', '_remove_script_version', 15, 1 );
+endif;
 //百度主动推送,来自：百度实时推送插件
 function git_publish_bd_submit($post_ID){
 	global $post;
