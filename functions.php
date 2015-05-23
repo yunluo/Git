@@ -2358,7 +2358,7 @@ function git_publish_bd_submit($post_ID){
 	global $post;
 	$bd_submit_enabled = git_get_option('git_sitemap_b');
 	if($bd_submit_enabled){
-		$bd_submit_site = get_bloginfo('url');
+		$bd_submit_site = git_get_option('git_sitemap_site');
 		$bd_submit_token = git_get_option('git_sitemap_token');
 		if( empty($post_ID) || empty($bd_submit_site) || empty($bd_submit_token) ) return;
 		$api = 'http://data.zz.baidu.com/urls?site='.$bd_submit_site.'&token='.$bd_submit_token;
