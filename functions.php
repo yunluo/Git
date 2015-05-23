@@ -2357,12 +2357,12 @@ endif;
 function git_publish_bd_submit($post_ID){
 	global $post;
 	$bd_submit_enabled = git_get_option('git_sitemap_b');
-	if($bd_submit_enabled){
+	if($bd_submit_enabled && function_exists('curl_init') ){
 		$bd_submit_site = git_get_option('git_sitemap_site');
 		$bd_submit_token = git_get_option('git_sitemap_token');
 		if( empty($post_ID) || empty($bd_submit_site) || empty($bd_submit_token) ) return;
 		$api = 'http://data.zz.baidu.com/urls?site='.$bd_submit_site.'&token='.$bd_submit_token;
-		if( $post->post_status != "publish" ){
+		if( $post->post_status = "publish" ) {
 			$url = get_permalink($post_ID);
 			$ch = curl_init();
 			$options =  array(
@@ -2372,6 +2372,9 @@ function git_publish_bd_submit($post_ID){
 				CURLOPT_POSTFIELDS => $url,
 				CURLOPT_HTTPHEADER => array('Content-Type: text/plain')
 			);
+			curl_setopt_array($ch, $options);
+			$result = curl_exec($ch);
+            echo $result;
 		}
 	}
 }
