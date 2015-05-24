@@ -2122,6 +2122,13 @@ function init_gitsmilie() {
     add_filter('smilies_src', 'custom_gitsmilie_src', 10, 2);
 }
 add_action('init', 'init_gitsmilie', 5);
+//修复4.2表情问题
+function convert_smilie9s( $text ) {
+	return str_replace( 'style="height: 1em; max-height: 1em;" ' , '' , $text );
+}
+add_filter( 'the_content' , 'convert_smilie9s' , 11 );
+add_filter( 'the_excerpt' , 'convert_smilie9s' , 11 );
+add_filter( 'comment_text' , 'convert_smilie9s' , 21 );
 //压缩html代码
 if(git_get_option('git_compress')):
 function wp_compress_html(){
@@ -2161,33 +2168,6 @@ function git_unCompress($content) {
 }
 add_filter( "the_content", "git_unCompress");
 endif;
-//后台用户按照文章数目排序
-function wpjam_show_users_column_reg_time($value, $column_name, $user_id) {
-    if ($column_name == 'posts') {
-        $user = get_userdata($user_id);
-        return get_date_from_gmt($user->user_registered);
-    } else {
-        return $value;
-    }
-}
-add_filter('manage_users_custom_column', 'wpjam_show_users_column_reg_time', 11, 3);
-function wpjam_users_sortable_columns($sortable_columns) {
-    $sortable_columns['posts'] = 'posts';
-    return $sortable_columns;
-}
-add_filter("manage_users_sortable_columns", 'wpjam_users_sortable_columns');
-function git_users_search_order($obj) {
-    if (!isset($_REQUEST['orderby']) || $_REQUEST['orderby'] == 'posts') {
-        if (!in_array($_REQUEST['order'], array(
-            'asc',
-            'desc'
-        ))) {
-            $_REQUEST['order'] = 'asc';
-        }
-        $obj->query_orderby = "ORDER BY user_registered " . $_REQUEST['order'] . "";
-    }
-}
-add_action('pre_user_query', 'git_users_search_order');
 //自动首行缩进
 if(git_get_option('git_suojin')):
 function git_indent_txt($text){
