@@ -1100,7 +1100,7 @@ $options = array(
         'type'  => 'panelstart'
     ),
     array(
-        'name'  => '网站顶部广告',
+        'name'  => '网站顶部右侧广告',
         'desc'  => '开启 【这里需要logo居左才可以生效】',
         'id'    => 'git_toubuads',
         'type'  => 'textarea',
@@ -1115,29 +1115,15 @@ $options = array(
     ),
     array(
         'name'  => '广告：全站 - 导航下横幅',
-        'desc'  => '开启',
+        'desc'  => '显示在公告栏下',
         'id'    => 'git_adsite_01',
         'type'  => 'textarea',
         'std'   => ''
     ),
     array(
-        'name'  => '广告：全站正文列表最前',
-        'desc'  => '开启',
+        'name'  => '广告：幻灯片下广告',
+        'desc'  => '如果幻灯没开启，则不显示',
         'id'    => 'git_adindex_02',
-        'type'  => 'textarea',
-        'std'   => ''
-    ),
-    array(
-        'name'  => '广告：首页 - 导航下横幅',
-        'desc'  => '开启',
-        'id'    => 'git_adindex_01',
-        'type'  => 'textarea',
-        'std'   => ''
-    ),
-    array(
-        'name'  => '广告：首页 - 正文最前上',
-        'desc'  => '开启',
-        'id'    => 'git_adindex_03',
         'type'  => 'textarea',
         'std'   => ''
     ),

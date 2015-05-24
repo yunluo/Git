@@ -394,8 +394,8 @@ endif;
 //baidu分享
 $dHasShare = false;
 function deel_share() {
-    if (!git_get_option('git_bdshare_b')) return false;
-    echo '<span class="action action-share bdsharebuttonbox"><i class="fa fa-share-alt"></i>分享 (<span class="bds_count" data-cmd="count" title="累计分享0次">0</span>)<div class="action-popover"><div class="popover top in"><div class="arrow"></div><div class="popover-content"><a href="#" class="sinaweibo fa fa-weibo" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_qzone fa fa-star" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="tencentweibo fa fa-tencent-weibo" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="qq fa fa-qq" data-cmd="sqq" title="分享到QQ好友"></a><a href="#" class="bds_renren fa fa-renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin fa fa-weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_more fa fa-ellipsis-h" data-cmd="more"></a></div></div></div></span>';
+    if (!git_get_option('git_gitshare_b')) return false;
+    echo '<span class="action action-share gitsharebuttonbox"><i class="fa fa-share-alt"></i>分享 (<span class="gits_count" data-cmd="count" title="累计分享0次">0</span>)<div class="action-popover"><div class="popover top in"><div class="arrow"></div><div class="popover-content"><a href="#" class="sinaweibo fa fa-weibo" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="gits_qzone fa fa-star" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="tencentweibo fa fa-tencent-weibo" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="qq fa fa-qq" data-cmd="sqq" title="分享到QQ好友"></a><a href="#" class="gits_renren fa fa-renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="gits_weixin fa fa-weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="gits_more fa fa-ellipsis-h" data-cmd="more"></a></div></div></div></span>';
     global $dHasShare;
     $dHasShare = true;
 }
@@ -2354,14 +2354,14 @@ add_filter( 'script_loader_src', '_remove_script_version', 15, 1 );
 add_filter( 'style_loader_src', '_remove_script_version', 15, 1 );
 endif;
 //百度主动推送,来自：百度实时推送插件
-function git_publish_bd_submit($post_ID){
+function git_publish_git_submit($post_ID){
 	global $post;
-	$bd_submit_enabled = git_get_option('git_sitemap_b');
-	if($bd_submit_enabled && function_exists('curl_init') ){
-		$bd_submit_site = git_get_option('git_sitemap_site');
-		$bd_submit_token = git_get_option('git_sitemap_token');
-		if( empty($post_ID) || empty($bd_submit_site) || empty($bd_submit_token) ) return;
-		$api = 'http://data.zz.baidu.com/urls?site='.$bd_submit_site.'&token='.$bd_submit_token;
+	$git_submit_enabled = git_get_option('git_sitemap_b');
+	if($git_submit_enabled && function_exists('curl_init') ){
+		$git_submit_site = git_get_option('git_sitemap_site');
+		$git_submit_token = git_get_option('git_sitemap_token');
+		if( empty($post_ID) || empty($git_submit_site) || empty($git_submit_token) ) return;
+		$api = 'http://data.zz.baidu.com/urls?site='.$git_submit_site.'&token='.$git_submit_token;
 		if( $post->post_status = "publish" ) {
 			$url = get_permalink($post_ID);
 			$ch = curl_init();
@@ -2378,7 +2378,7 @@ function git_publish_bd_submit($post_ID){
 		}
 	}
 }
-add_action('publish_post', 'git_publish_bd_submit', 0);
+add_action('publish_post', 'git_publish_git_submit', 0);
 /*WordPress函数代码结束*/
 
 

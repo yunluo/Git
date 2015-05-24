@@ -269,7 +269,7 @@ function githeme_posts_list($orderby, $limit, $cat, $img) {
         if (git_get_option('git_cdnurl_b')) {
             if ($img) {
                 echo '<span class="thumbnail">';
-                echo '<img width="100px" height="64px" src="';
+                echo '<img src="';
                 echo post_thumbnail_src();
                 echo '?imageView2/1/w/100/h/64/q/5" alt="' . get_the_title() . '" /></span>';
             } else {
@@ -278,7 +278,7 @@ function githeme_posts_list($orderby, $limit, $cat, $img) {
         } else {
             if ($img) {
                 echo '<span class="thumbnail">';
-                echo '<img width="100px" height="64px" src="' . get_bloginfo("template_url") . '/timthumb.php?src=';
+                echo '<img src="' . get_bloginfo("template_url") . '/timthumb.php?src=';
                 echo post_thumbnail_src();
                 echo '&h=64&w=100&q=90&zc=1&ct=1" alt="' . get_the_title() . '" /></span>';
             } else {
@@ -640,7 +640,7 @@ class git_slick extends WP_Widget {
     function git_slick() {
         $widget_ops = array(
             'classname' => 'git_slick',
-            'description' => '侧边栏小幻灯片'
+            'description' => '带箭头的小幻灯片'
         );
         $this->WP_Widget('git_slick', 'Git-幻灯片(风格二)', $widget_ops);
     }
@@ -659,7 +659,7 @@ class git_slick extends WP_Widget {
         $slink4 = $instance['slink4'];
         $stitle4 = $instance['stitle4'];
         echo $before_widget;
-        echo '<div class="slick" >';
+        echo '<div class="slick" style="height:200px">';
         echo '<div><a target="_blank" href="' . $slink1 . '" title="' . $stitle1 . '" ><img width="360px" height="200px" src="' . $simg1 . '" ></a></div>';
         echo '<div><a target="_blank" href="' . $slink2 . '" title="' . $stitle2 . '" ><img width="360px" height="200px" src="' . $simg2 . '" ></a></div>';
         echo '<div><a target="_blank" href="' . $slink3 . '" title="' . $stitle3 . '" ><img width="360px" height="200px" src="' . $simg3 . '" ></a></div>';
@@ -789,7 +789,7 @@ class git_slide extends WP_Widget {
     function git_slide() {
         $widget_ops = array(
             'classname' => 'git_slide',
-            'description' => '侧边栏小幻灯片'
+            'description' => '无箭头小幻灯片'
         );
         $this->WP_Widget('git_slide', 'Git-幻灯片(风格一)', $widget_ops);
     }

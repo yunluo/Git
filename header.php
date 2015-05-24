@@ -140,7 +140,7 @@ if (git_get_option('git_piclogo_b')) { ?><?php
         bloginfo('template_url'); ?>/img/logo.png"><?php
     } ?><?php
 } ?></h1></a></div></div><div id="toubuads"><?php
-if (git_get_option('git_toubuads_b') && git_get_option('git_piclogo_left') && !G_is_mobile()) echo git_get_option('git_toubuads'); ?></div>
+if (git_get_option('git_toubuads') && git_get_option('git_piclogo_left') && !G_is_mobile()) echo git_get_option('git_toubuads'); ?></div>
 <?php
 if (git_get_option('git_skin_b') == 'git_red_b') {
     echo '<div id="nav-header" class="navbar" style="border-bottom: 4px solid #E74C3C ;">';
@@ -213,5 +213,4 @@ if (git_get_option('git_sign_b')) {
 } ?>
 		<div class="toptip" id="callboard"><ul style="font-size:16px;margin-top: 2px;"><?php  echo git_get_option('git_tui'); ?></ul></div>
 	</div>
-	<?php
-if (git_get_option('git_adsite_01')) echo '<div class="banner banner-site">' . git_get_option('git_adsite_01') . '</div>'; ?>
+<?php if (git_get_option('git_adsite_01')) echo'<div class="banner banner-site">'.git_get_option('git_adsite_01').'</div>';?>

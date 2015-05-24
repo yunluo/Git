@@ -1,6 +1,4 @@
 <?php
-if (git_get_option('git_adindex_02')) printf('<div class="banner banner-sticky">' . git_get_option('git_adindex_02') . '</div>'); ?>
-<?php
 if (is_home() && git_get_option('hot_list_check')) { ?>
 		<div><div class="left-ad" style="clear: both;background-color: #fff; width: 30%;float: left;margin-right:2%;"></div><div class="hot-posts">
 			<h2 class="title"><?php echo git_get_option('hot_list_title') ?></h2>
