@@ -633,7 +633,7 @@ function deel_comment_list($comment, $args, $depth) {
     } else {
         echo '<span class="c-author">' . get_comment_author_link() . '</span>';
     }
-    if(user_can($comment->user_id, 1)){
+  if ($comment->user_id == '1') {
         echo '<a title="博主认证" class="vip"></a>';
 	}elseif(git_get_option('git_vip')){
 		echo get_author_class($comment->comment_author_email,$comment->user_id);
