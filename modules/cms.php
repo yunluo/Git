@@ -12,7 +12,7 @@ if (is_home()) { ?>
 } ?>
 <style type="text/css">.widget-title{background:#FFFFFF;} .title-h2{ height: 45px; border-bottom: 1px solid #90BBA8; margin: 5px 20px;}</style>
 <!-- 最新文章开始 -->
-<div class="relates"><h2 class="title"><small>最新文章</small><span class="more" style="float:right;"><a style="left: 0px;" href="<?php echo get_pagelink_through_template('archives.php');?>" title="阅读更多" target="_blank"><small>阅读更多</small></a></span></h2>
+<div class="relates"><h2 class="title"><small>最新文章</small></h2>
 <ul style="padding: 5px 0px 15px 20px;">
     <?php
 $result = $wpdb->get_results("SELECT ID,post_title FROM $wpdb->posts where post_status='publish' and post_type='post' ORDER BY ID DESC LIMIT 0 , 10");

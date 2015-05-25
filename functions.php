@@ -1915,13 +1915,6 @@ function git_upload_filter($file) {
     return $file;
 }
 add_filter('wp_handle_upload_prefilter', 'git_upload_filter');
-//CMS模板需要的
-function get_pagelink_through_template($page_temp){
-    global $wpdb;
-    $page_id = $wpdb->get_var("SELECT post_id FROM $wpdb->postmeta LEFT OUTER JOIN $wpdb->posts ON ($wpdb->postmeta.post_id = $wpdb->posts.ID ) WHERE meta_key = '_wp_page_template' AND meta_value = '".$page_temp."' AND $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type = 'page'");
-    $pageurl = get_page_link($page_id);
-    return $pageurl;
-}
 //后台文章重新排序
 function git_post_order_in_admin( $wp_query ) {
   if ( is_admin() ) {
