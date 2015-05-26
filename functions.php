@@ -2230,10 +2230,7 @@ function git_custom_adminbar_menu($meta = TRUE) {
     $wp_admin_bar->add_menu(array(
         'id' => 'git_option',
         'title' => '主题选项', /* 设置链接名 */
-        'href' => 'themes.php?page=theme-options.php', /* 设置链接地址 */
-        'meta' => array(
-            target => '_blank'
-        )
+        'href' => 'themes.php?page=theme-options.php'
     ));
     $wp_admin_bar->add_menu(array(
         'id' => 'git_guide',
