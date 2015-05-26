@@ -201,9 +201,9 @@ if (git_get_option('git_sign_b')) {
 			<div class="pull-right">
 				<?php
     if (is_user_logged_in()) {
-        echo '<i class="fa fa-user"></i> <a href="/wp-admin">' . $u_name . '</a> ';
+        echo '<i class="fa fa-user"></i> <a href="'.site_url().'/wp-admin">' . $u_name . '</a> ';
     } elseif ( get_option( 'users_can_register' ) ) {
-        echo '<i class="fa fa-user"></i> <a href="/wp-login.php?action=register">注册</a>';
+        echo '<i class="fa fa-user"></i> <a href="'.site_url().'/wp-login.php?action=register">注册</a>';
     };
     echo '  <i class="fa fa-power-off"></i> ';
     echo wp_loginout();

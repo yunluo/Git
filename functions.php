@@ -488,9 +488,10 @@ function deel_description() {
     global $s, $post;
     $description = '';
     $blog_name = get_bloginfo('name');
+    $iexcerpt = $post->post_excerpt;
     if (is_singular()) {
-        if (!empty($post->post_excerpt)) {
-            $text = $post->post_excerpt;
+        if (!empty($iexcerpt)) {
+            $text = $iexcerpt;
         } else {
             $text = $post->post_content;
         }
@@ -1327,6 +1328,15 @@ function ton($atts, $content = null) {
     return '<a class="lhb" id="showdiv" href="#fancydlbox" >文件下载</a><div id="fancydlbox" style="cursor:default;display:none;width:800px;"><div class="part" style="padding:20px 0;"><h2>下载声明:</h2> <div class="fancydlads" align="left"><p>' . git_get_option('git_fancydlcp') . '</p></div></div><div class="part" style="padding:20px 0;"><h2>文件信息：</h2> <div class="dlnotice" align="left"><p>文件名称：' . $filename . '<br />文件大小:' . $filesize . '<br />发布日期:' . $filedate . '</p></div></div><div class="part" id="download_button_part"><a id="download_button" target="_blank" href="' . $href . '"><span></span>' . $filedown . '</a> </div><div class="part" style="padding:20px 0;"><div class="moredl" style="text-align:center;">[更多地址] : '.$content.'</div></div><div class="dlfooter">' . git_get_option('git_fancydlad') . '</div></div>';
 }
 add_shortcode('fanctdl', 'ton');
+//代码演示短代码
+function git_demo($atts, $content = null) {
+    if (git_get_option('git_pagehtml_b')){
+    return '<a class="lhb" href="'.site_url().'/demo.html?pid='.get_the_ID().'" target="_blank" rel="nofollow">' . $content . '</a>';
+    }else{
+    return '<a class="lhb" href="'.site_url().'/demo?pid='.get_the_ID().'" target="_blank" rel="nofollow">' . $content . '</a>';
+    }
+}
+add_shortcode('demo', 'git_demo');
 /* 短代码信息框 完毕*/
 //为WordPress添加展开收缩功能
 function xcollapse($atts, $content = null) {
@@ -1584,7 +1594,7 @@ class Simple_Local_Avatars {
             $this,
             'sanitize_options'
         ));
-        add_settings_field('simple-local-avatars-caps', __('Local Avatar Permissions', 'simple-local-avatars') , array(
+        add_settings_field('simple-local-avatars-caps', __('本地上传头像权限管理', 'simple-local-avatars') , array(
             $this,
             'avatar_settings_field'
         ) , 'discussion', 'avatars');
@@ -1805,6 +1815,7 @@ function remove_wps_width( $html ) {
 add_filter( 'post_thumbnail_html', 'remove_wps_width', 10 );
 add_filter( 'image_send_to_editor', 'remove_wps_width', 10 );
 //评论拒绝HTML代码
+if(!git_get_option('git_tietu') || !git_get_option('git_lianjie') ):
 function git_comment_post( $incoming_comment ) {
         $incoming_comment['comment_content'] = htmlspecialchars($incoming_comment['comment_content']);
         $incoming_comment['comment_content'] = str_replace( "'", '&apos;', $incoming_comment['comment_content'] );
@@ -1818,6 +1829,7 @@ add_filter( 'preprocess_comment', 'git_comment_post', '', 1);
 add_filter( 'comment_text', 'git_comment_display', '', 1);
 add_filter( 'comment_text_rss', 'git_comment_display', '', 1);
 add_filter( 'comment_excerpt', 'git_comment_display', '', 1);
+endif;
 //注册页面的验证
 if(git_get_option('git_register')):
 function git_register_form() {
@@ -2025,7 +2037,7 @@ function git_shuoshuo() {
     register_post_type('shuoshuo', $args);
 }
 add_action('init', 'git_shuoshuo');
-//
+//说说的固定连接格式
 function git_shuoshuo_link($link, $post = 0) {
     if ($post->post_type == 'shuoshuo') {
         return home_url('shuoshuo-' . $post->ID . '.html');
@@ -2207,7 +2219,7 @@ add_action('login_head', 'git_wps_login_error');
 //设HTML为默认编辑器
 add_filter( 'wp_default_editor', create_function('', 'return "html";') ); 
 //管理后台添加按钮
-function custom_adminbar_menu($meta = TRUE) {
+function git_custom_adminbar_menu($meta = TRUE) {
     global $wp_admin_bar;
     if (!is_user_logged_in()) {
         return;
@@ -2216,75 +2228,23 @@ function custom_adminbar_menu($meta = TRUE) {
         return;
     }
     $wp_admin_bar->add_menu(array(
-        'id' => 'custom_menu',
-        'capability_type' => 'post',
-        'title' => __('Git主题相关')
-    ) /* 设子菜单名 */);
-    /* menu links */
-    $wp_admin_bar->add_menu(array(
-        'parent' => 'custom_menu',
+        'id' => 'git_option',
         'title' => '主题选项', /* 设置链接名 */
-        'href' => 'themes.php?page=theme-options.php' /* 设置链接地址 */
-    ));
-    $wp_admin_bar->add_menu(array(
-        'parent' => 'custom_menu',
-        'title' => '主题主页', /* 设置链接名 */
-        'href' => 'http://googlo.me/archives/3589.html', /* 设置链接地址 */
+        'href' => 'themes.php?page=theme-options.php', /* 设置链接地址 */
         'meta' => array(
             target => '_blank'
         )
     ));
     $wp_admin_bar->add_menu(array(
-        'parent' => 'custom_menu',
-        'title' => '邮箱反馈', /* 设置链接名 */
-        'href' => 'http://googlo.me/go/mail', /* 设置链接地址 */
-        'meta' => array(
-            target => '_blank'
-        )
-    ));
-    $wp_admin_bar->add_menu(array(
-        'parent' => 'custom_menu',
-        'title' => '支持主题', /* 设置链接名 */
-        'href' => 'http://googlo.me/pay', /* 设置链接地址 */
-        'meta' => array(
-            target => '_blank'
-        )
-    ));
-    $wp_admin_bar->add_menu(array(
-        'parent' => 'custom_menu',
-        'title' => '功能建议', /* 设置链接名 */
-        'href' => 'http://googlo.me/about.html', /* 设置链接地址 */
-        'meta' => array(
-            target => '_blank'
-        )
-    ));
-    $wp_admin_bar->add_menu(array(
-        'parent' => 'custom_menu',
-        'title' => '使用文档[必看]', /* 设置链接名 */
+        'id' => 'git_guide',
+        'title' => 'Git主题使用文档', /* 设置链接名 */
         'href' => 'http://googlo.me/archives/3275.html', /* 设置链接地址 */
         'meta' => array(
             target => '_blank'
         )
     ));
-    $wp_admin_bar->add_menu(array(
-        'parent' => 'custom_menu',
-        'title' => '定制修改', /* 设置链接名 */
-        'href' => 'http://googlo.me/go/qq', /* 设置链接地址 */
-        'meta' => array(
-            target => '_blank'
-        )
-    ));
-    $wp_admin_bar->add_menu(array(
-        'parent' => 'custom_menu',
-        'title' => '加入QQ群', /* 设置链接名 */
-        'href' => 'http://googlo.me/go/qun', /* 设置链接地址 */
-        'meta' => array(
-            target => '_blank'
-        )
-    ));
 }
-add_action('admin_bar_menu', 'custom_adminbar_menu', 100);
-
+add_action('admin_bar_menu', 'git_custom_adminbar_menu', 100);
 //支持中文名注册，来自肚兜
 function git_sanitize_user ($username, $raw_username, $strict) {
   $username = wp_strip_all_tags( $raw_username );
@@ -2353,6 +2313,7 @@ function git_publish_git_submit($post_ID){
 }
 add_action('publish_post', 'git_publish_git_submit', 0);
 /*WordPress函数代码结束*/
+
 
 
 ?>
