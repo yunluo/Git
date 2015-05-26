@@ -1125,21 +1125,21 @@ $options = array(
         'desc'  => '如果幻灯没开启，则不显示',
         'id'    => 'git_adindex_02',
         'type'  => 'textarea',
-        'std'   => ''
+        'std'   => '<a target="_blank" href="http://googlo.me/go/hengtian"><img style="width:100%" src="http://i1.tietuku.com/8b0a21f428698c8a.jpg" title="立刻购买专业WordPress主机-衡天主机" alt="立刻购买专业WordPress主机-衡天主机" ></a>'
     ),
     array(
         'name'  => '广告：文章页 - 页面标题下',
         'desc'  => '开启',
         'id'    => 'git_adpost_01',
         'type'  => 'textarea',
-        'std'   => '<a target="_blank" href="http://googlo.me/go/hengtian"><img style="width:100%" src="http://i2.tietuku.com/24a66f5351e84813.jpg" title="立刻购买专业WordPress主机-衡天主机" alt="立刻购买专业WordPress主机-衡天主机" ></a>'
+        'std'   => '<a target="_blank" href="http://googlo.me/go/hengtian"><img style="width:100%" src="http://i1.tietuku.com/8b0a21f428698c8a.jpg" title="立刻购买专业WordPress主机-衡天主机" alt="立刻购买专业WordPress主机-衡天主机" ></a>'
     ),
     array(
         'name'  => '广告：文章页 - 相关文章下',
         'desc'  => '开启',
         'id'    => 'git_adpost_02',
         'type'  => 'textarea',
-        'std'   => '<a target="_blank" href="http://googlo.me/go/hengtian"><img style="width:100%" src="http://i2.tietuku.com/24a66f5351e84813.jpg" title="立刻购买专业WordPress主机-衡天主机" alt="立刻购买专业WordPress主机-衡天主机" ></a>'
+        'std'   => '<a target="_blank" href="http://googlo.me/go/hengtian"><img style="width:100%" src="http://i1.tietuku.com/6577fc6446277169.jpg" title="立刻购买专业WordPress主机-衡天主机" alt="立刻购买专业WordPress主机-衡天主机" ></a>'
     ),
     array(
         'name'  => '广告：文章页 - 网友评论下',
@@ -1693,7 +1693,7 @@ switch ( $value['type'] ) {
 <div class="panel" id="about_theme">
 <h2>主题的那些事</h2>
         <p>&nbsp;&nbsp;这款主题一开始来自于大前端的D8主题，优秀的D8主题在经过欲思这里，欲思对这款主题进行了大量的修改，对本款主题的流行起到了非常重要的作用。</p>
-        <p>&nbsp;&nbsp;云落在正式建站的时候选择了这款主题并且一直使用到现在，期间对这款主题进行了N次的代码修改，有的地方是小修改，有的地方事一些大的修改，在欲思主题的基础上面做了很多二次开发，随着主题的修改进程，个人对WordPress的理解也随之加深，对于WordPress的应用也较以前有了更深的熟练。</p>
+        <p>&nbsp;&nbsp;云落在正式建站的时候选择了这款主题并且一直使用到现在，期���对这款主题进行了N次的代码修改，有的地方是小修改，有的地方事一些大的修改，在欲思主题的基础上面做了很多二次开发，随着主题的修改进程，个人对WordPress的理解也随之加深，对于WordPress的应用也较以前有了更深的熟练。</p>
         <p>&nbsp;&nbsp;故，在经过多次修改后，自觉主题修改的足够完整，更名以将其与欲思主题以区分，并且将其代码托管至<a href="https://gitcafe.com/googlo/Git" target="_blank">GitCafe</a>，并且将其更名为：Git ！</p>
         <p>&nbsp;&nbsp;定名为Git，首先是因为主题采用Git版本系统管理代码的，写的最多的代码就是Git了，另外G代表我的Googlo.Me，遂定名为Git。</p>
         <p>&nbsp;&nbsp;感谢大前端的D8主题，感谢欲思的欲思主题，感谢小影的主题，感谢知更鸟的主题，感谢露兜博客，感谢devework，感谢开源中国，感谢一直跟随主题版本升级的朋友们</p>
