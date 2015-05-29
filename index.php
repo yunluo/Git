@@ -12,6 +12,7 @@ if ($paged && $paged > 1) {
 if(git_get_option('git_sticky_b') || git_get_option('git_slick_b')):
 if (git_get_option('git_adindex_02')) echo'<div class="banner banner-sticky">' . git_get_option('git_adindex_02') . '</div>';
 endif;
+if (wp_is_mobile() && git_get_option('Mobiled_adindex_02')) echo '<div class="banner-sticky mobileads">' . git_get_option('Mobiled_adindex_02') . '</div>'; 
 if (git_get_option('git_cms_b')) {
     include 'modules/cms.php';
 } else {
@@ -26,11 +27,4 @@ if (git_get_option('git_cms_b')) {
 ?>
 	</div>
 </div>
-<?php
-if (!G_is_mobile()) { ?>
-<?php
-    get_sidebar(); ?>
-<?php
-} ?>
-<?php
-get_footer(); ?>
+<?php get_sidebar(); get_footer(); ?>

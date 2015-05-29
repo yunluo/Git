@@ -53,7 +53,7 @@ while (have_posts()):
     if (git_get_option('git_adpost_01')) echo '<div class="banner banner-post">' . git_get_option('git_adpost_01') . '</div>'; ?>
 <?php
     if (wp_is_mobile()): ?><?php
-        if (git_get_option('Mobiled_adpost_01')) echo '<div class="banner-post">' . git_get_option('Mobiled_adpost_01') . '</div>'; ?><?php
+        if (git_get_option('Mobiled_adpost_01')) echo '<div class="banner-post mobileads">' . git_get_option('Mobiled_adpost_01') . '</div>'; ?><?php
     endif; ?>
 		<article class="article-content">
 			<?php
@@ -113,7 +113,7 @@ include ('modules/related.php'); ?>
 		<?php
 if (wp_is_mobile()): ?>
 		<?php
-    if (git_get_option('Mobiled_adpost_02')) echo '<div id="comment-ad" class="banner-related">' . git_get_option('Mobiled_adpost_02') . '</div>'; ?><?php
+    if (git_get_option('Mobiled_adpost_02')) echo '<div id="comment-ad" class="banner-related mobileads">' . git_get_option('Mobiled_adpost_02') . '</div>'; ?><?php
 endif; ?>
 		<?php
 if (git_get_option('git_adpost_02')) echo '<div id="comment-ad" class="banner banner-related">' . git_get_option('git_adpost_02') . '</div>'; ?>
@@ -123,11 +123,4 @@ comments_template('', true); ?>
 if (git_get_option('git_adpost_03')) echo '<div class="banner banner-comment">' . git_get_option('git_adpost_03') . '</div>'; ?>
 	</div>
 </div>
-<?php
-if (!G_is_mobile()) { ?>
-<?php
-    get_sidebar(); ?>
-<?php
-} ?>
-<?php
-get_footer(); ?>
+<?php get_sidebar(); get_footer(); ?>

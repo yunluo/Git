@@ -337,12 +337,6 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
-        'name'  => '链接',
-        'desc'  => '不显示',
-        'id'    => 'git_lianjie',
-        'type'  => 'checkbox'
-    ),
-    array(
         'name'  => '加粗',
         'desc'  => '不显示',
         'id'    => 'git_jiacu',

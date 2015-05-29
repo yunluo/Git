@@ -7,8 +7,6 @@ if (is_home() && git_get_option('hot_list_check')) { ?>
 		<?php
 } ?>
 <?php
-if (wp_is_mobile() && git_get_option('Mobiled_adindex_02')) printf('<div class="banner-sticky">' . git_get_option('Mobiled_adindex_02') . '</div>'); ?>
-<?php
 $_author = git_get_option('git_post_author_b');
 $_time = git_get_option('git_post_time_b');
 $_views = git_get_option('git_post_views_b');

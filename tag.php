@@ -7,7 +7,4 @@
 		<?php include( 'modules/excerpt.php' ); ?>
 	</div>
 </div>
-<?php if(!G_is_mobile() ){?>
-<?php get_sidebar();?>
-<?php }?>
-<?php get_footer(); ?>
+<?php get_sidebar(); get_footer(); ?>
