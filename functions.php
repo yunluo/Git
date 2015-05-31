@@ -2009,7 +2009,6 @@ function git_shuoshuo() {
         'add_new_item' => '发表说说',
         'edit_item' => '编辑说说',
         'new_item' => '新说说',
-        'view_item' => '查看说说',
         'search_items' => '搜索说说',
         'not_found' => '暂无说说',
         'not_found_in_trash' => '没有已遗弃的说说',
@@ -2306,6 +2305,7 @@ add_filter( 'style_loader_src', '_remove_script_version', 15, 1 );
 endif;
 //百度主动推送,来自：百度实时推送插件
 function git_publish_git_submit($post_ID){
+    if (get_post_meta($post_ID, 'baidu_submit', true) == 1) return;
 	global $post;
 	$git_submit_enabled = git_get_option('git_sitemap_b');
 	if($git_submit_enabled && function_exists('curl_init') ){
@@ -2324,8 +2324,7 @@ function git_publish_git_submit($post_ID){
 				CURLOPT_HTTPHEADER => array('Content-Type: text/plain')
 			);
 			curl_setopt_array($ch, $options);
-			$result = curl_exec($ch);
-            echo $result;
+			add_post_meta($post_ID, 'baidu_submit', 1, true);
 		}
 	}
 }
