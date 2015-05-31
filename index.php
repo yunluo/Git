@@ -7,7 +7,7 @@ if ($paged && $paged > 1) {
     printf('<header class="archive-header"><h1>最新发布 第' . $paged . '页</h1><div class="archive-header-info"><p>' . get_option('blogname') . get_option('blogdescription') . '</p></div></header>');
 } else {
     if (git_get_option('git_sticky_b')) include 'modules/sticky.php';
-    if (git_get_option('git_slick_b') && !G_is_mobile()) include 'modules/slick.php';
+    if (git_get_option('git_slick_b')) include 'modules/slick.php';
 }
 if(git_get_option('git_sticky_b') || git_get_option('git_slick_b')):
 if (git_get_option('git_adindex_02')) echo'<div class="banner banner-sticky">' . git_get_option('git_adindex_02') . '</div>';
