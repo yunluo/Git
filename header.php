@@ -52,17 +52,8 @@ echo $sr_1
 echo $sr_2
 ?>]}
 </script>
-<script>
-$(document).ready(function() {
-    $('#existing-content-menu').sidr({
-      name: 'sidr-existing-content',
-      source: '#nav-header'
-    });
-});
-</script>
 <!--[if lt IE 9]><script src="<?php bloginfo('template_url'); ?>/js/html5.js"></script><![endif]-->
 <?php echo get_post_meta($post->ID, 'git_customer', true); ?>
-<script src="<?php bloginfo('template_url'); ?>/js/sidr.min.js"></script>
 </head>
 <body <?php
 body_class(); ?>>
