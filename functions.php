@@ -323,7 +323,7 @@ function deel_breadcrumbs() {
 function footerScript() {
     if (!is_admin()) {
         wp_deregister_script('jquery');
-        wp_register_script('jquery', get_bloginfo('template_directory') . '/js/jquery.min.js', false, '1.0', true );
+        wp_register_script('jquery', get_bloginfo('template_directory') . '/js/jquery.min.js', false, '1.0', false );
         wp_enqueue_script('jquery');
         wp_register_script('default', get_template_directory_uri() . '/js/global.js', false, '1.0', true );
         wp_enqueue_script('default');
