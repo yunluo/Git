@@ -1815,7 +1815,7 @@ function remove_wps_width( $html ) {
 add_filter( 'post_thumbnail_html', 'remove_wps_width', 10 );
 add_filter( 'image_send_to_editor', 'remove_wps_width', 10 );
 //评论拒绝HTML代码
-if(!git_get_option('git_tietu') || !git_get_option('git_lianjie') ):
+if(git_get_option('git_html_comment') ):
 function git_comment_post( $incoming_comment ) {
         $incoming_comment['comment_content'] = htmlspecialchars($incoming_comment['comment_content']);
         $incoming_comment['comment_content'] = str_replace( "'", '&apos;', $incoming_comment['comment_content'] );
