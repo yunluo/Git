@@ -322,8 +322,18 @@ function deel_breadcrumbs() {
 // 取消原有jQuery，加载自定义jQuery
 function footerScript() {
     if (!is_admin()) {
-        wp_deregister_script('jquery');
+        wp_deregister_script('jquery');  
+        if(git_get_option('git_jqcdn')=='git_jqcdn_qiniu'){
+            wp_register_script('jquery', 'http://cdn.staticfile.org/jquery/1.8.3/jquery.min.js', false, '1.0', false );  
+        }elseif(git_get_option('git_jqcdn')=='git_jqcdn_upai'){
+            wp_register_script('jquery', 'http://upcdn.b0.upaiyun.com/libs/jquery/jquery-1.8.3.min.js', false, '1.0', false );
+        }elseif(git_get_option('git_jqcdn')=='git_jqcdn_360'){
+            wp_register_script('jquery', 'http://libs.useso.com/js/jquery/1.8.3/jquery.min.js', false, '1.0', false );
+        }elseif(git_get_option('git_jqcdn')=='git_jqcdn_sae'){
+            wp_register_script('jquery', 'http://lib.sinaapp.com/js/jquery/1.8.3/jquery.min.js', false, '1.0', false );
+        }else{
         wp_register_script('jquery', get_bloginfo('template_directory') . '/js/jquery.min.js', false, '1.0', false );
+        }
         wp_enqueue_script('jquery');
         wp_register_script('default', get_template_directory_uri() . '/js/global.js', false, '1.0', true );
         wp_enqueue_script('default');
@@ -936,14 +946,14 @@ function no_category_base_request($query_vars) {
     return $query_vars;
 }
 //添加文章版权信息
-function copyright($content ) {
+function git_copyright($content ) {
     if (is_single() || is_feed()) {
 		$copyright = str_replace(array('{{title}}', '{{link}}'), array(get_the_title(), get_permalink()), stripslashes(git_get_option('git_copyright_b')));
         $content.= '<hr /><div align="center" class="open-message"><i class="fa fa-bullhorn"></i>' . $copyright . '</div>';
     }
     return $content;
 }
-add_filter('the_content', 'copyright');
+add_filter('the_content', 'git_copyright');
 //fancybox图片灯箱效果
 if (git_get_option('git_fancybox_b')):
     function fancybox($content) {
@@ -1771,8 +1781,8 @@ if (is_admin() && git_get_option('git_cdnurl_b') && git_get_option('git_adminqn_
 }
 //评论分页的seo处理
 function canonical_for_git() {
-        global $cpage, $post;
-        if ( $cpage > 1 ) :
+        global $post;
+        if ( get_query_var('paged') > 1 ) :
                 echo "\n";
                 echo "<link rel='canonical' href='";
                 echo get_permalink( $post->ID );

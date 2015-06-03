@@ -1391,7 +1391,7 @@ $options = array(
         'type'  => 'password',
         'std'   => ''
     ),
-        array(
+    array(
         'name'  => 'Gravatar头像设置',
         'desc'  => '任选一个合适的头像解决方案，另外，如果选择本地缓存的话，请在WordPress根目录（wp-content同级）',
         'id'    => "git_avater",
@@ -1403,6 +1403,20 @@ $options = array(
             '本地缓存' => 'git_avatar_b'
         ),
         'std'   => 'git_avatar_qn'
+    ),
+    array(
+        'name'  => 'jQuery来源设置',
+        'desc'  => '选择一个适合自己的jQuery公共库来源',
+        'id'    => "git_jqcdn",
+        'type'  => 'radio',
+        'options' => array(
+            '七牛jQuery库' => 'git_jqcdn_qiniu',
+            '又拍云jQuery库' => 'git_jqcdn_upai',
+            '360jQuery库' => 'git_jqcdn_360',
+            '新浪jQuery库' => 'git_jqcdn_sae',
+            '本地jQuery库' => 'git_jqcdn_bendi'
+        ),
+        'std'   => 'git_jqcdn_bendi'
     ),
     array(
         'title' => '会员注册设置',
