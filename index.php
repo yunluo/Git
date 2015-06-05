@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 
 <div class="content-wrap">
-	<div class="content">
+	<div id="content">
 <?php
 if ($paged && $paged > 1) {
     printf('<header class="archive-header"><h1>最新发布 第' . $paged . '页</h1><div class="archive-header-info"><p>' . get_option('blogname') . get_option('blogdescription') . '</p></div></header>');
