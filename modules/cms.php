@@ -47,7 +47,7 @@ if (git_get_option('git_cat_1')) { ?>
         the_post(); ?>
 				<ul class="related_img" style="display:inline" ><li class="related_box" ><a href="<?php
         the_permalink(); ?>" title="<?php
-        the_title(); ?>" target="_blank"><?php
+        the_title(); ?>" ><?php
         if (git_get_option('git_cdnurl_b')) {
             echo '<img src="';
             echo post_thumbnail_src();
@@ -80,7 +80,7 @@ if (git_get_option('git_cat_2')) { ?>
         the_post(); ?>
 				<ul class="related_img" style="display:inline" ><li class="related_box" ><a href="<?php
         the_permalink(); ?>" title="<?php
-        the_title(); ?>" target="_blank"><?php
+        the_title(); ?>" ><?php
         if (git_get_option('git_cdnurl_b')) {
             echo '<img src="';
             echo post_thumbnail_src();
@@ -113,7 +113,7 @@ if (git_get_option('git_cat_3')) { ?>
         the_post(); ?>
 				<ul class="related_img" style="display:inline" ><li class="related_box" ><a href="<?php
         the_permalink(); ?>" title="<?php
-        the_title(); ?>" target="_blank"><?php
+        the_title(); ?>" ><?php
         if (git_get_option('git_cdnurl_b')) {
             echo '<img src="';
             echo post_thumbnail_src();
@@ -146,7 +146,7 @@ if (git_get_option('git_cat_4')) { ?>
         the_post(); ?>
 				<ul class="related_img" style="display:inline" ><li class="related_box" ><a href="<?php
         the_permalink(); ?>" title="<?php
-        the_title(); ?>" target="_blank"><?php
+        the_title(); ?>" ><?php
         if (git_get_option('git_cdnurl_b')) {
             echo '<img src="';
             echo post_thumbnail_src();
@@ -179,7 +179,7 @@ if (git_get_option('git_cat_5')) { ?>
         the_post(); ?>
 				<ul class="related_img" style="display:inline" ><li class="related_box" ><a href="<?php
         the_permalink(); ?>" title="<?php
-        the_title(); ?>" target="_blank"><?php
+        the_title(); ?>" ><?php
         if (git_get_option('git_cdnurl_b')) {
             echo '<img src="';
             echo post_thumbnail_src();
@@ -212,7 +212,7 @@ if (git_get_option('git_cat_6')) { ?>
         the_post(); ?>
 				<ul class="related_img" style="display:inline" ><li class="related_box" ><a href="<?php
         the_permalink(); ?>" title="<?php
-        the_title(); ?>" target="_blank"><?php
+        the_title(); ?>" ><?php
         if (git_get_option('git_cdnurl_b')) {
             echo '<img src="';
             echo post_thumbnail_src();
@@ -245,7 +245,7 @@ if (git_get_option('git_cat_7')) { ?>
         the_post(); ?>
 				<ul class="related_img" style="display:inline" ><li class="related_box" ><a href="<?php
         the_permalink(); ?>" title="<?php
-        the_title(); ?>" target="_blank"><?php
+        the_title(); ?>" ><?php
         if (git_get_option('git_cdnurl_b')) {
             echo '<img src="';
             echo post_thumbnail_src();
@@ -278,7 +278,7 @@ if (git_get_option('git_cat_8')) { ?>
         the_post(); ?>
 				<ul class="related_img" style="display:inline" ><li class="related_box" ><a href="<?php
         the_permalink(); ?>" title="<?php
-        the_title(); ?>" target="_blank"><?php
+        the_title(); ?>" ><?php
         if (git_get_option('git_cdnurl_b')) {
             echo '<img src="';
             echo post_thumbnail_src();
