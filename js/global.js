@@ -2052,7 +2052,7 @@ jQuery(document).ready(function() {
                         bdSize: "24"
                     },
                     share: [{
-                        bdCustomStyle: "/wp-content/themes/Git/"
+                        bdCustomStyle: "/wp-content/themes/Git/share.css"
                     }]
                 }, a(".article-content").length && a(".article-content a").tooltip({
                     container: "body"
