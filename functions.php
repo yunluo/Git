@@ -840,8 +840,7 @@ function Bing_admin_lettering() {
         .mce-ico { font-family: tinymce, Arial !important; }
         .fa { font-family: FontAwesome !important; }
         .genericon { font-family: "Genericons" !important; }
-        .appearance_page_scte-theme-editor #wpbody *, .ace_editor * { font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace !important; }
-        #edit-slug-box{display:none !important;}</style>';
+        .appearance_page_scte-theme-editor #wpbody *, .ace_editor * { font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace !important; }</style>';
 }
 add_action('admin_head', 'Bing_admin_lettering');
 //欲思@添加相关文章图片文章
