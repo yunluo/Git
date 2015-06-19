@@ -841,7 +841,7 @@ function Bing_admin_lettering() {
         .fa { font-family: FontAwesome !important; }
         .genericon { font-family: "Genericons" !important; }
         .appearance_page_scte-theme-editor #wpbody *, .ace_editor * { font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace !important; }
-        </style>';
+        #edit-slug-box{display:none !important;}</style>';
 }
 add_action('admin_head', 'Bing_admin_lettering');
 //欲思@添加相关文章图片文章
@@ -966,8 +966,8 @@ if (git_get_option('git_fancybox_b')):
     add_filter('the_content', 'fancybox');
 endif;
 //WordPress文字标签关键词自动内链
-$match_num_from = 1; //一篇文章中同一個標籤少於幾次不自動鏈接
-$match_num_to = 6; //一篇文章中同一個標籤最多自動鏈接幾次
+$match_num_from = git_get_option('git_autolink_1'); //一篇文章中同一個標籤少於幾次不自動鏈接
+$match_num_to = git_get_option('git_autolink_2'); //一篇文章中同一個標籤最多自動鏈接幾次
 function tag_sort($a, $b) {
     if ($a->name == $b->name) return 0;
     return (strlen($a->name) > strlen($b->name)) ? -1 : 1;
@@ -1791,32 +1791,7 @@ function canonical_for_git() {
          endif;
 }
 add_action( 'wp_head', 'canonical_for_git' );
-//防止CC攻击，本段代码未经过验证
-session_start(); //开启session
-$timestamp = time();
-$ll_nowtime = $timestamp;
-//判断session是否存在 如果存在从session取值，如果不存在进行初始化赋值
-if ($_SESSION) {
-    $ll_lasttime = $_SESSION['ll_lasttime'];
-    $ll_times = $_SESSION['ll_times'] + 1;
-    $_SESSION['ll_times'] = $ll_times;
-} else {
-    $ll_lasttime = $ll_nowtime;
-    $ll_times = 1;
-    $_SESSION['ll_times'] = $ll_times;
-    $_SESSION['ll_lasttime'] = $ll_lasttime;
-}
-//现在时间-开始登录时间 来进行判断 如果登录频繁 跳转 否则对session进行赋值
-if (($ll_nowtime - $ll_lasttime) < 3) {
-    if ($ll_times >= 5) {
-        header("location:http://127.0.0.1");
-        exit;
-    }
-} else {
-    $ll_times = 0;
-    $_SESSION['ll_lasttime'] = $ll_nowtime;
-    $_SESSION['ll_times'] = $ll_times;
-}
+
 //移除默认的图片宽度以及高度
 function remove_wps_width( $html ) {
     $html = preg_replace( '/(width|height)=\"\d*\"\s/', "", $html );
@@ -2019,6 +1994,7 @@ function git_shuoshuo() {
         'add_new_item' => '发表说说',
         'edit_item' => '编辑说说',
         'new_item' => '新说说',
+        'view_item' => '查看说说',
         'search_items' => '搜索说说',
         'not_found' => '暂无说说',
         'not_found_in_trash' => '没有已遗弃的说说',

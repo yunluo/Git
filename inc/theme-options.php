@@ -197,6 +197,20 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+        'name'  => '关键词出现数目',
+        'desc'  => '文章中少于这个数字的关键词将不自动内链，默认是1，即全部链接',
+        'id'    => 'git_autolink_1',
+        'type'  => 'number',
+        'std'   => 1
+    ),
+    array(
+        'name'  => '关键词链接次数',
+        'desc'  => '文章中最多链接的次数，默认是6',
+        'id'    => 'git_autolink_2',
+        'type'  => 'number',
+        'std'   => 6
+    ),
+    array(
         'name'  => '图片自动添加alt以及title',
         'desc'  => '启用',
         'id'    => "git_imgalt_b",
