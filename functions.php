@@ -1347,6 +1347,15 @@ function git_demo($atts, $content = null) {
     }
 }
 add_shortcode('demo', 'git_demo');
+//下载单页短代码
+function git_download($atts, $content = null) {
+    if (git_get_option('git_pagehtml_b')){
+    return '<a class="lhb" href="'.site_url().'/download.html?pid='.get_the_ID().'" target="_blank" rel="nofollow">' . $content . '</a>';
+    }else{
+    return '<a class="lhb" href="'.site_url().'/download?pid='.get_the_ID().'" target="_blank" rel="nofollow">' . $content . '</a>';
+    }
+}
+add_shortcode('download', 'git_download');
 /* 短代码信息框 完毕*/
 //为WordPress添加展开收缩功能
 function xcollapse($atts, $content = null) {
@@ -1386,6 +1395,24 @@ function wp_iframe_handler_tudou($matches, $attr, $url, $rawattr) {
 wp_embed_register_handler('tudou_iframe', '#http://www.tudou.com/programs/view/(.*?)/#i', 'wp_iframe_handler_tudou');
 wp_embed_unregister_handler('youku');
 wp_embed_unregister_handler('tudou');
+//添加后台个人信息
+function git_add_contact_fields( $contactmethods ) {
+	$contactmethods['qq'] = 'QQ';
+	$contactmethods['qq_weibo'] = '腾讯微博';
+	$contactmethods['sina_weibo'] = '新浪微博';
+	$contactmethods['wechat'] = '腾讯微信';
+	$contactmethods['baidu'] = '百度ID';
+	$contactmethods['twitter'] = 'Twitter';
+	$contactmethods['google_plus'] = 'Google+';
+	$contactmethods['github'] = 'GitHub';
+	$contactmethods['alipay'] = '支付宝';
+	$contactmethods['donate'] = '赞助链接';
+	unset( $contactmethods['yim'] );
+	unset( $contactmethods['aim'] );
+	unset( $contactmethods['jabber'] );
+	return $contactmethods;
+}
+add_filter( 'user_contactmethods', 'git_add_contact_fields' );
 //后台快捷键回复
 function hui_admin_comment_ctrlenter() {
     echo '<script type="text/javascript">
