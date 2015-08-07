@@ -126,20 +126,39 @@ if (git_get_option('git_piclogo_left') && !G_is_mobile()) {
     echo '<div class="g-logo pull-left">';
 } else {
     echo '<div align="center" class="g-logo">';
-} ?><a href="/"><h1><?php
+} ?><a href="/">
+<?php 
+if (is_home()) {
+    echo '<h1>';
+}else{
+    echo '<div class="h1logo" >';
+}
+?>
+		
+<?php
 if (!git_get_option('git_piclogo_b')) { ?>
 <span class="g-mono" style="font-family:楷体;"><?php
     bloginfo('name'); ?></span>  <span class="g-bloger" style="font-family:楷体;"><?php
     bloginfo('description'); ?></span><?php
 } ?><?php
 if (git_get_option('git_piclogo_b')) { ?><?php
-    if (git_get_option('git_customlogo')) { ?><img src="<?php
+    if (git_get_option('git_customlogo')) { ?><img alt="<?php
+    bloginfo('name'); ?>" src="<?php
         echo git_get_option('git_customlogo'); ?>"><?php
     } ?><?php
-    if (!git_get_option('git_customlogo')) { ?><img src="<?php
+    if (!git_get_option('git_customlogo')) { ?><img alt="<?php
+    bloginfo('name'); ?>" src="<?php
         bloginfo('template_url'); ?>/img/logo.png"><?php
     } ?><?php
-} ?></h1></a></div></div><div id="toubuads"><?php
+} ?>
+<?php 
+if (is_home()) {
+    echo '</h1>';
+}else{
+    echo '</div>';
+}
+?>
+</a></div></div><div id="toubuads"><?php
 if (git_get_option('git_toubuads') && git_get_option('git_piclogo_left') && !G_is_mobile()) echo git_get_option('git_toubuads'); ?></div>
 <?php
 if (git_get_option('git_skin_b') == 'git_red_b') {
