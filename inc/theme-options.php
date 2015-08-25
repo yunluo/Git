@@ -446,6 +446,12 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+        'name'  => '作者模块',
+        'desc'  => '启用',
+        'id'    => 'git_auther_b',
+        'type'  => 'checkbox'
+    ),
+    array(
         'name'  => '留言链接二维码',
         'desc'  => '启用  【开启之后，您的留言者的网站会生成一个二维码】',
         'id'    => "git_autherqr_b",

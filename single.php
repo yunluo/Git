@@ -106,7 +106,9 @@ previous_post_link('<i class="fa fa-angle-double-left"></i> %link'); ?></span>
 			<span class="article-nav-next"><?php
 next_post_link('%link  <i class="fa fa-angle-double-right"></i>'); ?></span>
 		</nav>
-		
+
+<?php if (git_get_option('git_auther_b')) { ?>
+
 <div class="sg-author clr">
 <div class="img"><?php echo get_avatar( get_the_author_email(), '60' );?></div>
 <div class="sg-author-info">
@@ -131,6 +133,7 @@ next_post_link('%link  <i class="fa fa-angle-double-right"></i>'); ?></span>
 </div>
 </div>
 </div>
+<?php } ?>
 		
 		<div class="related_top">
 			<?php

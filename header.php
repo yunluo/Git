@@ -127,14 +127,7 @@ if (git_get_option('git_piclogo_left') && !G_is_mobile()) {
 } else {
     echo '<div align="center" class="g-logo">';
 } ?><a href="/">
-<?php 
-if (is_home()) {
-    echo '<h1>';
-}else{
-    echo '<div class="h1logo" >';
-}
-?>
-		
+<?php if (is_home()) { echo '<h1>'; }else{ echo '<div class="h1logo" >'; } ?>
 <?php
 if (!git_get_option('git_piclogo_b')) { ?>
 <span class="g-mono" style="font-family:楷体;"><?php
@@ -151,13 +144,7 @@ if (git_get_option('git_piclogo_b')) { ?><?php
         bloginfo('template_url'); ?>/img/logo.png"><?php
     } ?><?php
 } ?>
-<?php 
-if (is_home()) {
-    echo '</h1>';
-}else{
-    echo '</div>';
-}
-?>
+<?php if (is_home()) { echo '</h1>'; }else{ echo '</div>'; } ?>
 </a></div></div><div id="toubuads"><?php
 if (git_get_option('git_toubuads') && git_get_option('git_piclogo_left') && !G_is_mobile()) echo git_get_option('git_toubuads'); ?></div>
 <?php
