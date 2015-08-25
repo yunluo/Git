@@ -1400,12 +1400,10 @@ function git_add_contact_fields( $contactmethods ) {
 	$contactmethods['qq'] = 'QQ';
 	$contactmethods['qq_weibo'] = '腾讯微博';
 	$contactmethods['sina_weibo'] = '新浪微博';
-	$contactmethods['wechat'] = '腾讯微信';
 	$contactmethods['baidu'] = '百度ID';
 	$contactmethods['twitter'] = 'Twitter';
 	$contactmethods['google_plus'] = 'Google+';
 	$contactmethods['github'] = 'GitHub';
-	$contactmethods['alipay'] = '支付宝';
 	$contactmethods['donate'] = '赞助链接';
 	unset( $contactmethods['yim'] );
 	unset( $contactmethods['aim'] );
@@ -2229,7 +2227,7 @@ function git_wps_login_error() {
 }
 add_action('login_head', 'git_wps_login_error');
 //设HTML为默认编辑器
-add_filter( 'wp_default_editor', create_function('', 'return "html";') ); 
+//add_filter( 'wp_default_editor', create_function('', 'return "html";') ); 
 //管理后台添加按钮
 function git_custom_adminbar_menu($meta = TRUE) {
     global $wp_admin_bar;
@@ -2343,7 +2341,4 @@ function git_publish_git_submit($post_ID){
 }
 add_action('publish_post', 'git_publish_git_submit', 0);
 /*WordPress函数代码结束*/
-
-
-
 ?>
