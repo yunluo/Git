@@ -116,17 +116,17 @@ next_post_link('%link  <i class="fa fa-angle-double-right"></i>'); ?></span>
 <div class="wordname">关于作者：<?php the_author_posts_link(); ?></div>
 <div class="authordes"><?php the_author_description(); ?></div>
 <div class="authorsocial">
-<span class="social-icon-wrap"><a class="as-img as-home" href="<?php the_author_url(); ?>" title="作者主页"><i class="fa fa-home"></i>作者主页</a></span>
-<?php if ( get_the_author_meta( 'donate' ) ){echo '<span class="social-icon-wrap"><a class="as-img as-donate" href="'.get_the_author_meta( 'donate' ).'" title="赞助作者"> <i class="fa fa-coffee"></i>赞助作者 </a></span>';} ?>
-<span class="social-icon-wrap"><a class="as-img as-email" href="mailto:<?php echo get_the_author_meta( 'user_email' ); ?>" title="给我写信"><i class="fa fa-envelope"></i></a></span>
-<?php if ( get_the_author_meta( 'sina_weibo' ) ){echo '<span class="social-icon-wrap"><a class="as-img as-sinawb" href="'.get_the_author_meta( 'sina_weibo' ).'" title="微博"><i class="fa fa-weibo"></i></a></span>';} ?>
-<?php if ( get_the_author_meta( 'qq_weibo' ) ){echo '<span class="social-icon-wrap"><a class="as-img as-qqwb" href="'.get_the_author_meta( 'qq_weibo' ).'" title="腾讯微博"><i class="fa fa-tencent-weibo"></i></a></span>';} ?>
-<?php if ( get_the_author_meta( 'twitter' ) ){echo '<span class="social-icon-wrap"><a class="as-img as-twitter" href="'.get_the_author_meta( 'twitter' ).'" title="Twitter"><i class="fa fa-twitter"></i></a></span>';} ?>
-<?php if ( get_the_author_meta( 'google_plus' ) ){echo '<span class="social-icon-wrap"><a class="as-img as-googleplus" href="'.get_the_author_meta( 'google_plus' ).'" title="Google+"><i class="fa fa-google-plus"></i></a></span>';} ?>
-<?php if ( get_the_author_meta( 'github' ) ){echo '<span class="social-icon-wrap"><a class="as-img as-git" href="'.get_the_author_meta( 'github' ).'" title="Google+"><i class="fa fa-git"></i></a></span>';} ?>
-<?php if ( get_the_author_meta( 'baidu' ) ){echo '<span class="social-icon-wrap"><a class="as-img as-weixin" href="http://tieba.baidu.com/home/main?un='.get_the_author_meta( 'baidu' ).'y&ie=utf-8" id="as-weixin-a" title="百度贴吧"><i class="fa fa-paw"></i>
+<span class="social-icon-wrap"><a class="as-img as-home" target="_blank" href="<?php the_author_url(); ?>" title="作者主页"><i class="fa fa-home"></i>作者主页</a></span>
+<?php if ( get_the_author_meta( 'donate' ) ){echo '<span class="social-icon-wrap"><a class="as-img as-donate" target="_blank" href="'.get_the_author_meta( 'donate' ).'" title="赞助作者"> <i class="fa fa-coffee"></i>赞助作者 </a></span>';} ?>
+<span class="social-icon-wrap"><a class="as-img as-email" target="_blank" href="mailto:<?php echo get_the_author_meta( 'user_email' ); ?>" title="给我写信"><i class="fa fa-envelope"></i></a></span>
+<?php if ( get_the_author_meta( 'sina_weibo' ) ){echo '<span class="social-icon-wrap"><a class="as-img as-sinawb" target="_blank" href="'.get_the_author_meta( 'sina_weibo' ).'" title="微博"><i class="fa fa-weibo"></i></a></span>';} ?>
+<?php if ( get_the_author_meta( 'qq_weibo' ) ){echo '<span class="social-icon-wrap"><a class="as-img as-qqwb" target="_blank" href="'.get_the_author_meta( 'qq_weibo' ).'" title="腾讯微博"><i class="fa fa-tencent-weibo"></i></a></span>';} ?>
+<?php if ( get_the_author_meta( 'twitter' ) ){echo '<span class="social-icon-wrap"><a class="as-img as-twitter" target="_blank" href="'.get_the_author_meta( 'twitter' ).'" title="Twitter"><i class="fa fa-twitter"></i></a></span>';} ?>
+<?php if ( get_the_author_meta( 'google_plus' ) ){echo '<span class="social-icon-wrap"><a class="as-img as-googleplus" target="_blank" href="'.get_the_author_meta( 'google_plus' ).'" title="Google+"><i class="fa fa-google-plus"></i></a></span>';} ?>
+<?php if ( get_the_author_meta( 'github' ) ){echo '<span class="social-icon-wrap"><a class="as-img as-git" target="_blank" href="'.get_the_author_meta( 'github' ).'" title="Google+"><i class="fa fa-git"></i></a></span>';} ?>
+<?php if ( get_the_author_meta( 'baidu' ) ){echo '<span class="social-icon-wrap"><a class="as-img as-weixin" target="_blank" href="http://tieba.baidu.com/home/main?un='.get_the_author_meta( 'baidu' ).'y&ie=utf-8" id="as-weixin-a" title="百度贴吧"><i class="fa fa-paw"></i>
 </a></span>';} ?>
-<?php if ( get_the_author_meta( 'qq' ) ){ echo '<span class="social-icon-wrap"><a class="as-img as-qq" href="tencent://message/?uin='.get_the_author_meta( 'qq' ).'&Site=&Menu=yes" title="QQ交谈"><i class="fa fa-qq"></i></a></span>'; } ?>
+<?php if ( get_the_author_meta( 'qq' ) ){ echo '<span class="social-icon-wrap"><a class="as-img as-qq" target="_blank" href="tencent://message/?uin='.get_the_author_meta( 'qq' ).'&Site=&Menu=yes" title="QQ交谈"><i class="fa fa-qq"></i></a></span>'; } ?>
 </div>
 </div>
 </div>
