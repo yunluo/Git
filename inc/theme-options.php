@@ -1089,7 +1089,7 @@ $options = array(
         'desc'  => '在这里输入第四个footer的内容',
         'id'    => "git_footconent4",
         'type'  => 'textarea',
-        'std'   => '<img src="http://i1.tietuku.com/d6c43b39f0c3c64c.jpg" alt="yunluo">'
+        'std'   => '<img style="width:180px;height:180px;" src="http://i3.tietuku.com/dba3507bc5b2bbc3.png" alt="yunluo">'
     ),
     array(
         'name'  => '网站footer公共代码',
@@ -1132,7 +1132,7 @@ $options = array(
         'desc'  => '显示在公告栏下',
         'id'    => 'git_adsite_01',
         'type'  => 'textarea',
-        'std'   => '<li>欢迎访问乐趣公园网站，WordPress信息，WordPress教程，推荐使用最新版火狐浏览器和Chrome浏览器访问本网站，欢迎加入乐趣公园<code><a target="_blank" href="http://googlo.me/go/qun"><i class="fa fa-qq"></i> QQ群</a></code></li><li>Git主题现已支持滚动公告栏功能，兼容其他浏览器，看到的就是咯，在后台最新消息那里用li标签添加即可。</li><li>最新版Git主题已支持说说碎语功能，可像添加文章一样直接添加说说，新建说说页面即可，最后重新保存固定连接，<a target="_blank" href="http://googlo.me/shuo.html">演示地址</a></li><li>百度口碑求点赞啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊<a target="_blank" href="http://koubei.baidu.com/s/googlo.me">http://koubei.baidu.com/s/googlo.me</a></li><li>如果您觉得本站非常有看点，那么赶紧使用Ctrl+D 收藏乐趣公园吧</li><li>云落的淘宝店铺已经开张了哦，传送门：<a target="_blank" href="http://shop116317755.taobao.com">http://shop116317755.taobao.com</a></li>'
+        'std'   => ''
     ),
     array(
         'name'  => '广告：幻灯片下广告',
@@ -1209,7 +1209,7 @@ $options = array(
     ),
     array(
         'name'  => '链接去掉Categroy',
-        'desc'  => '启用 【开启后，需要至设置——固定连接——重新保存一下，否则会发生404错误】',
+        'desc'  => '启用  【开启后，需要至设置——固定连接——重新保存一下，否则会发生404错误】',
         'id'    => "git_categroy_b",
         'type'  => 'checkbox'
     ),
