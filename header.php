@@ -52,8 +52,10 @@ echo $sr_1
 echo $sr_2
 ?>]}
 </script>
-<!--[if lt IE 9]><script src="<?php bloginfo('template_url'); ?>/js/html5.js"></script><![endif]-->
-<?php echo get_post_meta($post->ID, 'git_customer', true); ?>
+<!--[if lt IE 9]><script src="<?php
+bloginfo('template_url'); ?>/js/html5.js"></script><![endif]-->
+<?php
+echo get_post_meta($post->ID, 'git_customer', true); ?>
 </head>
 <body <?php
 body_class(); ?>>
@@ -127,7 +129,12 @@ if (git_get_option('git_piclogo_left') && !G_is_mobile()) {
 } else {
     echo '<div align="center" class="g-logo">';
 } ?><a href="/">
-<?php if (is_home()) { echo '<h1>'; }else{ echo '<div class="h1logo" >'; } ?>
+<?php
+if (is_home()) {
+    echo '<h1>';
+} else {
+    echo '<div class="h1logo" >';
+} ?>
 <?php
 if (!git_get_option('git_piclogo_b')) { ?>
 <span class="g-mono" style="font-family:楷体;"><?php
@@ -136,15 +143,20 @@ if (!git_get_option('git_piclogo_b')) { ?>
 } ?><?php
 if (git_get_option('git_piclogo_b')) { ?><?php
     if (git_get_option('git_customlogo')) { ?><img alt="<?php
-    bloginfo('name'); ?>" src="<?php
+        bloginfo('name'); ?>" src="<?php
         echo git_get_option('git_customlogo'); ?>"><?php
     } ?><?php
     if (!git_get_option('git_customlogo')) { ?><img alt="<?php
-    bloginfo('name'); ?>" src="<?php
+        bloginfo('name'); ?>" src="<?php
         bloginfo('template_url'); ?>/img/logo.png"><?php
     } ?><?php
 } ?>
-<?php if (is_home()) { echo '</h1>'; }else{ echo '</div>'; } ?>
+<?php
+if (is_home()) {
+    echo '</h1>';
+} else {
+    echo '</div>';
+} ?>
 </a></div></div><div id="toubuads"><?php
 if (git_get_option('git_toubuads') && git_get_option('git_piclogo_left') && !G_is_mobile()) echo git_get_option('git_toubuads'); ?></div>
 <?php
@@ -177,20 +189,25 @@ echo str_replace("</ul></div>", "", ereg_replace("<div[^>]*><ul[^>]*>", "", wp_n
     'echo' => false
 )))); ?>
 <li style="float:right;"><div class="toggle-search"><i class="fa fa-search"></i></div><div class="search-expand" style="display: none;"><div class="search-expand-inner">
-    <?php if (git_get_option('git_search_baidu')) { ?>
-    <?php echo git_get_option('git_search_code'); ?></div></div>
-<?php }elseif (git_get_option('git_search')&&!git_get_option('git_search_baidu')) { ?>
+    <?php
+if (git_get_option('git_search_baidu')) { ?>
+    <?php
+    echo git_get_option('git_search_code'); ?></div></div>
+<?php
+} elseif (git_get_option('git_search') && !git_get_option('git_search_baidu')) { ?>
 <form method="get" class="searchform themeform" onsubmit="location.href='/?s=' + encodeURIComponent(this.s.value).replace(/%20/g, '+'); return false;" action="/"><div><input type="ext" class="search" name="s" onblur="if(this.value=='')this.value='<?php
-echo git_get_option('git_search_placeholder', '输入内容并回车'); ?>';" onfocus="if(this.value=='<?php
-echo git_get_option('git_search_placeholder', '输入内容并回车'); ?>')this.value='';" value="<?php
-echo git_get_option('git_search_placeholder', '输入内容并回车'); ?>"></div></form></div></div>
-<?php }elseif (!git_get_option('git_search')&&!git_get_option('git_search_baidu')){?>
+    echo git_get_option('git_search_placeholder', '输入内容并回车'); ?>';" onfocus="if(this.value=='<?php
+    echo git_get_option('git_search_placeholder', '输入内容并回车'); ?>')this.value='';" value="<?php
+    echo git_get_option('git_search_placeholder', '输入内容并回车'); ?>"></div></form></div></div>
+<?php
+} elseif (!git_get_option('git_search') && !git_get_option('git_search_baidu')) { ?>
 <form method="get" class="searchform themeform" onsubmit="location.href='<?php
-echo home_url('/search/'); ?>' + encodeURIComponent(this.s.value).replace(/%20/g, '+'); return false;" action="/"><div><input type="ext" class="search" name="s" onblur="if(this.value=='')this.value='<?php
-echo git_get_option('git_search_placeholder', '输入内容并回车'); ?>';" onfocus="if(this.value=='<?php
-echo git_get_option('git_search_placeholder', '输入内容并回车'); ?>')this.value='';" value="<?php
-echo git_get_option('git_search_placeholder', '输入内容并回车'); ?>"></div></form></div></div>
- <?php } ?>
+    echo home_url('/search/'); ?>' + encodeURIComponent(this.s.value).replace(/%20/g, '+'); return false;" action="/"><div><input type="ext" class="search" name="s" onblur="if(this.value=='')this.value='<?php
+    echo git_get_option('git_search_placeholder', '输入内容并回车'); ?>';" onfocus="if(this.value=='<?php
+    echo git_get_option('git_search_placeholder', '输入内容并回车'); ?>')this.value='';" value="<?php
+    echo git_get_option('git_search_placeholder', '输入内容并回车'); ?>"></div></form></div></div>
+ <?php
+} ?>
 </li>
 </ul>
 </div></div>
@@ -207,9 +224,9 @@ if (git_get_option('git_sign_b')) {
 			<div class="pull-right">
 				<?php
     if (is_user_logged_in()) {
-        echo '<i class="fa fa-user"></i> <a href="'.site_url().'/wp-admin">' . $u_name . '</a> ';
-    } elseif ( get_option( 'users_can_register' ) ) {
-        echo '<i class="fa fa-user"></i> <a href="'.site_url().'/wp-login.php?action=register">注册</a>';
+        echo '<i class="fa fa-user"></i> <a href="' . site_url() . '/wp-admin">' . $u_name . '</a> ';
+    } elseif (get_option('users_can_register')) {
+        echo '<i class="fa fa-user"></i> <a href="' . site_url() . '/wp-login.php?action=register">注册</a>';
     };
     echo '  <i class="fa fa-power-off"></i> ';
     echo wp_loginout();
@@ -217,6 +234,8 @@ if (git_get_option('git_sign_b')) {
 			</div>
 		<?php
 } ?>
-		<div class="toptip" id="callboard"><ul style="font-size:16px;margin-top: 2px;"><?php  echo git_get_option('git_tui'); ?></ul></div>
+		<div class="toptip" id="callboard"><ul style="font-size:16px;margin-top: 2px;"><?php
+echo git_get_option('git_tui'); ?></ul></div>
 	</div>
-<?php if (git_get_option('git_adsite_01')) echo'<div class="banner banner-site">'.git_get_option('git_adsite_01').'</div>';?>
+<?php
+if (git_get_option('git_adsite_01')) echo '<div class="banner banner-site">' . git_get_option('git_adsite_01') . '</div>'; ?>

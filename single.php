@@ -1,5 +1,4 @@
-<?php
-get_header(); ?>
+<?php get_header(); ?>
 <div class="content-wrap">
 	<div class="content">
 <?php
@@ -8,10 +7,15 @@ if (git_get_option('git_singlecode')) echo git_get_option('git_singlecode'); ?>
 <?php
 if (git_get_option('git_singleMenu_b')) echo '<div class="breadcrumbs">' . deel_breadcrumbs() . '</div>'; ?>
 <?php
-if (git_get_option( 'git_prettify' ) == 'monokai' ) { echo '<style type="text/css">.prettyprint,pre.prettyprint{background-color:#272822;border:none;overflow:hidden;padding:10px 15px;}.prettyprint.linenums,pre.prettyprint.linenums{-webkit-box-shadow:inset 40px 0 0 #39382E,inset 41px 0 0 #464741;-moz-box-shadow:inset 40px 0 0 #39382E,inset 41px 0 0 #464741;box-shadow:inset 40px 0 0 #39382E,inset 41px 0 0 #464741;}.prettyprint.linenums ol,pre.prettyprint.linenums ol{margin:0 0 0 33px;}.prettyprint.linenums ol li,pre.prettyprint.linenums ol li{padding-left:12px;color:#bebec5;line-height:20px;margin-left:0;list-style:decimal;}.prettyprint .com{color:#93a1a1;}.prettyprint .lit{color:#AE81FF;}.prettyprint .pun,.prettyprint .opn,.prettyprint .clo{color:#F8F8F2;}.prettyprint .fun{color:#dc322f;}.prettyprint .str,.prettyprint .atv{color:#E6DB74;}.prettyprint .kwd,.prettyprint .tag{color:#F92659;}.prettyprint .typ,.prettyprint .atn,.prettyprint .dec,.prettyprint .var{color:#A6E22E;}.prettyprint .pln{color:#66D9EF;}</style>';
-}elseif(git_get_option( 'git_prettify' ) == 'tomorrow' ) { echo '<style type="text/css">.prettyprint .pln{color:#ccc}.prettyprint .str{color:#9c9}.prettyprint .kwd{color:#c9c}.prettyprint .com{color:#999;font-style:italic}.prettyprint .typ{color:#f99157}.prettyprint .lit{color:#f99157}.prettyprint .pun{color:#ccc}.prettyprint .opn{color:#ccc}.prettyprint .clo{color:#ccc}.prettyprint .tag{color:#f2777a}.prettyprint .atn{color:#f99157}.prettyprint .atv{color:#6cc}.prettyprint .dec{color:#f99157}.prettyprint .var{color:#f2777a}.prettyprint .fun{color:#69c}pre.prettyprint{background-color:#2d2d2d;padding:10px;border:1px solid #e1e1e8}ol.linenums{color:#999;margin:0 0 0 40px}ol.linenums li{line-height:18px;padding-left:12px}.prettyprint.linenums,pre.prettyprint.linenums{box-shadow:inset 40px 0 0 #212121;color:#c5c8c6}</style>';
-}elseif(git_get_option( 'git_prettify' ) == 'solarized' ) { echo '<style type="text/css">.prettyprint.pln{color:#fff}.prettyprint.str{color:#d1f1a9}.prettyprint.kwd{color:#ebbbff}.prettyprint.com{color:#7285b7;font-style:italic}.prettyprint.typ{color:#bbdaff}.prettyprint.lit{color:#ffc58f}.prettyprint.pun{color:#fff}.prettyprint.opn{color:#fff}.prettyprint.clo{color:#fff}.prettyprint.tag{color:#ff9da4}.prettyprint.atn{color:#ffc58f}.prettyprint.atv{color:#9ff}.prettyprint.dec{color:#ffc58f}.prettyprint.var{color:#ff9da4}.prettyprint.fun{color:#bbdaff}pre.prettyprint{background-color:#002451;padding:10px;border:1px solid #e1e1e8}ol.linenums{color:#7285b7;margin:0 0 0 40px}ol.linenums li{line-height:18px;padding-left:12px}.prettyprint.linenums,pre.prettyprint.linenums{box-shadow:inset 40px 0 0 #001938;color:#809189}</style>';
-}elseif(git_get_option( 'git_prettify' ) == 'deepblue' ) { echo '<style type="text/css">.prettyprint .pln{color:#bd3613}.prettyprint .str{color:#269186}.prettyprint .kwd{color:#859900}.prettyprint .com{color:#586175;font-style:italic}.prettyprint .typ{color:#b58900}.prettyprint .lit{color:#2aa198}.prettyprint .pun{color:#839496}.prettyprint .opn{color:#839496}.prettyprint .clo{color:#839496}.prettyprint .tag{color:#268bd2}.prettyprint .atn{color:#586175}.prettyprint .atv{color:#2aa198}.prettyprint .dec{color:#268bd2}.prettyprint .var{color:#268bd2}.prettyprint.fun{color:red}pre.prettyprint{background-color:#042029;padding:10px;border:1px solid #e1e1e8}ol.linenums{color:#4c666c;margin:0 0 0 40px}ol.linenums li{line-height:18px;padding-left:12px}.prettyprint.linenums,pre.prettyprint.linenums{box-shadow:inset 40px 0 0 #020e13;color:#809189}</style>';}
+if (git_get_option('git_prettify') == 'monokai') {
+    echo '<style type="text/css">.prettyprint,pre.prettyprint{background-color:#272822;border:none;overflow:hidden;padding:10px 15px;}.prettyprint.linenums,pre.prettyprint.linenums{-webkit-box-shadow:inset 40px 0 0 #39382E,inset 41px 0 0 #464741;-moz-box-shadow:inset 40px 0 0 #39382E,inset 41px 0 0 #464741;box-shadow:inset 40px 0 0 #39382E,inset 41px 0 0 #464741;}.prettyprint.linenums ol,pre.prettyprint.linenums ol{margin:0 0 0 33px;}.prettyprint.linenums ol li,pre.prettyprint.linenums ol li{padding-left:12px;color:#bebec5;line-height:20px;margin-left:0;list-style:decimal;}.prettyprint .com{color:#93a1a1;}.prettyprint .lit{color:#AE81FF;}.prettyprint .pun,.prettyprint .opn,.prettyprint .clo{color:#F8F8F2;}.prettyprint .fun{color:#dc322f;}.prettyprint .str,.prettyprint .atv{color:#E6DB74;}.prettyprint .kwd,.prettyprint .tag{color:#F92659;}.prettyprint .typ,.prettyprint .atn,.prettyprint .dec,.prettyprint .var{color:#A6E22E;}.prettyprint .pln{color:#66D9EF;}</style>';
+} elseif (git_get_option('git_prettify') == 'tomorrow') {
+    echo '<style type="text/css">.prettyprint .pln{color:#ccc}.prettyprint .str{color:#9c9}.prettyprint .kwd{color:#c9c}.prettyprint .com{color:#999;font-style:italic}.prettyprint .typ{color:#f99157}.prettyprint .lit{color:#f99157}.prettyprint .pun{color:#ccc}.prettyprint .opn{color:#ccc}.prettyprint .clo{color:#ccc}.prettyprint .tag{color:#f2777a}.prettyprint .atn{color:#f99157}.prettyprint .atv{color:#6cc}.prettyprint .dec{color:#f99157}.prettyprint .var{color:#f2777a}.prettyprint .fun{color:#69c}pre.prettyprint{background-color:#2d2d2d;padding:10px;border:1px solid #e1e1e8}ol.linenums{color:#999;margin:0 0 0 40px}ol.linenums li{line-height:18px;padding-left:12px}.prettyprint.linenums,pre.prettyprint.linenums{box-shadow:inset 40px 0 0 #212121;color:#c5c8c6}</style>';
+} elseif (git_get_option('git_prettify') == 'solarized') {
+    echo '<style type="text/css">.prettyprint.pln{color:#fff}.prettyprint.str{color:#d1f1a9}.prettyprint.kwd{color:#ebbbff}.prettyprint.com{color:#7285b7;font-style:italic}.prettyprint.typ{color:#bbdaff}.prettyprint.lit{color:#ffc58f}.prettyprint.pun{color:#fff}.prettyprint.opn{color:#fff}.prettyprint.clo{color:#fff}.prettyprint.tag{color:#ff9da4}.prettyprint.atn{color:#ffc58f}.prettyprint.atv{color:#9ff}.prettyprint.dec{color:#ffc58f}.prettyprint.var{color:#ff9da4}.prettyprint.fun{color:#bbdaff}pre.prettyprint{background-color:#002451;padding:10px;border:1px solid #e1e1e8}ol.linenums{color:#7285b7;margin:0 0 0 40px}ol.linenums li{line-height:18px;padding-left:12px}.prettyprint.linenums,pre.prettyprint.linenums{box-shadow:inset 40px 0 0 #001938;color:#809189}</style>';
+} elseif (git_get_option('git_prettify') == 'deepblue') {
+    echo '<style type="text/css">.prettyprint .pln{color:#bd3613}.prettyprint .str{color:#269186}.prettyprint .kwd{color:#859900}.prettyprint .com{color:#586175;font-style:italic}.prettyprint .typ{color:#b58900}.prettyprint .lit{color:#2aa198}.prettyprint .pun{color:#839496}.prettyprint .opn{color:#839496}.prettyprint .clo{color:#839496}.prettyprint .tag{color:#268bd2}.prettyprint .atn{color:#586175}.prettyprint .atv{color:#2aa198}.prettyprint .dec{color:#268bd2}.prettyprint .var{color:#268bd2}.prettyprint.fun{color:red}pre.prettyprint{background-color:#042029;padding:10px;border:1px solid #e1e1e8}ol.linenums{color:#4c666c;margin:0 0 0 40px}ol.linenums li{line-height:18px;padding-left:12px}.prettyprint.linenums,pre.prettyprint.linenums{box-shadow:inset 40px 0 0 #020e13;color:#809189}</style>';
+}
 ?>
 		<?php
 while (have_posts()):
@@ -35,7 +39,7 @@ while (have_posts()):
 				<span class="muted"><i class="fa fa-eye"></i> <?php
     deel_views('次浏览'); ?></span>
 				<?php
-    if (git_get_option('git_baidurecord_b')&& function_exists('curl_init')) { ?><span class="muted"><i class="fa fa-flag"></i> <?php
+    if (git_get_option('git_baidurecord_b') && function_exists('curl_init')) { ?><span class="muted"><i class="fa fa-flag"></i> <?php
         baidu_record(); ?></span><?php
     } ?>
 				<?php
@@ -107,31 +111,62 @@ previous_post_link('<i class="fa fa-angle-double-left"></i> %link'); ?></span>
 next_post_link('%link  <i class="fa fa-angle-double-right"></i>'); ?></span>
 		</nav>
 
-<?php if (git_get_option('git_auther_b')) { ?>
+<?php
+if (git_get_option('git_auther_b')) { ?>
 
 <div class="sg-author clr">
-<div class="img"><?php echo get_avatar( get_the_author_email(), '60' );?></div>
+<div class="img"><?php
+    echo get_avatar(get_the_author_email() , '60'); ?></div>
 <div class="sg-author-info">
 <div class="word">
-<div class="wordname">关于作者：<?php the_author_posts_link(); ?></div>
-<div class="authordes"><?php the_author_description(); ?></div>
+<div class="wordname">关于作者：<?php
+    the_author_posts_link(); ?></div>
+<div class="authordes"><?php
+    the_author_description(); ?></div>
 <div class="authorsocial">
-<span class="social-icon-wrap"><a class="as-img as-home" target="_blank" href="<?php the_author_url(); ?>" title="作者主页"><i class="fa fa-home"></i>作者主页</a></span>
-<?php if ( get_the_author_meta( 'donate' ) ){echo '<span class="social-icon-wrap"><a class="as-img as-donate" target="_blank" href="'.get_the_author_meta( 'donate' ).'" title="赞助作者"> <i class="fa fa-coffee"></i>赞助作者 </a></span>';} ?>
-<span class="social-icon-wrap"><a class="as-img as-email" target="_blank" href="mailto:<?php echo get_the_author_meta( 'user_email' ); ?>" title="给我写信"><i class="fa fa-envelope"></i></a></span>
-<?php if ( get_the_author_meta( 'sina_weibo' ) ){echo '<span class="social-icon-wrap"><a class="as-img as-sinawb" target="_blank" href="'.get_the_author_meta( 'sina_weibo' ).'" title="微博"><i class="fa fa-weibo"></i></a></span>';} ?>
-<?php if ( get_the_author_meta( 'qq_weibo' ) ){echo '<span class="social-icon-wrap"><a class="as-img as-qqwb" target="_blank" href="'.get_the_author_meta( 'qq_weibo' ).'" title="腾讯微博"><i class="fa fa-tencent-weibo"></i></a></span>';} ?>
-<?php if ( get_the_author_meta( 'twitter' ) ){echo '<span class="social-icon-wrap"><a class="as-img as-twitter" target="_blank" href="'.get_the_author_meta( 'twitter' ).'" title="Twitter"><i class="fa fa-twitter"></i></a></span>';} ?>
-<?php if ( get_the_author_meta( 'google_plus' ) ){echo '<span class="social-icon-wrap"><a class="as-img as-googleplus" target="_blank" href="'.get_the_author_meta( 'google_plus' ).'" title="Google+"><i class="fa fa-google-plus"></i></a></span>';} ?>
-<?php if ( get_the_author_meta( 'github' ) ){echo '<span class="social-icon-wrap"><a class="as-img as-git" target="_blank" href="'.get_the_author_meta( 'github' ).'" title="Google+"><i class="fa fa-git"></i></a></span>';} ?>
-<?php if ( get_the_author_meta( 'baidu' ) ){echo '<span class="social-icon-wrap"><a class="as-img as-weixin" target="_blank" href="http://tieba.baidu.com/home/main?un='.get_the_author_meta( 'baidu' ).'&ie=utf-8" id="as-weixin-a" title="百度贴吧"><i class="fa fa-paw"></i>
-</a></span>';} ?>
-<?php if ( get_the_author_meta( 'qq' ) ){ echo '<span class="social-icon-wrap"><a class="as-img as-qq" target="_blank" href="tencent://message/?uin='.get_the_author_meta( 'qq' ).'&Site=&Menu=yes" title="QQ交谈"><i class="fa fa-qq"></i></a></span>'; } ?>
+<span class="social-icon-wrap"><a class="as-img as-home" target="_blank" href="<?php
+    the_author_url(); ?>" title="作者主页"><i class="fa fa-home"></i>作者主页</a></span>
+<?php
+    if (get_the_author_meta('donate')) {
+        echo '<span class="social-icon-wrap"><a class="as-img as-donate" target="_blank" href="' . get_the_author_meta('donate') . '" title="赞助作者"> <i class="fa fa-coffee"></i>赞助作者 </a></span>';
+    } ?>
+<span class="social-icon-wrap"><a class="as-img as-email" target="_blank" href="mailto:<?php
+    echo get_the_author_meta('user_email'); ?>" title="给我写信"><i class="fa fa-envelope"></i></a></span>
+<?php
+    if (get_the_author_meta('sina_weibo')) {
+        echo '<span class="social-icon-wrap"><a class="as-img as-sinawb" target="_blank" href="' . get_the_author_meta('sina_weibo') . '" title="微博"><i class="fa fa-weibo"></i></a></span>';
+    } ?>
+<?php
+    if (get_the_author_meta('qq_weibo')) {
+        echo '<span class="social-icon-wrap"><a class="as-img as-qqwb" target="_blank" href="' . get_the_author_meta('qq_weibo') . '" title="腾讯微博"><i class="fa fa-tencent-weibo"></i></a></span>';
+    } ?>
+<?php
+    if (get_the_author_meta('twitter')) {
+        echo '<span class="social-icon-wrap"><a class="as-img as-twitter" target="_blank" href="' . get_the_author_meta('twitter') . '" title="Twitter"><i class="fa fa-twitter"></i></a></span>';
+    } ?>
+<?php
+    if (get_the_author_meta('google_plus')) {
+        echo '<span class="social-icon-wrap"><a class="as-img as-googleplus" target="_blank" href="' . get_the_author_meta('google_plus') . '" title="Google+"><i class="fa fa-google-plus"></i></a></span>';
+    } ?>
+<?php
+    if (get_the_author_meta('github')) {
+        echo '<span class="social-icon-wrap"><a class="as-img as-git" target="_blank" href="' . get_the_author_meta('github') . '" title="Google+"><i class="fa fa-git"></i></a></span>';
+    } ?>
+<?php
+    if (get_the_author_meta('baidu')) {
+        echo '<span class="social-icon-wrap"><a class="as-img as-weixin" target="_blank" href="http://tieba.baidu.com/home/main?un=' . get_the_author_meta('baidu') . '&ie=utf-8" id="as-weixin-a" title="百度贴吧"><i class="fa fa-paw"></i>
+</a></span>';
+    } ?>
+<?php
+    if (get_the_author_meta('qq')) {
+        echo '<span class="social-icon-wrap"><a class="as-img as-qq" target="_blank" href="tencent://message/?uin=' . get_the_author_meta('qq') . '&Site=&Menu=yes" title="QQ交谈"><i class="fa fa-qq"></i></a></span>';
+    } ?>
 </div>
 </div>
 </div>
 </div>
-<?php } ?>
+<?php
+} ?>
 		
 		<div class="related_top">
 			<?php
@@ -150,4 +185,6 @@ comments_template('', true); ?>
 if (git_get_option('git_adpost_03')) echo '<div class="banner banner-comment">' . git_get_option('git_adpost_03') . '</div>'; ?>
 	</div>
 </div>
-<?php get_sidebar(); get_footer(); ?>
+<?php
+get_sidebar();
+get_footer(); ?>
