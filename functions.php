@@ -134,7 +134,7 @@ if (function_exists('register_sidebar')) {
     ));
 }
 //页面伪静态，奶子页面静态化插件
-if (git_get_option('git_pagehtml_b')):
+if (git_get_option('git_pagehtml_b') && !is_page('go')):
     add_action('init', 'html_page_permalink', -1);
     register_activation_hook(__FILE__, 'active');
     register_deactivation_hook(__FILE__, 'deactive');
@@ -444,7 +444,7 @@ function git_avatar_cache($avatar) {
 }
 add_filter('get_avatar', 'git_avatar_cache', 10, 3);
 
-/*替换文章或评论内容外链为内链*/
+/*替换文章或评论内容外链为内链
 if(git_get_option('git_go')):
 function git_go_url($content) {
     preg_match_all('/href="(http.*?)"/', $content, $matches);
@@ -467,6 +467,23 @@ function git_go_url($content) {
     return $content;
 }
 add_filter('the_content', 'git_go_url', 999);
+endif;
+*/
+
+//给外部链接加上跳转
+if(git_get_option('git_go')):
+function git_go_url($content){
+	preg_match_all('/<a(.*?)href="(.*?)"(.*?)>/',$content,$matches);
+	if($matches && !is_page('about')){
+		foreach($matches[2] as $val){
+			if(strpos($val,'://')!==false && strpos($val,home_url())===false && !preg_match('/\.(jpg|jepg|png|ico|bmp|gif|tiff)/i',$val)){
+			        $content=str_replace("href=\"$val\"", "href=\"".home_url()."/go/?url=$val\" ",$content);
+			}
+		}
+	}
+	return $content;
+}
+add_filter('the_content','git_go_url',999);
 endif;
 //关键字
 function deel_keywords() {
@@ -1369,8 +1386,7 @@ function xdltable($atts, $content = null) {
     return '<table class="dltable"><tbody><tr><td style="background-color:#F9F9F9;" rowspan="3"><p>文件下载</p></td><td><i class="fa fa-list-alt"></i>&nbsp;&nbsp;文件名称：' . $file . '</td><td><i class="fa fa-th-large"></i>&nbsp;&nbsp;文件大小：' . $size . '</td></tr><tr><td colspan="2"><i class="fa fa-volume-up"></i>&nbsp;&nbsp;下载声明：'.git_get_option('git_dltable_b').'</td></tr><tr><td colspan="2"><i class="fa fa-download"></i>&nbsp;&nbsp;下载地址：' . $content . '</td></tr></tbody></table>';
 }
 add_shortcode('dltable', 'xdltable');
-//自动为文章内链接生成超链接
-add_filter('the_content', 'make_clickable');
+
 // add youku using iframe
 function wp_iframe_handler_youku($matches, $attr, $url, $rawattr) {
     if (wp_is_mobile()) {
