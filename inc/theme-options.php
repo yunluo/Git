@@ -217,7 +217,7 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
-        'name'  => '外链自动go跳转',
+        'name'  => '外链自动GO跳转',
         'desc'  => '启用 【启用之后需要新建页面，模板选择Go跳转页面，别名为go】',
         'id'    => "git_go",
         'type'  => 'checkbox'

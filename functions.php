@@ -134,7 +134,7 @@ if (function_exists('register_sidebar')) {
     ));
 }
 //页面伪静态，奶子页面静态化插件
-if (git_get_option('git_pagehtml_b') && !is_page('go')):
+if (git_get_option('git_pagehtml_b') ):
     add_action('init', 'html_page_permalink', -1);
     register_activation_hook(__FILE__, 'active');
     register_deactivation_hook(__FILE__, 'deactive');
@@ -477,7 +477,11 @@ function git_go_url($content){
 	if($matches && !is_page('about')){
 		foreach($matches[2] as $val){
 			if(strpos($val,'://')!==false && strpos($val,home_url())===false && !preg_match('/\.(jpg|jepg|png|ico|bmp|gif|tiff)/i',$val)){
+			    if(git_get_option('git_pagehtml_b')) {
+			        $content=str_replace("href=\"$val\"", "href=\"".home_url()."/go.html/?url=$val\" ",$content);
+			    }else{
 			        $content=str_replace("href=\"$val\"", "href=\"".home_url()."/go/?url=$val\" ",$content);
+			    }
 			}
 		}
 	}
