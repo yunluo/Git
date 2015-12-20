@@ -469,7 +469,6 @@ function git_go_url($content) {
 add_filter('the_content', 'git_go_url', 999);
 endif;
 */
-
 //给外部链接加上跳转
 if(git_get_option('git_go')):
 function git_go_url($content){
