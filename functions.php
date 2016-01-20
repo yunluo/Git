@@ -1159,36 +1159,32 @@ add_action('admin_print_styles', 'zfunc_admin_enqueue_scripts');
 //使用短代码添加回复后可见内容开始
 function reply_to_read($atts, $content = null) {
     extract(shortcode_atts(array(
-        "notice" => '<blockquote><p class="reply-to-read" style="color: blue;">注意：本段内容须成功“<a href="' . get_permalink() . '#respond" title="回复本文">回复本文</a>”后“<a href="javascript:window.location.reload();" title="刷新本页">刷新本页</a>”方可查看！</p></blockquote>'
+        "notice" => '<blockquote><center><p class="reply-to-read" style="color: blue;">注意：本段内容须成功“<a href="' . get_permalink() . '#respond" title="回复本文">回复本文</a>”后“<a href="javascript:window.location.reload();" title="刷新本页">刷新本页</a>”方可查看！</p></center></blockquote>'
     ) , $atts));
-    if (is_super_admin()) {
-        $return = '<div class="showhide"><h4>本文隐藏的内容</h4>';
-        $return.= $content;
-        $return.= '</div>'; //如果用户是管理员则直接显示内容
-    }
     $email = null;
     $user_ID = (int)wp_get_current_user()->ID;
     if ($user_ID > 0) {
-        $email = get_userdata($user_ID)->user_email; //如果用户已经登入则从用户信息中取得邮箱
+        $email = get_userdata($user_ID)->user_email;
+        //对博主直接显示内容
+        $admin_email = get_bloginfo('admin_email');
+        if ($email == $admin_email) {
+            return $content;
+        }
     } else if (isset($_COOKIE['comment_author_email_' . COOKIEHASH])) {
-        $email = str_replace('%40', '@', $_COOKIE['comment_author_email_' . COOKIEHASH]); //如果用户尚未登入但COOKIE内储存有邮箱信息
+        $email = str_replace('%40', '@', $_COOKIE['comment_author_email_' . COOKIEHASH]);
     } else {
-        $return = '<div class="showhide"><h4>本文隐藏的内容</h4>';
-        $return.= $content;
-        $return.= '</div>'; //如无法获取邮箱则返回提示信息
+        return $notice;
     }
     if (empty($email)) {
-        return $notice; //如邮箱为空则返回提示信息
+        return $notice;
     }
     global $wpdb;
-    $post_id = get_the_ID(); //获取文章的ID
+    $post_id = get_the_ID();
     $query = "SELECT `comment_ID` FROM {$wpdb->comments} WHERE `comment_post_ID`={$post_id} and `comment_approved`='1' and `comment_author_email`='{$email}' LIMIT 1";
     if ($wpdb->get_results($query)) {
-        $return = '<div class="showhide"><h4>本文隐藏的内容</h4>';
-        $return.= $content;
-        $return.= '</div>'; //查询到对应的评论即正常显示内容
+        return do_shortcode($content);
     } else {
-        return $notice; //否则返回提示信息
+        return $notice;
     }
 }
 add_shortcode('reply', 'reply_to_read');
