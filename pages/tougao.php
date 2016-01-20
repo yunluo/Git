@@ -71,17 +71,17 @@ while (have_posts()):
     echo $_SERVER["REQUEST_URI"];
     $current_user = wp_get_current_user(); ?>">
 <div style="text-align: left; padding-top: 10px;">
-<label for="tougao_authorname">昵称:*</label><input style="width : 98%;" type="text" size="80" value="" id="tougao_authorname" name="tougao_authorname" />
+<label for="tougao_authorname">昵称:*</label><br><input style="width : 98%;" type="text" size="80" value="" id="tougao_authorname" name="tougao_authorname" />
 </div>
 <div style="text-align: left; padding-top: 10px;">
-<label for="tougao_title">标题:*</label><input style="width : 98%;" type="text" size="80" value="" id="tougao_title" name="tougao_title" />
+<label for="tougao_title">标题:*</label><br><input style="width : 98%;" type="text" size="80" value="" id="tougao_title" name="tougao_title" />
 </div>
 <div style="text-align: left; padding-top: 10px;">
-<label for="tougao_content">内容:*</label><textarea style="width : 98%;" name="tougao_content" rows="12" cols=""></textarea>
+<label for="tougao_content">内容:*</label><br><textarea style="width : 98%;" name="tougao_content" rows="12" cols=""></textarea>
 </div>
 <div style="text-align: center; padding-top: 10px;">
 <input type="hidden" value="send" name="tougao_form" />
-<input class="button" style="width:50px;height:30px;" type="submit" value="提交" /> &nbsp;&nbsp; <input style="width:50px;height:30px;" class="buttn" type="reset" value="重填" />
+<input class="button" style="width:100px;height:30px;" type="submit" value="提交" /> &nbsp;&nbsp; <input style="width:100px;height:30px;" class="buttn" type="reset" value="重填" />
 </div>
 </form>
 <br/>
