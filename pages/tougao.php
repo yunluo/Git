@@ -71,13 +71,13 @@ while (have_posts()):
     echo $_SERVER["REQUEST_URI"];
     $current_user = wp_get_current_user(); ?>">
 <div style="text-align: left; padding-top: 10px;">
-<label for="tougao_authorname">昵称:*</label><br><input style="width : 98%;" type="text" size="80" value="" id="tougao_authorname" name="tougao_authorname" />
+<p><label for="tougao_authorname">昵称:*</label></p><input style="width : 98%;" type="text" size="80" value="" id="tougao_authorname" name="tougao_authorname" />
 </div>
 <div style="text-align: left; padding-top: 10px;">
-<label for="tougao_title">标题:*</label><br><input style="width : 98%;" type="text" size="80" value="" id="tougao_title" name="tougao_title" />
+<p><label for="tougao_title">标题:*</label></p><input style="width : 98%;" type="text" size="80" value="" id="tougao_title" name="tougao_title" />
 </div>
 <div style="text-align: left; padding-top: 10px;">
-<label for="tougao_content">内容:*</label><br><textarea style="width : 98%;" name="tougao_content" rows="12" cols=""></textarea>
+<p><label for="tougao_content">内容:*</label></p><textarea style="width : 98%;" name="tougao_content" rows="12" cols=""></textarea>
 </div>
 <div style="text-align: center; padding-top: 10px;">
 <input type="hidden" value="send" name="tougao_form" />

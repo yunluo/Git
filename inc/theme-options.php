@@ -1139,14 +1139,14 @@ $options = array(
         'desc'  => '如果幻灯没开启，则不显示',
         'id'    => 'git_adindex_02',
         'type'  => 'textarea',
-        'std'   => '<a target="_blank" href="https://shop116317755.taobao.com"><img style="width:100%" src="http://i3.tietuku.com/67441a75473dff72.jpg" title="米兰萌宠之家" alt="米兰萌宠之家" ></a>'
+        'std'   => '<a target="_blank" href="http://googlo.me/shuadan"><img src="http://7arngj.com1.z0.glb.clouddn.com/wp-content/uploads/2015121213560497.jpg" title="全网最安全兼职刷单放单接单网站，点击查看详情" alt="全网最安全兼职刷单放单接单网站，点击查看详情" style="width:100%;"></a>'
     ),
     array(
         'name'  => '广告：文章页 - 页面标题下',
         'desc'  => '开启',
         'id'    => 'git_adpost_01',
         'type'  => 'textarea',
-        'std'   => '<a target="_blank" href="https://shop116317755.taobao.com"><img style="width:100%" src="http://i3.tietuku.com/67441a75473dff72.jpg" title="米兰萌宠之家" alt="米兰萌宠之家" ></a>'
+        'std'   => '<a target="_blank" href="http://googlo.me/shuadan"><img src="http://7arngj.com1.z0.glb.clouddn.com/wp-content/uploads/2015121213560497.jpg" title="全网最安全兼职刷单放单接单网站，点击查看详情" alt="全网最安全兼职刷单放单接单网站，点击查看详情" style="width:100%;"></a>'
     ),
     array(
         'name'  => '广告：文章页 - 相关文章下',
