@@ -12,6 +12,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 <link href="/favicon.ico" rel="icon" type="image/x-icon" />
 <?php
+if (git_get_option('git_customcss')) echo '<style type="text/css">'.git_get_option('git_customcss').'</style>'; ?>
+<?php
 if (git_get_option('git_robot_b')): ?>
 <?php
     if (is_single() || is_page() || is_home()): ?>

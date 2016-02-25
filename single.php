@@ -1,8 +1,6 @@
 <?php get_header(); ?>
 <div class="content-wrap">
 	<div class="content">
-<?php
-if (git_get_option('git_singlecode')) echo git_get_option('git_singlecode'); ?>
 
 <?php
 if (git_get_option('git_singleMenu_b')) echo '<div class="breadcrumbs">' . deel_breadcrumbs() . '</div>'; ?>
@@ -150,7 +148,7 @@ if (git_get_option('git_auther_b')) { ?>
     } ?>
 <?php
     if (get_the_author_meta('github')) {
-        echo '<span class="social-icon-wrap"><a class="as-img as-git" target="_blank" href="' . get_the_author_meta('github') . '" title="Google+"><i class="fa fa-git"></i></a></span>';
+        echo '<span class="social-icon-wrap"><a class="as-img as-git" target="_blank" href="' . get_the_author_meta('github') . '" title="Git"><i class="fa fa-git"></i></a></span>';
     } ?>
 <?php
     if (get_the_author_meta('baidu')) {

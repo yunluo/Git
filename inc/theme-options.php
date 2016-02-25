@@ -33,12 +33,6 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
-        'name'  => '自定义404页面',
-        'desc'  => '默认的404是神经猫游戏，开启后是一个白色哭泣的404',
-        'id'    => 'git_sj404_b',
-        'type'  => 'checkbox'
-    ),
-    array(
         'title' => '热门排行',
         'type'  => 'subtitle'
     ),
@@ -146,8 +140,14 @@ $options = array(
     ),
     array(
         'name'  => '网站头部代码',
-        'desc'  => '会自动出现在页面头部（head区域），可放置广告代码等自定义（css或js）的全局代码块',
+        'desc'  => '会自动出现在页面头部（head区域），可放置广告代码等自定义代码的全局代码块',
         'id'    => 'git_headcode',
+        'type'  => 'textarea'
+    ),
+    array(
+        'name'  => '网站自定义样式CSS',
+        'desc'  => '网站全局CSS代码，可以直接加入css代码，比如：.authorsocial i{font-size:16px;width:20px;height:18px}',
+        'id'    => 'git_customcss',
         'type'  => 'textarea'
     ),
     array(
@@ -488,13 +488,6 @@ $options = array(
         'id'    => "git_copyright_b",
         'type'  => 'textarea',
         'std'   => '乐趣公园 , 版权所有丨如未注明 , 均为原创丨本网站采用<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" rel="nofollow" target="_blank" title="BY-NC-SA授权协议">BY-NC-SA</a>协议进行授权 , 转载请注明<a href="{{link}}" target="_blank" title="{{title}}">{{title}}</a>！'
-    ),
-    array(
-        'name'  => '文章页自定义代码',
-        'desc'  => '此选项可放置作用于文章的css代码或者JavaScript代码块',
-        'id'    => "git_singlecode",
-        'type'  => 'textarea',
-        'std'   => ''
     ),
     array(
         'type'  => 'panelend'
@@ -1196,18 +1189,6 @@ $options = array(
         'type'  => 'subtitle'
     ),
     array(
-        'name'  => '弹窗功能',
-        'desc'  => '启用  【网站常用的功能，建议开启，不仅仅是图片弹窗，还有其他弹窗都需要这个支持，比如弹窗下载】',
-        'id'    => "git_fancybox_b",
-        'type'  => 'checkbox'
-    ),
-    array(
-        'name'  => '屏蔽谷歌字体',
-        'desc'  => '启用  【开启后，将屏蔽加载谷歌字体文件，建议开启】',
-        'id'    => "git_fuckziti_b",
-        'type'  => 'checkbox'
-    ),
-    array(
         'name'  => '链接去掉Categroy',
         'desc'  => '启用  【开启后，需要至设置——固定连接——重新保存一下，否则会发生404错误】',
         'id'    => "git_categroy_b",
@@ -1437,36 +1418,6 @@ $options = array(
             '本地jQuery库' => 'git_jqcdn_bendi'
         ),
         'std'   => 'git_jqcdn_bendi'
-    ),
-    array(
-        'title' => '会员注册设置',
-        'type'  => 'subtitle'
-    ),
-    array(
-        'name'  => '开启密码注册',
-        'desc'  => ' 【开启后，用户注册的时候需要输入密码】',
-        'id'    => "git_register",
-        'type'  => 'checkbox'
-    ),
-    array(
-        'name'  => '开启注册验证',
-        'desc'  => ' 【开启后，请在下面输入相关问题以及答案】',
-        'id'    => "git_qa_b",
-        'type'  => 'checkbox'
-    ),
-    array(
-        'name'  => '验证问题',
-        'desc'  => '请输入网站注册验证问题，比如：“魔都”指的是哪个城市？',
-        'id'    => "git_question",
-        'type'  => 'text',
-        'std'   => ''
-    ),
-    array(
-        'name'  => '验证问题答案',
-        'desc'  => '请输入上面问题的答案，比如：上海。',
-        'id'    => "git_answer",
-        'type'  => 'text',
-        'std'   => ''
     ),
     array(
         'title' => '站内搜索设置',

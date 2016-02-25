@@ -894,14 +894,12 @@ function post_thumbnail_src() {
 }
 
 //禁用谷歌字体
-if (git_get_option('git_fuckziti_b')):
     function googlo_remove_open_sans_from_wp_core() {
         wp_deregister_style('open-sans');
         wp_register_style('open-sans', false);
         wp_enqueue_style('open-sans', '');
     }
     add_action('init', 'googlo_remove_open_sans_from_wp_core');
-endif;
 //免插件去除Category
 if (git_get_option('git_category_b')) {
     add_action('load-themes.php', 'no_category_base_refresh_rules');
@@ -975,7 +973,6 @@ function git_copyright($content ) {
 }
 add_filter('the_content', 'git_copyright');
 //fancybox图片灯箱效果
-if (git_get_option('git_fancybox_b')):
     function fancybox($content) {
         global $post;
         $pattern = "/<a(.*?)href=('|\")([^>]*).(bmp|gif|jpeg|jpg|png|swf)('|\")(.*?)>(.*?)<\/a>/i";
@@ -984,7 +981,6 @@ if (git_get_option('git_fancybox_b')):
         return $content;
     }
     add_filter('the_content', 'fancybox');
-endif;
 //WordPress文字标签关键词自动内链
 $match_num_from = git_get_option('git_autolink_1'); //一篇文章中同一個標籤少於幾次不自動鏈接
 $match_num_to = git_get_option('git_autolink_2'); //一篇文章中同一個標籤最多自動鏈接幾次
@@ -1855,36 +1851,59 @@ add_filter( 'comment_text', 'git_comment_display', '', 1);
 add_filter( 'comment_text_rss', 'git_comment_display', '', 1);
 add_filter( 'comment_excerpt', 'git_comment_display', '', 1);
 endif;
-//注册页面的验证
-if(git_get_option('git_register')):
-function git_register_form() {
-    $pass1 = stripslashes(trim($_POST['pass1']));
-    $pass2 = stripslashes(trim($_POST['pass2']));
-    $pass1 = $pass1 ? $pass1 : '';
-    $pass2 = $pass2 ? $pass2 : '';
+
+//注册表单
+add_action( 'register_form', 'ts_show_extra_register_fields' );
+function ts_show_extra_register_fields(){
 ?>
-        <p>
-            <label for="pass1">填写密码<br />
-                <input type="password" name="pass1" id="pass1" class="input" value="<?php
-    echo esc_attr(wp_unslash($pass1)); ?>" size="25" /></label>
-        </p>
-        <p>
-            <label for="pass2">重写密码<br />
-                <input type="password" name="pass2" id="pass2" class="input" value="<?php
-    echo esc_attr(wp_unslash($pass2)); ?>" size="25" /></label>
-        </p>
-        <?php if(git_get_option('git_qa_b')):?>
-        <p>
-        <label for="are_you_human" style="font-size:11px"><?php
-    echo git_get_option('git_question'); ?><br/>
-        <input id="are_you_human" class="input" type="text" tabindex="40" size="25" value="" name="are_you_human" />
-        </label>
+    <p>
+    <label for="password">填写密码<br/>
+    <input id="password" class="input" type="password" tabindex="30" size="25" value="" name="password" />
+    </label>
     </p>
-    <?php endif; ?>
-		<style type="text/css">#reg_passmail {display: none;}</style>
-        <?php
+    <p>
+    <label for="repeat_password">重填密码<br/>
+    <input id="repeat_password" class="input" type="password" tabindex="40" size="25" value="" name="repeat_password" />
+    </label>
+    </p>
+    <p>
+    <label for="are_you_human" style="font-size:11px">为防止垃圾注册，请输入本站名称<br/>
+    <input id="are_you_human" class="input" type="text" tabindex="40" size="25" value="" name="are_you_human" />
+    </label>
+    </p>
+<?php
 }
-add_action('register_form', 'git_register_form');
+//错误提示
+function ts_check_extra_register_fields($login, $email, $errors) {
+    if ( $_POST['password'] !== $_POST['repeat_password'] ) {
+        $errors->add( 'passwords_not_matched', "<strong>错误提示</strong>: 两次填写密码不一致" );
+    }
+    if ( strlen( $_POST['password'] ) < 8 ) {
+        $errors->add( 'password_too_short', "<strong>错误提示</strong>: 密码必须大于8个字符" );
+    }
+    if ( $_POST['are_you_human'] !== get_bloginfo( 'name' ) ) {
+        $errors->add( 'not_human', "<strong>错误提示</strong>: 您为填写验证问题或者验证问题错误" );
+    }
+}
+add_action( 'register_post', 'ts_check_extra_register_fields', 10, 3 );
+//数据提交
+function ts_register_extra_fields( $user_id ){
+    $userdata = array();
+    $userdata['ID'] = $user_id;
+    if ( $_POST['password'] !== '' ) {
+        $userdata['user_pass'] = $_POST['password'];
+    }
+    $new_user_id = wp_update_user( $userdata );
+}
+add_action( 'user_register', 'ts_register_extra_fields', 100 );
+// Editing WordPress registration confirmation message
+function ts_edit_password_email_text ( $text ) {
+    if ( $text == 'A password will be e-mailed to you.' ) {
+        $text = 'If you leave password fields empty one will be generated for you. Password must be at least eight characters long.';
+    }
+    return $text;
+}
+add_filter( 'gettext', 'ts_edit_password_email_text' );
 //用户注册成功后自动登录，并跳转到指定页面
 function git_auto_login($user_id) {
     wp_set_current_user($user_id);
@@ -1893,35 +1912,6 @@ function git_auto_login($user_id) {
     exit;
 }
 add_action('user_register', 'git_auto_login');
-//进行错误显示
-function git_registration_errors($errors, $sanitized_user_login, $user_email) {
-    if (empty($_POST['pass1']) || !empty($_POST['pass1']) && trim($_POST['pass1']) == '') {
-        $errors->add('pass1_error','<strong>发生错误</strong>:请输入您的密码');
-    }
-    if (empty($_POST['pass2']) || !empty($_POST['pass2']) && trim($_POST['pass1']) == '') {
-        $errors->add('pass2_error','<strong>发生错误</strong>:请再次输入您的密码');
-    }
-    if ((!empty($_POST['pass1']) && trim($_POST['pass1']) != '') && (!empty($_POST['pass2']) && trim($_POST['pass2']) != '') && (trim($_POST['pass1']) != trim($_POST['pass2']))) {
-        $errors->add('pass2_error','<strong>发生错误</strong>: 您两次输入的密码不一致');
-    }
-    if ( $_POST['are_you_human'] !== ''.git_get_option('git_answer').'' && git_get_option('git_qa_b') ) {
-        $errors->add( 'not_human', "<strong>发生错误</strong>: 回答错误，请重新填写注册信息！" );
-    }
-    return $errors;
-}
-add_filter('registration_errors', 'git_registration_errors', 10, 3);
-//对用户注册输入内容进行判断
-function git_user_register($user_id) {
-    if (!empty($_POST['pass1']) && !empty($_POST['pass2'])&& (trim($_POST['pass1']) == trim($_POST['pass2']))) {
-        $pass = stripslashes(trim($_POST['pass1']));
-        $userdata = array();
-        $userdata['ID'] = $user_id;
-        $userdata['user_pass'] = $pass;
-        $user_id = wp_update_user($userdata);
-    }
-}
-add_action('user_register', 'git_user_register');
-endif;
 
 //SMTP邮箱设置
 function googlo_mail_smtp($phpmailer) {
