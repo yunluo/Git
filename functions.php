@@ -49,7 +49,7 @@ function googlo_admin_comment_ctrlenter() {
 add_action('admin_footer', 'googlo_admin_comment_ctrlenter');
 //添加后台左下角文字
 function git_admin_footer_text($text) {
-    $text = '感谢使用<a target="_blank" href=http://googlo.me/ >Git主题 5</a>进行创作';
+    $text = '感谢使用<a target="_blank" href=http://googlo.me/ >Git主题 6</a>进行创作';
     return $text;
 }
 add_filter('admin_footer_text', 'git_admin_footer_text');
@@ -133,7 +133,7 @@ if (function_exists('register_sidebar')) {
         'after_title' => '</h2></div>'
     ));
 }
-//页面伪静态，奶子页面静态化插件
+//页面伪静态
 if (git_get_option('git_pagehtml_b') ):
     add_action('init', 'html_page_permalink', -1);
     register_activation_hook(__FILE__, 'active');

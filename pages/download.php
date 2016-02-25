@@ -1,44 +1,59 @@
 <?php
 /*
-	template name: 下载单页
-	description: template for Git theme
+	template name: 下载模板页面
+	description: template for G theme
 */
+get_header();
+?>
+<?php
 $pid = isset( $_GET['pid'] ) ? trim(htmlspecialchars($_GET['pid'], ENT_QUOTES)) : '';
 if( !$pid ) die('暂无页面下载');
 $title = get_the_title($pid);
-$values = get_post_custom_values('git_download',$pid);
-empty($values) ? Header('Location:/') : $theCode = $values[0];
+$values1 = get_post_custom_values('git_download_name',$pid);
+empty($values1) ? Header('Location:/') : $theCode1 = $values1[0];
+$values2 = get_post_custom_values('git_download_size',$pid);
+empty($values2) ? Header('Location:/') : $theCode2 = $values2[0];
+$values3 = get_post_custom_values('git_download_link',$pid);
+empty($values3) ? Header('Location:/') : $theCode3 = $values3[0];
 ?>
-<!DOCTYPE HTML>
-<html>
-<head>
-<meta charset="UTF-8" />
-<title>代码演示: <?php echo $title ?> -- <?php echo bloginfo('name'); ?></title>
-<style>
-body,h1,h2,h3,h4,p,ul,li,ol,dl,dt,dd,input,textarea,figure,form{margin:0;padding:0}
-body,input,textarea{font-size:12px;font-family:microsoft yahei}
-body{text-align:center;color:#33383D;background:#eee}
-ul,ol{list-style:none}
-img{border:0}
-button,input {line-height:normal;*overflow:visible}
-input,textarea{outline:none}
-a{color:#428BD1;text-decoration:none}
-a:hover{color:#3071A9}
-.download-header{position:relative;height:32px;background-color:#4A4A4A;line-height:32px;text-align: left;}
-.download-name{background-color: #428BCA;color: #fff;display: inline-block;padding: 0 20px;}
-.download-name:hover{color: #fff;}
-.download-title{height:0;overflow:hidden}
-.download-container{clear: both;padding:30px 20px;text-align:left;margin:0 auto;line-height: 18px;}
-.download h2{font-size: 15px;padding-bottom: 6px;margin-bottom: 20px;border-bottom: solid 1px #ddd;}
-</style>
-</head>
-<body>
-<h1 class="download-title">代码演示: <?php echo $title ?> -- <?php echo bloginfo('name'); ?></h1>
-<div class="download-header">
-	<a class="download-name" href="<?php echo get_permalink($pid); ?>">&laquo; <?php echo $title ?></a>
-	<span style="display:none"><?php if( git_get_option('git_track') != '' ) echo git_get_option('git_track'); ?></span>
+<style type="text/css">#filelink a:hover{background:#4094EF none repeat scroll 0 0;color:#FFF!important;transition-duration:.3s;border-color:#FFF}#filelink a{margin:20px 15px 20px 0px;color:#4094EF!important;padding:5px 50px;font-family:微软雅黑,"Microsoft YaHei";font-size:19px;border:1px solid #4094EF;box-shadow:0 1px 3px rgba(0,0,0,.1)}</style>
+<div class="pagewrapper clearfix">
+		<header class="pageheader clearfix">
+			<h1 class="pull-left">
+				<a href="<?php the_permalink($pid) ?>"><?php echo $title; ?></a>
+			</h1>
+			<div class="pull-right"><!-- 百度分享 -->
+	<?php deel_share() ?>
+			</div>
+		</header>
+		<?php while (have_posts()) : the_post(); ?>
+			<div class="article-content">
+<!-- 文章上方 -->
+<?php if( git_get_option('git_downloadad1') ) echo git_get_option('git_downloadad1'); ?>
+            <h2>资源信息</h2>
+			<div class="alert alert-success">
+			<ul class="infos clearfix">
+                <li>资源名称：<?php echo $theCode1; ?></li>
+				<li>文件大小：<?php echo $theCode2; ?></li>
+				<li>更新日期：<?php the_modified_time('Y年n月j日'); ?></li>
+				</ul>
+			</div>  
+            <h2>下载地址</h2>
+            <div id="filelink">
+				<center><?php echo $theCode3; ?></center>
+            </div>
+			<div class="clearfix"></div>
+            <h2>下载说明</h2>
+			<div class="alert alert-info" role="alert">
+            <?php if( git_get_option('git_dlpage_dl') ) echo git_get_option('git_dlpage_dl'); ?>
+            </div>
+            <h2>免责声明</h2>
+			<div class="alert alert-warning" role="alert">
+			<p><?php if( git_get_option('git_dlpage_mz') ) echo git_get_option('git_dlpage_mz'); ?></p>
+			</div> 
+<!-- 下载页横幅 -->
+<?php if( git_get_option('git_downloadad2') ) echo git_get_option('git_downloadad2'); ?>
+			</div>
+		<?php comments_template('', true); endwhile;  ?>
 </div>
-<div class="download-container download"><?php echo $theCode; ?></div>
-<div style="display:none"><?php if( git_get_option('git_track') ) echo git_get_option('git_track'); ?></div>
-</body>
-</html>
+<?php get_footer(); ?>

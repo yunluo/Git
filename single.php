@@ -92,7 +92,7 @@ while (have_posts()):
     } else {
         echo '0';
     } ?></span>)</a><?php
-    if (git_get_option('git_bdshare_b')) echo '<span class="or">or</span>';
+    if (git_get_option('git_bdshare_b')) echo "<span class='or'>or</span>";
     deel_share(); ?>
 </div>
 	</article>
