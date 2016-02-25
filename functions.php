@@ -1853,8 +1853,8 @@ add_filter( 'comment_excerpt', 'git_comment_display', '', 1);
 endif;
 
 //注册表单
-add_action( 'register_form', 'ts_show_extra_register_fields' );
-function ts_show_extra_register_fields(){
+add_action( 'register_form', 'git_show_extra_register_fields' );
+function git_show_extra_register_fields(){
 ?>
     <p>
     <label for="password">填写密码<br/>
@@ -1874,7 +1874,7 @@ function ts_show_extra_register_fields(){
 <?php
 }
 //错误提示
-function ts_check_extra_register_fields($login, $email, $errors) {
+function git_check_extra_register_fields($login, $email, $errors) {
     if ( $_POST['password'] !== $_POST['repeat_password'] ) {
         $errors->add( 'passwords_not_matched', "<strong>错误提示</strong>: 两次填写密码不一致" );
     }
@@ -1885,9 +1885,9 @@ function ts_check_extra_register_fields($login, $email, $errors) {
         $errors->add( 'not_human', "<strong>错误提示</strong>: 您为填写验证问题或者验证问题错误" );
     }
 }
-add_action( 'register_post', 'ts_check_extra_register_fields', 10, 3 );
+add_action( 'register_post', 'git_check_extra_register_fields', 10, 3 );
 //数据提交
-function ts_register_extra_fields( $user_id ){
+function git_register_extra_fields( $user_id ){
     $userdata = array();
     $userdata['ID'] = $user_id;
     if ( $_POST['password'] !== '' ) {
@@ -1895,23 +1895,15 @@ function ts_register_extra_fields( $user_id ){
     }
     $new_user_id = wp_update_user( $userdata );
 }
-add_action( 'user_register', 'ts_register_extra_fields', 100 );
+add_action( 'user_register', 'git_register_extra_fields', 100 );
 // Editing WordPress registration confirmation message
-function ts_edit_password_email_text ( $text ) {
+function git_edit_password_email_text ( $text ) {
     if ( $text == 'A password will be e-mailed to you.' ) {
         $text = 'If you leave password fields empty one will be generated for you. Password must be at least eight characters long.';
     }
     return $text;
 }
-add_filter( 'gettext', 'ts_edit_password_email_text' );
-//用户注册成功后自动登录，并跳转到指定页面
-function git_auto_login($user_id) {
-    wp_set_current_user($user_id);
-    wp_set_auth_cookie($user_id);
-    wp_redirect(home_url());
-    exit;
-}
-add_action('user_register', 'git_auto_login');
+add_filter( 'gettext', 'git_edit_password_email_text' );
 
 //SMTP邮箱设置
 function googlo_mail_smtp($phpmailer) {
