@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 <div class="content-wrap">
-<style type="text/css">
+	<?php echo '<style type="text/css">
 .cont { margin:0 auto; line-height:20px; }
 .c1 { text-align:center; }
 .c1 .img1, .c1 .img2{ margin-top:80px; }
@@ -25,6 +25,6 @@
 			<div class="c2"><a href="javascript:;" class="re" onclick="javascript:history.back();">返回上页</a><a href="/" class="home">网站首页</a></div>
 			<div class="c3">通过搜索把你想找的文章给揪出来吧...</div>
 		</div>
+</div>';?>
 <?php if( git_get_option('git_404ad') ) echo git_get_option('git_404ad'); ?>
-</div>
 <?php get_footer(); ?>
