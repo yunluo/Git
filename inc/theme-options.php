@@ -906,17 +906,10 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
-        'name'  => '屏蔽分类一',
-        'desc'  => '启用',
-        'id'    => 'git_blockcat_1',
-        'type'  => 'number',
-        'std'   => ''
-    ),
-    array(
-        'name'  => '屏蔽分类二',
-        'desc'  => '启用',
-        'id'    => 'git_blockcat_2',
-        'type'  => 'number',
+        'name'  => '屏蔽分类',
+        'desc'  => '格式按照-3,-4,-5输入',
+        'id'    => 'git_blockcat',
+        'type'  => 'text',
         'std'   => ''
     ),
     array(
