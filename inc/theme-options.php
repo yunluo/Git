@@ -1536,8 +1536,9 @@ function git_options_page() {
     <h2>Git 主题选项</h2>
     <input placeholder="筛选主题选项…" type="search" id="theme-options-search" />
     <div class="yunluotips">
+        
     <?php
-        if (function_exists('curl_init')) {
+                if (function_exists('curl_init')) {
             $url = "https://gitcafe.com/googlo/File/raw/master/notice.txt";
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
@@ -1547,7 +1548,7 @@ function git_options_page() {
             echo $dxycontent;
         } else {
             echo '汗！貌似您的服务器尚未开启curl扩展，无法收到来自云落的通知，请联系您的主机商开启，本地调试请无视';
-        }
+        }    
     ?>
     </div>
     <div class="catlist">您的网站分类列表：<?php echo Bing_show_category(); ?></div>

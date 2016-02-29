@@ -1223,7 +1223,7 @@ add_filter('the_content', 'git_prettify_replace');
 //首页隐藏一些分类
 function exclude_category_home($query) {
     if ($query->is_home) {
-        $query->set('cat', '-' . git_get_option('git_blockcat_1') . ',-' . git_get_option('git_blockcat_2') . ''); //隐藏这两个分类
+        $query->set('cat', '-' . git_get_option('git_blockcat') . ''); //隐藏这两个分类
     }
     return $query;
 }
