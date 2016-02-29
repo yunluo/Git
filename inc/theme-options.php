@@ -42,7 +42,6 @@ $options = array(
         'id'    => 'hot_list_check',
         'type'  => 'checkbox'
     ),
-    
     array(
         'name'  => '排序根据',
         'desc'  => '选择一个参数作为排序的根据，可以选择评论数目，浏览数目或者点赞数目',
