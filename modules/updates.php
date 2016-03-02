@@ -23,7 +23,6 @@ class ThemeUpdateChecker {
 		$this->enableAutomaticChecking = $enableAutomaticChecking;
 		$this->theme = $theme;
 		$this->optionName = 'external_theme_updates-'.$this->theme;
-
 		$this->installHooks();
 	}
 
