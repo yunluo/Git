@@ -1572,7 +1572,7 @@ endif;
 //主题自动更新服务
 if (!git_get_option('git_updates_b')):
     require 'modules/updates.php';
-    $example_update_checker = new ThemeUpdateChecker('Git', 'https://gitcafe.com/googlo/File/raw/master/info.json'
+    $example_update_checker = new ThemeUpdateChecker('Git', 'https://coding.net/u/googlo/p/File/git/raw/master/info.json'
     //此处链接不可改
     );
 endif;
