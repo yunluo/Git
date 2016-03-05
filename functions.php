@@ -577,7 +577,7 @@ function comment_mail_notify($comment_id) {
 }
 //自动勾选
 function deel_add_checkbox() {
-    echo '<label for="comment_mail_notify" class="checkbox inline" style="padding-top:0"><input type="checkbox" name="comment_mail_notify" id="comment_mail_notify" value="comment_mail_notify" checked="checked"/>有人回复时邮件通知我</label>';
+    echo '<label for="comment_mail_notify" class="checkbox inline" style="padding-top:0"><input type="checkbox" name="comment_mail_notify" id="comment_mail_notify" value="comment_mail_notify" checked="checked"/>有人回复时通知我</label>';
 }
 //时间显示方式‘xx以前’
 function time_ago($type = 'commennt', $day = 7) {
@@ -1275,7 +1275,7 @@ function tok($atts, $content = null) {
     return '<a class="yellowbtn" href="' . $href . '" target="_blank" rel="nofollow">' . $content . '</a>';
 }
 add_shortcode('yb', 'tok');
-/*�����加音乐按钮*/
+/*�������加音乐按钮*/
 function tol($atts, $content = null) {
     return '<audio style="width:100%;max-height:40px;" src="' . $content . '" controls preload loop>您的浏览器不支持HTML5的 audio 标签，无法为您播放！</audio>';
 }
