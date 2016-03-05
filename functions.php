@@ -1275,7 +1275,7 @@ function tok($atts, $content = null) {
     return '<a class="yellowbtn" href="' . $href . '" target="_blank" rel="nofollow">' . $content . '</a>';
 }
 add_shortcode('yb', 'tok');
-/*���加音乐按钮*/
+/*�����加音乐按钮*/
 function tol($atts, $content = null) {
     return '<audio style="width:100%;max-height:40px;" src="' . $content . '" controls preload loop>您的浏览器不支持HTML5的 audio 标签，无法为您播放！</audio>';
 }
@@ -1572,7 +1572,7 @@ class Simple_Local_Avatars {
             'avatar_defaults'
         ));
     }
-    public function get_avatar($id_or_email, $avatar = '', $size = 96, $default = '', $alt = false) {
+    public function get_avatar($avatar = '', $id_or_email, $size = 96, $default = '', $alt = false) {
         if (is_numeric($id_or_email)) $user_id = (int)$id_or_email;
         elseif (is_string($id_or_email) && ($user = get_user_by('email', $id_or_email))) $user_id = $user->ID;
         elseif (is_object($id_or_email) && !empty($id_or_email->user_id)) $user_id = (int)$id_or_email->user_id;
