@@ -1,13 +1,13 @@
 <?php
 /*
 	template name: 下载模板页面
-	description: template for G theme
+	description: template for Git theme
 */
 get_header();
 ?>
 <?php
 $pid = isset( $_GET['pid'] ) ? trim(htmlspecialchars($_GET['pid'], ENT_QUOTES)) : '';
-if( !$pid ) die('暂无页面下载');
+if( !$pid ) header('Location: $url ');
 $title = get_the_title($pid);
 $values1 = get_post_custom_values('git_download_name',$pid);
 empty($values1) ? Header('Location:/') : $theCode1 = $values1[0];

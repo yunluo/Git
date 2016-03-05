@@ -1,9 +1,9 @@
 <?php
 /**
  Template Name: 用户投稿
- description: template for G theme
+ description: template for Git theme
  */
-if (!git_get_option('git_tougao_b')) die('逗比，你确定你投稿功能开启了吗？→_→ ');
+if (!git_get_option('git_tougao_b')) header('Location: $url ');
 if (isset($_POST['tougao_form']) && $_POST['tougao_form'] == 'send') {
     global $wpdb;
     $current_url = '' . get_permalink() . ''; // 注意修改此处的链接地址
