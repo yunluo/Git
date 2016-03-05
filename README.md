@@ -1,168 +1,159 @@
-> 这个主题是本来是自己改着玩的。原来最初的主题后台框架是D8的二点几版本还是多少，忘了。后来自己修修改改。增加和删减了不少东西。本来只是自己用用。后来见好几个朋友求主题。所以免费共享出来。这个主题可以个人使用修改，但是请不要进行售卖和添加恶意代码等无耻行为。至于留链接什么的，就不奢望了。
+首先，请饶恕我用了这个无比拗口的标题来形容这款主题，因为这就是他的真实写照！
 
-因为并非是纯原创主题，所以随意取博客的域名为主题取了个名字：Git。这是一款WordPress 扁平化+响应式式主题，支持WordPress 3.8 及以上最新版，兼容 IE9+、Chrome、Firefox 等主流浏览器。部分浏览器不兼容一些新特效，请使用现代浏览器！
-
-废话不多说，来一张首页截图吧：
-
-[![git-theme](http://i2.tietuku.com/b6e0e01e7c88d928.png)](http://i2.tietuku.com/b6e0e01e7c88d928.png)
-
-## 主题特色
-
-*   兼容 IE9+、谷歌 Chrome 、火狐 Firefox 等主流浏览器
-*   扁平化+响应式设计，兼容电脑、平板和手机访问
-*   主题设置面板新增多种广告位，PC端和移动设备各不相同
-*   自带7+小工具，可随意设置侧栏分类和浮动块。
-*   基本SEO：首页、分类、文章等页面都可以设置关键词和描述
-*   内置实用功能：Ajax加载分页、垃圾广告拦截、缓存头像、社交账户图标等
-*   短代码包括dm和dl、gt等,可自主选择。
-
-## 首页导航、最新消息和置顶推荐+热门排行
-
-*   顶面菜单炫酷切换，文章页顶部面包屑导航可隐藏或开启
-*   最新消息可以后台配置任意HTML代码
-*   首页内置炫酷的幻灯滑块，可自由开启，添加置顶文章后即可预览
-*   热门排行显示读者的最爱，评论和喜欢并排显示
-
-## 文章列表展示效果 缩略图+文字排版
-
-*   分类链接醒目展示，可点击图标订阅栏目
-*   排版简洁清爽，鼠标切换图标放大特效，图片后台设置隐藏
-
-## 搜索、订阅、社交 + 喜欢+分享 + 回顶部和去评论
-
-*   搜索结果增加关键词高亮显示
-*   增加多种社交账户图标，微博、Facebook、Twitter、qq、随意隐藏显示
-*   为你喜欢的文章点赞，无处不喜欢
-*   分享无处不在，各种页面、各种文章
-*   回顶部自动隐藏，在有评论的时候才会有去评论
-
-## 侧栏小工具：邮箱订阅+标签云+特别推荐等
-
-*   文章加吐槽随意控制，可控制显示条数和具体分类，还可选择排序方式
-*   邮箱订阅收集你的读者群，及时推送最新的资讯。
-*   标签云并排展示，颜色多种变化
-*   个性广告随意添加，还可以控制浮动个数
-*   特别推荐标题颜色风格多种选择
-
-## 关于读者墙、友情链接、投稿页面
-
-*   独立的读者墙页面，漂亮的展示方式，鼠标滑过头像旋转和显示评论数
-*   带头像的友情链接页面，更加有个性。
-*   接受读者投稿是不错的选择
-
-## 文章结尾和相关文章推荐
-
-*   文章结尾有加转载说明、喜欢、分享、标签、上下页
-*   图文排列的相关文章推荐，后台可设置数量
-
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015051808553935.jpg "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015051808553935.jpg "Git:一款比付费主题更像是付费主题的WordPress免费主题")
 
 ## 前言
 
-乐趣公园一直在使用欲思主题，然后自己改改，如果有朋友觉得不错的，可以拿走使用，如果有问题的希望给我反馈或者给我提意见
+<div id="sc_notice">这款主题是我对欲思主题的二次修改版本，起名为`Git`，是因为我是使用Git来托管代码的，写得最多的就是Git了，所以就这么定名了。这款主题是我正式建站使用的主题，这款主题的发展一定程度上代表了我从一个WordPress小白到如今的成长历史，所以将这款主题免费分享出来，希望朋友们能喜欢。</div>
 
-## 主题说明
+## 首先介绍的就是强大好用的小工具，差不多该有的都有了吧
 
-*   修改了一些小问题
-*   给主题SEO功能添加开关
-*   给主题的其他功能添加开关
-*   增加七牛缩略图功能
-*   添加图片头部，图片logo功能
-*   添加透明导航栏
-*   添加图片弹窗功能
-*   添加头像旋转功能
-*   添加主题换肤功能
-*   添加文字自动内链功能
-*   屏蔽谷歌字体功能
-*   禁用了主题自带的首行缩进
-*   添加文章自定义代码功能
-*   添加表情按钮功能
-*   添加CMS风格功能
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015042716181245.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015042716181245.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")
 
-## 代码高亮
+## 应有尽有的短代码，弹窗下载也不是不可以的
 
-### HTML
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015042716191948.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015042716191948.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")
 
-<pre class="prettyprint linenums" >&lt;!doctype html&gt;
-&lt;html lang=&quot;en&quot;&gt;
- &lt;head&gt;
-  &lt;meta charset=&quot;UTF-8&quot;&gt;
-  &lt;meta name=&quot;Generator&quot; content=&quot;EditPlus®&quot;&gt;
-  &lt;meta name=&quot;Author&quot; content=&quot;&quot;&gt;
-  &lt;meta name=&quot;Keywords&quot; content=&quot;&quot;&gt;
-  &lt;meta name=&quot;Description&quot; content=&quot;&quot;&gt;
-  &lt;title&gt;Document&lt;/title&gt;
- &lt;/head&gt;
- &lt;body&gt;
+## 作为一个“好色主义”者，强大的自定义配色是不可缺少的
 
- &lt;/body&gt;
-&lt;/html&gt;</pre>
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/201503181407247.jpg "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/201503181407247.jpg "Git:一款比付费主题更像是付费主题的WordPress免费主题")
 
-### php
+## SEO？？这个完全不是事
 
-<pre class="prettyprint linenums" >&lt;!-- 苍茫的代码是我的爱！！！  --&gt;
-&lt;!DOCTYPE HTML&gt;
-&lt;html&gt;
-&lt;head&gt;
-&lt;meta charset=&quot;UTF-8&quot;&gt;
-&lt;meta http-equiv=&quot;Cache-Control&quot; content=&quot;no-siteapp&quot; /&gt;
-&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=10,IE=9,IE=8&quot;&gt;
-&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0&quot;&gt;
-&lt;title&gt;&lt;?php wp_title(&#039;-&#039;, true, &#039;right&#039;); echo get_option(&#039;blogname&#039;); if (is_home ()) echo &#039; — &#039; ,get_option(&#039;blogdescription&#039;); if ($paged &gt; 1) echo &#039;-Page &#039;, $paged; ?&gt;&lt;/title&gt;
-&lt;?php
-$sr_1 = 0; $sr_2 = 0; $commenton = 0;
-if( get_option(&#039;d_sideroll_b&#039;) ){
-    $sr_1 = get_option(&#039;d_sideroll_1&#039;);
-    $sr_2 = get_option(&#039;d_sideroll_2&#039;);
-}
-if( is_singular() ){
-    if( comments_open() ) $commenton = 1;
-}
-?&gt;</pre>
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015042716222753.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015042716222753.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")
 
-### javascript
+## 两种超大幻灯片方案，任你选择
 
-<pre class="prettyprint linenums" >// ==UserScript==
-// @name           picviewer CE
-// @author         NLF &amp;&amp; ywzhaiqi
-// @description    NLF 的围观图修改版
-// @version        2014.11.5.1
-// version        4.2.6.1
-// @created        2011-6-15
-// @lastUpdated    2013-5-29
-// @namespace      http://userscripts.org/users/NLF
-// @homepage       https://github.com/ywzhaiqi/userscript/tree/master/picviewerCE
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015042716235495.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015042716235495.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")
 
-// @grant          GM_getValue
-// @grant          GM_setValue
-// @grant          GM_addStyle
-// @grant          GM_openInTab
-// @grant          GM_setClipboard
-// @grant          GM_xmlhttpRequest
-// @grant          GM_registerMenuCommand
-// @require        https://greasyfork.org/scripts/6158-gm-config-cn/code/GM_config%20CN.js?version=23710
-// @run-at         document-end
+## 博客/CMS两种风格任你选择
 
-// @include       http://*
-// @include       https://*
-// @exclude       http://www.toodledo.com/tasks/*
-// @exclude       http*://maps.google.com*/*
-// @exclude       *://www.google.*/_/chrome/newtab*
-// ==/UserScript==</pre>
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/201504271625045.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/201504271625045.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")
 
-### CSS
+## 支持9个社交媒体，包括支付宝
 
-<pre class="prettyprint linenums" >    @namespace url(http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul);
-    @-moz-document url(chrome://browser/content/browser.xul) {
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015042716264192.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015042716264192.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")
 
-    #main-window { counter-reset: tabs;}
-    .tabbrowser-tab:not(:-moz-any([pinned],[concealed])){
-        counter-increment: tabs;
-    }
-    #alltabs-button {visibility: visible!important;}
-    #alltabs-button:after {
-        content: counter(tabs);
-        display: -moz-box;}
-    #alltabs-button &gt; :-moz-any(label, image) {
-        display: none;}
-    }</pre>
-       如果还有更多问题欢迎查看本项目WIKI，或者访问我的博客Googlo.Me
+## 这么漂亮的footer，想不想要？
+
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/201504271628436.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/201504271628436.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")
+
+## 作为一个伪coder，代码高亮是必不可少滴
+
+<div id="sc_notice">为了保证代码以及短代码的延续使用，博猪特地写了短代码插件以及代码高亮插件【代码高亮插件已提交至WordPress官方】</div>
+
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015042716361151.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015042716361151.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")
+
+## 巨多的广告位，具体多少个，我也记不住了，大致十几个吧
+
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015042716390317.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015042716390317.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")
+
+## 对HTML5视频以及优酷土豆视频的完美响应式支持
+
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015042716510754.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015042716510754.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015050902061220.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015050902061220.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")
+
+## 一个简单的弹窗下载
+
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015050902055195.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015050902055195.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")
+
+<div id="sc_error">弹窗下载功能现已全面升级为下面这个</div>
+
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015051804283257.jpg "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015051804283257.jpg "Git:一款比付费主题更像是付费主题的WordPress免费主题")
+
+试一下吧
+
+[文件下载](#fancydlbox)<div id="fancydlbox" style="cursor:default;display:none;width:800px;"><div class="part" style="padding:20px 0;">
+
+## 下载声明:
+
+<div class="fancydlads" align="left">
+
+本站所有软件和资料均为软件作者提供或网友推荐发布而来，仅供学习和研究使用，不得用于任何商业用途。如本站不慎侵犯你的版权请联系我，我将及时处理，并撤下相关内容！
+
+</div></div><div class="part" style="padding:20px 0;">
+
+## 文件信息：
+
+<div class="dlnotice" align="left">
+
+文件名称：这里填写文件名
+文件大小:这里填写文件大小
+发布日期:这里填写的是文件的发布日期
+
+</div></div><div class="part" id="download_button_part">[<span></span>文件的主下载名称](这里填写的主下载链接)</div><div class="part" style="padding:20px 0;"><div class="moredl" style="text-align:center;">[更多地址] : 这里填写的文件的辅助下载链接，A标签即可！</div></div><div class="dlfooter">本站文件全部采用7Z压缩，推荐使用7-Zip解压文件。</div></div>
+
+## 一个非常简单的下载面板
+
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015050902024880.jpg "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015050902024880.jpg "Git:一款比付费主题更像是付费主题的WordPress免费主题")
+
+## 完美支持七牛云
+
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015042716511313.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015042716511313.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")
+
+## 完美支持SMTP邮件
+
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015042716553436.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015042716553436.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")
+
+## 各种实用的功能
+
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015042717024035.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015042717024035.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")
+
+## HTML/xml网站地图
+
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015042717043192.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015042717043192.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")
+
+## 自带网站图标的友情链接页面
+
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015042717061122.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015042717061122.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")
+
+## 登录页面必应美图
+
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015042717091792.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015042717091792.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")
+
+## 更完善的注册页面，验证机制
+
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015043004182134.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015043004182134.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")
+
+## 开源代码，随时查阅
+
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015042717113635.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015042717113635.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015042717124215.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015042717124215.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")
+
+## 支持的主题在线更新
+
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015042717255826.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015042717255826.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")
+
+## 主题后台贴心小贴士
+
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015042717273153.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015042717273153.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015043004194528.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015043004194528.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")
+
+## 强大的前端HTML安全压缩，极致优化网页
+
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015043004263084.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015043004263084.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")
+
+## 网站后台加密
+
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015051804322266.jpg "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015051804322266.jpg "Git:一款比付费主题更像是付费主题的WordPress免费主题")
+
+如果不是管理员的话会是这个页面
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015051804334847.jpg "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015051804334847.jpg "Git:一款比付费主题更像是付费主题的WordPress免费主题")
+
+## 自带百度站内搜索集成方案
+
+<div id="sc_notice">本功能需要自己申请百度站内搜索</div>[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015050902104017.jpg "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015050902104017.jpg "Git:一款比付费主题更像是付费主题的WordPress免费主题")
+
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015050902104388.jpg "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015050902104388.jpg "Git:一款比付费主题更像是付费主题的WordPress免费主题")
+
+<div id="sc_notice">更多精彩，自己发掘吧</div>
+
+## 后台截图
+
+[![Git:一款比付费主题更像是付费主题的WordPress免费主题](http://googlo.me/wp-content/uploads/2015042717291046.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")](http://googlo.me/wp-content/uploads/2015042717291046.png "Git:一款比付费主题更像是付费主题的WordPress免费主题")
+
+## 相关链接
+
+[主题食用说明](http://googlo.me/archives/3275.html)[主题下载](https://coding.net/u/googlo/p/Git/git/archive/master)
+
+<div id="sc_error">注意：主题下载后，请重命名为Git-master，在上传WordPress！！</div>
