@@ -22,7 +22,7 @@
 		<div class="cont">
 			<div class="c1"><img src="'.get_bloginfo("template_url").'/img/01.png" class="img1" /></div>
 			<h2>404页面咯~你访问的页面不存在</h2>
-			<div class="c2"><a href="javascript:;" class="re" onclick="javascript:history.back();">返回上页</a><a href="/" class="home">网站首页</a></div>
+			<div class="c2"><a href="javascript:;" class="re" onclick="javascript:location.reload();">刷新本页</a><a href="/" class="home">网站首页</a></div>
 			<div class="c3">通过搜索把你想找的文章给揪出来吧...</div>
 		</div>
 </div>';?>
