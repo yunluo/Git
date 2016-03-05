@@ -1499,8 +1499,8 @@ if(git_get_option('git_baidurecord_b') && function_exists('curl_init')):
 function baidu_check($url) {
     global $wpdb;
     $post_id = (null === $post_id) ? get_the_ID() : $post_id;
-    $git_baidu_record = get_post_meta($post_id, 'git_baidu_record', true);
-    if ($git_baidu_record != 1) {
+    $baidu_record = get_post_meta($post_id, 'baidu_record', true);
+    if ($baidu_record != 1) {
         $url = 'http://www.baidu.com/s?wd=' . $url;
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -1508,15 +1508,15 @@ function baidu_check($url) {
         $rs = curl_exec($curl);
         curl_close($curl);
         if (!strpos($rs, '没有找到')) {
-            if ($git_baidu_record == 0) {
-                update_post_meta($post_id, 'git_baidu_record', 1);
+            if ($baidu_record == 0) {
+                update_post_meta($post_id, 'baidu_record', 1);
             } else {
-                add_post_meta($post_id, 'git_baidu_record', 1, true);
+                add_post_meta($post_id, 'baidu_record', 1, true);
             }
             return 1;
         } else {
-            if ($git_baidu_record == false) {
-                add_post_meta($post_id, 'git_baidu_record', 0, true);
+            if ($baidu_record == false) {
+                add_post_meta($post_id, 'baidu_record', 0, true);
             }
             return 0;
         }
@@ -1524,7 +1524,7 @@ function baidu_check($url) {
         return 1;
     }
 }
-function git_baidu_record() {
+function baidu_record() {
     if (baidu_check(get_permalink()) == 1) {
         echo '<a target="_blank" title="点击查看" rel="external nofollow" href="http://www.baidu.com/s?wd=' . get_the_title() . '">已收录</a>';
     } else {
