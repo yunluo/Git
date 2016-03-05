@@ -169,7 +169,7 @@ if ( !class_exists('myCustomFields') ) {
                                         <script type="text/javascript">
                                             jQuery( document ).ready( function() {
                                                 jQuery( "<?php echo $this->prefix . $customField[ 'name' ]; ?>" ).addClass( "mceEditor" );
-                                                if ( typeof( tinyMCE ) == "object"  typeof( tinyMCE.execCommand ) == "function" ) {
+                                                if ( typeof( tinyMCE ) == "object" && typeof( tinyMCE.execCommand ) == "function" ) {
                                                     tinyMCE.execCommand( "mceAddControl", false, "<?php echo $this->prefix . $customField[ 'name' ]; ?>" );
                                                 }
                                             });
