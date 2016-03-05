@@ -5,7 +5,7 @@ if ( !class_exists('myCustomFields') ) {
         /**
         * @var  string  $prefix  The prefix for storing custom fields in the postmeta table
         */
-        var $prefix = '_mcf_';
+        var $prefix = 'git_';
         /**
         * @var  array  $postTypes  An array of public custom post types, plus the standard "post" and "page" - add the custom types you want to include here
         */
@@ -15,46 +15,92 @@ if ( !class_exists('myCustomFields') ) {
         */
         var $customFields = array(
             array(
-                "name"          => "block-of-text",
-                "title"         => "A block of text",
-                "description"   => "",
-                "type"          => "textarea",
-                "scope"         =>   array( "page" ),
-                "capability"    => "edit_pages"
-            ),
-            array(
-                "name"          => "short-text",
-                "title"         => "A short bit of text",
-                "description"   => "",
-                "type"          =>   "text",
-                "scope"         =>   array( "post" ),
-                "capability"    => "edit_posts"
-            ),
-            array(
-                "name"          => "checkbox",
-                "title"         => "Checkbox",
-                "description"   => "",
+                "name"          => "baidu_submit",
+                "title"         => "启用百度实时推送",
+                "description"   => "选择之后可以实时推送至百度，不选择的话默认不推送",
                 "type"          => "checkbox",
                 "scope"         =>   array( "post", "page" ),
                 "capability"    => "manage_options"
+            ),
+            array(
+                "name"          => "remote_pic",
+                "title"         => "启用远程图片本地化",
+                "description"   => "选择之后文章中的远程图片可以实现本地化，不选择默认不保存",
+                "type"          => "checkbox",
+                "scope"         =>   array( "post", "page" ),
+                "capability"    => "manage_options"
+            ),
+            array(
+                "name"          => "weibo_sync",
+                "title"         => "启用新浪微博同步",
+                "description"   => "选择之后文章可以同步到新浪微博，不选择默认不同步【需配置好新浪微博同步】",
+                "type"          => "checkbox",
+                "scope"         =>   array( "post", "page" ),
+                "capability"    => "manage_options"
+            ),
+            array(
+                "name"          => "thumb",
+                "title"         => "自定义缩略图",
+                "description"   => "这里可以输入您的自定义缩略图链接",
+                "type"          =>   "text",
+                "scope"         =>   array( "post", "page" ),
+                "capability"    => "edit_posts"
+            ),
+            /*没有这个功能，暂时留着而已
+            array(
+                "name"          => "singlecode",
+                "title"         => "自定义jq",
+                "description"   => "这里可以输入您的自定义jq代码",
+                "type"          =>   "wysiwyg",
+                "scope"         =>   array( "post", "page" ),
+                "capability"    => "edit_posts"
+            ),
+            */
+            array(
+                "name"          => "download_name",
+                "title"         => "单页下载文件名字",
+                "description"   => "这里可以输入您的下载文件的名字",
+                "type"          =>   "text",
+                "scope"         =>   array( "post", "page" ),
+                "capability"    => "edit_posts"
+            ),
+            array(
+                "name"          => "download_size",
+                "title"         => "单页下载文件大小",
+                "description"   => "这里可以输入您的下载文件的大小，可以加上单位，比如：233KB或者233MB",
+                "type"          =>   "text",
+                "scope"         =>   array( "post", "page" ),
+                "capability"    => "edit_posts"
+            ),
+            array(
+                "name"          => "download_link",
+                "title"         => "单页下载下载链接",
+                "description"   => "这里可以输入您的下载链接，这里使用的是A标签，如果多个的话就加入多个A标签",
+                "type"          =>   "textarea",
+                "scope"         =>   array( "post", "page" ),
+                "capability"    => "edit_posts"
+            ),
+            array(
+                "name"          => "demo",
+                "title"         => "代码演示",
+                "description"   => "请在这里输入您的演示代码",
+                "type"          => "textarea",
+                "scope"         =>   array( "post", "page" ),
+                "capability"    => "edit_pages"
             )
         );
-        /**
-        * PHP 4 Compatible Constructor
-        */
-        function myCustomFields() { $this->__construct(); }
         /**
         * PHP 5 Constructor
         */
         function __construct() {
-            add_action( 'admin_menu', array( &amp;$this, 'createCustomFields' ) );
-            add_action( 'save_post', array( &amp;$this, 'saveCustomFields' ), 1, 2 );
-            // Comment this line out if you want to keep default custom fields meta box
-            add_action( 'do_meta_boxes', array( &amp;$this, 'removeDefaultCustomFields' ), 10, 3 );
+            add_action( 'admin_menu', array( $this, 'createCustomFields' ) );
+            add_action( 'save_post', array( $this, 'saveCustomFields' ), 1, 2 );
+            // 下面这句可以关闭WordPress自带的自定义栏目，但是不推荐，需要的话可以开启
+            //add_action( 'do_meta_boxes', array( $this, 'removeDefaultCustomFields' ), 10, 3 );
         }
         /**
-        * Remove the default Custom Fields meta box
-        */
+        * 移除WordPress自带的自定义栏目
+        
         function removeDefaultCustomFields( $type, $context, $post ) {
             foreach ( array( 'normal', 'advanced', 'side' ) as $context ) {
                 foreach ( $this->postTypes as $postType ) {
@@ -62,18 +108,19 @@ if ( !class_exists('myCustomFields') ) {
                 }
             }
         }
+        */
         /**
-        * Create the new Custom Fields meta box
+        * 创建一组你自己的自定义栏目
         */
         function createCustomFields() {
             if ( function_exists( 'add_meta_box' ) ) {
                 foreach ( $this->postTypes as $postType ) {
-                    add_meta_box( 'my-custom-fields', 'Custom Fields', array( &amp;$this, 'displayCustomFields' ), $postType, 'normal', 'high' );
+                    add_meta_box( 'my-custom-fields', 'Git 主题文章发布选项', array( $this, 'displayCustomFields' ), $postType, 'normal', 'high' );
                 }
             }
         }
         /**
-        * Display the new Custom Fields meta box
+        * 在文章发布页显示出来面板
         */
         function displayCustomFields() {
             global $post;
@@ -95,17 +142,17 @@ if ( !class_exists('myCustomFields') ) {
                         }
                         if ( $output ) break;
                     }
-                    // Check capability
+                    // 检查权限
                     if ( !current_user_can( $customField['capability'], $post->ID ) )
                         $output = false;
-                    // Output if allowed
+                    // 通过则输出
                     if ( $output ) { ?>
                         <div class="form-field form-required">
                             <?php
                             switch ( $customField[ 'type' ] ) {
                                 case "checkbox": {
-                                    // Checkbox
-                                    echo '<label for="' . $this->prefix . $customField[ 'name' ] .'" style="display:inline;"><b>' . $customField[ 'title' ] . '</b></label>&amp;nbsp;&amp;nbsp;';
+                                    // Checkbox 组件
+                                    echo '<label for="' . $this->prefix . $customField[ 'name' ] .'" style="display:inline;"><b>' . $customField[ 'title' ] . '</b></label>  ';
                                     echo '<input type="checkbox" name="' . $this->prefix . $customField['name'] . '" id="' . $this->prefix . $customField['name'] . '" value="yes"';
                                     if ( get_post_meta( $post->ID, $this->prefix . $customField['name'], true ) == "yes" )
                                         echo ' checked="checked"';
@@ -122,7 +169,7 @@ if ( !class_exists('myCustomFields') ) {
                                         <script type="text/javascript">
                                             jQuery( document ).ready( function() {
                                                 jQuery( "<?php echo $this->prefix . $customField[ 'name' ]; ?>" ).addClass( "mceEditor" );
-                                                if ( typeof( tinyMCE ) == "object" &amp;&amp; typeof( tinyMCE.execCommand ) == "function" ) {
+                                                if ( typeof( tinyMCE ) == "object"  typeof( tinyMCE.execCommand ) == "function" ) {
                                                     tinyMCE.execCommand( "mceAddControl", false, "<?php echo $this->prefix . $customField[ 'name' ]; ?>" );
                                                 }
                                             });
@@ -158,7 +205,7 @@ if ( !class_exists('myCustomFields') ) {
                 return;
             foreach ( $this->customFields as $customField ) {
                 if ( current_user_can( $customField['capability'], $post_id ) ) {
-                    if ( isset( $_POST[ $this->prefix . $customField['name'] ] ) &amp;&amp; trim( $_POST[ $this->prefix . $customField['name'] ] ) ) {
+                    if ( isset( $_POST[ $this->prefix . $customField['name'] ] ) && trim( $_POST[ $this->prefix . $customField['name'] ] ) ) {
                         $value = $_POST[ $this->prefix . $customField['name'] ];
                         // Auto-paragraphs for any WYSIWYG
                         if ( $customField['type'] == "wysiwyg" ) $value = wpautop( $value );

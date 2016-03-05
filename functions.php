@@ -167,45 +167,7 @@ if (git_get_option('git_pagehtml_b') ):
         $wp_rewrite->flush_rules();
     }
 endif;
-// 给文章的编辑页添加选项
-function git_remote_pic_box() {
-  add_meta_box('git_remote_pic', 'Git远程图片设置', 'git_remote_pic', 'post', 'side', 'high');
-}
-add_action('add_meta_boxes', 'git_remote_pic_box');
 
-function git_remote_pic() {
-  global $post;
-  wp_nonce_field('git_remote_pic', 'git_remote_pic_nonce');
-  $meta_value = get_post_meta($post->ID, 'git_remote_pic', true);
-  if($meta_value)
-    echo '<input name="git_remote_pic" type="checkbox" checked="checked" value="1" /> 保存远程图片';
-  else
-    echo '<input name="git_remote_pic" type="checkbox" value="1" /> 保存远程图片';
-}
-
-function git_save_postdata($post_id) {
-  if ( !isset( $_POST['git_remote_pic_nonce']))
-    return $post_id;
-  $nonce = $_POST['git_remote_pic_nonce'];
-  if (!wp_verify_nonce( $nonce, 'git_remote_pic'))
-    return $post_id;
-  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
-      return $post_id;
-  if ('page' == $_POST['post_type']) {
-    if ( !current_user_can('edit_page', $post_id))
-      return $post_id;
-  }
-  else {
-    if (!current_user_can('edit_post', $post_id))
-      return $post_id;
-  }
-  // 更新设置
-  if(!empty($_POST['git_remote_pic']))
-    update_post_meta($post_id, 'git_remote_pic', '1');
-  else
-    delete_post_meta($post_id, 'git_remote_pic');
-}
-add_action('save_post', 'git_save_postdata');
 //远程图片保存
 $git_remote_pic = get_post_meta($post->ID, 'git_remote_pic', true);
 if (git_get_option('git_yuanpic_b')&&!empty($_POST['git_remote_pic'])):
@@ -870,8 +832,8 @@ if (function_exists('add_theme_support')) add_theme_support('post-thumbnails');
 //输出缩略图地址
 function post_thumbnail_src() {
     global $post;
-    if ($values = get_post_custom_values("thumb")) { //输出自定义域图片地址
-        $values = get_post_custom_values("thumb");
+    if ($values = get_post_custom_values("git_thumb")) { //输出自定义域图片地址
+        $values = get_post_custom_values("git_thumb");
         $post_thumbnail_src = $values[0];
     } elseif (has_post_thumbnail()) { //如果有特色缩略图，则输出缩略图地址
         $thumbnail_src = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID) , 'full');
@@ -1274,7 +1236,7 @@ function toe($atts, $content = null) {
     return '<div  class="sc_act">' . $content . '</div>';
 }
 add_shortcode('v_act', 'toe');
-/*橙色文本框*/
+/*橙色文本���*/
 function tof($atts, $content = null) {
     return '<div id="sc_organge">' . $content . '</div>';
 }
@@ -1452,7 +1414,7 @@ function Bing_show_category() {
 //新文章同步到新浪微博
 function post_to_sina_weibo($post_ID) {
     /* 此处修改为通过文章自定义栏目来判断是否同步 */
-    if (get_post_meta($post_ID, 'weibo_sync', true) == 1) return;
+    if (get_post_meta($post_ID, 'git_weibo_sync', true) == 1) return;
     $get_post_info = get_post($post_ID);
     $get_post_centent = get_post($post_ID)->post_content;
     $get_post_title = get_post($post_ID)->post_title;
@@ -1485,8 +1447,8 @@ function post_to_sina_weibo($post_ID) {
             'body' => $body,
             'headers' => $headers
         ));
-        /* 若同步成功，则给新增自定义栏目weibo_sync，避免以后更新文章重复同步 */
-        add_post_meta($post_ID, 'weibo_sync', 1, true);
+        /* 若同步成功，则给新增自定义栏目git_weibo_sync，避免以后更新文章重复同步 */
+        add_post_meta($post_ID, 'git_weibo_sync', 1, true);
     }
 }
 if (git_get_option('git_sinasync_b')) {
@@ -1537,8 +1499,8 @@ if(git_get_option('git_baidurecord_b') && function_exists('curl_init')):
 function baidu_check($url) {
     global $wpdb;
     $post_id = (null === $post_id) ? get_the_ID() : $post_id;
-    $baidu_record = get_post_meta($post_id, 'baidu_record', true);
-    if ($baidu_record != 1) {
+    $git_baidu_record = get_post_meta($post_id, 'git_baidu_record', true);
+    if ($git_baidu_record != 1) {
         $url = 'http://www.baidu.com/s?wd=' . $url;
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -1546,15 +1508,15 @@ function baidu_check($url) {
         $rs = curl_exec($curl);
         curl_close($curl);
         if (!strpos($rs, '没有找到')) {
-            if ($baidu_record == 0) {
-                update_post_meta($post_id, 'baidu_record', 1);
+            if ($git_baidu_record == 0) {
+                update_post_meta($post_id, 'git_baidu_record', 1);
             } else {
-                add_post_meta($post_id, 'baidu_record', 1, true);
+                add_post_meta($post_id, 'git_baidu_record', 1, true);
             }
             return 1;
         } else {
-            if ($baidu_record == false) {
-                add_post_meta($post_id, 'baidu_record', 0, true);
+            if ($git_baidu_record == false) {
+                add_post_meta($post_id, 'git_baidu_record', 0, true);
             }
             return 0;
         }
@@ -1562,7 +1524,7 @@ function baidu_check($url) {
         return 1;
     }
 }
-function baidu_record() {
+function git_baidu_record() {
     if (baidu_check(get_permalink()) == 1) {
         echo '<a target="_blank" title="点击查看" rel="external nofollow" href="http://www.baidu.com/s?wd=' . get_the_title() . '">已收录</a>';
     } else {
@@ -2314,7 +2276,7 @@ add_filter( 'style_loader_src', '_remove_script_version', 15, 1 );
 endif;
 //百度主动推送,来自：百度实时推送插件
 function git_publish_git_submit($post_ID){
-    if (get_post_meta($post_ID, 'baidu_submit', true) == 1) return;
+    if (get_post_meta($post_ID, 'git_baidu_submit', true) == 1) return;
 	global $post;
 	$git_submit_enabled = git_get_option('git_sitemap_b');
 	if($git_submit_enabled && function_exists('curl_init') ){
@@ -2333,7 +2295,7 @@ function git_publish_git_submit($post_ID){
 				CURLOPT_HTTPHEADER => array('Content-Type: text/plain')
 			);
 			curl_setopt_array($ch, $options);
-			add_post_meta($post_ID, 'baidu_submit', 1, true);
+			add_post_meta($post_ID, 'git_baidu_submit', 1, true);
 		}
 	}
 }
