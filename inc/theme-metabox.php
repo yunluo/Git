@@ -154,7 +154,7 @@ if ( !class_exists('myCustomFields') ) {
                                     // Checkbox 组件
                                     echo '<label for="' . $this->prefix . $customField[ 'name' ] .'" style="display:inline;"><b>' . $customField[ 'title' ] . '</b></label>  ';
                                     echo '<input type="checkbox" name="' . $this->prefix . $customField['name'] . '" id="' . $this->prefix . $customField['name'] . '" value="yes"';
-                                    if ( get_post_meta( $post->ID, $this->prefix . $customField['name'], true ) == "yes" )
+                                    if ( get_post_meta( $post->ID, $this->prefix . $customField['name'], true ) == "1" )
                                         echo ' checked="checked"';
                                     echo '" style="width: auto;" />';
                                     break;
