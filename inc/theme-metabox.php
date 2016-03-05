@@ -3,15 +3,15 @@ if ( !class_exists('myCustomFields') ) {
  
     class myCustomFields {
         /**
-        * @var  string  $prefix  The prefix for storing custom fields in the postmeta table
+        * @var  string  $prefix  自定义栏目前缀，一个完整的自定义栏目是需要前缀+name的，比如我的前缀是git_,name下面有baidu_submit，那么完整的自定义栏目就是git_baidu_submit.
         */
         var $prefix = 'git_';
         /**
-        * @var  array  $postTypes  An array of public custom post types, plus the standard "post" and "page" - add the custom types you want to include here
+        * @var  array  $postTypes  这是自定义面板的使用范围，这里一般就是在文章以及页面
         */
         var $postTypes = array( "page", "post" );
         /**
-        * @var  array  $customFields  Defines the custom fields available
+        * @var  array  $customFields  开始组件自定义面板数组
         */
         var $customFields = array(
             array(
@@ -153,7 +153,7 @@ if ( !class_exists('myCustomFields') ) {
                                 case "checkbox": {
                                     // Checkbox 组件
                                     echo '<label for="' . $this->prefix . $customField[ 'name' ] .'" style="display:inline;"><b>' . $customField[ 'title' ] . '</b></label>  ';
-                                    echo '<input type="checkbox" name="' . $this->prefix . $customField['name'] . '" id="' . $this->prefix . $customField['name'] . '" value="yes"';
+                                    echo '<input type="checkbox" name="' . $this->prefix . $customField['name'] . '" id="' . $this->prefix . $customField['name'] . '" value="1"';
                                     if ( get_post_meta( $post->ID, $this->prefix . $customField['name'], true ) == "1" )
                                         echo ' checked="checked"';
                                     echo '" style="width: auto;" />';
@@ -194,7 +194,7 @@ if ( !class_exists('myCustomFields') ) {
             <?php
         }
         /**
-        * Save the new Custom Fields values
+        * 保存自定义栏目数据
         */
         function saveCustomFields( $post_id, $post ) {
             if ( !isset( $_POST[ 'my-custom-fields_wpnonce' ] ) || !wp_verify_nonce( $_POST[ 'my-custom-fields_wpnonce' ], 'my-custom-fields' ) )
