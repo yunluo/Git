@@ -57,6 +57,22 @@ if ( !class_exists('myCustomFields') ) {
             ),
             */
             array(
+                "name"          => "zhuanzai_name",
+                "title"         => "转载来源名字",
+                "description"   => "这里可以输入文章转载名字，不填写的话，不显示转载标签",
+                "type"          =>   "text",
+                "scope"         =>   array( "post", "page" ),
+                "capability"    => "edit_posts"
+            ),
+            array(
+                "name"          => "zhuanzai_link",
+                "title"         => "转载来源链接",
+                "description"   => "这里可以输入您的转载来源链接",
+                "type"          =>   "text",
+                "scope"         =>   array( "post", "page" ),
+                "capability"    => "edit_posts"
+            ),
+            array(
                 "name"          => "download_name",
                 "title"         => "单页下载文件名字",
                 "description"   => "这里可以输入您的下载文件的名字",

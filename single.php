@@ -32,6 +32,11 @@ while (have_posts()):
 				<span class="muted"><i class="fa fa-user"></i> <a href="<?php
     echo get_author_posts_url(get_the_author_meta('ID')) ?>"><?php
     echo get_the_author() ?></a></span>
+    
+    <?php
+    $zhuanzai = get_post_meta($post->ID, 'git_zhuanzai_name', true);
+    if ( $zhuanzai ) echo '<span class="muted"><i class="fa fa-info-circle"></i> 来源：<a target="_blank" href="' . get_post_meta($post->ID, 'git_zhuanzai_link', true) . '">' .get_post_meta($post->ID, 'git_zhuanzai_name', true) . '</a></span>'; ?>
+    
 				<time class="muted"><i class="fa fa-clock-o"></i> <?php
     echo timeago(get_gmt_from_date(get_the_time('Y-m-d G:i:s'))) ?></time>
 				<span class="muted"><i class="fa fa-eye"></i> <?php
