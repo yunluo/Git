@@ -1275,7 +1275,7 @@ function tok($atts, $content = null) {
     return '<a class="yellowbtn" href="' . $href . '" target="_blank" rel="nofollow">' . $content . '</a>';
 }
 add_shortcode('yb', 'tok');
-/*�������加音乐按钮*/
+/*���������加音乐按钮*/
 function tol($atts, $content = null) {
     return '<audio style="width:100%;max-height:40px;" src="' . $content . '" controls preload loop>您的浏览器不支持HTML5的 audio 标签，无法为您播放！</audio>';
 }
@@ -1999,7 +1999,6 @@ function git_shuoshuo() {
         'hierarchical' => false,
         'menu_position' => 4 ,
         'supports' => array(
-            'title',
             'editor',
             'author'
         )
