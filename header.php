@@ -247,7 +247,7 @@ if (git_get_option('git_sign_b')) {
 		<label for="user_pass"><p class="userinfo">密码</p>
 		<input type="password" name="pwd" id="user_pass" aria-describedby="login_error" class="input" value="" size="20" ></label>
 	</p>
-		<p class="forgetmenot"><label for="rememberme"><input name="rememberme" type="checkbox" id="rememberme" value="forever"> 记住我的登录信息</label> <a target="_blank" href="'.home_url().'/wp-login.php?action=register">注册</a> | 	<a target="_blank" href="'.home_url().'/wp-login.php?action=lostpassword" title="找回密码">忘记密码？</p>
+		<p class="forgetmenot"><label for="rememberme"><input name="rememberme" type="checkbox" id="rememberme" value="forever"> 记住我的登录信息</label> <a target="_blank" href="'.home_url().'/wp-login.php?action=register">注册</a> | 	<a target="_blank" href="'.home_url().'/wp-login.php?action=lostpassword" title="找回密码">忘记密码？</a></p>
 	<p class="submit">
 		<input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="登录">
 		<input type="hidden" name="redirect_to" value="'.home_url().'/wp-admin/">
