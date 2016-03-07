@@ -1299,6 +1299,12 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+        'name'  => '开启前台弹窗登录',
+        'desc'  => '',
+        'id'    => "git_fancylogin",
+        'type'  => 'checkbox'
+    ),
+    array(
         'title' => '新浪微博同步设置',
         'type'  => 'subtitle'
     ),

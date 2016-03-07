@@ -511,7 +511,7 @@ jQuery(document).ready(function() {
                 wrapCSS: "",
                 arrows: !0,
                 closeBtn: !0,
-                closeClick: !0,
+                closeClick: !1,
                 nextClick: !1,
                 mouseWheel: !0,
                 autoPlay: !1,

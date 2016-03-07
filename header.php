@@ -224,7 +224,10 @@ if (git_get_option('git_sign_b')) {
     $u_name = get_user_meta($uid, 'nickname', true);
 ?>
 			<div class="pull-right">
-				<?php
+		<?php if(git_get_option('git_fancylogin')) { ?>
+		<?php echo '<i class="fa fa-power-off"></i> <a id="showdiv" href="#loginbox" data-original-title="点击登录">点击登录</a>';?>
+		<?php }else{ ?>
+        <?php
     if (is_user_logged_in()) {
         echo '<i class="fa fa-user"></i> <a href="' . site_url() . '/wp-admin">' . $u_name . '</a> ';
     } elseif (get_option('users_can_register')) {
@@ -232,7 +235,26 @@ if (git_get_option('git_sign_b')) {
     };
     echo '  <i class="fa fa-power-off"></i> ';
     echo wp_loginout();
-    echo ''; ?>
+    echo ''; }?>
+    <?php echo '
+    <div id="loginbox" style="width:350px;height:280px;overflow:auto;display:none;">
+<form name="loginform" id="loginform" action="'.home_url().'/wp-login.php" method="post" _lpchecked="1">
+	<p>
+		<label for="user_login" ><p class="userinfo">用户名</p>
+		<input type="text" name="log" id="user_login" aria-describedby="login_error" class="input" value="" size="20" ></label>
+	</p>
+	<p>
+		<label for="user_pass"><p class="userinfo">密码</p>
+		<input type="password" name="pwd" id="user_pass" aria-describedby="login_error" class="input" value="" size="20" ></label>
+	</p>
+		<p class="forgetmenot"><label for="rememberme"><input name="rememberme" type="checkbox" id="rememberme" value="forever"> 记住我的登录信息</label> <a target="_blank" href="'.home_url().'/wp-login.php?action=register">注册</a> | 	<a target="_blank" href="'.home_url().'/wp-login.php?action=lostpassword" title="找回密码">忘记密码？</p>
+	<p class="submit">
+		<input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="登录">
+		<input type="hidden" name="redirect_to" value="'.home_url().'/wp-admin/">
+		<input type="hidden" name="testcookie" value="1">
+	</p>
+</form>
+<style type="text/css">#loginbox{background:#fff}#loginbox form{background:none repeat scroll 0 0 #FFF;margin-left:20px;padding:6px 16px 4px}#loginbox label{color:#777;font-size:13px}form .forgetmenot label{font-size:11px}#loginbox form .submit,.alignright{float:right}#user_login,#user_pass{background:none repeat scroll 0 0 #FBFBFB;font-size:15px;height:20px}#loginbox input{color:#555;height:25px}</style></div>';?>
 			</div>
 		<?php
 } ?>
