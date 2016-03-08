@@ -22,9 +22,10 @@ if (have_posts()):
     while (have_posts()):
         the_post(); ?>
  <li><span class="tt"><?php
-        the_time('Y年n月j日G:H'); ?></span>
+        the_time('Y年n月j日G:i'); ?></span>
  <div class="shuoshuo-content"><?php
-        the_content(); ?><br/><div class="shuoshuo-meta"><span >— <i class="fa fa-user"></i> <?php
+        the_content(); ?><br/><div class="shuoshuo-meta"><span class="shuoshuo-sjsj" style="float:left"><?php
+        the_time('Y年n月j日G:i'); ?></span ><span >— <i class="fa fa-user"></i> <?php
         the_author() ?></span></div></div>
         <span class="zhutou"><?php echo get_avatar(get_the_author_email(),64); ?></span>
         <?php
