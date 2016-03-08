@@ -323,7 +323,7 @@ $options = array(
     ),
     array(
         'name'  => '关键词，IP，邮箱屏蔽',
-        'desc'  => '开启 【启用后，在WordPress-设置-讨论-黑名单中添加想要屏蔽的关键词，邮箱，网址，IP地址，每行一个】<a class="button-primary" target="_blank" href="http://i1.tietuku.com/9fffe8656ba8c85d.png">如图设置</a>',
+        'desc'  => '开启 【启用后，在WordPress-设置-讨论-黑名单中添加想要屏蔽的关键词，邮箱，网址，IP地址，每行一个】<a class="button-primary" target="_blank" href="https://img.alicdn.com/imgextra/i4/1597576229/TB2FnxnlpXXXXcDXXXXXXXXXXXX_!!1597576229.png">如图设置</a>',
         'id'    => 'git_spam_keywords',
         'type'  => 'checkbox'
     ),
@@ -686,7 +686,7 @@ $options = array(
         'desc'  => '在这里输入您的幻灯片的图片路径',
         'id'    => "git_slick1img_b",
         'type'  => 'text',
-        'std'   => 'http://i1.tietuku.com/4d78aebacd716fa1.png'
+        'std'   => 'https://img.alicdn.com/imgextra/i3/1597576229/TB2zQVclpXXXXakXpXXXXXXXXXX_!!1597576229.png'
     ),
     array(
         'name'  => '幻灯片一链接',
@@ -707,7 +707,7 @@ $options = array(
         'desc'  => '在这里输入您的幻灯片的图片路径',
         'id'    => "git_slick2img_b",
         'type'  => 'text',
-        'std'   => 'http://i1.tietuku.com/8cc27226d364646d.png'
+        'std'   => 'https://img.alicdn.com/imgextra/i3/1597576229/TB286RXlpXXXXbkXpXXXXXXXXXX_!!1597576229.png'
     ),
     array(
         'name'  => '幻灯片二链接',
@@ -728,7 +728,7 @@ $options = array(
         'desc'  => '在这里输入您的幻灯片的图片路径',
         'id'    => "git_slick3img_b",
         'type'  => 'text',
-        'std'   => 'http://i1.tietuku.com/10b38e0699c19f13.png'
+        'std'   => 'https://img.alicdn.com/imgextra/i3/1597576229/TB2B_xilpXXXXXEXpXXXXXXXXXX_!!1597576229.png'
     ),
     array(
         'name'  => '幻灯片三链接',
@@ -749,7 +749,7 @@ $options = array(
         'desc'  => '在这里输入您的幻灯片的图片路径',
         'id'    => "git_slick4img_b",
         'type'  => 'text',
-        'std'   => 'http://i1.tietuku.com/e363019d7956a1b8.png'
+        'std'   => 'https://img.alicdn.com/imgextra/i4/1597576229/TB2pnNklpXXXXXbXpXXXXXXXXXX_!!1597576229.png'
     ),
     array(
         'name'  => '幻灯片四链接',
@@ -770,7 +770,7 @@ $options = array(
         'desc'  => '在这里输入您的幻灯片的图片路径',
         'id'    => "git_slick5img_b",
         'type'  => 'text',
-        'std'   => 'http://i1.tietuku.com/4be202dae236d98e.png'
+        'std'   => 'https://img.alicdn.com/imgextra/i3/1597576229/TB2lnRklpXXXXXvXpXXXXXXXXXX_!!1597576229.png'
     ),
     array(
         'name'  => '幻灯片五链接',
@@ -791,7 +791,7 @@ $options = array(
         'desc'  => '在这里输入您的幻灯片的图片路径',
         'id'    => "git_slick6img_b",
         'type'  => 'text',
-        'std'   => 'http://i1.tietuku.com/15ff831524d8bbde.png'
+        'std'   => 'https://img.alicdn.com/imgextra/i2/1597576229/TB2FsFalpXXXXaAXpXXXXXXXXXX_!!1597576229.png'
     ),
     array(
         'name'  => '幻灯片六链接',
@@ -967,7 +967,7 @@ $options = array(
     ),
     array(
         'name'  => 'Email',
-        'desc'  => '请填写好您的邮我代码，<a class="button-primary" rel="nofollow" href="http://open.mail.qq.com/cgi-bin/qm_help_mailme?sid=,2,zh_CN&t=open_mailme" target="_blank">获取邮我组建代码</a>并<a class="button-primary" rel="nofollow" href="http://i1.tietuku.com/34cf2b2ee780db81.png" target="_blank">如图设置</a>',
+        'desc'  => '请填写好您的邮我代码，<a class="button-primary" rel="nofollow" href="http://open.mail.qq.com/cgi-bin/qm_help_mailme?sid=,2,zh_CN&t=open_mailme" target="_blank">获取邮我组建代码</a>并<a class="button-primary" rel="nofollow" href="https://img.alicdn.com/imgextra/i4/1597576229/TB2xg4llpXXXXXhXpXXXXXXXXXX_!!1597576229.png" target="_blank">如图设置</a>',
         'id'    => 'git_emailContact',
         'type'  => 'text',
         'std'   => ''
@@ -991,7 +991,7 @@ $options = array(
         'desc'  => '请输入您的支付宝图片路径',
         'id'    => 'git_pay_qr',
         'type'  => 'text',
-        'std'   => 'http://i1.tietuku.com/d6c43b39f0c3c64c.jpg'
+        'std'   => 'https://img.alicdn.com/imgextra/i1/1597576229/TB2ov76lXXXXXb0XpXXXXXXXXXX_!!1597576229.jpg_310x310.jpg'
     ),
     array(
         'name'  => 'GitHub',
@@ -1074,7 +1074,7 @@ $options = array(
         'desc'  => '在这里输入第四个footer的内容',
         'id'    => "git_footconent4",
         'type'  => 'textarea',
-        'std'   => '<img style="width:180px;height:180px;" src="http://i3.tietuku.com/dba3507bc5b2bbc3.png" alt="yunluo">'
+        'std'   => '<img style="width:180px;height:180px;" src="https://img.alicdn.com/imgextra/i3/1597576229/TB22Ic4lXXXXXcyXpXXXXXXXXXX_!!1597576229.png_310x310.jpg" alt="yunluo">'
     ),
     array(
         'name'  => '网站footer公共代码',
@@ -1138,7 +1138,7 @@ $options = array(
         'desc'  => '开启',
         'id'    => 'git_adpost_02',
         'type'  => 'textarea',
-        'std'   => '<a target="_blank" href="http://googlo.me/go/hengtian"><img style="width:100%" src="http://i1.tietuku.com/6577fc6446277169.jpg" title="立刻购买专业WordPress主机-衡天主机" alt="立刻购买专业WordPress主机-衡天主机" ></a>'
+        'std'   => '<a target="_blank" href="http://googlo.me/go/hengtian"><img style="width:100%" src="https://img.alicdn.com/imgextra/i1/1597576229/TB22.lflpXXXXXNXpXXXXXXXXXX_!!1597576229.jpg" title="立刻购买专业WordPress主机-衡天主机" alt="立刻购买专业WordPress主机-衡天主机" ></a>'
     ),
     array(
         'name'  => '广告：文章页 - 网友评论下',
@@ -1709,14 +1709,14 @@ switch ( $value['type'] ) {
 ?>
 <div class="panel" id="about_theme">
 <h2>主题的那些事</h2>
-        <p>&nbsp;&nbsp;这款主题一开始来自于大前端的D8主题，优秀的D8主题在经过欲思这里，欲思对这款主题进行了大量的修改，对本款主题的���行起到了非常重要的作用。</p>
-        <p>&nbsp;&nbsp;云落在正式建站的时候选择了这款主题并且一直使用到现在，期���对这款主题进行了N次的代码修改，有的地方是小修改，有的地方事一些大的修改，在欲思主题的基础上面做了很多二次开发，随着主题的修改进程，个人对WordPress的理解也随之加深，对于WordPress的应用也较以前有了更深的熟练。</p>
-        <p>&nbsp;&nbsp;故，在经过多次修改后，自觉主题修改的足够完整，更名以将其与欲思主题以区分，并且将其代码托管至<a href="https://gitcafe.com/googlo/Git" target="_blank">GitCafe</a>，并且将其更名为：Git ！</p>
+        <p>&nbsp;&nbsp;这款主题一开始来自于大前端的D8主题，优秀的D8主题在经过欲思这里，欲思对这款主题进行了大量的修改，对本款主题的发展起到了非常重要的作用。</p>
+        <p>&nbsp;&nbsp;云落在正式建站的时候选择了这款主题并且一直使用到现在，这款主题进行了N次的代码修改，有的地方是小修改，有的地方事一些大的修改，在欲思主题的基础上面做了很多二次开发，随着主题的修改进程，个人对WordPress的理解也随之加深，对于WordPress的应用也较以前有了更深的熟练。</p>
+        <p>&nbsp;&nbsp;故，在经过多次修改后，自觉主题修改的足够完整，更名以将其与欲思主题以区分，并且将其代码托管至<a href="https://coding.net/u/googlo/p/Git/git" target="_blank">Coding</a>，并且将其更名为：Git ！</p>
         <p>&nbsp;&nbsp;定名为Git，首先是因为主题采用Git版本系统管理代码的，写的最多的代码就是Git了，另外G代表我的Googlo.Me，遂定名为Git。</p>
         <p>&nbsp;&nbsp;感谢大前端的D8主题，感谢欲思的欲思主题，感谢小影的主题，感谢知更鸟的主题，感谢露兜博客，感谢devework，感谢开源中国，感谢一直跟随主题版本升级的朋友们</p>
 <h2>支持云落</h2>
-<p>如果您觉的这款主题很赞，欢迎您扫码支持云落</p>
-<img style="width :300px;height :300px" src="http://i1.tietuku.com/d6c43b39f0c3c64c.jpg"></img>
+<p>如果您觉的这款主题很赞，欢迎您扫码支持云落，<font color="#ff0000">赞助乐趣公园，可以获得无版权主题哦</font></p>
+<img src="https://img.alicdn.com/imgextra/i1/1597576229/TB2ov76lXXXXXb0XpXXXXXXXXXX_!!1597576229.jpg_310x310.jpg"></img>
 <h2>联系云落</h2>
 <a class="button button-primary" href="http://googlo.me/about.html" target="_blank">乐趣公园留言板</a>
 </div>
