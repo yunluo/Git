@@ -24,8 +24,8 @@ get_header();
             <article class="article-content">
                 <?php the_content(); ?>
             </article>
-
             <article class="archives">
+                
                 <?php
                 $previous_year = $year = 0;
                 $previous_month = $month = 0;
@@ -45,7 +45,7 @@ get_header();
                             echo '</ul></div>';
                         endif;
 
-                        echo '<div class="item"><h3>'; echo the_time('F Y'); echo '</h3>';
+                        echo '<div class="xControl"><a href="javascript:void(0)" class="collapseButton xButton"><div class="item"><h3>'; echo the_time('Y F'); echo '</h3></a></div>';
                         echo '<ul class="archives-list">';
                         $ul_open = true;
 
@@ -53,11 +53,11 @@ get_header();
 
                     $previous_year = $year; $previous_month = $month;
                 ?>
-                    <li>
+                    <div class="xContent" style="display: none;"><li>
                         <time><?php the_time('j'); ?>日</time>
                         <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                         <span class="muted"><?php comments_number('', '1评论', '%评论'); ?></span>
-                    </li>
+                    </li></div>
                 <?php endforeach; ?>
                 </ul>
             </div>

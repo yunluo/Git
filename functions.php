@@ -407,7 +407,7 @@ function git_avatar_cache($avatar) {
 }
 add_filter('get_avatar', 'git_avatar_cache', 10, 3);
 
-/*替换文章或评论内容外链为内链
+/**替换文章或评论内容外链为内链
 if(git_get_option('git_go')):
 function git_go_url($content) {
     preg_match_all('/href="(http.*?)"/', $content, $matches);
@@ -431,7 +431,7 @@ function git_go_url($content) {
 }
 add_filter('the_content', 'git_go_url', 999);
 endif;
-*/
+**/
 //给外部链接加上跳转
 if(git_get_option('git_go')):
 function git_go_url($content){
@@ -745,13 +745,6 @@ function bigfa_like() {
     die;
 }
 //最热排行
-/* 暂时弃用此方法
-function hot_posts_list($days = 300, $nums = 5) {
-    global $wpdb;
-    $today = date("Y-m-d H:i:s");
-    $daysago = date("Y-m-d H:i:s", strtotime($today) - ($days * 24 * 60 * 60));
-    $result = $wpdb->get_results("SELECT comment_count, ID, post_title, post_date FROM $wpdb->posts WHERE post_date BETWEEN '$daysago' AND '$today' ORDER BY comment_count DESC LIMIT 0 , $nums");
-    */
 function hot_posts_list() {
     if (git_get_option('git_hot_b') == 'git_hot_views') {
     $result = get_posts("numberposts=5&meta_key=views&orderby=meta_value_num&order=desc");
@@ -1236,7 +1229,7 @@ function toe($atts, $content = null) {
     return '<div  class="sc_act">' . $content . '</div>';
 }
 add_shortcode('v_act', 'toe');
-/*橙色文本���*/
+/*橙色文本*/
 function tof($atts, $content = null) {
     return '<div id="sc_organge">' . $content . '</div>';
 }
@@ -1275,7 +1268,7 @@ function tok($atts, $content = null) {
     return '<a class="yellowbtn" href="' . $href . '" target="_blank" rel="nofollow">' . $content . '</a>';
 }
 add_shortcode('yb', 'tok');
-/*���������加音乐按钮*/
+/*音乐安钮*/
 function tol($atts, $content = null) {
     return '<audio style="width:100%;max-height:40px;" src="' . $content . '" controls preload loop>您的浏览器不支持HTML5的 audio 标签，无法为您播放！</audio>';
 }
@@ -1344,7 +1337,6 @@ function xdltable($atts, $content = null) {
     return '<table class="dltable"><tbody><tr><td style="background-color:#F9F9F9;" rowspan="3"><p>文件下载</p></td><td><i class="fa fa-list-alt"></i>&nbsp;&nbsp;文件名称：' . $file . '</td><td><i class="fa fa-th-large"></i>&nbsp;&nbsp;文件大小：' . $size . '</td></tr><tr><td colspan="2"><i class="fa fa-volume-up"></i>&nbsp;&nbsp;下载声明：'.git_get_option('git_dltable_b').'</td></tr><tr><td colspan="2"><i class="fa fa-download"></i>&nbsp;&nbsp;下载地址：' . $content . '</td></tr></tbody></table>';
 }
 add_shortcode('dltable', 'xdltable');
-
 // add youku using iframe
 function wp_iframe_handler_youku($matches, $attr, $url, $rawattr) {
     if (wp_is_mobile()) {
@@ -1455,7 +1447,7 @@ if (git_get_option('git_sinasync_b')) {
     add_action('publish_post', 'post_to_sina_weibo', 0);
 }
 /*
-//获取微博字符长度函数
+获取微博字符长度函数
 */
 function WeiboLength($str) {
     $arr = arr_split_zh($str); //先将字符串分割到数组中
@@ -2299,5 +2291,5 @@ function git_publish_git_submit($post_ID){
 	}
 }
 add_action('publish_post', 'git_publish_git_submit', 0);
-/*WordPress函数代码结束*/
+//WordPress函数代码结束//
 ?>
