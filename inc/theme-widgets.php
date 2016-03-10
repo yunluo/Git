@@ -5,7 +5,8 @@ function git_banners() {
     register_widget('git_banner');
 }
 class git_banner extends WP_Widget {
-    function git_banner() {
+    
+    function __construct() {
         $widget_ops = array(
             'classname' => 'git_banner',
             'description' => '显示一个广告(包括富媒体)'
@@ -49,7 +50,7 @@ function git_comments() {
     register_widget('git_comment');
 }
 class git_comment extends WP_Widget {
-    function git_comment() {
+    function __construct() {
         $widget_ops = array(
             'classname' => 'git_comment',
             'description' => '显示网友最新评论（头像+名称+评论）'
@@ -148,7 +149,7 @@ function git_postlists() {
     register_widget('git_postlist');
 }
 class git_postlist extends WP_Widget {
-    function git_postlist() {
+    function __construct() {
         $widget_ops = array(
             'classname' => 'git_postlist',
             'description' => '图文展示（最新文章+热门文章+随机文章）'
@@ -299,7 +300,7 @@ function git_readers() {
     register_widget('git_reader');
 }
 class git_reader extends WP_Widget {
-    function git_reader() {
+    function __construct() {
         $widget_ops = array(
             'classname' => 'git_reader',
             'description' => '显示近期评论频繁的网友头像等'
@@ -420,7 +421,7 @@ function git_recs() {
     register_widget('git_rec');
 }
 class git_rec extends WP_Widget {
-    function git_rec() {
+    function __construct() {
         $widget_ops = array(
             'classname' => 'git_rec',
             'description' => '五个推荐块'
@@ -637,7 +638,7 @@ function git_slicks() {
     register_widget('git_slick');
 }
 class git_slick extends WP_Widget {
-    function git_slick() {
+    function __construct() {
         $widget_ops = array(
             'classname' => 'git_slick',
             'description' => '带箭头的小幻灯片'
@@ -786,7 +787,7 @@ function git_slides() {
     register_widget('git_slide');
 }
 class git_slide extends WP_Widget {
-    function git_slide() {
+    function __construct() {
         $widget_ops = array(
             'classname' => 'git_slide',
             'description' => '无箭头小幻灯片'
@@ -935,7 +936,7 @@ function git_socials() {
     register_widget('git_social');
 }
 class git_social extends WP_Widget {
-    function git_social() {
+    function __construct() {
         $widget_ops = array(
             'classname' => 'git_social',
             'description' => '在这里显示国内常用的社交网站按钮'
@@ -972,7 +973,7 @@ function git_subscribes() {
     register_widget('git_subscribe');
 }
 class git_subscribe extends WP_Widget {
-    function git_subscribe() {
+    function __construct() {
         $widget_ops = array(
             'classname' => 'git_subscribe',
             'description' => '显示邮箱订阅组件'
@@ -1045,7 +1046,7 @@ function git_tags() {
     register_widget('git_tag');
 }
 class git_tag extends WP_Widget {
-    function git_tag() {
+    function __construct() {
         $widget_ops = array(
             'classname' => 'git_tag',
             'description' => '显示热门标签'
@@ -1131,7 +1132,7 @@ function git_textbanners() {
     register_widget('git_textbanner');
 }
 class git_textbanner extends WP_Widget {
-    function git_textbanner() {
+    function __construct() {
         $widget_ops = array(
             'classname' => 'git_textbanner',
             'description' => '显示一个文本特别推荐'
@@ -1230,7 +1231,7 @@ function git_tongji() {
 }
 add_action('widgets_init', 'git_tongji');
 class git_tongji extends WP_Widget {
-    function git_tongji() {
+    function __construct() {
         $widget_ops = array(
             'classname' => 'git_tongji',
             'description' => '显示网站的统计信息'

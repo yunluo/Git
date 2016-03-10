@@ -8,7 +8,7 @@ get_header();
 <div class="pagewrapper clearfix">
 	<aside class="pagesidebar">
 		<ul class="pagesider-menu">
-			<?php echo str_replace("</ul></div>", "", ereg_replace("<div[^>]*><ul[^>]*>", "", wp_nav_menu(array('theme_location' => 'pagemenu', 'echo' => false)) )); ?>
+			<?php echo str_replace("</ul></div>", "", preg_replace("<div[^>]*><ul[^>]*>", "", wp_nav_menu(array('theme_location' => 'pagemenu', 'echo' => false)) )); ?>
 		</ul>
 	</aside>
 	<div class="pagecontent">

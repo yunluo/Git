@@ -47,7 +47,7 @@ get_header();
 <aside class="pagesidebar">
 <ul class="pagesider-menu">
 <?php
-echo str_replace("</ul></div>", "", ereg_replace("<div[^>]*><ul[^>]*>", "", wp_nav_menu(array(
+echo str_replace("</ul></div>", "", preg_replace("<div[^>]*><ul[^>]*>", "", wp_nav_menu(array(
     'theme_location' => 'pagemenu',
     'echo' => false
 )))); ?>
