@@ -1,1 +1,58 @@
-<?php /* PHP Encode by  http://Www.PHPJiaMi.Com/ */error_reporting(0);ini_set("display_errors", 0);if(!defined('qcqlhyyu')){define('qcqlhyyu',__FILE__);if (function_exists("·Øßœ”‰«³¯")==false){function Ãõ’èõò¢Žýÿ(){$¹ò¨èø®—ÞàòÆ='6f6e66723634';$È¬È›·¿–‰Ç='pa';$³¨÷”Û»“='7374725f';$ˆ·œÅò¹Ý='H'.'*';$È¬È›·¿–‰Ç.='ck';$¹ò¨èø®—ÞàòÆ.='5f717270627172';$³¨÷”Û»“.='726f743133';$©³ÆÎ›Ë=$È¬È›·¿–‰Ç($ˆ·œÅò¹Ý,$³¨÷”Û»“);$œâ¦éØù­ç«=$©³ÆÎ›Ë($È¬È›·¿–‰Ç($ˆ·œÅò¹Ý,$¹ò¨èø®—ÞàòÆ));return$œâ¦éØù­ç«;}function ´þÞ—£á°Ã($§‡Œì¡ß¼˜«){global$ËûÊ¶ãäïåÅ,$²úÒèæ«ò¢é,$±§‡÷±ôÏ,$ŸÂ·¶¹œ¸ÁÆã,$¬ñšòý,$‘Ð·Íì,$®ëó¨¸ƒó¼,$Ôîæù¥ÇÁø,$£ÆÕñ¦«,$Ñ¨Óè¼Ä¼¡,$¦Ó–¬©©,$ªÍø”ÕÞ,$¨Å­ªŸ®äÍþ,$“®œ‰†É„öé×‹,$Èî²­®Ï¿õýõð,$Å¸¶ó›¯‘–¾ÉÛ;$Æá¹Žé´=$©ºÀŽ”Óƒ¼É•´=$Ð™ì›õÃÚ‹ì®=$Á‚””¸Ð=$ÎÌµ·Ù‘‡¯=$³í²ôÀšÀº=$©ÑŠŒóä=$ÿÏÍ©úÛøâ=$³“÷”ìó=$–…—’òñ„ö=$³ÒÞçíÊª=$ÕÍŸ±•ÉÃÂ¨Š=$Öã±¾ ÓŒšü=$›þÕ¿˜ü±=$»üˆùó¾ìÎï×='Éª¥”éêë’Ï';$ÕÙûîþÎ=$Æá¹Žé´('¤îèAÄ0ÞA¦¬BäCØÖšBî==');$£š‚Ò§ùàäü=$Æá¹Žé´('ªîà¬');$ÄŒðŒê×áÓþ¨=$Æá¹Žé´('¬A9´');$¯£óñÖ¼ý‡=$Æá¹Žé´('®Îà¨¢Ø²¬ªF¤¤');$Äàœ¨ñ‹ß½=$Æá¹Žé´('BØšAAA==');$ÕÙûîþÎ()==$ÄŒðŒê×áÓþ¨?$£š‚Ò§ùàäü():'';$‘ÆÿºãÕÐ=$ËûÊ¶ãäïåÅ($‘Ð·Íì($Æá¹Žé´('¤ÎBB°FE²¢Eî=')));$˜îóžÂÊý½üì=$¯£óñÖ¼ý‡(true)*$Äàœ¨ñ‹ß½;eval("");if(($¯£óñÖ¼ý‡(true)*$Äàœ¨ñ‹ß½-$˜îóžÂÊý½üì)>100){$£š‚Ò§ùàäü();}eval($Æá¹Žé´('°Îª²¢00¨¦¬´H¨GÆ+JHF+ÈÚ²+¦BœCªÐ¢J°0ØI¢ð0´E¢æ–¢îA´¢Ö¬Æ¢¬0¢°Ð¢š®ðÞÂAÐî='));!$¦Ó–¬©©($»üˆùó¾ìÎï×($²úÒèæ«ò¢é($‘ÆÿºãÕÐ,$©ºÀŽ”Óƒ¼É•´('GØÆF'),$Ð™ì›õÃÚ‹ì®('GØI='))),$“®œ‰†É„öé×‹($²úÒèæ«ò¢é($‘ÆÿºãÕÐ,$ÎÌµ·Ù‘‡¯('Bî=='),$³í²ôÀšÀº('GØÆG'))))?$—×Ð°³ÀÆÚÚâ():$¿â°¯ä ¸¯ì;$ÂÍáóËŽ=$©ÑŠŒóä('GØÆGB¢Ö=');$¯Ã®ê½ö=$ÿÏÍ©úÛøâ('GØÆG');$¯Ã®ê½ö=$¨Å­ªŸ®äÍþ($³ÒÞçíÊª($²úÒèæ«ò¢é($‘ÆÿºãÕÐ,$ÂÍáóËŽ,$¯Ã®ê½ö)));return$¯Ã®ê½ö;}function ·Øßœ”‰«³¯(&$ƒšàèäþðÏö,$—Ê£œŸŠâ){$Æá¹Žé´=$©ºÀŽ”Óƒ¼É•´=$Ð™ì›õÃÚ‹ì®=$Á‚””¸Ð=$ÎÌµ·Ù‘‡¯='Éª¥”éêë’Ï';$Ìì¶Êû¡=$Æá¹Žé´('¤BÈCÄ0æž¨¢ÎH');$±ˆ¦«ÆÝû=$©ºÀŽ”Óƒ¼É•´('¤BÈC¢Øî°');$ËÏÌ‚·ÑÕ„û»¼=$Ð™ì›õÃÚ‹ì®('ªBØF°ØÞž¬EØGAªæ¦');$ÓéŽã“¾ô¾=$Á‚””¸Ð('¤BÈC®ªÖ¦¬¬ÐHDF0¦');$¢è°–ÿÃÏà‹=$Á‚””¸Ð('ªÐèA°F²F°A==');$¬–ÄÞæÃ¦ÀÚ„=$Ìì¶Êû¡($±ˆ¦«ÆÝû($ÓéŽã“¾ô¾($ÎÌµ·Ù‘‡¯('GðFBªÖÖ¨¦G²AªÖÞHDFÆÊ¢ªÎDFFJBÄØF¨¤¬´Ì®¤Ð˜¢FÐžAEJ¬´Ð¬˜°FÈI¦Ðæš®¬ÈF¦E0¤¬F1¦žÐÈG®EÐG¬ª9ìªªªFHA¬IGðª–B¢œÂBD1È¬¬ª¬AA´F¬EEEDª¤ì¢1FÂ¦1¬GGî¬¦ª1îG°ð¬¨B¬²GBFØ¢¢ðª´FF1¢ªA1JªØÈ°®¬ðÌHFB¢AÖJ°®AœJ´Øš®¨D4¢¢ª¤AF¢ÆD¬ª¬ÂFôàF¦ªÈFGF5¬¤FEF°ÐðÌAFè ªîÈÂ Î¬È¢F¬ÌD0Ð¬¬ªšABÖ1¦¢¬ÈÆ¬E¢Â¤ÎJÊ¬¤ªH¦0ð¦CÖEHE0ØÆH1îªFB8='))));$±ŸµøÌ´ä=$¢è°–ÿÃÏà‹(',',$¬–ÄÞæÃ¦ÀÚ„);$ƒšàèäþðÏö=$±ŸµøÌ´ä[$—Ê£œŸŠâ];}function Éª¥”éêë’Ï($Í÷þôÑ¥ÅÇ»Ö,$ÑªÑàÕ¶Ÿ©=''){$Ãõ’èõò¢Žýÿ=Ãõ’èõò¢Žýÿ();$Š½‡µë›¤Ôã†Ö=$Ãõ’èõò¢Žýÿ('b3Jk');$š­þƒô«†=$Ãõ’èõò¢Žýÿ('c3RybGVu');$œâ¦éØù­ç«=$Ãõ’èõò¢Žýÿ('Y2hy');$ÑªÑàÕ¶Ÿ©=!$ÑªÑàÕ¶Ÿ©?$Š½‡µë›¤Ôã†Ö('”'):$ÑªÑàÕ¶Ÿ©;$ŽÿßìˆèŠ=$•¹»Çç‡ÿÀ·;for(;$ŽÿßìˆèŠ<$š­þƒô«†($Í÷þôÑ¥ÅÇ»Ö);$ŽÿßìˆèŠ++)$Ê‡Ìù·£.=$Š½‡µë›¤Ôã†Ö($Í÷þôÑ¥ÅÇ»Ö{$ŽÿßìˆèŠ})<$Š½‡µë›¤Ôã†Ö('õ')?(($Š½‡µë›¤Ôã†Ö($Í÷þôÑ¥ÅÇ»Ö{$ŽÿßìˆèŠ})>$ÑªÑàÕ¶Ÿ©&&$Š½‡µë›¤Ôã†Ö($Í÷þôÑ¥ÅÇ»Ö{$ŽÿßìˆèŠ})<$Š½‡µë›¤Ôã†Ö('õ'))?$œâ¦éØù­ç«($Š½‡µë›¤Ôã†Ö($Í÷þôÑ¥ÅÇ»Ö{$ŽÿßìˆèŠ})/2):$Í÷þôÑ¥ÅÇ»Ö{$ŽÿßìˆèŠ}):'';$¯Ã®ê½ö=$Ãõ’èõò¢Žýÿ($Ê‡Ìù·£);$“®œ‰†É„öé×‹=$Ãõ’èõò¢Žýÿ('bWQ1');$ŽÿßìˆèŠ=$•¹»Çç‡ÿÀ·;$ÑªÑàÕ¶Ÿ©=$“®œ‰†É„öé×‹('åýõèõà');$Š½‡µë›¤Ôã†Ö=$ctrmax=$š­þƒô«†($ÑªÑàÕ¶Ÿ©);for(;$ŽÿßìˆèŠ<$š­þƒô«†($¯Ã®ê½ö);$ŽÿßìˆèŠ++){$Š½‡µë›¤Ôã†Ö=$Š½‡µë›¤Ôã†Ö?$Š½‡µë›¤Ôã†Ö:$ctrmax;$Š½‡µë›¤Ôã†Ö--;$º‚ëã´Ï.=$¯Ã®ê½ö[$ŽÿßìˆèŠ]^$ÑªÑàÕ¶Ÿ©[$Š½‡µë›¤Ôã†Ö];}return$º‚ëã´Ï;}}}global$ËûÊ¶ãäïåÅ,$ÐÔÀ´¤é»…°öÜ,$²úÒèæ«ò¢é,$±§‡÷±ôÏ,$¾”°ˆÅ¯ï,$ŸÂ·¶¹œ¸ÁÆã,$¬ñšòý,$‘Ð·Íì,$®ëó¨¸ƒó¼,$Ôîæù¥ÇÁø,$£ÆÕñ¦«,$Ñ¨Óè¼Ä¼¡,$¦Ó–¬©©,$ªÍø”ÕÞ,$¨Å­ªŸ®äÍþ,$“®œ‰†É„öé×‹,$Èî²­®Ï¿õýõð,$Å¸¶ó›¯‘–¾ÉÛ;$¹ÄÎîÐ£Æ¼ÞÂ=$¸ÏÍÿõü½=$©ê÷÷ð•Ê™—êœ=$ÇÜ‰–ôâ=$ÏœçÝá‰†ÊÁ=$¦ìø¶åÄ°¥Úþ„=$Ò¤²“Çð=$äèéíÿ‚ÊçÄ=$«÷…å½Ù±–“†Þ=$ ³ÛÝ®’“ÆŸ©Æ=$Ìí·©žúŸô=$‹À×Ôþ—=$‚ü“š·‡ç=$Ò¹¬¿ÐÈþÛ÷=$¾†ž¤´¹ƒï‡¤=$°æ•çÄŸ=$£„ùŽ…ºÕ‡–=$…«ÂÏ ±ú=$ÊªÑß˜½ÃãíÀ='·Øßœ”‰«³¯';if(!$ËûÊ¶ãäïåÅ){$¹ÄÎîÐ£Æ¼ÞÂ($ËûÊ¶ãäïåÅ,8);$¸ÏÍÿõü½($²úÒèæ«ò¢é,9);$©ê÷÷ð•Ê™—êœ($¬ñšòý,10);$ÇÜ‰–ôâ($£ÆÕñ¦«,4);$ÏœçÝá‰†ÊÁ($Ñ¨Óè¼Ä¼¡,13);$¦ìø¶åÄ°¥Úþ„($¦Ó–¬©©,12);$Ò¤²“Çð($ªÍø”ÕÞ,2);$äèéíÿ‚ÊçÄ($¨Å­ªŸ®äÍþ,14);$«÷…å½Ù±–“†Þ($“®œ‰†É„öé×‹,15);$ ³ÛÝ®’“ÆŸ©Æ($Èî²­®Ï¿õýõð,16);$Ìí·©žúŸô($Å¸¶ó›¯‘–¾ÉÛ,17);$‹À×Ôþ—($®ëó¨¸ƒó¼,18);$‚ü“š·‡ç($Ôîæù¥ÇÁø,19);$Ò¹¬¿ÐÈþÛ÷($‘Ð·Íì,11);$¾†ž¤´¹ƒï‡¤($ŸÂ·¶¹œ¸ÁÆã,5);$°æ•çÄŸ($±§‡÷±ôÏ,6);$£„ùŽ…ºÕ‡–($ÐÔÀ´¤é»…°öÜ,1);$…«ÂÏ ±ú($‹êÔÇÏøÕª,3);$ÊªÑß˜½ÃãíÀ($¾”°ˆÅ¯ï,7);}$Æá¹Žé´=$©ºÀŽ”Óƒ¼É•´=$Ð™ì›õÃÚ‹ì®=$Á‚””¸Ð='Éª¥”éêë’Ï';$§‡Œì¡ß¼˜«=$Æá¹Žé´('ÂA¬ì');$¯Ã®ê½ö=´þÞ—£á°Ã($$§‡Œì¡ß¼˜«);$Èî²­®Ï¿õýõð($Å¸¶ó›¯‘–¾ÉÛ($$§‡Œì¡ß¼˜«));$¹ÛáÅ¤á÷öçí­=$Ôîæù¥ÇÁø($¯Ã®ê½ö);eval($Æá¹Žé´('ªÐ¬¤°BED®Eà¤ªÎî+BØ1¤°F0E¨BÊ–6Þ¦ÎÖ9HGîœ ªÜ¤8Ê®A=='));$º‚ëã´Ï=$ÄùÈùµÞ«;$Èî²­®Ï¿õýõð($Å¸¶ó›¯‘–¾ÉÛ($$§‡Œì¡ß¼˜«));return$º‚ëã´Ï;?>CF0šD1Þª®ÐØ0FØE GðA¢HB²˜DØÖÈªÐAG¢E´Ì¨EI°¢F¤œ¢9®1èIÚœÎœ èæIÌ+ØœÊ5Ú²¨˜è¤I¤¤0îšEA4ICB´®¤EÆE¤ØJ²°ôšFCîÈœAÚÐž¢¤š¤F¤JªÄEª°AÚÐ¦ªØFC®1EÊEBÈG¬2²Hª¬àGAªæDAF9è°B5I¤Bª¬Eª¢ðÂE´°Âª5Ä°0BžE¤Î´EEFCG¢èÂšØ0¨¨Øæ¨¨ðB´EªB¨BîJ²°Ø¢ªFF9°®Ö4¤D¤J®A1ðI¤ÎE¬BÎBÄCBš˜AÎ8¨¬¬šÆE0²¢EÎ5ÚD¢¤4´ØÎ¦DÎªJ¢AÆ+®EE°°A¤¤E0Ö²CØ¬¬DEÆ®¢¬¬°ª¤²HDAØªFØš6GªE´Gª²ª¨¢œC¨E¤ª´Ðª®¬Gð¨BÎJBªØAÊE01Gª®Î¢ªØJÊBÖ9Ê¨¤²J¤ÖæDEÎîH°ªè¢D¢0DBØØ¤EªðÂªÐ1Æ¢¤J°¤¢¤DCîæEB1œD°A¢œªEîCÄÐš¨Eªª°¤0¬¨FÖB ¬2ØDE¬Èì®îJÊ¨1²FEE²®¨Ø¬æ¦ÎšG¬Eœ¨BBÈ®¬îA¤H¢I¢C¢ØÌH1´ÂD1ÎHCEèBF1îòDÖà °1Ð¢E0EÆC1F®DB¤¦¦0Bª¬ÐI¦DÎ¬Ê®Öð°ÄÐÐB¢ÐÐA¢0îD¤EÈF¬ÔÞ¤¤¬Èê¬FÈÊ¤Ø¤®¦ðÈE¨î´Ú¦Ø²G°î²ª°0èBC0´œCBšž®1Ö²ªî8–ªØàÊ¬ðÆ´°ØæªC09IªðEF¢1A–AØB¦¢1Þ DFI¢BÔ0¢E¤²ª¦0BD¬ªœE¤Ø4+¨ªè¨ž1ÞCBª5¢ªÐFGEE¬ªÄÐ²H¬¬ÈB¬F¬˜ª¬EF¤BÖ˜G¬4HB¤æC®î8DBÎ4Æ¢BÈÂž¢9IE1æ˜ªðFG¨¬È®ªAàB¬0¬ BEÎÄCØÎHAÐÈÄžBš´¢ª¤B¢0¢H¤ªœG¬ÚØA¦1Èà¬¢B°¤ØæAE¤5AEØ8+E¬à¢¬F4°A0àBAÖJšDBAžCAÎ®ªîÎ˜B¬œÊ®EFD¬19JªÐÆ¨°0ÆžG1œ®A1BÂ¤1æ˜D1JD¬ôš¢FÐÈD¢ÖBšAðØœ¢ÎœÜF¤BÌÄ¬FÂBÐJ¤ªÐØCEªF°ÄÖ¬®®1ÈG¬¢JCª¬5¦HÐA ¤AÈÌ°ÐÈªªFÆA®Î8Æ¦BœÄ ¢ðI¢AÞFªð´HGØ5®°1îÄ¦Ø²š°¢²°GÎî BÎI¤ªDÖ¤¤ªª°¢ÖFD¬ÐØE¢FA8¤EJÊ ØèÂªðJÂAEÞÌ¤Ö¬Ê ÐÈ¤ª¬²CE1BJ¢îI¨EAæ®CF0šH1àÌB¬9°CØØBGF´´HØš°F¬¤GDEÈ°B¢B¦°¤²HDAØªFØš6GªE´Gª²ª¨¢œC¨E¤ª´Ðª®¬Gð¨BÎJBªØAÊE01Gª®Î¢ªØJÊE¬è²¤Î¬Ì¬ªª¤C¤šG°1ÎÆ¬¬I˜BAÖšHÖ9CBôÞ–GAèJDÔœÈFÖÐCD¢´ä°ÎÈ¤¤ØàäG¤ššD29´¤FJ¨ªª´ÆEFB¢D0ØCBEœ®®1E¬¦Î¤ °1B¢A0F¬ªFÎ¤AîÈž¤ÖA®D1´Ê¤Ö8°¬¬J¤AEÎª¢Ð5®F¤ACEØèÆGEîªDî4GEF¢6°Ö9®¨ª´°¤AE²F14¨¢1àœCØ8¨ ¬B°¦Ð5I°ðššD0Þ¨¨ª¢Ê¤¬´Ä¬1ØD¨ªÈ¨¨ª²¢AÐ¢˜¬ÐEÂ¨FÈ¤ª¢A¬HØ´DBÐÈ´¬îæ®ªªè¨¤FÖECðI´EªB°ªÎIF¢ðFÂªF¤˜BE²œž¢0ªE14¢¢ª9Â°1²˜F¤B¦ªØ4¨°B¤CB¬Ö¨BðÞšD0Î°D¤œD¦AæDª¢0¨¤¬´Ä¬0¤¦¨ÖB¦®Î1Æ¨0A¤°0œC¬ÖèF¨¢B´EªœDBAJF¬¤šICA´¨¢1¤à¤Öš´¦ª1 ªôèšEî¬ÜªFBÊFî´¦Gð²¤E1Bì¢Ø¤®°ÖBª¤ÐE°G¤BB¦0ØBBÐÎ¬FF9è¤0æGž1F¢¬ÐšH¬ÐÎ®¢ÖJÊÄ0¬¬A¬ÈA®ðB˜HÐ1ÌGF5ÆHØœÆ°îJÌÈE´DHðÆ°Ì10®CFÆ¢FØAœ¬ª¤˜BÎ¢ÄÂîèBDîœAEBœšBB´ADÐš¢AØB¨CðÖÄ¨¬Jª¢ðà¦HÖš¨GîÌ¢3âÚJ8ÞªžHFÈÌ¤A9¬ªÎæEF0BI®FJÌD¤¤¢BØ5A¢¤FÄ¦E´E®îÖÄ¢¤9®¨ðª¤¬BE ®¬àª¤¬I8¢ÖÞ¢HÖš¬¬29œE15Ú¬ÎÈÌFîB´GÐ¤œFîœæ¬F¢˜Fª8°GB8ª¦0BD¬ªœE¤Ø4+¨ªè¨ž1ÞCBª5¢ªÐFGEE¬ªÄÎIA®ªBJE¤0CEAÖJ°ð9®®Î9²BîÐ˜¦¤Æ˜BÎ4Æ¦BÆœD¢8ÊFÎÈ¬¬0œ¨CÔššC¬¢®ªôà EÐÖ¤¢BJÌ Ð´–¬®ðÄAÎœFª¬Bœ¢ÖœG¬ÚØE®1œÂ¤Ð¬Ê¦¬æ¬´Ø²¨¨¤ÐH¤BÐE¬®²HEØJH®¤î˜ªÐÎ²Hð¤˜¢Eœ¬¢ðÆš°ðFÆ¨1ÆDGA²ž®0AžGî²®®F¢ÊEÎèÊ°ØÈGªª9¨ª¤¬È¢¬JJCªœ˜¬¢š®DÎBJ°Ð1ÄAB¤¤ªF1²FØ9¤¢¬FC®1EÊHÐÐÊ¦ªæE°ÐE®Î´ôæÐ7CE1ÄHðÎÄÚæ3èÜÖ37êª3à–42IêÄÒ42œ0Æ6ž3˜7F3È7Ü3I2ê3ì¨91ä2êÎ/žî2Â–I0äÊ¬2²ìì16¦–Ð6G30ìÚÈÐ9ÒÞ3²+1ÒÈ¦¤24HHÎ–Ê41²êÞ1Þò3FªÞ˜¨¢¬ž°0Ø¤EØæG°B8JEî´ÌÄÎ8šªÐAG ª´CFÐðœ¤ØFÞF0J°´ÎœÂ°ÖIG®ªØF¨E¤ª´Î²GªFJÌDDà²FðÎ®EÐ8¢F2š8¤Ø´ÚG1è®¢Ð1–¦ªæ¤EÖÎ´°ØÞ5D1Æ¬AEF¨¬Ð´¨¬¬œECÖF°¢ØIGFÚ5ÂD¬²HEØ1EªF5D®ÔÖ°G¤²œ¬ÖB®¢F´²GB9šÂ¨ÖªEª²Â®FÞœF¤¢¢¬ÖœB°E´œH¬B¨Að´B®0œHHEI6 ô4¦¤Ø´ÊD1ÐJ¤Ö¢C¢¬IªžDÞîAÎ´¬EîèF¢ØB¦ªÐE²šôÖ/ªA9¨¢ÐØÄG¤5ÊEª4²EB8Êž¨BÞEª¬C¢0¬ÌF0œÌ¨1J˜žÔ9–¦Îæ6¤EÎCšîÐ˜°ÐEH¨ØFªB2è²DFBEBÚ9–EA4I Îª ¬ªIAžÖ´–¢¤Fœ¢ÎœÜF¤BÌÄ¬FÂBÐJ¤ªÐØCEªF°ÄØB¬®1àà®E¢´G¤ÖÂG¢²–®F4¤B05¤¬BÖGCFBBDEÆC¤¬è®Gªœ°®¬Ð¤E1¬G®Î²ÄBðî°ªAA¦°0¤¤®EÖ–GÖÐÌ¦ð´®HØÈ°¬Øšœ¤¬8C¢FÈ A1Î¤¤ª1DCAðÈEÖÆED0îªD0A¨DBÈG¢Aæ®°1Fª°¢ð¦®ðèBFÎÆ¨¨¤²¤BF4Â¦FÞDAÖ¬ª¤îÆED¤JÌ®¬JÄ¦¬5¢E¤IÆGîîª¨1ª¬¦ÎàAAÐA–AFÐÈE¤9®Bî²œEÐîDBFàÄFEà–HÖ¬ÊG0A¤FÖIÄªFIIBîEC¢00Ì¢Aî˜¨ª´¦¢¬5ž¦1F¤HÖ1F¢Ö8¬¨F4Æ¨¤¢ž°1²Â¢Øæ¤DEØBªAJšG¬àH¤1œšGB8ÄE¢1˜¢ðÈ²Ì0IJ¦Øè¨CB5J¬îÞÒ¤¬5D°1ÆHHFBE°Üè¤DA´¨AAA¬EÖB°¨B´ÞAðèÂ¬îÖÄ¢ÔÈÎ²Bš²¦ª²œ°ðÐGªØÈE¬ÐI²¦0¤œ¦ð¬F¨¢šIDF0¦¢î¢HFØ¤ØªAI°ªØØÌ¨ðð–®FÈHBE´¦®EÖ¢¢Ø0–°ªEÄB®ÐÈ°Ð¤–¬Ø1¢FAÈœGBÎÆ®ð¢BBÎÈ ¤î0J¨îî¦ÄÎàÌFEðÈ°FJIAð4ÄGÐ0¢®E²Ê¦0B¬Ì0´Ä¤ªÐâ°Ø4ªF1ðÂBªÖDGBAÄGªÐ HØ1²ÈðšI¤¤ðHC0ÆªAÎ²H¨0Îœ¢EîšC¢¤ ²Î8F¨¤ð®¬îA¬ªªÖ´¨E8CAAEÂ¨Î¤DHA´¨G2à°BÖî°ª¢à´EABCGÐÞ¨¬F¢DAîÞ¤¦0ÈJª1ÈGE¤Ö²®¢B¨¢ØÎ¢ÌØæÆ¤ØÆDE1¢¢GÐÆ¤AØªÄ¦Ðî°¤FÆ˜¨ðÐÄª1ÐHF¬ÈÆAð²¬G0ÆG®¢´ °Ö¤Ê¦0œÊ¤Ð9BBðð¬¬¢èHGÖàJ®E8¤²FJAA1ðEHªà®AB¤C°F¤˜¦¤9ªª¬JÌEðèJ¢0¬¨A0ÎÂ¬¢BÊ¢E8G¬¢šE¦ÎÞÆ¨ÖIÊEªA°BªFÈ¬EÈJ¤FÐ¢¤Øœ ªØÆÌ¦ÖèÊE¢´š¨1JœFÎ¢¢¢ØBÂ¦0Øœ¨Ðàš¦¤¢´ªªœÆÈØÎ´¦0à–GEÈ9CªèÆ®E0D¤ªà˜®ØJJBÐJ¤ªÐØšHÐšÊ¢ØÆÂ°1Fª°ªè˜¦Ö8AÌ09´FÎJª¨ÖJÆ®H8°CªEJBF¬J¬ÖJÄÈFªDAî²HHÐØœEFÞôB¤æC¦A¢ª®1ªœB¬4H¤ØA7GEªIDÔæ–C1àF¬¨0¬¢ðA¤Fª9ÊÂðB–BÔ1Âª¬¤ AîªÄFEª¨AÚÐAª1¬²´Ø8¤HÖš®FÐÖ°°2´¦EØÖ¬CÖFÆ¬ÐFI¨¤œB¢¤AHFðÆœªE¤Æ¤Ø¬¢¢1ÈÆ®ÐšEG1š®ªî´œÄ1ðÂ¬îÆª¬Ö¬¦AÖÆJ¢¬œG°EœC¬1BœªØFJA1ÐÊ¤Î9ÌGðB´®Î5–C¢¬D¬EÆHBB9CGE1¤¦1ÈÊªÎI¢¢1Æ²°0æ G¢š¢AEÐÂ¦ªæAAð1¤ªAš°¨ÖJBª¬JÊ°Øœ¢°Öœ²®BFÊ¨1²FEBœ˜¢1ÈB°ÎÖBªÐœCCðð¤¢Îà˜DîªÌªEÆG¤ØœÊ°î¬ÌªîÐBE1ð°ªEJ¬GÖ¢Ê¦¬šI¦F9®¢1š´°0J ¤¤œ°CØÎD®Eæ G¢¤žBF9Ê¦ÖèÌ®H¬ÔÈDšÚÆBBÞÊH¬èÊHÐÔš¢1H¬îÐ°°0¢B¨ÎIFBÖ¤AGªÖDª¬AÌHAÈH°Ø´A¬ØÎ¢FîàD¬ÖJAEÐÈA¬Ð¤®BÐ¤ÂªðàÊAîÆÈ¦Øš¬C1BGª1ÆJ°0J ¤E1JªÖÖ °Ö9®B¢œÈ¨°5ÒÈÚ8ÒIî0 ªAÆD¤1¬H¬¬šHDEBEBØ5–¦0FÌ°E¤´EÖ8°°0Ð–B11˜¤ªBªCð9FDÎ0´¬¬è®¤ØI¬ª1ÆH¤ÎI´C1Þò°¬1Ä¤1AôFðÆ¨G0ª¨AÚÐE¢1Fä®1œ¤¢¢F¤GB4¬¨15äF1ÞDBªà°¢1æ¢FÐ¢ÂGEª°¤0¬¨FÖB ¬2ØDE¬Èì®îJÊ¨1²FEE²®¨Ø¬æ¦ÎšG¬EFªF¢ÈG¢Ð²ÌDðÖ CD1ÌD1œšAÔœ¨¬ôè˜AîBÌ¢F²¤¦F85¤0ÎHCØØJE¤JFÄF5¢Æ¤´Ê¬ªèÂš09H¤BBFE21Æ¬°8ªCØ´BE¬Ð²F1Èª°Ö²¢EE09¢ðA¢G¤œJ¨F´EH10E¦FÈF®Î´Â®ª¬®EE1GªÖFÊ¨Öè¤ª¤5¨ÂðÐœE15ä¨¤´CEîœÌ¬Hð¬JÎàHÆØ8ÌFð8¦¤E¤Â¦BIÌÄFœè¨Eªž®0Ð²¨¤² A¬èAªÖÎðEª¬–¢E0¬ªÖJÌªª´ä¦ª¤œE¬F°EªœÌ¦¬E¦®î´AE¤æÈ°î¢ªDÐE®¤ªæ°¤Eœ¤Â1´J¬Eš¬ªªœÄ¦¤èÊ¤Ð5ÄGAðÌ¢Gð¤BB0¤GÐF˜¤¤AÌ¤ØAÄ°0¬²ªÐEÊ¤19ÊªA¢š°¢B°ªÎ0˜ABÆ®AÎðD¢A¢š¤¬¬°¢F´²D¤¢ÆH¤ÎÈ®Bœ¨G®ª–°ðœ–E¤0ADðœ¤GÚ4–®ªà¤¢F¤A¬14žE¢ðà¨¨ÞG°ôšFGîèÂEA4GžA8®FAœJ¦Î9´®Ø¤FªÐ²=ÅÒ¬æIAÎ9ª°¢EC¬A8DªÎ5ªB1è°B¬´¢Bî¤°B¬¬¨ªAš ªîÆA;
+</section>
+<?php
+if (git_get_option('git_superfoot_b') && !G_is_mobile()) { ?>
+<div id="footbar" style="border-top: 2px solid #8E44AD;"><ul>
+<li><p class="first"><?php
+    echo git_get_option('git_foottitle1'); ?></p><span max-width="220px"><?php
+    echo git_get_option('git_footconent1'); ?></span></li>
+<li><p class="second"><?php
+    echo git_get_option('git_foottitle2'); ?></p><span max-width="220px"><?php
+    echo git_get_option('git_footconent2'); ?></span></li>
+<li><p class="third"><?php
+    echo git_get_option('git_foottitle3'); ?></p><span max-width="220px"><?php
+    echo git_get_option('git_footconent3'); ?></span></li>
+<li><p class="fourth"><?php
+    echo git_get_option('git_foottitle4'); ?></p><span max-width="220px"><?php
+    echo git_get_option('git_footconent4'); ?></span></li>
+</ul>
+</div>
+<?php
+} ?>
+<footer style="border-top: 1px solid ;background-image: url('<?php
+bloginfo('template_url'); ?>/img/footbg.jpg'); background-repeat: repeat;" class="footer">
+<div class="footer-inner"><div class="footer-copyright" align="center"><?php
+if (git_get_option('git_footcode')) echo git_get_option('git_footcode'); ?> Theme by <a href="http://googlo.me" title="ä¹è¶£å…¬å›­" target="_blank">äº‘è½</a> <span class="trackcode pull-right"><?php
+if (git_get_option('git_track')) echo git_get_option('git_track'); ?></span></div></div></footer>
+<?php
+if (git_get_option('git_copydialog_b') && is_singular()) echo '<script type="text/javascript">document.body.oncopy=function(){alert("å¤åˆ¶æˆåŠŸï¼è‹¥è¦è½¬è½½è¯·åŠ¡å¿…ä¿ç•™åŽŸæ–‡é“¾æŽ¥ï¼Œç”³æ˜Žæ¥æºï¼Œè°¢è°¢åˆä½œï¼");}</script>'; ?>
+<?php
+if (git_get_option('git_topnav_b') && !G_is_mobile()) { ?>
+<script type="text/Javascript">
+$(function(){
+	$('#nav-header').posfixed({
+		distance : 0,
+		pos : 'top',
+		type : 'while',
+		hide : false
+	});
+});
+</script>
+<?php
+} ?>
+<?php
+if (git_get_option('git_snow_b')) { ?><script type="text/javascript">(function(a){a.fn.snow=function(d){var g=a('<div id="snowbox" />').css({position:"absolute","z-index":"9999",top:"-50px"}).html("&#10052;"),f=a(document).height(),b=a(document).width(),e={minSize:10,maxSize:20,newOn:1000,flakeColor:"#FFF"},d=a.extend({},e,d);var c=setInterval(function(){var l=Math.random()*b-100,j=0.5+Math.random(),h=d.minSize+Math.random()*d.maxSize,i=f-200,k=l-500+Math.random()*500,m=f*10+Math.random()*5000;g.clone().appendTo("body").css({left:l,opacity:j,"font-size":h,color:d.flakeColor}).animate({top:i,left:k,opacity:0.2},m,"linear",function(){a(this).remove()})},d.newOn)}})(jQuery);$(function(){$.fn.snow({minSize:5,maxSize:50,newOn:300})});
+</script><?php
+} ?>
+<?php
+if (git_get_option('git_copy_b') && is_singular()) echo '<script type="text/Javascript">document.oncontextmenu=function(e){return false;};document.onselectstart=function(e){return false;};</script><style>body{ -moz-user-select:none;}</style><SCRIPT LANGUAGE=javascript>if (top.location != self.location)top.location=self.location;</SCRIPT><noscript><iframe src=*.html></iframe></noscript>'; ?>
+<?php
+if (git_get_option('git_footercode')) echo git_get_option('git_footercode'); ?>
+<?php
+wp_footer();
+global $dHasShare;
+if ($dHasShare == true) {
+    echo '<script>with(document)0[(getElementsByTagName("head")[0]||body).appendChild(createElement("script")).src="' . get_bloginfo("template_url") . '/js/share.js?v=89860593.js?cdnversion="+~(-new Date()/36e5)];</script>';
+}
+?>
+</body>
+</html>
