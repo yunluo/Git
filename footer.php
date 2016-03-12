@@ -21,7 +21,9 @@ if (git_get_option('git_superfoot_b') && !G_is_mobile()) { ?>
 <footer style="border-top: 1px solid ;background-image: url('<?php
 bloginfo('template_url'); ?>/img/footbg.jpg'); background-repeat: repeat;" class="footer">
 <div class="footer-inner"><div class="footer-copyright" align="center"><?php
-if (git_get_option('git_footcode')) echo git_get_option('git_footcode'); ?> Theme by <a href="http://googlo.me" title="乐趣公园" target="_blank">云落</a> <span class="trackcode pull-right"><?php
+if (git_get_option('git_footcode')) echo git_get_option('git_footcode'); ?> Theme by <a href="http://googlo.me" title="乐趣公园" target="_blank">云落</a>
+<!-- 若要删除版权请加乐趣公园(googlo.me)为全站友链，谢谢支持 -->
+<span class="trackcode pull-right"><?php
 if (git_get_option('git_track')) echo git_get_option('git_track'); ?></span></div></div></footer>
 <?php
 if (git_get_option('git_copydialog_b') && is_singular()) echo '<script type="text/javascript">document.body.oncopy=function(){alert("复制成功！若要转载请务必保留原文链接，申明来源，谢谢合作！");}</script>'; ?>
