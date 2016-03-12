@@ -1399,7 +1399,7 @@ function Bing_show_category() {
     $request.= " ORDER BY term_id asc";
     $categorys = $wpdb->get_results($request);
     foreach ($categorys as $category) { //调用菜单
-        $output = '<span>' . $category->name . "=(<em>" . $category->term_id . '</em>)</span>&nbsp;&nbsp;';
+        $output = '<span>' . $category->name . "=(<b>" . $category->term_id . '</b>)</span>&nbsp;&nbsp;';
         echo $output;
     }
 }
