@@ -1988,6 +1988,7 @@ function git_shuoshuo() {
         'rewrite' => true,
         'capability_type' => 'post',
         'has_archive' => true,
+        'menu_icon'   => 'dashicons-format-chat',
         'hierarchical' => false,
         'menu_position' => 4 ,
         'supports' => array(
