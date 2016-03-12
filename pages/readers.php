@@ -1,7 +1,7 @@
 <?php
 /*
 	template name: 读者墙
-	description: template for G theme
+	description: template for Git theme
 */
 get_header();
 function readers_wall( $outer='1',$timer='100',$limit='60' ){
@@ -19,7 +19,8 @@ function readers_wall( $outer='1',$timer='100',$limit='60' ){
 <div class="pagewrapper clearfix">
 	<aside class="pagesidebar">
 		<ul class="pagesider-menu">
-			<?php echo str_replace("</ul></div>", "", ereg_replace("<div[^>]*><ul[^>]*>", "", wp_nav_menu(array('theme_location' => 'pagemenu', 'echo' => false)) )); ?>
+			<?php
+echo str_replace('</ul></div>', '', preg_replace('/<div[^>]*><ul[^>]*>/', '', wp_nav_menu(array('theme_location' => 'pagemenu', 'echo' => false))));?>
 		</ul>
 	</aside>
 	<div class="pagecontent">

@@ -1,7 +1,7 @@
 <?php
 /*
 	template name: 代码演示
-	description: template for G theme
+	description: template for Git theme
 */
 $pid = isset( $_GET['pid'] ) ? trim(htmlspecialchars($_GET['pid'], ENT_QUOTES)) : '';
 if( !$pid ) { wp_redirect( home_url() );}

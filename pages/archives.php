@@ -1,7 +1,7 @@
 <?php
 /*
     template name: 文章存档
-    description: template for G theme
+    description: template for Git theme
 */
 get_header();
 ?>
