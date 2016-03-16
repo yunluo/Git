@@ -8107,12 +8107,6 @@ a.badge-inverse:hover .label-arrow,a.label-inverse:hover .label-arrow {
 	.card,.related_box ,.span_1_of_4{
 		width: 50%
 	}
-}
-@media screen and (max-width:350px) {
-	.card,.span_1_of_4{
-		width: 100%
-	}
-
 	.related_box img {
 		border-style: solid;
 		border-width: 5px;
@@ -8139,6 +8133,11 @@ a.badge-inverse:hover .label-arrow,a.label-inverse:hover .label-arrow {
 
 	#fancydlbox {
 		width: auto!important
+	}
+}
+@media screen and (max-width:350px) {
+	.card,.span_1_of_4{
+		width: 100%
 	}
 }
 
