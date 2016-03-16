@@ -2012,6 +2012,153 @@ function custom_book_rewrites_init() {
     add_rewrite_rule('shuoshuo-([0-9]+)?.html$', 'index.php?post_type=shuoshuo&p=$matches[1]', 'top');
 }
 add_filter('post_type_link', 'git_shuoshuo_link', 1, 3);
+
+//添加相册功能
+function git_gallery() {
+
+	$labels = array(
+		'name'                  => '相册',
+		'singular_name'         => '相册',
+		'menu_name'             => '相册',
+		'name_admin_bar'        => '相册',
+		'archives'              => '相册分类',
+		'parent_item_colon'     => '父分类',
+		'all_items'             => '所有相册',
+		'add_new_item'          => '添加新的相册',
+		'add_new'               => '添加新相册',
+		'new_item'              => '新相册',
+		'edit_item'             => '编辑相册',
+		'update_item'           => '更新相册',
+		'view_item'             => '查看相册',
+		'search_items'          => '搜索相册',
+		'not_found'             => '没有相册',
+		'not_found_in_trash'    => '回收站内没有相册',
+		'featured_image'        => '特色图片',
+		'set_featured_image'    => '设置特色图片',
+		'remove_featured_image' => '移除特色图片',
+		'use_featured_image'    => '设为特色图片',
+		'insert_into_item'      => '插入相册',
+		'uploaded_to_this_item' => '上传',
+		'items_list'            => '相册列表',
+		'items_list_navigation' => '相册列表导航',
+		'filter_items_list'     => '筛选相册列表',
+	);
+	$rewrite = array(
+		'slug'                  => 'gallery',
+		'with_front'            => true,
+		'pages'                 => true,
+		'feeds'                 => true,
+	);
+	$args = array(
+		'label'                 => '相册',
+		'description'           => '相册功能',
+		'labels'                => $labels,
+		'supports'              => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'custom-fields', 'post-formats', ),
+		'hierarchical'          => false,
+		'public'                => true,
+		'show_ui'               => true,
+		'show_in_menu'          => true,
+		'menu_position'         => 5,
+		'menu_icon'             => 'dashicons-format-gallery',
+		'show_in_admin_bar'     => true,
+		'show_in_nav_menus'     => true,
+		'can_export'            => true,
+		'has_archive'           => 'gallery-',
+		'exclude_from_search'   => true,
+		'publicly_queryable'    => true,
+		'rewrite'               => $rewrite,
+		'capability_type'       => 'page',
+	);
+	register_post_type( 'gallery', $args );
+
+}
+add_action( 'init', 'git_gallery', 0 );
+
+function git_gallery_link($link, $post = 0) {
+    if ($post->post_type == 'gallery') {
+        return home_url('gallery-' . $post->ID . '.html');
+    } else {
+        return $link;
+    }
+}
+add_action('init', 'custom_gallery_rewrites_init');
+function custom_gallery_rewrites_init() {
+    add_rewrite_rule('gallery-([0-9]+)?.html$', 'index.php?post_type=gallery&p=$matches[1]', 'top');
+}
+add_filter('post_type_link', 'git_gallery_link', 1, 3);
+
+//添加产品功能
+function git_product() {
+
+	$labels = array(
+		'name'                  => '产品',
+		'singular_name'         => '产品',
+		'menu_name'             => '产品',
+		'name_admin_bar'        => '产品',
+		'archives'              => '产品分类',
+		'parent_item_colon'     => '父分类',
+		'all_items'             => '所有产品',
+		'add_new_item'          => '添加新的产品',
+		'add_new'               => '添加新产品',
+		'new_item'              => '新产品',
+		'edit_item'             => '编辑产品',
+		'update_item'           => '更新产品',
+		'view_item'             => '查看产品',
+		'search_items'          => '搜索产品',
+		'not_found'             => '没有产品',
+		'not_found_in_trash'    => '回收站内没有产品',
+		'featured_image'        => '特色图片',
+		'set_featured_image'    => '设置特色图片',
+		'remove_featured_image' => '移除特色图片',
+		'use_featured_image'    => '设为特色图片',
+		'insert_into_item'      => '插入产品',
+		'uploaded_to_this_item' => '上传',
+		'items_list'            => '产品列表',
+		'items_list_navigation' => '产品列表导航',
+		'filter_items_list'     => '筛选产品列表',
+	);
+	$rewrite = array(
+		'slug'                  => 'product',
+		'with_front'            => true,
+		'pages'                 => true,
+		'feeds'                 => true,
+	);
+	$args = array(
+		'label'                 => '产品',
+		'description'           => '产品功能',
+		'labels'                => $labels,
+		'supports'              => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'custom-fields',  ),
+		'hierarchical'          => false,
+		'public'                => true,
+		'menu_position'         => 7,
+		'menu_icon'             => 'dashicons-cart',
+		'show_in_admin_bar'     => true,
+		'show_in_nav_menus'     => true,
+		'can_export'            => true,
+		'has_archive'           => 'product-',
+		'exclude_from_search'   => true,
+		'publicly_queryable'    => true,
+		'rewrite'               => $rewrite,
+		'capability_type'       => 'page',
+	);
+	register_post_type( 'product', $args );
+
+}
+add_action( 'init', 'git_product', 0 );
+
+function git_product_link($link, $post = 0) {
+    if ($post->post_type == 'product') {
+        return home_url('product-' . $post->ID . '.html');
+    } else {
+        return $link;
+    }
+}
+add_action('init', 'custom_product_rewrites_init');
+function custom_product_rewrites_init() {
+    add_rewrite_rule('product-([0-9]+)?.html$', 'index.php?post_type=product&p=$matches[1]', 'top');
+}
+add_filter('post_type_link', 'git_product_link', 1, 3);
+
 /*
 修复4.2表情bug
 下面代码来自：http://www.9sep.org/remove-emoji-in-wordpress

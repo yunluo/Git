@@ -8,8 +8,12 @@
 			<h1><?php echo $curauth->display_name.'的文章' ?></h1>
 			<?php if ( $curauth->description ) echo '<div class="archive-header-info">'.$curauth->description.'</div>'; ?>
 		</header>
-
-		<?php include( 'modules/excerpt.php' ); ?>
+		<?php if (git_get_option('git_card_b'))
+		{
+		include 'modules/card.php';
+		}else{
+		include 'modules/excerpt.php';
+		}?>
 	</div>
 </div>
 <?php get_sidebar(); get_footer(); ?>

@@ -7,8 +7,12 @@ get_header(); ?>
 			<?php
 if (category_description()) echo '<div class="archive-header-banner">' . category_description() . '</div>'; ?>
 		</header>
-		<?php
-include ('modules/excerpt.php'); ?>
+		<?php if (git_get_option('git_card_b'))
+		{
+		include 'modules/card.php';
+		}else{
+		include 'modules/excerpt.php';
+		}?>
 	</div>
 </div>
 <?php get_sidebar(); get_footer(); ?>

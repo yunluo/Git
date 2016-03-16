@@ -826,9 +826,15 @@ $options = array(
         'type'  => 'subtitle'
     ),
     array(
-        'name'  => '是否开启',
+        'name'  => '是否开启CMS',
         'desc'  => '启用 【不启用的话，显示是博客模式】',
         'id'    => "git_cms_b",
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '博客是否开启卡片式',
+        'desc'  => '启用 【不启用的话，显示是传统博客形式】',
+        'id'    => "git_card_b",
         'type'  => 'checkbox'
     ),
     array(

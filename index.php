@@ -22,7 +22,11 @@ if (git_get_option('git_cms_b')) {
         'paged' => $paged
     );
     query_posts($args);
+	if (git_get_option('git_card_b')) {
+	include 'modules/card.php';
+	}else{
     include 'modules/excerpt.php';
+	}
 }
 ?>
 	</div>

@@ -15,12 +15,22 @@
 				);
 				query_posts($args);
 			?>
-			<?php include( 'modules/excerpt.php' ); ?>
+			<?php if (git_get_option('git_card_b'))
+		{
+		include 'modules/card.php';
+		}else{
+		include 'modules/excerpt.php';
+		}?>
 		<?php else: ?>
 			<header class="archive-header">
 				<h1>有关【<?php echo htmlspecialchars($s); ?>】的内容</h1>
 			</header>
-			<?php include( 'modules/excerpt.php' ); ?>
+			<?php if (git_get_option('git_card_b'))
+		{
+		include 'modules/card.php';
+		}else{
+		include 'modules/excerpt.php';
+		}?>
 		<?php endif; ?>
 	</div>
 </div>

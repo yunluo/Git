@@ -8,7 +8,12 @@
 				elseif(is_year()) echo the_time('Y年'); 
 			?>的内容</h1>
 		</header>
-		<?php include( 'modules/excerpt.php' ); ?>
+		<?php if (git_get_option('git_card_b'))
+		{
+		include 'modules/card.php';
+		}else{
+		include 'modules/excerpt.php';
+		}?>
 	</div>
 </div>
 <?php get_sidebar(); get_footer(); ?>
