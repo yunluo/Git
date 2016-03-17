@@ -8,7 +8,8 @@ get_header();
 <div class="pagewrapper clearfix">
     <aside class="pagesidebar">
         <ul class="pagesider-menu">
-            <?php echo str_replace("</ul></div>", "", ereg_replace("<div[^>]*><ul[^>]*>", "", wp_nav_menu(array('theme_location' => 'pagemenu', 'echo' => false)) )); ?>
+            <?php
+echo str_replace('</ul></div>', '', preg_replace('/<div[^>]*><ul[^>]*>/', '', wp_nav_menu(array('theme_location' => 'pagemenu', 'echo' => false))));?>
         </ul>
     </aside>
     <div class="pagecontent">
@@ -25,17 +26,13 @@ get_header();
                 <?php the_content(); ?>
             </article>
             <article class="archives">
-                
                 <?php
                 $previous_year = $year = 0;
                 $previous_month = $month = 0;
                 $ul_open = false;
-
                 $myposts = get_posts('numberposts=-1&orderby=post_date&order=DESC');
-
                 foreach($myposts as $post) :
                     setup_postdata($post);
-
                     $year = mysql2date('Y', $post->post_date);
                     $month = mysql2date('n', $post->post_date);
                     $day = mysql2date('j', $post->post_date);
@@ -44,13 +41,10 @@ get_header();
                         if($ul_open == true) :
                             echo '</ul></div>';
                         endif;
-
                         echo '<div class="xControl"><a href="javascript:void(0)" class="collapseButton xButton"><div class="item"><h3>'; echo the_time('Y F'); echo '</h3></a></div>';
                         echo '<ul class="archives-list">';
                         $ul_open = true;
-
                     endif;
-
                     $previous_year = $year; $previous_month = $month;
                 ?>
                     <div class="xContent" style="display: none;"><li>
@@ -62,7 +56,6 @@ get_header();
                 </ul>
             </div>
             </article>
-
         <?php endwhile;  ?>
     </div>
 </div>
