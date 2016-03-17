@@ -28,14 +28,6 @@ get_header(); ?>
         the_title(); ?>" title="<?php
         the_title(); ?>" class="fancyimg home-blog-entry-thumb">
 					<div class="thumb-img focus">
-					<div class="metacat"><?php
-    if (!is_category()) {
-        $category = get_the_category();
-        if ($category[0]) {
-            echo '<a class="metacat" href="' . get_category_link($category[0]->term_id) . '">' . $category[0]->cat_name . '</a>';
-        }
-    }; ?>
-</div>
 					<?php
             echo '<img class="thumb" title="'.get_the_title().'" src="' . get_bloginfo("template_url") . '/timthumb.php?src=';
             echo post_thumbnail_src();
