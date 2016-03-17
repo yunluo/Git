@@ -50,7 +50,7 @@ function googlo_admin_comment_ctrlenter() {
 add_action('admin_footer', 'googlo_admin_comment_ctrlenter');
 //添加后台左下角文字
 function git_admin_footer_text($text) {
-    $text = '感谢使用<a target="_blank" href=http://googlo.me/ >Git主题 6</a>进行创作';
+    $text = '感谢使用<a target="_blank" href=http://googlo.me/ >Git主题 7</a>进行创作';
     return $text;
 }
 add_filter('admin_footer_text', 'git_admin_footer_text');
