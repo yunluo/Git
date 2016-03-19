@@ -18,6 +18,11 @@ function deel_setup() {
     unregister_widget('WP_Widget_Tag_Cloud');
     unregister_widget('WP_Nav_Menu_Widget');
     }
+	//分类，标签描述添加图片
+    remove_filter( 'pre_term_description', 'wp_filter_kses' );
+	remove_filter( 'pre_link_description', 'wp_filter_kses' );
+	remove_filter( 'pre_link_notes', 'wp_filter_kses' );
+	remove_filter( 'term_description', 'wp_kses_data' );
     //添加主题特性
     add_theme_support('custom-background', array( 'default-image' => '%s/img/bg.png' ));
     //隐藏admin Bar
@@ -25,10 +30,6 @@ function deel_setup() {
     //关键字
     if (git_get_option('git_keywords')) {
         add_action('wp_head', 'deel_keywords');
-    }
-    //分类描述添加图片
-    if (git_get_option('git_cattu_b')) {
-    remove_filter('pre_term_description', 'wp_filter_kses');
     }
 	//新标签打开文章链接
 function googlo_admin_aritical_ctrlenter() {
@@ -285,9 +286,9 @@ function deel_breadcrumbs() {
 // 取消原有jQuery，加载自定义jQuery
 function footerScript() {
     if (!is_admin()) {
-        wp_deregister_script('jquery');  
+        wp_deregister_script('jquery');
         if(git_get_option('git_jqcdn')=='git_jqcdn_qiniu'){
-            wp_register_script('jquery', 'http://cdn.staticfile.org/jquery/1.8.3/jquery.min.js', false, '1.0', false );  
+            wp_register_script('jquery', 'http://cdn.staticfile.org/jquery/1.8.3/jquery.min.js', false, '1.0', false );
         }elseif(git_get_option('git_jqcdn')=='git_jqcdn_upai'){
             wp_register_script('jquery', 'http://upcdn.b0.upaiyun.com/libs/jquery/jquery-1.8.3.min.js', false, '1.0', false );
         }elseif(git_get_option('git_jqcdn')=='git_jqcdn_360'){
@@ -2327,7 +2328,7 @@ function git_wps_login_error() {
 }
 add_action('login_head', 'git_wps_login_error');
 //设HTML为默认编辑器
-//add_filter( 'wp_default_editor', create_function('', 'return "html";') ); 
+//add_filter( 'wp_default_editor', create_function('', 'return "html";') );
 //管理后台添加按钮
 function git_custom_adminbar_menu($meta = TRUE) {
     global $wp_admin_bar;
@@ -2400,7 +2401,7 @@ add_filter('retrieve_password_message', git_reset_password_message, null, 2);
 if(git_get_option('git_admin')):
 function git_login_protection() {
     if ($_GET[''.git_get_option('git_admin_q').''] != ''.git_get_option('git_admin_a').'') {
-     wp_die('本页面仅限管理员浏览，请<a href="' . home_url() . '">点此返回网站首页</a>');   
+     wp_die('本页面仅限管理员浏览，请<a href="' . home_url() . '">点此返回网站首页</a>');
     }
 }
 add_action('login_enqueue_scripts', 'git_login_protection');

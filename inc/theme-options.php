@@ -816,12 +816,6 @@ $options = array(
         'type'  => 'panelstart'
     ),
     array(
-        'name'  => '分类banner图',
-        'desc'  => '启用【启用后，再分类目录那里的图片描述里面添加img图片链接】',
-        'id'    => "git_cattu_b",
-        'type'  => 'checkbox'
-    ),
-    array(
         'title' => 'CMS分类布局',
         'type'  => 'subtitle'
     ),
