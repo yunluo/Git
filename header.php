@@ -12,8 +12,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 <link href="/favicon.ico" rel="icon" type="image/x-icon" />
 <?php
-if (git_get_option('git_customcss')) echo '<style type="text/css">'.git_get_option('git_customcss').'</style>'; ?>
-<?php
 if (git_get_option('git_robot_b')): ?>
 <?php
     if (is_single() || is_page() || is_home()): ?>
@@ -59,6 +57,8 @@ bloginfo('template_url'); ?>/js/html5.js"></script><![endif]-->
 <?php
 echo get_post_meta($post->ID, 'git_customer', true); ?>
 </head>
+<?php
+if (git_get_option('git_customcss')) echo '<style type="text/css">'.git_get_option('git_customcss').'</style>'; ?>
 <body <?php
 body_class(); ?>>
 <?php

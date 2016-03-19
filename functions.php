@@ -1140,6 +1140,7 @@ function reply_to_read($atts, $content = null) {
     }
 }
 add_shortcode('reply', 'reply_to_read');
+
 //bing美图自定义登录页面背景
 function custom_login_head() {
     $str = file_get_contents('http://cn.bing.com/HPImageArchive.aspx?idx=0&n=1');
