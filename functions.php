@@ -2004,14 +2004,14 @@ add_action('init', 'git_shuoshuo');
 //说说的固定连接格式
 function git_shuoshuo_link($link, $post = 0) {
     if ($post->post_type == 'shuoshuo') {
-        return home_url('shuoshuo-' . $post->ID . '.html');
+        return home_url('shuoshuo/' . $post->ID . '.html');
     } else {
         return $link;
     }
 }
 add_action('init', 'custom_book_rewrites_init');
 function custom_book_rewrites_init() {
-    add_rewrite_rule('shuoshuo-([0-9]+)?.html$', 'index.php?post_type=shuoshuo&p=$matches[1]', 'top');
+    add_rewrite_rule('shuoshuo/([0-9]+)?.html$', 'index.php?post_type=shuoshuo&p=$matches[1]', 'top');
 }
 add_filter('post_type_link', 'git_shuoshuo_link', 1, 3);
 
@@ -2078,14 +2078,14 @@ add_action( 'init', 'git_gallery', 0 );
 
 function git_gallery_link($link, $post = 0) {
     if ($post->post_type == 'gallery') {
-        return home_url('gallery-' . $post->ID . '.html');
+        return home_url('gallery/' . $post->ID . '.html');
     } else {
         return $link;
     }
 }
 add_action('init', 'custom_gallery_rewrites_init');
 function custom_gallery_rewrites_init() {
-    add_rewrite_rule('gallery-([0-9]+)?.html$', 'index.php?post_type=gallery&p=$matches[1]', 'top');
+    add_rewrite_rule('gallery/([0-9]+)?.html$', 'index.php?post_type=gallery&p=$matches[1]', 'top');
 }
 add_filter('post_type_link', 'git_gallery_link', 1, 3);
 
@@ -2150,14 +2150,14 @@ add_action( 'init', 'git_product', 0 );
 
 function git_product_link($link, $post = 0) {
     if ($post->post_type == 'product') {
-        return home_url('product-' . $post->ID . '.html');
+        return home_url('product/' . $post->ID . '.html');
     } else {
         return $link;
     }
 }
 add_action('init', 'custom_product_rewrites_init');
 function custom_product_rewrites_init() {
-    add_rewrite_rule('product-([0-9]+)?.html$', 'index.php?post_type=product&p=$matches[1]', 'top');
+    add_rewrite_rule('product/([0-9]+)?.html$', 'index.php?post_type=product&p=$matches[1]', 'top');
 }
 add_filter('post_type_link', 'git_product_link', 1, 3);
 
