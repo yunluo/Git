@@ -278,7 +278,7 @@ if (git_get_option('git_yuanpic_b')&&!empty($_POST['git_remote_pic'])):
 endif;
 //面包屑导航
 function deel_breadcrumbs() {
-    if (!is_single()) return false;
+    if (!is_single() || get_post_type() == 'gallery'|| get_post_type() == 'product') return false;
     $categorys = get_the_category();
     $category = $categorys[0];
     return '<a title="返回首页" href="' . get_bloginfo('url') . '"><i class="fa fa-home"></i></a> <small>></small> ' . get_category_parents($category->term_id, true, ' <small>></small> ') . '<span class="muted">' . get_the_title() . '</span>';
@@ -2002,19 +2002,21 @@ function git_shuoshuo() {
 }
 add_action('init', 'git_shuoshuo');
 //说说的固定连接格式
-function git_shuoshuo_link($link, $post = 0) {
-    if ($post->post_type == 'shuoshuo') {
-        return home_url('shuoshuo_' . $post->ID . '.html');
-    } else {
-        return $link;
-    }
+function custom_shuoshuo_link( $link, $post = 0 ){
+	if ( $post->post_type == 'shuoshuo' ){
+		return home_url( 'shuoshuo/' . $post->ID .'.html' );
+	} else {
+		return $link;
+	}
 }
-add_action('init', 'custom_book_rewrites_init');
-function custom_book_rewrites_init() {
-    add_rewrite_rule('shuoshuo_([0-9]+)?.html$', 'index.php?post_type=shuoshuo&p=$matches[1]', 'top');
+add_filter('post_type_link', 'custom_shuoshuo_link', 1, 3);
+function custom_shuoshuo_rewrites_init(){
+	add_rewrite_rule(
+		'shuoshuo/([0-9]+)?.html$',
+		'index.php?post_type=shuoshuo&p=$matches[1]',
+		'top' );
 }
-add_filter('post_type_link', 'git_shuoshuo_link', 1, 3);
-
+add_action( 'init', 'custom_shuoshuo_rewrites_init' );
 //添加相册功能
 function git_gallery() {
 
@@ -2076,18 +2078,22 @@ function git_gallery() {
 }
 add_action( 'init', 'git_gallery', 0 );
 
-function git_gallery_link($link, $post = 0) {
-    if ($post->post_type == 'gallery') {
-        return home_url('gallery_' . $post->ID . '.html');
-    } else {
-        return $link;
-    }
+//相册的固定连接格式
+function custom_gallery_link( $link, $post = 0 ){
+	if ( $post->post_type == 'gallery' ){
+		return home_url( 'gallery/' . $post->ID .'.html' );
+	} else {
+		return $link;
+	}
 }
-add_action('init', 'custom_gallery_rewrites_init');
-function custom_gallery_rewrites_init() {
-    add_rewrite_rule('gallery_([0-9]+)?.html$', 'index.php?post_type=gallery&p=$matches[1]', 'top');
+add_filter('post_type_link', 'custom_gallery_link', 1, 3);
+function custom_gallery_rewrites_init(){
+	add_rewrite_rule(
+		'gallery/([0-9]+)?.html$',
+		'index.php?post_type=gallery&p=$matches[1]',
+		'top' );
 }
-add_filter('post_type_link', 'git_gallery_link', 1, 3);
+add_action( 'init', 'custom_gallery_rewrites_init' );
 
 //添加产品功能
 function git_product() {
@@ -2148,18 +2154,22 @@ function git_product() {
 }
 add_action( 'init', 'git_product', 0 );
 
-function git_product_link($link, $post = 0) {
-    if ($post->post_type == 'product') {
-        return home_url('product_' . $post->ID . '.html');
-    } else {
-        return $link;
-    }
+//产品的固定连接格式
+function custom_product_link( $link, $post = 0 ){
+	if ( $post->post_type == 'product' ){
+		return home_url( 'product/' . $post->ID .'.html' );
+	} else {
+		return $link;
+	}
 }
-add_action('init', 'custom_product_rewrites_init');
-function custom_product_rewrites_init() {
-    add_rewrite_rule('product_([0-9]+)?.html$', 'index.php?post_type=product&p=$matches[1]', 'top');
+add_filter('post_type_link', 'custom_product_link', 1, 3);
+function custom_product_rewrites_init(){
+	add_rewrite_rule(
+		'product/([0-9]+)?.html$',
+		'index.php?post_type=product&p=$matches[1]',
+		'top' );
 }
-add_filter('post_type_link', 'git_product_link', 1, 3);
+add_action( 'init', 'custom_product_rewrites_init' );
 
 /*
 修复4.2表情bug
@@ -2400,7 +2410,7 @@ add_filter('retrieve_password_message', git_reset_password_message, null, 2);
 //保护后台登录，修改自倡萌：http://www.wpdaxue.com/protected-wp-login.html
 if(git_get_option('git_admin')):
 function git_login_protection() {
-    if ($_GET[''.git_get_option('git_admin_q').''] != ''.git_get_option('git_admin_a').'') {
+    if ($_GET[''.git_get_option('git_admin_q').''] !== ''.git_get_option('git_admin_a').'') {
      wp_die('本页面仅限管理员浏览，请<a href="' . home_url() . '">点此返回网站首页</a>');
     }
 }
@@ -2441,5 +2451,5 @@ function git_publish_git_submit($post_ID){
 	}
 }
 add_action('publish_post', 'git_publish_git_submit', 0);
-//WordPress函数代码结束//
+//WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://googlo.me/archives/4032.html
 ?>
