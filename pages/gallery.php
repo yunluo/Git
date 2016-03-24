@@ -14,7 +14,7 @@ get_header(); ?>
 	<?php deel_share() ?>
 			</div>
 		</header>
-<div id="goodslist" class="goodlist" role="main">
+<div id="cardslist" class="cardlist" role="main">
 
 <?php
     query_posts('post_type=gallery&post_status=publish'); ?>

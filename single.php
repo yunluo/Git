@@ -55,9 +55,50 @@ while (have_posts()):
 				<span class="muted"><?php
     edit_post_link('[编辑]'); ?></span>
 			</div>
+			
+			
+					
+		<?php 
+		$jiage = get_post_meta($post->ID, 'git_product_jiage', true);
+		$fahuodi = get_post_meta($post->ID, 'git_product_fahuodi', true);
+		$cpjianjie = get_post_meta($post->ID, 'git_product_cpjianjie', true);
+		$tblink = get_post_meta($post->ID, 'git_product_tblink', true);
+		if(get_post_type() == 'product'){
+		    echo '<hr /><table border="0">
+	<tbody>
+		<tr>
+			<td style="width:50%">
+				<a href="' . get_post_meta($post->ID, 'git_thumb', true) . '"><img src="' . get_post_meta($post->ID, 'git_thumb', true) . '" width="400px" height="400px" alt="" /></a>
+			</td>
+			<td style="width:50%">
+				<h2>宠物包猫咪背包泰迪外出便携旅行包狗狗包包猫猫包猫笼袋子箱用品
+				</h2>
+				<h3>
+					产品简介：<span class="jiage">' . get_post_meta($post->ID, 'git_product_cpjianjie', true) . '</span>
+				</h3>
+				<p class="producttxt">
+					价格：¥ <span class="jiage">' . get_post_meta($post->ID, 'git_product_jiage', true) . '</span>
+				</p>
+				<p class="producttxt">
+					发货地 ：<span class="fahuodi">' . get_post_meta($post->ID, 'git_product_fahuodi', true) . '</span> &nbsp;快递 免运费&nbsp;卖家承诺24小时内发货
+				</p>
+				<p style="text-align:center;">
+					<a class="lhb" href="' . get_post_meta($post->ID, 'git_product_tblink', true) . '" target="_blank" rel="nofollow" ><i class="fa fa-shopping-cart"></i> 立即购买</a>
+				</p>
+				<p class="producttxt">
+					承诺：7天无理由&nbsp;运费险
+				</p>
+				<p class="producttxt">
+					支付：快捷支付&nbsp;信用卡支付&nbsp;余额宝支付&nbsp;蚂蚁花呗
+				</p>
+			</td>
+		</tr>
+	</tbody>
+</table>';}
+		?>
 		</header>
 <?php
-    if (git_get_option('git_adpost_01')) echo '<div class="banner banner-post">' . git_get_option('git_adpost_01') . '</div>'; ?>
+    if (git_get_option('git_adpost_01') && get_post_type() !== 'product') echo '<div class="banner banner-post">' . git_get_option('git_adpost_01') . '</div>'; ?>
 <?php
     if (wp_is_mobile()): ?><?php
         if (git_get_option('Mobiled_adpost_01')) echo '<div class="banner-post mobileads">' . git_get_option('Mobiled_adpost_01') . '</div>'; ?><?php

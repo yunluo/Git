@@ -11,7 +11,7 @@ if (is_home()) { ?>
 <?php
 } ?>
 <div class="pagewrapper">
-<div id="goodslist" class="goodlist" role="main">
+<div id="cardslist" class="cardlist" role="main">
 
             <?php
     while (have_posts()):
