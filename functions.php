@@ -2294,14 +2294,6 @@ function git_unCompress($content) {
 }
 add_filter( "the_content", "git_unCompress");
 endif;
-//自动首行缩进
-if(git_get_option('git_suojin') && is_singular()):
-function git_indent_txt($text){
-    $return = str_replace('<p>', '<p style="text-indent:2em;">',$text);
-    return $return;
-}
-add_filter('the_content','git_indent_txt');
-endif;
 //增强编辑器开始
 function git_editor_buttons($buttons) {
     $buttons[] = 'fontselect';

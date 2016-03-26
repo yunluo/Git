@@ -1,9 +1,10 @@
 <?php get_header(); ?>
 <div class="content-wrap">
 	<div class="content">
-
 <?php
-if (git_get_option('git_singleMenu_b')) echo '<div class="breadcrumbs">' . deel_breadcrumbs() . '</div>'; ?>
+if (git_get_option('git_singleMenu_b')) echo '<div class="breadcrumbs">' . deel_breadcrumbs() . '</div>'; 
+if(git_get_option('git_suojin')){echo '<style type="text/css">.article-content p {text-indent: 2em;}.article-content p a,.article-content table p{text-indent: 0 !important;}</style>';}
+?>
 <?php
 if (git_get_option('git_prettify') == 'monokai') {
     echo '<style type="text/css">.prettyprint,pre.prettyprint{background-color:#272822;border:none;overflow:hidden;padding:10px 15px;}.prettyprint.linenums,pre.prettyprint.linenums{-webkit-box-shadow:inset 40px 0 0 #39382E,inset 41px 0 0 #464741;-moz-box-shadow:inset 40px 0 0 #39382E,inset 41px 0 0 #464741;box-shadow:inset 40px 0 0 #39382E,inset 41px 0 0 #464741;}.prettyprint.linenums ol,pre.prettyprint.linenums ol{margin:0 0 0 33px;}.prettyprint.linenums ol li,pre.prettyprint.linenums ol li{padding-left:12px;color:#bebec5;line-height:20px;margin-left:0;list-style:decimal;}.prettyprint .com{color:#93a1a1;}.prettyprint .lit{color:#AE81FF;}.prettyprint .pun,.prettyprint .opn,.prettyprint .clo{color:#F8F8F2;}.prettyprint .fun{color:#dc322f;}.prettyprint .str,.prettyprint .atv{color:#E6DB74;}.prettyprint .kwd,.prettyprint .tag{color:#F92659;}.prettyprint .typ,.prettyprint .atn,.prettyprint .dec,.prettyprint .var{color:#A6E22E;}.prettyprint .pln{color:#66D9EF;}</style>';
