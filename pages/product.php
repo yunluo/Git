@@ -41,13 +41,7 @@ get_header(); ?>
         the_title(); ?>" target="_blank"><?php
         the_title(); ?></a>
 				</h3>
-				<p><?php
-		$excerpt = $post->post_excerpt;
-		if (empty($excerpt)) {
-            echo deel_strimwidth(strip_tags(apply_filters('the_content', strip_shortcodes($post->post_content))) , 0, 200 , '……');
-        } else {
-            echo deel_strimwidth(strip_tags(apply_filters('the_excerpt', strip_shortcodes($post->post_excerpt))) , 0, 200 , '……'); 
-        } ?></p>
+				<p><?php echo get_post_meta($post->ID, 'git_product_cpjianjie', true); ?></p>
 				<div class="pricebtn"><i class="fa fa-jpy"></i> <?php
         echo get_post_meta($post->ID, 'git_product_jiage', true); ?><a class="buy" href="<?php
         the_permalink(); ?>"><i class="fa fa-shopping-cart"></i> 立刻购买</a></div>

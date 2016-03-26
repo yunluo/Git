@@ -69,14 +69,14 @@ while (have_posts()):
 				<h2>'.get_the_title().'</h2>
 				<p>产品简介：' . get_post_meta($post->ID, 'git_product_cpjianjie', true) . '</p>
 			    </div>
-			    <div class="summary row">
+			    <div class="product row">
 				<ul>
-					<li class="summary-price"><span class="dt">商品售价</span><strong><em>¥</em>' . get_post_meta($post->ID, 'git_product_jiage', true) . ' <em>(元)</em></strong></li>
-					<li class="summary-amount"><span class="dt">商品数量</span><span class="dt-num">999</span></li>
-					<li class="summary-comments"><span class="dt">商品评论</span><span class="dt-num"><a href="' . get_comments_link() . '">' . get_comments_number('0', '1', '%') . '个评论</a></span></li>
-					<li class="summary-place"><span class="dt">商品发货地</span><span class="dt-num">' . get_post_meta($post->ID, 'git_product_fahuodi', true) . '</span></li>
-					<li class="summary-time"><span class="dt">发货时间</span><span class="dt-num">卖家承诺24小时内发货</span></li>
-					<li class="summary-market"><span class="dt">商品编号</span>' . get_the_id() . '</li>
+					<li class="product-price"><span class="dt">商品售价</span><strong><em>¥</em>' . get_post_meta($post->ID, 'git_product_jiage', true) . ' <em>(元)</em></strong></li>
+					<li class="product-amount"><span class="dt">商品数量</span><span class="dt-num">999</span></li>
+					<li class="product-comments"><span class="dt">商品评论</span><span class="dt-num"><a href="' . get_comments_link() . '">' . get_comments_number('0', '1', '%') . '个评论</a></span></li>
+					<li class="product-place"><span class="dt">商品发货地</span><span class="dt-num">' . get_post_meta($post->ID, 'git_product_fahuodi', true) . '</span></li>
+					<li class="product-time"><span class="dt">发货时间</span><span class="dt-num">卖家承诺24小时内发货</span></li>
+					<li class="product-market"><span class="dt">商品编号</span>' . get_the_id() . '</li>
                 </ul>
 			    </div>
 			    <div class="product-buy">
