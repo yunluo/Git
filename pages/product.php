@@ -44,12 +44,12 @@ get_header(); ?>
 				<p><?php
 		$excerpt = $post->post_excerpt;
 		if (empty($excerpt)) {
-            echo deel_strimwidth(strip_tags(apply_filters('the_content', strip_shortcodes($post->post_content))) , 0, git_get_option('git_excerpt_length') ? git_get_option('git_excerpt_length') : 100 , '……');
+            echo deel_strimwidth(strip_tags(apply_filters('the_content', strip_shortcodes($post->post_content))) , 0, 200 , '……');
         } else {
-            echo deel_strimwidth(strip_tags(apply_filters('the_excerpt', strip_shortcodes($post->post_excerpt))) , 0, git_get_option('git_excerpt_length') ? git_get_option('git_excerpt_length') : 100 , '……'); 
+            echo deel_strimwidth(strip_tags(apply_filters('the_excerpt', strip_shortcodes($post->post_excerpt))) , 0, 200 , '……'); 
         } ?></p>
-				<div class="pricebtn"><i class="fa fa-user"></i> <?php
-        echo get_the_author() ?><a class="buy" href="<?php
+				<div class="pricebtn"><i class="fa fa-jpy"></i> <?php
+        echo get_post_meta($post->ID, 'git_product_jiage', true); ?><a class="buy" href="<?php
         the_permalink(); ?>"><i class="fa fa-shopping-cart"></i> 立刻购买</a></div>
 			</div>
 		</div>

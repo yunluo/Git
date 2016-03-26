@@ -36,7 +36,7 @@ while (have_posts()):
     
     <?php
     $zhuanzai = get_post_meta($post->ID, 'git_zhuanzai_name', true);
-    if ( $zhuanzai ) echo '<span class="muted"><i class="fa fa-info-circle"></i> 来源：<a target="_blank" href="' . get_post_meta($post->ID, 'git_zhuanzai_link', true) . '">' .get_post_meta($post->ID, 'git_zhuanzai_name', true) . '</a></span>'; ?>
+    if ( $zhuanzai ) echo '<span class="muted"><i class="fa fa-info-circle"></i> 来源：<a rel="nofollow" target="_blank" href="' . get_post_meta($post->ID, 'git_zhuanzai_link', true) . '">' .get_post_meta($post->ID, 'git_zhuanzai_name', true) . '</a></span>'; ?>
     
 				<time class="muted"><i class="fa fa-clock-o"></i> <?php
     echo timeago(get_gmt_from_date(get_the_time('Y-m-d G:i:s'))) ?></time>
@@ -56,47 +56,32 @@ while (have_posts()):
 				<span class="muted"><?php
     edit_post_link('[编辑]'); ?></span>
 			</div>
-			
-			
-					
 		<?php 
 		$jiage = get_post_meta($post->ID, 'git_product_jiage', true);
 		$fahuodi = get_post_meta($post->ID, 'git_product_fahuodi', true);
 		$cpjianjie = get_post_meta($post->ID, 'git_product_cpjianjie', true);
 		$tblink = get_post_meta($post->ID, 'git_product_tblink', true);
 		if(get_post_type() == 'product'){
-		    echo '<hr /><table border="0">
-	<tbody>
-		<tr>
-			<td style="width:50%">
-				<a href="' . get_post_meta($post->ID, 'git_thumb', true) . '"><img src="' . get_post_meta($post->ID, 'git_thumb', true) . '" width="400px" height="400px" alt="" /></a>
-			</td>
-			<td style="width:50%">
-				<h2>宠物包猫咪背包泰迪外出便携旅行包狗狗包包猫猫包猫笼袋子箱用品
-				</h2>
-				<h3>
-					产品简介：<span class="jiage">' . get_post_meta($post->ID, 'git_product_cpjianjie', true) . '</span>
-				</h3>
-				<p class="producttxt">
-					价格：¥ <span class="jiage">' . get_post_meta($post->ID, 'git_product_jiage', true) . '</span>
-				</p>
-				<p class="producttxt">
-					发货地 ：<span class="fahuodi">' . get_post_meta($post->ID, 'git_product_fahuodi', true) . '</span> &nbsp;快递 免运费&nbsp;卖家承诺24小时内发货
-				</p>
-				<p style="text-align:center;">
-					<a class="lhb" href="' . get_post_meta($post->ID, 'git_product_tblink', true) . '" target="_blank" rel="nofollow" ><i class="fa fa-shopping-cart"></i> 立即购买</a>
-				</p>
-				<p class="producttxt">
-					承诺：7天无理由&nbsp;运费险
-				</p>
-				<p class="producttxt">
-					支付：快捷支付&nbsp;信用卡支付&nbsp;余额宝支付&nbsp;蚂蚁花呗
-				</p>
-			</td>
-		</tr>
-	</tbody>
-</table>';}
-		?>
+		    echo '<hr /><div class="products" id="products">
+			<div class="product-img"><a target="_blank" rel="nofollow" href="' . get_post_meta($post->ID, 'git_product_tblink', true) . '"><img src="' . get_post_meta($post->ID, 'git_thumb', true) . '" width="360px" height="360px" alt="" /></a></div>
+			<div class="product-detail">
+			    <div class="product-title">
+				<h2>'.get_the_title().'</h2>
+				<p>产品简介：' . get_post_meta($post->ID, 'git_product_cpjianjie', true) . '</p>
+			    </div>
+			    <div class="summary row">
+				<ul>
+					<li class="summary-price"><span class="dt">商品售价</span><strong><em>¥</em>' . get_post_meta($post->ID, 'git_product_jiage', true) . ' <em>(元)</em></strong></li>
+					<li class="summary-amount"><span class="dt">商品数量</span><span class="dt-num">999</span></li>
+					<li class="summary-comments"><span class="dt">商品评论</span><span class="dt-num"><a href="' . get_comments_link() . '">' . get_comments_number('0', '1', '%') . '个评论</a></span></li>
+					<li class="summary-place"><span class="dt">商品发货地</span><span class="dt-num">' . get_post_meta($post->ID, 'git_product_fahuodi', true) . '</span></li>
+					<li class="summary-time"><span class="dt">发货时间</span><span class="dt-num">卖家承诺24小时内发货</span></li>
+					<li class="summary-market"><span class="dt">商品编号</span>' . get_the_id() . '</li>
+                </ul>
+			    </div>
+			    <div class="product-buy">
+                	<a class="lhb" href="' . get_post_meta($post->ID, 'git_product_tblink', true) . '" target="_blank" rel="nofollow" ><i class="fa fa-shopping-cart"></i> 立即购买</a>
+                </div></div>';}?>
 		</header>
 <?php
     if (git_get_option('git_adpost_01') && get_post_type() !== 'product') echo '<div class="banner banner-post">' . git_get_option('git_adpost_01') . '</div>'; ?>
