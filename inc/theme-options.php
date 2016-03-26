@@ -307,7 +307,7 @@ $options = array(
     ),
     array(
         'name'  => '自动首行缩进',
-        'desc'  => '开启 【某些时候可能会有些问题，谨慎使用】',
+        'desc'  => '开启 【开启后对文字内容自动首行缩进2格】',
         'id'    => 'git_suojin',
         'type'  => 'checkbox'
     ),
