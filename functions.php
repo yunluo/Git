@@ -31,24 +31,24 @@ function deel_setup() {
     if (git_get_option('git_keywords')) {
         add_action('wp_head', 'deel_keywords');
     }
-	//新标签打开文章链接
+//新标签打开文章链接
 function googlo_admin_aritical_ctrlenter() {
     echo '<script type="text/javascript">
-    var postlink = document.getElementById("view-post-btn").getElementsByClassName("button button-small");
+    var postlink = document.getElementById("edit-slug-box").getElementsByTagName ("a");
         for(var i=0;i<postlink.length;i++)
     { postlink[i].target = "_blank"; }
         </script>';
 };
 add_action('admin_footer', 'googlo_admin_aritical_ctrlenter');
-//新标签打开评论链接
-function googlo_admin_comment_ctrlenter() {
+//新标签打开顶部网站链接
+function googlo_admin_site_ctrlenter() {
     echo '<script type="text/javascript">
     var sitelink = document.getElementById("wp-admin-bar-site-name").getElementsByClassName("ab-item");
         for(var i=0;i<sitelink.length;i++)
     { sitelink[i].target = "_blank"; }
         </script>';
 };
-add_action('admin_footer', 'googlo_admin_comment_ctrlenter');
+add_action('admin_footer', 'googlo_admin_site_ctrlenter');
 //添加后台左下角文字
 function git_admin_footer_text($text) {
     $text = '感谢使用<a target="_blank" href=http://googlo.me/ >Git主题 7</a>进行创作';
