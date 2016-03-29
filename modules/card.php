@@ -10,9 +10,8 @@ if (is_home()) { ?>
     } ?>
 <?php
 } ?>
-<div class="pagewrapper">
+<div class="pagewrapper" style="padding-top:.1px">
 <div id="cardslist" class="cardlist" role="main">
-
             <?php
     while (have_posts()):
         the_post(); ?>

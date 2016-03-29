@@ -153,11 +153,13 @@ if (!git_get_option('git_piclogo_b')) { ?>
     bloginfo('description'); ?></span><?php
 } ?><?php
 if (git_get_option('git_piclogo_b')) { ?><?php
-    if (git_get_option('git_customlogo')) { ?><img alt="<?php
+    if (git_get_option('git_customlogo')) { ?><img title="<?php
+        bloginfo('name'); ?>" alt="<?php
         bloginfo('name'); ?>" src="<?php
         echo git_get_option('git_customlogo'); ?>"><?php
     } ?><?php
-    if (!git_get_option('git_customlogo')) { ?><img alt="<?php
+    if (!git_get_option('git_customlogo')) { ?><img title="<?php
+        bloginfo('name'); ?>" alt="<?php
         bloginfo('name'); ?>" src="<?php
         bloginfo('template_url'); ?>/img/logo.png"><?php
     } ?><?php
