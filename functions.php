@@ -32,14 +32,17 @@ function deel_setup() {
         add_action('wp_head', 'deel_keywords');
     }
 //新标签打开文章链接
+global $pagenow;
+if( $pagenow == 'post.php' ):
 function googlo_admin_aritical_ctrlenter() {
     echo '<script type="text/javascript">
-    var postlink = document.getElementById("edit-slug-box").getElementsByTagName ("a");
+    var postlink = document.getElementById("edit-slug-box").getElementsByTagName("a");
         for(var i=0;i<postlink.length;i++)
     { postlink[i].target = "_blank"; }
         </script>';
 };
 add_action('admin_footer', 'googlo_admin_aritical_ctrlenter');
+endif;
 //新标签打开顶部网站链接
 function googlo_admin_site_ctrlenter() {
     echo '<script type="text/javascript">
@@ -1341,7 +1344,7 @@ function xdltable($atts, $content = null) {
 add_shortcode('dltable', 'xdltable');
 // add youku using iframe
 function wp_iframe_handler_youku($matches, $attr, $url, $rawattr) {
-    if (wp_is_mobile()) {
+    if (G_is_mobile()) {
         $height = 200;
     } else {
         $height = 485;
@@ -1352,7 +1355,7 @@ function wp_iframe_handler_youku($matches, $attr, $url, $rawattr) {
 wp_embed_register_handler('youku_iframe', '#http://v.youku.com/v_show/id_(.*?).html#i', 'wp_iframe_handler_youku');
 // add tudou using iframe
 function wp_iframe_handler_tudou($matches, $attr, $url, $rawattr) {
-    if (wp_is_mobile()) {
+    if (G_is_mobile()) {
         $height = 200;
     } else {
         $height = 485;
