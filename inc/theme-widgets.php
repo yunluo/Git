@@ -279,7 +279,7 @@ function githeme_posts_list($orderby, $limit, $cat, $img) {
         } else {
             if ($img) {
                 echo '<span class="thumbnail">';
-                echo '<img width="100px" height="64px" src="' . get_bloginfo("template_url") . '/timthumb.php?src=';
+                echo '<img width="100px" height="64px" src="' . get_template_directory_uri() . '/timthumb.php?src=';
                 echo post_thumbnail_src();
                 echo '&h=64&w=100&q=90&zc=1&ct=1" alt="' . get_the_title() . '" /></span>';
             } else {

@@ -39,7 +39,7 @@ while (have_posts()):
     $t2 = date("Y-m-d H:i:s");
     $diff = (strtotime($t2) - strtotime($t1)) / 3600;
     if ($diff < 12) {
-        echo '<img src="' . get_bloginfo("template_url") . '/img/new.gif" alt="24小时内最新">';
+        echo '<img src="' . get_template_directory_uri() . '/img/new.gif" alt="24小时内最新">';
     } ?> </a></h2>
 	</header>
 <?php
@@ -56,7 +56,7 @@ while (have_posts()):
             echo git_get_option('git_thumb_height') ? git_get_option('git_thumb_height') : 123;
             echo '/q/75" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img class="thumb" src="' . get_bloginfo("template_url") . '/timthumb.php?src=';
+            echo '<img class="thumb" src="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=';
             echo git_get_option('git_thumb_height') ? git_get_option('git_thumb_height') : 123;

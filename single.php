@@ -152,10 +152,10 @@ if (git_get_option('git_auther_b')) { ?>
 <div class="wordname">关于作者：<?php
     the_author_posts_link(); ?></div>
 <div class="authordes"><?php
-    the_author_description(); ?></div>
+    the_author_meta('description'); ?></div>
 <div class="authorsocial">
 <span class="social-icon-wrap"><a class="as-img as-home" target="_blank" href="<?php
-    the_author_url(); ?>" title="作者主页"><i class="fa fa-home"></i>作者主页</a></span>
+    the_author_meta('url'); ?>" title="作者主页"><i class="fa fa-home"></i>作者主页</a></span>
 <?php
     if (get_the_author_meta('donate')) {
         echo '<span class="social-icon-wrap"><a class="as-img as-donate" target="_blank" href="' . get_the_author_meta('donate') . '" title="赞助作者"> <i class="fa fa-coffee"></i>赞助作者 </a></span>';

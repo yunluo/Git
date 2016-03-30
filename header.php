@@ -43,7 +43,7 @@ if (git_get_option('git_sideroll_b')) {
 <script>
 window._deel = {name: '<?php
 bloginfo('name') ?>',url: '<?php
-echo get_bloginfo("template_url") ?>', ajaxpager: '<?php
+echo get_template_directory_uri() ?>', ajaxpager: '<?php
 echo git_get_option('git_ajaxpager_b') ?>', commenton: <?php
 echo $commenton
 ?>, roll: [<?php
@@ -53,7 +53,7 @@ echo $sr_2
 ?>]}
 </script>
 <!--[if lt IE 9]><script src="<?php
-bloginfo('template_url'); ?>/js/html5.js"></script><![endif]-->
+echo esc_url( get_template_directory_uri() ); ?>/js/html5.js"></script><![endif]-->
 <?php
 echo get_post_meta($post->ID, 'git_customer', true); ?>
 </head>
@@ -97,7 +97,7 @@ if (git_get_option('git_pichead_b')) { ?>
 <?php
     if (!git_get_option('git_customhead')) { ?>
 <header style="background: url('<?php
-        bloginfo('template_url'); ?>/img/header.jpg') center 0px repeat-x;background-size: cover;" id="header" class="header">
+        echo esc_url( get_template_directory_uri() ); ?>/img/header.jpg') center 0px repeat-x;background-size: cover;" id="header" class="header">
 <?php
     } ?><?php
 } ?>
@@ -161,7 +161,7 @@ if (git_get_option('git_piclogo_b')) { ?><?php
     if (!git_get_option('git_customlogo')) { ?><img title="<?php
         bloginfo('name'); ?>" alt="<?php
         bloginfo('name'); ?>" src="<?php
-        bloginfo('template_url'); ?>/img/logo.png"><?php
+        echo esc_url( get_template_directory_uri() ); ?>/img/logo.png"><?php
     } ?><?php
 } ?>
 <?php

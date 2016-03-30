@@ -19,7 +19,7 @@ if (git_get_option('git_superfoot_b') && !G_is_mobile()) { ?>
 <?php
 } ?>
 <footer style="border-top: 1px solid ;background-image: url('<?php
-bloginfo('template_url'); ?>/img/footbg.jpg'); background-repeat: repeat;" class="footer">
+echo esc_url( get_template_directory_uri() ); ?>/img/footbg.jpg'); background-repeat: repeat;" class="footer">
 <div class="footer-inner"><div class="footer-copyright" align="center"><?php
 if (git_get_option('git_footcode')) echo git_get_option('git_footcode'); ?> Theme by <a id="yunluo" href="http://googlo.me" title="乐趣公园" target="_blank">云落</a>
 <!-- 若要删除版权请加乐趣公园(googlo.me)为全站友链，或者赞助乐趣公园(支付宝：sp91@qq.com 20元)，谢谢支持 -->
@@ -53,7 +53,7 @@ if (git_get_option('git_footercode')) echo git_get_option('git_footercode'); ?>
 wp_footer();
 global $dHasShare;
 if ($dHasShare == true) {
-    echo '<script>with(document)0[(getElementsByTagName("head")[0]||body).appendChild(createElement("script")).src="' . get_bloginfo("template_url") . '/js/share.js?v=89860593.js?cdnversion="+~(-new Date()/36e5)];</script>';
+    echo '<script>with(document)0[(getElementsByTagName("head")[0]||body).appendChild(createElement("script")).src="' . get_template_directory_uri() . '/js/share.js?v=89860593.js?cdnversion="+~(-new Date()/36e5)];</script>';
 }
 ?>
 </body>

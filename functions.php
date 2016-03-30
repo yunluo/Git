@@ -191,7 +191,7 @@ if (git_get_option('git_yuanpic_b')&&!empty($_POST['git_remote_pic'])):
         if (($var = get_option('upload_url_path')) != '') {
             $upload_url_path = $var;
         } else {
-            $upload_url_path = get_bloginfo('url') . '/wp-content/uploads';
+            $upload_url_path = home_url() . '/wp-content/uploads';
         }
         if (get_option('uploads_use_yearmonth_folders')) {
             $upload_url_path.= '/' . date("Y", time()) . '/' . date("m", time());
@@ -200,14 +200,14 @@ if (git_get_option('git_yuanpic_b')&&!empty($_POST['git_remote_pic'])):
         $snoopy_Auto_Save_Image = new Snoopy;
         $img = array();
         //以文章的标题作为图片的标题
-        if (!empty($_REQUEST['post_title'])) $post_title = wp_specialchars(stripslashes($_REQUEST['post_title']));
+        if (!empty($_REQUEST['post_title'])) $post_title = esc_html(stripslashes($_REQUEST['post_title']));
         $text = stripslashes($content);
         if (get_magic_quotes_gpc()) $text = stripslashes($text);
         preg_match_all("/ src=(\"|\'){0,}(http:\/\/(.+?))(\"|\'|\s)/is", $text, $img);
         $img = array_unique(dhtmlspecialchars($img[2]));
         foreach ($img as $key => $value) {
             set_time_limit(180); //每个图片最长允许下载时间,秒
-            if (str_replace(get_bloginfo('url') , "", $value) == $value && str_replace(get_bloginfo('home') , "", $value) == $value) {
+            if (str_replace(home_url() , "", $value) == $value && str_replace(home_url() , "", $value) == $value) {
                 $fileext = substr(strrchr($value, '.') , 1);
                 $fileext = strtolower($fileext);
                 if ($fileext == "" || strlen($fileext) > 4) $fileext = "jpg";
@@ -284,7 +284,7 @@ function deel_breadcrumbs() {
     if (!is_single() || get_post_type() == 'gallery'|| get_post_type() == 'product') return false;
     $categorys = get_the_category();
     $category = $categorys[0];
-    return '<a title="返回首页" href="' . get_bloginfo('url') . '"><i class="fa fa-home"></i></a> <small>></small> ' . get_category_parents($category->term_id, true, ' <small>></small> ') . '<span class="muted">' . get_the_title() . '</span>';
+    return '<a title="返回首页" href="' . home_url() . '"><i class="fa fa-home"></i></a> <small>></small> ' . get_category_parents($category->term_id, true, ' <small>></small> ') . '<span class="muted">' . get_the_title() . '</span>';
 }
 // 取消原有jQuery，加载自定义jQuery
 function footerScript() {
@@ -299,7 +299,7 @@ function footerScript() {
         }elseif(git_get_option('git_jqcdn')=='git_jqcdn_sae'){
             wp_register_script('jquery', 'http://lib.sinaapp.com/js/jquery/1.8.3/jquery.min.js', false, '1.0', false );
         }else{
-        wp_register_script('jquery', get_bloginfo('template_directory') . '/js/jquery.min.js', false, '1.0', false );
+        wp_register_script('jquery', get_template_directory_uri() . '/js/jquery.min.js', false, '1.0', false );
         }
         wp_enqueue_script('jquery');
         wp_register_script('default', get_template_directory_uri() . '/js/global.js', false, '1.0', true );
@@ -377,7 +377,7 @@ function deel_share() {
     $dHasShare = true;
 }
 function deel_avatar_default() {
-    return get_bloginfo('template_directory') . '/img/default.png';
+    return get_template_directory_uri() . '/img/default.png';
 }
 //评论头像缓存
 function deel_avatar($avatar) {
@@ -385,14 +385,14 @@ function deel_avatar($avatar) {
     $g = substr($avatar, $tmp, strpos($avatar, "'", $tmp) - $tmp);
     $tmp = strpos($g, 'avatar/') + 7;
     $f = substr($g, $tmp, strpos($g, "?", $tmp) - $tmp);
-    $w = get_bloginfo('wpurl');
+    $w = site_url();
     $e = ABSPATH . 'avatar/' . $f . '.png';
     $t = 30 * 24 * 60 * 60;
     if (!is_file($e) || (time() - filemtime($e)) > $t) copy(htmlspecialchars_decode($g) , $e);
     else $avatar = strtr($avatar, array(
         $g => $w . '/avatar/' . $f . '.png'
     ));
-    if (filesize($e) < 500) copy(get_bloginfo('template_directory') . '/img/default.png', $e);
+    if (filesize($e) < 500) copy(get_template_directory_uri() . '/img/default.png', $e);
     return $avatar;
 }
 if (git_get_option('git_avater')=='git_avatar_b') {
@@ -410,32 +410,6 @@ function git_avatar_cache($avatar) {
     return $avatar;
 }
 add_filter('get_avatar', 'git_avatar_cache', 10, 3);
-
-/**替换文章或评论内容外链为内链
-if(git_get_option('git_go')):
-function git_go_url($content) {
-    preg_match_all('/href="(http.*?)"/', $content, $matches);
-    if ($matches) {
-        foreach ($matches[1] as $val) {
-            if(git_get_option('git_cdnurl_b')) {
-                $hunue = git_get_option('git_cdnurl_b');
-            }else{
-                $hunue = 'http://googlo.me';
-            }
-            if (strpos($val, '://') !== false && strpos($val, 'nofollow') === false && strpos($val, home_url()) === false && strpos($val, '' . $hunue . '')===false ) {
-                if(git_get_option('git_pagehtml_b')) {
-                $content = str_replace("href=\"$val\"", "href=\"" . home_url() . "/go.html?url=" . base64_encode($val) . "\" ", $content);
-                }else{
-                $content = str_replace("href=\"$val\"", "href=\"" . home_url() . "/go?url=" . base64_encode($val) . "\" ", $content);
-                }
-            }
-        }
-    }
-    return $content;
-}
-add_filter('the_content', 'git_go_url', 999);
-endif;
-**/
 //给外部链接加上跳转
 if(git_get_option('git_go')):
 function git_go_url($content){
@@ -527,11 +501,11 @@ function deel_post_new($timer = '48') {
 }
 //修改评论表情调用路径
 function deel_smilies_src($img_src, $img, $siteurl) {
-    return get_bloginfo('template_directory') . '/img/smilies/' . $img;
+    return get_template_directory_uri() . '/img/smilies/' . $img;
 }
 //阻止站内文章Pingback
 function deel_noself_ping(&$links) {
-    $home = get_option('home');
+    $home = home_url();
     foreach ($links as $l => $link) if (0 === strpos($link, $home)) unset($links[$l]);
 }
 //移除自动保存
@@ -569,7 +543,7 @@ function comment_mail_notify($comment_id) {
 	  <p>您曾在《' . get_the_title($comment->comment_post_ID) . '》的留言:<br /> &nbsp;&nbsp;&nbsp;&nbsp; ' . trim(get_comment($parent_id)->comment_content) . '</p>
 	  <p>' . trim($comment->comment_author) . ' 给您的回应:<br /> &nbsp;&nbsp;&nbsp;&nbsp; ' . trim($comment->comment_content) . '<br /></p>
 	  <p>点击 <a href="' . htmlspecialchars(get_comment_link($parent_id)) . '">查看回应完整內容</a></p>
-	  <p>欢迎再次光临 <a href="' . get_option('home') . '">' . get_option('blogname') . '</a></p>
+	  <p>欢迎再次光临 <a href="' . home_url() . '">' . get_option('blogname') . '</a></p>
 	  <p style="color:#999">(此邮件由系统自动发出，请勿回复.)</p>
 	</div>';
         $from = "From: \"" . get_option('blogname') . "\" <$wp_email>";
@@ -843,7 +817,7 @@ function post_thumbnail_src() {
         $post_thumbnail_src = $matches[1][0]; //获取该图片 src
         if (empty($post_thumbnail_src)) { //如果日志中没有图片，则显示随机图片
             $random = mt_rand(1, 10);
-            echo get_bloginfo('template_url');
+            echo get_template_directory_uri();
             echo '/img/pic/' . $random . '.jpg';
             //如果日志中没有图片，则显示默认图片
             //echo '/img/thumbnail.png';
@@ -916,7 +890,7 @@ add_filter('request', 'no_category_base_request');
 function no_category_base_request($query_vars) {
     //print_r($query_vars); // For Debugging
     if (isset($query_vars['category_redirect'])) {
-        $catlink = trailingslashit(get_option('home')) . user_trailingslashit($query_vars['category_redirect'], 'category');
+        $catlink = trailingslashit(home_url()) . user_trailingslashit($query_vars['category_redirect'], 'category');
         status_header(301);
         header("Location: $catlink");
         exit();
@@ -1036,7 +1010,7 @@ function fa_get_wpsmiliestrans() {
     global $wpsmiliestrans;
     $wpsmilies = array_unique($wpsmiliestrans);
     foreach ($wpsmilies as $alt => $src_path) {
-        $output.= '<a class="add-smily" data-smilies="' . $alt . '"><img class="wp-smiley" src="' . get_bloginfo('template_directory') . '/img/smilies/' . rtrim($src_path, "gif") . 'gif" /></a>';
+        $output.= '<a class="add-smily" data-smilies="' . $alt . '"><img class="wp-smiley" src="' . get_template_directory_uri() . '/img/smilies/' . rtrim($src_path, "gif") . 'gif" /></a>';
     }
     return $output;
 }
@@ -1150,11 +1124,11 @@ function custom_login_head() {
     $str = file_get_contents('http://cn.bing.com/HPImageArchive.aspx?idx=0&n=1');
     if (preg_match("/<url>(.+?)<\/url>/ies", $str, $matches)) {
         $imgurl = 'http://cn.bing.com' . $matches[1];
-        echo '<style type="text/css">body{height:900px !important;background: url(' . $imgurl . ');z-index:9999;background-attachment:fixed;width:100%;height:100%;background-image:url(' . $imgurl . ');z-index:9999;background-attachment:fixed;-moz-background-size: 100% 100%;-o-background-size: 100% 100%;-webkit-background-size: 100% 100%;background-size: 100% 100%;-moz-border-image: url(' . $imgurl . ') 0;background-attachment:fixed;background-repeat:no-repeat\9;background-image:none\9;}h1 a { background-image:url(' . get_bloginfo('url') . '/favicon.ico)!important;width:32px;height:32px;-webkit-border-radius:50px;-moz-border-radius:50px;border-radius:50px;}#registerform,#loginform {background-color:rgba(251,251,251,0.3)!important;}.login label,a{color:#000!important;}</style>';
+        echo '<style type="text/css">body{height:900px !important;background: url(' . $imgurl . ');z-index:9999;background-attachment:fixed;width:100%;height:100%;background-image:url(' . $imgurl . ');z-index:9999;background-attachment:fixed;-moz-background-size: 100% 100%;-o-background-size: 100% 100%;-webkit-background-size: 100% 100%;background-size: 100% 100%;-moz-border-image: url(' . $imgurl . ') 0;background-attachment:fixed;background-repeat:no-repeat\9;background-image:none\9;}h1 a { background-image:url(' . home_url() . '/favicon.ico)!important;width:32px;height:32px;-webkit-border-radius:50px;-moz-border-radius:50px;border-radius:50px;}#registerform,#loginform {background-color:rgba(251,251,251,0.3)!important;}.login label,a{color:#000!important;}</style>';
     }
 }
 add_action('login_head', 'custom_login_head');
-add_filter('login_headerurl', create_function(false, "return get_bloginfo('url');"));
+add_filter('login_headerurl', create_function(false, "return home_url();"));
 add_filter('login_headertitle', create_function(false, "return get_bloginfo('name');"));
 /*
  * 强制阻止WordPress代码转义，关于代码高亮可以看这里http://googlo.me/2986.html
@@ -1308,7 +1282,7 @@ add_shortcode('pc_view', 'pcv');
 /*弹窗下载*/
 function ton($atts, $content = null) {
     extract(shortcode_atts(array("href" => 'http://',"filename" => '',"filesize" => '',"filedown" => '' ) , $atts));
-    return '<a class="lhb" id="showdiv" href="#fancydlbox" >文件下载</a><div id="fancydlbox" style="cursor:default;display:none;width:800px;"><div class="part" style="padding:20px 0;"><h2>下载声明:</h2> <div class="fancydlads" align="left"><p>' . git_get_option('git_fancydlcp') . '</p></div></div><div class="part" style="padding:20px 0;"><h2>文件信息：</h2> <div class="dlnotice" align="left"><p>文件名称：' . $filename . '<br />文件大小:' . $filesize . '<br />发布日期:' .the_modified_time('Y年n月j日') . '</p></div></div><div class="part" id="download_button_part"><a id="download_button" target="_blank" href="' . $href . '"><span></span>' . $filedown . '</a> </div><div class="part" style="padding:20px 0;"><div class="moredl" style="text-align:center;">[更多地址] : '.$content.'</div></div><div class="dlfooter">' . git_get_option('git_fancydlad') . '</div></div>';
+    return '<a class="lhb" id="showdiv" href="#fancydlbox" >文件下载</a><div id="fancydlbox" style="cursor:default;display:none;width:800px;"><div class="part" style="padding:20px 0;"><h2>下载声明:</h2> <div class="fancydlads" align="left"><p>' . git_get_option('git_fancydlcp') . '</p></div></div><div class="part" style="padding:20px 0;"><h2>文件信息：</h2> <div class="dlnotice" align="left"><p>文件名称：' . $filename . '<br />文件大小:' . $filesize . '<br />发布日期:' .get_the_modified_time('Y年n月j日') . '</p></div></div><div class="part" id="download_button_part"><a id="download_button" target="_blank" href="' . $href . '"><span></span>' . $filedown . '</a> </div><div class="part" style="padding:20px 0;"><div class="moredl" style="text-align:center;">[更多地址] : '.$content.'</div></div><div class="dlfooter">' . git_get_option('git_fancydlad') . '</div></div>';
 }
 add_shortcode('fanctdl', 'ton');
 //代码演示短代码
@@ -1582,7 +1556,7 @@ class Simple_Local_Avatars {
         if (empty($local_avatars[$size])) {
             $upload_path = wp_upload_dir();
             $avatar_full_path = str_replace($upload_path['baseurl'], $upload_path['basedir'], $local_avatars['full']);
-            $image_sized = image_resize($avatar_full_path, $size, $size, true);
+            $image_sized = wp_get_image_editor($avatar_full_path, $size, $size, true);
             // deal with original being >= to original image (or lack of sizing ability)
             $local_avatars[$size] = is_wp_error($image_sized) ? $local_avatars[$size] = $local_avatars['full'] : str_replace($upload_path['basedir'], $upload_path['baseurl'], $image_sized);
             // save updated avatar sizes
@@ -1749,7 +1723,7 @@ if (!is_admin() && git_get_option('git_cdnurl_b')) {
         ob_start('Googlo_qiniu_cdn_replace');
     }
     function Googlo_qiniu_cdn_replace($html) {
-        $local_host = '' . get_bloginfo('url') . ''; //博客域名
+        $local_host = '' . home_url() . ''; //博客域名
         $qiniu_host = '' . git_get_option('git_cdnurl_b') . ''; //七牛域名
         $cdn_exts = 'png|jpg|jpeg|gif|ico|html|7z|zip|rar|pdf|ppt|wmv|mp4|avi|mp3|txt'; //扩展名（使用|分隔）
         $cdn_dirs = 'wp-content|wp-includes'; //目录（使用|分隔）
@@ -1767,7 +1741,7 @@ if (!is_admin() && git_get_option('git_cdnurl_b')) {
 //自动替换媒体库图片的域名
 function attachment_replace($text) {
     $replace = array(
-        '' . get_bloginfo('url') . '' => '' . git_get_option('git_cdnurl_b') . ''
+        '' . home_url() . '' => '' . git_get_option('git_cdnurl_b') . ''
     );
     $text = str_replace(array_keys($replace) , $replace, $text);
     return $text;

@@ -53,7 +53,7 @@ if (git_get_option('git_cat_1')) { ?>
             echo post_thumbnail_src();
             echo '?imageView2/1/w/185/h/110/q/75" width="185px" height="110px" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img src="' . get_bloginfo("template_url") . '/timthumb.php?src=';
+            echo '<img src="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=110&w=185&q=90&zc=1&ct=1" width="185px" height="110px" alt="' . get_the_title() . '" />';
         } ?><br><span class="r_title"><?php
@@ -86,7 +86,7 @@ if (git_get_option('git_cat_2')) { ?>
             echo post_thumbnail_src();
             echo '?imageView2/1/w/185/h/110/q/75" width="185px" height="110px" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img src="' . get_bloginfo("template_url") . '/timthumb.php?src=';
+            echo '<img src="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=110&w=185&q=90&zc=1&ct=1" width="185px" height="110px" alt="' . get_the_title() . '" />';
         } ?><br><span class="r_title"><?php
@@ -119,7 +119,7 @@ if (git_get_option('git_cat_3')) { ?>
             echo post_thumbnail_src();
             echo '?imageView2/1/w/185/h/110/q/75" width="185px" height="110px" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img src="' . get_bloginfo("template_url") . '/timthumb.php?src=';
+            echo '<img src="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=110&w=185&q=90&zc=1&ct=1" width="185px" height="110px" alt="' . get_the_title() . '" />';
         } ?><br><span class="r_title"><?php
@@ -152,7 +152,7 @@ if (git_get_option('git_cat_4')) { ?>
             echo post_thumbnail_src();
             echo '?imageView2/1/w/185/h/110/q/75" width="185px" height="110px" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img src="' . get_bloginfo("template_url") . '/timthumb.php?src=';
+            echo '<img src="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=110&w=185&q=90&zc=1&ct=1" width="185px" height="110px" alt="' . get_the_title() . '" />';
         } ?><br><span class="r_title"><?php
@@ -185,7 +185,7 @@ if (git_get_option('git_cat_5')) { ?>
             echo post_thumbnail_src();
             echo '?imageView2/1/w/185/h/110/q/75" width="185px" height="110px" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img src="' . get_bloginfo("template_url") . '/timthumb.php?src=';
+            echo '<img src="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=110&w=185&q=90&zc=1&ct=1" width="185px" height="110px" alt="' . get_the_title() . '" />';
         } ?><br><span class="r_title"><?php
@@ -218,7 +218,7 @@ if (git_get_option('git_cat_6')) { ?>
             echo post_thumbnail_src();
             echo '?imageView2/1/w/185/h/110/q/75" width="185px" height="110px" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img src="' . get_bloginfo("template_url") . '/timthumb.php?src=';
+            echo '<img src="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=110&w=185&q=90&zc=1&ct=1" width="185px" height="110px" alt="' . get_the_title() . '" />';
         } ?><br><span class="r_title"><?php
@@ -251,7 +251,7 @@ if (git_get_option('git_cat_7')) { ?>
             echo post_thumbnail_src();
             echo '?imageView2/1/w/185/h/110/q/75" width="185px" height="110px" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img src="' . get_bloginfo("template_url") . '/timthumb.php?src=';
+            echo '<img src="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=110&w=185&q=90&zc=1&ct=1" width="185px" height="110px" alt="' . get_the_title() . '" />';
         } ?><br><span class="r_title"><?php
@@ -284,7 +284,7 @@ if (git_get_option('git_cat_8')) { ?>
             echo post_thumbnail_src();
             echo '?imageView2/1/w/185/h/110/q/75" width="185px" height="110px" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img src="' . get_bloginfo("template_url") . '/timthumb.php?src=';
+            echo '<img src="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=110&w=185&q=90&zc=1&ct=1" width="185px" height="110px" alt="' . get_the_title() . '" />';
         } ?><br><span class="r_title"><?php

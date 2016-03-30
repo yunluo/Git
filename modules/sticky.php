@@ -52,7 +52,7 @@ if (git_get_option('git_cdnurl_b')) {
     while (have_posts()):
         the_post();
         echo '<a target="_blank" href="#" title="' . get_the_title() . '">';
-        echo '<img src="' . get_bloginfo("template_url") . '/timthumb.php?src=';
+        echo '<img src="' . get_template_directory_uri() . '/timthumb.php?src=';
         echo post_thumbnail_src();
         echo '&h=62&w=120&q=90&zc=1&ct=1" /></a>';
     endwhile;
@@ -62,4 +62,4 @@ if (git_get_option('git_cdnurl_b')) {
 </div>
 </div><div class="ws_shadow"></div>
 	</div><script type="text/javascript" src="<?php
-bloginfo('template_url'); ?>/js/slider.js"></script>
+echo esc_url( get_template_directory_uri() ); ?>/js/slider.js"></script>

@@ -30,7 +30,7 @@ if (is_home()) { ?>
         }
     }; ?>
 </div><?php
-            echo '<a href="'.get_the_permalink().'" alt="'.get_the_title().'" title="'.get_the_title().'" target="_blank"><img class="thumb" title="'.get_the_title().'" src="' . get_bloginfo("template_url") . '/timthumb.php?src=';
+            echo '<a href="'.get_the_permalink().'" alt="'.get_the_title().'" title="'.get_the_title().'" target="_blank"><img class="thumb" title="'.get_the_title().'" src="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=250&w=375&q=90&zc=1&ct=1" width="375px" height="250px" alt="' . get_the_title() . '" /></a>';
          ?>			

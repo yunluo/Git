@@ -26,7 +26,7 @@
 <body vlink="#333333" link="#333333">
 <h2 style="text-align: center; margin-top: 20px"><?php bloginfo('name'); ?>'s SiteMap </h2>
 <center></center>
-<div id="nav"><a href="<?php bloginfo('url'); ?>/"><strong><?php bloginfo('name'); ?></strong></a> &raquo; <a href="<?php echo get_permalink(); ?>">站点地图</a></div>
+<div id="nav"><a href="<?php echo esc_url( home_url() ); ?>/"><strong><?php bloginfo('name'); ?></strong></a> &raquo; <a href="<?php echo get_permalink(); ?>">站点地图</a></div>
 <div id="content">
 <h3>最新文章</h3>
 <ul>
@@ -52,7 +52,7 @@ foreach($myposts as $post) :
 <li class="categories">单页面</li>
 <?php wp_page_menu( $args ); ?>
 </div>
-<div id="footer">查看博客首页: <strong><a href="<?php bloginfo('url'); ?>/"><?php bloginfo('name'); ?></a></strong></div><br />
+<div id="footer">查看博客首页: <strong><a href="<?php echo esc_url( home_url() ); ?>/"><?php bloginfo('name'); ?></a></strong></div><br />
 <center>
 <div style="text-algin: center; font-size: 11px">Latest Update: <?php $last = $wpdb->get_results("SELECT MAX(post_modified) AS MAX_m FROM $wpdb->posts WHERE (post_type = 'post' OR post_type = 'page') AND (post_status = 'publish' OR post_status = 'private')");$last = date('Y-m-d G:i:s', strtotime($last[0]->MAX_m));echo $last; ?><br /><br /></div>
 </center>

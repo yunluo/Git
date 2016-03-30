@@ -29,7 +29,7 @@ get_header(); ?>
         the_title(); ?>" class="fancyimg home-blog-entry-thumb">
 					<div class="thumb-img focus">
 					<?php
-            echo '<img class="thumb" title="'.get_the_title().'" src="' . get_bloginfo("template_url") . '/timthumb.php?src=';
+            echo '<img class="thumb" title="'.get_the_title().'" src="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=250&w=375&q=90&zc=1&ct=1" width="375px" height="250px" alt="' . get_the_title() . '" />';
          ?>			
