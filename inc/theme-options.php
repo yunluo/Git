@@ -234,25 +234,18 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
-        'title' => '百度实时推送 <a href="http://zhanzhang.baidu.com/sitemap/pingindex" target="_blank">查看主动推送效果</a>',//标题文字
+        'title' => '百度主动推送 <a href="http://zhanzhang.baidu.com/linksubmit/index" target="_blank">查看主动推送效果</a>',//标题文字
         'type'  => 'subtitle'//subtitle 是标签下的标题
     ),
     array(
-        'name'  => '百度Sitemap实时推送',
-        'desc'  => '启用 【开启本项之后，首先需要保证您的网站已拥有sitemap提交权限】 <a class="button-primary" rel="nofollow" href="http://zhanzhang.baidu.com/sitemap/index" target="_blank">申请百度Sitemap</a>',
+        'name'  => '百度主动推送',
+        'desc'  => '启用',
         'id'    => "git_sitemap_b",
         'type'  => 'checkbox'
     ),
     array(
-        'name'  => '提交网站域名',
-        'desc'  => '输入WordPress网站域名，比如：googlo.me 不要带 http:// 这个前缀',
-        'id'    => "git_sitemap_site",
-        'type'  => 'text',
-        'std'   => ''
-    ),
-    array(
-        'name'  => '站点准入密钥',
-        'desc'  => '在站长平台申请的推送用的准入密钥，比如：3sM2Wity6fP8TbR0 , <a class="button-primary" rel="nofollow" href="http://zhanzhang.baidu.com/sitemap/pingadd" target="_blank">获取密钥地址</a>',
+        'name'  => '主动推送接口地址',
+        'desc'  => '在站长平台申请的推送用的准入密钥，比如：3sM2Wity6fP8TbR0 , <a class="button-primary" rel="nofollow" href="http://zhanzhang.baidu.com/linksubmit/index" target="_blank">主动推送接口地址</a>，格式差不多这样的：http://data.zz.baidu.com/urls?site=域名&token=一组字符',
         'id'    => "git_sitemap_token",
         'type'  => 'text',
         'std'   => ''
