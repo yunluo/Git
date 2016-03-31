@@ -245,7 +245,7 @@ $options = array(
     ),
     array(
         'name'  => '主动推送接口地址',
-        'desc'  => '在站长平台申请的推送用的准入密钥，比如：3sM2Wity6fP8TbR0 , <a class="button-primary" rel="nofollow" href="http://zhanzhang.baidu.com/linksubmit/index" target="_blank">主动推送接口地址</a>，格式差不多这样的：http://data.zz.baidu.com/urls?site=域名&token=一组字符',
+        'desc'  => '在百度站长平台获取主动推送接口地址，比如：http://data.zz.baidu.com/urls?site=域名&token=一组字符, <a class="button-primary" rel="nofollow" href="http://zhanzhang.baidu.com/linksubmit/index" target="_blank">主动推送接口地址</a>',
         'id'    => "git_sitemap_token",
         'type'  => 'text',
         'std'   => ''
