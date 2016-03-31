@@ -2394,31 +2394,22 @@ function _remove_script_version( $src ){
 add_filter( 'script_loader_src', '_remove_script_version', 15, 1 );
 add_filter( 'style_loader_src', '_remove_script_version', 15, 1 );
 endif;
-//百度主动推送,来自：百度实时推送插件
-function git_publish_git_submit($post_ID){
-    if (get_post_meta($post_ID, 'git_baidu_submit', true) == 1) return;
-	global $post;
-	$git_submit_enabled = git_get_option('git_sitemap_b');
-	if($git_submit_enabled && function_exists('curl_init') ){
-		$git_submit_site = git_get_option('git_sitemap_site');
-		$git_submit_token = git_get_option('git_sitemap_token');
-		if( empty($post_ID) || empty($git_submit_site) || empty($git_submit_token) ) return;
-		$api = 'http://data.zz.baidu.com/urls?site='.$git_submit_site.'&token='.$git_submit_token;
-		if( $post->post_status = "publish" ) {
-			$url = get_permalink($post_ID);
-			$ch = curl_init();
-			$options =  array(
-				CURLOPT_URL => $api,
-				CURLOPT_POST => true,
-				CURLOPT_RETURNTRANSFER => true,
-				CURLOPT_POSTFIELDS => $url,
-				CURLOPT_HTTPHEADER => array('Content-Type: text/plain')
-			);
-			curl_setopt_array($ch, $options);
-			add_post_meta($post_ID, 'git_baidu_submit', 1, true);
-		}
-	}
+//百度主动推送
+if(!function_exists('Baidu_Submit') && git_get_option('git_sitemap_b') ){
+    function Baidu_Submit($post_ID) {
+        $WEB_TOKEN  = git_get_option('git_sitemap_token'); 
+        $WEB_DOMAIN = home_url();
+        if(get_post_meta($post_ID,'git_baidu_submit',true) == 1) return;
+        $url = get_permalink($post_ID);
+        $api = 'http://data.zz.baidu.com/urls?site='.$WEB_DOMAIN.'&token='.$WEB_TOKEN;
+        $request = new WP_Http;
+        $result = $request->request( $api , array( 'method' => 'POST', 'body' => $url , 'headers' => 'Content-Type: text/plain') );
+        $result = json_decode($result['body'],true);
+        if (array_key_exists('success',$result)) {
+            add_post_meta($post_ID, 'git_baidu_submit', 1, true);
+        }
+    }
+    add_action('publish_post', 'Baidu_Submit', 0);
 }
-add_action('publish_post', 'git_publish_git_submit', 0);
 //WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://googlo.me/archives/4032.html
 ?>
