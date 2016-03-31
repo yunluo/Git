@@ -14,6 +14,7 @@ if ( !class_exists('myCustomFields') ) {
         * @var  array  $customFields  开始组件自定义面板数组
         */
         var $customFields = array(
+            /*
             array(
                 "name"          => "baidu_submit",
                 "title"         => "禁用百度实时推送",
@@ -37,7 +38,7 @@ if ( !class_exists('myCustomFields') ) {
                 "type"          => "checkbox",
                 "scope"         =>   array( "post", "page" ),
                 "capability"    => "manage_options"
-            ),
+            ),*/
             array(
                 "name"          => "thumb",
                 "title"         => "自定义缩略图/主图",
