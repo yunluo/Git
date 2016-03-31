@@ -1415,7 +1415,7 @@ function post_to_sina_weibo($post_ID) {
        add_post_meta($post_ID, 'weibo_sync', 1, true);
     }
 }
-if (git_get_option('git_sinasync_b') {
+if (git_get_option('git_sinasync_b')) {
 add_action('publish_post', 'post_to_sina_weibo', 0);
 }
 /*
