@@ -16,8 +16,8 @@ if ( !class_exists('myCustomFields') ) {
         var $customFields = array(
             array(
                 "name"          => "baidu_submit",
-                "title"         => "启用百度实时推送",
-                "description"   => "选择之后可以实时推送至百度，不选择的话默认不推送",
+                "title"         => "禁用百度实时推送",
+                "description"   => "选择之后本篇文章就不推送到百度",
                 "type"          => "checkbox",
                 "scope"         =>   array( "post", "page" ),
                 "capability"    => "manage_options"
@@ -32,8 +32,8 @@ if ( !class_exists('myCustomFields') ) {
             ),
             array(
                 "name"          => "weibo_sync",
-                "title"         => "启用新浪微博同步",
-                "description"   => "选择之后文章可以同步到新浪微博，不选择默认不同步【需配置好新浪微博同步】",
+                "title"         => "禁用新浪微博同步",
+                "description"   => "选择之后文章可以不同步到新浪微博，不选择默认同步【需配置好新浪微博同步】",
                 "type"          => "checkbox",
                 "scope"         =>   array( "post", "page" ),
                 "capability"    => "manage_options"
