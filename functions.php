@@ -1384,101 +1384,85 @@ function Bing_show_category() {
 }
 //新文章同步到新浪微博
 function post_to_sina_weibo($post_ID) {
-   if(get_post_meta($post_ID,'weibo_sync',true) == 1) return;
-   $get_post_info = get_post($post_ID);
-   $get_post_centent = get_post($post_ID)->post_content;
-   $get_post_title = get_post($post_ID)->post_title;
-   if ($get_post_info->post_status == 'publish' && $_POST['original_post_status'] != 'publish') {
-       $appkey = '' . git_get_option('git_wbapky_b') . '';
-       $username = '' . git_get_option('git_wbuser_b') . '';
-       $userpassword = '' . git_get_option('git_wbpasd_b') . '';
-       $request = new WP_Http;
-       $keywords = "";
-       $tags = wp_get_post_tags($post_ID);
-       foreach ($tags as $tag ) {
-          $keywords = $keywords.'#'.$tag->name."#";
-       }
-     $string1 = '【' . strip_tags($get_post_title) . '】：';
-     $string2 = $keywords . ' [阅读全文]：' . get_permalink($post_ID);
-      $wb_num = (138 - WeiboLength($string1.$string2))*2;
-      $status = $string1.mb_strimwidth(strip_tags( apply_filters('the_content', $get_post_centent)),0, $wb_num,'...').$string2;
-       $url = get_mypost_thumbnail($post_ID);
-       if(!empty($url)){
-           $api_url = 'https://api.weibo.com/2/statuses/upload_url_text.json'; /* 新的API接口地址 */
-           $body = array('status' => $status,'source' => $appkey,'url' => $url);
-       } else {
-           $api_url = 'https://api.weibo.com/2/statuses/update.json';
-           $body = array('status' => $status,'source' => $appkey);
-       }
-       $headers = array('Authorization' => 'Basic ' . base64_encode("$username:$userpassword"));
-       $result = $request->post($api_url, array('body' => $body,'headers' => $headers));
-       add_post_meta($post_ID, 'weibo_sync', 1, true);
+    /* 此处修改为通过文章自定义栏目来判断是否同步 */
+    if (get_post_meta($post_ID, 'git_weibo_sync', true) == 1) return;
+    $get_post_info = get_post($post_ID);
+    $get_post_centent = get_post($post_ID)->post_content;
+    $get_post_title = get_post($post_ID)->post_title;
+    if ($get_post_info->post_status == 'publish' && $_POST['original_post_status'] != 'publish') {
+        $appkey = git_get_option('git_wbapky_b'); /* 此处是你的新浪微博appkey */
+        $username = git_get_option('git_wbuser_b');
+        $userpassword = git_get_option('git_wbpasd_b');
+        $request = new WP_Http;
+        $keywords = "";
+        /* 获取文章标签关键词 */
+        $tags = wp_get_post_tags($post_ID);
+        foreach ($tags as $tag) {
+            $keywords = $keywords . '#' . $tag->name . "#";
+        }
+        /* 修改了下风格，并添加文章关键词作为微博话题，提高与其他相关微博的关联率 */
+        $string1 = '【' . strip_tags($get_post_title) . '】：';
+        $string2 = $keywords . ' [阅读全文]：' . get_permalink($post_ID);
+        /* 微博字数控制，避免超标同步失败 */
+        $wb_num = (138 - WeiboLength($string1 . $string2)) * 2;
+        $status = $string1 . mb_strimwidth(strip_tags(apply_filters('the_content', $get_post_centent)) , 0, $wb_num, '...') . $string2;
+        $api_url = 'https://api.weibo.com/2/statuses/update.json';
+        $body = array(
+            'status' => $status,
+            'source' => $appkey
+        );
+        $headers = array(
+            'Authorization' => 'Basic ' . base64_encode("$username:$userpassword")
+        );
+        $result = $request->post($api_url, array(
+            'body' => $body,
+            'headers' => $headers
+        ));
+        /* 若同步成功，则给新增自定义栏目git_weibo_sync，避免以后更新文章重复同步 */
+        add_post_meta($post_ID, 'git_weibo_sync', 1, true);
     }
 }
 if (git_get_option('git_sinasync_b')) {
-add_action('publish_post', 'post_to_sina_weibo', 0);
+    add_action('publish_post', 'post_to_sina_weibo', 0);
 }
 /*
-* 获取微博字符长度函数
+获取微博字符长度函数
 */
-function WeiboLength($str)
-{
-    $arr = arr_split_zh($str); 
-    foreach ($arr as $v){
-        $temp = ord($v);
+function WeiboLength($str) {
+    $arr = arr_split_zh($str); //先将字符串分割到数组中
+    foreach ($arr as $v) {
+        $temp = ord($v); //转换为ASCII码
         if ($temp > 0 && $temp < 127) {
-            $len = $len+0.5;
-        }else{
-            $len ++;
+            $len = $len + 0.5;
+        } else {
+            $len++;
         }
     }
-    return ceil($len);  
+    return ceil($len); //加一取整
 }
 /*
 //拆分字符串函数,只支持 gb2312编码
+//参考：http://u-czh.iteye.com/blog/1565858
 */
-function arr_split_zh($tempaddtext){
+function arr_split_zh($tempaddtext) {
     $tempaddtext = iconv("UTF-8", "GBK//IGNORE", $tempaddtext);
     $cind = 0;
-    $arr_cont=array();
-    for($i=0;$i<strlen($tempaddtext);$i++)
-    {
-        if(strlen(substr($tempaddtext,$cind,1)) > 0){
-            if(ord(substr($tempaddtext,$cind,1)) < 0xA1 ){ //如果为英文则取1个字节
-                array_push($arr_cont,substr($tempaddtext,$cind,1));
+    $arr_cont = array();
+    for ($i = 0; $i < strlen($tempaddtext); $i++) {
+        if (strlen(substr($tempaddtext, $cind, 1)) > 0) {
+            if (ord(substr($tempaddtext, $cind, 1)) < 0xA1) { //如果为英文则取1个字节
+                array_push($arr_cont, substr($tempaddtext, $cind, 1));
                 $cind++;
-            }else{
-                array_push($arr_cont,substr($tempaddtext,$cind,2));
-                $cind+=2;
+            } else {
+                array_push($arr_cont, substr($tempaddtext, $cind, 2));
+                $cind+= 2;
             }
         }
     }
-    foreach ($arr_cont as &$row)
-    {
-        $row=iconv("gb2312","UTF-8",$row);
+    foreach ($arr_cont as & $row) {
+        $row = iconv("gb2312", "UTF-8", $row);
     }
     return $arr_cont;
-}
-
-if(!function_exists('get_mypost_thumbnail')){
-  function get_mypost_thumbnail($post_ID){
-     if (has_post_thumbnail()) {
-            $timthumb_src = wp_get_attachment_image_src( get_post_thumbnail_id($post_ID), 'full' );
-            $url = $timthumb_src[0];
-    } else {
-        if(!$post_content){
-            $post = get_post($post_ID);
-            $post_content = $post->post_content;
-        }
-        preg_match_all('|<img.*?src=[\'"](.*?)[\'"].*?>|i', do_shortcode($post_content), $matches);
-        if( $matches && isset($matches[1]) && isset($matches[1][0]) ){
-            $url =  $matches[1][0];
-        }else{
-            $url =  '';
-        }
-    }
-    return $url;
-  }
 }
 
 //百度收录提示
