@@ -1349,7 +1349,6 @@ function git_add_contact_fields( $contactmethods ) {
 	$contactmethods['twitter'] = 'Twitter';
 	$contactmethods['google_plus'] = 'Google+';
 	$contactmethods['github'] = 'GitHub';
-	$contactmethods['donate'] = '赞助链接';
 	unset( $contactmethods['yim'] );
 	unset( $contactmethods['aim'] );
 	unset( $contactmethods['jabber'] );

@@ -124,7 +124,7 @@ while (have_posts()):
     } else {
         echo '0';
     } ?></span>)</a><?php
-    if (git_get_option('git_bdshare_b')) echo "<span class='or'>or</span>";
+    if (git_get_option('git_bdshare_b')) echo "<span class='or'><style>.article-social a:hover{background:#fff;}</style><a class='shangqr' style='border-bottom:0px;font-size:15pt;' id='showdiv' href='#donatecoffee'>赏</a></span>";
     deel_share(); ?>
 </div>
 	</article>
@@ -156,10 +156,14 @@ if (git_get_option('git_auther_b')) { ?>
 <div class="authorsocial">
 <span class="social-icon-wrap"><a class="as-img as-home" target="_blank" href="<?php
     the_author_meta('url'); ?>" title="作者主页"><i class="fa fa-home"></i>作者主页</a></span>
+    
 <?php
     if (get_the_author_meta('donate')) {
-        echo '<span class="social-icon-wrap"><a class="as-img as-donate" target="_blank" href="' . get_the_author_meta('donate') . '" title="赞助作者"> <i class="fa fa-coffee"></i>赞助作者 </a></span>';
+        echo '<span class="social-icon-wrap"><a id="showdiv" class="as-img as-donate" target="_blank" href="#donatecoffee"> <i class="fa fa-coffee"></i>赞助作者 </a></span><div id="donatecoffee" style="overflow:auto;display:none;"><img width="400px" height="400px" src="' . git_get_option('git_pay_qr') . '"></div>';
     } ?>
+    
+    
+    
 <span class="social-icon-wrap"><a class="as-img as-email" target="_blank" href="mailto:<?php
     echo get_the_author_meta('user_email'); ?>" title="给我写信"><i class="fa fa-envelope"></i></a></span>
 <?php
