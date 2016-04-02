@@ -2375,12 +2375,11 @@ function git_reset_password_message($message, $key) {
     return $msg;
 }
 add_filter('retrieve_password_message', git_reset_password_message, null, 2);
-//保护后台登录，修改自倡萌：http://www.wpdaxue.com/protected-wp-login.html
+//保护后台登录
 if(git_get_option('git_admin')):
 function git_login_protection() {
-    if ($_GET[''.git_get_option('git_admin_q').''] !== ''.git_get_option('git_admin_a').'') {
-     wp_die('本页面仅限管理员浏览，请<a href="' . home_url() . '">点此返回网站首页</a>');
-    }
+    if ($_GET[''.git_get_option('git_admin_q').''] !== ''.git_get_option('git_admin_a').'')
+    header('Location: http://www.baidu.com');/* 不用密码登录，直接滚到百度去 */
 }
 add_action('login_enqueue_scripts', 'git_login_protection');
 endif;
