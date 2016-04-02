@@ -140,6 +140,7 @@ previous_post_link('<i class="fa fa-angle-double-left"></i> %link'); ?></span>
 			<span class="article-nav-next"><?php
 next_post_link('%link  <i class="fa fa-angle-double-right"></i>'); ?></span>
 		</nav>
+		
 <?php
 if (git_get_option('git_auther_b')) { ?>
 <div class="sg-author clr">
@@ -155,8 +156,8 @@ if (git_get_option('git_auther_b')) { ?>
 <span class="social-icon-wrap"><a class="as-img as-home" target="_blank" href="<?php
     the_author_meta('url'); ?>" title="作者主页"><i class="fa fa-home"></i>作者主页</a></span>
 <?php
-    if (get_the_author_meta('donate')) {
-        echo '<span class="social-icon-wrap"><a id="showdiv" class="as-img as-donate" target="_blank" href="#donatecoffee"> <i class="fa fa-coffee"></i>赞助作者 </a></span><div id="donatecoffee" style="overflow:auto;display:none;"><img width="400px" height="400px" src="' . git_get_option('git_pay_qr') . '"></div>';
+    if (git_get_option('git_pay_qr')) {
+        echo '<span class="social-icon-wrap"><a id="showdiv" class="as-img as-donate" target="_blank" href="#donatecoffee"> <i class="fa fa-coffee"></i>赞助作者 </a></span>';
     } ?>
 <span class="social-icon-wrap"><a class="as-img as-email" target="_blank" href="mailto:<?php
     echo get_the_author_meta('user_email'); ?>" title="给我写信"><i class="fa fa-envelope"></i></a></span>
@@ -195,7 +196,8 @@ if (git_get_option('git_auther_b')) { ?>
 </div>
 <?php
 } ?>
-		
+<div id="donatecoffee" style="overflow:auto;display:none;"><img width="400px" height="400px" src="<?php echo git_get_option('git_pay_qr');?>"></div>
+
 		<div class="related_top">
 			<?php
 include ('modules/related.php'); ?>
