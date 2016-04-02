@@ -2383,6 +2383,26 @@ function git_login_protection() {
 }
 add_action('login_enqueue_scripts', 'git_login_protection');
 endif;
+//登录失败提醒
+function git_login_failed_notify()
+{
+    date_default_timezone_set('PRC');
+    $admin_email = get_bloginfo ('admin_email');
+    $to = $admin_email;
+	$subject = '您的网站登录错误警告';
+	$message = '<p>您好！您的网站(' . get_option("blogname") . ')有登录错误！</p>' . 
+	'<p>请确定是您自己的登录失误，以防别人攻击！登录信息如下：</p>' . 
+	'<p>登录名：' . $_POST['log'] . '</p>' .
+	'<p>登录密码：' . $_POST['pwd'] .  '</p>' .
+	'<p>登录时间：' . date("Y-m-d H:i:s") .  '</p>' .
+	'<p>登录IP：' . $_SERVER['REMOTE_ADDR'] . '</p>' .
+	'<p style="float:right">————本邮件由Git主题发送，无需回复</p>';	
+	$wp_email = 'no-reply@' . preg_replace('#^www\.#', '', strtolower($_SERVER['SERVER_NAME']));
+	$from = "From: \"" . get_option('blogname') . "\" <$wp_email>";
+	$headers = "$from\nContent-Type: text/html; charset=" . get_option('blog_charset') . "\n";
+	wp_mail( $to, $subject, $message, $headers );
+}
+add_action('wp_login_failed', 'git_login_failed_notify');
 //取消静态资源的版本查询
 if(git_get_option('git_query')):
 function _remove_script_version( $src ){
