@@ -1555,7 +1555,7 @@ class Simple_Local_Avatars {
         if (empty($local_avatars[$size])) {
             $upload_path = wp_upload_dir();
             $avatar_full_path = str_replace($upload_path['baseurl'], $upload_path['basedir'], $local_avatars['full']);
-            $image_sized = wp_get_image_editor($avatar_full_path, $size, $size, true);
+            $image_sized = image_resize($avatar_full_path, $size, $size, true);
             // deal with original being >= to original image (or lack of sizing ability)
             $local_avatars[$size] = is_wp_error($image_sized) ? $local_avatars[$size] = $local_avatars['full'] : str_replace($upload_path['basedir'], $upload_path['baseurl'], $image_sized);
             // save updated avatar sizes
