@@ -537,20 +537,23 @@ function comment_mail_notify($comment_id) {
         $wp_email = 'no-reply@' . preg_replace('#^www\.#', '', strtolower($_SERVER['SERVER_NAME'])); // e-mail 发出点, no-reply 可改为可用的 e-mail.
         $to = trim(get_comment($parent_id)->comment_author_email);
         $subject = 'Hi，您在 [' . get_option("blogname") . '] 的留言有人回复啦！';
-        $message = '
-	<div style="color:#333;font:100 14px/24px microsoft yahei;">
-	  <p>' . trim(get_comment($parent_id)->comment_author) . ', 您好!</p>
-	  <p>您曾在《' . get_the_title($comment->comment_post_ID) . '》的留言:<br /> &nbsp;&nbsp;&nbsp;&nbsp; ' . trim(get_comment($parent_id)->comment_content) . '</p>
-	  <p>' . trim($comment->comment_author) . ' 给您的回应:<br /> &nbsp;&nbsp;&nbsp;&nbsp; ' . trim($comment->comment_content) . '<br /></p>
-	  <p>点击 <a href="' . htmlspecialchars(get_comment_link($parent_id)) . '">查看回应完整內容</a></p>
-	  <p>欢迎再次光临 <a href="' . home_url() . '">' . get_option('blogname') . '</a></p>
-	  <p style="color:#999">(此邮件由系统自动发出，请勿回复.)</p>
-	</div>';
+		$message = '<div style="background-color:#fff; border:1px solid #666666; color:#111; -moz-border-radius:8px; -webkit-border-radius:8px; -khtml-border-radius:8px; border-radius:8px; font-size:12px; width:702px; margin:0 auto; margin-top:10px;">
+    <div style="background:#666666; width:100%; height:60px; color:white; -moz-border-radius:6px 6px 0 0; -webkit-border-radius:6px 6px 0 0; -khtml-border-radius:6px 6px 0 0; border-radius:6px 6px 0 0; ">
+    <span style="height:60px; line-height:60px; margin-left:30px; font-size:12px;"> 您在<a style="text-decoration:none; color:#ff0;font-weight:600;"> [' . get_option("blogname") . '] </a>上的留言有回复啦！</span></div>
+    <div style="width:90%; margin:0 auto">
+      <p>' . trim(get_comment($parent_id)->comment_author) . ', 您好!</p>
+      <p>您在《' . get_the_title($comment->comment_post_ID) . '》的留言:<br />
+      <p style="background-color: #EEE;border: 1px solid #DDD;padding: 20px;margin: 15px 0;">'. trim(get_comment($parent_id)->comment_content) . '</p>
+      <p>' . trim($comment->comment_author) . ' 给你的回复:<br />
+      <p style="background-color: #EEE;border: 1px solid #DDD;padding: 20px;margin: 15px 0;">'. trim($comment->comment_content) . '</p>
+      <p>你可以点击<a href="' . htmlspecialchars(get_comment_link($parent_id, array('type' => 'comment'))) . '">查看完整内容</a></p>
+      <p>欢迎再度光临<a href="' . get_option('home') . '">' . get_option('blogname') . '</a></p>
+      <p>(此邮件由系统自动发出, 请勿回复。)</p>
+    </div></div>';
         $from = "From: \"" . get_option('blogname') . "\" <$wp_email>";
         $headers = "$from\nContent-Type: text/html; charset=" . get_option('blog_charset') . "\n";
         wp_mail($to, $subject, $message, $headers);
         //echo 'mail to ', $to, '<br/> ' , $subject, $message; // for testing
-
     }
 }
 //自动勾选
@@ -2390,13 +2393,13 @@ function git_login_failed_notify()
     $admin_email = get_bloginfo ('admin_email');
     $to = $admin_email;
 	$subject = '您的网站登录错误警告';
-	$message = '<p>您好！您的网站(' . get_option("blogname") . ')有登录错误！</p>' . 
-	'<p>请确定是您自己的登录失误，以防别人攻击！登录信息如下：</p>' . 
+	$message = '<p>您好！您的网站(' . get_option("blogname") . ')有登录错误！</p>' .
+	'<p>请确定是您自己的登录失误，以防别人攻击！登录信息如下：</p>' .
 	'<p>登录名：' . $_POST['log'] . '</p>' .
 	'<p>登录密码：' . $_POST['pwd'] .  '</p>' .
 	'<p>登录时间：' . date("Y-m-d H:i:s") .  '</p>' .
 	'<p>登录IP：' . $_SERVER['REMOTE_ADDR'] . '</p>' .
-	'<p style="float:right">————本邮件由Git主题发送，无需回复</p>';	
+	'<p style="float:right">————本邮件由Git主题发送，无需回复</p>';
 	$wp_email = 'no-reply@' . preg_replace('#^www\.#', '', strtolower($_SERVER['SERVER_NAME']));
 	$from = "From: \"" . get_option('blogname') . "\" <$wp_email>";
 	$headers = "$from\nContent-Type: text/html; charset=" . get_option('blog_charset') . "\n";
