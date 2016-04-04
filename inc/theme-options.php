@@ -246,7 +246,7 @@ $options = array(
     array(
         'name'  => '主动推送接口地址',
         'desc'  => '在百度站长平台获取主动推送接口地址，比如：http://data.zz.baidu.com/urls?site=域名&token=一组字符, <a class="button-primary" rel="nofollow" href="http://zhanzhang.baidu.com/linksubmit/index" target="_blank">主动推送接口地址</a>',
-        'id'    => "git_sitemap_token",
+        'id'    => "git_sitemap_api",
         'type'  => 'text',
         'std'   => ''
     ),
@@ -447,12 +447,6 @@ $options = array(
         'name'  => '留言链接二维码',
         'desc'  => '启用  【开启之后，您的留言者的网站会生成一个二维码】',
         'id'    => "git_autherqr_b",
-        'type'  => 'checkbox'
-    ),
-    array(
-        'name'  => '自动超链接',
-        'desc'  => '启用 【就是那种可以把一个链接自动变成可以点击的超链接】',
-        'id'    => 'git_linktrue_b',
         'type'  => 'checkbox'
     ),
     array(
