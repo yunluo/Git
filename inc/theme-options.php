@@ -238,13 +238,7 @@ $options = array(
         'type'  => 'subtitle'//subtitle 是标签下的标题
     ),
     array(
-        'name'  => '百度主动推送',
-        'desc'  => '启用',
-        'id'    => "git_sitemap_b",
-        'type'  => 'checkbox'
-    ),
-    array(
-        'name'  => '主动推送接口地址',
+        'name'  => '主动推送接口地址，填写本项即开启推送',
         'desc'  => '在百度站长平台获取主动推送接口地址，比如：http://data.zz.baidu.com/urls?site=域名&token=一组字符, <a class="button-primary" rel="nofollow" href="http://zhanzhang.baidu.com/linksubmit/index" target="_blank">主动推送接口地址</a>',
         'id'    => "git_sitemap_api",
         'type'  => 'text',

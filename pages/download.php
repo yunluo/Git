@@ -35,9 +35,9 @@ empty($values3) ? Header('Location:/') : $theCode3 = $values3[0];
 			<ul class="infos clearfix">
                 <li>资源名称：<?php echo $theCode1; ?></li>
 				<li>文件大小：<?php echo $theCode2; ?></li>
-				<li>更新日期：<?php the_modified_time('Y年n月j日'); ?></li>
+				<li>更新日期：<?php echo get_post($pid)->post_modified; ?></li>
 				</ul>
-			</div>  
+			</div>
             <h2>下载地址</h2>
             <div id="filelink">
 				<center><?php echo $theCode3; ?></center>
@@ -50,7 +50,7 @@ empty($values3) ? Header('Location:/') : $theCode3 = $values3[0];
             <h2>免责声明</h2>
 			<div class="alert alert-warning" role="alert">
 			<p><?php if( git_get_option('git_dlpage_mz') ) echo git_get_option('git_dlpage_mz'); ?></p>
-			</div> 
+			</div>
 <!-- 下载页横幅 -->
 <?php if( git_get_option('git_downloadad2') ) echo git_get_option('git_downloadad2'); ?>
 			</div>

@@ -2405,7 +2405,7 @@ add_filter( 'script_loader_src', '_remove_script_version', 15, 1 );
 add_filter( 'style_loader_src', '_remove_script_version', 15, 1 );
 endif;
 //百度主动推送
-if(!function_exists('Baidu_Submit') && git_get_option('git_sitemap_b') ){
+if(!function_exists('Baidu_Submit') && git_get_option('git_sitemap_api') ){
     function Baidu_Submit($post_ID) {
         if(get_post_meta($post_ID,'git_baidu_submit',true) == 1) return;
         $url = get_permalink($post_ID);
