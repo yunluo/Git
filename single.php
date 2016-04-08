@@ -144,7 +144,7 @@ next_post_link('%link  <i class="fa fa-angle-double-right"></i>'); ?></span>
 if (git_get_option('git_auther_b')) { ?>
 <div class="sg-author clr">
 <div class="img"><?php
-    echo get_avatar(get_the_author_email() , '60'); ?></div>
+    echo get_avatar(get_the_author_email() , '512'); ?></div>
 <div class="sg-author-info">
 <div class="word">
 <div class="wordname">关于作者：<?php
