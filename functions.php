@@ -24,7 +24,7 @@ function deel_setup() {
 	remove_filter( 'pre_link_notes', 'wp_filter_kses' );
 	remove_filter( 'term_description', 'wp_kses_data' );
     //添加主题特性
-    add_theme_support('custom-background', array( 'default-image' => '%s/img/bg.png' ));
+    add_theme_support('custom-background', array( 'default-image' => get_template_directory_uri() . '/css/img/bg.png' ));
     //隐藏admin Bar
     add_filter('show_admin_bar', 'hide_admin_bar');
     //关键字
@@ -72,7 +72,7 @@ add_filter('admin_footer_text', 'git_admin_footer_text');
     add_action('comment_post', 'comment_mail_notify');
     //自动勾选评论回复邮件通知，不勾选则注释掉
     add_action('comment_form', 'deel_add_checkbox');
-    //评论表情改造，如需更换表情，img/smilies/下替换
+    //评论表情改造，如需更换表情，css/img/smilies/下替换
     add_filter('smilies_src', 'deel_smilies_src', 1, 10);
     //移除自动保存和修订版本
     if (git_get_option('git_autosave_b')) {
@@ -377,7 +377,7 @@ function deel_share() {
     $dHasShare = true;
 }
 function deel_avatar_default() {
-    return get_template_directory_uri() . '/img/default.png';
+    return get_template_directory_uri() . '/css/img/default.png';
 }
 //评论头像缓存
 function deel_avatar($avatar) {
@@ -392,7 +392,7 @@ function deel_avatar($avatar) {
     else $avatar = strtr($avatar, array(
         $g => $w . '/avatar/' . $f . '.png'
     ));
-    if (filesize($e) < 500) copy(get_template_directory_uri() . '/img/default.png', $e);
+    if (filesize($e) < 500) copy(get_template_directory_uri() . '/css/img/default.png', $e);
     return $avatar;
 }
 if (git_get_option('git_avater')=='git_avatar_b') {
@@ -501,7 +501,7 @@ function deel_post_new($timer = '48') {
 }
 //修改评论表情调用路径
 function deel_smilies_src($img_src, $img, $siteurl) {
-    return get_template_directory_uri() . '/img/smilies/' . $img;
+    return get_template_directory_uri() . '/css/img/smilies/' . $img;
 }
 //阻止站内文章Pingback
 function deel_noself_ping(&$links) {
@@ -810,9 +810,9 @@ function post_thumbnail_src() {
         if (empty($post_thumbnail_src)) { //如果日志中没有图片，则显示随机图片
             $random = mt_rand(1, 10);
             echo get_template_directory_uri();
-            echo '/img/pic/' . $random . '.jpg';
+            echo '/css/img/pic/' . $random . '.jpg';
             //如果日志中没有图片，则显示默认图片
-            //echo '/img/thumbnail.png';
+            //echo '/css/img/thumbnail.png';
 
         }
     };
@@ -1002,7 +1002,7 @@ function fa_get_wpsmiliestrans() {
     global $wpsmiliestrans;
     $wpsmilies = array_unique($wpsmiliestrans);
     foreach ($wpsmilies as $alt => $src_path) {
-        $output.= '<a class="add-smily" data-smilies="' . $alt . '"><img class="wp-smiley" src="' . get_template_directory_uri() . '/img/smilies/' . rtrim($src_path, "gif") . 'gif" /></a>';
+        $output.= '<a class="add-smily" data-smilies="' . $alt . '"><img class="wp-smiley" src="' . get_template_directory_uri() . '/css/img/smilies/' . rtrim($src_path, "gif") . 'gif" /></a>';
     }
     return $output;
 }
@@ -1014,7 +1014,7 @@ function fa_smilies_custom_button($context) {
 //////// 后台评论列表获取表情按钮//////
 function zfunc_smiley_button($custom = false, $before = '', $after = '') {
     if ($custom == true) $smiley_url = site_url() . '/wp-includes/images/smilies';
-    else $customsmiley_url = get_template_directory_uri() . '/img/smilies';
+    else $customsmiley_url = get_template_directory_uri() . '/css/img/smilies';
     echo $before;
 ?>
 		<a href="javascript:grin(':?:')"><img src="<?php
@@ -1200,21 +1200,6 @@ function toe($atts, $content = null) {
     return '<div  class="sc_act">' . $content . '</div>';
 }
 add_shortcode('v_act', 'toe');
-/*橙色文本*/
-function tof($atts, $content = null) {
-    return '<div id="sc_organge">' . $content . '</div>';
-}
-add_shortcode('v_organge', 'tof');
-/*青色文本框*/
-function tog($atts, $content = null) {
-    return '<div id="sc_qing">' . $content . '</div>';
-}
-add_shortcode('v_qing', 'tog');
-/*粉色文本框*/
-function toh($atts, $content = null) {
-    return '<div id="sc_pink">' . $content . '</div>';
-}
-add_shortcode('v_pink', 'toh');
 /*绿色按钮*/
 function toi($atts, $content = null) {
     extract(shortcode_atts(array(
@@ -1241,7 +1226,7 @@ function tok($atts, $content = null) {
 add_shortcode('yb', 'tok');
 /*音乐安钮*/
 function tol($atts, $content = null) {
-    return '<audio style="width:100%;max-height:40px;" src="' . $content . '" controls preload loop>您的浏览器不支持HTML5的 audio 标签，无法为您播放！</audio>';
+    return '<audio style="width:100%;max-height:40px;" src="' . $content . '" controls preload loop>您的浏览器不支持HTML5的 audio 标签，无法���您播放！</audio>';
 }
 add_shortcode('music', 'tol');
 /*灵魂按钮*/
@@ -1257,20 +1242,6 @@ function too($atts, $content = null) {
     return '<video style="width:100%;" src="' . $content . '" controls preload >您的浏览器不支持HTML5的 video 标签，无法为您播放！</video>';
 }
 add_shortcode('video', 'too');
-//pc用户不可见
-function mobv($atts, $content = null) {
-    if (G_is_mobile()) {
-        return '<div id="mb_view">' . $content . '</div>'; //如果用户是手机则显示内容
-    }
-}
-add_shortcode('mb_view', 'mobv');
-//手机用户
-function pcv($atts, $content = null) {
-    if (!G_is_mobile()) {
-        return '<div id="pc_view">' . $content . '</div>'; //如果用户是电脑则显示内容
-    }
-}
-add_shortcode('pc_view', 'pcv');
 /*弹窗下载*/
 function ton($atts, $content = null) {
     extract(shortcode_atts(array("href" => 'http://',"filename" => '',"filesize" => '',"filedown" => '' ) , $atts));
@@ -1299,7 +1270,7 @@ add_shortcode('download', 'git_download');
 //为WordPress添加展开收缩功能
 function xcollapse($atts, $content = null) {
     extract(shortcode_atts(array( "title" => "" ) , $atts));
-    return '<div style="margin: 0.5em 0;"><div class="xControl"><a href="javascript:void(0)" class="collapseButton xButton"><i class="fa fa-plus-square"></i> ' . $title . '</a><div style="clear: both;"></div></div><div class="xContent" style="display: none;">' . $content . '</div></div>';
+    return '<div style="margin: 0.5em 0;"><div class="xControl"><a href="javascript:void(0)" class="collapseButton xButton"><i class="fa fa-plus-square" ></i> ' . $title . '</a><div style="clear: both;"></div></div><div class="xContent" style="display: none;">' . $content . '</div></div>';
 }
 add_shortcode('collapse', 'xcollapse');
 //简单的下载面板
@@ -2154,7 +2125,7 @@ function disable_emoji9s_tinymce($plugins) {
 }
 //取当前主题下img\smilies\下表情图片路径
 function custom_gitsmilie_src($old, $img) {
-    return get_stylesheet_directory_uri() . '/img/smilies/' . $img;
+    return get_stylesheet_directory_uri() . '/css/img/smilies/' . $img;
 }
 function init_gitsmilie() {
     global $wpsmiliestrans;
@@ -2375,6 +2346,7 @@ function git_login_protection() {
 }
 add_action('login_enqueue_scripts', 'git_login_protection');
 endif;
+/*救命啊！ps.很好，搜索这段代码很可能意味着你把自己后台给锁了，将保护后台登录这大段代码删除即可*/
 //登录失败提醒
 function git_login_failed_notify()
 {
@@ -2388,7 +2360,7 @@ function git_login_failed_notify()
 	'<p>登录密码：' . $_POST['pwd'] .  '</p>' .
 	'<p>登录时间：' . date("Y-m-d H:i:s") .  '</p>' .
 	'<p>登录IP：' . $_SERVER['REMOTE_ADDR'] . '</p>' .
-	'<p style="float:right">————本邮件由Git主题发送，无需回复</p>';
+	'<p style="float:right">————本邮件由系统发送，无需回复</p>';
 	$wp_email = 'no-reply@' . preg_replace('#^www\.#', '', strtolower($_SERVER['SERVER_NAME']));
 	$from = "From: \"" . get_option('blogname') . "\" <$wp_email>";
 	$headers = "$from\nContent-Type: text/html; charset=" . get_option('blog_charset') . "\n";

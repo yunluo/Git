@@ -97,7 +97,7 @@ if (git_get_option('git_pichead_b')) { ?>
 <?php
     if (!git_get_option('git_customhead')) { ?>
 <header style="background: url('<?php
-        echo esc_url( get_template_directory_uri() ); ?>/img/header.jpg') center 0px repeat-x;background-size: cover;" id="header" class="header">
+        echo esc_url( get_template_directory_uri() ); ?>/css/img/header.jpg') center 0px repeat-x;background-size: cover;" id="header" class="header">
 <?php
     } ?><?php
 } ?>
@@ -161,7 +161,7 @@ if (git_get_option('git_piclogo_b')) { ?><?php
     if (!git_get_option('git_customlogo')) { ?><img title="<?php
         bloginfo('name'); ?>" alt="<?php
         bloginfo('name'); ?>" src="<?php
-        echo esc_url( get_template_directory_uri() ); ?>/img/logo.png"><?php
+        echo esc_url( get_template_directory_uri() ); ?>/css/img/logo.png"><?php
     } ?><?php
 } ?>
 <?php
