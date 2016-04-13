@@ -1157,6 +1157,13 @@ function exclude_category_home($query) {
 if (git_get_option('git_blockcat_b')) {
     add_filter('pre_get_posts', 'exclude_category_home');
 }
+//固化插入图片选项
+function git_attachment_display_settings() {
+	update_option( 'image_default_align', 'center' );//居中显示
+	update_option( 'image_default_link_type', 'file' );//连接到媒体文件本身
+	update_option( 'image_default_size', 'full' );//完整尺寸
+}
+add_action( 'after_setup_theme', 'git_attachment_display_settings' );
 //后台日志阅读统计
 add_filter('manage_posts_columns', 'postviews_admin_add_column');
 function postviews_admin_add_column($columns) {
@@ -1224,11 +1231,6 @@ function tok($atts, $content = null) {
     return '<a class="yellowbtn" href="' . $href . '" target="_blank" rel="nofollow">' . $content . '</a>';
 }
 add_shortcode('yb', 'tok');
-/*音乐安钮*/
-function tol($atts, $content = null) {
-    return '<audio style="width:100%;max-height:40px;" src="' . $content . '" controls preload loop>您的浏览器不支持HTML5的 audio 标签，无法���您播放！</audio>';
-}
-add_shortcode('music', 'tol');
 /*灵魂按钮*/
 function tom($atts, $content = null) {
     extract(shortcode_atts(array(
@@ -1279,6 +1281,12 @@ function xdltable($atts, $content = null) {
     return '<table class="dltable"><tbody><tr><td style="background-color:#F9F9F9;" rowspan="3"><p>文件下载</p></td><td><i class="fa fa-list-alt"></i>&nbsp;&nbsp;文件名称：' . $file . '</td><td><i class="fa fa-th-large"></i>&nbsp;&nbsp;文件大小：' . $size . '</td></tr><tr><td colspan="2"><i class="fa fa-volume-up"></i>&nbsp;&nbsp;下载声明：'.git_get_option('git_dltable_b').'</td></tr><tr><td colspan="2"><i class="fa fa-download"></i>&nbsp;&nbsp;下载地址：' . $content . '</td></tr></tbody></table>';
 }
 add_shortcode('dltable', 'xdltable');
+//网易云音乐
+function music163($atts) {
+    extract(shortcode_atts(array("id" => "" ) , $atts));
+    return '<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=100% height=86 src="http://music.163.com/outchain/player?type=2&id=' . $id . '&auto=1&height=66"></iframe>';
+}
+add_shortcode('netmusic', 'music163');
 // add youku using iframe
 function wp_iframe_handler_youku($matches, $attr, $url, $rawattr) {
     if (G_is_mobile()) {

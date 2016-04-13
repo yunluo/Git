@@ -5,11 +5,10 @@
 <html xmlns:wb=“http://open.weibo.com/wb”>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 <meta http-equiv="X-UA-Compatible" content="IE=10,IE=9,IE=8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
 <link href="/favicon.ico" rel="icon" type="image/x-icon" />
 <?php
 if (git_get_option('git_robot_b')): ?>
