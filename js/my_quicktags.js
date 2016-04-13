@@ -27,7 +27,7 @@ QTags.addButton( 'gb', '绿色按钮', "[gb href='']", "[/gb]" );
 QTags.addButton( 'bb', '蓝色按钮', "[bb href='']", "[/bb]" );
 QTags.addButton( 'yb', '黄色按钮', "[yb href='']", "[/yb]" );
 QTags.addButton( 'lhb', '透明按钮', "[lhb href='']", "[/lhb]" );
-QTags.addButton( 'netmusic', '网易云音乐', '[music id=""]', "" );
+QTags.addButton( 'netmusic', '网易云音乐', '[netmusic id=""]', "" );
 QTags.addButton( 'video', '视频按钮', "[video]", "[/video]" );
 QTags.addButton( 'collapse', '隐藏收缩', '[collapse title=""]\n\n[/collapse]', "" );
 QTags.addButton( 'reply', '回复可见', "[reply]", "[/reply]" );
