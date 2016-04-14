@@ -86,8 +86,9 @@ add_filter('admin_footer_text', 'git_admin_footer_text');
     add_filter('wp_mail_from_name', 'deel_res_from_name');
     //缩略图设置
     add_theme_support('post-thumbnails');
-    set_post_thumbnail_size(220, 150, true);
+    //set_post_thumbnail_size(220, 150, true);
     add_editor_style('editor-style.css');
+	add_filter( 'max_srcset_image_width', create_function( '', 'return 1;' ) );
     //定义菜单
     if (function_exists('register_nav_menus')) {
         register_nav_menus(array(
@@ -616,7 +617,7 @@ function deel_comment_list($comment, $args, $depth) {
     echo '</div>';
     echo '</div></div>';
 }
-//欲思@添加钮Download
+//添加钮Download
 function DownloadUrl($atts, $content = null) {
     extract(shortcode_atts(array(
         "href" => 'http://'
@@ -624,7 +625,7 @@ function DownloadUrl($atts, $content = null) {
     return '<a class="dl" href="' . $href . '" target="_blank" rel="nofollow"><i class="fa fa-cloud-download"></i>' . $content . '</a>';
 }
 add_shortcode("dl", "DownloadUrl");
-//欲思@添加钮git
+//添加钮git
 function GithubUrl($atts, $content = null) {
     extract(shortcode_atts(array(
         "href" => 'http://'
@@ -632,7 +633,7 @@ function GithubUrl($atts, $content = null) {
     return '<a class="dl" href="' . $href . '" target="_blank" rel="nofollow"><i class="fa fa-github-alt"></i>' . $content . '</a>';
 }
 add_shortcode('gt', 'GithubUrl');
-//欲思@添加钮Demo
+//添加钮Demo
 function DemoUrl($atts, $content = null) {
     extract(shortcode_atts(array(
         "href" => 'http://'
@@ -640,7 +641,7 @@ function DemoUrl($atts, $content = null) {
     return '<a class="dl" href="' . $href . '" target="_blank" rel="nofollow"><i class="fa fa-external-link"></i>' . $content . '</a>';
 }
 add_shortcode('dm', 'DemoUrl');
-//欲思@添加编辑器快捷按钮
+//添加编辑器快捷按钮
 add_action('admin_print_scripts', 'my_quicktags');
 function my_quicktags() {
     wp_enqueue_script('my_quicktags', get_stylesheet_directory_uri() . '/js/my_quicktags.js', array(
@@ -770,7 +771,7 @@ function G_is_mobile() {
         return false;
     }
 }
-//欲思@搜索结果排除所有页面
+//搜索结果排除所有页面
 function search_filter_page($query) {
     if ($query->is_search) {
         $query->set('post_type', 'post');
@@ -790,7 +791,7 @@ function Bing_admin_lettering() {
     </style>';
 }
 add_action('admin_head', 'Bing_admin_lettering');
-//欲思@添加相关文章图片文章
+//添加相关文章图片文章
 if (function_exists('add_theme_support')) add_theme_support('post-thumbnails');
 //输出缩略图地址
 function post_thumbnail_src() {
