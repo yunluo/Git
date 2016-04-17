@@ -598,6 +598,13 @@ $options = array(
         'std'   => 'yusigreen'
     ),
     array(
+        'name'  => '自定义登录页面背景',
+        'desc'  => '登录页面使用必应每日美图作为背景图，填写此项将使用自定义图片背景，不使用必应美图背景',
+        'id'    => 'git_loginbg',
+        'type'  => 'text',
+        'std'   => ''
+    ),
+    array(
         'title' => '主题侧边栏跟随设置',
         'type'  => 'subtitle'
     ),
