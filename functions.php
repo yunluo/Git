@@ -1760,7 +1760,7 @@ function is_external_link($imgsrcs = '',$host = '') {
   preg_match_all($reg, $imgsrcs, $data);
   $math = $data[1];
   foreach ($math as $value) {
-    if($value != $host)
+    if($value != $host && $value != git_get_option('git_cdnurl_b') )
 	return true;
   }
 	return false;
