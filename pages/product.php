@@ -15,12 +15,10 @@ get_header(); ?>
 			</div>
 		</header>
 <div id="cardslist" class="cardlist" role="main">
-
-<?php
-    query_posts('post_type=product&post_status=publish'); ?>
-            <?php
-    while (have_posts()):
-        the_post(); ?>
+<?php $limit = get_option('posts_per_page');
+$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+query_posts('post_type=product&post_status=publish&showposts=' . $limit=20 . '&paged=' . $paged);
+if (have_posts()) : while (have_posts()) : the_post(); ?>
 	        <div class="col span_1_of_4" role="main">
 			<div class="shop-item">
 				<a href="<?php
@@ -29,10 +27,15 @@ get_header(); ?>
         the_title(); ?>" class="fancyimg home-blog-entry-thumb">
 					<div class="thumb-img focus">
 					<?php
-            echo '<img class="thumb" title="'.get_the_title().'" src="' . get_template_directory_uri() . '/timthumb.php?src=';
+        if (git_get_option('git_cdnurl_b') && is_external_link() ) {
+            echo '<img class="thumb" src="';
+            echo post_thumbnail_src();
+            echo '?imageView2/1/w/375/h/375/q/75" width="375px" height="375px" alt="' . get_the_title() . '" />';
+        } else {
+            echo '<img class="thumb" src="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=375&w=375&q=90&zc=1&ct=1" width="375px" height="375px" alt="' . get_the_title() . '" />';
-         ?>			
+        } ?>
 			</div>
 				</a>
 				<h3><a href="<?php
@@ -47,12 +50,7 @@ get_header(); ?>
         the_permalink(); ?>"><i class="fa fa-shopping-cart"></i> 立刻购买</a></div>
 			</div>
 		</div>
-		<?php
-endwhile;
-wp_reset_query(); ?>
+<?php endwhile;endif; ?>
 </div>
-
-<?php
-deel_paging(); ?>
-
+<?php deel_paging(); ?>
 <?php get_footer(); ?>

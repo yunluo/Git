@@ -45,26 +45,16 @@ while (have_posts()):
 <?php
     if ($_thumbnail) { ?>
 <div class="focus"><a target="_blank" href="<?php
-        the_permalink(); ?>">
-<?php
-        if (git_get_option('git_cdnurl_b')) {
+        the_permalink(); ?>"><?php
+        if (git_get_option('git_cdnurl_b') && is_external_link() ) {
             echo '<img class="thumb" src="';
             echo post_thumbnail_src();
-            echo '?imageView2/1/w/';
-            echo git_get_option('git_thumb_width') ? git_get_option('git_thumb_width') : 200;
-            echo '/h/';
-            echo git_get_option('git_thumb_height') ? git_get_option('git_thumb_height') : 123;
-            echo '/q/75" alt="' . get_the_title() . '" />';
+            echo '?imageView2/1/w/200/h/123/q/75" width="200px" height="123px" alt="' . get_the_title() . '" />';
         } else {
             echo '<img class="thumb" src="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
-            echo '&h=';
-            echo git_get_option('git_thumb_height') ? git_get_option('git_thumb_height') : 123;
-            echo '&w=';
-            echo git_get_option('git_thumb_width') ? git_get_option('git_thumb_width') : 200;
-            echo '&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
-        } ?>
-</a></div>
+            echo '&h=123&w=200&q=90&zc=1&ct=1" width="200px" height="123px" alt="' . get_the_title() . '" />';
+        } ?></a></div>
 	<?php
     } ?>
 		<span class="note"> <?php
@@ -72,7 +62,7 @@ while (have_posts()):
 		if (empty($excerpt)) {
             echo deel_strimwidth(strip_tags(apply_filters('the_content', strip_shortcodes($post->post_content))) , 0, git_get_option('git_excerpt_length') ? git_get_option('git_excerpt_length') : 180 , '……<a href="' . get_permalink() . '" rel="nofollow" class="more-link">继续阅读 &raquo;</a>');
         } else {
-            echo deel_strimwidth(strip_tags(apply_filters('the_excerpt', strip_shortcodes($post->post_excerpt))) , 0, git_get_option('git_excerpt_length') ? git_get_option('git_excerpt_length') : 180 , '……<a href="' . get_permalink() . '" rel="nofollow" class="more-link">继续阅读 &raquo;</a>'); 
+            echo deel_strimwidth(strip_tags(apply_filters('the_excerpt', strip_shortcodes($post->post_excerpt))) , 0, git_get_option('git_excerpt_length') ? git_get_option('git_excerpt_length') : 180 , '……<a href="' . get_permalink() . '" rel="nofollow" class="more-link">继续阅读 &raquo;</a>');
         } ?></span>
 <p class="auth-span">
 <?php

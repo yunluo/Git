@@ -16,11 +16,10 @@ get_header(); ?>
 		</header>
 <div class="shuoshuo">
  <ul class="archives-monthlisting">
- <?php
-query_posts("post_type=shuoshuo&post_status=publish&posts_per_page=-1");
-if (have_posts()):
-    while (have_posts()):
-        the_post(); ?>
+<?php $limit = get_option('posts_per_page');
+$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+query_posts('post_type=shuoshuo&post_status=publish&showposts=' . $limit=10 . '&paged=' . $paged);
+if (have_posts()) : while (have_posts()) : the_post(); ?>
  <li><span class="tt"><?php
         the_time('Y年n月j日G:i'); ?></span>
  <div class="shuoshuo-content"><?php
@@ -28,10 +27,11 @@ if (have_posts()):
         the_time('Y年n月j日G:i'); ?></span ><span >— <i class="fa fa-user"></i> <?php
         the_author() ?></span></div></div>
         <span class="zhutou"><?php echo get_avatar(get_the_author_email(),64); ?></span>
-        <?php
-    endwhile;
-endif; ?></li>
+        </li>
+<?php endwhile;endif; ?>
  </ul>
 </div>
 </div>
+<?php
+deel_paging(); ?>
 <?php get_footer(); ?>

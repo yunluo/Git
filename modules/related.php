@@ -22,14 +22,14 @@ if ($posttags) {
 		<a href="<?php
         the_permalink(); ?>" title="<?php
         the_title(); ?>" target="_blank"><?php
-        if (git_get_option('git_cdnurl_b')) {
-            echo '<img width="185px" height="110px" src="';
+        if (git_get_option('git_cdnurl_b') && is_external_link() ) {
+            echo '<img class="thumb" src="';
             echo post_thumbnail_src();
-            echo '?imageView2/1/w/185/h/110/q/75" alt="' . get_the_title() . '" />';
+            echo '?imageView2/1/w/185/h/110/q/75" width="185px" height="110px" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img width="185px" height="110px" src="' . get_template_directory_uri() . '/timthumb.php?src=';
+            echo '<img class="thumb" src="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
-            echo '&h=110&w=185&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
+            echo '&h=110&w=185&q=90&zc=1&ct=1" width="185px" height="110px" alt="' . get_the_title() . '" />';
         } ?><br><span class="r_title"><?php
         the_title(); ?></span></a>
 		</li>
@@ -57,14 +57,14 @@ if ($i < $post_num) {
 		<a href="<?php
         the_permalink(); ?>" title="<?php
         the_title(); ?>" target="_blank"><?php
-        if (git_get_option('git_cdnurl_b')) {
-            echo '<img width="185px" height="110px" src="';
+        if (git_get_option('git_cdnurl_b') && is_external_link() ) {
+            echo '<img class="thumb" src="';
             echo post_thumbnail_src();
-            echo '?imageView2/1/w/185/h/110/q/75" alt="' . get_the_title() . '" />';
+            echo '?imageView2/1/w/185/h/110/q/75" width="185px" height="110px" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img width="185px" height="110px" src="' . get_template_directory_uri() . '/timthumb.php?src=';
+            echo '<img class="thumb" src="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
-            echo '&h=110&w=185&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
+            echo '&h=110&w=185&q=90&zc=1&ct=1" width="185px" height="110px" alt="' . get_the_title() . '" />';
         } ?><br><span class="r_title"><?php
         the_title(); ?></span></a>
 		</li>
@@ -82,7 +82,7 @@ if ($i == 0) echo '<div class=\"r_title\">没有相关文章!</div>'; ?>
 $exclude_id = $post->ID;
 $posttags = get_the_tags();
 $i = 0;
-$limit = 8;
+$limit = git_get_option('git_related_count') ? git_get_option('git_related_count') : 8;
 if ($posttags) {
     $tags = '';
     foreach ($posttags as $tag) $tags.= $tag->name . ',';

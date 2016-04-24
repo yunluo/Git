@@ -29,11 +29,18 @@ if (is_home()) { ?>
             echo '<a class="metacat" href="' . get_category_link($category[0]->term_id) . '">' . $category[0]->cat_name . '</a>';
         }
     }; ?>
-</div><?php
-            echo '<a href="'.get_the_permalink().'" alt="'.get_the_title().'" title="'.get_the_title().'" target="_blank"><img class="thumb" title="'.get_the_title().'" src="' . get_template_directory_uri() . '/timthumb.php?src=';
+</div><a href="<?php
+        the_permalink(); ?>" title="<?php
+        the_title(); ?>"><?php
+        if (git_get_option('git_cdnurl_b') && is_external_link() ) {
+            echo '<img class="thumb" src="';
             echo post_thumbnail_src();
-            echo '&h=250&w=375&q=90&zc=1&ct=1" width="375px" height="250px" alt="' . get_the_title() . '" /></a>';
-         ?>			
+            echo '?imageView2/1/w/375/h/250/q/75" width="375px" height="250px" alt="' . get_the_title() . '" />';
+        } else {
+            echo '<img class="thumb" src="' . get_template_directory_uri() . '/timthumb.php?src=';
+            echo post_thumbnail_src();
+            echo '&h=250&w=375&q=90&zc=1&ct=1" width="375px" height="250px" alt="' . get_the_title() . '" />';
+        } ?></a>
 			</div>
 				</a>
 				<h3><a href="<?php
@@ -47,7 +54,7 @@ if (is_home()) { ?>
 		if (empty($excerpt)) {
             echo deel_strimwidth(strip_tags(apply_filters('the_content', strip_shortcodes($post->post_content))) , 0, git_get_option('git_excerpt_length') ? git_get_option('git_excerpt_length') : 100 , '……');
         } else {
-            echo deel_strimwidth(strip_tags(apply_filters('the_excerpt', strip_shortcodes($post->post_excerpt))) , 0, git_get_option('git_excerpt_length') ? git_get_option('git_excerpt_length') : 100 , '……'); 
+            echo deel_strimwidth(strip_tags(apply_filters('the_excerpt', strip_shortcodes($post->post_excerpt))) , 0, git_get_option('git_excerpt_length') ? git_get_option('git_excerpt_length') : 100 , '……');
         } ?></p>
 				<div class="pricebtn"><i class="fa fa-calendar"></i> <?php
         the_time('m-d'); ?><a class="buy" href="<?php

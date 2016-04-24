@@ -1358,24 +1358,21 @@ function Bing_show_category() {
 }
 //新文章同步到新浪微博
 function post_to_sina_weibo($post_ID) {
-    /* 此处修改为通过文章自定义栏目来判断是否同步 */
-    if (get_post_meta($post_ID, 'git_weibo_sync', true) == 1) return;
-    $get_post_info = get_post($post_ID);
-    $get_post_centent = get_post($post_ID)->post_content;
-    $get_post_title = get_post($post_ID)->post_title;
-    if ($get_post_info->post_status == 'publish' && $_POST['original_post_status'] != 'publish') {
-        $appkey = git_get_option('git_wbapky_b'); /* 此处是你的新浪微博appkey */
-        $username = git_get_option('git_wbuser_b');
-        $userpassword = git_get_option('git_wbpasd_b');
-        $request = new WP_Http;
-        $keywords = "";
-        /* 获取文章标签关键词 */
-        $tags = wp_get_post_tags($post_ID);
-        foreach ($tags as $tag) {
-            $keywords = $keywords . '#' . $tag->name . "#";
-        }
-        /* 修改了下风格，并添加文章关键词作为微博话题，提高与其他相关微博的关联率 */
-        $string1 = '【' . strip_tags($get_post_title) . '】：';
+   if(get_post_meta($post_ID,'git_weibo_sync',true) == 1) return;
+   $get_post_info = get_post($post_ID);
+   $get_post_centent = get_post($post_ID)->post_content;
+   $get_post_title = get_post($post_ID)->post_title;
+   if ($get_post_info->post_status == 'publish' && $_POST['original_post_status'] != 'publish') {
+       $appkey = git_get_option('git_wbapky_b');
+       $username = git_get_option('git_wbuser_b');
+       $userpassword = git_get_option('git_wbpasd_b');
+       $request = new WP_Http;
+       $keywords = "";
+       $tags = wp_get_post_tags($post_ID);
+       foreach ($tags as $tag ) {
+          $keywords = $keywords.'#'.$tag->name."#";
+       }
+	  $string1 = '【' . strip_tags($get_post_title) . '】：';
         $string2 = $keywords . ' [阅读全文]：' . get_permalink($post_ID);
         /* 微博字数控制，避免超标同步失败 */
         $wb_num = (138 - WeiboLength($string1 . $string2)) * 2;
@@ -1396,47 +1393,70 @@ function post_to_sina_weibo($post_ID) {
         add_post_meta($post_ID, 'git_weibo_sync', 1, true);
     }
 }
-if (git_get_option('git_sinasync_b')) {
-    add_action('publish_post', 'post_to_sina_weibo', 0);
-}
+add_action('publish_post', 'post_to_sina_weibo', 0);
+
 /*
-获取微博字符长度函数
+//获取微博字符长度函数
 */
-function WeiboLength($str) {
-    $arr = arr_split_zh($str); //先将字符串分割到数组中
-    foreach ($arr as $v) {
-        $temp = ord($v); //转换为ASCII码
+function WeiboLength($str)
+{
+    $arr = arr_split_zh($str);   //先将字符串分割到数组中
+    foreach ($arr as $v){
+        $temp = ord($v);        //转换为ASCII码
         if ($temp > 0 && $temp < 127) {
-            $len = $len + 0.5;
-        } else {
-            $len++;
+            $len = $len+0.5;
+        }else{
+            $len ++;
         }
     }
-    return ceil($len); //加一取整
+    return ceil($len);        //加一取整
 }
 /*
 //拆分字符串函数,只支持 gb2312编码
 //参考：http://u-czh.iteye.com/blog/1565858
 */
-function arr_split_zh($tempaddtext) {
+function arr_split_zh($tempaddtext){
     $tempaddtext = iconv("UTF-8", "GBK//IGNORE", $tempaddtext);
     $cind = 0;
-    $arr_cont = array();
-    for ($i = 0; $i < strlen($tempaddtext); $i++) {
-        if (strlen(substr($tempaddtext, $cind, 1)) > 0) {
-            if (ord(substr($tempaddtext, $cind, 1)) < 0xA1) { //如果为英文则取1个字节
-                array_push($arr_cont, substr($tempaddtext, $cind, 1));
+    $arr_cont=array();
+    for($i=0;$i<strlen($tempaddtext);$i++)
+    {
+        if(strlen(substr($tempaddtext,$cind,1)) > 0){
+            if(ord(substr($tempaddtext,$cind,1)) < 0xA1 ){ //如果为英文则取1个字节
+                array_push($arr_cont,substr($tempaddtext,$cind,1));
                 $cind++;
-            } else {
-                array_push($arr_cont, substr($tempaddtext, $cind, 2));
-                $cind+= 2;
+            }else{
+                array_push($arr_cont,substr($tempaddtext,$cind,2));
+                $cind+=2;
             }
         }
     }
-    foreach ($arr_cont as & $row) {
-        $row = iconv("gb2312", "UTF-8", $row);
+    foreach ($arr_cont as &$row)
+    {
+        $row=iconv("gb2312","UTF-8",$row);
     }
     return $arr_cont;
+}
+
+if(!function_exists('get_first_thumbnail')){
+  function get_first_thumbnail($post_ID){
+     if (has_post_thumbnail()) {
+            $timthumb_src = wp_get_attachment_image_src( get_post_thumbnail_id($post_ID), 'full' );
+            $url = $timthumb_src[0];
+    } else {
+        if(!$post_content){
+            $post = get_post($post_ID);
+            $post_content = $post->post_content;
+        }
+        preg_match_all('|<img.*?src=[\'"](.*?)[\'"].*?>|i', do_shortcode($post_content), $matches);
+        if( $matches && isset($matches[1]) && isset($matches[1][0]) ){
+            $url =  $matches[1][0];
+        }else{
+            $url =  '';
+        }
+    }
+    return $url;
+  }
 }
 
 //百度收录提示
@@ -1697,10 +1717,10 @@ if (!is_admin() && git_get_option('git_cdnurl_b')) {
         ob_start('Googlo_qiniu_cdn_replace');
     }
     function Googlo_qiniu_cdn_replace($html) {
-        $local_host = '' . home_url() . ''; //博客域名
-        $qiniu_host = '' . git_get_option('git_cdnurl_b') . ''; //七牛域名
-        $cdn_exts = 'png|jpg|jpeg|gif|ico|html|7z|zip|rar|pdf|ppt|wmv|mp4|avi|mp3|txt'; //扩展名（使用|分隔）
-        $cdn_dirs = 'wp-content|wp-includes'; //目录（使用|分隔）
+        $local_host = home_url(); //博客域名
+        $qiniu_host = git_get_option('git_cdnurl_b'); //七牛域名
+        $cdn_exts = git_get_option('git_cdnurl_format'); //扩展名（使用|分隔）
+        $cdn_dirs = git_get_option('git_cdnurl_dir'); //目录（使用|分隔）
         $cdn_dirs = str_replace('-', '\-', $cdn_dirs);
         if ($cdn_dirs) {
             $regex = '/' . str_replace('/', '\/', $local_host) . '\/((' . $cdn_dirs . ')\/[^\s\?\\\'\"\;\>\<]{1,}.(' . $cdn_exts . '))([\"\\\'\s\?]{1})/';
@@ -1712,6 +1732,7 @@ if (!is_admin() && git_get_option('git_cdnurl_b')) {
         return $html;
     }
 }
+
 //自动替换媒体库图片的域名
 function attachment_replace($text) {
     $replace = array(
@@ -1722,6 +1743,27 @@ function attachment_replace($text) {
 }
 if (is_admin() && git_get_option('git_cdnurl_b') && git_get_option('git_adminqn_b')) {
     add_filter('wp_get_attachment_url', 'attachment_replace');
+}
+
+/*
+ * is_external_link 检测字符串是否包含外链
+ * @param string $imgsrcs 文字
+ * @param string $host 域名
+ * @return boolean    false 无外链 true 有外链
+ * 使用is_external_link()判断是否有外链图
+ */
+function is_external_link($imgsrcs = '',$host = '') {
+  global $post;
+  $imgsrcs = wp_get_attachment_link( get_post_thumbnail_id($post->ID) );
+  if (empty($host)) $host = $_SERVER['HTTP_HOST'];
+  $reg = '/<img(.*)src="([^"]+)"[^>]+>/isU';
+  preg_match_all($reg, $imgsrcs, $data);
+  $math = $data[1];
+  foreach ($math as $value) {
+    if($value != $host)
+	return true;
+  }
+	return false;
 }
 //评论分页的seo处理
 function canonical_for_git() {
@@ -1815,17 +1857,17 @@ add_filter( 'gettext', 'git_edit_password_email_text' );
 
 //SMTP邮箱设置
 function googlo_mail_smtp($phpmailer) {
-    $phpmailer->From = '' . git_get_option('git_maildizhi_b') . ''; //发件人地址
-    $phpmailer->FromName = '' . git_get_option('git_mailnichen_b') . ''; //发件人昵称
-    $phpmailer->Host = '' . git_get_option('git_mailsmtp_b') . ''; //SMTP服务器地址
-    $phpmailer->Port = '' . git_get_option('git_mailport_b') . ''; //SMTP邮件发送端口
+    $phpmailer->From = git_get_option('git_maildizhi_b'); //发件人地址
+    $phpmailer->FromName = git_get_option('git_mailnichen_b'); //发件人昵称
+    $phpmailer->Host = git_get_option('git_mailsmtp_b'); //SMTP服务器地址
+    $phpmailer->Port = git_get_option('git_mailport_b'); //SMTP邮件发送端口
     if (git_get_option('git_smtpssl_b')) {
     $phpmailer->SMTPSecure = 'ssl';
     }else{
     $phpmailer->SMTPSecure = '';
     }//SMTP加密方式(SSL/TLS)没有为空即可
-    $phpmailer->Username = '' . git_get_option('git_mailuser_b') . ''; //邮箱帐号
-    $phpmailer->Password = '' . git_get_option('git_mailpass_b') . ''; //邮箱密码
+    $phpmailer->Username = git_get_option('git_mailuser_b'); //邮箱帐号
+    $phpmailer->Password = git_get_option('git_mailpass_b'); //邮箱密码
     $phpmailer->IsSMTP();
     $phpmailer->SMTPAuth = true; //启用SMTPAuth服务
 
@@ -2377,8 +2419,9 @@ function git_login_failed_notify()
 	$from = "From: \"" . get_option('blogname') . "\" <$wp_email>";
 	$headers = "$from\nContent-Type: text/html; charset=" . get_option('blog_charset') . "\n";
 	wp_mail( $to, $subject, $message, $headers );
-}
+}if(git_get_option('git_login_tx')){
 add_action('wp_login_failed', 'git_login_failed_notify');
+}
 //取消静态资源的版本查询
 if(git_get_option('git_query')):
 function _remove_script_version( $src ){

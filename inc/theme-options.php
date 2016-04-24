@@ -7,7 +7,7 @@ $options = array(
         'type'  => 'panelstart' //panelatart 是顶部标签的意思
     ),
     array(
-        'name'  => '公告栏信息',
+        'name'  => '滚动公告栏',
         'desc'  => '最新消息显示在全站导航条下方，非常给力的推广位置',
         'id'    => "git_tui",
         'type'  => 'textarea',
@@ -472,7 +472,7 @@ $options = array(
     array(
         'type'  => 'panelend'
     ),
-    
+
     array(
         'title' => '样式设置',
         'id'    => 'panel_stylish',
@@ -493,24 +493,6 @@ $options = array(
         'desc'  => '开启【开启后您的菜单导航栏就会变成半透明】',
         'id'    => "git_tmnav_b",
         'type'  => 'checkbox'
-    ),
-    array(
-        'title' => '缩略图尺寸自定义，不选择这显示默认尺寸200*123[不建议选择]',
-        'type'  => 'subtitle'
-    ),
-    array(
-        'name'  => '宽度：',
-        'desc'  => 'px',
-        'id'    => "git_thumb_width",
-        'type'  => 'number',
-        'std'   => 200
-    ),
-    array(
-        'name'  => '高度：',
-        'desc'  => 'px',
-        'id'    => "git_thumb_height",
-        'type'  => 'number',
-        'std'   => 123
     ),
     array(
         'title' => '网站头部设置',
@@ -1174,7 +1156,7 @@ $options = array(
         'type'  => 'panelend'
     ),
     array(
-        'title' => '插件设置',
+        'title' => '优化设置',
         'id'    => 'panel_plugin',
         'type'  => 'panelstart'
     ),
@@ -1266,6 +1248,12 @@ $options = array(
         'type'  => 'text',
         'std'   => ''
     ),
+	array(
+        'name'  => '后台登录错误报警',
+        'desc'  => '启用 【启用之后，后台登录错误之后会自动邮件报警】',
+        'id'    => "git_login_tx",
+        'type'  => 'checkbox'
+    ),
     array(
         'name'  => '禁用HTML标签评论',
         'desc'  => '启用 【启用之后，评论框下方的一些按钮将不可用，谨慎考虑】',
@@ -1329,10 +1317,24 @@ $options = array(
     ),
     array(
         'name'  => '七牛自定义域名',
-        'desc'  => '输入您的七牛云自定义域名，必须带http://  如果留空则禁用七牛云CDN功能  <a class="button-primary" target="_blank" href="http://googlo.me/go/qiniu" title="注册七牛">注册七牛</a>',
+        'desc'  => '输入您的七牛云自定义域名，必须带 <font color="#cc0000"><strong>http://</strong></font>  如果留空则禁用七牛云CDN功能  <a class="button-primary" target="_blank" href="http://googlo.me/go/qiniu" title="立刻注册七牛，免费使用免备案高速CDN">注册七牛</a>',
         'id'    => "git_cdnurl_b",
         'type'  => 'text',
         'std'   => ''
+    ),
+	array(
+        'name'  => '七牛镜像文件格式',
+        'desc'  => '在输入框内添加准备镜像的文件格式，比如jpg，png，gif，mp3，mp4（使用|分隔）',
+        'id'    => "git_cdnurl_format",
+        'type'  => 'text',
+        'std'   => 'png|jpg|jpeg|gif|ico|html|7z|zip|rar|pdf|ppt|wmv|mp4|avi|mp3|txt'
+    ),
+	array(
+        'name'  => '七牛镜像文件夹',
+        'desc'  => '在输入框内添加准备镜像的文件夹，比如wp-content|wp-includes（使用|分隔）',
+        'id'    => "git_cdnurl_dir",
+        'type'  => 'text',
+        'std'   => 'wp-content|wp-includes'
     ),
     array(
         'name'  => '七牛云后台化',
@@ -1529,7 +1531,7 @@ function git_options_page() {
     <h2>Git 主题选项</h2>
     <input placeholder="筛选主题选项…" type="search" id="theme-options-search" />
     <div class="yunluotips">
-        
+
     <?php
                 if (function_exists('curl_init')) {
             $url = "https://coding.net/u/googlo/p/File/git/raw/master/notice.txt";
@@ -1541,7 +1543,7 @@ function git_options_page() {
             echo $dxycontent;
         } else {
             echo '汗！貌似您的服务器尚未开启curl扩展，无法收到来自云落的通知，请联系您的主机商开启，本地调试请无视';
-        }    
+        }
     ?>
     </div>
     <div class="catlist">您的网站分类列表：<?php echo Bing_show_category(); ?></div>
@@ -1656,7 +1658,7 @@ switch ( $value['type'] ) {
         <p><span class="description"><?php echo $value['desc']; ?></span></p>
     </td>
 </tr>
- 
+
 <?php
     break;
     case 'checkbox':
@@ -1689,7 +1691,7 @@ switch ( $value['type'] ) {
         <span class="description"><?php echo $value['desc']; ?></span>
     </td>
 </tr>
- 
+
 <?php
     break;
 }
@@ -1703,7 +1705,7 @@ switch ( $value['type'] ) {
         <p>&nbsp;&nbsp;定名为Git，首先是因为主题采用Git版本系统管理代码的，写的最多的代码就是Git了，另外G代表我的Googlo.Me，遂定名为Git。</p>
         <p>&nbsp;&nbsp;感谢大前端的D8主题，感谢欲思的欲思主题，感谢小影的主题，感谢知更鸟的主题，感谢露兜博客，感谢devework，感谢开源中国，感谢一直跟随主题版本升级的朋友们</p>
 <h2>支持云落</h2>
-<p>如果您觉的这款主题很赞，欢迎您扫码支持云落，<font color="#ff0000">赞助乐趣公园，可以获得无版权主题哦</font></p>
+<p>如果您觉的这款主题很赞，欢迎您扫码支持云落，<font color="#ff0000">PS.主题不会用，扫码之后联系云落QQ</font></p>
 <img src="https://img.alicdn.com/imgextra/i1/1597576229/TB2ov76lXXXXXb0XpXXXXXXXXXX_!!1597576229.jpg_310x310.jpg"></img>
 <h2>联系云落</h2>
 <a class="button button-primary" href="http://googlo.me/about.html" target="_blank">乐趣公园留言板</a>
