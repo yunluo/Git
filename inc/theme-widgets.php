@@ -1285,7 +1285,7 @@ class git_tongji extends WP_Widget {
         $users = $wpdb->get_var("SELECT COUNT(ID) FROM $wpdb->users");
         $last = $wpdb->get_results("SELECT MAX(post_modified) AS MAX_m FROM $wpdb->posts WHERE (post_type = 'post' OR post_type = 'page') AND (post_status = 'publish' OR post_status = 'private')");
         $last = date('Y-n-j', strtotime($last[0]->MAX_m));
-        $output = '<li>日志总数：';
+        $output = '<li>文章总数：';
         $output.= $published_posts;
         $output.= ' 篇</li>';
         $output.= '<li>评论数目：';
@@ -1301,9 +1301,6 @@ class git_tongji extends WP_Widget {
         $output.= $count_tags;
         $output.= ' 个</li>';
         if (is_user_logged_in()) {
-            $output.= '<li>草稿数目：';
-            $output.= $draft_posts;
-            $output.= ' 篇</li>';
             $output.= '<li>页面总数：';
             $output.= $page_posts;
             $output.= ' 个</li>';

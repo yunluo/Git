@@ -46,13 +46,13 @@ while (have_posts()):
         the_permalink(); ?>">
 		<?php
         if (git_get_option('git_cdnurl_b') ) {
-            echo '<img class="thumb" src="';
+            echo '<img class="thumb" style="width:200px;height:123px" src="';
             echo post_thumbnail_src();
-            echo '?imageView2/1/w/200/h/123/q/75" width="200px" height="123px" alt="' . get_the_title() . '" />';
+            echo '?imageView2/1/w/200/h/123/q/75" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img class="thumb" src="' . get_template_directory_uri() . '/timthumb.php?src=';
+            echo '<img class="thumb" style="width:200px;height:123px" src="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
-            echo '&h=123&w=200&q=90&zc=1&ct=1" width="200px" height="123px" alt="' . get_the_title() . '" />';
+            echo '&h=123&w=200&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
         } ?></a></div>
 <?php
     } ?>

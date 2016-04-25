@@ -28,13 +28,13 @@ if (have_posts()) : while (have_posts()) : the_post(); ?>
 					<div class="thumb-img focus">
 					<?php
         if (git_get_option('git_cdnurl_b') ) {
-            echo '<img class="thumb" src="';
+            echo '<img class="thumb" style="width:375px;height:375px" src="';
             echo post_thumbnail_src();
-            echo '?imageView2/1/w/375/h/375/q/75" width="375px" height="375px" alt="' . get_the_title() . '" />';
+            echo '?imageView2/1/w/375/h/375/q/75" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img class="thumb" src="' . get_template_directory_uri() . '/timthumb.php?src=';
+            echo '<img class="thumb" style="width:375px;height:375px" src="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
-            echo '&h=375&w=375&q=90&zc=1&ct=1" width="375px" height="375px" alt="' . get_the_title() . '" />';
+            echo '&h=375&w=375&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
         } ?>
 			</div>
 				</a>
