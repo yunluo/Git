@@ -45,7 +45,7 @@ while (have_posts()):
 <div class="focus"><a target="_blank" href="<?php
         the_permalink(); ?>">
 		<?php
-        if (git_get_option('git_cdnurl_b') && is_external_link() ) {
+        if (git_get_option('git_cdnurl_b') ) {
             echo '<img class="thumb" src="';
             echo post_thumbnail_src();
             echo '?imageView2/1/w/200/h/123/q/75" width="200px" height="123px" alt="' . get_the_title() . '" />';

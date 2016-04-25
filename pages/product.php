@@ -27,7 +27,7 @@ if (have_posts()) : while (have_posts()) : the_post(); ?>
         the_title(); ?>" class="fancyimg home-blog-entry-thumb">
 					<div class="thumb-img focus">
 					<?php
-        if (git_get_option('git_cdnurl_b') && is_external_link() ) {
+        if (git_get_option('git_cdnurl_b') ) {
             echo '<img class="thumb" src="';
             echo post_thumbnail_src();
             echo '?imageView2/1/w/375/h/375/q/75" width="375px" height="375px" alt="' . get_the_title() . '" />';

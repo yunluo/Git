@@ -1745,26 +1745,6 @@ if (is_admin() && git_get_option('git_cdnurl_b') && git_get_option('git_adminqn_
     add_filter('wp_get_attachment_url', 'attachment_replace');
 }
 
-/*
- * is_external_link 检测字符串是否包含外链
- * @param string $imgsrcs 文字
- * @param string $host 域名
- * @return boolean    false 无外链 true 有外链
- * 使用is_external_link()判断是否有外链图
- */
-function is_external_link($imgsrcs = '',$host = '') {
-  global $post;
-  $imgsrcs = wp_get_attachment_link( get_post_thumbnail_id($post->ID) );
-  if (empty($host)) $host = $_SERVER['HTTP_HOST'];
-  $reg = '/<img(.*)src="([^"]+)"[^>]+>/isU';
-  preg_match_all($reg, $imgsrcs, $data);
-  $math = $data[1];
-  foreach ($math as $value) {
-    if($value != $host && $value != git_get_option('git_cdnurl_b') )
-	return true;
-  }
-	return false;
-}
 //评论分页的seo处理
 function canonical_for_git() {
         global $post;

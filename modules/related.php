@@ -22,7 +22,7 @@ if ($posttags) {
 		<a href="<?php
         the_permalink(); ?>" title="<?php
         the_title(); ?>" target="_blank"><?php
-        if (git_get_option('git_cdnurl_b') && is_external_link() ) {
+        if (git_get_option('git_cdnurl_b') ) {
             echo '<img class="thumb" src="';
             echo post_thumbnail_src();
             echo '?imageView2/1/w/185/h/110/q/75" width="185px" height="110px" alt="' . get_the_title() . '" />';
@@ -57,7 +57,7 @@ if ($i < $post_num) {
 		<a href="<?php
         the_permalink(); ?>" title="<?php
         the_title(); ?>" target="_blank"><?php
-        if (git_get_option('git_cdnurl_b') && is_external_link() ) {
+        if (git_get_option('git_cdnurl_b') ) {
             echo '<img class="thumb" src="';
             echo post_thumbnail_src();
             echo '?imageView2/1/w/185/h/110/q/75" width="185px" height="110px" alt="' . get_the_title() . '" />';
