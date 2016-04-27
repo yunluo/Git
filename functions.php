@@ -1393,8 +1393,9 @@ function post_to_sina_weibo($post_ID) {
         add_post_meta($post_ID, 'git_weibo_sync', 1, true);
     }
 }
+if(git_get_option('git_sinasync_b')) {
 add_action('publish_post', 'post_to_sina_weibo', 0);
-
+}
 /*
 //获取微博字符长度函数
 */
@@ -1436,27 +1437,6 @@ function arr_split_zh($tempaddtext){
         $row=iconv("gb2312","UTF-8",$row);
     }
     return $arr_cont;
-}
-
-if(!function_exists('get_first_thumbnail')){
-  function get_first_thumbnail($post_ID){
-     if (has_post_thumbnail()) {
-            $timthumb_src = wp_get_attachment_image_src( get_post_thumbnail_id($post_ID), 'full' );
-            $url = $timthumb_src[0];
-    } else {
-        if(!$post_content){
-            $post = get_post($post_ID);
-            $post_content = $post->post_content;
-        }
-        preg_match_all('|<img.*?src=[\'"](.*?)[\'"].*?>|i', do_shortcode($post_content), $matches);
-        if( $matches && isset($matches[1]) && isset($matches[1][0]) ){
-            $url =  $matches[1][0];
-        }else{
-            $url =  '';
-        }
-    }
-    return $url;
-  }
 }
 
 //百度收录提示
