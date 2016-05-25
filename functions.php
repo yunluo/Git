@@ -2406,5 +2406,31 @@ if(!function_exists('Baidu_Submit') && git_get_option('git_sitemap_api') ){
     }
     add_action('publish_post', 'Baidu_Submit', 0);
 }
+//小工具支持PHP代码运行
+function widget_php($text)
+{
+    if (strpos($text, '<' . '?') !== false) {
+        ob_start();
+        eval('?' . '>' . $text);
+        $text = ob_get_contents();
+        ob_end_clean();
+    }
+    return $text;
+}
+add_filter('widget_text', 'widget_php', 99);
+/*
+* 支持文章和页面运行PHP代码
+* 代码来自：http://devework.com/run-php-code-in-wordpress-posts-and-pages.html
+*/
+function php_include($attr)
+{
+    $file = $attr['file'];
+    $upload_dir = wp_upload_dir();
+    $folder = $upload_dir['basedir'] . '/php-content' . "/{$file}.php";
+    ob_start();
+    include $folder;
+    return ob_get_clean();
+}
+add_shortcode('phpcode', 'php_include');
 //WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://googlo.me/archives/4032.html
 ?>

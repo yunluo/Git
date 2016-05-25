@@ -2,8 +2,6 @@ QTags.addButton( 'zyy', '引用',  "<blockquote>", "</blockquote>\n" );//添加�
 QTags.addButton( 'hr', '横线', "<hr />\n" );//添加横线
 QTags.addButton( 'h2', 'H2标签', "<h2>", "</h2>\n" ); //添加标题2
 QTags.addButton( 'h3', 'H3标签', "<h3>", "</h3>\n" ); //添加标题3
-QTags.addButton( 'sb', '上标', "<sup>","</sup>" );
-QTags.addButton( 'xb', '下标', "<sub>","</sub>" );
 QTags.addButton( 'shsj', '首行缩进', "&nbsp;&nbsp;" );
 QTags.addButton( 'hc', '回车', "<br />" );
 QTags.addButton( 'jz', '居中', "<center>","</center>" );
@@ -36,4 +34,5 @@ QTags.addButton( 'dltable', '下载面板', '[dltable file="在此处写下文�
 QTags.addButton( 'download', '单页下载', "[download]", "[/download]" );
 QTags.addButton( 'nextpage', '下一页', '<!--nextpage-->', "" );
 QTags.addButton( 'demo', '代码演示', "[demo]", "[/demo]" );
+QTags.addButton( 'phpcode', '运行PHP', '[phpcode file="PHP文件名"]', "" );
 //这儿共有四对引号，分别是按钮的ID、显示名、点一下输入内容、再点一下关闭内容（此为空则一次输入全部内容），\n表示换行。
