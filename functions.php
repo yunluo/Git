@@ -908,14 +908,14 @@ add_filter('the_content', 'git_copyright');
     }
     add_filter('the_content', 'fancybox');
 //WordPress文字标签关键词自动内链
-$match_num_from = git_get_option('git_autolink_1'); //一篇文章中同一個標籤少於幾次不自動鏈接
-$match_num_to = git_get_option('git_autolink_2'); //一篇文章中同一個標籤最多自動鏈接幾次
+$match_num_min = git_get_option('git_autolink_1'); //一篇文章中同一個標籤少於幾次不自動鏈接
+$match_num_max = git_get_option('git_autolink_2'); //一篇文章中同一個標籤最多自動鏈接幾次
 function tag_sort($a, $b) {
     if ($a->name == $b->name) return 0;
     return (strlen($a->name) > strlen($b->name)) ? -1 : 1;
 }
 function tag_link($content) {
-    global $match_num_from, $match_num_to;
+    global $match_num_min, $match_num_max;
     $posttags = get_the_tags();
     if ($posttags) {
         usort($posttags, "tag_sort");
@@ -926,7 +926,7 @@ function tag_link($content) {
             $url = "<a href=\"$link\" title=\"" . str_replace('%s', addcslashes($cleankeyword, '$') , __('查看更多关于%s的文章')) . "\"";
             $url.= ' target="_blank"';
             $url.= ">" . addcslashes($cleankeyword, '$') . "</a>";
-            $limit = rand($match_num_from, $match_num_to);
+            $limit = $match_num_max;
             $content = preg_replace('|(<a[^>]+>)(<pre)(.*)(' . $ex_word . ')(.*)(</a[^>]*>)|U' . $case, '$1$2%&&&&&%$4$5', $content);
             $content = preg_replace('|(<img)(.*?)(' . $ex_word . ')(.*?)(>)|U' . $case, '$1$2%&&&&&%$4$5', $content);
             $cleankeyword = preg_quote($cleankeyword, '\'');
@@ -2406,6 +2406,31 @@ if(!function_exists('Baidu_Submit') && git_get_option('git_sitemap_api') ){
     }
     add_action('publish_post', 'Baidu_Submit', 0);
 }
+
+// 部分内容输入密码可见
+function e_secret($atts, $content=null){
+    extract(shortcode_atts(array('key'=>null), $atts));
+    if(isset($_POST['e_secret_key']) && $_POST['e_secret_key']==$key){
+        return '
+<div class="e-secret">'.$content.'</div>
+';
+    }
+    else{
+        return '
+<form class="e-secret" action="'.get_permalink().'" method="post" name="e-secret"><label>输入密码查看加密内容：</label><input type="password" name="e_secret_key" class="euc-y-i" maxlength="50"><input type="submit" class="euc-y-s" value="确定">
+<div class="euc-clear"></div>
+</form>
+';
+    }
+}
+add_shortcode('secret','e_secret');
+//加载密码可见的样式
+function secret_css() {
+	global $post,$posts;
+		foreach ($posts as $post) {
+			if ( has_shortcode( $post->post_content, 'secret') ){
+    echo '<style type="text/css">.e-secret{margin:20px 0;padding:20px;height:60px;background:#f8f8f8}.e-secret input.euc-y-i[type=password]{float:left;background:#fff;width:100%;line-height:36px;margin-top:5px;border-radius:3px}.e-secret input.euc-y-s[type=submit]{float:right;margin-top:-47px;width:30%;margin-right:1px;border-radius:0 3px 3px 0}input.euc-y-s[type=submit]{background-color:#3498db;color:#fff;font-size:21px;box-shadow:none;-webkit-transition:.4s;-moz-transition:.4s;-o-transition:.4s;transition:.4s;-webkit-backface-visibility:hidden;position:relative;cursor:pointer;padding:13px 20px;text-align:center;border-radius:50px;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;border:0;height:auto;outline:medium;line-height:20px;margin:0}input.euc-y-s[type=submit]:hover{background-color:#5dade2}input.euc-y-i[type=password],input.euc-y-i[type=text]{border:1px solid #F2EFEF;color:#777;display:block;background:#FCFCFC;font-size:18px;transition:all .5s ease 0;outline:0;box-sizing:border-box;-webkit-border-radius:25px;-moz-border-radius:25px;border-radius:25px;padding:5px 16px;margin:0;height:auto;line-height:30px}input.euc-y-i[type=password]:hover,input.euc-y-i[type=text]:hover{border:1px solid #56b4ef;box-shadow:0 0 4px #56b4ef}</style>';}}}
+add_action('wp_head', 'secret_css');
 //小工具支持PHP代码运行
 function widget_php($text)
 {
@@ -2418,10 +2443,7 @@ function widget_php($text)
     return $text;
 }
 add_filter('widget_text', 'widget_php', 99);
-/*
-* 支持文章和页面运行PHP代码
-* 代码来自：http://devework.com/run-php-code-in-wordpress-posts-and-pages.html
-*/
+// 支持文章和页面运行PHP代码
 function php_include($attr)
 {
     $file = $attr['file'];
