@@ -85,7 +85,7 @@ $options = array(
     ),
     array(
         'name'  => '百度分享',
-        'desc'  => '开启',
+        'desc'  => '开启并且同时开启打赏功能',
         'id'    => 'git_bdshare_b',
         'type'  => 'checkbox'
     ),
@@ -1010,9 +1010,7 @@ $options = array(
         'desc'  => '在这里输入第二个footer的内容',
         'id'    => "git_footconent2",
         'type'  => 'textarea',
-        'std'   => '<ul><li><a href="http://googlo.me/go/hengtian" title="横天主机" target="_blank">横天主机</a></li>
-<li><a href="http://googlo.me/go/qiniu" title="七牛云" target="_blank">七牛云</a></li>
-<li><a href="http://www.dbfen.com/index.php/users/newuser_by/0A8CD12B" title="多备份" target="_blank">多备份</a></li></ul>'
+        'std'   => '<ul><li><a href="http://googlo.me/go/hengtian" title="衡天" target="_blank">横天主机</a></li><li><a href="http://googlo.me/go/qiniu" title="七牛云" target="_blank">七牛云</a></li></ul>'
     ),
     array(
         'name'  => 'Footer3标题',
@@ -1051,7 +1049,7 @@ $options = array(
         'desc'  => '在全站页面footer部分出现，可放置网站的版权信息等等',
         'id'    => 'git_footcode',
         'type'  => 'textarea',
-        'std'   => 'Copyright © 2014-2015 <a href="/" title="乐趣公园">乐趣公园</a> | <a rel="nofollow" target="_blank" href="/about.html">关于网站</a> | <a rel="nofollow" target="_blank" href="/tags.html">标签汇总</a> | <a rel="nofollow" target="_blank" href="/archive.html">文章归档</a> | <a rel="nofollow" target="_blank" href="/links.html">友情链接</a> | <a href="/sitemap.html" target="_blank" title="站点地图（HTML版）">网站地图</a> | 由 <a rel="nofollow" target="_blank" href="http://googlo.me/go/hengtian">衡天主机</a> &amp; <a rel="nofollow" target="_blank" href="http://googlo.me/go/qiniu">七牛</a> &amp; <a rel="nofollow" target="_blank" href="http://googlo.me/go/cola">可乐云</a> <a href="/wp-admin">强力驱动</a>'
+        'std'   => 'Copyright © 2014-2015 <a href="/" title="乐趣公园">乐趣公园</a> | <a rel="nofollow" target="_blank" href="/about.html">关于网站</a> | <a rel="nofollow" target="_blank" href="/tags.html">标签汇总</a> | <a rel="nofollow" target="_blank" href="/archive.html">文章归档</a> | <a rel="nofollow" target="_blank" href="/links.html">友情链接</a> | <a href="/sitemap.html" target="_blank" title="站点地图（HTML版）">网站地图</a> | 由 <a rel="nofollow" target="_blank" href="http://googlo.me/go/hengtian">衡天主机</a> &amp; <a rel="nofollow" target="_blank" href="http://googlo.me/go/qiniu">七牛</a> &amp; <a href="/wp-admin">强力驱动</a>'
     ),
     array(
         'name'  => '全站底部脚本代码',
@@ -1317,7 +1315,7 @@ $options = array(
     ),
     array(
         'name'  => '七牛自定义域名',
-        'desc'  => '输入您的七牛云自定义域名，必须带 <font color="#cc0000"><strong>http://</strong></font>  如果留空则禁用七牛云CDN功能  <a class="button-primary" target="_blank" href="http://googlo.me/go/qiniu" title="立刻注册七牛，免费使用免备案高速CDN">注册七牛</a>',
+        'desc'  => '输入您的七牛云自定义域名，必须带 <font color="#cc0000"><strong>http://</strong></font>  如果留空则禁用七牛云CDN功能  <a class="button-primary" target="_blank" href="http://googlo.me/go/qiniu" title="立刻注册七牛，免费使用免备案高速CDN">注册七牛</a>，并获取链接<a rel="nofollow" href="https://img.alicdn.com/imgextra/i3/1597576229/TB2uLdxpFXXXXbCXpXXXXXXXXXX_!!1597576229.jpg" target="_blank">如图</a>',
         'id'    => "git_cdnurl_b",
         'type'  => 'text',
         'std'   => ''
@@ -1474,12 +1472,10 @@ $options = array(
         'desc'  => '这里的文字在下载单页中粗线，采用<code>&lt;ol&gt;&lt;li&gt;文字&lt;/li&gt;&lt;/ol&gt;</code>的形式',
         'id'    => "git_dlpage_dl",
         'type'  => 'textarea',
-        'std'   => '<ol>
-                <li>下载文件若出现其中一个渠道链接失效，可切换其他渠道下载，若下载地址全部失效，请回复文章，博猪会第一时间更新！</li>
-                <li>下载文件若为压缩包，亲留意文章中的解压密码，并尽量使用最新版压缩软件解压</li>
-                <li>下载压缩包文件损坏，请切换其他渠道下载损坏部分</li>
-                <li>以上如有疑问，请在文章中留言给博猪</li>
-            </ol>'
+        'std'   => '<p>下载文件若出现其中一个渠道链接失效，可切换其他渠道下载，若下载地址全部失效，请回复文章，博猪会第一时间更新！</p>
+                <p>下载文件若为压缩包，亲留意文章中的解压密码，并尽量使用最新版压缩软件解压</p>
+                <p>下载压缩包文件损坏，请切换其他渠道下载损坏部分</p>
+                <p>以上如有疑问，请在文章中留言给博猪</p>'
     ),
     array(
         'name'  => '下载单页免责声明',
@@ -1505,18 +1501,18 @@ function git_add_theme_options_page() {
                 }
             }
             update_option('git_options_setup', true);
-            header('Location: themes.php?page=theme-options.php&update=true');
+            header('Location: admin.php?page=theme-options.php&update=true');
             die;
         } else if( 'reset' == $_REQUEST['action'] ) {
             foreach ($options as $value) {
                 delete_option($value['id']);
             }
             delete_option('git_options_setup');
-            header('Location: themes.php?page=theme-options.php&reset=true');
+            header('Location: admin.php?page=theme-options.php&reset=true');
             die;
         }
     }
-    add_theme_page('主题选项', '主题选项', 'edit_theme_options', basename(__FILE__) , 'git_options_page');
+    add_menu_page('Git主题选项', 'Git主题选项', 'manage_options', basename(__FILE__) , 'git_options_page');
 }
 add_action('admin_menu', 'git_add_theme_options_page');
 
@@ -1529,7 +1525,7 @@ function git_options_page() {
 
 <div class="wrap">
     <h2>Git 主题选项</h2>
-    <input placeholder="筛选主题选项…" type="search" id="theme-options-search" />
+    <input placeholder="搜索主题选项…" type="search" id="theme-options-search" />
     <div class="yunluotips">
 
     <?php
@@ -1762,7 +1758,7 @@ jQuery(function ($) {
 global $pagenow;
     if ( is_admin() && isset( $_GET['activated'] ) && $pagenow == 'themes.php' )
     {
-        wp_redirect( admin_url( 'themes.php?page=theme-options.php' ) );
+        wp_redirect( admin_url( 'admin.php?page=theme-options.php' ) );
     exit;
 }
 function git_enqueue_pointer_script_style( $hook_suffix ) {
@@ -1784,7 +1780,7 @@ function git_pointer_print_scripts() {
     jQuery(document).ready(function($) {
         var $menuAppearance = $("#menu-appearance");
         $menuAppearance.pointer({
-            content: '<h3>恭喜，Git 主题安装成功！</h3><p>该主题支持选项，请访问<a href="themes.php?page=theme-options.php">主题选项</a>页面进行配置。</p>',
+            content: '<h3>恭喜，Git 主题安装成功！</h3><p>该主题支持选项，请访问<a href="admin.php?page=theme-options.php">主题选项</a>页面进行配置。</p>',
             position: {
                 edge: "left",
                 align: "center"
