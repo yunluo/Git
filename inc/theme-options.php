@@ -150,13 +150,6 @@ $options = array(
         'type'  => 'textarea'
     ),
     array(
-        'name'  => '主题更新设置',
-        'desc'  => '禁止主题更新【 选择后，您将无法收到本主题的更新推送，所以云落墙裂不推荐选择勾选】',
-        'id'    => 'git_updates_b',
-        'onclick'   => "return confirm('你确定要取消更新吗？');",
-        'type'  => 'checkbox'
-    ),
-    array(
         'type'  => 'panelend'//标签段的结束
     ),
     array(
@@ -1526,22 +1519,6 @@ function git_options_page() {
 <div class="wrap">
     <h2>Git 主题选项</h2>
     <input placeholder="搜索主题选项…" type="search" id="theme-options-search" />
-    <div class="yunluotips">
-
-    <?php
-                if (function_exists('curl_init')) {
-            $url = "https://coding.net/u/googlo/p/File/git/raw/master/notice.txt";
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-            $dxycontent = curl_exec($ch);
-            echo $dxycontent;
-        } else {
-            echo '汗！貌似您的服务器尚未开启curl扩展，无法收到来自云落的通知，请联系您的主机商开启，本地调试请无视';
-        }
-    ?>
-    </div>
     <div class="catlist">您的网站分类列表：<?php echo Bing_show_category(); ?></div>
     <form method="post">
         <h2 class="nav-tab-wrapper">
