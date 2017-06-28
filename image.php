@@ -1,6 +1,6 @@
 <?php
 /**
- * The template for displaying image attachments.
+ * The template for Git-theme.
  *
  * Learn more: http://codex.wordpress.org/Template_Hierarchy
  *
