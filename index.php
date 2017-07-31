@@ -18,7 +18,7 @@ if (git_get_option('git_cms_b')) {
 } else {
     $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
     $args = array(
-        'caller_get_posts' => 1,
+        'ignore_sticky_posts' => 1,
         'paged' => $paged
     );
     query_posts($args);

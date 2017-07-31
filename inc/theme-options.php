@@ -11,7 +11,7 @@ $options = array(
         'desc'  => '最新消息显示在全站导航条下方，非常给力的推广位置',
         'id'    => "git_tui",
         'type'  => 'textarea',
-        'std'   => '<li>欢迎访问乐趣公园网站，WordPress信息，WordPress教程，推荐使用最新版火狐浏览器和Chrome浏览器访问本网站，欢迎加入乐趣公园<code><a target="_blank" href="http://googlo.me/go/qun"><i class="fa fa-qq"></i> QQ群</a></code></li><li>Git主题现已支持滚动公告栏功能，兼容其他浏览器，看到的就是咯，在后台最新消息那里用li标签添加即可。</li><li>最新版Git主题已支持说说碎语功能，可像添加文章一样直接添加说说，新建说说页面即可，最后重新保存固定连接，<a target="_blank" href="http://googlo.me/shuo.html">演示地址</a></li><li>百度口碑求点赞啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊<a target="_blank" href="http://koubei.baidu.com/s/googlo.me">http://koubei.baidu.com/s/googlo.me</a></li><li>如果您觉得本站非常有看点，那么赶紧使用Ctrl+D 收藏乐趣公园吧</li><li>云落的淘宝店铺已经开张了哦，传送门：<a target="_blank" href="http://shop116317755.taobao.com">http://shop116317755.taobao.com</a></li>'
+        'std'   => '<li>欢迎访问乐趣公园网站，WordPress信息，WordPress教程，推荐使用最新版火狐浏览器和Chrome浏览器访问本网站，欢迎加入乐趣公园<code><a target="_blank" href="http://googlo.me/go/qun"><i class="fa fa-qq"></i> QQ群</a></code></li><li>Git主题现已支持滚动公告栏功能，兼容其他浏览器，看到的就是咯，在后台最新消息那里用li标签添加即可。</li><li>最新版Git主题已支持说说碎语功能，可像添加文章一样直接添加说说，新建说说页面即可，最后重新保存固定连接，<a target="_blank" href="http://googlo.me/shuo.html">演示地址</a></li><li>百度口碑求点赞啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊<a target="_blank" href="http://koubei.baidu.com/s/googlo.me">http://koubei.baidu.com/s/googlo.me</a></li><li>如果您觉得本站非常有看点，那么赶紧使用Ctrl+D 收藏乐趣公园吧</li><li>云落的宠物用品淘宝店铺，传送门：<a target="_blank" href="http://kimipet.taobao.com">http://kimipet.taobao.com</a></li>'
     ),
     array(
         'name'  => '友情链接页面',
@@ -1192,12 +1192,6 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
-        'name'  => '保存远程图片',
-        'desc'  => '启用   【启用后，会自动将文章里面的外链图片保存为本地图片，在媒体库里面不显示图片内容，只显示缩略图】',
-        'id'    => "git_yuanpic_b",
-        'type'  => 'checkbox'
-    ),
-    array(
         'name'  => '页面伪静态',
         'desc'  => '启用   【开启后，请前往固定连接重新保存一下，否则404】',
         'id'    => "git_pagehtml_b",
@@ -1391,9 +1385,7 @@ $options = array(
         'id'    => "git_avater",
         'type'  => 'radio',
         'options' => array(
-            'SSL访问' => 'git_avatar_ssl',
-            '多说镜像' => 'git_avatar_ds',
-            '七牛镜像' => 'git_avatar_qn',
+            '国内镜像[推荐]' => 'git_avatar_qn',
             '本地缓存' => 'git_avatar_b'
         ),
         'std'   => 'git_avatar_qn'

@@ -24,14 +24,6 @@ if ( !class_exists('myCustomFields') ) {
                 "capability"    => "manage_options"
             ),
             array(
-                "name"          => "remote_pic",
-                "title"         => "启用远程图片本地化",
-                "description"   => "选择之后文章中的远程图片可以实现本地化，不选择默认不保存",
-                "type"          => "checkbox",
-                "scope"         =>   array( "post", "page" ),
-                "capability"    => "manage_options"
-            ),
-            array(
                 "name"          => "weibo_sync",
                 "title"         => "禁用新浪微博同步",
                 "description"   => "选择之后文章可以不同步到新浪微博，不选择默认同步【需配置好新浪微博同步】",

@@ -56,6 +56,7 @@ echo esc_url( get_template_directory_uri() ); ?>/js/html5.js"></script><![endif]
 <?php
 echo get_post_meta($post->ID, 'git_customer', true); ?>
 </head>
+<?php flush(); ?>
 <?php
 if (git_get_option('git_customcss')) echo '<style type="text/css">'.git_get_option('git_customcss').'</style>'; ?>
 <body <?php
@@ -227,7 +228,7 @@ if (git_get_option('git_search_baidu')) { ?>
 		<?php
 if (git_get_option('git_sign_b')) {
     global $current_user;
-    get_currentuserinfo();
+    wp_get_current_user();
     $uid = $current_user->ID;
     $u_name = get_user_meta($uid, 'nickname', true);
 ?>

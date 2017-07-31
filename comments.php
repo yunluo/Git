@@ -33,7 +33,7 @@ $closeTimer = (strtotime(date('Y-m-d G:i:s'))-strtotime(get_the_time('Y-m-d G:i:
 			<div class="comt-avatar pull-left">
 				<?php
 					global $current_user;
-					get_currentuserinfo();
+					wp_get_current_user();
 					if ( is_user_logged_in() )
 						echo get_avatar( $current_user->user_email, $size = '54' , deel_avatar_default() );
 					elseif( !is_user_logged_in() && get_option('require_name_email') && $comment_author_email=='' )

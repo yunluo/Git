@@ -81,7 +81,10 @@ add_filter('admin_footer_text', 'git_admin_footer_text');
         remove_action('pre_post_update', 'wp_save_post_revision');
     }
     //去除自带js
-    wp_deregister_script('l10n');
+    function my_enqueue_scripts() {
+        wp_deregister_script('jquery');
+    }
+    add_action( 'wp_enqueue_scripts', 'my_enqueue_scripts', 1 );
     //修改默认发信地址
     add_filter('wp_mail_from', 'deel_res_from_email');
     add_filter('wp_mail_from_name', 'deel_res_from_name');
@@ -173,113 +176,6 @@ if (git_get_option('git_pagehtml_b') ):
     }
 endif;
 
-//远程图片保存
-$git_remote_pic = get_post_meta($post->ID, 'git_remote_pic', true);
-if (git_get_option('git_yuanpic_b')&&!empty($_POST['git_remote_pic'])):
-    function googlo_auto_save_image($content) {
-        $upload_path = '';
-        $upload_url_path = get_option('upload_path');
-        //上传目录
-        if (($var = get_option('upload_path')) != '') {
-            $upload_path = $var;
-        } else {
-            $upload_path = 'wp-content/uploads';
-        }
-        if (get_option('uploads_use_yearmonth_folders')) {
-            $upload_path.= '/' . date("Y", time()) . '/' . date("m", time());
-        }
-        //文件地址
-        if (($var = get_option('upload_url_path')) != '') {
-            $upload_url_path = $var;
-        } else {
-            $upload_url_path = home_url() . '/wp-content/uploads';
-        }
-        if (get_option('uploads_use_yearmonth_folders')) {
-            $upload_url_path.= '/' . date("Y", time()) . '/' . date("m", time());
-        }
-        require_once ("../wp-includes/class-snoopy.php");
-        $snoopy_Auto_Save_Image = new Snoopy;
-        $img = array();
-        //以文章的标题作为图片的标题
-        if (!empty($_REQUEST['post_title'])) $post_title = esc_html(stripslashes($_REQUEST['post_title']));
-        $text = stripslashes($content);
-        if (get_magic_quotes_gpc()) $text = stripslashes($text);
-        preg_match_all("/ src=(\"|\'){0,}(http:\/\/(.+?))(\"|\'|\s)/is", $text, $img);
-        $img = array_unique(dhtmlspecialchars($img[2]));
-        foreach ($img as $key => $value) {
-            set_time_limit(180); //每个图片最长允许下载时间,秒
-            if (str_replace(home_url() , "", $value) == $value && str_replace(home_url() , "", $value) == $value) {
-                $fileext = substr(strrchr($value, '.') , 1);
-                $fileext = strtolower($fileext);
-                if ($fileext == "" || strlen($fileext) > 4) $fileext = "jpg";
-                $savefiletype = array(
-                    'jpg',
-                    'gif',
-                    'png',
-                    'bmp'
-                );
-                if (in_array($fileext, $savefiletype)) {
-                    if ($snoopy_Auto_Save_Image->fetch($value)) {
-                        $get_file = $snoopy_Auto_Save_Image->results;
-                    } else {
-                        echo "error fetching file: " . $snoopy_Auto_Save_Image->error . "<br>";
-                        echo "error url: " . $value;
-                        die();
-                    }
-                    $filetime = time();
-                    $filepath = "/" . $upload_path;
-                    !is_dir(".." . $filepath) ? mkdirs(".." . $filepath) : null;
-                    $filename = substr($value, strrpos($value, '/') , strrpos($value, '.') - strrpos($value, '/'));
-                    $fp = @fopen(".." . $filepath . $filename . "." . $fileext, "w");
-                    @fwrite($fp, $get_file);
-                    fclose($fp);
-                    $wp_filetype = wp_check_filetype($filename . "." . $fileext, false);
-                    $type = $wp_filetype['type'];
-                    $post_id = (int)$_POST['temp_ID2'];
-                    $title = $post_title;
-                    $url = $upload_url_path . $filename . "." . $fileext;
-                    $file = $_SERVER['DOCUMENT_ROOT'] . $filepath . $filename . "." . $fileext;
-                    $attachment = array(
-                        'post_type' => 'attachment',
-                        'post_mime_type' => $type,
-                        'guid' => $url,
-                        'post_parent' => $post_id,
-                        'post_title' => $title,
-                        'post_content' => '',
-                    );
-                    $id = wp_insert_attachment($attachment, $file, $post_parent);
-                    $text = str_replace($value, $url, $text);
-
-                }
-            }
-        }
-        $content = AddSlashes($text);
-        remove_filter('content_save_pre', 'googlo_auto_save_image');
-        return $content;
-    }
-    function mkdirs($dir) {
-        if (!is_dir($dir)) {
-            mkdirs(dirname($dir));
-            mkdir($dir);
-        }
-        return;
-    }
-    function dhtmlspecialchars($string) {
-        if (is_array($string)) {
-            foreach ($string as $key => $val) {
-                $string[$key] = dhtmlspecialchars($val);
-            }
-        } else {
-            $string = str_replace('&', '&', $string);
-            $string = str_replace('"', '"', $string);
-            $string = str_replace('<', '<', $string);
-            $string = str_replace('>', '>', $string);
-            $string = preg_replace('/&(#\d;)/', '&\1', $string);
-        }
-        return $string;
-    }
-    add_filter('content_save_pre', 'googlo_auto_save_image');
-endif;
 //面包屑导航
 function deel_breadcrumbs() {
     if (!is_single() || get_post_type() == 'gallery'|| get_post_type() == 'product') return false;
@@ -401,16 +297,12 @@ if (git_get_option('git_avater')=='git_avatar_b') {
 }
 //头像镜像
 function git_avatar_cache($avatar) {
-    if(git_get_option('git_avater')=='git_avatar_ds'){
-    $avatar = str_replace(array("www.gravatar.com", "0.gravatar.com", "1.gravatar.com", "2.gravatar.com" ) , "gravatar.duoshuo.com", $avatar);
-    }elseif(git_get_option('git_avater')=='git_avatar_qn'){
-    $avatar = str_replace(array("www.gravatar.com", "0.gravatar.com", "1.gravatar.com", "2.gravatar.com" ) , "cd.v7v3.com", $avatar);
-    }elseif(git_get_option('git_avater')=='git_avatar_ssl'){
-    $avatar = preg_replace('/.*\/avatar\/(.*)\?s=([\d]+)&.*/','<img src="https://secure.gravatar.com/avatar/$1?s=$2" class="avatar avatar-$2" height="50px" width="50px">',$avatar);
-    }
+    $avatar = str_replace(array("www.gravatar.com", "0.gravatar.com", "1.gravatar.com", "2.gravatar.com" ) , "gravatar.ihuan.me", $avatar);
     return $avatar;
 }
+if(git_get_option('git_avater')=='git_avatar_qn'){
 add_filter('get_avatar', 'git_avatar_cache', 10, 3);
+}
 //给外部链接加上跳转
 if(git_get_option('git_go')):
 function git_go_url($content){
@@ -1538,12 +1430,12 @@ class Simple_Local_Avatars {
         return apply_filters('simple_local_avatar', $avatar);
     }
     public function admin_init() {
-        //load_plugin_textdomain( 'simple-local-avatars', false, dirname( plugin_basename( __FILE__ ) ) . '/localization/' );
+        //load_plugin_textdomain( 'git', false, dirname( plugin_basename( __FILE__ ) ) . '/localization/' );
         register_setting('discussion', 'simple_local_avatars_caps', array(
             $this,
             'sanitize_options'
         ));
-        add_settings_field('simple-local-avatars-caps', __('本地上传头像权限管理', 'simple-local-avatars') , array(
+        add_settings_field('git-caps', __('本地上传头像权限管理', 'git') , array(
             $this,
             'avatar_settings_field'
         ) , 'discussion', 'avatars');
@@ -1557,19 +1449,19 @@ class Simple_Local_Avatars {
         echo '
             <label for="simple_local_avatars_caps">
                 <input type="checkbox" name="simple_local_avatars_caps" id="simple_local_avatars_caps" value="1" ' . @checked($options['simple_local_avatars_caps'], 1, false) . ' />
-                ' . __('仅具有头像上传权限的用户具有设置本地头像权限（作者及更高等级角色）。', 'simple-local-avatars') . '
+                ' . __('仅具有头像上传权限的用户具有设置本地头像权限（作者及更高等级角色）。', 'git') . '
             </label>
         ';
     }
     public function edit_user_profile($profileuser) {
 ?>
     <h3><?php
-        _e('头像', 'simple-local-avatars'); ?></h3>
+        _e('头像', 'git'); ?></h3>
 
     <table class="form-table">
         <tr>
             <th><label for="simple-local-avatar"><?php
-        _e('上传头像', 'simple-local-avatars'); ?></label></th>
+        _e('上传头像', 'git'); ?></label></th>
             <td style="width: 50px;" valign="top">
                 <?php
         echo get_avatar($profileuser->ID); ?>
@@ -1583,14 +1475,14 @@ class Simple_Local_Avatars {
 ?>
                     <input type="file" name="simple-local-avatar" id="simple-local-avatar" /><br />
             <?php
-            if (empty($profileuser->simple_local_avatar)) echo '<span class="description">' . __('尚未设置本地头像，请点击“浏览”按钮上传本地头像。', 'simple-local-avatars') . '</span>';
+            if (empty($profileuser->simple_local_avatar)) echo '<span class="description">' . __('尚未设置本地头像，请点击“浏览”按钮上传本地头像。', 'git') . '</span>';
             else echo '
-                            <input type="checkbox" name="simple-local-avatar-erase" value="1" /> ' . __('移除本地头像', 'simple-local-avatars') . '<br />
-                            <span class="description">' . __('如需要修改本地头像，请重新上传新头像。如需要移除本地头像，请选中上方的“移除本地头像”复选框并更新个人资料即可。<br/>移除本地头像后，将恢复使用 Gravatar 头像。', 'simple-local-avatars') . '</span>
+                            <input type="checkbox" name="simple-local-avatar-erase" value="1" /> ' . __('移除本地头像', 'git') . '<br />
+                            <span class="description">' . __('如需要修改本地头像，请重新上传新头像。如需要移除本地头像，请选中上方的“移除本地头像”复选框并更新个人资料即可。<br/>移除本地头像后，将恢复使用 Gravatar 头像。', 'git') . '</span>
                         ';
         } else {
-            if (empty($profileuser->simple_local_avatar)) echo '<span class="description">' . __('尚未设置本地头像，请在 Gravatar.com 网站设置头像。', 'simple-local-avatars') . '</span>';
-            else echo '<span class="description">' . __('你没有头像上传权限，如需要修改本地头像，请联系站点管理员。', 'simple-local-avatars') . '</span>';
+            if (empty($profileuser->simple_local_avatar)) echo '<span class="description">' . __('尚未设置本地头像，请在 Gravatar.com 网站设置头像。', 'git') . '</span>';
+            else echo '<span class="description">' . __('你没有头像上传权限，如需要修改本地头像，请联系站点管理员。', 'git') . '</span>';
         }
 ?>
             </td>
@@ -1627,11 +1519,11 @@ class Simple_Local_Avatars {
             if (empty($avatar['file'])) { // handle failures
                 switch ($avatar['error']) {
                     case 'File type does not meet security guidelines. Try another.':
-                        add_action('user_profile_update_errors', create_function('$a', '$a->add("avatar_error",__("请上传有效的图片文件。","simple-local-avatars"));'));
+                        add_action('user_profile_update_errors', create_function('$a', '$a->add("avatar_error",__("请上传有效的图片文件。","git"));'));
                         break;
 
                     default:
-                        add_action('user_profile_update_errors', create_function('$a', '$a->add("avatar_error","<strong>".__("上传头像过程中出现以下错误：","simple-local-avatars")."</strong> ' . esc_attr($avatar['error']) . '");'));
+                        add_action('user_profile_update_errors', create_function('$a', '$a->add("avatar_error","<strong>".__("上传头像过程中出现以下错误：","git")."</strong> ' . esc_attr($avatar['error']) . '");'));
                 }
                 return;
             }
@@ -2425,7 +2317,7 @@ function secret_css() {
 			if ( has_shortcode( $post->post_content, 'secret') ){
     echo '<style type="text/css">.e-secret{margin:20px 0;padding:20px;height:60px;background:#f8f8f8}.e-secret input.euc-y-i[type=password]{float:left;background:#fff;width:100%;line-height:36px;margin-top:5px;border-radius:3px}.e-secret input.euc-y-s[type=submit]{float:right;margin-top:-47px;width:30%;margin-right:1px;border-radius:0 3px 3px 0}input.euc-y-s[type=submit]{background-color:#3498db;color:#fff;font-size:21px;box-shadow:none;-webkit-transition:.4s;-moz-transition:.4s;-o-transition:.4s;transition:.4s;-webkit-backface-visibility:hidden;position:relative;cursor:pointer;padding:13px 20px;text-align:center;border-radius:50px;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;border:0;height:auto;outline:medium;line-height:20px;margin:0}input.euc-y-s[type=submit]:hover{background-color:#5dade2}input.euc-y-i[type=password],input.euc-y-i[type=text]{border:1px solid #F2EFEF;color:#777;display:block;background:#FCFCFC;font-size:18px;transition:all .5s ease 0;outline:0;box-sizing:border-box;-webkit-border-radius:25px;-moz-border-radius:25px;border-radius:25px;padding:5px 16px;margin:0;height:auto;line-height:30px}input.euc-y-i[type=password]:hover,input.euc-y-i[type=text]:hover{border:1px solid #56b4ef;box-shadow:0 0 4px #56b4ef}</style>';}}}
 add_action('wp_head', 'secret_css');
-//小工具支持PHP代码运行
+//小工具支持PHP代码运行，其实是不安全的
 function widget_php($text)
 {
     if (strpos($text, '<' . '?') !== false) {
