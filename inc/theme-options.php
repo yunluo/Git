@@ -898,7 +898,7 @@ $options = array(
         'desc'  => '填写新浪微博个人主页链接',
         'id'    => 'git_weibo',
         'type'  => 'text',
-        'std'   => 'http://weibo.com/igooglo'
+        'std'   => 'http://googlo.me/go/weibo'
     ),
     array(
         'name'  => '腾讯微博',
@@ -940,7 +940,7 @@ $options = array(
         'desc'  => '',
         'id'    => 'git_baidu',
         'type'  => 'text',
-        'std'   => 'http://tieba.baidu.com/home/main?un=%E6%97%A0%E6%B3%95%E8%AF%89%E8%AF%B4%E7%9A%84%E5%90%9F%E8%8D%A1&ie=utf-8'
+        'std'   => 'http://googlo.me/go/baidu'
     ),
     array(
         'name'  => '支付宝',
@@ -1003,7 +1003,7 @@ $options = array(
         'desc'  => '在这里输入第二个footer的内容',
         'id'    => "git_footconent2",
         'type'  => 'textarea',
-        'std'   => '<ul><li><a href="http://googlo.me/go/hengtian" title="衡天" target="_blank">横天主机</a></li><li><a href="http://googlo.me/go/qiniu" title="七牛云" target="_blank">七牛云</a></li></ul>'
+        'std'   => '<ul><li><a href="http://googlo.me/goto/ad" title="云左" target="_blank">云左主机</a></li><li><a href="http://googlo.me/go/qiniu" title="七牛云" target="_blank">七牛云</a></li></ul>'
     ),
     array(
         'name'  => 'Footer3标题',
@@ -1017,10 +1017,10 @@ $options = array(
         'desc'  => '在这里输入第三个footer的内容',
         'id'    => "git_footconent3",
         'type'  => 'textarea',
-        'std'   => '<ul><li><a href="http://weibo.com/igooglo" title="云落的新浪微博" target="_blank">云落的新浪微博</a></li>
+        'std'   => '<ul><li><a href="http://googlo.me/go/weibo" title="云落的新浪微博" target="_blank">云落的新浪微博</a></li>
 <li><a href="http://t.qq.com/sp865113728" title="云落的腾讯微博" target="_blank">云落的腾讯微博</a></li>
 <li><a href="http://git.oschina.net/yunluo/" title="云落的代码" target="_blank">云落的代码</a></li>
-<li><a href="http://tieba.baidu.com/home/main?un=%E6%97%A0%E6%B3%95%E8%AF%89%E8%AF%B4%E7%9A%84%E5%90%9F%E8%8D%A1&ie=utf-8&fr=frs" title="云落的贴吧" target="_blank">云落的贴吧</a></li>
+<li><a href="http://googlo.me/go/baidu" title="云落的贴吧" target="_blank">云落的贴吧</a></li>
 <li><a href="http://googlo.me/" title="云落的网站" target="_blank">云落的网站</a></li></ul>'
     ),
     array(
@@ -1042,7 +1042,7 @@ $options = array(
         'desc'  => '在全站页面footer部分出现，可放置网站的版权信息等等',
         'id'    => 'git_footcode',
         'type'  => 'textarea',
-        'std'   => 'Copyright © 2014-2015 <a href="/" title="乐趣公园">乐趣公园</a> | <a rel="nofollow" target="_blank" href="/about.html">关于网站</a> | <a rel="nofollow" target="_blank" href="/tags.html">标签汇总</a> | <a rel="nofollow" target="_blank" href="/archive.html">文章归档</a> | <a rel="nofollow" target="_blank" href="/links.html">友情链接</a> | <a href="/sitemap.html" target="_blank" title="站点地图（HTML版）">网站地图</a> | 由 <a rel="nofollow" target="_blank" href="http://googlo.me/go/hengtian">衡天主机</a> &amp; <a rel="nofollow" target="_blank" href="http://googlo.me/go/qiniu">七牛</a> &amp; <a href="/wp-admin">强力驱动</a>'
+        'std'   => 'Copyright © 2014-2015 <a href="/" title="乐趣公园">乐趣公园</a> | <a rel="nofollow" target="_blank" href="/about.html">关于网站</a> | <a rel="nofollow" target="_blank" href="/tags.html">标签汇总</a> | <a rel="nofollow" target="_blank" href="/archive.html">文章归档</a> | <a rel="nofollow" target="_blank" href="/links.html">友情链接</a> | <a href="/sitemap.html" target="_blank" title="站点地图（HTML版）">网站地图</a> | 由 <a rel="nofollow" target="_blank" href="http://googlo.me/go/hengtian">衡天</a> &amp; <a rel="nofollow" target="_blank" href="http://googlo.me/go/qiniu">七牛</a> &amp; <a href="/wp-admin">强力驱动</a>'
     ),
     array(
         'name'  => '全站底部脚本代码',
@@ -1687,7 +1687,7 @@ switch ( $value['type'] ) {
 </p>
 </form>
 </div>
-<style>.catlist{border:2px solid #FFB6C1;padding:5px;margin-top: 12px;text-align: center;color:#000;}.yunluotips{border: 2px solid #FFCC33;padding: 15px}.panel{display:none}.panel h3{margin:0;font-size:1.2em}#panel_update ul{list-style-type:disc}.nav-tab-wrapper{clear:both}.nav-tab{position:relative}.nav-tab i:before{position:absolute;top:-10px;right:-8px;display:inline-block;padding:2px;border-radius:50%;background:#e14d43;color:#fff;content:"\f463";vertical-align:text-bottom;font:400 18px/1 dashicons;speak:none}#theme-options-search{display:none;float:right;margin-top:-34px;width:280px;font-weight:300;font-size:16px;line-height:1.5}.updated+#theme-options-search{margin-top:-91px}.wrap.searching .nav-tab-wrapper a,.wrap.searching .panel tr,#attrselector{display:none}.wrap.searching .panel{display:block !important}#attrselector[attrselector*=ok]{display:block}</style>
+<style>.catlist{border:2px solid #e14d43;padding:5px;margin-top: 12px;text-align: center;color:#000;}.yunluotips{border: 2px solid #FFCC33;padding: 15px}.panel{display:none}.panel h3{margin:0;font-size:1.2em}#panel_update ul{list-style-type:disc}.nav-tab-wrapper{clear:both}.nav-tab{position:relative}.nav-tab i:before{position:absolute;top:-10px;right:-8px;display:inline-block;padding:2px;border-radius:50%;background:#e14d43;color:#fff;content:"\f463";vertical-align:text-bottom;font:400 18px/1 dashicons;speak:none}#theme-options-search{display:none;float:right;margin-top:-34px;width:280px;font-weight:300;font-size:16px;line-height:1.5}.updated+#theme-options-search{margin-top:-91px}.wrap.searching .nav-tab-wrapper a,.wrap.searching .panel tr,#attrselector{display:none}.wrap.searching .panel{display:block !important}#attrselector[attrselector*=ok]{display:block}</style>
 <style id="theme-options-filter"></style>
 <div id="attrselector" attrselector="ok" ></div>
 <script>
