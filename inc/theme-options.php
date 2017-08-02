@@ -1042,7 +1042,7 @@ $options = array(
         'desc'  => '在全站页面footer部分出现，可放置网站的版权信息等等',
         'id'    => 'git_footcode',
         'type'  => 'textarea',
-        'std'   => 'Copyright © 2014-2015 <a href="/" title="乐趣公园">乐趣公园</a> | <a rel="nofollow" target="_blank" href="/about.html">关于网站</a> | <a rel="nofollow" target="_blank" href="/tags.html">标签汇总</a> | <a rel="nofollow" target="_blank" href="/archive.html">文章归档</a> | <a rel="nofollow" target="_blank" href="/links.html">友情链接</a> | <a href="/sitemap.html" target="_blank" title="站点地图（HTML版）">网站地图</a> | 由 <a rel="nofollow" target="_blank" href="http://googlo.me/go/hengtian">衡天</a> &amp; <a rel="nofollow" target="_blank" href="http://googlo.me/go/qiniu">七牛</a> &amp; <a href="/wp-admin">强力驱动</a>'
+        'std'   => 'Copyright © 2014-2015 <a href="/" title="乐趣公园">乐趣公园</a> | <a rel="nofollow" target="_blank" href="/about.html">关于网站</a> | <a rel="nofollow" target="_blank" href="/tags.html">标签汇总</a> | <a rel="nofollow" target="_blank" href="/archive.html">文章归档</a> | <a rel="nofollow" target="_blank" href="/links.html">友情链接</a> | <a href="/sitemap.html" target="_blank" title="站点地图（HTML版）">网站地图</a> | 由 <a rel="nofollow" target="_blank" href="http://googlo.me/goto/ad">云左</a> &amp; <a rel="nofollow" target="_blank" href="http://googlo.me/go/qiniu">七牛</a> &amp; <a href="/wp-admin">强力驱动</a>'
     ),
     array(
         'name'  => '全站底部脚本代码',
