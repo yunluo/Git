@@ -1758,6 +1758,12 @@ if (git_get_option('git_ua_b')):
             $os = "Windows 10";
         } elseif (preg_match('/Windows NT 5.1/i', $ua)) {
             $os = "Windows XP";
+        } elseif (preg_match('/Mac OS X/i', $ua)) {
+            $os = "Mac OS X";
+        } elseif (preg_match('#Linux#i', $ua)) {
+            $os = "Linux ";
+        } elseif (preg_match('#Windows Phone#i', $ua)) {
+            $os = "Windows Phone ";
         } elseif (preg_match('/Windows NT 5.2/i', $ua) && preg_match('/Win64/i', $ua)) {
             $os = "Windows XP 64 bit";
         } elseif (preg_match('/Android ([0-9.]+)/i', $ua, $matches)) {
@@ -1774,13 +1780,13 @@ if (git_get_option('git_ua_b')):
         } elseif (preg_match('#360([a-zA-Z0-9.]+)#i', $ua, $matches)) {
             $browser = '360浏览器 ' . $matches[1];
         } elseif (preg_match('#Maxthon( |\/)([a-zA-Z0-9.]+)#i', $ua, $matches)) {
-            $browser = 'Maxthon ' . $matches[2];
+            $browser = 'Maxthon 浏览器' . $matches[2];
         } elseif (preg_match('#Chrome/([a-zA-Z0-9.]+)#i', $ua, $matches)) {
             $browser = 'Chrome ' . $matches[1];
         } elseif (preg_match('#XiaoMi/MiuiBrowser/([0-9.]+)#i', $ua, $matches)) {
             $browser = '小米浏览器 ' . $matches[1];
         } elseif (preg_match('#Safari/([a-zA-Z0-9.]+)#i', $ua, $matches)) {
-            $browser = 'Safari ' . $matches[1];
+            $browser = 'Safari浏览器 ' . $matches[1];
         } elseif (preg_match('#opera mini#i', $ua)) {
             preg_match('#Opera/([a-zA-Z0-9.]+)#i', $ua, $matches);
             $browser = 'Opera Mini ' . $matches[1];
@@ -1788,14 +1794,18 @@ if (git_get_option('git_ua_b')):
             $browser = 'Opera ' . $matches[1];
         } elseif (preg_match('#TencentTraveler ([a-zA-Z0-9.]+)#i', $ua, $matches)) {
             $browser = '腾讯TT浏览器 ' . $matches[1];
-        } elseif (preg_match('#UCWEB([a-zA-Z0-9.]+)#i', $ua, $matches)) {
-            $browser = 'UCWEB ' . $matches[1];
+        } elseif (preg_match('#(UCWEB|UBrowser|UCBrowser)/([a-zA-Z0-9.]+)#i', $ua, $matches)) {
+            $browser = 'UC浏览器 ' . $matches[1];
+        } elseif (preg_match('#Vivaldi/([a-zA-Z0-9.]+)#i', $ua, $matches)) {
+            $browser = 'Vivaldi浏览器 ' . $matches[1];
         }elseif (preg_match('#wp-(iphone|android)/([a-zA-Z0-9.]+)#i', $ua, $matches)) {
             $browser = 'WordPress客户端 ' . $matches[1];
+        } elseif (preg_match('#Edge ([a-zA-Z0-9.]+)#i', $ua, $matches)) {
+            $browser = '微软Edge浏览器 ' . $matches[1];
         } elseif (preg_match('#MSIE ([a-zA-Z0-9.]+)#i', $ua, $matches)) {
             $browser = 'Internet Explorer ' . $matches[1];
-        } elseif (preg_match('#(Firefox|Phoenix|Firebird|BonEcho|GranParadiso|Minefield|Iceweasel)/([a-zA-Z0-9.]+)#i', $ua, $matches)) {
-            $browser = 'Firefox ' . $matches[2];
+        } elseif (preg_match('#(Firefox|Phoenix|SeaMonkey|Firebird|BonEcho|GranParadiso|Minefield|Iceweasel)/([a-zA-Z0-9.]+)#i', $ua, $matches)) {
+            $browser = 'Firefox浏览器 ' . $matches[2];
         } else {
             $browser = '未知浏览器';
         }
