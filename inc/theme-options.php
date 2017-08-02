@@ -546,7 +546,7 @@ $options = array(
     ),
     array(
         'name'  => '颜色代码',
-        'desc'  => '请在这里输入你选择的颜色代码，举例：#000000<a class="button-primary" rel="nofollow" href="http://www.58pic.com/peise/" target="_blank">获取颜色代码</a>',
+        'desc'  => '请在这里输入你选择的颜色代码，举例：#000000<a class="button-primary" rel="nofollow" href="https://colordrop.io/" target="_blank">获取颜色代码</a>',
         'id'    => 'git_color_nom',
         'type'  => 'text',
         'std'   => ''
