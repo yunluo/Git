@@ -297,7 +297,7 @@ if (git_get_option('git_avater')=='git_avatar_b') {
 }
 //头像镜像
 function git_avatar_cache($avatar) {
-    $avatar = str_replace(array("www.gravatar.com", "0.gravatar.com", "1.gravatar.com", "2.gravatar.com" ) , "gravatar.ihuan.me", $avatar);
+    $avatar = str_replace(array("www.gravatar.com", "0.gravatar.com", "1.gravatar.com", "2.gravatar.com" ) , "fdn.geekzu.org", $avatar);
     return $avatar;
 }
 if(git_get_option('git_avater')=='git_avatar_qn'){
