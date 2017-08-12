@@ -1085,7 +1085,7 @@ $options = array(
         'desc'  => '如果幻灯没开启，则不显示',
         'id'    => 'git_adindex_02',
         'type'  => 'textarea',
-        'std'   => '<a target="_blank" href="http://googlo.me/goto/ad"><img src="http://7xufl5.com2.z0.glb.qiniucdn.com/gitad.jpg" style="width:100%;"></a>'
+        'std'   => '<a target="_blank" href="http://googlo.me/goto/ad"><img src="https://img.alicdn.com/imgextra/i3/1597576229/TB2K9JPb3AEF1JjSZFLXXbzNXXa_!!1597576229.jpg" style="width:100%;"></a>'
     ),
     array(
         'name'  => '广告：文章页 - 页面标题下',
