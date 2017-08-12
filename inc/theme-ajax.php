@@ -12,7 +12,7 @@ $comment_post_ID = isset($_POST['comment_post_ID']) ? (int) $_POST['comment_post
 $post = get_post($comment_post_ID);
 if ( empty($post->comment_status) ) {
 	do_action('comment_id_not_found', $comment_post_ID);
-	err(__('Invalid comment status.')); // 將 exit 改為錯誤提示
+	err(__('Invalid comment status.')); // 將exit 改為錯誤提示
 }
 
 $status = get_post_status($post);
