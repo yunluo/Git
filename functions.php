@@ -188,13 +188,11 @@ function footerScript() {
     if (!is_admin()) {
         wp_deregister_script('jquery');
         if(git_get_option('git_jqcdn')=='git_jqcdn_qiniu'){
-            wp_register_script('jquery', 'http://cdn.staticfile.org/jquery/1.8.3/jquery.min.js', false, '1.0', false );
+            wp_register_script('jquery', '//cdn.staticfile.org/jquery/1.8.3/jquery.min.js', false, '1.0', false );
         }elseif(git_get_option('git_jqcdn')=='git_jqcdn_upai'){
-            wp_register_script('jquery', 'http://upcdn.b0.upaiyun.com/libs/jquery/jquery-1.8.3.min.js', false, '1.0', false );
-        }elseif(git_get_option('git_jqcdn')=='git_jqcdn_360'){
-            wp_register_script('jquery', 'http://libs.useso.com/js/jquery/1.8.3/jquery.min.js', false, '1.0', false );
+            wp_register_script('jquery', '//upcdn.b0.upaiyun.com/libs/jquery/jquery-1.8.3.min.js', false, '1.0', false );
         }elseif(git_get_option('git_jqcdn')=='git_jqcdn_sae'){
-            wp_register_script('jquery', 'http://lib.sinaapp.com/js/jquery/1.8.3/jquery.min.js', false, '1.0', false );
+            wp_register_script('jquery', '//lib.sinaapp.com/js/jquery/1.8.3/jquery.min.js', false, '1.0', false );
         }else{
         wp_register_script('jquery', get_template_directory_uri() . '/js/jquery.min.js', false, '1.0', false );
         }

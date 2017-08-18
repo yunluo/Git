@@ -292,6 +292,12 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+        'name'  => '文章按照更新日期排序',
+        'desc'  => '开启 【开启按照最新更新排序，不开启则按照默认时间排序】',
+        'id'    => 'git_orderbygx',
+        'type'  => 'checkbox'
+    ),
+    array(
         'title' => '垃圾评论屏蔽',
         'type'  => 'subtitle'
     ),
@@ -1323,7 +1329,7 @@ $options = array(
     ),
     array(
         'name'  => '七牛云后台化',
-        'desc'  => '启用【一般可不启用，如果您启用七牛之后并删除了本地文件，则必须开启】',
+        'desc'  => '启用【一般可不启用，如果您启用七牛之后并删���了本地文件，则必须开启】',
         'id'    => "git_adminqn_b",
         'type'  => 'checkbox'
     ),
@@ -1398,7 +1404,6 @@ $options = array(
         'options' => array(
             '七牛jQuery库' => 'git_jqcdn_qiniu',
             '又拍云jQuery库' => 'git_jqcdn_upai',
-            '360jQuery库' => 'git_jqcdn_360',
             '新浪jQuery库' => 'git_jqcdn_sae',
             '本地jQuery库' => 'git_jqcdn_bendi'
         ),
@@ -1672,7 +1677,7 @@ switch ( $value['type'] ) {
 <h2>支持云落</h2>
 <p>如果您觉的这款主题很赞，欢迎您扫码支持云落，<font color="#ff0000">PS.主题不会用，扫码之后联系云落QQ</font></p>
 <img src="https://img.alicdn.com/imgextra/i1/1597576229/TB2ov76lXXXXXb0XpXXXXXXXXXX_!!1597576229.jpg_310x310.jpg"></img>
-<h2>联系云落</h2>
+<h2>联系���落</h2>
 <a class="button button-primary" href="http://googlo.me/about.html" target="_blank">乐趣公园留言板</a>
 </div>
 <p class="submit">
