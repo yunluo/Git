@@ -2352,15 +2352,20 @@ add_shortcode('phpcode', 'php_include');
 //评论微信推送
 function sc_send($comment_id)
 {
-    $text = '博客上有新的评论，请及时查看';
+    $text = '博客上有新的评论，请及时查看';//微信推送信息标题
     $comment = get_comment($comment_id);
-    $desp = $comment->comment_content;
+    $desp = ''.$comment->comment_content.'
+	
+	- 评论人 ：' . get_comment_author($comment_id) . '
+	- 文章标题 ：' . get_the_title() . '
+	- 文章链接 ：' . get_the_permalink($comment->comment_post_ID) . '
+	';//微信推送内容正文
     $key = git_get_option('git_Server_key');
     $postdata = http_build_query(array('text' => $text, 'desp' => $desp));
     $opts = array('http' => array('method' => 'POST', 'header' => 'Content-type: application/x-www-form-urlencoded', 'content' => $postdata));
     $context = stream_context_create($opts);
     return $result = file_get_contents('http://sc.ftqq.com/' . $key . '.send', false, $context);
-}if(git_get_option('git_Server')){
+}if(git_get_option('git_Server') && $comment->user_id !== '1' ){
 add_action('comment_post', 'sc_send', 19, 2);
 }
 //WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://googlo.me/archives/4032.html

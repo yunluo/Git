@@ -1334,6 +1334,10 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+        'title' => '微信推送设置',
+        'type'  => 'subtitle'
+    ),
+    array(
         'name'  => '评论微信推送提醒',
         'desc'  => '启用【开启后，如果网站有新的评论，可以给您的微信推送提醒，这个只是给网站管理员提醒，不涉及访客】，具体设置<a class="button-primary" target="_blank" href="http://googlo.me/archives/4500.html" title="点击查看设置教程">点击查看设置教程</a>',
         'id'    => "git_Server",
