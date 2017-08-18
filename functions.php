@@ -484,7 +484,7 @@ function deel_comment_list($comment, $args, $depth) {
     //信息
     echo '<div class="c-meta">';
     if (git_get_option('git_autherqr_b') && !G_is_mobile()) {
-        echo '<span class="c-author"><a href="' . get_comment_author_url() . '" class="weixin" style="cursor:pointer;">' . get_comment_author() . '<span class="qr weixin-popover"><img style="position:absolute;z-index:99999;" src="http://s.jiathis.com/qrcode.php?url=' . get_comment_author_url() . '"></span></a></span>';
+        echo '<span class="c-author"><a href="' . get_comment_author_url() . '" class="weixin" style="cursor:pointer;">' . get_comment_author() . '<span class="qr weixin-popover"><img style="position:absolute;z-index:99999;" src="https://pan.baidu.com/share/qrcode?w=145&h=145&url=' . get_comment_author_url() . '"></span></a></span>';
     } else {
         echo '<span class="c-author">' . get_comment_author_link() . '</span>';
     }
@@ -2348,5 +2348,20 @@ function php_include($attr)
     return ob_get_clean();
 }
 add_shortcode('phpcode', 'php_include');
+
+//评论微信推送
+function sc_send($comment_id)
+{
+    $text = '博客上有新的评论，请及时查看';
+    $comment = get_comment($comment_id);
+    $desp = $comment->comment_content;
+    $key = git_get_option('git_Server_key');
+    $postdata = http_build_query(array('text' => $text, 'desp' => $desp));
+    $opts = array('http' => array('method' => 'POST', 'header' => 'Content-type: application/x-www-form-urlencoded', 'content' => $postdata));
+    $context = stream_context_create($opts);
+    return $result = file_get_contents('http://sc.ftqq.com/' . $key . '.send', false, $context);
+}if(git_get_option('git_Server')){
+add_action('comment_post', 'sc_send', 19, 2);
+}
 //WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://googlo.me/archives/4032.html
 ?>

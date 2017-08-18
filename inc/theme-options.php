@@ -1329,9 +1329,22 @@ $options = array(
     ),
     array(
         'name'  => '七牛云后台化',
-        'desc'  => '启用【一般可不启用，如果您启用七牛之后并删���了本地文件，则必须开启】',
+        'desc'  => '启用【一般可不启用，如果您启用七牛之后并删除了本地文件，则必须开启】',
         'id'    => "git_adminqn_b",
         'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '评论微信推送提醒',
+        'desc'  => '启用【开启后，如果网站有新的评论，可以给您的微信推送提醒，这个只是给网站管理员提醒，不涉及访客】，具体设置<a class="button-primary" target="_blank" href="http://googlo.me/archives/4500.html" title="点击查看设置教程">点击查看设置教程</a>',
+        'id'    => "git_Server",
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '微信推送KEY',
+        'desc'  => '请输入您的微信推送KEY,根据上面教程获取',
+        'id'    => "git_Server_key",
+        'type'  => 'text',
+        'std'   => ''
     ),
     array(
         'title' => 'STMP邮箱设置',
@@ -1677,7 +1690,7 @@ switch ( $value['type'] ) {
 <h2>支持云落</h2>
 <p>如果您觉的这款主题很赞，欢迎您扫码支持云落，<font color="#ff0000">PS.主题不会用，扫码之后联系云落QQ</font></p>
 <img src="https://img.alicdn.com/imgextra/i1/1597576229/TB2ov76lXXXXXb0XpXXXXXXXXXX_!!1597576229.jpg_310x310.jpg"></img>
-<h2>联系���落</h2>
+<h2>联系云落</h2>
 <a class="button button-primary" href="http://googlo.me/about.html" target="_blank">乐趣公园留言板</a>
 </div>
 <p class="submit">
