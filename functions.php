@@ -2390,7 +2390,7 @@ function link_the_thumbnail_src()
                 return $strResult[1][0];
                 //没有缩略图就取文章中第一张图片作为缩略图
             } else {
-                $random = mt_rand(1, 76);
+                $random = mt_rand(1, 12);
                 return get_template_directory_uri() . '/css/img/pic/' . $random . '.jpg';
                 //文章中没有图片就在 random 文件夹下随机读取图片作为缩略图
             }
@@ -2407,7 +2407,7 @@ function git_insert_posts($atts, $content = null)
     $inset_posts = get_posts(array('post__in' => $postids));
     foreach ($inset_posts as $key => $post) {
         setup_postdata($post);
-        $content .= '<div class="neilian"><div class="fll"><a target="_blank" href="' . get_permalink() . '" class="fll"><i class="fa fa-link fa-fw"></i>';
+        $content .= '<div class="neilian"><div class="fll"><a target="_blank" href="' . get_permalink() . '" class="fll linkss"><i class="fa fa-link fa-fw"></i>  ';
         $content .= get_the_title();
         $content .= '</a><p class="note">';
         $content .= get_the_excerpt();
