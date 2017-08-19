@@ -2369,5 +2369,55 @@ function sc_send($comment_id)
 }if(git_get_option('git_Server') && !is_admin() ){
 add_action('comment_post', 'sc_send', 19, 2);
 }
+// 内链图片src
+function link_the_thumbnail_src()
+{
+    global $post;
+    if (get_post_meta($post->ID, 'thumbnail', true)) {
+        //如果有缩略图，则显示缩略图
+        $image = get_post_meta($post->ID, 'thumbnail', true);
+        return $image;
+    } else {
+        if (has_post_thumbnail()) {
+            //如果有缩略图，则显示缩略图
+            $img_src = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "Full");
+            return $img_src[0];
+        } else {
+            $content = $post->post_content;
+            preg_match_all('/<img.*?(?: |\\t|\\r|\\n)?src=[\'"]?(.+?)[\'"]?(?:(?: |\\t|\\r|\\n)+.*?)?>/sim', $content, $strResult, PREG_PATTERN_ORDER);
+            $n = count($strResult[1]);
+            if ($n > 0) {
+                return $strResult[1][0];
+                //没有缩略图就取文章中第一张图片作为缩略图
+            } else {
+                $random = mt_rand(1, 76);
+                return get_template_directory_uri() . '/css/img/pic/' . $random . '.jpg';
+                //文章中没有图片就在 random 文件夹下随机读取图片作为缩略图
+            }
+        }
+    }
+}
+//给文章加内链短代码
+function git_insert_posts($atts, $content = null)
+{
+    extract(shortcode_atts(array('ids' => ''), $atts));
+    global $post;
+    $content = '';
+    $postids = explode(',', $ids);
+    $inset_posts = get_posts(array('post__in' => $postids));
+    foreach ($inset_posts as $key => $post) {
+        setup_postdata($post);
+        $content .= '<div class="neilian"><div class="fll"><a target="_blank" href="' . get_permalink() . '" class="fll"><i class="fa fa-link fa-fw"></i>';
+        $content .= get_the_title();
+        $content .= '</a><p class="note">';
+        $content .= get_the_excerpt();
+        $content .= '</p></div><div class="frr"><a target="_blank" href="' . get_permalink() . '"><img src=';
+        $content .= link_the_thumbnail_src();
+        $content .= ' class="neilian-thumb"></a></div></div>';
+    }
+    wp_reset_postdata();
+    return $content;
+}
+add_shortcode('neilian', 'git_insert_posts');
 //WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://googlo.me/archives/4032.html
 ?>
