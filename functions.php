@@ -1136,7 +1136,12 @@ function tom($atts, $content = null) {
 add_shortcode('lhb', 'tom');
 /*添加视频按钮*/
 function too($atts, $content = null) {
-    return '<video style="width:100%;" src="' . $content . '" controls preload >您的浏览器不支持HTML5的 video 标签，无法为您播放！</video>';
+	extract(shortcode_atts(array("play" => '0' ) , $atts));
+	if( $play == 0){
+		return '<video style="width:100%;" src="' . $content . '" controls preload >您的浏览器不支持HTML5的 video 标签，无法为您播放！</video>';
+	}if( $play == 1){
+		return '<video style="width:100%;" src="' . $content . '" controls preload autoplay >您的浏览器不支持HTML5的 video 标签，无法为您播放！</video>';
+	}
 }
 add_shortcode('video', 'too');
 /*弹窗下载*/
