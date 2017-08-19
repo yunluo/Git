@@ -1144,6 +1144,17 @@ function too($atts, $content = null) {
 	}
 }
 add_shortcode('video', 'too');
+/*添加音频按钮*/
+function tkk($atts, $content = null) {
+	extract(shortcode_atts(array("play" => '0' ) , $atts));
+	if( $play == 0){
+		return '<audio style="width:100%;" src="' . $content . '" controls loop>您的浏览器不支持 audio 标签。</audio>';
+	}if( $play == 1){
+		return '<audio style="width:100%;" src="' . $content . '" controls autoplay loop>您的浏览器不支持 audio 标签。</audio>';
+	}
+}
+add_shortcode('audio', 'tkk');
+
 /*弹窗下载*/
 function ton($atts, $content = null) {
     extract(shortcode_atts(array("href" => 'http://',"filename" => '',"filesize" => '',"filedown" => '' ) , $atts));
