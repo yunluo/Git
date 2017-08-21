@@ -1193,9 +1193,9 @@ function xdltable($atts, $content = null) {
 }
 add_shortcode('dltable', 'xdltable');
 //网易云音乐
-function music163($atts) {
-    extract(shortcode_atts(array("id" => "" ) , $atts));
-    return '<iframe style="width:100%;max-height:86px;" frameborder="no" border="0" marginwidth="0" marginheight="0" src="http://music.163.com/outchain/player?type=2&id=' . $id . '&auto=1&height=66"></iframe>';
+function music163($atts, $content = null) {
+    extract(shortcode_atts(array("play" => "1" ) , $atts));
+    return '<iframe style="width:100%;max-height:86px;" frameborder="no" border="0" marginwidth="0" marginheight="0" src="http://music.163.com/outchain/player?type=2&id=' . $content . '&auto=' . $play . '&height=66"></iframe>';
 }
 add_shortcode('netmusic', 'music163');
 // add youku using iframe
@@ -2435,5 +2435,30 @@ function git_insert_posts($atts, $content = null)
     return $content;
 }
 add_shortcode('neilian', 'git_insert_posts');
+
+//给文章加外链短代码
+function git_external_posts($atts, $content = null)
+{
+	$ch = curl_init( $content );
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	$result = curl_exec($ch);
+	curl_close($ch);
+	$title = preg_match('!<title>(.*?)</title>!i', $result, $matches) ? $matches[1] : '因为地球不可控制原因，标题已丢失，请勿想念';
+	$description = get_meta_tags( $content )['description'];
+	$imgpath = get_template_directory_uri() . '/css/img/pic/' . mt_rand(1, 12) . '.jpg';
+	global $post;
+	$contents = '';
+        setup_postdata($post);
+        $contents .= '<div class="neilian wailian"><div class="fll"><a target="_blank" href="' . $content . '" class="fll linkss"><i class="fa fa-link fa-fw"></i>  ';
+        $contents .= $title;
+        $contents .= '</a><p class="note">';
+        $contents .= $description;
+        $contents .= '</p></div><div class="frr"><a target="_blank" href="' . $content . '"><img src=';
+        $contents .= $imgpath;
+        $contents .= ' class="neilian-thumb"></a></div></div>';
+    wp_reset_postdata();
+    return $contents;
+}
+add_shortcode('wailian', 'git_external_posts');
 //WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://googlo.me/archives/4032.html
 ?>
