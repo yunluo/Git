@@ -2444,7 +2444,7 @@ function git_external_posts($atts, $content = null)
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	$result = curl_exec($ch);
 	curl_close($ch);
-	$title = preg_match('!<title>(.*?)</title>!i', $result, $matches) ? $matches[1] : '因为地球不可控制原因，标题已丢失，请勿想念';
+	$title = preg_match('!<title>(.*?)</title>!i', $result, $matches) ? $matches[1] : '因为某些不可控制原因，标题已丢失，请勿想念';
 	$tags = get_meta_tags( $content );
 	$description = $tags['description'];
 	if( $img ==0){
@@ -2465,5 +2465,17 @@ function git_external_posts($atts, $content = null)
 }if ( function_exists('curl_init') ) { 
 add_shortcode('wailian', 'git_external_posts');
 }
+//增加B站视频
+wp_embed_unregister_handler('bili');
+function wp_bili($matches, $attr, $url, $rawattr) {
+    if (G_is_mobile()) {
+        $height = 200;
+    } else {
+        $height = 480;
+    }
+    $iframe = '<iframe width=100% height=' . $height . 'px src="//www.bilibili.com/blackboard/player.html?aid=' . esc_attr($matches[1]) . '" scrolling="no" border="0" framespacing="0" frameborder="no"></iframe>';
+    return apply_filters('iframe_bili', $iframe, $matches, $attr, $url, $ramattr);
+}
+wp_embed_register_handler('bili_iframe', '#https://www.bilibili.com/video/av(.*?)/#i', 'wp_bili');
 //WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://googlo.me/archives/4032.html
 ?>
