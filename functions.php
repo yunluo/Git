@@ -2439,13 +2439,17 @@ add_shortcode('neilian', 'git_insert_posts');
 //给文章加外链短代码
 function git_external_posts($atts, $content = null)
 {
+	extract(shortcode_atts(array('img' => '0'), $atts));
 	$ch = curl_init( $content );
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	$result = curl_exec($ch);
 	curl_close($ch);
 	$title = preg_match('!<title>(.*?)</title>!i', $result, $matches) ? $matches[1] : '因为地球不可控制原因，标题已丢失，请勿想念';
-	$description = get_meta_tags( $content )['description'];
-	$imgpath = get_template_directory_uri() . '/css/img/pic/' . mt_rand(1, 12) . '.jpg';
+	$tags = get_meta_tags( $content );
+	$description = $tags['description'];
+	if( $img ==0){
+	$imgpath = get_template_directory_uri() . '/css/img/pic/' . mt_rand(1, 12) . '.jpg';}if( $img ==1){
+	$imgpath = '//image.thum.io/get/width/160/' . $content . '';}
 	global $post;
 	$contents = '';
         setup_postdata($post);
@@ -2458,7 +2462,8 @@ function git_external_posts($atts, $content = null)
         $contents .= ' class="neilian-thumb"></a></div></div>';
     wp_reset_postdata();
     return $contents;
-}
+}if ( function_exists('curl_init') ) { 
 add_shortcode('wailian', 'git_external_posts');
+}
 //WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://googlo.me/archives/4032.html
 ?>

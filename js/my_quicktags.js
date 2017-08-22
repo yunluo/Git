@@ -38,5 +38,5 @@ QTags.addButton( 'nextpage', '下一页', '<!--nextpage-->', "" );
 QTags.addButton( 'demo', '代码演示', "[demo]", "[/demo]" );
 QTags.addButton( 'phpcode', '运行PHP', '[phpcode file="PHP文件名"]', "" );
 QTags.addButton( 'nl', '文章内链', '[neilian ids=]', '');
-QTags.addButton( 'wl', '文章外链', '[wailian]', '[/wailian]');
+QTags.addButton( 'wl', '文章外链', '[wailian img=0]', '[/wailian]');
 //这儿共有四对引号，分别是按钮的ID、显示名、点一下输入内容、再点一下关闭内容（此为空则一次输入全部内容），\n表示换行。
