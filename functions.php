@@ -295,7 +295,7 @@ if (git_get_option('git_avater')=='git_avatar_b') {
 }
 //头像镜像
 function git_avatar_cache($avatar) {
-    $avatar = str_replace(array("www.gravatar.com", "0.gravatar.com", "1.gravatar.com", "2.gravatar.com" ) , "fdn.geekzu.org", $avatar);
+    $avatar = str_replace(array("www.gravatar.com", "0.gravatar.com", "1.gravatar.com", "2.gravatar.com" ) , git_get_option('git_avatar_qnurl') , $avatar);
     return $avatar;
 }
 if(git_get_option('git_avater')=='git_avatar_qn'){
@@ -1263,6 +1263,22 @@ function Bing_show_category() {
         echo $output;
     }
 }
+
+//获取远程通知
+function Coding_notice() {
+    if (function_exists('curl_init')) {
+            $url = "https://coding.net/u/googlo/p/File/git/raw/master/notice.txt";
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+            $dxycontent = curl_exec($ch);
+            echo $dxycontent;
+        } else {
+            echo '汗！貌似您的服务器尚未开启curl扩展，无法收到来自云落的通知，请联系您的主机商开启，本地调试请无视';
+    }
+}
+
 //新文章同步到新浪微博
 function post_to_sina_weibo($post_ID) {
    if(get_post_meta($post_ID,'git_weibo_sync',true) == 1) return;
@@ -1383,6 +1399,14 @@ function baidu_record() {
         echo '<a style="color:red;" rel="external nofollow" title="点击提交，谢谢您！" target="_blank" href="http://zhanzhang.baidu.com/sitesubmit/index?sitename=' . get_permalink() . '">未收录</a>';
     }
 }
+endif;
+
+//主题自动更新服务
+if (!git_get_option('git_updates_b')):
+    require 'modules/updates.php';
+    $example_update_checker = new ThemeUpdateChecker('Git-alpha', 'https://coding.net/u/googlo/p/File/git/raw/master/info.json'
+    //此处链接不可改
+    );
 endif;
 
 //本地头像

@@ -150,6 +150,13 @@ $options = array(
         'type'  => 'textarea'
     ),
     array(
+    'name'  => '主题更新设置',
+    'desc'  => '禁止主题更新【 选择后，您将无法收到本主题的更新推送，所以云落墙裂不推荐选择勾选】',
+    'id'    => 'git_updates_b',
+    'onclick'   => "return confirm('你确定要取消更新吗？');",
+    'type'  => 'checkbox'
+    ),
+    array(
         'type'  => 'panelend'//标签段的结束
     ),
     array(
@@ -466,7 +473,7 @@ $options = array(
         'desc'  => '此处输入的文字将出现在每篇文章最底部，你可以使用：{{title}}表示文章标题，{{link}}表示文章链接',
         'id'    => "git_copyright_b",
         'type'  => 'textarea',
-        'std'   => '乐趣公园 , 版权所有丨如未注明 , 均为原创丨本网站采用<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" rel="nofollow" target="_blank" title="BY-NC-SA授权协议">BY-NC-SA</a>协议进行授权 , 转载请注明<a href="{{link}}" target="_blank" title="{{title}}">{{title}}</a>！'
+        'std'   => '乐趣公园 , ���权所有丨如未注明 , 均为原创丨本网站采用<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" rel="nofollow" target="_blank" title="BY-NC-SA授权协议">BY-NC-SA</a>协议进行授权 , 转载请注明<a href="{{link}}" target="_blank" title="{{title}}">{{title}}</a>！'
     ),
     array(
         'type'  => 'panelend'
@@ -1408,10 +1415,17 @@ $options = array(
         'id'    => "git_avater",
         'type'  => 'radio',
         'options' => array(
-            '国内镜像[推荐]' => 'git_avatar_qn',
-            '本地缓存' => 'git_avatar_b'
+            '头像镜像服务器' => 'git_avatar_qn',
+            '本地头像755缓存' => 'git_avatar_b'
         ),
         'std'   => 'git_avatar_qn'
+    ),
+    array(
+        'name'  => 'Gravatar头像镜像服务器',
+        'desc'  => '在上面选择[头像镜像服务器]之后本选项才可以生效，<a class="button-primary" target="_blank" href="http://googlo.me/go/qiniu">立刻创建自己的七牛头像镜像服务器</a>',
+        'id'    => "git_avatar_qnurl",
+        'type'  => 'text',
+        'std'   => ''
     ),
     array(
         'name'  => 'jQuery来源设置',
@@ -1533,6 +1547,7 @@ function git_options_page() {
 <div class="wrap">
     <h2>Git 主题选项</h2>
     <input placeholder="搜索主题选项…" type="search" id="theme-options-search" />
+    <div class="yunluotips"><?php echo Coding_notice(); ?></div>
     <div class="catlist">您的网站分类列表：<?php echo Bing_show_category(); ?></div>
     <form method="post">
         <h2 class="nav-tab-wrapper">
