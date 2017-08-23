@@ -25,7 +25,7 @@ function deel_setup() {
 	remove_filter( 'pre_link_notes', 'wp_filter_kses' );
 	remove_filter( 'term_description', 'wp_kses_data' );
     //添加主题特性
-    add_theme_support('custom-background', array( 'default-image' => get_template_directory_uri() . '/css/img/bg.png' ));
+    add_theme_support('custom-background', array( 'default-image' => get_template_directory_uri() . '/assets/img/bg.png' ));
     //隐藏admin Bar
     add_filter('show_admin_bar', 'hide_admin_bar');
     //关键字
@@ -73,7 +73,7 @@ add_filter('admin_footer_text', 'git_admin_footer_text');
     add_action('comment_post', 'comment_mail_notify');
     //自动勾选评论回复邮件通知，不勾选则注释掉
     add_action('comment_form', 'deel_add_checkbox');
-    //评论表情改造，如需更换表情，css/img/smilies/下替换
+    //评论表情改造，如需更换表情，assets/img/smilies/下替换
     add_filter('smilies_src', 'deel_smilies_src', 1, 10);
     //移除自动保存和修订版本
     if (git_get_option('git_autosave_b')) {
@@ -194,10 +194,10 @@ function footerScript() {
         }elseif(git_get_option('git_jqcdn')=='git_jqcdn_sae'){
             wp_register_script('jquery', '//lib.sinaapp.com/js/jquery/1.8.3/jquery.min.js', false, '1.0', false );
         }else{
-        wp_register_script('jquery', get_template_directory_uri() . '/js/jquery.min.js', false, '1.0', false );
+        wp_register_script('jquery', get_template_directory_uri() . '/assets/js/jquery.min.js', false, '1.0', false );
         }
         wp_enqueue_script('jquery');
-        wp_register_script('default', get_template_directory_uri() . '/js/global.js', false, '1.0', true );
+        wp_register_script('default', get_template_directory_uri() . '/assets/js/global.js', false, '1.0', true );
         wp_enqueue_script('default');
         wp_register_style('style', get_template_directory_uri() . '/style.css', false, '1.0');
         wp_enqueue_style('style');
@@ -272,7 +272,7 @@ function deel_share() {
     $dHasShare = true;
 }
 function deel_avatar_default() {
-    return get_template_directory_uri() . '/css/img/default.png';
+    return get_template_directory_uri() . '/assets/img/default.png';
 }
 //评论头像缓存
 function deel_avatar($avatar) {
@@ -287,7 +287,7 @@ function deel_avatar($avatar) {
     else $avatar = strtr($avatar, array(
         $g => $w . '/avatar/' . $f . '.png'
     ));
-    if (filesize($e) < 500) copy(get_template_directory_uri() . '/css/img/default.png', $e);
+    if (filesize($e) < 500) copy(get_template_directory_uri() . '/assets/img/default.png', $e);
     return $avatar;
 }
 if (git_get_option('git_avater')=='git_avatar_b') {
@@ -392,7 +392,7 @@ function deel_post_new($timer = '48') {
 }
 //修改评论表情调用路径
 function deel_smilies_src($img_src, $img, $siteurl) {
-    return get_template_directory_uri() . '/css/img/smilies/' . $img;
+    return get_template_directory_uri() . '/assets/img/smilies/' . $img;
 }
 //阻止站内文章Pingback
 function deel_noself_ping(&$links) {
@@ -534,7 +534,7 @@ add_shortcode('dm', 'DemoUrl');
 //添加编辑器快捷按钮
 add_action('admin_print_scripts', 'my_quicktags');
 function my_quicktags() {
-    wp_enqueue_script('my_quicktags', get_stylesheet_directory_uri() . '/js/my_quicktags.js', array(
+    wp_enqueue_script('my_quicktags', get_stylesheet_directory_uri() . '/assets/js/my_quicktags.js', array(
         'quicktags'
     ));
 };
@@ -701,9 +701,9 @@ function post_thumbnail_src() {
         if (empty($post_thumbnail_src)) { //如果日志中没有图片，则显示随机图片
             $random = mt_rand(1, 10);
             echo get_template_directory_uri();
-            echo '/css/img/pic/' . $random . '.jpg';
+            echo '/assets/img/pic/' . $random . '.jpg';
             //如果日志中没有图片，则显示默认图片
-            //echo '/css/img/thumbnail.png';
+            //echo '/assets/img/thumbnail.png';
 
         }
     };
@@ -893,7 +893,7 @@ function fa_get_wpsmiliestrans() {
     global $wpsmiliestrans;
     $wpsmilies = array_unique($wpsmiliestrans);
     foreach ($wpsmilies as $alt => $src_path) {
-        $output.= '<a class="add-smily" data-smilies="' . $alt . '"><img class="wp-smiley" src="' . get_template_directory_uri() . '/css/img/smilies/' . rtrim($src_path, "gif") . 'gif" /></a>';
+        $output.= '<a class="add-smily" data-smilies="' . $alt . '"><img class="wp-smiley" src="' . get_template_directory_uri() . '/assets/img/smilies/' . rtrim($src_path, "gif") . 'gif" /></a>';
     }
     return $output;
 }
@@ -905,7 +905,7 @@ function fa_smilies_custom_button($context) {
 //////// 后台评论列表获取表情按钮//////
 function zfunc_smiley_button($custom = false, $before = '', $after = '') {
     if ($custom == true) $smiley_url = site_url() . '/wp-includes/images/smilies';
-    else $customsmiley_url = get_template_directory_uri() . '/css/img/smilies';
+    else $customsmiley_url = get_template_directory_uri() . '/assets/img/smilies';
     echo $before;
 ?>
 		<a href="javascript:grin(':?:')"><img src="<?php
@@ -966,7 +966,7 @@ function Ajax_data_zfunc_smiley_button() {
 add_action('init', 'Ajax_data_zfunc_smiley_button');
 //后台回复评论支持表情插入
 function zfunc_admin_enqueue_scripts($hook_suffix) {
-    wp_enqueue_script('zfunc-comment-reply', get_template_directory_uri() . '/js/admin_reply.js');
+    wp_enqueue_script('zfunc-comment-reply', get_template_directory_uri() . '/assets/js/admin_reply.js');
 }
 add_action('admin_print_styles', 'zfunc_admin_enqueue_scripts');
 //使用短代码添加回复后可见内容开始
@@ -2073,7 +2073,7 @@ function disable_emoji9s_tinymce($plugins) {
 }
 //取当前主题下img\smilies\下表情图片路径
 function custom_gitsmilie_src($old, $img) {
-    return get_stylesheet_directory_uri() . '/css/img/smilies/' . $img;
+    return get_stylesheet_directory_uri() . '/assets/img/smilies/' . $img;
 }
 function init_gitsmilie() {
     global $wpsmiliestrans;
@@ -2431,7 +2431,7 @@ function link_the_thumbnail_src()
                 //没有缩略图就取文章中第一张图片作为缩略图
             } else {
                 $random = mt_rand(1, 12);
-                return get_template_directory_uri() . '/css/img/pic/' . $random . '.jpg';
+                return get_template_directory_uri() . '/assets/img/pic/' . $random . '.jpg';
                 //文章中没有图片就在 random 文件夹下随机读取图片作为缩略图
             }
         }
@@ -2472,7 +2472,7 @@ function git_external_posts($atts, $content = null)
 	$tags = get_meta_tags( $content );
 	$description = $tags['description'];
 	if( $img ==0){
-	$imgpath = get_template_directory_uri() . '/css/img/pic/' . mt_rand(1, 12) . '.jpg';}if( $img ==1){
+	$imgpath = get_template_directory_uri() . '/assets/img/pic/' . mt_rand(1, 12) . '.jpg';}if( $img ==1){
 	$imgpath = '//image.thum.io/get/width/160/' . $content . '';}
 	global $post;
 	$contents = '';

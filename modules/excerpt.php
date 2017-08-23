@@ -39,7 +39,7 @@ while (have_posts()):
     $t2 = date("Y-m-d H:i:s");
     $diff = (strtotime($t2) - strtotime($t1)) / 3600;
     if ($diff < 12) {
-        echo '<img src="' . get_template_directory_uri() . '/css/img/new.gif" alt="24小时内最新">';
+        echo '<img src="' . get_template_directory_uri() . '/assets/img/new.gif" alt="24小时内最新">';
     } ?> </a></h2>
 	</header>
 <?php

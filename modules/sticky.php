@@ -62,4 +62,4 @@ if (git_get_option('git_cdnurl_b')) {
 </div>
 </div><div class="ws_shadow"></div>
 	</div><script type="text/javascript" src="<?php
-echo esc_url( get_template_directory_uri() ); ?>/js/slider.js"></script>
+echo esc_url( get_template_directory_uri() ); ?>/assets/js/slider.js"></script>
