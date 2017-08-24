@@ -267,7 +267,7 @@ function githeme_posts_list($orderby, $limit, $cat, $img) {
 <a target="_blank" href="<?php
         the_permalink(); ?>" title="<?php
         the_title(); ?>" ><?php
-        if (git_get_option('git_cdnurl_b')) {
+        if (git_get_option('git_qncdn_b')) {
             if ($img) {
                 echo '<span class="thumbnail">';
                 echo '<img width="100px" height="64px" src="';

@@ -32,7 +32,7 @@ if (is_home()) { ?>
 </div><a href="<?php
         the_permalink(); ?>" title="<?php
         the_title(); ?>"><?php
-        if (git_get_option('git_cdnurl_b') ) {
+        if (git_get_option('git_qncdn_b') ) {
             echo '<img class="thumb" style="width:253px;height:169px" src="';
             echo post_thumbnail_src();
             echo '?imageView2/1/w/253/h/169/q/75" alt="' . get_the_title() . '" />';

@@ -1314,8 +1314,14 @@ $options = array(
         'type'  => 'subtitle'
     ),
     array(
+        'name'  => '开启',
+        'desc'  => '',
+        'id'    => "git_qncdn_b",
+        'type'  => 'checkbox'
+    ),
+    array(
         'name'  => '七牛自定义域名',
-        'desc'  => '输入您的七牛云自定义域名，必须带 <font color="#cc0000"><strong>http://</strong></font>  如果留空则禁用七牛云CDN功能  <a class="button-primary" target="_blank" href="http://googlo.me/go/qiniu" title="立刻注册七牛，免费使用免备案高速CDN">注册七牛</a>，并获取链接<a rel="nofollow" href="https://img.alicdn.com/imgextra/i3/1597576229/TB2uLdxpFXXXXbCXpXXXXXXXXXX_!!1597576229.jpg" target="_blank">如图</a>',
+        'desc'  => '输入本项目之前，必须开启本功能，输入您的七牛云自定义域名，必须带 <font color="#cc0000"><strong>http://</strong></font>  如果留空则禁用七牛云CDN功能  <a class="button-primary" target="_blank" href="http://googlo.me/go/qiniu" title="立刻注册七牛，免费使用免备案高速CDN">注册七牛</a>，并获取链接<a rel="nofollow" href="https://img.alicdn.com/imgextra/i3/1597576229/TB2uLdxpFXXXXbCXpXXXXXXXXXX_!!1597576229.jpg" target="_blank">如图</a>',
         'id'    => "git_cdnurl_b",
         'type'  => 'text',
         'std'   => ''

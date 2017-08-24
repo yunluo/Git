@@ -46,7 +46,7 @@ while (have_posts()):
     if ($_thumbnail) { ?>
 <div class="focus"><a target="_blank" href="<?php
         the_permalink(); ?>"><?php
-        if (git_get_option('git_cdnurl_b') ) {
+        if (git_get_option('git_qncdn_b') ) {
             echo '<img class="thumb" style="width:200px;height:123px" src="';
             echo post_thumbnail_src();
             echo '?imageView2/1/w/200/h/123/q/75" alt="' . get_the_title() . '" />';

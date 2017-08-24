@@ -1616,7 +1616,7 @@ function get_simple_local_avatar($id_or_email, $size = '96', $default = '', $alt
     return $avatar;
 }
 //七牛CDN
-if (!is_admin() && git_get_option('git_cdnurl_b')) {
+if (!is_admin() && git_get_option('git_qncdn_b') ) {
     add_action('wp_loaded', 'Googlo_ob_start');
     function Googlo_ob_start() {
         ob_start('Googlo_qiniu_cdn_replace');

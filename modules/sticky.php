@@ -25,7 +25,7 @@ wp_reset_query();
 <div class="ws_thumbs">
 <div>
 <?php
-if (git_get_option('git_cdnurl_b')) {
+if (git_get_option('git_qncdn_b')) {
     $sticky = get_option('sticky_posts');
     rsort($sticky);
     query_posts(array(
