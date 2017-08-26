@@ -2265,6 +2265,33 @@ function git_comment_add_at( $comment_text, $comment = '') {
   return $comment_text;
 }
 add_filter( 'comment_text' , 'git_comment_add_at', 20, 2);
+//导航单页函数
+function get_the_link_items($id = null){
+    $bookmarks = get_bookmarks('orderby=date&category=' .$id );
+    $output = '';
+    if ( !empty($bookmarks) ) {
+        $output .= '<div class="link_items fontSmooth">';
+        foreach ($bookmarks as $bookmark) {
+            $output .=  '<div class="link_item"><a class="link_item_inner apollo_' . $bookmark->link_rating . '" rel="nofollow" href="' . $bookmark->link_url . '" title="' . $bookmark->link_description . '" target="_blank" ><span class="sitename sitecolor_' . mt_rand(1, 14) . '">'. $bookmark->link_name .'</span></a></div>';
+        }
+        $output .= '</div>';
+    }
+    return $output;
+}
+
+function get_link_items(){
+    $linkcats = get_terms( 'link_category' );
+    if ( !empty($linkcats) ) {
+        foreach( $linkcats as $linkcat){            
+            $result .=  '<h2 class="link_title">'.$linkcat->name.'</h2>';
+            if( $linkcat->description ) $result .= '<div class="link_description">' . $linkcat->description . '</div>';
+            $result .=  get_the_link_items($linkcat->term_id);
+        }
+    } else {
+        $result = get_the_link_items();
+    }
+    return $result;
+}
 /**
  * 修复 WordPress 找回密码提示“抱歉，该key似乎无效”
  * http://www.wpdaxue.com/lost-password-error-invalidkey.html
