@@ -1278,7 +1278,14 @@ function Coding_notice() {
             echo '汗！貌似您的服务器尚未开启curl扩展，无法收到来自云落的通知，请联系您的主机商开启，本地调试请无视';
     }
 }
-
+//试验小公具
+    function dashboard_widget_function( $post, $callback_args ) {
+        echo Coding_notice();
+    }
+    function add_dashboard_widgets() {
+        wp_add_dashboard_widget('dashboard_widget', 'Git通知', 'dashboard_widget_function', 'high');
+    }
+    add_action('wp_dashboard_setup', 'add_dashboard_widgets' );
 //新文章同步到新浪微博
 function post_to_sina_weibo($post_ID) {
    if(get_post_meta($post_ID,'git_weibo_sync',true) == 1) return;
