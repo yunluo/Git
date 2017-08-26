@@ -15,7 +15,7 @@ $options = array(
     ),
     array(
         'name'  => '友情链接页面',
-        'desc'  => '只显示输入分类的链接，id之间用英文逗号隔开，一般默认空着就行',
+        'desc'  => '只显示输入分类的链接，id之间用英文逗号隔开，建议只显示友情链接即可。',
         'id'    => 'git_linkpage_cat',
         'type'  => 'number',
         'std'   => ''
@@ -473,7 +473,7 @@ $options = array(
         'desc'  => '此处输入的文字将出现在每篇文章最底部，你可以使用：{{title}}表示文章标题，{{link}}表示文章链接',
         'id'    => "git_copyright_b",
         'type'  => 'textarea',
-        'std'   => '乐趣公园 , ���权所有丨如未注明 , 均为原创丨本网站采用<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" rel="nofollow" target="_blank" title="BY-NC-SA授权协议">BY-NC-SA</a>协议进行授权 , 转载请注明<a href="{{link}}" target="_blank" title="{{title}}">{{title}}</a>！'
+        'std'   => '乐趣公园 , 版权所有丨如未注明 , 均为原创丨本网站采用<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" rel="nofollow" target="_blank" title="BY-NC-SA授权协议">BY-NC-SA</a>协议进行授权 , 转载请注明<a href="{{link}}" target="_blank" title="{{title}}">{{title}}</a>！'
     ),
     array(
         'type'  => 'panelend'
