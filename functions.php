@@ -2375,10 +2375,20 @@ if(!function_exists('Baidu_Submit') && git_get_option('git_sitemap_api') ){
     add_action('publish_post', 'Baidu_Submit', 0);
 }
 
+/**
+ * 函数名称，setcookie的相关参数等可以自行修改
+ */
+function set_newuser_cookie() {
+    if (!isset($_COOKIE['sitename_newvisitor'])) {
+        setcookie('sitename_newvisitor', 1, time()+1209600, COOKIEPATH, COOKIE_DOMAIN, false);
+    }
+}
+
+add_action( 'init', 'set_newuser_cookie');
 // 部分内容输入密码可见
 function e_secret($atts, $content=null){
     extract(shortcode_atts(array('key'=>null,'way'=>null,), $atts));
-    if(isset($_POST['e_secret_key']) && $_POST['e_secret_key']==$key){
+    if(isset($_POST['e_secret_key']) && $_POST['e_secret_key']==$key || isset($_COOKIE['sitename_newvisitor'])){
         return '
 <div class="e-secret"><fieldset>
 <legend>隐藏的内容</legend> 
