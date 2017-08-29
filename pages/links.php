@@ -31,8 +31,8 @@ $bookmarks = get_bookmarks(array('category' => git_get_option('git_linkpage_cat'
 if ( !empty($bookmarks) ){
     echo '<ul class="link-content clearfix">';
     foreach ($bookmarks as $bookmark) {
-        echo '<li><a href="' . $bookmark->link_url . '" title="' . $bookmark->link_description . '" target="_blank" ><img src="http://f.ydr.me/' . $bookmark->link_url . '" height="32" width="32" />
-<span class="sitename">'. $bookmark->link_name .'</span></a></li>';
+        echo '<li><a href="' . $bookmark->link_url . '" title="' . $bookmark->link_description . '" target="_blank" ><img src="https://api.52miku.cn/favicon/?url=' . $bookmark->link_url . '" height="64px" width="64px" />
+<span class="linkname">'. $bookmark->link_name .'</span></a></li>';
     }
     echo '</ul>';
 }
