@@ -30,7 +30,7 @@ QTags.addButton( 'video', '视频按钮', "[video play='0']", "[/video]" );
 QTags.addButton( 'audio', '音频按钮', "[audio play='0']", "[/audio]" );
 QTags.addButton( 'collapse', '隐藏收缩', '[collapse title=""]\n\n[/collapse]', "" );
 QTags.addButton( 'reply', '回复可见', "[reply]", "[/reply]" );
-QTags.addButton( 'mimakejian', '密码可见', '[secret key="输入密码"]', '[/secret]' );
+QTags.addButton( 'mimakejian', '密码可见', '[secret key="输入密码" way=""]', '[/secret]' );
 QTags.addButton( 'fancydl', '弹窗下载', "[fanctdl filename='这里填写文件名' filesize='这里填写文件大小' filedate='这里填写的是文件的发布日期' href='这里填写的主下载链接' filedown='这里填写的是文件的主下载名称']这里填写的文件的辅助下载链接，A标签即可！[/fanctdl]" );
 QTags.addButton( 'dltable', '下载面板', '[dltable file="在此处写下文件名称" size="在这里写下文件大小"]这里留文件下载A标签链接，可以放多个链接[/dltable]' );
 QTags.addButton( 'download', '单页下载', "[download]", "[/download]" );

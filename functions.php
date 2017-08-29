@@ -55,7 +55,7 @@ function googlo_admin_site_ctrlenter() {
 add_action('admin_footer', 'googlo_admin_site_ctrlenter');
 //添加后台左下角文字
 function git_admin_footer_text($text) {
-    $text = '感谢使用<a target="_blank" href=http://googlo.me/ >Git主题 7</a>进行创作';
+    $text = '感谢使用<a target="_blank" href=http://googlo.me/ >Git主题 8</a>进行创作';
     return $text;
 }
 add_filter('admin_footer_text', 'git_admin_footer_text');
@@ -2377,18 +2377,31 @@ if(!function_exists('Baidu_Submit') && git_get_option('git_sitemap_api') ){
 
 // 部分内容输入密码可见
 function e_secret($atts, $content=null){
-    extract(shortcode_atts(array('key'=>null), $atts));
+    extract(shortcode_atts(array('key'=>null,'way'=>null,), $atts));
     if(isset($_POST['e_secret_key']) && $_POST['e_secret_key']==$key){
         return '
-<div class="e-secret">'.$content.'</div>
-';
-    }
-    else{
+<div class="e-secret"><fieldset>
+<legend>隐藏的内容</legend> 
+'.$content.'
+<div class="clear"></div>
+</fieldset></div>
+';}else{
+          if( $way =='wx'){
+                    return '<div class="wxbox">
+	<img class="wxpic" src="'.git_get_option('git_mp_qr').'" alt="'.git_get_option('git_mp_name').'" title="'.git_get_option('git_mp_name').'" align="right">
+	<form method="post" action="'.get_permalink().'" name="e-secret">
+		<span class="yzts" style="font-size:18px;">验证码：</span>
+		<input name="e_secret_key" id="verifycode" value="" type="text">
+		<input id="verifybtn" name="" value="提交查看" type="submit">
+	</form>
+	<div class="wxtips">请关注'.get_bloginfo( 'name' ).'官方微信公众号，关注并订阅“<span style="color:#E96463;font-weight : bold;">'.git_get_option('git_mp_name').'</span>”，获取验证码。在微信里搜索“<span style="color:#E96463;font-weight : bold;">'.git_get_option('git_mp_name').'</span>”或者微信扫描二维码都可以关注'.get_bloginfo( 'name' ).'官方微信公众号。</div>
+	<div class="cl"></div>
+</div>';}else{
         return '
 <form class="e-secret" action="'.get_permalink().'" method="post" name="e-secret"><label>输入密码查看加密内容：</label><input type="password" name="e_secret_key" class="euc-y-i" maxlength="50"><input type="submit" class="euc-y-s" value="确定">
 <div class="euc-clear"></div>
 </form>
-';
+';}
     }
 }
 add_shortcode('secret','e_secret');
@@ -2397,7 +2410,7 @@ function secret_css() {
 	global $post,$posts;
 		foreach ($posts as $post) {
 			if ( has_shortcode( $post->post_content, 'secret') ){
-    echo '<style type="text/css">form.e-secret{margin:20px 0;padding:20px;height:60px;background:#f8f8f8}.e-secret input.euc-y-i[type=password]{float:left;background:#fff;width:100%;line-height:36px;margin-top:5px;border-radius:3px}.e-secret input.euc-y-s[type=submit]{float:right;margin-top:-47px;width:30%;margin-right:1px;border-radius:0 3px 3px 0}input.euc-y-s[type=submit]{background-color:#3498db;color:#fff;font-size:21px;box-shadow:none;-webkit-transition:.4s;-moz-transition:.4s;-o-transition:.4s;transition:.4s;-webkit-backface-visibility:hidden;position:relative;cursor:pointer;padding:13px 20px;text-align:center;border-radius:50px;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;border:0;height:auto;outline:medium;line-height:20px;margin:0}input.euc-y-s[type=submit]:hover{background-color:#5dade2}input.euc-y-i[type=password],input.euc-y-i[type=text]{border:1px solid #F2EFEF;color:#777;display:block;background:#FCFCFC;font-size:18px;transition:all .5s ease 0;outline:0;box-sizing:border-box;-webkit-border-radius:25px;-moz-border-radius:25px;border-radius:25px;padding:5px 16px;margin:0;height:auto;line-height:30px}input.euc-y-i[type=password]:hover,input.euc-y-i[type=text]:hover{border:1px solid #56b4ef;box-shadow:0 0 4px #56b4ef}</style>';}}}
+    echo '<style type="text/css">form.e-secret{margin:20px 0;padding:20px;height:60px;background:#f8f8f8}.e-secret input.euc-y-i[type=password]{float:left;background:#fff;width:100%;line-height:36px;margin-top:5px;border-radius:3px}.e-secret input.euc-y-s[type=submit]{float:right;margin-top:-47px;width:30%;margin-right:1px;border-radius:0 3px 3px 0}input.euc-y-s[type=submit]{background-color:#3498db;color:#fff;font-size:21px;box-shadow:none;-webkit-transition:.4s;-moz-transition:.4s;-o-transition:.4s;transition:.4s;-webkit-backface-visibility:hidden;position:relative;cursor:pointer;padding:13px 20px;text-align:center;border-radius:50px;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;border:0;height:auto;outline:medium;line-height:20px;margin:0}input.euc-y-s[type=submit]:hover{background-color:#5dade2}input.euc-y-i[type=password],input.euc-y-i[type=text]{border:1px solid #F2EFEF;color:#777;display:block;background:#FCFCFC;font-size:18px;transition:all .5s ease 0;outline:0;box-sizing:border-box;-webkit-border-radius:25px;-moz-border-radius:25px;border-radius:25px;padding:5px 16px;margin:0;height:auto;line-height:30px}input.euc-y-i[type=password]:hover,input.euc-y-i[type=text]:hover{border:1px solid #56b4ef;box-shadow:0 0 4px #56b4ef}.e-secret fieldset{background:#fff;font-size:1.3rem;margin:5px 0;padding:0 5px 10px 10px;width:98%;border-radius:2px;border:1px solid #ddd}.e-secret legend{width:90px;padding:2px 10px;margin:5px;border-radius:2px;border:1px solid #ddd}.wxbox{border:1px dashed #F60;line-height:200%;padding-top:5px;color:red;background-color:#FFF4FF;overflow:hidden;clear:both}.wxbox.yzts{padding-left:10%}.wx form{float:left}.wxbox #verifycode{width:50%;height:32px;line-height:30px;padding:0 25px;border:1px solid #F60}.wxbox #verifybtn{width:10%;height:34px;line-height:34px;padding:0 5px;background-color:#F60;text-align:center;border:none;cursor:pointer;color:#FFF}.cl{clear:both;height:0}.wxpic{float:left;width:18%}.wxtips{color:#32B9B5;float:left;width:72%;padding-left:5%;padding-top:0;font-size:20px;line-height:150%;text-align:left;font-family:Microsoft YaHei}@media (max-width:600px){.wxpic{float:left}.wxbox #verifycode{width:35%}.wxbox #verifybtn{width:22%}.wxpic,.wxtips{width:100%}.wxtips{font-size:20px;padding:2px}}</style>';}}}
 add_action('wp_head', 'secret_css');
 //小工具支持PHP代码运行，其实是不安全的
 function widget_php($text)

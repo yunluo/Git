@@ -1364,6 +1364,20 @@ $options = array(
         'std'   => ''
     ),
     array(
+        'name'  => '微信订阅号/公众号的名字',
+        'desc'  => '请输入您的微信订阅号/公众号名字，完整的不要错字，有利于搜索的。',
+        'id'    => "git_mp_name",
+        'type'  => 'text',
+        'std'   => ''
+    ),
+    array(
+        'name'  => '微信订阅号/公众号二维码',
+        'desc'  => '请输入您的微信订阅号/公众号二维码图片链接，不要想得太多，只是给主题调用的。',
+        'id'    => "git_mp_qr",
+        'type'  => 'text',
+        'std'   => ''
+    ),
+    array(
         'title' => 'STMP邮箱设置',
         'type'  => 'subtitle'
     ),

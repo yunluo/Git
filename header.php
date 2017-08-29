@@ -221,7 +221,7 @@ if (git_get_option('git_search_baidu')) { ?>
 } ?>
 </li>
 </ul>
-</div></div>
+</div>
 </header>
 <section class="container">
 <div class="speedbar">
