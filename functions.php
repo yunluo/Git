@@ -2376,14 +2376,13 @@ if(!function_exists('Baidu_Submit') && git_get_option('git_sitemap_api') ){
 }
 
 /**
- * 函数名称，setcookie的相关参数等可以自行修改
+ * 函数名称，setcookie的相关参数按秒计算
  */
 function set_newuser_cookie() {
     if (!isset($_COOKIE['sitename_newvisitor'])) {
-        setcookie('sitename_newvisitor', 1, time()+1209600, COOKIEPATH, COOKIE_DOMAIN, false);
+        setcookie('sitename_newvisitor', 1, time()+604800, COOKIEPATH, COOKIE_DOMAIN, false);//7天时间
     }
 }
-
 add_action( 'init', 'set_newuser_cookie');
 // 部分内容输入密码可见
 function e_secret($atts, $content=null){
