@@ -2387,7 +2387,7 @@ add_action( 'init', 'set_newuser_cookie');
 // 部分内容输入密码可见
 function e_secret($atts, $content=null){
     extract(shortcode_atts(array('key'=>null,'way'=>null,), $atts));
-    if(isset($_POST['e_secret_key']) && $_POST['e_secret_key']==$key || isset($_COOKIE['sitename_newvisitor'])){
+    if(isset($_POST['e_secret_key']) && $_POST['e_secret_key']==$key && isset($_COOKIE['sitename_newvisitor'])){
         return '
 <div class="e-secret"><fieldset>
 <legend>隐藏的内容</legend> 
