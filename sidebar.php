@@ -1,5 +1,5 @@
 <?php 
-$sidebar_html = ABSPATH . "wp-content/cache/sidebar.txt";
+$sidebar_html = get_template_directory_uri() . '/cache/sidebar.txt';
 $have_cached = false;
 if (file_exists($sidebar_html)){
     $file_time = filemtime($sidebar_html);

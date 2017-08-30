@@ -2374,7 +2374,20 @@ if(!function_exists('Baidu_Submit') && git_get_option('git_sitemap_api') ){
     }
     add_action('publish_post', 'Baidu_Submit', 0);
 }
-
+//自动添加标题出现的已使用过的标签
+function git_add_title_tags(){
+	$tags = get_tags( array('hide_empty' => false) );
+	$post_id = get_the_ID();
+	$post_title = get_post($post_id)->post_title;
+	if ($tags) {
+		foreach ( $tags as $tag ) {
+			// 如果文章标题出现了已使用过的标签，自动添加这些标签
+			if ( strpos($post_title, $tag->name) !== false)
+				wp_set_post_tags( $post_id, $tag->name, true );
+		}
+	}
+}
+add_action('save_post', 'git_add_title_tags');
 /**
  * 函数名称，setcookie的相关参数按秒计算
  */
@@ -2388,13 +2401,8 @@ add_action( 'init', 'set_newuser_cookie');
 function e_secret($atts, $content=null){
     extract(shortcode_atts(array('key'=>null,'way'=>null,), $atts));
     if(isset($_POST['e_secret_key']) && $_POST['e_secret_key']==$key && isset($_COOKIE['sitename_newvisitor'])){
-        return '
-<div class="e-secret"><fieldset>
-<legend>隐藏的内容</legend> 
-'.$content.'
-<div class="clear"></div>
-</fieldset></div>
-';}else{
+        return '<div class="e-secret"><fieldset><legend>隐藏的内容</legend> '.$content.' <div class="clear"></div></fieldset></div>';
+    }else{
           if( $way =='wx'){
                     return '<div class="wxbox">
 	<img class="wxpic" src="'.git_get_option('git_mp_qr').'" alt="'.git_get_option('git_mp_name').'" title="'.git_get_option('git_mp_name').'" align="right">
@@ -2545,7 +2553,7 @@ function git_external_posts($atts, $content = null)
 }if ( function_exists('curl_init') ) { 
 add_shortcode('wailian', 'git_external_posts');
 }
-//增加B站视频
+//���加B站视频
 wp_embed_unregister_handler('bili');
 function wp_bili($matches, $attr, $url, $rawattr) {
     if (G_is_mobile()) {

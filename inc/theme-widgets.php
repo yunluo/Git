@@ -138,7 +138,6 @@ function mod_newcomments($limit, $outpost, $outer) {
     global $wpdb;
     $sql = "SELECT DISTINCT ID, post_title, post_password, comment_ID, comment_post_ID, comment_author, comment_date_gmt, comment_approved,comment_author_email, comment_type,comment_author_url, SUBSTRING(comment_content,1,40) AS com_excerpt FROM $wpdb->comments LEFT OUTER JOIN $wpdb->posts ON ($wpdb->comments.comment_post_ID = $wpdb->posts.ID) WHERE comment_post_ID!='" . $outpost . "' AND user_id!='" . $outer . "' AND comment_approved = '1' AND comment_type = '' AND post_password = '' ORDER BY comment_date_gmt DESC LIMIT $limit";
     $comments = $wpdb->get_results($sql);
-
     foreach ($comments as $comment) {
         $output.= '<li><a target="_blank" href="' . get_permalink($comment->ID) . '#comment-' . $comment->comment_ID . '" title="' . $comment->post_title . '上的评论">' . str_replace(' src=', ' data-original=', get_avatar($comment->comment_author_email, $size = '36', deel_avatar_default())) . ' <div class="muted"><i>' . strip_tags($comment->comment_author) . '</i>' . timeago($comment->comment_date_gmt) . '说：' . str_replace(' src=', ' data-original=', convert_smilies(strip_tags($comment->com_excerpt))) . '</div></a></li>';
     }
