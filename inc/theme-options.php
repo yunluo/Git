@@ -1377,6 +1377,20 @@ $options = array(
         'type'  => 'text',
         'std'   => ''
     ),
+	array(
+        'name'  => '微信验证码',
+        'desc'  => '请输入您的微信验证码，这里的必须要要和微信里面回复的保持一致。',
+        'id'    => "git_mp_code",
+        'type'  => 'text',
+        'std'   => ''
+    ),
+	array(
+        'name'  => '微信可见提示信息，可用html代码',
+        'desc'  => '在本输入框内输入您的微信公众号描述信息，支持html代码，字数合适就行，不能太多',
+        'id'    => 'git_mp_tips',
+        'type'  => 'textarea',
+        'std'   => ''
+    ),
     array(
         'title' => 'STMP邮箱设置',
         'type'  => 'subtitle'
