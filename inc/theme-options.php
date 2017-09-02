@@ -1364,13 +1364,6 @@ $options = array(
         'std'   => ''
     ),
     array(
-        'name'  => '微信订阅号/公众号的名字',
-        'desc'  => '请输入您的微信订阅号/公众号名字，完整的不要错字，有利于搜索的。',
-        'id'    => "git_mp_name",
-        'type'  => 'text',
-        'std'   => ''
-    ),
-    array(
         'name'  => '微信订阅号/公众号二维码',
         'desc'  => '请输入您的微信订阅号/公众号二维码图片链接，不要想得太多，只是给主题调用的。',
         'id'    => "git_mp_qr",
@@ -1382,14 +1375,14 @@ $options = array(
         'desc'  => '请输入您的微信验证码，这里的必须要要和微信里面回复的保持一致。',
         'id'    => "git_mp_code",
         'type'  => 'text',
-        'std'   => ''
+        'std'   => '2233'
     ),
 	array(
         'name'  => '微信可见提示信息，可用html代码',
         'desc'  => '在本输入框内输入您的微信公众号描述信息，支持html代码，字数合适就行，不能太多',
         'id'    => 'git_mp_tips',
         'type'  => 'textarea',
-        'std'   => ''
+        'std'   => '请关注乐趣公园官方微信公众号，关注并订阅<span style="color:#E96463;font-weight:bold;">云落乐趣公园</span>获取验证码。在微信里搜索<span style="color:#E96463;font-weight:bold;">云落乐趣公园</span>或者微信扫描二维码都可以关注乐趣公园官方微信公众号。<span style="color:#E53333;font-weight:bold;">【据说人品差的需要提交两次哦】</span>'
     ),
     array(
         'title' => 'STMP邮箱设置',
@@ -1445,21 +1438,29 @@ $options = array(
     ),
     array(
         'name'  => 'Gravatar头像设置',
-        'desc'  => '任选一个合适的头像解决方案，另外，如果选择本地缓存的话，请在WordPress根目录（wp-content同级）',
+        'desc'  => '头像设置，请务必点击→→<a class="button-primary" target="_blank" href="http://googlo.me/archives/4667.html">使用说明</a>',
         'id'    => "git_avater",
         'type'  => 'radio',
         'options' => array(
+            '本地随机头像' => 'git_avatar_rand',
             '头像镜像服务器' => 'git_avatar_qn',
             '本地头像755缓存' => 'git_avatar_b'
         ),
         'std'   => 'git_avatar_qn'
     ),
     array(
+        'name'  => '本地随机头像数目',
+        'desc'  => '默认140个头像，增加的话需要同步增加头像服务器数量！',
+        'id'    => "git_avatar_randnum",
+        'type'  => 'text',
+        'std'   => '140'
+    ),
+    array(
         'name'  => 'Gravatar头像镜像服务器',
-        'desc'  => '在上面选择[头像镜像服务器]之后本选项才可以生效，<a class="button-primary" target="_blank" href="http://googlo.me/go/qiniu">立刻创建自己的七牛头像镜像服务器</a>',
+        'desc'  => '注意：本选项不可加加http://这些前缀，另外请务必查看上面的使用说明！！',
         'id'    => "git_avatar_qnurl",
         'type'  => 'text',
-        'std'   => ''
+        'std'   => 'fdn.geekzu.org'
     ),
     array(
         'name'  => 'jQuery来源设置',

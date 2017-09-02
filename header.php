@@ -2,7 +2,7 @@
 苍茫的代码是我的爱！！！
 -->
 <!DOCTYPE HTML>
-<html xmlns:wb=“http://open.weibo.com/wb”>
+<html xmlns:wb="http://open.weibo.com/wb">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-transform" />
@@ -54,11 +54,9 @@ echo $sr_2
 <!--[if lt IE 9]><script src="<?php
 echo esc_url( get_template_directory_uri() ); ?>/assets/js/html5.js"></script><![endif]-->
 <?php
-echo get_post_meta($post->ID, 'git_customer', true); ?>
+if (git_get_option('git_customcss')) echo '<style type="text/css">'.git_get_option('git_customcss').'</style>'; ?>
 </head>
 <?php flush(); ?>
-<?php
-if (git_get_option('git_customcss')) echo '<style type="text/css">'.git_get_option('git_customcss').'</style>'; ?>
 <body <?php
 body_class(); ?>>
 <?php

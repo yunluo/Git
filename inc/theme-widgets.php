@@ -130,7 +130,6 @@ class git_comment extends WP_Widget {
         echo $instance['link']; ?>" size="24" />
 			</label>
 		</p>
-
 <?php
     }
 }

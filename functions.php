@@ -301,6 +301,14 @@ function git_avatar_cache($avatar) {
 if(git_get_option('git_avater')=='git_avatar_qn'){
 add_filter('get_avatar', 'git_avatar_cache', 10, 3);
 }
+//本地随机头像
+function local_random_avatar( $avatar ) {
+        $avatarsrc = '//'.git_get_option('git_avatar_qnurl').'/myavatar/'. mt_rand(1, git_get_option('git_avatar_randnum')) .'.jpg';
+		$avatar = "<img src='{$avatarsrc}' class='avatar photo' />";
+    return $avatar;
+}if(git_get_option('git_avater')=='git_avatar_rand'){
+add_filter( 'get_avatar' , 'local_random_avatar' , 1 , 5 );
+}
 //给外部链接加上跳转
 if(git_get_option('git_go')):
 function git_go_url($content){
@@ -2378,9 +2386,10 @@ if(!function_exists('Baidu_Submit') && git_get_option('git_sitemap_api') ){
 function e_secret($atts, $content=null){
 	if ( !isset($_COOKIE['weixin_fensi']) && isset($_POST['e_secret_key']) && $_POST['e_secret_key']==git_get_option('git_mp_code')) {
         setcookie('weixin_fensi', 10086, time()+2592000, COOKIEPATH, COOKIE_DOMAIN, false);//30天时间
+        return '<script type="text/javascript">window.location = document.referrer;</script>';
     }
     extract(shortcode_atts(array('wx'=>null), $atts));
-		if( $_COOKIE['weixin_fensi']=='10086' ){
+		if( $_COOKIE['weixin_fensi']=='10086' || strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ){
 			return '<div class="e-secret"><fieldset><legend>隐藏的内容</legend> 
 	'.$content.'<div class="clear"></div></fieldset></div>';
 	}else{
