@@ -680,8 +680,7 @@ add_filter('pre_get_posts', 'search_filter_page');
 // 更改后台字体
 function Bing_admin_lettering() {
     echo '<style type="text/css">
-        * { font-family: "Microsoft YaHei" !important; }
-        i, .ab-icon, .mce-close, i.mce-i-aligncenter, i.mce-i-alignjustify, i.mce-i-alignleft, i.mce-i-alignright, i.mce-i-blockquote, i.mce-i-bold, i.mce-i-bullist, i.mce-i-charmap, i.mce-i-forecolor, i.mce-i-fullscreen, i.mce-i-help, i.mce-i-hr, i.mce-i-indent, i.mce-i-italic, i.mce-i-link, i.mce-i-ltr, i.mce-i-numlist, i.mce-i-outdent, i.mce-i-pastetext, i.mce-i-pasteword, i.mce-i-redo, i.mce-i-removeformat, i.mce-i-spellchecker, i.mce-i-strikethrough, i.mce-i-underline, i.mce-i-undo, i.mce-i-unlink, i.mce-i-wp-media-library, i.mce-i-wp_adv, i.mce-i-wp_fullscreen, i.mce-i-wp_help, i.mce-i-wp_more, i.mce-i-wp_page, .qt-fullscreen, .star-rating .star { font-family: dashicons !important; }
+        * { font-family: "Microsoft YaHei" !important; }.wp-admin img.avatar.photo {width:50px  !important;}i, .ab-icon, .mce-close, i.mce-i-aligncenter, i.mce-i-alignjustify, i.mce-i-alignleft, i.mce-i-alignright, i.mce-i-blockquote, i.mce-i-bold, i.mce-i-bullist, i.mce-i-charmap, i.mce-i-forecolor, i.mce-i-fullscreen, i.mce-i-help, i.mce-i-hr, i.mce-i-indent, i.mce-i-italic, i.mce-i-link, i.mce-i-ltr, i.mce-i-numlist, i.mce-i-outdent, i.mce-i-pastetext, i.mce-i-pasteword, i.mce-i-redo, i.mce-i-removeformat, i.mce-i-spellchecker, i.mce-i-strikethrough, i.mce-i-underline, i.mce-i-undo, i.mce-i-unlink, i.mce-i-wp-media-library, i.mce-i-wp_adv, i.mce-i-wp_fullscreen, i.mce-i-wp_help, i.mce-i-wp_more, i.mce-i-wp_page, .qt-fullscreen, .star-rating .star { font-family: dashicons !important; }
         .mce-ico { font-family: tinymce, Arial !important; }
         .fa { font-family: FontAwesome !important; }
         .genericon { font-family: "Genericons" !important; }
@@ -2297,7 +2296,7 @@ function get_the_link_items($id = null){
 function get_link_items(){
     $linkcats = get_terms( 'link_category' );
     if ( !empty($linkcats) ) {
-        foreach( $linkcats as $linkcat){            
+        foreach( $linkcats as $linkcat){
             $result .=  '<h2 class="link_title">'.$linkcat->name.'</h2>';
             if( $linkcat->description ) $result .= '<div class="link_description">' . $linkcat->description . '</div>';
             $result .=  get_the_link_items($linkcat->term_id);
@@ -2390,7 +2389,7 @@ function e_secret($atts, $content=null){
     }
     extract(shortcode_atts(array('wx'=>null), $atts));
 		if( $_COOKIE['weixin_fensi']=='10086' || strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ){
-			return '<div class="e-secret"><fieldset><legend>隐藏的内容</legend> 
+			return '<div class="e-secret"><fieldset><legend>隐藏的内容</legend>
 	'.$content.'<div class="clear"></div></fieldset></div>';
 	}else{
           if($wx =='1'){
@@ -2506,17 +2505,14 @@ add_shortcode('neilian', 'git_insert_posts');
 //给文章加外链短代码
 function git_external_posts($atts, $content = null)
 {
-	extract(shortcode_atts(array('img' => '0'), $atts));
 	$ch = curl_init( $content );
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	$result = curl_exec($ch);
 	curl_close($ch);
-	$title = preg_match('!<title>(.*?)</title>!i', $result, $matches) ? $matches[1] : '因为某些不可控制原因，标题已丢失，请勿想念';
+	$title = preg_match('!<title>(.*?)</title>!i', $result, $matches) ? $matches[1] : '我是标题我是标题我是标题我是标题我是标题我是标题我是标题';
 	$tags = get_meta_tags( $content );
 	$description = $tags['description'];
-	if( $img ==0){
-	$imgpath = get_template_directory_uri() . '/assets/img/pic/' . mt_rand(1, 12) . '.jpg';}if( $img ==1){
-	$imgpath = '//image.thum.io/get/width/160/' . $content . '';}
+	$imgpath = get_template_directory_uri() . '/assets/img/pic/' . mt_rand(1, 12) . '.jpg';
 	global $post;
 	$contents = '';
         setup_postdata($post);
@@ -2529,7 +2525,7 @@ function git_external_posts($atts, $content = null)
         $contents .= ' class="neilian-thumb"></a></div></div>';
     wp_reset_postdata();
     return $contents;
-}if ( function_exists('curl_init') ) { 
+}if ( function_exists('curl_init') ) {
 add_shortcode('wailian', 'git_external_posts');
 }
 //增加B站视频
