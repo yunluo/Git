@@ -304,7 +304,7 @@ add_filter('get_avatar', 'git_avatar_cache', 10, 3);
 //本地随机头像
 function local_random_avatar( $avatar ) {
         $avatarsrc = '//'.git_get_option('git_avatar_qnurl').'/myavatar/'. mt_rand(1, git_get_option('git_avatar_randnum')) .'.jpg';
-		$avatar = "<img src='{$avatarsrc}' class='avatar photo' />";
+		$avatar = "<img src='{$avatarsrc}' class='avatar rand_avatar photo' />";
     return $avatar;
 }if(git_get_option('git_avater')=='git_avatar_rand'){
 add_filter( 'get_avatar' , 'local_random_avatar' , 1 , 5 );
@@ -680,7 +680,7 @@ add_filter('pre_get_posts', 'search_filter_page');
 // 更改后台字体
 function Bing_admin_lettering() {
     echo '<style type="text/css">
-        * { font-family: "Microsoft YaHei" !important; }.wp-admin img.avatar.photo {width:50px  !important;}i, .ab-icon, .mce-close, i.mce-i-aligncenter, i.mce-i-alignjustify, i.mce-i-alignleft, i.mce-i-alignright, i.mce-i-blockquote, i.mce-i-bold, i.mce-i-bullist, i.mce-i-charmap, i.mce-i-forecolor, i.mce-i-fullscreen, i.mce-i-help, i.mce-i-hr, i.mce-i-indent, i.mce-i-italic, i.mce-i-link, i.mce-i-ltr, i.mce-i-numlist, i.mce-i-outdent, i.mce-i-pastetext, i.mce-i-pasteword, i.mce-i-redo, i.mce-i-removeformat, i.mce-i-spellchecker, i.mce-i-strikethrough, i.mce-i-underline, i.mce-i-undo, i.mce-i-unlink, i.mce-i-wp-media-library, i.mce-i-wp_adv, i.mce-i-wp_fullscreen, i.mce-i-wp_help, i.mce-i-wp_more, i.mce-i-wp_page, .qt-fullscreen, .star-rating .star { font-family: dashicons !important; }
+        * { font-family: "Microsoft YaHei" !important; }.wp-admin img.rand_avatar {maxWidth:50px !important;}i, .ab-icon, .mce-close, i.mce-i-aligncenter, i.mce-i-alignjustify, i.mce-i-alignleft, i.mce-i-alignright, i.mce-i-blockquote, i.mce-i-bold, i.mce-i-bullist, i.mce-i-charmap, i.mce-i-forecolor, i.mce-i-fullscreen, i.mce-i-help, i.mce-i-hr, i.mce-i-indent, i.mce-i-italic, i.mce-i-link, i.mce-i-ltr, i.mce-i-numlist, i.mce-i-outdent, i.mce-i-pastetext, i.mce-i-pasteword, i.mce-i-redo, i.mce-i-removeformat, i.mce-i-spellchecker, i.mce-i-strikethrough, i.mce-i-underline, i.mce-i-undo, i.mce-i-unlink, i.mce-i-wp-media-library, i.mce-i-wp_adv, i.mce-i-wp_fullscreen, i.mce-i-wp_help, i.mce-i-wp_more, i.mce-i-wp_page, .qt-fullscreen, .star-rating .star { font-family: dashicons !important; }
         .mce-ico { font-family: tinymce, Arial !important; }
         .fa { font-family: FontAwesome !important; }
         .genericon { font-family: "Genericons" !important; }
