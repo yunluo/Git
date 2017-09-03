@@ -8,7 +8,7 @@ $have_cached = false;
 if (file_exists($sidebar_html)){
     $file_time = filemtime($sidebar_html);
     if (($file_time + 18000) > time()){ //缓存5小时
-        echo "<!-- cached sidebar -->";
+        echo "<!-- start of cached sidebar -->";
         echo(file_get_contents($sidebar_html));
         echo "<!-- end of cached sidebar -->";
         $have_cached = true;
