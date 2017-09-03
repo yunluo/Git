@@ -645,7 +645,7 @@ $options = array(
         'desc'  => '个',
         'id'    => 'git_sticky_count',
         'type'  => 'number',
-        'std'   => '4'
+        'std'   => 4
     ),
     array(
         'title' => '幻灯片【简约版】设置[855*300]',
@@ -812,7 +812,7 @@ $options = array(
         'desc'  => '默认4个,也可以8个',
         'id'    => "git_cat_num",
         'type'  => 'number',
-        'std'   => '4'
+        'std'   => 4
     ),
     array(
         'name'  => '分类一',
@@ -1419,8 +1419,8 @@ $options = array(
         'name'  => 'SMTP服务器端口',
         'desc'  => '请输入您的smtp端口，一般QQ邮箱25就可以了',
         'id'    => "git_mailport_b",
-        'type'  => 'text',
-        'std'   => '25'
+        'type'  => 'number',
+        'std'   => 25
     ),
     array(
         'name'  => '邮箱账号',
@@ -1452,8 +1452,8 @@ $options = array(
         'name'  => '本地随机头像数目',
         'desc'  => '默认140个头像，增加的话需要同步增加头像服务器数量！',
         'id'    => "git_avatar_randnum",
-        'type'  => 'text',
-        'std'   => '140'
+        'type'  => 'number',
+        'std'   => 140
     ),
     array(
         'name'  => 'Gravatar头像镜像服务器',
