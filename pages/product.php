@@ -20,7 +20,7 @@ $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 query_posts('post_type=product&post_status=publish&showposts=' . $limit=20 . '&paged=' . $paged);
 if (have_posts()) : while (have_posts()) : the_post(); ?>
 	        <div class="col span_1_of_4" role="main">
-			<div class="shop-item">
+			<div class="card-item">
 				<a href="<?php
         the_permalink(); ?>" alt="<?php
         the_title(); ?>" title="<?php

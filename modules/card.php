@@ -16,7 +16,7 @@ if (is_home()) { ?>
     while (have_posts()):
         the_post(); ?>
 	        <div class="card col span_1_of_4" role="main">
-			<div class="shop-item">
+			<div class="card-item">
 				<a href="<?php
         the_permalink(); ?>" alt="<?php
         the_title(); ?>" title="<?php
@@ -42,7 +42,6 @@ if (is_home()) { ?>
             echo '&h=169&w=253&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
         } ?></a>
 			</div>
-				</a>
 				<h3><a href="<?php
         the_permalink(); ?>" alt="<?php
         the_title(); ?>" title="<?php
