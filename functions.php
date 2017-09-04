@@ -25,7 +25,7 @@ function deel_setup() {
 	remove_filter( 'pre_link_notes', 'wp_filter_kses' );
 	remove_filter( 'term_description', 'wp_kses_data' );
     //添加主题特性
-    add_theme_support('custom-background', array( 'default-image' => 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiBAMAAAG/biZnAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAFVBMVEXr6+vt7e3u7u709PT19fX5+fn6+vrxFbjJAAAAqElEQVQoz42RSxEDMQxDH4eUQcrgmYELoBB8Kn8IPST76/anyUGjyLKdANAtund6FlcLwEDn6aFFCy26RtE1CwBUUZOcTGKyQEMMpasuEeo7lhbtze11p+VkG6Yk6OBjqi8shxFi1cKXlPyZMhYSRkF88D1esW7m+ibNI4o2Ip1zxfiAPHj6qeqsNHMLcekVa1IcuscpJ/dKbMa9J+Kg3Jay4vLHhCc8AacmdAfnGmt/AAAAAElFTkSuQmCC' ));
+    add_theme_support('custom-background', array( 'default-image' => get_template_directory_uri() . '/assets/img/bg.png' ));
     //隐藏admin Bar
     add_filter('show_admin_bar', 'hide_admin_bar');
     //关键字
