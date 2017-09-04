@@ -1,5 +1,7 @@
 # Git主题
 
+![Git主题](http://7arngj.com1.z0.glb.clouddn.com/wp-content/uploads/2017082405050838.jpg)
+
 主题预览：http://googlo.me
 ----
 
