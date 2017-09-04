@@ -304,7 +304,7 @@ add_filter('get_avatar', 'git_avatar_cache', 10, 3);
 //本地随机头像
 function local_random_avatar( $avatar ) {
         $avatarsrc = '//'.git_get_option('git_avatar_qnurl').'/myavatar/'. mt_rand(1, git_get_option('git_avatar_randnum')) .'.jpg';
-		$avatar = "<img src='{$avatarsrc}' class='avatar rand_avatar photo' />";
+		$avatar = "<img src=$avatarsrc alt='.get_comment_author().' class='avatar rand_avatar photo' />";
     return $avatar;
 }if(git_get_option('git_avater')=='git_avatar_rand'){
 add_filter( 'get_avatar' , 'local_random_avatar' , 1 , 5 );
@@ -1277,6 +1277,8 @@ function Coding_notice() {
             $url = "https://coding.net/u/googlo/p/File/git/raw/master/notice.txt";
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
             $dxycontent = curl_exec($ch);

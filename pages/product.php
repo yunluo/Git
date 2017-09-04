@@ -22,8 +22,7 @@ if (have_posts()) : while (have_posts()) : the_post(); ?>
 	        <div class="col span_1_of_4" role="main">
 			<div class="card-item">
 				<a href="<?php
-        the_permalink(); ?>" alt="<?php
-        the_title(); ?>" title="<?php
+        the_permalink(); ?>" title="<?php
         the_title(); ?>" class="fancyimg home-blog-entry-thumb">
 					<div class="thumb-img focus">
 					<?php

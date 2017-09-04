@@ -5,7 +5,7 @@ function git_banners() {
     register_widget('git_banner');
 }
 class git_banner extends WP_Widget {
-    
+
     function __construct() {
         $widget_ops = array(
             'classname' => 'git_banner',
@@ -660,10 +660,10 @@ class git_slick extends WP_Widget {
         $stitle4 = $instance['stitle4'];
         echo $before_widget;
         echo '<div class="slick" style="height:200px">';
-        echo '<div><a target="_blank" href="' . $slink1 . '" title="' . $stitle1 . '" ><img width="360px" height="200px" src="' . $simg1 . '" ></a></div>';
-        echo '<div><a target="_blank" href="' . $slink2 . '" title="' . $stitle2 . '" ><img width="360px" height="200px" src="' . $simg2 . '" ></a></div>';
-        echo '<div><a target="_blank" href="' . $slink3 . '" title="' . $stitle3 . '" ><img width="360px" height="200px" src="' . $simg3 . '" ></a></div>';
-        echo '<div><a target="_blank" href="' . $slink4 . '" title="' . $stitle4 . '" ><img width="360px" height="200px" src="' . $simg4 . '" ></a></div>';
+        echo '<div><a target="_blank" href="' . $slink1 . '" title="' . $stitle1 . '" ><img alt="' . $stitle1 . '" width="360" height="200" src="' . $simg1 . '" ></a></div>';
+        echo '<div><a target="_blank" href="' . $slink2 . '" title="' . $stitle2 . '" ><img alt="' . $stitle2 . '" width="360" height="200" src="' . $simg2 . '" ></a></div>';
+        echo '<div><a target="_blank" href="' . $slink3 . '" title="' . $stitle3 . '" ><img alt="' . $stitle3 . '" width="360" height="200" src="' . $simg3 . '" ></a></div>';
+        echo '<div><a target="_blank" href="' . $slink4 . '" title="' . $stitle4 . '" ><img alt="' . $stitle4 . '" width="360" height="200" src="' . $simg4 . '" ></a></div>';
         echo '</div>';
         echo $after_widget;
     }

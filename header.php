@@ -136,7 +136,7 @@ if (git_get_option('git_avataer_b')) echo '<style type="text/css">.avatar{-webki
 if (git_get_option('git_piclogo_left') && !G_is_mobile()) {
     echo '<div class="g-logo pull-left">';
 } else {
-    echo '<div align="center" class="g-logo">';
+    echo '<div class="g-logo pull_center">';
 } ?><a href="/">
 <?php
 if (is_home()) {
