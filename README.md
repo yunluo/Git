@@ -1,1 +1,10 @@
-# 本主题不再更新，不再提供下载，喜欢这款主题的可以去下载类似主题，谢谢支持！
+# Git主题
+
+主题预览：http://googlo.me
+----
+
+使用文档：http://googlo.me/archives/3275.html
+----
+
+主题主页：http://googlo.me/archives/3589.html
+----
