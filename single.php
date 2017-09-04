@@ -2,7 +2,7 @@
 <div class="content-wrap">
 	<div class="content">
 <?php
-if (git_get_option('git_singleMenu_b')) echo '<div class="breadcrumbs">' . deel_breadcrumbs() . '</div>'; 
+if (git_get_option('git_singleMenu_b')) echo '<div class="breadcrumbs">' . deel_breadcrumbs() . '</div>';
 if(git_get_option('git_suojin')){echo '<style type="text/css">.article-content p {text-indent: 2em;}.article-content p a,.article-content p video,.article-content table p{text-indent: 0 !important;}</style>';}
 ?>
 <?php
@@ -33,13 +33,13 @@ while (have_posts()):
 				<span class="muted"><i class="fa fa-user"></i> <a href="<?php
     echo get_author_posts_url(get_the_author_meta('ID')) ?>"><?php
     echo get_the_author() ?></a></span>
-    
+
     <?php
     $zhuanzai = get_post_meta($post->ID, 'git_zhuanzai_name', true);
     if ( $zhuanzai ) echo '<span class="muted"><i class="fa fa-info-circle"></i> 来源：<a rel="nofollow" target="_blank" href="' . get_post_meta($post->ID, 'git_zhuanzai_link', true) . '">' .get_post_meta($post->ID, 'git_zhuanzai_name', true) . '</a></span>'; ?>
-    
-				<time class="muted"><i class="fa fa-clock-o"></i> <?php
-    echo timeago(get_gmt_from_date(get_the_time('Y-m-d G:i:s'))) ?></time>
+
+				<span class="muted"><i class="fa fa-clock-o"></i> <?php
+    echo timeago(get_gmt_from_date(get_the_time('Y-m-d G:i:s'))) ?></span>
 				<span class="muted"><i class="fa fa-eye"></i> <?php
     deel_views('次浏览'); ?></span>
 				<?php
@@ -50,13 +50,13 @@ while (have_posts()):
     if (comments_open()) echo '<span class="muted"><i class="fa fa-comments-o"></i> <a href="' . get_comments_link() . '">' . get_comments_number('0', '1', '%') . '个评论</a></span>'; ?>
 				<?php
     if (git_get_option('git_qr_b') && !G_is_mobile()) { ?><span class="muted"><i class="fa fa-qrcode"></i> <a style="cursor : pointer;" onMouseOver="document.all.qr.style.visibility=''" onMouseOut="document.all.qr.style.visibility='hidden'">扫描二维码</a>
-				<span id="qr" style="visibility: hidden;"><img style="position:absolute;z-index:99999;" src="https://pan.baidu.com/share/qrcode?w=145&h=145&url=<?php
+				<span id="qr" style="visibility: hidden;"><img alt = <?php the_title();?> style="position:absolute;z-index:99999;" src="https://pan.baidu.com/share/qrcode?w=145&h=145&url=<?php
         the_permalink(); ?>"/></span></span><?php
     } ?>
 				<span class="muted"><?php
     edit_post_link('[编辑]'); ?></span>
 			</div>
-		<?php 
+		<?php
 		$jiage = get_post_meta($post->ID, 'git_product_jiage', true);
 		$fahuodi = get_post_meta($post->ID, 'git_product_fahuodi', true);
 		$cpjianjie = get_post_meta($post->ID, 'git_product_cpjianjie', true);
@@ -195,7 +195,7 @@ if (git_get_option('git_auther_b')) { ?>
 </div>
 <?php
 } ?>
-<div id="donatecoffee" style="overflow:auto;display:none;"><img width="400px" height="400px" src="<?php echo git_get_option('git_pay_qr');?>"></div>
+<div id="donatecoffee" style="overflow:auto;display:none;"><img width="400" height="400" alt="支持作者一杯咖啡" src="<?php echo git_get_option('git_pay_qr');?>"></div>
 
 		<div class="related_top">
 			<?php

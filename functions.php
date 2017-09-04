@@ -25,7 +25,7 @@ function deel_setup() {
 	remove_filter( 'pre_link_notes', 'wp_filter_kses' );
 	remove_filter( 'term_description', 'wp_kses_data' );
     //添加主题特性
-    add_theme_support('custom-background', array( 'default-image' => get_template_directory_uri() . '/assets/img/bg.png' ));
+    add_theme_support('custom-background', array( 'default-image' => 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiBAMAAAG/biZnAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAFVBMVEXr6+vt7e3u7u709PT19fX5+fn6+vrxFbjJAAAAqElEQVQoz42RSxEDMQxDH4eUQcrgmYELoBB8Kn8IPST76/anyUGjyLKdANAtund6FlcLwEDn6aFFCy26RtE1CwBUUZOcTGKyQEMMpasuEeo7lhbtze11p+VkG6Yk6OBjqi8shxFi1cKXlPyZMhYSRkF88D1esW7m+ibNI4o2Ip1zxfiAPHj6qeqsNHMLcekVa1IcuscpJ/dKbMa9J+Kg3Jay4vLHhCc8AacmdAfnGmt/AAAAAElFTkSuQmCC' ));
     //隐藏admin Bar
     add_filter('show_admin_bar', 'hide_admin_bar');
     //关键字
@@ -302,9 +302,10 @@ if(git_get_option('git_avater')=='git_avatar_qn'){
 add_filter('get_avatar', 'git_avatar_cache', 10, 3);
 }
 //本地随机头像
-function local_random_avatar( $avatar ) {
+function local_random_avatar( $avatar , $title) {
+		$title = get_the_title();
         $avatarsrc = '//'.git_get_option('git_avatar_qnurl').'/myavatar/'. mt_rand(1, git_get_option('git_avatar_randnum')) .'.jpg';
-		$avatar = "<img src=$avatarsrc alt='.get_comment_author().' class='avatar rand_avatar photo' />";
+		$avatar = "<img src=$avatarsrc alt=$title title=$title class='avatar rand_avatar photo' />";
     return $avatar;
 }if(git_get_option('git_avater')=='git_avatar_rand'){
 add_filter( 'get_avatar' , 'local_random_avatar' , 1 , 5 );
@@ -791,7 +792,7 @@ function no_category_base_request($query_vars) {
 function git_copyright($content ) {
     if (is_single() || is_feed()) {
 		$copyright = str_replace(array('{{title}}', '{{link}}'), array(get_the_title(), get_permalink()), stripslashes(git_get_option('git_copyright_b')));
-        $content.= '<hr /><div align="center" class="open-message"><i class="fa fa-bullhorn"></i>' . $copyright . '</div>';
+        $content.= '<hr /><div class="open-message"><i class="fa fa-bullhorn"></i>' . $copyright . '</div>';
     }
     return $content;
 }
@@ -848,11 +849,11 @@ function imagesalt($content) {
        return $content;
 }
 add_filter('the_content', 'imagesalt');
-//图片A标签添加alt，title属性
+//图片A标签添加title属性
 function aimagesalt($content) {
        global $post;
        $pattern ="/<a(.*?)href=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>/i";
-       $replacement = '<a$1href=$2$3.$4$5 alt="'.$post->post_title.'" title="'.$post->post_title.'"$6>';
+       $replacement = '<a$1href=$2$3.$4$5 title="'.$post->post_title.'"$6>';
        $content = preg_replace($pattern, $replacement, $content);
        return $content;
 }

@@ -809,10 +809,10 @@ class git_slide extends WP_Widget {
         $ttitle4 = $instance['ttitle4'];
         echo $before_widget;
         echo '<div id="wowslider-container1"><div class="ws_images"><ul>';
-        echo '<li><a target="_blank" href="' . $link1 . '" title="' . $ttitle1 . '" ><img width="360px" height="149px" src="' . $img1 . '" ></a></li>';
-        echo '<li><a target="_blank" href="' . $link2 . '" title="' . $ttitle2 . '" ><img width="360px" height="149px" src="' . $img2 . '" ></a></li>';
-        echo '<li><a target="_blank" href="' . $link3 . '" title="' . $ttitle3 . '" ><img width="360px" height="149px" src="' . $img3 . '" ></a></li>';
-        echo '<li><a target="_blank" href="' . $link4 . '" title="' . $ttitle4 . '" ><img width="360px" height="149px" src="' . $img4 . '" ></a></li>';
+        echo '<li><a target="_blank" href="' . $link1 . '" title="' . $ttitle1 . '" ><img width="360" height="149" alt="' . $ttitle1 . '" src="' . $img1 . '" ></a></li>';
+        echo '<li><a target="_blank" href="' . $link2 . '" title="' . $ttitle2 . '" ><img width="360" height="149" alt="' . $ttitle2 . '" src="' . $img2 . '" ></a></li>';
+        echo '<li><a target="_blank" href="' . $link3 . '" title="' . $ttitle3 . '" ><img width="360" height="149" alt="' . $ttitle3 . '" src="' . $img3 . '" ></a></li>';
+        echo '<li><a target="_blank" href="' . $link4 . '" title="' . $ttitle4 . '" ><img width="360" height="149" alt="' . $ttitle4 . '" src="' . $img4 . '" ></a></li>';
         echo '</ul></div></div>';
         echo $after_widget;
     }

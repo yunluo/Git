@@ -3,23 +3,22 @@
 if (git_get_option('git_superfoot_b') && !G_is_mobile()) { ?>
 <div id="footbar" style="border-top: 2px solid #8E44AD;"><ul>
 <li><p class="first"><?php
-    echo git_get_option('git_foottitle1'); ?></p><span max-width="220px"><?php
+    echo git_get_option('git_foottitle1'); ?></p><span><?php
     echo git_get_option('git_footconent1'); ?></span></li>
 <li><p class="second"><?php
-    echo git_get_option('git_foottitle2'); ?></p><span max-width="220px"><?php
+    echo git_get_option('git_foottitle2'); ?></p><span><?php
     echo git_get_option('git_footconent2'); ?></span></li>
 <li><p class="third"><?php
-    echo git_get_option('git_foottitle3'); ?></p><span max-width="220px"><?php
+    echo git_get_option('git_foottitle3'); ?></p><span><?php
     echo git_get_option('git_footconent3'); ?></span></li>
 <li><p class="fourth"><?php
-    echo git_get_option('git_foottitle4'); ?></p><span max-width="220px"><?php
+    echo git_get_option('git_foottitle4'); ?></p><span><?php
     echo git_get_option('git_footconent4'); ?></span></li>
 </ul>
 </div>
 <?php
 } ?>
-<footer style="border-top: 1px solid ;background-image: url('<?php
-echo esc_url( get_template_directory_uri() ); ?>/assets/img/footbg.jpg'); background-repeat: repeat;" class="footer">
+<footer style="border-top: 1px solid ;background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAZABkAAD/7AARRHVja3kAAQAEAAAAUAAA/+4ADkFkb2JlAGTAAAAAAf/bAIQAAgICAgICAgICAgMCAgIDBAMCAgMEBQQEBAQEBQYFBQUFBQUGBgcHCAcHBgkJCgoJCQwMDAwMDAwMDAwMDAwMDAEDAwMFBAUJBgYJDQsJCw0PDg4ODg8PDAwMDAwPDwwMDAwMDA8MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwM/8AAEQgAAgAKAwERAAIRAQMRAf/EAEwAAQEAAAAAAAAAAAAAAAAAAAAJAQEAAAAAAAAAAAAAAAAAAAAAEAEBAAAAAAAAAAAAAAAAAAAAlREBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8Ah7DAhg//2Q=='); background-repeat: repeat;" class="footer">
 <div class="footer-inner"><div class="footer-copyright"><?php
 if (git_get_option('git_footcode')) echo git_get_option('git_footcode'); ?> <span class="yunluocopyright">Theme by <a id="yunluo" href="http://googlo.me" title="乐趣公园" target="_blank" style="cursor:help;">云落</a></span>
 <!-- 若要删除版权请加乐趣公园(googlo.me)为全站友链，或者赞助乐趣公园(支付宝：sp91@qq.com 20元)，谢谢支持 -->
