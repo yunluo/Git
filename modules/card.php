@@ -17,6 +17,8 @@ if (is_home()) { ?>
         the_post(); ?>
 	        <div class="card col span_1_of_4" role="main">
 			<div class="card-item">
+				<a class="fancyimg home-blog-entry-thumb">
+					<div class="thumb-img focus">
 					<div class="metacat"><?php
     if (!is_category()) {
         $category = get_the_category();
