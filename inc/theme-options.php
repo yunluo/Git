@@ -1273,6 +1273,12 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+        'name'  => '侧边栏缓存',
+        'desc'  => '启用 【开启后，将会在wp-content/cache文件夹下生成sidebar.txt缓存文件，开启缓存可以提高侧边栏加载速度，但是丧失是一些动态效果，请知悉，如果侧边栏有异常可以删除sidebar.txt缓存文件或者直接关闭本功能】',
+        'id'    => "git_sidebarcache",
+        'type'  => 'checkbox'
+    ),
+    array(
         'name'  => '开启前台弹窗登录',
         'desc'  => '',
         'id'    => "git_fancylogin",

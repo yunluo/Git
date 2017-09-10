@@ -1,4 +1,21 @@
 </section>
+	<?php
+	/*云落私人邮箱订阅代码，可以直接删除，开始*/
+if (isset($_POST['dingyue_form']) && $_POST['dingyue_form'] == 'send') {
+    $email = isset($_POST['dingyue_email']) ? trim(htmlspecialchars($_POST['dingyue_email'], ENT_QUOTES)) : '';
+    $dingyue = array(
+        'post_title' => '邮箱订阅:'.$email.''
+    );
+	if(empty($email)){
+	echo '<script type="text/javascript">alert("邮箱地址不能为空");window.location = document.referrer;</script>';
+	}else{$status = wp_insert_post($dingyue);}
+	if($status != 0 ){
+		echo '<script type="text/javascript">alert("订阅成功！");window.location = document.referrer;</script>';
+		}else{echo '<script type="text/javascript">alert("订阅失败，请重试或者检查邮箱地址！");window.location = document.referrer;</script>';
+		}
+}
+/*云落私人邮箱订阅代码，可以直接删除，结束*/
+?>
 <?php
 if (git_get_option('git_superfoot_b') && !G_is_mobile()) { ?>
 <div id="footbar" style="border-top: 2px solid #8E44AD;"><ul>

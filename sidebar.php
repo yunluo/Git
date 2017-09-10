@@ -14,9 +14,10 @@ if (file_exists($sidebar_html)){
         $have_cached = true;
     }
 }
-if(!$have_cached){
+if(!$have_cached && git_get_option('git_sidebarcache') ){
     ob_start();
 ?>
+
 <aside class="sidebar">
 <?php
 if (function_exists('dynamic_sidebar') && dynamic_sidebar('widget_sitesidebar')) : endif;
@@ -35,6 +36,7 @@ else {
 }
 ?>
 </aside>
+
 <?php
     $sidebar_content = ob_get_contents();
     ob_end_clean();
