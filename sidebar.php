@@ -1,3 +1,4 @@
+<?php if(git_get_option('git_sidebar_cache') ){ ?>
 <?php 
 $sidebar_html = ABSPATH . "wp-content/cache/sidebar.txt";
 $cache_dir  = ABSPATH . "wp-content/cache";
@@ -14,7 +15,7 @@ if (file_exists($sidebar_html)){
         $have_cached = true;
     }
 }
-if(!$have_cached && git_get_option('git_sidebarcache') ){
+if(!$have_cached ){
     ob_start();
 ?>
 
@@ -50,3 +51,23 @@ else {
     echo $sidebar_content;
 }
 ?>
+<?php }else{ ?>
+<aside class="sidebar">
+<?php
+if (function_exists('dynamic_sidebar') && dynamic_sidebar('widget_sitesidebar')) : endif;
+
+if (is_single()){
+	if (function_exists('dynamic_sidebar') && dynamic_sidebar('widget_postsidebar')) : endif;
+}
+else if (is_page()){
+	if (function_exists('dynamic_sidebar') && dynamic_sidebar('widget_pagesidebar')) : endif;
+}
+else if (is_home()){
+	if (function_exists('dynamic_sidebar') && dynamic_sidebar('widget_sidebar')) : endif;
+}
+else {
+	if (function_exists('dynamic_sidebar') && dynamic_sidebar('widget_othersidebar')) : endif;
+}
+?>
+</aside>
+<?php } ?>
