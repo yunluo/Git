@@ -50,8 +50,8 @@ if (have_posts()) : while (have_posts()) : the_post(); ?>
         } else {
             echo deel_strimwidth(strip_tags(apply_filters('the_excerpt', strip_shortcodes($post->post_excerpt))) , 0, git_get_option('git_excerpt_length') ? git_get_option('git_excerpt_length') : 100 , '……');
         } ?></p>
-				<div class="pricebtn"><i class="fa fa-user"></i> <?php
-        echo get_the_author() ?><a class="buy" href="<?php
+				<div class="cardpricebtn"><i class="fa fa-user"></i> <?php
+        echo get_the_author() ?><a class="cardbuy" href="<?php
         the_permalink(); ?>"><i class="fa fa-eye"></i> 立刻查看</a></div>
 			</div>
 		</div>

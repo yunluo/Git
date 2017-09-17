@@ -44,8 +44,8 @@ if (have_posts()) : while (have_posts()) : the_post(); ?>
         the_title(); ?></a>
 				</h3>
 				<p><?php echo get_post_meta($post->ID, 'git_product_cpjianjie', true); ?></p>
-				<div class="pricebtn"><i class="fa fa-jpy"></i> <?php
-        echo get_post_meta($post->ID, 'git_product_jiage', true); ?><a class="buy" href="<?php
+				<div class="cardpricebtn"><i class="fa fa-jpy"></i> <?php
+        echo get_post_meta($post->ID, 'git_product_jiage', true); ?><a class="cardbuy" href="<?php
         the_permalink(); ?>"><i class="fa fa-shopping-cart"></i> 立刻购买</a></div>
 			</div>
 		</div>

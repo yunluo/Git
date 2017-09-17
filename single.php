@@ -114,7 +114,7 @@ while (have_posts()):
         'previouspagelink' => '',
         'nextpagelink' => "<span>下一页</span>"
     )); ?>
-
+<?php if(!defined('UM_DIR')): ?>
 <div class="article-social">
 			<a href="javascript:;" data-action="ding" data-id="<?php
     the_ID(); ?>" id="Addlike" class="action<?php
@@ -127,6 +127,7 @@ while (have_posts()):
     if (git_get_option('git_bdshare_b')) echo '<span class="or"><style>.article-social .weixin:hover{background:#fff;}</style><a class="weixin" style="border-bottom:0px;font-size:15pt;cursor:pointer;">赏<div class="weixin-popover"><div class="popover bottom in"><div class="arrow"></div><div class="popover-title"><center>[' . git_get_option('git_pay') . ']</center></div><div class="popover-content"><img width="200px" height="200px" src="' . git_get_option('git_pay_qr') . '" ></div></div></div></a></span>';
     deel_share(); ?>
 </div>
+<?php endif; ?>
 	</article>
 		<?php
 endwhile; ?>

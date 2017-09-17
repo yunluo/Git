@@ -234,7 +234,9 @@ if (git_get_option('git_sign_b')) {
 		<?php if(git_get_option('git_fancylogin')) { ?>
 		<?php if(is_user_logged_in()){
 		    echo '<i class="fa fa-user"></i> <a href="' . home_url() . '/wp-admin">' . $u_name . '</a>';
-		}else{
+		}elseif(defined('UM_DIR')){
+			echo '<i class="fa fa-power-off"></i>  <a styliah="cursor:pointer;" data-sign="0" class="user-login">点击登录</a>';}
+		else{
 		    echo '<i class="fa fa-power-off"></i> <a id="showdiv" href="#loginbox" data-original-title="点击登录">点击登录</a>';}
 		    ?>
 		<?php }else{ ?>
