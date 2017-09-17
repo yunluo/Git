@@ -34,9 +34,14 @@ $bookmarks = get_bookmarks(array('category' => git_get_option('git_linkpage_cat'
 if ( !empty($bookmarks) ){
     echo '<ul class="clearfix">';
 foreach ($bookmarks as $bookmark) {
+	if ($bookmark->link_image ) {
+		$ico = $bookmark->link_image ;
+	}else{
+		$ico = 'https://api.byi.pw/favicon/?url=' . $bookmark->link_url . '';
+	}
         echo '<li class="col-md-4 mt-15 mb-15 pd-10">
 <div class="pd-0 h-100 borderr-main-4 tra">
-	<div class="clearfix pd-20 bg-lvs'.mt_rand(1,13).' link-1">
+	<div class="clearfix pd-20 bg-lvs'.mt_rand(1,13).' link-1 rate_' . $bookmark->link_id . '">
 		<div class="col-md-12 pd-0 of-hide">
 			<strong><a title="' . $bookmark->link_description . '" href="' . $bookmark->link_url . '" target="_blank" class="w-100 f14 color-fff link-name">'. $bookmark->link_name .'</a></strong>
 				<p class="f12 color-fff text-overflow">' . $bookmark->link_url . '</p>
@@ -45,11 +50,9 @@ foreach ($bookmarks as $bookmark) {
 	<div class="pd-20 pt-10 pb-10 color-primary clearfix link-2">
 	<p class="color-aaa text-overflow">' . $bookmark->link_description . '</p>
 	</div>
-
 	<div class="pd-20 pt-10 pb-20 color-primary clearfix link-3 ">
 		<span class="pull-left color-aaa link_notes"><i class="fa fa-pencil-square-o" ></i>  ' . $bookmark->link_notes . '</span>
-			<span class="pull-right"><a title="' . $bookmark->link_description . '" href="' . $bookmark->link_url . '" target="_blank" class="f14 color-aaa"><img class="favicon avatar" src="https://api.byi.pw/favicon/?url=' . $bookmark->link_url . '"></a></span>
-
+			<span class="pull-right"><a title="' . $bookmark->link_description . '" href="' . $bookmark->link_url . '" target="_blank" class="f14 color-aaa"><img class="favicon avatar" src="' . $ico . '"></a></span>
 		</div>
 <div class="clearfix"></div>
 </div>
