@@ -145,7 +145,7 @@ $options = array(
     ),
     array(
         'name'  => '网站自定义样式CSS',
-        'desc'  => '网站全局CSS代码，可以直接加入css代码，比如：.authorsocial i{font-size:16px;width:20px;height:18px}',
+        'desc'  => '网站全局CSS代码，可以直接加入css代码，比如：.authorsocials i{font-size:16px;width:20px;height:18px}',
         'id'    => 'git_customcss',
         'type'  => 'textarea'
     ),
