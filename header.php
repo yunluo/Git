@@ -231,24 +231,45 @@ if (git_get_option('git_sign_b')) {
     $u_name = get_user_meta($uid, 'nickname', true);
 ?>
 			<div class="pull-right">
-		<?php if(git_get_option('git_fancylogin')) { ?>
-		<?php if(is_user_logged_in()){
-		    echo '<i class="fa fa-user"></i> <a href="' . home_url() . '/wp-admin">' . $u_name . '</a>';
-		}elseif(defined('UM_DIR')){
-			echo '<i class="fa fa-power-off"></i>  <a style="cursor:pointer;" data-sign="0" class="user-login">点击登录</a>';}
-		else{
-		    echo '<i class="fa fa-power-off"></i> <a id="showdiv" href="#loginbox" data-original-title="点击登录">点击登录</a>';}
+		<?php if(git_get_option('git_fancylogin')) { /*判断是否打开弹窗登录*/ ?>
+		<?php 
+		    if(is_user_logged_in()){/*判断是否登录，如果登录了就... */
+		        if(defined('UM_DIR')){/*判断是否按照um插件，如果安装就...*/
+		            if( current_user_can( 'manage_options' ) ) {/*如果是管理员的话...*/
+                        echo '<i class="fa fa-user"></i> <a href="' . home_url() . '/wp-admin">' . $u_name . '</a>';
+                        echo '&nbsp;&nbsp;<i class="fa fa-power-off"></i> ';
+                        echo wp_loginout();
+                        echo '';}else{/*如果不是管理员的话就..*/
+                        echo '<i class="fa fa-user"></i> <a href="' . the_author_posts_link . '">' . $u_name . '</a>';
+                        echo '&nbsp;&nbsp;<i class="fa fa-power-off"></i> ';
+                        echo wp_loginout();
+                        echo '';}
+		        }else{/*如果没安装um插件就...*/
+		            echo '<i class="fa fa-user"></i> <a href="' . home_url() . '/wp-admin">' . $u_name . '</a>';
+                    echo '&nbsp;&nbsp;<i class="fa fa-power-off"></i> ';
+                    echo wp_loginout();
+                    echo '';}
+		    }else{/*如果没有登录就...*/
+		        if(defined('UM_DIR')){/*如果安装um的话，就...*/
+		            echo '<i class="fa fa-sign-in" ></i>  <a style="cursor:pointer;" data-sign="0" class="user-login">登录</a>';
+		            if(get_option('users_can_register')){
+		            echo '&nbsp;&nbsp;<i class="fa fa-pencil-square-o" ></i>  <a style="cursor:pointer;" data-sign="1" class="user-reg">注册</a>';}
+		        }else{/*如果没有按照um插件的话就..*/
+		            echo '<i class="fa fa-sign-in" ></i> <a id="showdiv" href="#loginbox" data-original-title="点击登录">点击登录</a>';
+		        }
+		    }
 		    ?>
-		<?php }else{ ?>
-        <?php
-    if (is_user_logged_in()) {
+		<?php }else{ //如果没打开弹窗登录，那么就。。。?>
+        <?php if (is_user_logged_in()) { /*判断是否登录 */
         echo '<i class="fa fa-user"></i> <a href="' . home_url() . '/wp-admin">' . $u_name . '</a> ';
-    } elseif (get_option('users_can_register')) {
-        echo '<i class="fa fa-user"></i> <a href="' . home_url() . '/wp-login.php?action=register">注册</a>';
-    };
-    echo '  <i class="fa fa-power-off"></i> ';
-    echo wp_loginout();
-    echo ''; }?>
+        echo '  <i class="fa fa-power-off"></i> ';
+        echo wp_loginout();
+        echo '';
+        } elseif (get_option('users_can_register')) {/*如果没有登录并且可以注册的话就...*/
+        echo '<i class="fa fa-sign-in" ></i>  <a href="' . home_url() . '/wp-login.php">登录</a>';
+        echo '&nbsp;&nbsp;<i class="fa fa-pencil-square-o" ></i>  <a href="' . home_url() . '/wp-login.php?action=register">注册</a>';
+        };
+    }?>
 <div id="loginbox" style="width:350px;height:280px;overflow:auto;display:none;">
 <?php wp_login_form(array('echo' => ture, 'redirect' => site_url( $_SERVER['REQUEST_URI'] )  ));?>
 </div>

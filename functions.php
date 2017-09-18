@@ -318,9 +318,9 @@ function git_go_url($content){
 		foreach($matches[2] as $val){
 			if(strpos($val,'://')!==false && strpos($val,home_url())===false && !preg_match('/\.(jpg|jepg|png|ico|bmp|gif|tiff)/i',$val)){
 			    if(git_get_option('git_pagehtml_b')) {
-			        $content=str_replace("href=\"$val\"", "href=\"".home_url()."/go.html/?url=$val\" ",$content);
+			        $content=str_replace("href=\"$val\"", "href=\"".home_url()."/go.html?url=$val\" ",$content);
 			    }else{
-			        $content=str_replace("href=\"$val\"", "href=\"".home_url()."/go/?url=$val\" ",$content);
+			        $content=str_replace("href=\"$val\"", "href=\"".home_url()."/go?url=$val\" ",$content);
 			    }
 			}
 		}
@@ -614,6 +614,7 @@ function bigfa_like() {
     }
     die;
 }
+
 //最热排行
 function hot_posts_list() {
     if (git_get_option('git_hot_b') == 'git_hot_views') {
@@ -1019,6 +1020,7 @@ function custom_login_head() {
         }else{
             $imgurl = 'http://cn.bing.com' . $matches[1];
         }
+        if(defined('UM_DIR')){echo '<style type="text/css">#um_captcha{width:170px!important;}</style>';}
         echo '<style type="text/css">#reg_passmail{display:none!important}body{background: url(' . $imgurl . ');background-repeat: no-repeat;background-position: top center;background-attachment: fixed;background-size: cover;width: 100%!important;height: 100%!important;}.login label,a {font-weight: bold;}.login-action-register #login{padding: 5% 0 0;}.login-action-register h1 {display: none;}.login p {line-height: 1;}.login form {margin-top: 10px;padding: 16px 24px 16px;}h1 a { background-image:url(' . home_url() . '/favicon.ico)!important;width:32px;height:32px;-webkit-border-radius:50px;-moz-border-radius:50px;border-radius:50px;}#registerform,#loginform {background-color:rgba(251,251,251,0.3)!important;}.login label,a{color:#000!important;}</style>';
     }
 }
@@ -1709,17 +1711,17 @@ add_action( 'register_form', 'git_show_extra_register_fields' );
 function git_show_extra_register_fields(){
 ?>
     <p>
-    <label for="password">填写密码<br/>
+    <label for="password">填写密码[不少于8位]<br/>
     <input id="password" class="input" type="password" tabindex="30" size="25" value="" name="password" />
     </label>
     </p>
     <p>
-    <label for="repeat_password">重填密码<br/>
+    <label for="repeat_password">重填密码[不少于8位]<br/>
     <input id="repeat_password" class="input" type="password" tabindex="40" size="25" value="" name="repeat_password" />
     </label>
     </p>
     <p>
-    <label for="are_you_human" style="font-size:11px">为防止垃圾注册，请输入本站名称<br/>
+    <label for="are_you_human" style="font-size:11px">为防止垃圾注册，请输入本站名称：<?php echo get_bloginfo( 'name' );?><br/>
     <input id="are_you_human" class="input" type="text" tabindex="40" size="25" value="" name="are_you_human" />
     </label>
     </p>
@@ -1923,8 +1925,8 @@ function custom_shuoshuo_rewrites_init(){
 add_action( 'init', 'custom_shuoshuo_rewrites_init' );
 
 //添加产品功能
+if(!defined('UM_DIR')):{/*如果安装um的话，就禁用这个功能*/
 function git_product() {
-
 	$labels = array(
 		'name'                  => '产品',
 		'singular_name'         => '产品',
@@ -1997,7 +1999,7 @@ function custom_product_rewrites_init(){
 		'top' );
 }
 add_action( 'init', 'custom_product_rewrites_init' );
-
+}endif;
 /*
 修复4.2表情bug
 下面代码来自：http://www.9sep.org/remove-emoji-in-wordpress
