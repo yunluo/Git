@@ -81,7 +81,8 @@ $options = array(
         'name'  => '用户登录信息',
         'desc'  => '开启',
         'id'    => 'git_sign_b',
-        'type'  => 'checkbox'
+        'type'  => 'checkbox',
+        'std'   => 'checked'
     ),
     array(
         'name'  => '百度分享',
@@ -213,7 +214,8 @@ $options = array(
         'name'  => '图片自动添加alt以及title',
         'desc'  => '启用',
         'id'    => "git_imgalt_b",
-        'type'  => 'checkbox'
+        'type'  => 'checkbox',
+        'std'   => 'checked'
     ),
     array(
         'name'  => '外链自动GO跳转',
@@ -221,12 +223,14 @@ $options = array(
         'id'    => "git_go",
         'type'  => 'checkbox'
     ),
+    /* 失败项目，暂留
     array(
         'name'  => '外链排除',
         'desc'  => '【启用之后需要新建页面，模板选择Go跳转页面，别名为go】',
         'id'    => "git_links_liwai",
         'type'  => 'textarea'
     ),
+    */
     array(
         'name'  => '外链自动添加nofollow',
         'desc'  => '启用',
@@ -296,13 +300,15 @@ $options = array(
         'name'  => '文章面包屑',
         'desc'  => '开启',
         'id'    => 'git_singleMenu_b',
-        'type'  => 'checkbox'
+        'type'  => 'checkbox',
+        'std'   => 'checked'
     ),
     array(
         'name'  => '自动首行缩进',
         'desc'  => '开启 【开启后对文字内容自动首行缩进2格】',
         'id'    => 'git_suojin',
-        'type'  => 'checkbox'
+        'type'  => 'checkbox',
+        'std'   => 'checked'
     ),
     array(
         'name'  => '文章按照更新日期排序',
@@ -318,19 +324,22 @@ $options = array(
         'name'  => '过滤外语评论',
         'desc'  => '开启 【启用后，将屏蔽所有含有日文以及英语的评论，外贸站慎用】',
         'id'    => 'git_spam_lang',
-        'type'  => 'checkbox'
+        'type'  => 'checkbox',
+        'std'   => 'checked'
     ),
     array(
         'name'  => '关键词，IP，邮箱屏蔽',
         'desc'  => '开启 【启用后，在WordPress-设置-讨论-黑名单中添加想要屏蔽的关键词，邮箱，网址，IP地址，每行一个】<a class="button-primary" target="_blank" href="https://img.alicdn.com/imgextra/i4/1597576229/TB2FnxnlpXXXXcDXXXXXXXXXXXX_!!1597576229.png">如图设置</a>',
         'id'    => 'git_spam_keywords',
-        'type'  => 'checkbox'
+        'type'  => 'checkbox',
+        'std'   => 'checked'
     ),
     array(
         'name'  => '屏蔽含有链接评论',
         'desc'  => '开启 【启用后，屏蔽内容或者评论昵称含有链接的评论，如果您的评论需要输入链接或者图片的话，请慎选！！！】',
         'id'    => 'git_spam_url',
-        'type'  => 'checkbox'
+        'type'  => 'checkbox',
+        'std'   => 'checked'
     ),
     array(
         'name'  => '屏蔽长链接评论',
@@ -386,7 +395,8 @@ $options = array(
         'name'  => '启用',
         'desc'  => ' 【启用之后，您需要在下面设置用户的评论数字区间】',
         'id'    => 'git_vip',
-        'type'  => 'checkbox'
+        'type'  => 'checkbox',
+        'std'   => 'checked'
     ),
     array(
         'name'  => 'VIP 1',
@@ -466,13 +476,15 @@ $options = array(
         'name'  => '禁止站内文章Pingback',
         'desc'  => '开启&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 开启后，不会发送站内Pingback，建议开启',
         'id'    => "git_pingback_b",
-        'type'  => 'checkbox'
+        'type'  => 'checkbox',
+        'std'   => 'checked'
     ),
     array(
         'name'  => '禁止后台编辑时自动保存',
         'desc'  => '开启&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 开启后，后台编辑文章时候不会定时保存，有效缩减数据库存储量；但是，一般不建议开启，除非你的数据库容量很小',
         'id'    => "git_autosave_b",
-        'type'  => 'checkbox'
+        'type'  => 'checkbox',
+        'std'   => 'checked'
     ),
     array(
         'name'  => '文章版权声明',
@@ -498,7 +510,8 @@ $options = array(
         'name'  => '顶部悬浮菜单导航',
         'desc'  => '开启【开启后您的菜单导航就会悬停在网站顶部】',
         'id'    => "git_topnav_b",
-        'type'  => 'checkbox'
+        'type'  => 'checkbox',
+        'std'   => 'checked'
     ),
     array(
         'name'  => '透明导航栏',
@@ -514,7 +527,8 @@ $options = array(
         'name'  => '图片头部背景',
         'desc'  => '开启【开启后您的头部背景将显示默认背景图，不开启则显示默认纯色背景】',
         'id'    => "git_pichead_b",
-        'type'  => 'checkbox'
+        'type'  => 'checkbox',
+        'std'   => 'checked'
     ),
     array(
         'name'  => '自定义头部背景',
@@ -527,7 +541,8 @@ $options = array(
         'name'  => '图片头部logo',
         'desc'  => '开启【开启后您的头部背景将显示默认图片logo，不开启则显示默认文字logo】',
         'id'    => "git_piclogo_b",
-        'type'  => 'checkbox'
+        'type'  => 'checkbox',
+        'std'   => 'checked'
     ),
     array(
         'name'  => '自定义头部logo',
@@ -661,7 +676,8 @@ $options = array(
         'name'  => '是否开启',
         'desc'  => '开启【本幻灯片与上方幻灯片不能同时开启，否则DUANG！！！】',
         'id'    => "git_slick_b",
-        'type'  => 'checkbox'
+        'type'  => 'checkbox',
+        'std'   => 'checked'
     ),
     array(
         'name'  => '幻灯片一图片',
@@ -811,7 +827,8 @@ $options = array(
         'name'  => '博客是否开启卡片式',
         'desc'  => '启用 【不启用的话，显示是传统博客形式】',
         'id'    => "git_card_b",
-        'type'  => 'checkbox'
+        'type'  => 'checkbox',
+        'std'   => 'checked'
     ),
     array(
         'name'  => 'cms 分类文章数目',

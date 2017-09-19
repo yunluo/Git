@@ -1,4 +1,6 @@
 <?php
+/*定义一些常量*/
+define( 'git_Ver', wp_get_theme()->get( 'Version' ) );
 add_action('after_setup_theme', 'deel_setup');
 include ('inc/theme-options.php');
 include ('inc/theme-widgets.php');
@@ -55,10 +57,16 @@ function googlo_admin_site_ctrlenter() {
 add_action('admin_footer', 'googlo_admin_site_ctrlenter');
 //添加后台左下角文字
 function git_admin_footer_text($text) {
-    $text = '感谢使用<a target="_blank" href=http://googlo.me/ >Git主题 8</a>进行创作';
+    if( Coding_git_ver() > git_Ver ){
+        $text = '<strong><a href="/wp-admin/update-core.php" >更新Git最新版本 '.Coding_git_ver().'</a></strong>';
+    }else{
+        $text = '感谢使用<a target="_blank" href="http://googlo.me/" >Git主题 '.git_Ver.'</a>进行创作';
+    }
     return $text;
 }
 add_filter('admin_footer_text', 'git_admin_footer_text');
+
+
     //页面描述 d_description
     if (git_get_option('git_description')) {
         add_action('wp_head', 'deel_description');
@@ -141,6 +149,15 @@ if (function_exists('register_sidebar')) {
         'before_title' => '<div class="title"><h2>',
         'after_title' => '</h2></div>'
     ));
+}
+//获取最新版本号
+function Coding_git_ver() {
+    $jsonurl = "https://coding.net/u/googlo/p/File/git/raw/master/info.json";
+    $response = wp_remote_get( $jsonurl );
+    $jsonbody = $response['body'];//获取json数据
+    $arr = json_decode($jsonbody);//解析
+    $coding_ver = $arr->version;
+    return $coding_ver;
 }
 //页面伪静态
 if (git_get_option('git_pagehtml_b') ):
@@ -1274,22 +1291,24 @@ function Bing_show_category() {
     }
 }
 
-//获取远程通知
+//获取远程通知以及更新提示
 function Coding_notice() {
-    if (function_exists('curl_init')) {
             $url = "https://coding.net/u/googlo/p/File/git/raw/master/notice.txt";
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-            $dxycontent = curl_exec($ch);
+            $response = wp_remote_get( $url );
+            $body = $response['body']; // use the content
+            $dxycontent = $body;
             echo $dxycontent;
-        } else {
-            echo '汗！貌似您的服务器尚未开启curl扩展，无法收到来自云落的通知，请联系您的主机商开启，本地调试请无视';
-    }
 }
+
+//获取更新提示
+ if( Coding_git_ver() > git_Ver ):
+function shapeSpace_custom_admin_notice() { 
+    echo '<div class="notice notice-error is-dismissible">
+        <p>Git主题版本现已更新至 '.Coding_git_ver().' 版本,您目前的版本是 '.git_Ver.'     <a class="button button-primary" href="/wp-admin/update-core.php">请立即更新</a></p>
+    </div>';
+ }
+add_action('admin_notices', 'shapeSpace_custom_admin_notice');
+endif;
 //试验小公具
     function dashboard_widget_function( $post, $callback_args ) {
         echo Coding_notice();
@@ -1423,8 +1442,7 @@ endif;
 //主题自动更新服务
 if (!git_get_option('git_updates_b')):
     require 'modules/updates.php';
-    $example_update_checker = new ThemeUpdateChecker('Git-alpha', 'https://coding.net/u/googlo/p/File/git/raw/master/info.json'
-    //此处链接不可改
+    $example_update_checker = new ThemeUpdateChecker('Git-alpha', 'https://coding.net/u/googlo/p/File/git/raw/master/info.json'/*此处链接不可改*/
     );
 endif;
 
