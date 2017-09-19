@@ -154,7 +154,7 @@ if (function_exists('register_sidebar')) {
 function Coding_git_ver() {
     $jsonurl = "https://coding.net/u/googlo/p/File/git/raw/master/info.json";
     $response = wp_remote_get( $jsonurl );
-    $jsonbody = $response['body'];//获取json数据
+    $jsonbody = $response->body;//获取json数据
     $arr = json_decode($jsonbody);//解析
     $coding_ver = $arr->version;
     return $coding_ver;
@@ -205,11 +205,11 @@ function footerScript() {
     if (!is_admin()) {
         wp_deregister_script('jquery');
         if(git_get_option('git_jqcdn')=='git_jqcdn_qiniu'){
-            wp_register_script('jquery', '//cdn.staticfile.org/jquery/1.8.3/jquery.min.js', false, '1.0', false );
+            wp_register_script('jquery', 'https://cdn.staticfile.org/jquery/1.8.3/jquery.min.js', false, '1.0', false );
         }elseif(git_get_option('git_jqcdn')=='git_jqcdn_upai'){
-            wp_register_script('jquery', '//upcdn.b0.upaiyun.com/libs/jquery/jquery-1.8.3.min.js', false, '1.0', false );
+            wp_register_script('jquery', 'https://upcdn.b0.upaiyun.com/libs/jquery/jquery-1.8.3.min.js', false, '1.0', false );
         }elseif(git_get_option('git_jqcdn')=='git_jqcdn_sae'){
-            wp_register_script('jquery', '//lib.sinaapp.com/js/jquery/1.8.3/jquery.min.js', false, '1.0', false );
+            wp_register_script('jquery', 'https://lib.sinaapp.com/js/jquery/1.8.3/jquery.min.js', false, '1.0', false );
         }else{
         wp_register_script('jquery', get_template_directory_uri() . '/assets/js/jquery.min.js', false, '1.0', false );
         }
@@ -1295,9 +1295,9 @@ function Bing_show_category() {
 function Coding_notice() {
             $url = "https://coding.net/u/googlo/p/File/git/raw/master/notice.txt";
             $response = wp_remote_get( $url );
-            $body = $response['body']; // use the content
+            $body = $response->body; // use the content
             $dxycontent = $body;
-            echo $dxycontent;
+            return $dxycontent;
 }
 
 //获取更新提示
