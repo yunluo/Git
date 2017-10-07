@@ -1608,14 +1608,14 @@ function git_options_page() {
 
 <div class="wrap">
     <h2>Git 主题选项</h2>
-    <input placeholder="搜索主题选项…" type="search" id="theme-options-search" />
+
     <div class="notice notice-success is-dismissible">
     <p><?php echo Coding_notice(); ?></p>
     </div>
     <div class="notice notice-info is-dismissible">
     <p>您的网站分类列表：<?php echo Bing_show_category(); ?></p>
-</div>
-    
+	</div>
+	<input placeholder="搜索主题选项…" type="search" id="theme-options-search" />
     <form method="post">
         <h2 class="nav-tab-wrapper">
 <?php
@@ -1625,10 +1625,8 @@ foreach ($options as $value ) {
     $panelIndex++;
 }
 echo '<a href="#about_theme" class="nav-tab">关于主题</a>';
-
 ?>
 </h2>
-
 <?php
 $panelIndex = 0;
 foreach ($options as $value) {
