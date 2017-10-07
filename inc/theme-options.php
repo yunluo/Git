@@ -491,7 +491,7 @@ $options = array(
         'desc'  => '此处输入的文字将出现在每篇文章最底部，你可以使用：{{title}}表示文章标题，{{link}}表示文章链接',
         'id'    => "git_copyright_b",
         'type'  => 'textarea',
-        'std'   => '乐趣公园 , 版权所有丨如未注明 , 均为原创丨本网站采用<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" rel="nofollow" target="_blank" title="BY-NC-SA授权协议">BY-NC-SA</a>协议进行授权 <br>转载请注明原文链接：<a href="{{link}}" target="_blank" title="{{title}}">{{title}}</a>'
+        'std'   => '乐趣公园 , 版权所有丨如未注明 , 均为原创丨本网站采用<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" rel="nofollow" target="_blank" title="BY-NC-SA授权协议">BY-NC-SA</a>协议进行授权 , 转载请注明<a href="{{link}}" target="_blank" title="{{title}}">{{title}}</a>！'
     ),
     array(
         'type'  => 'panelend'
@@ -1497,10 +1497,8 @@ $options = array(
         'id'    => "git_jqcdn",
         'type'  => 'radio',
         'options' => array(
-            '七牛jQuery库' => 'git_jqcdn_qiniu',
-            '又拍云jQuery库' => 'git_jqcdn_upai',
-            '新浪jQuery库' => 'git_jqcdn_sae',
-            '本地jQuery库' => 'git_jqcdn_bendi'
+            '又拍云jQuery库【底部加载,速度快,兼容差】' => 'git_jqcdn_upai',
+            '本地jQuery库【头部加载,速度慢,兼容好】' => 'git_jqcdn_bendi'
         ),
         'std'   => 'git_jqcdn_bendi'
     ),
@@ -1548,14 +1546,14 @@ $options = array(
     array(
         'name'  => '下载面板下载声明',
         'desc'  => '这里的文字在下载面板中粗线，建议文字不要太多，防止错位',
-        'id'    => "git_dltable_b",
+        'id'    => 'git_dltable_b',
         'type'  => 'textarea',
         'std'   => '本站文件大多来自于网络，仅供学习和研究使用，不得用于商业用途，如有版权问题，请联系博猪！'
     ),
     array(
         'name'  => '下载单页下载声明',
         'desc'  => '这里的文字在下载单页中粗线，采用<code>&lt;ol&gt;&lt;li&gt;文字&lt;/li&gt;&lt;/ol&gt;</code>的形式',
-        'id'    => "git_dlpage_dl",
+        'id'    => 'git_dlpage_dl',
         'type'  => 'textarea',
         'std'   => '<p>下载文件若出现其中一个渠道链接失效，可切换其他渠道下载，若下载地址全部失效，请回复文章，博猪会第一时间更新！</p>
                 <p>下载文件若为压缩包，亲留意文章中的解压密码，并尽量使用最新版压缩软件解压</p>
@@ -1565,7 +1563,7 @@ $options = array(
     array(
         'name'  => '下载单页免责声明',
         'desc'  => '这里的文字在下载单页中粗线，纯文字即可',
-        'id'    => "git_dlpage_mz",
+        'id'    => 'git_dlpage_mz',
         'type'  => 'textarea',
         'std'   => '本站大部分下载资源收集于网络，只做学习和交流使用，版权归原作者所有，若为付费内容，请在下载后24小时之内自觉删除，若作商业用途，请购买正版，由于未及时购买和付费发生的侵权行为，与本站无关。本站发布的内容若侵犯到您的权益，请联系站长删除，我们将及时处理！'
     ),
