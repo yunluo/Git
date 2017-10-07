@@ -89,10 +89,12 @@ add_filter('admin_footer_text', 'git_admin_footer_text');
         remove_action('pre_post_update', 'wp_save_post_revision');
     }
     //去除自带js
+    /*
     function my_enqueue_scripts() {
         wp_deregister_script('jquery');
     }
     add_action( 'wp_enqueue_scripts', 'my_enqueue_scripts', 1 );
+    */
     //修改默认发信地址
     add_filter('wp_mail_from', 'deel_res_from_email');
     add_filter('wp_mail_from_name', 'deel_res_from_name');
@@ -204,17 +206,13 @@ function deel_breadcrumbs() {
 function footerScript() {
     if (!is_admin()) {
         wp_deregister_script('jquery');
-        if(git_get_option('git_jqcdn')=='git_jqcdn_qiniu'){
-            wp_register_script('jquery', 'https://cdn.staticfile.org/jquery/1.8.3/jquery.min.js', false, '1.0', false );
-        }elseif(git_get_option('git_jqcdn')=='git_jqcdn_upai'){
-            wp_register_script('jquery', 'https://upcdn.b0.upaiyun.com/libs/jquery/jquery-1.8.3.min.js', false, '1.0', false );
-        }elseif(git_get_option('git_jqcdn')=='git_jqcdn_sae'){
-            wp_register_script('jquery', 'https://lib.sinaapp.com/js/jquery/1.8.3/jquery.min.js', false, '1.0', false );
+        if(git_get_option('git_jqcdn')=='git_jqcdn_upai'){
+            wp_register_script('jquery', 'https://upcdn.b0.upaiyun.com/libs/jquery/jquery-1.8.3.min.js', false, '1.0', true );//底部加载,速度快,兼容差
         }else{
-        wp_register_script('jquery', get_template_directory_uri() . '/assets/js/jquery.min.js', false, '1.0', false );
+            wp_register_script('jquery', get_template_directory_uri() . '/assets/js/jquery.min.js', false, '1.0', false );//头部加载,速度慢,兼容好
         }
         wp_enqueue_script('jquery');
-        wp_register_script('default', get_template_directory_uri() . '/assets/js/global.js', false, '1.0', true );
+        wp_register_script('default', get_template_directory_uri() . '/assets/js/global.js', false, '1.0', true );//底部加载
         wp_enqueue_script('default');
         wp_register_style('style', get_template_directory_uri() . '/style.css', false, '1.0');
         wp_enqueue_style('style');
@@ -1305,7 +1303,7 @@ function Coding_notice() {
  if( Coding_git_ver() > git_Ver ):
 function shapeSpace_custom_admin_notice() {
     echo '<div class="notice notice-error is-dismissible">
-        <p>Git主题版本现已更新至 '.Coding_git_ver().' 版本 , 您目前的版本是 '.git_Ver.'&nbsp;&nbsp;<a href="http://googlo.me/wp-admin/update.php?action=upgrade-theme&amp;theme=Git-alpha&amp;_wpnonce=2333333" class="button button-primary" aria-label="现在更新Git-alpha" id="update-theme" data-slug="Git-alpha">现在更新</a></p>
+        <p>Git主题版本现已更新至 '.Coding_git_ver().' 版本 , 您目前的版本是 '.git_Ver.'&nbsp;&nbsp;<a href="/wp-admin/update-core.php" class="button button-primary" aria-label="现在更新Git-alpha" id="update-theme" data-slug="Git-alpha">现在更新</a></p>
     </div>';
  }
 add_action('admin_notices', 'shapeSpace_custom_admin_notice');

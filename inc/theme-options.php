@@ -1609,8 +1609,13 @@ function git_options_page() {
 <div class="wrap">
     <h2>Git 主题选项</h2>
     <input placeholder="搜索主题选项…" type="search" id="theme-options-search" />
-    <div class="yunluotips"><?php echo Coding_notice(); ?></div>
-    <div class="catlist">您的网站分类列表：<?php echo Bing_show_category(); ?></div>
+    <div class="notice notice-success is-dismissible">
+    <p><?php echo Coding_notice(); ?></p>
+    </div>
+    <div class="notice notice-info is-dismissible">
+    <p>您的网站分类列表：<?php echo Bing_show_category(); ?></p>
+</div>
+    
     <form method="post">
         <h2 class="nav-tab-wrapper">
 <?php
@@ -1786,7 +1791,7 @@ switch ( $value['type'] ) {
 </p>
 </form>
 </div>
-<style>.catlist{border:2px solid #e14d43;padding:5px;margin-top: 12px;text-align: center;color:#000;}.yunluotips{border: 2px solid #FFCC33;padding: 15px}.panel{display:none}.panel h3{margin:0;font-size:1.2em}#panel_update ul{list-style-type:disc}.nav-tab-wrapper{clear:both}.nav-tab{position:relative}.nav-tab i:before{position:absolute;top:-10px;right:-8px;display:inline-block;padding:2px;border-radius:50%;background:#e14d43;color:#fff;content:"\f463";vertical-align:text-bottom;font:400 18px/1 dashicons;speak:none}#theme-options-search{display:none;float:right;margin-top:-34px;width:280px;font-weight:300;font-size:16px;line-height:1.5}.updated+#theme-options-search{margin-top:-91px}.wrap.searching .nav-tab-wrapper a,.wrap.searching .panel tr,#attrselector{display:none}.wrap.searching .panel{display:block !important}#attrselector[attrselector*=ok]{display:block}</style>
+<style>.panel{display:none}.panel h3{margin:0;font-size:1.2em}#panel_update ul{list-style-type:disc}.nav-tab-wrapper{clear:both}.nav-tab{position:relative}.nav-tab i:before{position:absolute;top:-10px;right:-8px;display:inline-block;padding:2px;border-radius:50%;background:#e14d43;color:#fff;content:"\f463";vertical-align:text-bottom;font:400 18px/1 dashicons;speak:none}#theme-options-search{display:none;float:right;margin-top:-34px;width:280px;font-weight:300;font-size:16px;line-height:1.5}.updated+#theme-options-search{margin-top:-91px}.wrap.searching .nav-tab-wrapper a,.wrap.searching .panel tr,#attrselector{display:none}.wrap.searching .panel{display:block !important}#attrselector[attrselector*=ok]{display:block}</style>
 <style id="theme-options-filter"></style>
 <div id="attrselector" attrselector="ok" ></div>
 <script>
