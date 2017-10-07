@@ -154,7 +154,7 @@ if (function_exists('register_sidebar')) {
 function Coding_git_ver() {
     $jsonurl = "https://coding.net/u/googlo/p/File/git/raw/master/info.json";
     $response = wp_remote_get( $jsonurl );
-    $jsonbody = $response->body;//获取json数据
+	$jsonbody = wp_remote_retrieve_body($response);
     $arr = json_decode($jsonbody);//解析
     $coding_ver = $arr->version;
     return $coding_ver;
@@ -725,7 +725,7 @@ function post_thumbnail_src() {
         $output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
         $post_thumbnail_src = $matches[1][0]; //获取该图片 src
         if (empty($post_thumbnail_src)) { //如果日志中没有图片，则显示随机图片
-            $random = mt_rand(1, 10);
+            $random = mt_rand(1, 12);
             echo get_template_directory_uri();
             echo '/assets/img/pic/' . $random . '.jpg';
             //如果日志中没有图片，则显示默认图片
@@ -1295,16 +1295,17 @@ function Bing_show_category() {
 function Coding_notice() {
             $url = "https://coding.net/u/googlo/p/File/git/raw/master/notice.txt";
             $response = wp_remote_get( $url );
-            $body = $response->body; // use the content
+			$body = wp_remote_retrieve_body($response);
+            //$body = $response->body; // use the content
             $dxycontent = $body;
             return $dxycontent;
 }
 
 //获取更新提示
  if( Coding_git_ver() > git_Ver ):
-function shapeSpace_custom_admin_notice() { 
+function shapeSpace_custom_admin_notice() {
     echo '<div class="notice notice-error is-dismissible">
-        <p>Git主题版本现已更新至 '.Coding_git_ver().' 版本,您目前的版本是 '.git_Ver.'     <a class="button button-primary" href="/wp-admin/update-core.php">请立即更新</a></p>
+        <p>Git主题版本现已更新至 '.Coding_git_ver().' 版本 , 您目前的版本是 '.git_Ver.'&nbsp;&nbsp;<a href="http://googlo.me/wp-admin/update.php?action=upgrade-theme&amp;theme=Git-alpha&amp;_wpnonce=2333333" class="button button-primary" aria-label="现在更新Git-alpha" id="update-theme" data-slug="Git-alpha">现在更新</a></p>
     </div>';
  }
 add_action('admin_notices', 'shapeSpace_custom_admin_notice');
@@ -2197,7 +2198,7 @@ function git_custom_adminbar_menu($meta = TRUE) {
         'title' => 'Git主题使用文档', /* 设置链接名 */
         'href' => 'http://googlo.me/archives/3275.html', /* 设置链接地址 */
         'meta' => array(
-            target => '_blank'
+            'target' => '_blank'
         )
     ));
 }
