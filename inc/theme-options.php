@@ -507,13 +507,6 @@ $options = array(
         'type'  => 'subtitle'
     ),
     array(
-        'name'  => '顶部悬浮菜单导航',
-        'desc'  => '开启【开启后您的菜单导航就会悬停在网站顶部】',
-        'id'    => "git_topnav_b",
-        'type'  => 'checkbox',
-        'std'   => 'checked'
-    ),
-    array(
         'name'  => '透明导航栏',
         'desc'  => '开启【开启后您的菜单导航栏就会变成半透明】',
         'id'    => "git_tmnav_b",
