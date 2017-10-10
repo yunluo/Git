@@ -154,7 +154,7 @@ if (function_exists('register_sidebar')) {
 }
 //获取最新版本号
 function Coding_git_ver() {
-    $jsonurl = "https://coding.net/u/googlo/p/File/git/raw/master/info.json";
+    $jsonurl = "https://googlo.b0.upaiyun.com/api/info.json";
     $response = wp_remote_get( $jsonurl );
 	$jsonbody = wp_remote_retrieve_body($response);
     $arr = json_decode($jsonbody);//解析
@@ -1213,7 +1213,7 @@ add_shortcode('collapse', 'xcollapse');
 //简单的下载面板
 function xdltable($atts, $content = null) {
     extract(shortcode_atts(array("file" => "","size" => "" ) , $atts));
-    return '<table class="dltable"><tbody><tr><td style="background-color:#F9F9F9;" rowspan="3"><p>文件下载</p></td><td><i class="fa fa-list-alt"></i>&nbsp;&nbsp;文件名称：' . $file . '</td><td><i class="fa fa-th-large"></i>&nbsp;&nbsp;文件大小：' . $size . '</td></tr><tr><td colspan="2"><i class="fa fa-volume-up"></i>&nbsp;&nbsp;下载声明：'.git_get_option('git_dltable_b').'</td></tr><tr><td colspan="2"><i class="fa fa-download"></i>&nbsp;&nbsp;下载地址：' . $content . '</td></tr></tbody></table>';
+    return '<table class="dltable"><tbody><tr><td style="background-color:#F9F9F9;" rowspan="3"><p>文件下载</p></td><td><i class="fa fa-list-alt"></i>&nbsp;&nbsp;���件名称：' . $file . '</td><td><i class="fa fa-th-large"></i>&nbsp;&nbsp;文件大小：' . $size . '</td></tr><tr><td colspan="2"><i class="fa fa-volume-up"></i>&nbsp;&nbsp;下载声明：'.git_get_option('git_dltable_b').'</td></tr><tr><td colspan="2"><i class="fa fa-download"></i>&nbsp;&nbsp;下载地址：' . $content . '</td></tr></tbody></table>';
 }
 add_shortcode('dltable', 'xdltable');
 //网易云音乐
@@ -1290,7 +1290,7 @@ function Bing_show_category() {
 
 //获取远程通知以及更新提示
 function Coding_notice() {
-            $url = "https://coding.net/u/googlo/p/File/git/raw/master/notice.txt";
+            $url = "https://googlo.b0.upaiyun.com/api/notice.txt";
             $response = wp_remote_get( $url );
 			$body = wp_remote_retrieve_body($response);
             //$body = $response->body; // use the content
@@ -1440,7 +1440,7 @@ endif;
 //主题自动更新服务
 if (!git_get_option('git_updates_b')):
     require 'modules/updates.php';
-    $example_update_checker = new ThemeUpdateChecker('Git-alpha', 'https://coding.net/u/googlo/p/File/git/raw/master/info.json'/*此处链接不可改*/
+    $example_update_checker = new ThemeUpdateChecker('Git-alpha', 'https://googlo.b0.upaiyun.com/api/info.json'/*此处链接不可改*/
     );
 endif;
 
