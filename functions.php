@@ -317,10 +317,9 @@ if(git_get_option('git_avater')=='git_avatar_qn'){
 add_filter('get_avatar', 'git_avatar_cache', 10, 3);
 }
 //本地随机头像
-function local_random_avatar( $avatar , $title) {
-		$title = get_the_title();
+function local_random_avatar( $avatar ) {
         $avatarsrc = '//'.git_get_option('git_avatar_qnurl').'/myavatar/'. mt_rand(1, git_get_option('git_avatar_randnum')) .'.jpg';
-		$avatar = "<img src=$avatarsrc alt=$title title=$title class='avatar rand_avatar photo' />";
+		$avatar = "<img src=$avatarsrc class='avatar rand_avatar photo' />";
     return $avatar;
 }if(git_get_option('git_avater')=='git_avatar_rand'){
 add_filter( 'get_avatar' , 'local_random_avatar' , 1 , 5 );
@@ -1728,13 +1727,13 @@ add_action( 'register_form', 'git_show_extra_register_fields' );
 function git_show_extra_register_fields(){
 ?>
     <p>
-    <label for="password">填写密码[不少于8位]<br/>
-    <input id="password" class="input" type="password" tabindex="30" size="25" value="" name="password" />
+    <label for="user_pass">填写密码[不少于8位]<br/>
+    <input id="user_pass" class="input" type="password" tabindex="30" size="25" value="" name="user_pass" />
     </label>
     </p>
     <p>
-    <label for="repeat_password">重填密码[不少于8位]<br/>
-    <input id="repeat_password" class="input" type="password" tabindex="40" size="25" value="" name="repeat_password" />
+    <label for="user_pass2">重填密码[不少于8位]<br/>
+    <input id="user_pass2" class="input" type="password" tabindex="40" size="25" value="" name="user_pass2" />
     </label>
     </p>
     <p>
@@ -1746,11 +1745,11 @@ function git_show_extra_register_fields(){
 }
 //错误提示
 function git_check_extra_register_fields($login, $email, $errors) {
-    if ( $_POST['password'] !== $_POST['repeat_password'] ) {
+    if ( $_POST['user_pass'] !== $_POST['user_pass2'] ) {
         $errors->add( 'passwords_not_matched', "<strong>错误提示</strong>: 两次填写密码不一致" );
     }
-    if ( strlen( $_POST['password'] ) < 8 ) {
-        $errors->add( 'password_too_short', "<strong>错误提示</strong>: 密码必须大于8个字符" );
+    if ( strlen( $_POST['user_pass'] ) < 6 ) {
+        $errors->add( 'password_too_short', "<strong>错误提示</strong>: 密码必须大于6个字符" );
     }
     if ( $_POST['are_you_human'] !== get_bloginfo( 'name' ) ) {
         $errors->add( 'not_human', "<strong>错误提示</strong>: 您为填写验证问题或者验证问题错误" );
