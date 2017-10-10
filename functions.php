@@ -154,9 +154,7 @@ if (function_exists('register_sidebar')) {
 }
 //获取最新版本号
 function Coding_git_ver() {
-    $jsonurl = "https://googlo.b0.upaiyun.com/api/info.json";
-    $response = wp_remote_get( $jsonurl );
-	$jsonbody = wp_remote_retrieve_body($response);
+	$jsonbody = wp_remote_retrieve_body( wp_remote_get('https://coding.net/u/googlo/p/File/git/raw/master/info.json') );
     $arr = json_decode($jsonbody);//解析
     $coding_ver = $arr->version;
     return $coding_ver;
@@ -1290,12 +1288,8 @@ function Bing_show_category() {
 
 //获取远程通知以及更新提示
 function Coding_notice() {
-            $url = "https://googlo.b0.upaiyun.com/api/notice.txt";
-            $response = wp_remote_get( $url );
-			$body = wp_remote_retrieve_body($response);
-            //$body = $response->body; // use the content
-            $dxycontent = $body;
-            return $dxycontent;
+            $contents = wp_remote_retrieve_body( wp_remote_get('https://coding.net/u/googlo/p/File/git/raw/master/notice.txt') );
+            return $contents;
 }
 
 //获取更新提示
@@ -1440,7 +1434,7 @@ endif;
 //主题自动更新服务
 if (!git_get_option('git_updates_b')):
     require 'modules/updates.php';
-    $example_update_checker = new ThemeUpdateChecker('Git-alpha', 'https://googlo.b0.upaiyun.com/api/info.json'/*此处链接不可改*/
+    $example_update_checker = new ThemeUpdateChecker('Git-alpha', 'https://coding.net/u/googlo/p/File/git/raw/master/info.json'/*此处链接不可改*/
     );
 endif;
 
