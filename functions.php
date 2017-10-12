@@ -553,7 +553,7 @@ add_shortcode('dm', 'DemoUrl');
 //添加编辑器快捷按钮
 function my_quicktags() {
     global $pagenow;
-    if( $pagenow == 'post-new' || $pagenow == 'post.php' ){
+    if( $pagenow == 'post-new.php' || $pagenow == 'post.php' ){
     wp_enqueue_script('my_quicktags', get_stylesheet_directory_uri() . '/assets/js/my_quicktags.js', array(
         'quicktags'
     ));}
