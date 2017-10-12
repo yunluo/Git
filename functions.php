@@ -1297,13 +1297,15 @@ function Coding_notice() {
 endif;
 
 //获取更新提示
- if( Coding_git_ver() > git_Ver && !git_get_option('git_updates_b')):
+if(!git_get_option('git_updates_b')):
+    if( Coding_git_ver() > git_Ver ):
 function shapeSpace_custom_admin_notice() {
     echo '<div class="notice notice-error is-dismissible">
         <p>Git主题版本现已更新至 '.Coding_git_ver().' 版本 , 您目前的版本是 '.git_Ver.'&nbsp;&nbsp;<a href="/wp-admin/update-core.php" class="button button-primary" aria-label="现在更新Git-alpha" id="update-theme" data-slug="Git-alpha">现在更新</a></p>
     </div>';
  }
 add_action('admin_notices', 'shapeSpace_custom_admin_notice');
+    endif;
 endif;
 
 //试验小公具
