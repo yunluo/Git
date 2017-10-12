@@ -57,8 +57,10 @@ function googlo_admin_site_ctrlenter() {
 add_action('admin_footer', 'googlo_admin_site_ctrlenter');
 //添加后台左下角文字
 function git_admin_footer_text($text) {
-    if( Coding_git_ver() > git_Ver ){
-        $text = '<strong><a href="/wp-admin/update-core.php" >更新Git最新版本 '.Coding_git_ver().'</a></strong>';
+    if (!git_get_option('git_updates_b')){
+        if( Coding_git_ver() > git_Ver ){
+            $text = '<strong><a href="/wp-admin/update-core.php" >更新Git最新版本 '.Coding_git_ver().'</a></strong>';
+        }
     }else{
         $text = '感谢使用<a target="_blank" href="http://googlo.me/" >Git主题 '.git_Ver.'</a>进行创作';
     }
@@ -88,13 +90,7 @@ add_filter('admin_footer_text', 'git_admin_footer_text');
         add_action('wp_print_scripts', 'deel_disable_autosave');
         remove_action('pre_post_update', 'wp_save_post_revision');
     }
-    //去除自带js
-    /*
-    function my_enqueue_scripts() {
-        wp_deregister_script('jquery');
-    }
-    add_action( 'wp_enqueue_scripts', 'my_enqueue_scripts', 1 );
-    */
+
     //修改默认发信地址
     add_filter('wp_mail_from', 'deel_res_from_email');
     add_filter('wp_mail_from_name', 'deel_res_from_name');
@@ -555,12 +551,14 @@ function DemoUrl($atts, $content = null) {
 }
 add_shortcode('dm', 'DemoUrl');
 //添加编辑器快捷按钮
-add_action('admin_print_scripts', 'my_quicktags');
 function my_quicktags() {
+    global $pagenow;
+    if( $pagenow == 'post-new' || $pagenow == 'post.php' ){
     wp_enqueue_script('my_quicktags', get_stylesheet_directory_uri() . '/assets/js/my_quicktags.js', array(
         'quicktags'
-    ));
+    ));}
 };
+add_action('admin_print_scripts', 'my_quicktags');
 //过滤外文评论
 if (git_get_option('git_spam_lang') && !is_user_logged_in()):
 function refused_spam_comments($comment_data) {
