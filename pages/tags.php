@@ -26,8 +26,7 @@ echo str_replace('</ul></div>', '', preg_replace('/<div[^>]*><ul[^>]*>/', '', wp
 			<?php $tags_list = get_tags('orderby=count&order=DESC');
 			if ($tags_list) {
 				foreach($tags_list as $tag) {
-					$color = dechex(rand(0,16777215));
-					echo '<li><a style="background:#'.$color.'" class="btn btn-primary" href="'.get_tag_link($tag).'">'. $tag->name .'</a><strong>x '. $tag->count .'</strong><br>';
+					echo '<li><a class="btn btn-primary sitecolor_' . mt_rand(1, 14) . '" href="'.get_tag_link($tag).'">'. $tag->name .'</a><strong>x '. $tag->count .'</strong><br>';
 					echo '</li>';
 				}
 			}
