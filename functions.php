@@ -153,12 +153,14 @@ if (function_exists('register_sidebar')) {
     ));
 }
 //获取最新版本号
+if (!git_get_option('git_updates_b')):
 function Coding_git_ver() {
 	$jsonbody = wp_remote_retrieve_body( wp_remote_get('https://coding.net/u/googlo/p/File/git/raw/master/info.json') );
     $arr = json_decode($jsonbody);//解析
     $coding_ver = $arr->version;
     return $coding_ver;
 }
+endif;
 //页面伪静态
 if (git_get_option('git_pagehtml_b') ):
     add_action('init', 'html_page_permalink', -1);
@@ -1287,13 +1289,15 @@ function Bing_show_category() {
 }
 
 //获取远程通知以及更新提示
+if (!git_get_option('git_updates_b')):
 function Coding_notice() {
             $contents = wp_remote_retrieve_body( wp_remote_get('https://coding.net/u/googlo/p/File/git/raw/master/notice.txt') );
             return $contents;
 }
+endif;
 
 //获取更新提示
- if( Coding_git_ver() > git_Ver ):
+ if( Coding_git_ver() > git_Ver && !git_get_option('git_updates_b')):
 function shapeSpace_custom_admin_notice() {
     echo '<div class="notice notice-error is-dismissible">
         <p>Git主题版本现已更新至 '.Coding_git_ver().' 版本 , 您目前的版本是 '.git_Ver.'&nbsp;&nbsp;<a href="/wp-admin/update-core.php" class="button button-primary" aria-label="现在更新Git-alpha" id="update-theme" data-slug="Git-alpha">现在更新</a></p>
@@ -1301,7 +1305,9 @@ function shapeSpace_custom_admin_notice() {
  }
 add_action('admin_notices', 'shapeSpace_custom_admin_notice');
 endif;
+
 //试验小公具
+if (!git_get_option('git_updates_b')):
     function dashboard_widget_function( $post, $callback_args ) {
         echo Coding_notice();
     }
@@ -1309,6 +1315,8 @@ endif;
         wp_add_dashboard_widget('dashboard_widget', 'Git通知', 'dashboard_widget_function', 'high');
     }
     add_action('wp_dashboard_setup', 'add_dashboard_widgets' );
+endif;
+
 //新文章同步到新浪微博
 function post_to_sina_weibo($post_ID) {
    if(get_post_meta($post_ID,'git_weibo_sync',true) == 1) return;

@@ -1601,10 +1601,11 @@ function git_options_page() {
 
 <div class="wrap">
     <h2>Git 主题选项</h2>
-
+    <?php if (!git_get_option('git_updates_b')):?>
     <div class="notice notice-success is-dismissible">
     <p><?php echo Coding_notice(); ?></p>
     </div>
+    <?php endif; ?>
     <div class="notice notice-info is-dismissible">
     <p>您的网站分类列表：<?php echo Bing_show_category(); ?></p>
 	</div>
