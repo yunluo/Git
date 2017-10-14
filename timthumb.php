@@ -8,8 +8,13 @@ if(! defined('MEMORY_LIMIT') )				define ('MEMORY_LIMIT', '30M');
 if(! defined('BLOCK_EXTERNAL_LEECHERS') ) 	define ('BLOCK_EXTERNAL_LEECHERS', false);
 if(! defined('DISPLAY_ERROR_MESSAGES') )	define ('DISPLAY_ERROR_MESSAGES', true);
 if(! defined('ALLOW_EXTERNAL') )			define ('ALLOW_EXTERNAL', TRUE);
+<<<<<<< HEAD
 if(! defined('ALLOW_ALL_EXTERNAL_SITES') ) 	define ('ALLOW_ALL_EXTERNAL_SITES', true);
 //上面这行，改成true则是允许所有外链，为了解决缩略图问题，默认为开启，如果你懂这个，你也可以关闭
+=======
+if(! defined('ALLOW_ALL_EXTERNAL_SITES') ) 	define ('ALLOW_ALL_EXTERNAL_SITES', false);
+//上面这行，改成true则是允许所有外链
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 if(! defined('FILE_CACHE_ENABLED') ) 		define ('FILE_CACHE_ENABLED', TRUE);
 if(! defined('FILE_CACHE_TIME_BETWEEN_CLEANS'))	define ('FILE_CACHE_TIME_BETWEEN_CLEANS', 86400);
 if(! defined('FILE_CACHE_MAX_FILE_AGE') ) 	define ('FILE_CACHE_MAX_FILE_AGE', 86400);
@@ -38,6 +43,10 @@ if(! defined('OPTIPNG_ENABLED') ) 		define ('OPTIPNG_ENABLED', false);
 if(! defined('OPTIPNG_PATH') ) 			define ('OPTIPNG_PATH', '/usr/bin/optipng');
 if(! defined('PNGCRUSH_ENABLED') ) 		define ('PNGCRUSH_ENABLED', false);
 if(! defined('PNGCRUSH_PATH') ) 		define ('PNGCRUSH_PATH', '/usr/bin/pngcrush');
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 if(! defined('WEBSHOT_ENABLED') ) 	define ('WEBSHOT_ENABLED', false);
 if(! defined('WEBSHOT_CUTYCAPT') ) 	define ('WEBSHOT_CUTYCAPT', '/usr/local/bin/CutyCapt');
 if(! defined('WEBSHOT_XVFB') ) 		define ('WEBSHOT_XVFB', '/usr/bin/xvfb-run');
@@ -55,11 +64,19 @@ if(! defined('WEBSHOT_XVFB_RUNNING') )	define ('WEBSHOT_XVFB_RUNNING', false);
 if(! isset($ALLOWED_SITES)){
 	//下面输入您的外链图片域名
 	$ALLOWED_SITES = array (
+<<<<<<< HEAD
 		'image.baidu.com',
 		'images.yusi123.com',
 		'clouddn.com',
 		'tietuku.com',
 		'qiniudn.com',
+=======
+		'picasa.com',
+		'images.yusi123.com',
+		'upload.wikimedia.org',
+		'photobucket.com',
+		'yidu.qiniudn.com',
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 		'tinypic.com',
 		'neowing.co.jp',
 		'img.moe-acg.us',

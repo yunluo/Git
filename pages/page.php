@@ -1,7 +1,11 @@
 <?php
 /*
 	template name: 页面(新版)
+<<<<<<< HEAD
 	description: template for Git theme
+=======
+	description: template for G theme
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 */
 get_header();
 ?>

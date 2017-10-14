@@ -1,7 +1,11 @@
 <?php
 /*
 	template name: 读者墙
+<<<<<<< HEAD
 	description: template for Git theme
+=======
+	description: template for G theme
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 */
 get_header();
 function readers_wall( $outer='1',$timer='100',$limit='60' ){

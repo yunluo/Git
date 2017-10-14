@@ -1,7 +1,9 @@
-<?php get_header(); ?>
+<?php
+get_header(); ?>
 <div class="content-wrap">
 	<div class="content">
 <?php
+<<<<<<< HEAD
 if (git_get_option('git_singleMenu_b')) echo '<div class="breadcrumbs">' . deel_breadcrumbs() . '</div>';
 if(git_get_option('git_suojin')){echo '<style type="text/css">.article-content p {text-indent: 2em;}.article-content p a,.article-content p video,.article-content table p{text-indent: 0 !important;}</style>';}
 ?>
@@ -16,6 +18,14 @@ if (git_get_option('git_prettify') == 'monokai') {
     echo '<style type="text/css">.prettyprint .pln{color:#bd3613}.prettyprint .str{color:#269186}.prettyprint .kwd{color:#859900}.prettyprint .com{color:#586175;font-style:italic}.prettyprint .typ{color:#b58900}.prettyprint .lit{color:#2aa198}.prettyprint .pun{color:#839496}.prettyprint .opn{color:#839496}.prettyprint .clo{color:#839496}.prettyprint .tag{color:#268bd2}.prettyprint .atn{color:#586175}.prettyprint .atv{color:#2aa198}.prettyprint .dec{color:#268bd2}.prettyprint .var{color:#268bd2}.prettyprint.fun{color:red}pre.prettyprint{background-color:#042029;padding:10px;border:1px solid #e1e1e8}ol.linenums{color:#4c666c;margin:0 0 0 40px}ol.linenums li{line-height:18px;padding-left:12px}.prettyprint.linenums,pre.prettyprint.linenums{box-shadow:inset 40px 0 0 #020e13;color:#809189}</style>';
 }
 ?>
+=======
+if (git_get_option('git_singlecode')) echo git_get_option('git_singlecode'); ?>
+<style type="text/css">.article-content h2 {border-left: 8px solid #00A67C;border-bottom: 1px solid #00A67C;}.article-content blockquote:before {display:none !important;}.article-content h3 {border-left: 2px solid #0095ff;background-color:#fbfbfb}input{padding:0px 20px;height : 30px;}</style>
+<?php
+if (git_get_option('git_singleMenu_b')) echo '<div class="breadcrumbs">' . deel_breadcrumbs() . '</div>'; ?>
+<?php
+if (git_get_option('git_darkhighlight_b')) echo '<style type="text/css">.prettyprint,pre.prettyprint{background-color:#272822;border:none;overflow:hidden;padding:10px 15px;}.prettyprint.linenums,pre.prettyprint.linenums{-webkit-box-shadow:inset 40px 0 0 #39382E,inset 41px 0 0 #464741;-moz-box-shadow:inset 40px 0 0 #39382E,inset 41px 0 0 #464741;box-shadow:inset 40px 0 0 #39382E,inset 41px 0 0 #464741;}.prettyprint.linenums ol,pre.prettyprint.linenums ol{margin:0 0 0 33px;}.prettyprint.linenums ol li,pre.prettyprint.linenums ol li{padding-left:12px;color:#bebec5;line-height:20px;margin-left:0;list-style:decimal;}.prettyprint .com{color:#93a1a1;}.prettyprint .lit{color:#AE81FF;}.prettyprint .pun,.prettyprint .opn,.prettyprint .clo{color:#F8F8F2;}.prettyprint .fun{color:#dc322f;}.prettyprint .str,.prettyprint .atv{color:#E6DB74;}.prettyprint .kwd,.prettyprint .tag{color:#F92659;}.prettyprint .typ,.prettyprint .atn,.prettyprint .dec,.prettyprint .var{color:#A6E22E;}.prettyprint .pln{color:#66D9EF;}</style>'; ?>
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 		<?php
 while (have_posts()):
     the_post(); ?>
@@ -33,6 +43,7 @@ while (have_posts()):
 				<span class="muted"><i class="fa fa-user"></i> <a href="<?php
     echo get_author_posts_url(get_the_author_meta('ID')) ?>"><?php
     echo get_the_author() ?></a></span>
+<<<<<<< HEAD
 
     <?php
     $zhuanzai = get_post_meta($post->ID, 'git_zhuanzai_name', true);
@@ -44,13 +55,25 @@ while (have_posts()):
     deel_views('次浏览'); ?></span>
 				<?php
     if (git_get_option('git_baidurecord_b') && function_exists('curl_init')) { ?><span class="muted"><i class="fa fa-flag"></i> <?php
+=======
+				<time class="muted"><i class="fa fa-clock-o"></i> <?php
+    echo timeago(get_gmt_from_date(get_the_time('Y-m-d G:i:s'))) ?></time>
+				<span class="muted"><i class="fa fa-eye"></i> <?php
+    deel_views('次浏览'); ?></span>
+				<?php
+    if (git_get_option('git_baidurecord_b')) { ?><span class="muted"><i class="fa fa-flag"></i> <?php
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         baidu_record(); ?></span><?php
     } ?>
 				<?php
     if (comments_open()) echo '<span class="muted"><i class="fa fa-comments-o"></i> <a href="' . get_comments_link() . '">' . get_comments_number('0', '1', '%') . '个评论</a></span>'; ?>
 				<?php
     if (git_get_option('git_qr_b') && !G_is_mobile()) { ?><span class="muted"><i class="fa fa-qrcode"></i> <a style="cursor : pointer;" onMouseOver="document.all.qr.style.visibility=''" onMouseOut="document.all.qr.style.visibility='hidden'">扫描二维码</a>
+<<<<<<< HEAD
 				<span id="qr" style="visibility: hidden;"><img alt = <?php the_title();?> style="position:absolute;z-index:99999;" src="https://pan.baidu.com/share/qrcode?w=145&h=145&url=<?php
+=======
+				<span id="qr" style="visibility: hidden;"><img style="position:absolute;z-index:99999;" src="http://s.jiathis.com/qrcode.php?url=<?php
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         the_permalink(); ?>"/></span></span><?php
     } ?>
 				<span class="muted"><?php
@@ -84,10 +107,17 @@ while (have_posts()):
                 </div></div>';}?>
 		</header>
 <?php
+<<<<<<< HEAD
     if (git_get_option('git_adpost_01') && get_post_type() !== 'product') echo '<div class="banner banner-post">' . git_get_option('git_adpost_01') . '</div>'; ?>
 <?php
     if (wp_is_mobile()): ?><?php
         if (git_get_option('Mobiled_adpost_01')) echo '<div class="banner-post mobileads">' . git_get_option('Mobiled_adpost_01') . '</div>'; ?><?php
+=======
+    if (git_get_option('git_adpost_01')) echo '<div class="banner banner-post">' . git_get_option('git_adpost_01') . '</div>'; ?>
+<?php
+    if (wp_is_mobile()): ?><?php
+        if (git_get_option('Mobiled_adpost_01')) echo '<div class="banner-post">' . git_get_option('Mobiled_adpost_01') . '</div>'; ?><?php
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     endif; ?>
 		<article class="article-content">
 			<?php
@@ -114,7 +144,11 @@ while (have_posts()):
         'previouspagelink' => '',
         'nextpagelink' => "<span>下一页</span>"
     )); ?>
+<<<<<<< HEAD
 <?php if(!defined('UM_DIR')): ?>
+=======
+
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 <div class="article-social">
 			<a href="javascript:;" data-action="ding" data-id="<?php
     the_ID(); ?>" id="Addlike" class="action<?php
@@ -124,7 +158,11 @@ while (have_posts()):
     } else {
         echo '0';
     } ?></span>)</a><?php
+<<<<<<< HEAD
     if (git_get_option('git_bdshare_b')) echo '<span class="or"><style>.article-social .weixin:hover{background:#fff;}</style><a class="weixin" style="border-bottom:0px;font-size:15pt;cursor:pointer;">赏<div class="weixin-popover"><div class="popover bottom in"><div class="arrow"></div><div class="popover-title"><center>[' . git_get_option('git_pay') . ']</center></div><div class="popover-content"><img width="200px" height="200px" src="' . git_get_option('git_pay_qr') . '" ></div></div></div></a></span>';
+=======
+    if (git_get_option('git_bdshare_b')) echo '<span class="or">or</span>';
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     deel_share(); ?>
 </div>
 <?php endif; ?>
@@ -208,6 +246,7 @@ include ('modules/related.php'); ?>
 		<?php
 if (wp_is_mobile()): ?>
 		<?php
+<<<<<<< HEAD
     if (git_get_option('Mobiled_adpost_02')) echo '<div id="comment-ad" class="banner-related mobileads">' . git_get_option('Mobiled_adpost_02') . '</div>'; ?><?php
 endif; ?>
 		<?php
@@ -220,4 +259,23 @@ if (git_get_option('git_adpost_03')) echo '<div class="banner banner-comment">' 
 </div>
 <?php
 get_sidebar();
+=======
+    if (git_get_option('Mobiled_adpost_02_b')) echo '<div id="comment-ad" class="banner-related">' . git_get_option('Mobiled_adpost_02') . '</div>'; ?><?php
+endif; ?>
+		<?php
+if (git_get_option('git_adpost_02_b')) echo '<div id="comment-ad" class="banner banner-related">' . git_get_option('git_adpost_02') . '</div>'; ?>
+		<?php
+comments_template('', true); ?>
+		<?php
+if (git_get_option('git_adpost_03_b')) echo '<div class="banner banner-comment">' . git_get_option('git_adpost_03') . '</div>'; ?>
+	</div>
+</div>
+<?php
+if (!G_is_mobile()) { ?>
+<?php
+    get_sidebar(); ?>
+<?php
+} ?>
+<?php
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 get_footer(); ?>

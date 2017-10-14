@@ -11,8 +11,13 @@
 if ( !class_exists('ThemeUpdateChecker') ):
 
 class ThemeUpdateChecker {
+<<<<<<< HEAD
 	public $theme = 'Git-alpha';              //待检查更新的主题名
 	public $metadataUrl = 'https://coding.net/u/googlo/p/File/git/raw/master/info.json';  //元数据文件的路径
+=======
+    public $theme = 'git';              //待检查更新的主题名
+	public $metadataUrl = 'https://coding.net/u/googlo/p/api/git/raw/master/info.json';  //元数据文件的路径
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 	public $enableAutomaticChecking = true; //是否启用自动更新
 	protected $optionName = '';      //更新时候的文字信息
 	protected $automaticCheckDone = false;
@@ -23,6 +28,10 @@ class ThemeUpdateChecker {
 		$this->enableAutomaticChecking = $enableAutomaticChecking;
 		$this->theme = $theme;
 		$this->optionName = 'external_theme_updates-'.$this->theme;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 		$this->installHooks();
 	}
 
@@ -185,4 +194,8 @@ class ThemeUpdate {
 	}
 }
 
+<<<<<<< HEAD
 endif;
+=======
+endif;
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb

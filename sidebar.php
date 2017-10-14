@@ -20,6 +20,7 @@ if(!$have_cached ){
 ?>
 
 <aside class="sidebar">
+<<<<<<< HEAD
 <?php
 if (function_exists('dynamic_sidebar') && dynamic_sidebar('widget_sitesidebar')) : endif;
 
@@ -38,6 +39,8 @@ else {
 ?>
 </aside>
 
+=======
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 <?php
     $sidebar_content = ob_get_contents();
     ob_end_clean();

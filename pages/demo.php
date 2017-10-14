@@ -1,12 +1,21 @@
 <?php
 /*
+<<<<<<< HEAD:pages/demo.php
 	template name: 代码演示
 	description: template for Git theme
+=======
+	template name: 案例展示
+	description: template for G theme
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb:pages/example.php
 */
 $pid = isset( $_GET['pid'] ) ? trim(htmlspecialchars($_GET['pid'], ENT_QUOTES)) : '';
 if( !$pid ) { wp_redirect( home_url() );}
 $title = get_the_title($pid);
+<<<<<<< HEAD:pages/demo.php
 $values = get_post_custom_values('git_demo',$pid);
+=======
+$values = get_post_custom_values('git_example',$pid);
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb:pages/example.php
 empty($values) ? Header('Location:/') : $theCode = $values[0];
 ?>
 <!DOCTYPE HTML>

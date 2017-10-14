@@ -1,7 +1,11 @@
 <?php
 /*
     template name: 文章存档
+<<<<<<< HEAD
     description: template for Git theme
+=======
+    description: template for G theme
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 */
 get_header();
 ?>
@@ -30,9 +34,18 @@ echo str_replace('</ul></div>', '', preg_replace('/<div[^>]*><ul[^>]*>/', '', wp
                 $previous_year = $year = 0;
                 $previous_month = $month = 0;
                 $ul_open = false;
+<<<<<<< HEAD
                 $myposts = get_posts('numberposts=-1&orderby=post_date&order=DESC');
                 foreach($myposts as $post) :
                     setup_postdata($post);
+=======
+
+                $myposts = get_posts('numberposts=-1&orderby=post_date&order=DESC');
+
+                foreach($myposts as $post) :
+                    setup_postdata($post);
+
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
                     $year = mysql2date('Y', $post->post_date);
                     $month = mysql2date('n', $post->post_date);
                     $day = mysql2date('j', $post->post_date);
@@ -41,10 +54,20 @@ echo str_replace('</ul></div>', '', preg_replace('/<div[^>]*><ul[^>]*>/', '', wp
                         if($ul_open == true) :
                             echo '</ul></div>';
                         endif;
+<<<<<<< HEAD
                         echo '<div class="xControl"><a href="javascript:void(0)" class="collapseButton xButton"><div class="item"><h3>'; echo the_time('Y F'); echo '</h3></a></div>';
                         echo '<ul class="archives-list">';
                         $ul_open = true;
                     endif;
+=======
+
+                        echo '<div class="item"><h3>'; echo the_time('F Y'); echo '</h3>';
+                        echo '<ul class="archives-list">';
+                        $ul_open = true;
+
+                    endif;
+
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
                     $previous_year = $year; $previous_month = $month;
                 ?>
                     <div class="xContent" style="display: none;"><li>

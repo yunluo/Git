@@ -25,13 +25,20 @@
 			<header class="archive-header">
 				<h1>有关【<?php echo htmlspecialchars($s); ?>】的内容</h1>
 			</header>
+<<<<<<< HEAD
 			<?php if (git_get_option('git_card_b'))
 		{
 		include 'modules/card.php';
 		}else{
 		include 'modules/excerpt.php';
 		}?>
+=======
+			<?php include( 'modules/excerpt.php' ); ?>
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 		<?php endif; ?>
 	</div>
 </div>
-<?php get_sidebar(); get_footer(); ?>
+<?php if(!G_is_mobile() ){?>
+<?php get_sidebar();?>
+<?php }?>
+<?php get_footer(); ?>

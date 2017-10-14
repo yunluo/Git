@@ -1,12 +1,20 @@
 <?php
 /*
  	template name: 标签云
+<<<<<<< HEAD
  	description: template for Git theme
+=======
+ 	description: template for G theme
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 */
 get_header();
 ?>
 <div class="pagewrapper clearfix">
+<<<<<<< HEAD
 <style type="text/css">.tag-clouds a{width:44%;opacity:.70;filter:alpha(opacity=80);color:#fff;display:inline-block;margin:0 5px 5px 0;padding:2px 6px;line-height:180%;font-weight:bold;}.tag-clouds a:hover{opacity:1;filter:alpha(opacity=100)}</style>
+=======
+<style type="text/css">.tag-clouds a{width:44%;opacity:.70;filter:alpha(opacity=80);color:#fff;display:inline-block;margin:0 5px 5px 0;padding:2px 6px;line-height:21px}.tag-clouds a:hover{opacity:1;filter:alpha(opacity=100)}</style>
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 	<aside class="pagesidebar">
 		<ul class="pagesider-menu">
 			<?php

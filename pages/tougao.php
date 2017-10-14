@@ -1,9 +1,15 @@
 <?php
 /**
  Template Name: 用户投稿
+<<<<<<< HEAD
  description: template for Git theme
  */
 if (!git_get_option('git_tougao_b')) { wp_redirect( home_url() );}
+=======
+ description: template for G theme
+ */
+if (!git_get_option('git_tougao_b')) die('逗比，你确定你投稿功能开启了吗？→_→ ');
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 if (isset($_POST['tougao_form']) && $_POST['tougao_form'] == 'send') {
     global $wpdb;
     $current_url = '' . get_permalink() . ''; // 注意修改此处的链接地址
@@ -47,7 +53,14 @@ get_header();
 <aside class="pagesidebar">
 <ul class="pagesider-menu">
 <?php
+<<<<<<< HEAD
 echo str_replace('</ul></div>', '', preg_replace('/<div[^>]*><ul[^>]*>/', '', wp_nav_menu(array('theme_location' => 'pagemenu', 'echo' => false))));?>
+=======
+echo str_replace("</ul></div>", "", ereg_replace("<div[^>]*><ul[^>]*>", "", wp_nav_menu(array(
+    'theme_location' => 'pagemenu',
+    'echo' => false
+)))); ?>
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 </ul>
 </aside>
 <div class="pagecontent">
@@ -68,6 +81,7 @@ while (have_posts()):
     echo $_SERVER["REQUEST_URI"];
     $current_user = wp_get_current_user(); ?>">
 <div style="text-align: left; padding-top: 10px;">
+<<<<<<< HEAD
 <p><label for="tougao_authorname">昵称:*</label></p><input style="width : 98%;" type="text" size="80" value="" id="tougao_authorname" name="tougao_authorname" />
 </div>
 <div style="text-align: left; padding-top: 10px;">
@@ -79,11 +93,28 @@ while (have_posts()):
 <div style="text-align: center; padding-top: 10px;">
 <input type="hidden" value="send" name="tougao_form" />
 <input class="button" style="width:100px;height:30px;" type="submit" value="提交" /> &nbsp;&nbsp; <input style="width:100px;height:30px;" class="buttn" type="reset" value="重填" />
+=======
+<label for="tougao_authorname">昵称:*</label><input style="width : 98%;" type="text" size="80" value="" id="tougao_authorname" name="tougao_authorname" />
+</div>
+<div style="text-align: left; padding-top: 10px;">
+<label for="tougao_title">标题:*</label><input style="width : 98%;" type="text" size="80" value="" id="tougao_title" name="tougao_title" />
+</div>
+<div style="text-align: left; padding-top: 10px;">
+<label for="tougao_content">内容:*</label><textarea style="width : 98%;" name="tougao_content" rows="12" cols=""></textarea>
+</div>
+<div style="text-align: center; padding-top: 10px;">
+<input type="hidden" value="send" name="tougao_form" />
+<input class="buttn" style="width:50px;height:30px;" type="submit" value="提交" /> &nbsp;&nbsp; <input style="width:50px;height:30px;" class="buttn" type="reset" value="重填" />
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 </div>
 </form>
 <br/>
 <?php
+<<<<<<< HEAD
     comments_template('', false);
+=======
+    comments_template('', true);
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 endwhile; ?>
 </div>
 </div>

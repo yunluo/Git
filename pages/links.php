@@ -1,7 +1,11 @@
 <?php
 /*
 	template name: 友情链接
+<<<<<<< HEAD
 	description: template for Git theme
+=======
+	description: template for G theme
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 */
 get_header();
 ?>
@@ -26,9 +30,13 @@ echo str_replace('</ul></div>', '', preg_replace('/<div[^>]*><ul[^>]*>/', '', wp
 			<article class="article-content">
 				<?php the_content(); ?>
 			</article>
+<<<<<<< HEAD
 
 			<div class="mgr-10 of-hide cate-content">
 			<?php
+=======
+<?php
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 $bookmarks = get_bookmarks(array('category' => git_get_option('git_linkpage_cat')?git_get_option('git_linkpage_cat'):''));
 
 if ( !empty($bookmarks) ){

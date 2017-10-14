@@ -1,4 +1,13 @@
 <?php
+<<<<<<< HEAD
+=======
+
+/*
+*使用
+*<?php echo git_get_option('@id', '@defult'); ?>格式获取值
+*举例：<?php echo git_get_option('git_meta_description', '这是一个网站描述文字'); ?>
+*/
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 $options = array(
     //开始第一个选项标签
     array(
@@ -7,6 +16,7 @@ $options = array(
         'type'  => 'panelstart' //panelatart 是顶部标签的意思
     ),
     array(
+<<<<<<< HEAD
         'name'  => '滚动公告栏',
         'desc'  => '最新消息显示在全站导航条下方，非常给力的推广位置',
         'id'    => "git_tui",
@@ -16,6 +26,18 @@ $options = array(
     array(
         'name'  => '友情链接页面',
         'desc'  => '只显示输入分类的链接，id之间用英文逗号隔开，建议只显示友情链接即可。',
+=======
+        'name'  => '公告栏信息',
+        'desc'  => '最新消息显示在全站导航条下方，非常给力的推广位置',
+        'id'    => "git_tui",
+        'type'  => 'textarea',
+        'std'   => ''
+    ),
+    
+    array(
+        'name'  => '友情链接页面',
+        'desc'  => '只显示输入分类的链接，id之间用英文逗号隔开，一般默认空着就行',
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'id'    => 'git_linkpage_cat',
         'type'  => 'number',
         'std'   => ''
@@ -33,16 +55,29 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+<<<<<<< HEAD
+=======
+        'name'  => '自定义404页面',
+        'desc'  => '默认的404是神经猫游戏，开启后十一个白色哭泣的404',
+        'id'    => 'git_sj404_b',
+        'type'  => 'checkbox'
+    ),
+    array(
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'title' => '热门排行',
         'type'  => 'subtitle'
     ),
     array(
         'name'  => '开启',
+<<<<<<< HEAD
         'desc'  => '【注意，在开启3D幻灯片的时候是默认打开的，无法关闭】',
+=======
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'id'    => 'hot_list_check',
         'type'  => 'checkbox'
     ),
     array(
+<<<<<<< HEAD
         'name'  => '排序根据',
         'desc'  => '选择一个参数作为排序的根据，可以选择评论数目，浏览数目或者点赞数目',
         'id'    => "git_hot_b",
@@ -61,6 +96,13 @@ $options = array(
         'id'    => 'hot_list_date',
         'type'  => 'number',
         'std'   => 300
+=======
+        'name'  => '显示天数',
+        'desc'  => '天（默认30天）',
+        'id'    => 'hot_list_date',
+        'type'  => 'number',
+        'std'   => 30
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     ),
     array(
         'name'  => '显示数量',
@@ -69,7 +111,10 @@ $options = array(
         'type'  => 'number',
         'std'   => 5
     ),
+<<<<<<< HEAD
     */
+=======
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     array(
         'name'  => '排行名称',
         'desc'  => '这里是显示在网站首页热门排行那里',
@@ -78,6 +123,7 @@ $options = array(
         'std'   => '本周热门'
     ),
     array(
+<<<<<<< HEAD
         'name'  => '用户登录信息',
         'desc'  => '开启',
         'id'    => 'git_sign_b',
@@ -87,6 +133,22 @@ $options = array(
     array(
         'name'  => '百度分享',
         'desc'  => '开启并且同时开启打赏功能',
+=======
+        'name'  => 'jQuery底部加载',
+        'desc'  => '开启 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; jQuery默认在head区域加载，如果需要页面载入加速，请开启，但是有可能影响部分依赖jQuery的插件失效。',
+        'id'    => 'git_jquerybom_b',
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '用户登录信息',
+        'desc'  => '开启',
+        'id'    => 'git_sign_b',
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '百度分享',
+        'desc'  => '开启',
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'id'    => 'git_bdshare_b',
         'type'  => 'checkbox'
     ),
@@ -133,6 +195,15 @@ $options = array(
         'std'   => get_bloginfo( 'admin_email' )
     ),
     array(
+<<<<<<< HEAD
+=======
+        'name'  => '评论内容过滤',
+        'desc'  => '开启【启用后，屏蔽外文评论，屏蔽含有WordPress设置黑名单内容的评论，屏蔽过长网址的评论，屏蔽字数少于2或者多余200的评论，屏蔽内容或者评论昵称含有链接的评论。另，在WordPress-设置-讨论-黑名单中添加想要屏蔽的关键词，邮箱，网址，IP地址，每行一个。】',
+        'id'    => 'git_spamComments_b',
+        'type'  => 'checkbox'
+    ),
+    array(
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'name'  => '流量统计代码',
         'desc'  => '统计网站流量，推荐使用百度统计，国内比较优秀且速度快；还可使用Google统计、CNZZ等',
         'id'    => 'git_track',
@@ -140,11 +211,16 @@ $options = array(
     ),
     array(
         'name'  => '网站头部代码',
+<<<<<<< HEAD
         'desc'  => '会自动出现在页面头部（head区域），可放置广告代码等自定义代码的全局代码块',
+=======
+        'desc'  => '会自动出现在页面头部（head区域），可放置广告代码等自定义（css或js）的全局代码块',
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'id'    => 'git_headcode',
         'type'  => 'textarea'
     ),
     array(
+<<<<<<< HEAD
         'name'  => '网站自定义样式CSS',
         'desc'  => '网站全局CSS代码，可以直接加入css代码，比如：.authorsocials i{font-size:16px;width:20px;height:18px}',
         'id'    => 'git_customcss',
@@ -156,17 +232,38 @@ $options = array(
     'id'    => 'git_updates_b',
     'onclick'   => "return confirm('你确定要取消更新吗？');",
     'type'  => 'checkbox'
+=======
+        'name'  => '去除主题版权声明',
+        'desc'  => '我知道即便没有这个选项，也基本没人会保留主题版权文字，所以留下这个，可以让你们更方便的去掉主题版权声明文字，尽管我并不希望这个选项被选中',
+        'id'    => 'git_yunright',
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '主题更新设置',
+        'desc'  => '禁止主题更新&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 选择后，您将无法收到本主题的更新推送，所以云落墙裂不推荐选择勾选',
+        'id'    => 'git_updates_b',
+        'onclick'   => "return confirm('你确定要取消更新吗？');",
+        'type'  => 'checkbox'
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     ),
     array(
         'type'  => 'panelend'//标签段的结束
     ),
     array(
         'title' => 'SEO设置',
+<<<<<<< HEAD
         'id'    => 'panel_seo',
         'type'  => 'panelstart'
     ),
     array(
         'title' => '（SEO）是指搜索引擎优化，主要是让搜索引擎更顺利更容易的搜索到本站内容',//标题文字
+=======
+        'id'    => 'panel_aritical',
+        'type'  => 'panelstart'
+    ),
+    array(
+        'title' => '（SEO）是指搜索引擎优化，主要是让搜索引擎更顺利更容易的搜索到本站内容，从而',//标题文字
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'type'  => 'subtitle'//subtitle 是标签下的标题
     ),
     array(
@@ -197,6 +294,7 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+<<<<<<< HEAD
         'name'  => '关键词出现数目',
         'desc'  => '文章中少于这个数字的关键词将不自动内链，默认是1，即全部链接',
         'id'    => 'git_autolink_1',
@@ -254,6 +352,13 @@ $options = array(
         'type'  => 'text',
         'std'   => ''
     ),
+=======
+        'name'  => '图片自动添加alt',
+        'desc'  => '启用',
+        'id'    => "git_imgalt_b",
+        'type'  => 'checkbox'
+    ),
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     array(
         'type'  => 'panelend'//标签段的结束
     ),
@@ -262,6 +367,10 @@ $options = array(
         'id'    => 'panel_aritical',
         'type'  => 'panelstart'
     ),
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     array(
         'title' => '列表文章属性',
         'type'  => 'subtitle'
@@ -297,6 +406,7 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+<<<<<<< HEAD
         'name'  => '文章面包屑',
         'desc'  => '开启',
         'id'    => 'git_singleMenu_b',
@@ -441,6 +551,8 @@ $options = array(
         'std'   => 50
     ),
     array(
+=======
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'name'  => '文章摘要',
         'desc'  => '个字',
         'id'    => 'git_excerpt_length',
@@ -454,6 +566,7 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+<<<<<<< HEAD
         'name'  => '作者模块',
         'desc'  => '启用',
         'id'    => 'git_auther_b',
@@ -463,6 +576,17 @@ $options = array(
         'name'  => '留言链接二维码',
         'desc'  => '启用  【开启之后，您的留言者的网站会生成一个二维码】',
         'id'    => "git_autherqr_b",
+=======
+        'name'  => '自动超链接',
+        'desc'  => '启用【就是那种可以把一个链接自动变成可以点击的超链接】',
+        'id'    => 'git_linktrue_b',
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '首行缩进',
+        'desc'  => '禁用【默认是有首行缩进的，但是某些时候不太好，选择此选项可以禁用】',
+        'id'    => "git_nosuojin_b",
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'type'  => 'checkbox'
     ),
     array(
@@ -476,15 +600,23 @@ $options = array(
         'name'  => '禁止站内文章Pingback',
         'desc'  => '开启&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 开启后，不会发送站内Pingback，建议开启',
         'id'    => "git_pingback_b",
+<<<<<<< HEAD
         'type'  => 'checkbox',
         'std'   => 'checked'
+=======
+        'type'  => 'checkbox'
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     ),
     array(
         'name'  => '禁止后台编辑时自动保存',
         'desc'  => '开启&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 开启后，后台编辑文章时候不会定时保存，有效缩减数据库存储量；但是，一般不建议开启，除非你的数据库容量很小',
         'id'    => "git_autosave_b",
+<<<<<<< HEAD
         'type'  => 'checkbox',
         'std'   => 'checked'
+=======
+        'type'  => 'checkbox'
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     ),
     array(
         'name'  => '文章版权声明',
@@ -494,12 +626,28 @@ $options = array(
         'std'   => '乐趣公园 , 版权所有丨如未注明 , 均为原创丨本网站采用<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" rel="nofollow" target="_blank" title="BY-NC-SA授权协议">BY-NC-SA</a>协议进行授权 , 转载请注明<a href="{{link}}" target="_blank" title="{{title}}">{{title}}</a>！'
     ),
     array(
+<<<<<<< HEAD
         'type'  => 'panelend'
     ),
 
     array(
         'title' => '样式设置',
         'id'    => 'panel_stylish',
+=======
+        'name'  => '文章页自定义代码',
+        'desc'  => '此选项可放置作用于文章的css代码或者JavaScript代码块',
+        'id'    => "git_singlecode_b",
+        'type'  => 'textarea',
+        'std'   => ''
+    ),
+    array(
+        'type'  => 'panelend'
+    ),
+    
+    array(
+        'title' => '样式设置',
+        'id'    => 'panel_header',
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'type'  => 'panelstart'
     ),
     array(
@@ -507,12 +655,42 @@ $options = array(
         'type'  => 'subtitle'
     ),
     array(
+<<<<<<< HEAD
+=======
+        'name'  => '顶部悬浮菜单导航',
+        'desc'  => '开启【开启后您的菜单导航就会悬停在网站顶部】',
+        'id'    => "git_topnav_b",
+        'type'  => 'checkbox'
+    ),
+    array(
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'name'  => '透明导航栏',
         'desc'  => '开启【开启后您的菜单导航栏就会变成半透明】',
         'id'    => "git_tmnav_b",
         'type'  => 'checkbox'
     ),
     array(
+<<<<<<< HEAD
+=======
+        'title' => '缩略图尺寸自定义，不选择这显示默认尺寸200*123[不建议选择]',
+        'type'  => 'subtitle'
+    ),
+    array(
+        'name'  => '宽度：',
+        'desc'  => 'px',
+        'id'    => "git_thumb_width",
+        'type'  => 'number',
+        'std'   => 200
+    ),
+    array(
+        'name'  => '高度：',
+        'desc'  => 'px',
+        'id'    => "git_thumb_height",
+        'type'  => 'number',
+        'std'   => 123
+    ),
+    array(
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'title' => '网站头部设置',
         'type'  => 'subtitle'
     ),
@@ -520,8 +698,12 @@ $options = array(
         'name'  => '图片头部背景',
         'desc'  => '开启【开启后您的头部背景将显示默认背景图，不开启则显示默认纯色背景】',
         'id'    => "git_pichead_b",
+<<<<<<< HEAD
         'type'  => 'checkbox',
         'std'   => 'checked'
+=======
+        'type'  => 'checkbox'
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     ),
     array(
         'name'  => '自定义头部背景',
@@ -534,8 +716,12 @@ $options = array(
         'name'  => '图片头部logo',
         'desc'  => '开启【开启后您的头部背景将显示默认图片logo，不开启则显示默认文字logo】',
         'id'    => "git_piclogo_b",
+<<<<<<< HEAD
         'type'  => 'checkbox',
         'std'   => 'checked'
+=======
+        'type'  => 'checkbox'
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     ),
     array(
         'name'  => '自定义头部logo',
@@ -566,6 +752,7 @@ $options = array(
             '亮紫色' => 'git_purple_b',
             '淡黄色' => 'git_yellow_b',
             '轻蓝色' => 'git_light_b',
+<<<<<<< HEAD
             '鲜绿色' => 'git_green_b',
             '自定义' => 'git_custom_color'
         ),
@@ -574,6 +761,25 @@ $options = array(
     array(
         'name'  => '颜色代码',
         'desc'  => '请在这里输入你选择的颜色代码，举例：#000000<a class="button-primary" rel="nofollow" href="https://colordrop.io/" target="_blank">获取颜色代码</a>',
+=======
+            '鲜绿色' => 'git_green_b'
+        ),
+        'std'   => 'git_light_b'
+    ),
+/*
+获取单选的方法是
+<?php if (git_get_option('git_skin_b') == 'git_red_b') ?>
+*/ 
+    array(
+        'name'  => '自定义皮肤设置',
+        'desc'  => '开启【开启后将使用下面的配色方案】<a rel="nofollow" href="http://tool.c7sky.com/webcolor/" target="_blank">获取颜色代码</a>',
+        'id'    => "git_custom_color",
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '颜色代码',
+        'desc'  => '请在这里输入你选择的颜色代码，举例：#000000',
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'id'    => 'git_color_nom',
         'type'  => 'text',
         'std'   => ''
@@ -586,6 +792,7 @@ $options = array(
         'std'   => ''
     ),
     array(
+<<<<<<< HEAD
         'name'  => '代码高亮主题',
         'desc'  => '选择一个色调作为您网站的主色调，如果这里的色彩还不够，您可以使用下面的自定义色彩',
         'id'    => "git_prettify",
@@ -607,6 +814,8 @@ $options = array(
         'std'   => ''
     ),
     array(
+=======
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'title' => '主题侧边栏跟随设置',
         'type'  => 'subtitle'
     ),
@@ -644,7 +853,11 @@ $options = array(
     ),
     array(
         'name'  => '是否开启',
+<<<<<<< HEAD
         'desc'  => '开启【开启后请设置4篇以上的置顶文章,文章第一张图片为716*297，注意，开启3D幻灯片的时候默认同时打开热门排行，即便你的热门排行没开启】',
+=======
+        'desc'  => '开启【开启后请设置4篇以上的置顶文章,文章第一张图片为716*297】',
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'id'    => "git_sticky_b",
         'type'  => 'checkbox'
     ),
@@ -659,7 +872,11 @@ $options = array(
         'desc'  => '个',
         'id'    => 'git_sticky_count',
         'type'  => 'number',
+<<<<<<< HEAD
         'std'   => 4
+=======
+        'std'   => '4'
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     ),
     array(
         'title' => '幻灯片【简约版】设置[855*300]',
@@ -669,15 +886,23 @@ $options = array(
         'name'  => '是否开启',
         'desc'  => '开启【本幻灯片与上方幻灯片不能同时开启，否则DUANG！！！】',
         'id'    => "git_slick_b",
+<<<<<<< HEAD
         'type'  => 'checkbox',
         'std'   => 'checked'
+=======
+        'type'  => 'checkbox'
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     ),
     array(
         'name'  => '幻灯片一图片',
         'desc'  => '在这里输入您的幻灯片的图片路径',
         'id'    => "git_slick1img_b",
         'type'  => 'text',
+<<<<<<< HEAD
         'std'   => 'https://img.alicdn.com/imgextra/i3/1597576229/TB2zQVclpXXXXakXpXXXXXXXXXX_!!1597576229.png'
+=======
+        'std'   => 'http://i1.tietuku.com/4d78aebacd716fa1.png'
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     ),
     array(
         'name'  => '幻灯片一链接',
@@ -698,7 +923,11 @@ $options = array(
         'desc'  => '在这里输入您的幻灯片的图片路径',
         'id'    => "git_slick2img_b",
         'type'  => 'text',
+<<<<<<< HEAD
         'std'   => 'https://img.alicdn.com/imgextra/i3/1597576229/TB286RXlpXXXXbkXpXXXXXXXXXX_!!1597576229.png'
+=======
+        'std'   => 'http://i1.tietuku.com/8cc27226d364646d.png'
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     ),
     array(
         'name'  => '幻灯片二链接',
@@ -719,7 +948,11 @@ $options = array(
         'desc'  => '在这里输入您的幻灯片的图片路径',
         'id'    => "git_slick3img_b",
         'type'  => 'text',
+<<<<<<< HEAD
         'std'   => 'https://img.alicdn.com/imgextra/i3/1597576229/TB2B_xilpXXXXXEXpXXXXXXXXXX_!!1597576229.png'
+=======
+        'std'   => 'http://i1.tietuku.com/10b38e0699c19f13.png'
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     ),
     array(
         'name'  => '幻灯片三链接',
@@ -740,7 +973,11 @@ $options = array(
         'desc'  => '在这里输入您的幻灯片的图片路径',
         'id'    => "git_slick4img_b",
         'type'  => 'text',
+<<<<<<< HEAD
         'std'   => 'https://img.alicdn.com/imgextra/i4/1597576229/TB2pnNklpXXXXXbXpXXXXXXXXXX_!!1597576229.png'
+=======
+        'std'   => 'http://i1.tietuku.com/e363019d7956a1b8.png'
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     ),
     array(
         'name'  => '幻灯片四链接',
@@ -761,7 +998,11 @@ $options = array(
         'desc'  => '在这里输入您的幻灯片的图片路径',
         'id'    => "git_slick5img_b",
         'type'  => 'text',
+<<<<<<< HEAD
         'std'   => 'https://img.alicdn.com/imgextra/i3/1597576229/TB2lnRklpXXXXXvXpXXXXXXXXXX_!!1597576229.png'
+=======
+        'std'   => 'http://i1.tietuku.com/4be202dae236d98e.png'
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     ),
     array(
         'name'  => '幻灯片五链接',
@@ -782,7 +1023,11 @@ $options = array(
         'desc'  => '在这里输入您的幻灯片的图片路径',
         'id'    => "git_slick6img_b",
         'type'  => 'text',
+<<<<<<< HEAD
         'std'   => 'https://img.alicdn.com/imgextra/i2/1597576229/TB2FsFalpXXXXaAXpXXXXXXXXXX_!!1597576229.png'
+=======
+        'std'   => 'http://i1.tietuku.com/15ff831524d8bbde.png'
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     ),
     array(
         'name'  => '幻灯片六链接',
@@ -807,16 +1052,31 @@ $options = array(
         'type'  => 'panelstart'
     ),
     array(
+<<<<<<< HEAD
+=======
+        'name'  => '分类banner图',
+        'desc'  => '启用【启用后，再分类目录那里的图片描述里面添加img图片链接】',
+        'id'    => "git_cattu_b",
+        'type'  => 'checkbox'
+    ),
+    array(
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'title' => 'CMS分类布局',
         'type'  => 'subtitle'
     ),
     array(
+<<<<<<< HEAD
         'name'  => '是否开启CMS',
         'desc'  => '启用 【不启用的话，显示是博客模式】',
+=======
+        'name'  => '是否开启',
+        'desc'  => '启用',
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'id'    => "git_cms_b",
         'type'  => 'checkbox'
     ),
     array(
+<<<<<<< HEAD
         'name'  => '博客是否开启卡片式',
         'desc'  => '启用 【不启用的话，显示是传统博客形式】',
         'id'    => "git_card_b",
@@ -831,6 +1091,8 @@ $options = array(
         'std'   => 4
     ),
     array(
+=======
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'name'  => '分类一',
         'desc'  => '启用',
         'id'    => 'git_cat_1',
@@ -897,10 +1159,24 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+<<<<<<< HEAD
         'name'  => '屏蔽分类',
         'desc'  => '格式按照-3,-4,-5输入',
         'id'    => 'git_blockcat',
         'type'  => 'text',
+=======
+        'name'  => '屏蔽分类一',
+        'desc'  => '启用',
+        'id'    => 'git_blockcat_1',
+        'type'  => 'number',
+        'std'   => ''
+    ),
+    array(
+        'name'  => '屏蔽分类二',
+        'desc'  => '启用',
+        'id'    => 'git_blockcat_2',
+        'type'  => 'number',
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'std'   => ''
     ),
     array(
@@ -908,7 +1184,11 @@ $options = array(
     ),
     array(
         'title' => '社交设置',
+<<<<<<< HEAD
         'id'    => 'panel_social',
+=======
+        'id'    => 'panel_ad',
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'type'  => 'panelstart'
     ),
     array(
@@ -927,7 +1207,11 @@ $options = array(
         'desc'  => '填写新浪微博个人主页链接',
         'id'    => 'git_weibo',
         'type'  => 'text',
+<<<<<<< HEAD
         'std'   => 'http://googlo.me/go/weibo'
+=======
+        'std'   => 'http://weibo.com/igooglo'
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     ),
     array(
         'name'  => '腾讯微博',
@@ -959,7 +1243,11 @@ $options = array(
     ),
     array(
         'name'  => 'Email',
+<<<<<<< HEAD
         'desc'  => '请填写好您的邮我代码，<a class="button-primary" rel="nofollow" href="http://open.mail.qq.com/cgi-bin/qm_help_mailme?sid=,2,zh_CN&t=open_mailme" target="_blank">获取邮我组建代码</a>并<a class="button-primary" rel="nofollow" href="https://img.alicdn.com/imgextra/i4/1597576229/TB2xg4llpXXXXXhXpXXXXXXXXXX_!!1597576229.png" target="_blank">如图设置</a>',
+=======
+        'desc'  => '请填写好您的邮我代码，<a class="button-primary" rel="nofollow" href="http://web.chacuo.net/color" target="_blank">获取颜色代码</a>',
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'id'    => 'git_emailContact',
         'type'  => 'text',
         'std'   => ''
@@ -969,7 +1257,11 @@ $options = array(
         'desc'  => '',
         'id'    => 'git_baidu',
         'type'  => 'text',
+<<<<<<< HEAD
         'std'   => 'http://googlo.me/go/baidu'
+=======
+        'std'   => 'http://tieba.baidu.com/home/main?un=%E6%97%A0%E6%B3%95%E8%AF%89%E8%AF%B4%E7%9A%84%E5%90%9F%E8%8D%A1&ie=utf-8'
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     ),
     array(
         'name'  => '支付宝',
@@ -983,7 +1275,11 @@ $options = array(
         'desc'  => '请输入您的支付宝图片路径',
         'id'    => 'git_pay_qr',
         'type'  => 'text',
+<<<<<<< HEAD
         'std'   => 'https://img.alicdn.com/imgextra/i1/1597576229/TB2ov76lXXXXXb0XpXXXXXXXXXX_!!1597576229.jpg_310x310.jpg'
+=======
+        'std'   => 'http://i1.tietuku.com/d6c43b39f0c3c64c.jpg'
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     ),
     array(
         'name'  => 'GitHub',
@@ -1018,7 +1314,11 @@ $options = array(
         'desc'  => '在这里输入第一个footer的内容',
         'id'    => "git_footconent1",
         'type'  => 'textarea',
+<<<<<<< HEAD
         'std'   => "本站的文章和资源来自互联网或者站长<br>的原创，按照 CC BY -NC -SA 3.0 CN<br>协议发布和共享，转载或引用本站文章<br>应遵循相同协议。如果有侵犯版权的资<br>源请尽快联系站长，我们会在24h内删<br>除有争议的资源。"
+=======
+        'std'   => "本站的文章和资源来自互联网或者站 长的原创，按照CC BY-NC-SA 3.0 CN 协议发布和共享，转载或引用本站文章 应遵循相同协议。如果有侵犯版权的资 源请尽快联系站长，我们会在24h内 删除有争议的资源。"
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     ),
     array(
         'name'  => 'Footer2标题',
@@ -1032,7 +1332,13 @@ $options = array(
         'desc'  => '在这里输入第二个footer的内容',
         'id'    => "git_footconent2",
         'type'  => 'textarea',
+<<<<<<< HEAD
         'std'   => '<ul><li><a href="http://googlo.me/goto/ad" title="云左" target="_blank">云左主机</a></li><li><a href="http://googlo.me/go/qiniu" title="七牛云" target="_blank">七牛云</a></li></ul>'
+=======
+        'std'   => '<ul><li><a href="http://googlo.me/go/hengtian" title="横天主机" target="_blank">横天主机</a></li>
+<li><a href="http://googlo.me/go/qiniu" title="七牛云" target="_blank">七牛云</a></li>
+<li><a href="http://www.dbfen.com/index.php/users/newuser_by/0A8CD12B" title="多备份" target="_blank">多备份</a></li></ul>'
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     ),
     array(
         'name'  => 'Footer3标题',
@@ -1046,10 +1352,17 @@ $options = array(
         'desc'  => '在这里输入第三个footer的内容',
         'id'    => "git_footconent3",
         'type'  => 'textarea',
+<<<<<<< HEAD
         'std'   => '<ul><li><a href="http://googlo.me/go/weibo" title="云落的新浪微博" target="_blank">云落的新浪微博</a></li>
 <li><a href="http://t.qq.com/sp865113728" title="云落的腾讯微博" target="_blank">云落的腾讯微博</a></li>
 <li><a href="http://git.oschina.net/yunluo/" title="云落的代码" target="_blank">云落的代码</a></li>
 <li><a href="http://googlo.me/go/baidu" title="云落的贴吧" target="_blank">云落的贴吧</a></li>
+=======
+        'std'   => '<ul><li><a href="http://weibo.com/igooglo" title="云落的新浪微博" target="_blank">云落的新浪微博</a></li>
+<li><a href="http://t.qq.com/sp865113728" title="云落的腾讯微博" target="_blank">云落的腾讯微博</a></li>
+<li><a href="http://git.oschina.net/yunluo/" title="云落的代码" target="_blank">云落的代码</a></li>
+<li><a href="http://tieba.baidu.com/home/main?un=%E6%97%A0%E6%B3%95%E8%AF%89%E8%AF%B4%E7%9A%84%E5%90%9F%E8%8D%A1&ie=utf-8&fr=frs" title="云落的贴吧" target="_blank">云落的贴吧</a></li>
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 <li><a href="http://googlo.me/" title="云落的网站" target="_blank">云落的网站</a></li></ul>'
     ),
     array(
@@ -1064,14 +1377,22 @@ $options = array(
         'desc'  => '在这里输入第四个footer的内容',
         'id'    => "git_footconent4",
         'type'  => 'textarea',
+<<<<<<< HEAD
         'std'   => '<img style="width:180px;height:180px;" src="https://img.alicdn.com/imgextra/i3/1597576229/TB22Ic4lXXXXXcyXpXXXXXXXXXX_!!1597576229.png_310x310.jpg" alt="yunluo">'
+=======
+        'std'   => '<img src="http://i1.tietuku.com/d6c43b39f0c3c64c.jpg" alt="yunluo">'
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     ),
     array(
         'name'  => '网站footer公共代码',
         'desc'  => '在全站页面footer部分出现，可放置网站的版权信息等等',
         'id'    => 'git_footcode',
         'type'  => 'textarea',
+<<<<<<< HEAD
         'std'   => 'Copyright © 2014-2015 <a href="/" title="乐趣公园">乐趣公园</a> | <a rel="nofollow" target="_blank" href="/about.html">关于网站</a> | <a rel="nofollow" target="_blank" href="/tags.html">标签汇总</a> | <a rel="nofollow" target="_blank" href="/archive.html">文章归档</a> | <a rel="nofollow" target="_blank" href="/links.html">友情链接</a> | <a href="/sitemap.html" target="_blank" title="站点地图（HTML版）">网站地图</a> | 由 <a rel="nofollow" target="_blank" href="http://googlo.me/goto/ad">云左</a> &amp; <a rel="nofollow" target="_blank" href="http://googlo.me/go/qiniu">七牛</a> &amp; <a href="/wp-admin">强力驱动</a>'
+=======
+        'std'   => '<a rel="nofollow" target="_blank" href="/about.html">关于网站</a>   |  <a rel="nofollow" target="_blank" href="/tags.html">标签汇总</a>   |  <a rel="nofollow" target="_blank" href="/archive.html">文章归档</a>   |  <a rel="nofollow" target="_blank" href="/links.html">友情链接</a>   |   <a href="/sitemap.html" target="_blank" title="站点地图（HTML版）">网站地图</a>   |  由 <a rel="nofollow" target="_blank" href="/go/hengtian">衡天主机</a> &amp; <a rel="nofollow" target="_blank" href="/go/qiniu">七牛</a>  强力驱动'
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     ),
     array(
         'name'  => '全站底部脚本代码',
@@ -1089,13 +1410,35 @@ $options = array(
         'type'  => 'panelstart'
     ),
     array(
+<<<<<<< HEAD
         'name'  => '网站顶部右侧广告',
         'desc'  => '开启 【这里需要logo居左才可以生效】',
+=======
+        'name'  => '网站顶部广告',
+        'desc'  => '开启',
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'id'    => 'git_toubuads',
         'type'  => 'textarea',
         'std'   => ''
     ),
     array(
+<<<<<<< HEAD
+=======
+        'name'  => '广告：弹窗下载广告',
+        'desc'  => '开启【广告区域，任意联盟广告和自定义广告的代码均可】',
+        'id'    => 'git_fancydlad',
+        'type'  => 'textarea',
+        'std'   => ''
+    ),
+    array(
+        'name'  => '弹窗下载版权声明',
+        'desc'  => '开启【就是那种本文件收集自网络，有问题联系站长那些装X的文字】',
+        'id'    => 'git_fancydlcp',
+        'type'  => 'textarea',
+        'std'   => ''
+    ),
+    array(
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'name'  => '广告：404页面广告',
         'desc'  => '开启',
         'id'    => 'git_404ad',
@@ -1104,12 +1447,17 @@ $options = array(
     ),
     array(
         'name'  => '广告：全站 - 导航下横幅',
+<<<<<<< HEAD
         'desc'  => '显示在公告栏下',
+=======
+        'desc'  => '开启',
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'id'    => 'git_adsite_01',
         'type'  => 'textarea',
         'std'   => ''
     ),
     array(
+<<<<<<< HEAD
         'name'  => '广告：幻灯片下广告',
         'desc'  => '如果幻灯没开启，则不显示',
         'id'    => 'git_adindex_02',
@@ -1120,17 +1468,36 @@ $options = array(
         'name'  => '广告：文章页 - 页面标题下',
         'desc'  => '开启',
         'id'    => 'git_adpost_01',
+=======
+        'name'  => '广告：全站正文列表最前',
+        'desc'  => '开启',
+        'id'    => 'git_adindex_02',
         'type'  => 'textarea',
         'std'   => ''
     ),
     array(
+        'name'  => '广告：首页 - 导航下横幅',
+        'desc'  => '开启',
+        'id'    => 'git_adindex_01',
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
+        'type'  => 'textarea',
+        'std'   => ''
+    ),
+    array(
+<<<<<<< HEAD
         'name'  => '广告：文章页 - 相关文章下',
         'desc'  => '开启',
         'id'    => 'git_adpost_02',
+=======
+        'name'  => '广告：首页 - 正文最前上',
+        'desc'  => '开启',
+        'id'    => 'git_adindex_03',
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'type'  => 'textarea',
         'std'   => ''
     ),
     array(
+<<<<<<< HEAD
         'name'  => '广告：文章页 - 网友评论下',
         'desc'  => '开启',
         'id'    => 'git_adpost_03',
@@ -1148,6 +1515,25 @@ $options = array(
         'name'  => '广告：下载单页下横幅',
         'desc'  => '开启',
         'id'    => 'git_downloadad2',
+=======
+        'name'  => '广告：文章页 - 页面标题下',
+        'desc'  => '开启',
+        'id'    => 'git_adpost_01',
+        'type'  => 'textarea',
+        'std'   => '<a target="_blank" href="http://googlo.me/go/hengtian"><img style="width:100%" src="http://i2.tietuku.com/24a66f5351e84813.jpg" title="立刻购买专业WordPress主机-衡天主机" alt="立刻购买专业WordPress主机-衡天主机" ></a>'
+    ),
+    array(
+        'name'  => '广告：文章页 - 相关文章下',
+        'desc'  => '开启',
+        'id'    => 'git_adpost_02',
+        'type'  => 'textarea',
+        'std'   => '<a target="_blank" href="http://googlo.me/go/hengtian"><img style="width:100%" src="http://i2.tietuku.com/24a66f5351e84813.jpg" title="立刻购买专业WordPress主机-衡天主机" alt="立刻购买专业WordPress主机-衡天主机" ></a>'
+    ),
+    array(
+        'name'  => '广告：文章页 - 网友评论下',
+        'desc'  => '开启',
+        'id'    => 'git_adpost_03',
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'type'  => 'textarea',
         'std'   => ''
     ),
@@ -1176,7 +1562,11 @@ $options = array(
         'type'  => 'panelend'
     ),
     array(
+<<<<<<< HEAD
         'title' => '优化设置',
+=======
+        'title' => '插件设置',
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'id'    => 'panel_plugin',
         'type'  => 'panelstart'
     ),
@@ -1185,8 +1575,25 @@ $options = array(
         'type'  => 'subtitle'
     ),
     array(
+<<<<<<< HEAD
         'name'  => '链接去掉Categroy',
         'desc'  => '启用  【开启后，需要至设置——固定连接——重新保存一下，否则会发生404错误】',
+=======
+        'name'  => '图片弹窗',
+        'desc'  => '启用  【网站常用的功能，建议开启】',
+        'id'    => "git_fancybox_b",
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '屏蔽谷歌字体',
+        'desc'  => '启用  【貌似谷歌字体国内已经可以访问了，是否开启看心情吧】',
+        'id'    => "git_fuckziti_b",
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '链接去掉Categroy',
+        'desc'  => '启用   【开启这个功能之后如果发生404的话，前往固定链接重新保存一下】',
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'id'    => "git_categroy_b",
         'type'  => 'checkbox'
     ),
@@ -1198,17 +1605,40 @@ $options = array(
     ),
     array(
         'name'  => '百度收录提示',
+<<<<<<< HEAD
         'desc'  => '启用   【开启后，将会在文章标题下显示百度收录状态，需要curl扩展的支持，否则不生效】',
+=======
+        'desc'  => '启用   【鸡肋功能，其实并不是太准确的，作为一个装X的功能挺不错的】',
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'id'    => "git_baidurecord_b",
         'type'  => 'checkbox'
     ),
     array(
         'name'  => '网站下雪特效',
+<<<<<<< HEAD
         'desc'  => '启用    【开启后，将产生全站下雪特效，但是对网站性能略有影响】',
+=======
+        'desc'  => '启用    【鸡肋功能，开启后网站会有一定成的卡顿】',
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'id'    => "git_snow_b",
         'type'  => 'checkbox'
     ),
     array(
+<<<<<<< HEAD
+=======
+        'name'  => '留言链接二维码',
+        'desc'  => '启用  【开启之后，您的留言者的网站会生成一个二维码】',
+        'id'    => "git_autherqr_b",
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '代码黑色主题',
+        'desc'  => '启用  【启用非常流行的暗色主题】',
+        'id'    => "git_darkhighlight_b",
+        'type'  => 'checkbox'
+    ),
+    array(
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'name'  => '网站禁止复制',
         'desc'  => '启用    【启用后访客无法使用右键复制】',
         'id'    => "git_copy_b",
@@ -1216,13 +1646,28 @@ $options = array(
     ),
     array(
         'name'  => '复制弹窗提醒',
+<<<<<<< HEAD
         'desc'  => '启用   【启用后，访客复制之后会弹出提示弹窗】',
+=======
+        'desc'  => '启用   【启用之后，访客复制之后会弹出提示弹窗】',
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'id'    => "git_copydialog_b",
         'type'  => 'checkbox'
     ),
     array(
+<<<<<<< HEAD
         'name'  => '页面伪静态',
         'desc'  => '启用   【开启后，请前往固定连接重新保存一下，否则404】',
+=======
+        'name'  => '保存远程图片',
+        'desc'  => '启用   【启用之后，会自动将文章里面的外链图片保存为本地图片，在媒体库里面不显示图片内容，只显示缩略图】',
+        'id'    => "git_yuanpic_b",
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '页面伪静态',
+        'desc'  => '启用   【开启之后，请前往固定连接重新保存一下，否则404】',
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'id'    => "git_pagehtml_b",
         'type'  => 'checkbox'
     ),
@@ -1233,6 +1678,7 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+<<<<<<< HEAD
         'name'  => '取消静态资源的版本查询',
         'desc'  => '启用',
         'id'    => "git_query",
@@ -1275,6 +1721,8 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+=======
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'type'  => 'panelend'
     ),
     array(
@@ -1283,6 +1731,7 @@ $options = array(
         'type'  => 'panelstart'
     ),
     array(
+<<<<<<< HEAD
         'name'  => 'HTML代码压缩',
         'desc'  => '启用 【开启后，将压缩网页HTML代码，可读性会降低，但是性能略有提升】',
         'id'    => "git_compress",
@@ -1301,12 +1750,19 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+=======
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'title' => '新浪微博同步设置',
         'type'  => 'subtitle'
     ),
     array(
+<<<<<<< HEAD
         'name'  => '开启',
         'desc'  => '',
+=======
+        'name'  => '是否开启',
+        'desc'  => '启用',
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'id'    => "git_sinasync_b",
         'type'  => 'checkbox'
     ),
@@ -1321,7 +1777,11 @@ $options = array(
         'name'  => '新浪密码',
         'desc'  => '请输入您的微博密码',
         'id'    => "git_wbpasd_b",
+<<<<<<< HEAD
         'type'  => 'password',
+=======
+        'type'  => 'text',
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'std'   => ''
     ),
     array(
@@ -1336,6 +1796,7 @@ $options = array(
         'type'  => 'subtitle'
     ),
     array(
+<<<<<<< HEAD
         'name'  => '开启',
         'desc'  => '',
         'id'    => "git_qncdn_b",
@@ -1344,10 +1805,15 @@ $options = array(
     array(
         'name'  => '七牛自定义域名',
         'desc'  => '输入本项目之前，必须开启本功能，输入您的七牛云自定义域名，必须带 <font color="#cc0000"><strong>http://</strong></font>  如果留空则禁用七牛云CDN功能  <a class="button-primary" target="_blank" href="http://googlo.me/go/qiniu" title="立刻注册七牛，免费使用免备案高速CDN">注册七牛</a>，并获取链接<a rel="nofollow" href="https://img.alicdn.com/imgextra/i3/1597576229/TB2uLdxpFXXXXbCXpXXXXXXXXXX_!!1597576229.jpg" target="_blank">如图</a>',
+=======
+        'name'  => '七牛自定义域名',
+        'desc'  => '输入您的七牛云自定义域名，必须带http://  如果留空则禁用七牛云CDN功能  <a class="button-primary" target="_blank" href="http://googlo.me/go/qiniu" title="注册七牛">注册七牛</a>',
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'id'    => "git_cdnurl_b",
         'type'  => 'text',
         'std'   => ''
     ),
+<<<<<<< HEAD
 	array(
         'name'  => '七牛镜像文件格式',
         'desc'  => '在输入框内添加准备镜像的文件格式，比如jpg，png，gif，mp3，mp4（使用|分隔）',
@@ -1408,6 +1874,10 @@ $options = array(
     ),
     array(
         'title' => 'STMP邮箱设置',
+=======
+    array(
+        'title' => 'STMP邮箱设置【为了稳定考虑，未使用HTTPS模式】',
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'type'  => 'subtitle'
     ),
     array(
@@ -1432,6 +1902,7 @@ $options = array(
         'std'   => 'smtp.qq.com'
     ),
     array(
+<<<<<<< HEAD
         'name'  => 'SSL安全连接',
         'desc'  => '启用【如果你布吉岛这个是什么东东，那么请不要启用】',
         'id'    => "git_smtpssl_b",
@@ -1443,6 +1914,13 @@ $options = array(
         'id'    => "git_mailport_b",
         'type'  => 'number',
         'std'   => 25
+=======
+        'name'  => 'SMTP服务器端口',
+        'desc'  => '请输入您的smtp端口，一般QQ邮箱25就可以了',
+        'id'    => "git_mailport_b",
+        'type'  => 'text',
+        'std'   => '25'
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     ),
     array(
         'name'  => '邮箱账号',
@@ -1455,6 +1933,7 @@ $options = array(
         'name'  => '邮箱密码',
         'desc'  => '请输入您的邮箱密码',
         'id'    => "git_mailpass_b",
+<<<<<<< HEAD
         'type'  => 'password',
         'std'   => ''
     ),
@@ -1467,10 +1946,26 @@ $options = array(
             '本地随机头像' => 'git_avatar_rand',
             '头像镜像服务器' => 'git_avatar_qn',
             '本地头像755缓存' => 'git_avatar_b'
+=======
+        'type'  => 'text',
+        'std'   => ''
+    ),
+        array(
+        'name'  => 'Gravatar头像设置',
+        'desc'  => '任选一个合适的头像解决方案，另外，如果选择本地缓存的话，请在WordPress根目录（wp-content同级）',
+        'id'    => "git_avater",
+        'type'  => 'radio',
+        'options' => array(
+            'SSL访问' => 'git_avatar_ssl',
+            '多说镜像' => 'git_avatar_ds',
+            '七牛镜像' => 'git_avatar_qn',
+            '本地缓存' => 'git_avatar_b'
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         ),
         'std'   => 'git_avatar_qn'
     ),
     array(
+<<<<<<< HEAD
         'name'  => '本地随机头像数目',
         'desc'  => '默认140个头像，增加的话需要同步增加头像服务器数量！',
         'id'    => "git_avatar_randnum",
@@ -1561,6 +2056,8 @@ $options = array(
         'std'   => '本站大部分下载资源收集于网络，只做学习和交流使用，版权归原作者所有，若为付费内容，请在下载后24小时之内自觉删除，若作商业用途，请购买正版，由于未及时购买和付费发生的侵权行为，与本站无关。本站发布的内容若侵犯到您的权益，请联系站长删除，我们将及时处理！'
     ),
     array(
+=======
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         'type'  => 'panelend'
     )
 );
@@ -1577,18 +2074,30 @@ function git_add_theme_options_page() {
                 }
             }
             update_option('git_options_setup', true);
+<<<<<<< HEAD
             header('Location: admin.php?page=theme-options.php&update=true');
+=======
+            header('Location: themes.php?page=theme-options.php&update=true');
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
             die;
         } else if( 'reset' == $_REQUEST['action'] ) {
             foreach ($options as $value) {
                 delete_option($value['id']);
             }
             delete_option('git_options_setup');
+<<<<<<< HEAD
             header('Location: admin.php?page=theme-options.php&reset=true');
             die;
         }
     }
     add_menu_page('Git主题选项', 'Git主题选项', 'manage_options', basename(__FILE__) , 'git_options_page');
+=======
+            header('Location: themes.php?page=theme-options.php&reset=true');
+            die;
+        }
+    }
+    add_theme_page('主题选项', '主题选项', 'edit_theme_options', basename(__FILE__) , 'git_options_page');
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 }
 add_action('admin_menu', 'git_add_theme_options_page');
 
@@ -1600,6 +2109,7 @@ function git_options_page() {
 ?>
 
 <div class="wrap">
+<<<<<<< HEAD
     <h2>Git 主题选项</h2>
     <?php if (!git_get_option('git_updates_b')):?>
     <div class="notice notice-success is-dismissible">
@@ -1610,6 +2120,12 @@ function git_options_page() {
     <p>您的网站分类列表：<?php echo Bing_show_category(); ?></p>
 	</div>
 	<input placeholder="搜索主题选项…" type="search" id="theme-options-search" />
+=======
+    <h2>Git 主题选项&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="button-primary" type="button" value="主题主页" onclick="window.open('http://googlo.me/archives/3011.html')">&nbsp;&nbsp;<input class="button-primary" type="button" value="邮箱反馈" onclick="window.open('http://googlo.me/go/mail')">&nbsp;&nbsp;<input class="button-primary" type="button" value="支持主题" onclick="window.open('http://googlo.me/pay')">&nbsp;&nbsp;<input class="button-primary" type="button" value="功能建议" onclick="window.open('http://googlo.me/about.html')">&nbsp;&nbsp;<input class="button-primary" type="button" value="食用文档" onclick="window.open('http://googlo.me/archives/3275.html')">&nbsp;&nbsp;<input class="button-primary" type="button" value="定制修改" onclick="window.open('http://googlo.me/go/qq')">&nbsp;&nbsp;<input class="button-primary" type="button" value="加入QQ群" onclick="window.open('http://googlo.me/go/qun')"></h2>
+    <input placeholder="筛选主题选项…" type="search" id="theme-options-search" />
+    <div class="yunluotips"><?php echo file_get_contents( "http://git.oschina.net/yunluo/API/raw/master/notice.txt" ); ?></div>
+    <div class="catlist">您的网站分类列表：<?php echo Bing_show_category(); ?></div>
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     <form method="post">
         <h2 class="nav-tab-wrapper">
 <?php
@@ -1619,8 +2135,15 @@ foreach ($options as $value ) {
     $panelIndex++;
 }
 echo '<a href="#about_theme" class="nav-tab">关于主题</a>';
+<<<<<<< HEAD
 ?>
 </h2>
+=======
+
+?>
+</h2>
+
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 <?php
 $panelIndex = 0;
 foreach ($options as $value) {
@@ -1661,6 +2184,7 @@ switch ( $value['type'] ) {
 </tr>
 <?php
     break;
+<<<<<<< HEAD
     case 'password':
 ?>
 <tr>
@@ -1674,6 +2198,8 @@ switch ( $value['type'] ) {
 </tr>
 <?php
     break;
+=======
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     case 'textarea':
 ?>
 <tr>
@@ -1719,7 +2245,11 @@ switch ( $value['type'] ) {
         <p><span class="description"><?php echo $value['desc']; ?></span></p>
     </td>
 </tr>
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 <?php
     break;
     case 'checkbox':
@@ -1752,7 +2282,11 @@ switch ( $value['type'] ) {
         <span class="description"><?php echo $value['desc']; ?></span>
     </td>
 </tr>
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 <?php
     break;
 }
@@ -1760,6 +2294,7 @@ switch ( $value['type'] ) {
 ?>
 <div class="panel" id="about_theme">
 <h2>主题的那些事</h2>
+<<<<<<< HEAD
         <p>&nbsp;&nbsp;这款主题一开始来自于大前端的D8主题，优秀的D8主题在经过欲思这里，欲思对这款主题进行了大量的修改，对本款主题的发展起到了非常重要的作用。</p>
         <p>&nbsp;&nbsp;云落在正式建站的时候选择了这款主题并且一直使用到现在，这款主题进行了N次的代码修改，有的地方是小修改，有的地方事一些大的修改，在欲思主题的基础上面做了很多二次开发，随着主题的修改进程，个人对WordPress的理解也随之加深，对于WordPress的应用也较以前有了更深的熟练。</p>
         <p>&nbsp;&nbsp;故，在经过多次修改后，自觉主题修改的足够完整，更名以将其与欲思主题以区分，并且将其代码托管至<a href="https://coding.net/u/googlo/p/Git/git" target="_blank">Coding</a>，并且将其更名为：Git ！</p>
@@ -1770,6 +2305,18 @@ switch ( $value['type'] ) {
 <img src="https://img.alicdn.com/imgextra/i1/1597576229/TB2ov76lXXXXXb0XpXXXXXXXXXX_!!1597576229.jpg_310x310.jpg"></img>
 <h2>联系云落</h2>
 <a class="button button-primary" href="http://googlo.me/about.html" target="_blank">乐趣公园留言板</a>
+=======
+        <p>&nbsp;&nbsp;这款主题一开始来自于大前端的D8主题，优秀的D8主题在经过欲思这里，欲思对这款主题进行了大量的修改，对本款主题的流行起到了非常重要的作用。</p>
+        <p>&nbsp;&nbsp;云落在正式建站的时候选择了这款主题并且一直使用到现在，期间对这款主题进行了N次的代码修改，有的地方是小修改，有的地方事一些大的修改，在欲思主题的基础上面做了很多二次开发，随着主题的修改进程，个人对WordPress的理解也随之加深，对于WordPress的应用也较以前有了更深的熟练。</p>
+        <p>&nbsp;&nbsp;故，在经过多次修改后，自觉主题修改的足够对其更名以将其与欲思主题以区分，并且将其代码托管至<a href="http://git.oschina.net/yunluo/git" target="_blank">开源中国</a>，并且将其更名为：Git ！</p>
+        <p>&nbsp;&nbsp;定名为Git，首先是因为主题采用Git版本系统管理代码的，写的最多的代码就是git了，另外G代表我的Googlo.Me，并且一直采用开源中国托管代码，遂定名为Git。</p>
+        <p>&nbsp;&nbsp;感谢大前端的D8主题，感谢欲思的欲思主题，感谢小影的主题，感谢知更鸟的主题，感谢露兜博客，感谢devework，感谢开源中国，感谢一直跟随主题版本升级的朋友们</p>
+<h2>支持云落</h2>
+<p>如果您觉的这款主题很赞，欢迎您扫码支持云落</p>
+<img style="width :300px;height :300px" src="http://i1.tietuku.com/d6c43b39f0c3c64c.jpg"></img>
+<h2>联系云落</h2>
+<a href="http://googlo.me/about.html" target="_blank">乐趣公园留言板</a>
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 </div>
 <p class="submit">
     <input name="submit" type="submit" class="button button-primary" value="保存选项"/>
@@ -1783,7 +2330,11 @@ switch ( $value['type'] ) {
 </p>
 </form>
 </div>
+<<<<<<< HEAD
 <style>.panel{display:none}.panel h3{margin:0;font-size:1.2em}#panel_update ul{list-style-type:disc}.nav-tab-wrapper{clear:both}.nav-tab{position:relative}.nav-tab i:before{position:absolute;top:-10px;right:-8px;display:inline-block;padding:2px;border-radius:50%;background:#e14d43;color:#fff;content:"\f463";vertical-align:text-bottom;font:400 18px/1 dashicons;speak:none}#theme-options-search{display:none;float:right;margin-top:-34px;width:280px;font-weight:300;font-size:16px;line-height:1.5}.updated+#theme-options-search{margin-top:-91px}.wrap.searching .nav-tab-wrapper a,.wrap.searching .panel tr,#attrselector{display:none}.wrap.searching .panel{display:block !important}#attrselector[attrselector*=ok]{display:block}</style>
+=======
+<style>.catlist{background-color:#FFB6C1;border:2px solid #FFB6C1;padding:5px;margin-top: 12px;text-align: center;color:#FFFFFF;}.catlist:hover{background-color:transparent;color: #000000}.yunluotips{border: 2px solid #FFCC33;padding: 20px}.yunluotips:hover{background: #FFCC33;}.panel{display:none}.panel h3{margin:0;font-size:1.2em}#panel_update ul{list-style-type:disc}.nav-tab-wrapper{clear:both}.nav-tab{position:relative}.nav-tab i:before{position:absolute;top:-10px;right:-8px;display:inline-block;padding:2px;border-radius:50%;background:#e14d43;color:#fff;content:"\f463";vertical-align:text-bottom;font:400 18px/1 dashicons;speak:none}#theme-options-search{display:none;float:right;margin-top:-34px;width:280px;font-weight:300;font-size:16px;line-height:1.5}.updated+#theme-options-search{margin-top:-91px}.wrap.searching .nav-tab-wrapper a,.wrap.searching .panel tr,#attrselector{display:none}.wrap.searching .panel{display:block !important}#attrselector[attrselector*=ok]{display:block}</style>
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 <style id="theme-options-filter"></style>
 <div id="attrselector" attrselector="ok" ></div>
 <script>
@@ -1823,7 +2374,11 @@ jQuery(function ($) {
 global $pagenow;
     if ( is_admin() && isset( $_GET['activated'] ) && $pagenow == 'themes.php' )
     {
+<<<<<<< HEAD
         wp_redirect( admin_url( 'admin.php?page=theme-options.php' ) );
+=======
+        wp_redirect( admin_url( 'themes.php?page=theme-options.php' ) );
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
     exit;
 }
 function git_enqueue_pointer_script_style( $hook_suffix ) {
@@ -1839,13 +2394,21 @@ function git_enqueue_pointer_script_style( $hook_suffix ) {
     }
 }
 add_action( 'admin_enqueue_scripts', 'git_enqueue_pointer_script_style' );
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
 function git_pointer_print_scripts() {
     ?>
     <script>
     jQuery(document).ready(function($) {
         var $menuAppearance = $("#menu-appearance");
         $menuAppearance.pointer({
+<<<<<<< HEAD
             content: '<h3>恭喜，Git 主题安装成功！</h3><p>该主题支持选项，请访问<a href="admin.php?page=theme-options.php">主题选项</a>页面进行配置。</p>',
+=======
+            content: '<h3>恭喜，Git 主题安装成功！</h3><p>该主题支持选项，请访问<a href="themes.php?page=theme-options.php">主题选项</a>页面进行配置。</p>',
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
             position: {
                 edge: "left",
                 align: "center"

@@ -43,6 +43,7 @@ while (have_posts()):
 <?php
     if ($_thumbnail) { ?>
 <div class="focus"><a target="_blank" href="<?php
+<<<<<<< HEAD
         the_permalink(); ?>">
 		<?php
         if (git_get_option('git_qncdn_b') ) {
@@ -53,6 +54,25 @@ while (have_posts()):
             echo '<img class="thumb" style="width:200px;height:123px" src="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=123&w=200&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
+=======
+        the_permalink(); ?>"><?php
+        if (git_get_option('git_cdnurl_b')) {
+            echo '<img class="thumb" src="';
+            echo post_thumbnail_src();
+            echo '?imageView2/1/w/';
+            echo git_get_option('git_thumb_width') ? git_get_option('git_thumb_width') : 200;
+            echo '/h/';
+            echo git_get_option('git_thumb_height') ? git_get_option('git_thumb_height') : 123;
+            echo '/q/85" alt="' . get_the_title() . '" />';
+        } else {
+            echo '<img class="thumb" src="' . get_bloginfo("template_url") . '/timthumb.php?src=';
+            echo post_thumbnail_src();
+            echo '&h=';
+            echo git_get_option('git_thumb_height') ? git_get_option('git_thumb_height') : 123;
+            echo '&w=';
+            echo git_get_option('git_thumb_width') ? git_get_option('git_thumb_width') : 200;
+            echo '&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
+>>>>>>> 8139b7357cac83572df28d58c3f7a41e55da56bb
         } ?></a></div>
 <?php
     } ?>
