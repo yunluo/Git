@@ -62,7 +62,6 @@ body_class(); ?>>
 <?php
 if (!git_get_option('git_pichead_b')) { ?>
 <?php
-
     if (git_get_option('git_skin_b') == 'git_red_b') {
         echo '<header id="header" class="header" style="background-color: #E74C3C;">';
     } elseif (git_get_option('git_skin_b') == 'git_blue_b') {
@@ -190,10 +189,8 @@ if (git_get_option('git_skin_b') == 'git_red_b') {
 } else {
     echo '<div id="nav-header" class="navbar" style="border-bottom: 4px solid #009966 ;">';
 } ?>
-
 <?php
 if (git_get_option('git_bdshare_b')) echo '<style type="text/css">.bdsharebuttonbox a{cursor:pointer;border-bottom:0;margin-right:5px;width:28px;height:28px;line-height:28px;color:#fff}.bds_renren{background:#94b3eb}.bds_qzone{background:#fac33f}.bds_more{background:#40a57d}.bds_weixin{background:#7ad071}.bdsharebuttonbox a:hover{background-color:#7fb4ab;color:#fff;border-bottom:0}</style>'; ?>
-
 <ul class="nav">
 <?php
 echo str_replace('</ul></div>', '', preg_replace('/<div[^>]*><ul[^>]*>/', '', wp_nav_menu(array('theme_location' => 'nav', 'echo' => false))));?>
