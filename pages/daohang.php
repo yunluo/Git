@@ -1,11 +1,10 @@
 <?php
 /*
-	template name: 网址导航页面
-	description: template for Git theme
+*	template name: 网址导航页面
+*	description: template for Git theme
 */
 get_header();
 ?>
-
 <div class="pagewrapper clearfix">
 		<header class="pageheader clearfix">
 			<h1 class="pull-left">
@@ -20,7 +19,6 @@ get_header();
 				<?php the_content(); ?>
 				<?php echo get_link_items(); ?>
 		</div>
-
 <?php comments_template('', true); endwhile;  ?>
 </div>
 <?php get_footer(); ?>
