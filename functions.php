@@ -8,19 +8,31 @@ include ('inc/theme-metabox.php');
 function deel_setup() {
     //去除头部冗余代码
     remove_action('wp_head', 'feed_links_extra', 3);
-    remove_action('wp_head', 'rsd_link');
-    remove_action('wp_head', 'wlwmanifest_link');
-    remove_action('wp_head', 'index_rel_link');
-    remove_action('wp_head', 'start_post_rel_link');
-	remove_action('wp_head', 'adjacent_posts_rel_link');
-    remove_action('wp_head', 'wp_generator');
-    add_action('widgets_init','unregister_d_widget');
+	remove_action('wp_head', 'feed_links', 2, 1);
+    remove_action('wp_head', 'rsd_link');//移除离线编辑器开放接口
+    remove_action('wp_head', 'wlwmanifest_link');//移除离线编辑器开放接口
+    remove_action('wp_head', 'index_rel_link');//本页链接
+    remove_action('wp_head', 'parent_post_rel_link');//清除前后文信息
+	remove_action('wp_head', 'start_post_rel_link');//清除前后文信息
+	remove_action('wp_head', 'adjacent_posts_rel_link_wp_head');
+	remove_action('wp_head', 'rel_canonical');//本页链接
+    remove_action('wp_head', 'wp_generator');//移除WordPress版本号
+	remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0);//本页短链接
+
+//清除wp_footer带入的embed.min.js
+function git_deregister_embed_script(){
+  wp_deregister_script( 'wp-embed' );
+}
+add_action( 'wp_footer', 'git_deregister_embed_script' );
+
+    //去除部分默认小工具
     function unregister_d_widget(){
     unregister_widget('WP_Widget_Search');
     unregister_widget('WP_Widget_Recent_Comments');
     unregister_widget('WP_Widget_Tag_Cloud');
     unregister_widget('WP_Nav_Menu_Widget');
     }
+	add_action('widgets_init','unregister_d_widget');
 	//分类，标签描述添加图片
     remove_filter( 'pre_term_description', 'wp_filter_kses' );
 	remove_filter( 'pre_link_description', 'wp_filter_kses' );
@@ -28,8 +40,8 @@ function deel_setup() {
 	remove_filter( 'term_description', 'wp_kses_data' );
     //添加主题特性
     add_theme_support('custom-background', array( 'default-image' => get_template_directory_uri() . '/assets/img/bg.png' ));
-    //隐藏admin Bar
-    add_filter('show_admin_bar', 'hide_admin_bar');
+    //屏蔽顶部工具栏
+	add_filter( 'show_admin_bar', '__return_false' );
     //关键字
     if (git_get_option('git_keywords')) {
         add_action('wp_head', 'deel_keywords');
@@ -401,9 +413,7 @@ function deel_description() {
     $description = mb_substr($description, 0, 220, 'utf-8');
     echo "<meta name=\"description\" content=\"$description\">\n";
 }
-function hide_admin_bar($flag) {
-    return false;
-}
+
 //最新发布加new 单位'小时'
 function deel_post_new($timer = '48') {
     $t = (strtotime(date("Y-m-d H:i:s")) - strtotime($post->post_date)) / 3600;
@@ -503,7 +513,7 @@ function deel_comment_list($comment, $args, $depth) {
     //信息
     echo '<div class="c-meta">';
     if (git_get_option('git_autherqr_b') && !G_is_mobile()) {
-        echo '<span class="c-author"><a href="' . get_comment_author_url() . '" class="weixin" style="cursor:pointer;">' . get_comment_author() . '<span class="qr weixin-popover"><img style="position:absolute;z-index:99999;" src="https://pan.baidu.com/share/qrcode?w=145&h=145&url=' . get_comment_author_url() . '"></span></a></span>';
+        echo '<span class="c-author"><a href="' . get_comment_author_url() . '" class="weixin" style="cursor:pointer;">' . get_comment_author() . '<span class="qr weixin-popover"><img style="position:absolute;z-index:99999;" src="http://qr.topscan.com/api.php?text=' . get_comment_author_url() . '"></span></a></span>';
     } else {
         echo '<span class="c-author">' . get_comment_author_link() . '</span>';
     }
@@ -2486,5 +2496,17 @@ function wp_bili($matches, $attr, $url, $rawattr) {
     return apply_filters('iframe_bili', $iframe, $matches, $attr, $url, $ramattr);
 }
 wp_embed_register_handler('bili_iframe', '#https://www.bilibili.com/video/av(.*?)/#i', 'wp_bili');
+
+//评论作者链接新窗口打开
+function target_get_comment_author_link() {
+$url = get_comment_author_url( $comment_ID );
+$author = get_comment_author( $comment_ID );
+if ( empty( $url ) || 'http://' == $url )
+return $author;
+else
+return "<a target='_blank' href='$url' rel='external nofollow' class='url'>$author</a>";
+}
+add_filter('get_comment_author_link', 'target_get_comment_author_link');
+
 //WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://googlo.me/archives/4032.html
 ?>
