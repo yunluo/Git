@@ -23,9 +23,14 @@ if ($posttags) {
         the_permalink(); ?>" title="<?php
         the_title(); ?>" target="_blank"><?php
         if (git_get_option('git_qncdn_b') ) {
+            if(git_get_option('git_cdnurl_style') ){
+                $githumb3 = '!githumb3.jpg';
+            }else{
+                $githumb3 = '?imageView2/1/w/185/h/110/q/75';
+            }
             echo '<img class="thumb" style="width:185px;height:110px" src="';
             echo post_thumbnail_src();
-            echo '?imageView2/1/w/185/h/110/q/75" alt="' . get_the_title() . '" />';
+            echo ''.$githumb3.'" alt="' . get_the_title() . '" />';
         } else {
             echo '<img class="thumb" style="width:185px;height:110px" src="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
@@ -58,9 +63,14 @@ if ($i < $post_num) {
         the_permalink(); ?>" title="<?php
         the_title(); ?>" target="_blank"><?php
         if (git_get_option('git_qncdn_b') ) {
+            if(git_get_option('git_cdnurl_style') ){
+                $githumb3 = '!githumb3.jpg';
+            }else{
+                $githumb3 = '?imageView2/1/w/185/h/110/q/75';
+            }
             echo '<img class="thumb" style="width:185px;height:110px" src="';
             echo post_thumbnail_src();
-            echo '?imageView2/1/w/185/h/110/q/75" alt="' . get_the_title() . '" />';
+            echo ''.$githumb3.'" alt="' . get_the_title() . '" />';
         } else {
             echo '<img class="thumb" style="width:185px;height:110px" src="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();

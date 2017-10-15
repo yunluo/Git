@@ -35,10 +35,15 @@ if (git_get_option('git_qncdn_b')) {
     ));
     while (have_posts()):
         the_post();
+            if(git_get_option('git_cdnurl_style') ){
+                $githumb2 = '!githumb2.jpg';
+            }else{
+                $githumb2 = '?imageView2/1/w/120/h/62/q/75';
+            }
         echo '<a target="_blank" href="#" title="' . get_the_title() . '">';
         echo '<img src="';
         echo post_thumbnail_src();
-        echo '?imageView2/1/w/120/h/62/q/75" alt="' . get_the_title() . '" /></a>';
+        echo ''.$githumb2.'" alt="' . get_the_title() . '" /></a>';
     endwhile;
     wp_reset_query();
 } else {

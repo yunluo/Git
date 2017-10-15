@@ -47,9 +47,14 @@ while (have_posts()):
 <div class="focus"><a target="_blank" href="<?php
         the_permalink(); ?>"><?php
         if (git_get_option('git_qncdn_b') ) {
+            if(git_get_option('git_cdnurl_style') ){
+                $githumb4 = '!githumb4.jpg';
+            }else{
+                $githumb4 = '?imageView2/1/w/220/h/123/q/75';
+            }
             echo '<img class="thumb" style="width:200px;height:123px" src="';
             echo post_thumbnail_src();
-            echo '?imageView2/1/w/200/h/123/q/75" alt="' . get_the_title() . '" />';
+            echo ''.$githumb4.'" alt="' . get_the_title() . '" />';
         } else {
             echo '<img class="thumb" style="width:200px;height:123px" src="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();

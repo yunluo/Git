@@ -20,17 +20,22 @@ $options = array(
         'type'  => 'number',
         'std'   => ''
     ),
+    /*
     array(
         'name'  => '文章无图时不显示缩略图',
         'desc'  => '注意：主题主要是为显示缩略图的，选择本项目可能会导致错位',
         'id'    => 'git_thumbnail_b',
         'type'  => 'checkbox'
     ),
+    */
     array(
         'name'  => '列表Ajax下拉加载',
         'desc'  => '开启本选项之后网站会采用ajax方式下拉自动加载',
         'id'    => 'git_ajaxpager_b',
         'type'  => 'checkbox'
+    ),
+    array(
+        'type'  => 'hr'
     ),
     array(
         'title' => '热门排行',
@@ -91,6 +96,9 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+        'type'  => 'hr'
+    ),
+    array(
         'title' => '占位文本',
         'type'  => 'subtitle'
     ),
@@ -107,6 +115,9 @@ $options = array(
         'id'    => "git_comment_placeholder",
         'type'  => 'text',
         'std'   => '说点什么吧…'
+    ),
+    array(
+        'type'  => 'hr'
     ),
     array(
         'title' => '投稿设置',
@@ -317,6 +328,9 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+        'type'  => 'hr'
+    ),
+    array(
         'title' => '垃圾评论屏蔽',
         'type'  => 'subtitle'
     ),
@@ -346,6 +360,9 @@ $options = array(
         'desc'  => '开启 【启用后，屏蔽含有过长网址(超过50个字符)的评论，当然如果你已经选择了上面的选项的话，就不用选择了】',
         'id'    => 'git_spam_long',
         'type'  => 'checkbox'
+    ),
+    array(
+        'type'  => 'hr'
     ),
     array(
         'title' => '评论设置属性',
@@ -386,6 +403,9 @@ $options = array(
         'desc'  => '不显示',
         'id'    => 'git_qiandao',
         'type'  => 'checkbox'
+    ),
+    array(
+        'type'  => 'hr'
     ),
     array(
         'title' => '评论VIP设置',
@@ -491,7 +511,7 @@ $options = array(
         'desc'  => '此处输入的文字将出现在每篇文章最底部，你可以使用：{{title}}表示文章标题，{{link}}表示文章链接',
         'id'    => "git_copyright_b",
         'type'  => 'textarea',
-        'std'   => '乐趣公园 , 版权所有丨如未注明 , 均为原创丨本网站采用<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" rel="nofollow" target="_blank" title="BY-NC-SA授权协议">BY-NC-SA</a>协议进行授权 , 转载请注明<a href="{{link}}" target="_blank" title="{{title}}">{{title}}</a>！'
+        'std'   => '乐趣公园 , 版权所有丨如未注明 , 均为原创丨本网站采用<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" rel="nofollow" target="_blank" title="BY-NC-SA授权协议">BY-NC-SA</a>协议进行授权 <br >转载请注明原文链接：<a href="{{link}}" target="_blank" title="{{title}}">{{title}}</a>'
     ),
     array(
         'type'  => 'panelend'
@@ -503,14 +523,13 @@ $options = array(
         'type'  => 'panelstart'
     ),
     array(
-        'title' => '导航栏设置',
-        'type'  => 'subtitle'
-    ),
-    array(
         'name'  => '透明导航栏',
         'desc'  => '开启【开启后您的菜单导航栏就会变成半透明】',
         'id'    => "git_tmnav_b",
         'type'  => 'checkbox'
+    ),
+    array(
+        'type'  => 'hr'
     ),
     array(
         'title' => '网站头部设置',
@@ -549,6 +568,9 @@ $options = array(
         'desc'  => '开启【开启后您的logo将居左显示】',
         'id'    => "git_piclogo_left",
         'type'  => 'checkbox'
+    ),
+    array(
+        'type'  => 'hr'
     ),
     array(
         'title' => '主题皮肤设置',
@@ -607,6 +629,9 @@ $options = array(
         'std'   => ''
     ),
     array(
+        'type'  => 'hr'
+    ),
+    array(
         'title' => '主题侧边栏跟随设置',
         'type'  => 'subtitle'
     ),
@@ -660,6 +685,9 @@ $options = array(
         'id'    => 'git_sticky_count',
         'type'  => 'number',
         'std'   => 4
+    ),
+    array(
+        'type'  => 'hr'
     ),
     array(
         'title' => '幻灯片【简约版】设置[855*300]',
@@ -885,6 +913,9 @@ $options = array(
         'id'    => 'git_cat_8',
         'type'  => 'number',
         'std'   => ''
+    ),
+    array(
+        'type'  => 'hr'
     ),
     array(
         'title' => '首页隐藏分类',
@@ -1239,6 +1270,9 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+        'type'  => 'hr'
+    ),
+    array(
         'title' => 'WordPress安全设置[小白慎用]',
         'type'  => 'subtitle'
     ),
@@ -1301,6 +1335,9 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+        'type'  => 'hr'
+    ),
+    array(
         'title' => '新浪微博同步设置',
         'type'  => 'subtitle'
     ),
@@ -1332,7 +1369,10 @@ $options = array(
         'std'   => ''
     ),
     array(
-        'title' => '七牛云CDN设置',
+        'type'  => 'hr'
+    ),
+    array(
+        'title' => 'CDN镜像加速设置',
         'type'  => 'subtitle'
     ),
     array(
@@ -1342,31 +1382,40 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
-        'name'  => '七牛自定义域名',
-        'desc'  => '输入本项目之前，必须开启本功能，输入您的七牛云自定义域名，必须带 <font color="#cc0000"><strong>http://</strong></font>  如果留空则禁用七牛云CDN功能  <a class="button-primary" target="_blank" href="http://googlo.me/go/qiniu" title="立刻注册七牛，免费使用免备案高速CDN">注册七牛</a>，并获取链接<a rel="nofollow" href="https://img.alicdn.com/imgextra/i3/1597576229/TB2uLdxpFXXXXbCXpXXXXXXXXXX_!!1597576229.jpg" target="_blank">如图</a>',
+        'name'  => 'CDN加速域名',
+        'desc'  => '输入本项目之前，必须开启本功能，输入您的七牛云自定义域名，必须带 <font color="#cc0000"><strong>http://</strong></font>  结尾不能带/  <a class="button-primary" target="_blank" href="http://googlo.me/go/qiniu" title="立刻注册七牛，免费使用免备案高速CDN">注册七牛</a>，并获取链接<a rel="nofollow" href="https://img.alicdn.com/imgextra/i3/1597576229/TB2uLdxpFXXXXbCXpXXXXXXXXXX_!!1597576229.jpg" target="_blank">如图</a>',
         'id'    => "git_cdnurl_b",
         'type'  => 'text',
         'std'   => ''
     ),
 	array(
-        'name'  => '七牛镜像文件格式',
+        'name'  => 'CDN镜像文件格式',
         'desc'  => '在输入框内添加准备镜像的文件格式，比如jpg，png，gif，mp3，mp4（使用|分隔）',
         'id'    => "git_cdnurl_format",
         'type'  => 'text',
         'std'   => 'png|jpg|jpeg|gif|ico|html|7z|zip|rar|pdf|ppt|wmv|mp4|avi|mp3|txt'
     ),
 	array(
-        'name'  => '七牛镜像文件夹',
+        'name'  => 'CDN镜像文件夹',
         'desc'  => '在输入框内添加准备镜像的文件夹，比如wp-content|wp-includes（使用|分隔）',
         'id'    => "git_cdnurl_dir",
         'type'  => 'text',
         'std'   => 'wp-content|wp-includes'
     ),
     array(
-        'name'  => '七牛云后台化',
-        'desc'  => '启用【一般可不启用，如果您启用七牛之后并删除了本地文件，则必须开启】',
+        'name'  => 'CDN自定义样式',
+        'desc'  => '启用【使用七牛CDN可以不启用,其他CDN必须启用,如果启用CDN自定义样式,则<font color="#cc0000"><strong><a target="_blank" href="http://googlo.me/go/qiniu" >必须看本篇文章</a></strong></font>】',
+        'id'    => "git_cdnurl_style",
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => 'CDN镜像后台化',
+        'desc'  => '启用【一般可不启用，如果您启用CDN镜像之后并删除了本地文件，则必须开启】',
         'id'    => "git_adminqn_b",
         'type'  => 'checkbox'
+    ),
+    array(
+        'type'  => 'hr'
     ),
     array(
         'title' => '微信推送设置',
@@ -1405,6 +1454,9 @@ $options = array(
         'id'    => 'git_mp_tips',
         'type'  => 'textarea',
         'std'   => '请关注乐趣公园官方微信公众号，关注并订阅<span style="color:#E96463;font-weight:bold;">云落乐趣公园</span>获取验证码。在微信里搜索<span style="color:#E96463;font-weight:bold;">云落乐趣公园</span>或者微信扫描二维码都可以关注乐趣公园官方微信公众号。<span style="color:#E53333;font-weight:bold;">【据说人品差的需要提交两次哦】</span>'
+    ),
+    array(
+        'type'  => 'hr'
     ),
     array(
         'title' => 'STMP邮箱设置',
@@ -1459,6 +1511,9 @@ $options = array(
         'std'   => ''
     ),
     array(
+        'type'  => 'hr'
+    ),
+    array(
         'name'  => 'Gravatar头像设置',
         'desc'  => '头像设置，请务必点击→→<a class="button-primary" target="_blank" href="http://googlo.me/archives/4667.html">使用说明</a>',
         'id'    => "git_avater",
@@ -1494,6 +1549,9 @@ $options = array(
             '本地jQuery库【头部加载,速度慢,兼容好】' => 'git_jqcdn_bendi'
         ),
         'std'   => 'git_jqcdn_bendi'
+    ),
+    array(
+        'type'  => 'hr'
     ),
     array(
         'title' => '站内搜索设置',
@@ -1634,6 +1692,9 @@ switch ( $value['type'] ) {
         break;
     case 'subtitle':
         echo '<tr><th colspan="2"><h3>' . $value['title'] . '</h3></th></tr>';
+        break;
+    case 'hr':
+        echo '<tr><th colspan="2"><hr></th></tr>';
         break;
     case 'text':
 ?>
