@@ -29,9 +29,14 @@ if (is_home()) { ?>
         the_permalink(); ?>" title="<?php
         the_title(); ?>"><?php
         if (git_get_option('git_qncdn_b') ) {
+            if(git_get_option('git_cdnurl_style') ){
+                $githumb5 = '!githumb5.jpg';
+            }else{
+                $githumb5 = '?imageView2/1/w/253/h/169/q/75';
+            }
             echo '<img class="thumb" style="width:253px;height:169px" src="';
             echo post_thumbnail_src();
-            echo '?imageView2/1/w/253/h/169/q/75" alt="' . get_the_title() . '" />';
+            echo ''.$githumb5.'" alt="' . get_the_title() . '" />';
         } else {
             echo '<img class="thumb" style="width:253px;height:169px" src="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
