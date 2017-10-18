@@ -1658,7 +1658,7 @@ add_action('admin_menu', 'git_add_theme_options_page');
 function git_options_page() {
     global $options;
     $optionsSetup = git_get_option('git_options_setup') != '';
-    if ($_REQUEST['update']) echo '<div class="updated"><p><strong>设置已保���。</strong></p></div>';
+    if ($_REQUEST['update']) echo '<div class="updated"><p><strong>设置已保存。</strong></p></div>';
     if ($_REQUEST['reset']) echo '<div class="updated"><p><strong>设置已重置。</strong></p></div>';
 ?>
 
