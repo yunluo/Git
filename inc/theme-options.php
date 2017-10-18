@@ -479,6 +479,12 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+        'name'  => '文章目录索引',
+        'desc'  => '启用  【开启之后，默认索引文章H2标题】',
+        'id'    => 'git_article_list',
+        'type'  => 'checkbox'
+    ),
+    array(
         'name'  => '留言链接二维码',
         'desc'  => '启用  【开启之后，您的留言者的网站会生成一个二维码】',
         'id'    => "git_autherqr_b",
@@ -1652,7 +1658,7 @@ add_action('admin_menu', 'git_add_theme_options_page');
 function git_options_page() {
     global $options;
     $optionsSetup = git_get_option('git_options_setup') != '';
-    if ($_REQUEST['update']) echo '<div class="updated"><p><strong>设置已保存。</strong></p></div>';
+    if ($_REQUEST['update']) echo '<div class="updated"><p><strong>设置已保���。</strong></p></div>';
     if ($_REQUEST['reset']) echo '<div class="updated"><p><strong>设置已重置。</strong></p></div>';
 ?>
 

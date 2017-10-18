@@ -2508,5 +2508,26 @@ return "<a target='_blank' href='$url' rel='external nofollow' class='url'>$auth
 }
 add_filter('get_comment_author_link', 'target_get_comment_author_link');
 
+//文章目录,来自露兜,云落修改
+if(git_get_option('git_article_list')  ){
+    function article_index($content) {
+        $matches = array();
+        $ul_li = '';
+        $r = "/<h2>([^<]+)<\/h2>/im";
+        if(is_singular() && preg_match_all($r, $content, $matches)) {
+            foreach($matches[1] as $num => $title) {
+                $title = trim(strip_tags($title));
+                $content = str_replace($matches[0][$num], '<h2 id="title-'.$num.'">'.$title.'</h2>', $content);
+                $ul_li .= '<li><a href="#title-'.$num.'">'.$title."</a></li>\n";
+            }
+            $content = '<div id="article-index">
+                            <strong>文章目录<a class="hidetoc">[隐藏]</a></strong>
+                            <ul id="index-ul">' . $ul_li . '</ul>
+                        </div>' . $content;
+        }
+        return $content;
+    }
+    add_filter( 'the_content', 'article_index' );
+}
 //WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://googlo.me/archives/4032.html
 ?>
