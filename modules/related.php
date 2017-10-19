@@ -11,7 +11,7 @@ if ($posttags) {
         'post_status' => 'publish',
         'tag__in' => explode(',', $tags) ,
         'post__not_in' => explode(',', $exclude_id) ,
-        'caller_get_posts' => 1,
+        'ignore_sticky_posts' => 1,
         'orderby' => 'comment_date',
         'posts_per_page' => $post_num
     );
@@ -50,7 +50,7 @@ if ($i < $post_num) {
     $args = array(
         'category__in' => explode(',', $cats) ,
         'post__not_in' => explode(',', $exclude_id) ,
-        'caller_get_posts' => 1,
+        'ignore_sticky_posts' => 1,
         'orderby' => 'comment_date',
         'posts_per_page' => $post_num - $i
     );
@@ -100,7 +100,7 @@ if ($posttags) {
         'post_status' => 'publish',
         'tag_slug__in' => explode(',', $tags) ,
         'post__not_in' => explode(',', $exclude_id) ,
-        'caller_get_posts' => 1,
+        'ignore_sticky_posts' => 1,
         'offset' => 4,
         'orderby' => 'comment_date',
         'posts_per_page' => $limit
@@ -120,7 +120,7 @@ if ($i < $limit) {
     $args = array(
         'category__in' => explode(',', $cats) ,
         'post__not_in' => explode(',', $exclude_id) ,
-        'caller_get_posts' => 1,
+        'ignore_sticky_posts' => 1,
         'orderby' => 'comment_date',
         'posts_per_page' => $limit - $i
     );

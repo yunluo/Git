@@ -26,7 +26,7 @@ if (have_posts()) : while (have_posts()) : the_post(); ?>
         the_content(); ?><br/><div class="shuoshuo-meta"><span class="shuoshuo-sjsj" style="float:left"><?php
         the_time('Y年n月j日G:i'); ?></span ><span >— <i class="fa fa-user"></i> <?php
         the_author() ?></span></div></div>
-        <span class="zhutou"><?php echo get_avatar(get_the_author_email(),64); ?></span>
+        <span class="zhutou"><?php echo get_avatar(get_the_author_meta('email'),64); ?></span>
         </li>
 <?php endwhile;endif; ?>
  </ul>

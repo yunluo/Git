@@ -10,7 +10,7 @@
 				$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 				$args = array(
 				    'showposts' => 4,
-				    'caller_get_posts' => 1,
+				    'ignore_sticky_posts' => 1,
 				    'paged' => $paged
 				);
 				query_posts($args);

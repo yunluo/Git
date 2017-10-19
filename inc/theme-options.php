@@ -9,7 +9,7 @@ $options = array(
     array(
         'name'  => '滚动公告栏',
         'desc'  => '最新消息显示在全站导航条下方，非常给力的推广位置',
-        'id'    => "git_tui",
+        'id'    => 'git_tui',
         'type'  => 'textarea',
         'std'   => '<li>欢迎访问乐趣公园网站，WordPress信息，WordPress教程，推荐使用最新版火狐浏览器和Chrome浏览器访问本网站，欢迎加入乐趣公园<code><a target="_blank" href="http://googlo.me/go/qun"><i class="fa fa-qq"></i> QQ群</a></code></li><li>Git主题现已支持滚动公告栏功能，兼容其他浏览器，看到的就是咯，在后台最新消息那里用li标签添加即可。</li><li>最新版Git主题已支持说说碎语功能，可像添加文章一样直接添加说说，新建说说页面即可，最后重新保存固定连接，<a target="_blank" href="http://googlo.me/shuo.html">演示地址</a></li><li>百度口碑求点赞啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊<a target="_blank" href="http://koubei.baidu.com/s/googlo.me">http://koubei.baidu.com/s/googlo.me</a></li><li>如果您觉得本站非常有看点，那么赶紧使用Ctrl+D 收藏乐趣公园吧</li><li>云落的宠物用品淘宝店铺，传送门：<a target="_blank" href="http://kimipet.taobao.com">http://kimipet.taobao.com</a></li>'
     ),
@@ -50,7 +50,7 @@ $options = array(
     array(
         'name'  => '排序根据',
         'desc'  => '选择一个参数作为排序的根据，可以选择评论数目，浏览数目或者点赞数目',
-        'id'    => "git_hot_b",
+        'id'    => 'git_hot_b',
         'type'  => 'radio',
         'options' => array(
             '评论数目' => 'git_hot_comment',
@@ -78,7 +78,7 @@ $options = array(
     array(
         'name'  => '排行名称',
         'desc'  => '这里是显示在网站首页热门排行那里',
-        'id'    => "hot_list_title",
+        'id'    => 'hot_list_title',
         'type'  => 'text',
         'std'   => '本周热门'
     ),
@@ -105,14 +105,14 @@ $options = array(
     array(
         'name'  => '搜索框',
         'desc'  => '占位文本',
-        'id'    => "git_search_placeholder",
+        'id'    => 'git_search_placeholder',
         'type'  => 'text',
         'std'   => '输入内容并回车'
     ),
     array(
         'name'  => '评论',
         'desc'  => '评论框占位文本',
-        'id'    => "git_comment_placeholder",
+        'id'    => 'git_comment_placeholder',
         'type'  => 'text',
         'std'   => '说点什么吧…'
     ),
@@ -132,14 +132,14 @@ $options = array(
     array(
         'name'  => '投稿时间间隔',
         'desc'  => '秒，默认：240',
-        'id'    => "git_tougao_time",
+        'id'    => 'git_tougao_time',
         'type'  => 'number',
         'std'   => 240
     ),
     array(
         'name'  => '投稿提醒邮箱',
         'desc'  => '这里的邮箱一般是站长的邮箱，默认是获取网站自带的邮箱，另外，SMTP服务必须保证正常使用',
-        'id'    => "git_tougao_mailto",
+        'id'    => 'git_tougao_mailto',
         'type'  => 'text',
         'std'   => get_bloginfo( 'admin_email' )
     ),
@@ -181,29 +181,29 @@ $options = array(
     ),
     array(
         'name'  => '网站关键字',//选项显示的文字，选填
-        'desc'  => '各关键字间用半角逗号","分割，数量在6个以内最佳。',//选项显示的一段描述文字，选填
-        'id'    => "git_keywords",//选项的id，必须是唯一，后面根据这个获取值，必填
+        'desc'  => '各关键字间用半角逗号','分割，数量在6个以内最佳。',//选项显示的一段描述文字，选填
+        'id'    => 'git_keywords',//选项的id，必须是唯一，后面根据这个获取值，必填
         'type'  => 'text',//种类，这个是普通的文字输入，必填
         'std'   => ''//选项的默认值，选填
     ),
     array(
         'name'  => '网站描述',
         'desc'  => '用简洁的文字描述本站点，字数建议在120个字以内。',
-        'id'    => "git_description",
+        'id'    => 'git_description',
         'type'  => 'text',
         'std'   => ''
     ),
     array(
         'name'  => 'title分隔符',
         'desc'  => '显示在浏览器标题栏的一个用来风格网站名字的',
-        'id'    => "git_delimiter",
+        'id'    => 'git_delimiter',
         'type'  => 'text',
         'std'   => '|'
     ),
     array(
         'name'  => '自动内链',
         'desc'  => '启用',
-        'id'    => "git_autolink_b",
+        'id'    => 'git_autolink_b',
         'type'  => 'checkbox'
     ),
     array(
@@ -223,34 +223,26 @@ $options = array(
     array(
         'name'  => '图片自动添加alt以及title',
         'desc'  => '启用',
-        'id'    => "git_imgalt_b",
+        'id'    => 'git_imgalt_b',
         'type'  => 'checkbox',
         'std'   => 'checked'
     ),
     array(
         'name'  => '外链自动GO跳转',
         'desc'  => '启用 【启用之后需要新建页面，模板选择Go跳转页面，别名为go】',
-        'id'    => "git_go",
+        'id'    => 'git_go',
         'type'  => 'checkbox'
     ),
-    /* 失败项目，暂留
-    array(
-        'name'  => '外链排除',
-        'desc'  => '【启用之后需要新建页面，模板选择Go跳转页面，别名为go】',
-        'id'    => "git_links_liwai",
-        'type'  => 'textarea'
-    ),
-    */
     array(
         'name'  => '外链自动添加nofollow',
         'desc'  => '启用',
-        'id'    => "git_nofollow",
+        'id'    => 'git_nofollow',
         'type'  => 'checkbox'
     ),
     array(
         'name'  => 'Robot.txt优化',
         'desc'  => '启用 【开启本项之后，将只对搜索引擎开放首页，页面，文章页，其他一律屏蔽】',
-        'id'    => "git_robot_b",
+        'id'    => 'git_robot_b',
         'type'  => 'checkbox'
     ),
     array(
@@ -260,7 +252,7 @@ $options = array(
     array(
         'name'  => '主动推送接口地址，填写本项即开启推送',
         'desc'  => '在百度站长平台获取主动推送接口地址，比如：http://data.zz.baidu.com/urls?site=域名&token=一组字符, <a class="button-primary" rel="nofollow" href="http://zhanzhang.baidu.com/linksubmit/index" target="_blank">主动推送接口地址</a>',
-        'id'    => "git_sitemap_api",
+        'id'    => 'git_sitemap_api',
         'type'  => 'text',
         'std'   => ''
     ),
@@ -487,34 +479,34 @@ $options = array(
     array(
         'name'  => '留言链接二维码',
         'desc'  => '启用  【开启之后，您的留言者的网站会生成一个二维码】',
-        'id'    => "git_autherqr_b",
+        'id'    => 'git_autherqr_b',
         'type'  => 'checkbox'
     ),
     array(
         'name'  => '相关文章显示条数',
         'desc'  => '条&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 这是是显示文章下面的相关文章数目的',
-        'id'    => "git_related_count",
+        'id'    => 'git_related_count',
         'type'  => 'number',
         'std'   => 8
     ),
     array(
         'name'  => '禁止站内文章Pingback',
         'desc'  => '开启&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 开启后，不会发送站内Pingback，建议开启',
-        'id'    => "git_pingback_b",
+        'id'    => 'git_pingback_b',
         'type'  => 'checkbox',
         'std'   => 'checked'
     ),
     array(
         'name'  => '禁止后台编辑时自动保存',
         'desc'  => '开启&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 开启后，后台编辑文章时候不会定时保存，有效缩减数据库存储量；但是，一般不建议开启，除非你的数据库容量很小',
-        'id'    => "git_autosave_b",
+        'id'    => 'git_autosave_b',
         'type'  => 'checkbox',
         'std'   => 'checked'
     ),
     array(
         'name'  => '文章版权声明',
         'desc'  => '此处输入的文字将出现在每篇文章最底部，你可以使用：{{title}}表示文章标题，{{link}}表示文章链接',
-        'id'    => "git_copyright_b",
+        'id'    => 'git_copyright_b',
         'type'  => 'textarea',
         'std'   => '乐趣公园 , 版权所有丨如未注明 , 均为原创丨本网站采用<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" rel="nofollow" target="_blank" title="BY-NC-SA授权协议">BY-NC-SA</a>协议进行授权 <br >转载请注明原文链接：<a href="{{link}}" target="_blank" title="{{title}}">{{title}}</a>'
     ),
@@ -530,7 +522,7 @@ $options = array(
     array(
         'name'  => '透明导航栏',
         'desc'  => '开启【开启后您的菜单导航栏就会变成半透明】',
-        'id'    => "git_tmnav_b",
+        'id'    => 'git_tmnav_b',
         'type'  => 'checkbox'
     ),
     array(
@@ -543,7 +535,7 @@ $options = array(
     array(
         'name'  => '图片头部背景',
         'desc'  => '开启【开启后您的头部背景将显示默认背景图，不开启则显示默认纯色背景】',
-        'id'    => "git_pichead_b",
+        'id'    => 'git_pichead_b',
         'type'  => 'checkbox',
         'std'   => 'checked'
     ),
@@ -557,7 +549,7 @@ $options = array(
     array(
         'name'  => '图片头部logo',
         'desc'  => '开启【开启后您的头部背景将显示默认图片logo，不开启则显示默认文字logo】',
-        'id'    => "git_piclogo_b",
+        'id'    => 'git_piclogo_b',
         'type'  => 'checkbox',
         'std'   => 'checked'
     ),
@@ -571,7 +563,7 @@ $options = array(
     array(
         'name'  => 'logo居左',
         'desc'  => '开启【开启后您的logo将居左显示】',
-        'id'    => "git_piclogo_left",
+        'id'    => 'git_piclogo_left',
         'type'  => 'checkbox'
     ),
     array(
@@ -584,7 +576,7 @@ $options = array(
     array(
         'name'  => '网站配色',
         'desc'  => '选择一个色调作为您网站的主色调，如果这里的色彩还不够，您可以使用下面的自定义色彩',
-        'id'    => "git_skin_b",
+        'id'    => 'git_skin_b',
         'type'  => 'radio',
         'options' => array(
             '幽红色' => 'git_red_b',
@@ -615,7 +607,7 @@ $options = array(
     array(
         'name'  => '代码高亮主题',
         'desc'  => '选择一个色调作为您网站的主色调，如果这里的色彩还不够，您可以使用下面的自定义色彩',
-        'id'    => "git_prettify",
+        'id'    => 'git_prettify',
         'type'  => 'radio',
         'options' => array(
             '黑色主题' => 'monokai',
@@ -643,20 +635,20 @@ $options = array(
     array(
         'name'  => '侧边栏跟随',
         'desc'  => '开启【开启后为下面的选项选择侧边栏序号】',
-        'id'    => "git_sideroll_b",
+        'id'    => 'git_sideroll_b',
         'type'  => 'checkbox'
     ),
     array(
         'name'  => '第一个侧边栏：',
         'desc'  => '跟随',
-        'id'    => "git_sideroll_1",
+        'id'    => 'git_sideroll_1',
         'type'  => 'number',
         'std'   => ''
     ),
     array(
         'name'  => '第二个侧边栏：',
         'desc'  => '跟随',
-        'id'    => "git_sideroll_2",
+        'id'    => 'git_sideroll_2',
         'type'  => 'number',
         'std'   => ''
     ),
@@ -675,13 +667,13 @@ $options = array(
     array(
         'name'  => '是否开启',
         'desc'  => '开启【开启后请设置4篇以上的置顶文章,文章第一张图片为716*297，注意，开启3D幻灯片的时候默认同时打开热门排行，即便你的热门排行没开启】',
-        'id'    => "git_sticky_b",
+        'id'    => 'git_sticky_b',
         'type'  => 'checkbox'
     ),
     array(
         'name'  => '移动端不显示',
         'desc'  => '开启',
-        'id'    => "git_mobilesticky_b",
+        'id'    => 'git_mobilesticky_b',
         'type'  => 'checkbox'
     ),
     array(
@@ -701,133 +693,133 @@ $options = array(
     array(
         'name'  => '是否开启',
         'desc'  => '开启【本幻灯片与上方幻灯片不能同时开启，否则DUANG！！！】',
-        'id'    => "git_slick_b",
+        'id'    => 'git_slick_b',
         'type'  => 'checkbox',
         'std'   => 'checked'
     ),
     array(
         'name'  => '幻灯片一图片',
         'desc'  => '在这里输入您的幻灯片的图片路径',
-        'id'    => "git_slick1img_b",
+        'id'    => 'git_slick1img_b',
         'type'  => 'text',
         'std'   => 'https://img.alicdn.com/imgextra/i3/1597576229/TB2zQVclpXXXXakXpXXXXXXXXXX_!!1597576229.png'
     ),
     array(
         'name'  => '幻灯片一链接',
         'desc'  => '在这里输入您的幻灯片的引用链接',
-        'id'    => "git_slick1url_b",
+        'id'    => 'git_slick1url_b',
         'type'  => 'text',
         'std'   => ''
     ),
     array(
         'name'  => '幻灯片一标题',
         'desc'  => '在这里输入您的幻灯片的标题',
-        'id'    => "git_slick1title_b",
+        'id'    => 'git_slick1title_b',
         'type'  => 'text',
         'std'   => ''
     ),
     array(
         'name'  => '幻灯片二图片',
         'desc'  => '在这里输入您的幻灯片的图片路径',
-        'id'    => "git_slick2img_b",
+        'id'    => 'git_slick2img_b',
         'type'  => 'text',
         'std'   => 'https://img.alicdn.com/imgextra/i3/1597576229/TB286RXlpXXXXbkXpXXXXXXXXXX_!!1597576229.png'
     ),
     array(
         'name'  => '幻灯片二链接',
         'desc'  => '在这里输入您的幻灯片的引用链接',
-        'id'    => "git_slick2url_b",
+        'id'    => 'git_slick2url_b',
         'type'  => 'text',
         'std'   => ''
     ),
     array(
         'name'  => '幻灯片二标题',
         'desc'  => '在这里输入您的幻灯片的标题',
-        'id'    => "git_slick2title_b",
+        'id'    => 'git_slick2title_b',
         'type'  => 'text',
         'std'   => ''
     ),
     array(
         'name'  => '幻灯片三图片',
         'desc'  => '在这里输入您的幻灯片的图片路径',
-        'id'    => "git_slick3img_b",
+        'id'    => 'git_slick3img_b',
         'type'  => 'text',
         'std'   => 'https://img.alicdn.com/imgextra/i3/1597576229/TB2B_xilpXXXXXEXpXXXXXXXXXX_!!1597576229.png'
     ),
     array(
         'name'  => '幻灯片三链接',
         'desc'  => '在这里输入您的幻灯片的引用链接',
-        'id'    => "git_slick3url_b",
+        'id'    => 'git_slick3url_b',
         'type'  => 'text',
         'std'   => ''
     ),
     array(
         'name'  => '幻灯片三标题',
         'desc'  => '在这里输入您的幻灯片的标题',
-        'id'    => "git_slick3title_b",
+        'id'    => 'git_slick3title_b',
         'type'  => 'text',
         'std'   => ''
     ),
     array(
         'name'  => '幻灯片四图片',
         'desc'  => '在这里输入您的幻灯片的图片路径',
-        'id'    => "git_slick4img_b",
+        'id'    => 'git_slick4img_b',
         'type'  => 'text',
         'std'   => 'https://img.alicdn.com/imgextra/i4/1597576229/TB2pnNklpXXXXXbXpXXXXXXXXXX_!!1597576229.png'
     ),
     array(
         'name'  => '幻灯片四链接',
         'desc'  => '在这里输入您的幻灯片的引用链接',
-        'id'    => "git_slick4url_b",
+        'id'    => 'git_slick4url_b',
         'type'  => 'text',
         'std'   => ''
     ),
     array(
         'name'  => '幻灯片四标题',
         'desc'  => '在这里输入您的幻灯片的标题',
-        'id'    => "git_slick4title_b",
+        'id'    => 'git_slick4title_b',
         'type'  => 'text',
         'std'   => ''
     ),
     array(
         'name'  => '幻灯片五图片',
         'desc'  => '在这里输入您的幻灯片的图片路径',
-        'id'    => "git_slick5img_b",
+        'id'    => 'git_slick5img_b',
         'type'  => 'text',
         'std'   => 'https://img.alicdn.com/imgextra/i3/1597576229/TB2lnRklpXXXXXvXpXXXXXXXXXX_!!1597576229.png'
     ),
     array(
         'name'  => '幻灯片五链接',
         'desc'  => '在这里输入您的幻灯片的引用链接',
-        'id'    => "git_slick5url_b",
+        'id'    => 'git_slick5url_b',
         'type'  => 'text',
         'std'   => ''
     ),
     array(
         'name'  => '幻灯片五标题',
         'desc'  => '在这里输入您的幻灯片的标题',
-        'id'    => "git_slick5title_b",
+        'id'    => 'git_slick5title_b',
         'type'  => 'text',
         'std'   => ''
     ),
     array(
         'name'  => '幻灯片六图片',
         'desc'  => '在这里输入您的幻灯片的图片路径',
-        'id'    => "git_slick6img_b",
+        'id'    => 'git_slick6img_b',
         'type'  => 'text',
         'std'   => 'https://img.alicdn.com/imgextra/i2/1597576229/TB2FsFalpXXXXaAXpXXXXXXXXXX_!!1597576229.png'
     ),
     array(
         'name'  => '幻灯片六链接',
         'desc'  => '在这里输入您的幻灯片的引用链接',
-        'id'    => "git_slick6url_b",
+        'id'    => 'git_slick6url_b',
         'type'  => 'text',
         'std'   => ''
     ),
     array(
         'name'  => '幻灯片六标题',
         'desc'  => '在这里输入您的幻灯片的标题',
-        'id'    => "git_slick6title_b",
+        'id'    => 'git_slick6title_b',
         'type'  => 'text',
         'std'   => ''
     ),
@@ -846,20 +838,20 @@ $options = array(
     array(
         'name'  => '是否开启CMS',
         'desc'  => '启用 【不启用的话，显示是博客模式】',
-        'id'    => "git_cms_b",
+        'id'    => 'git_cms_b',
         'type'  => 'checkbox'
     ),
     array(
         'name'  => '博客是否开启卡片式',
         'desc'  => '启用 【不启用的话，显示是传统博客形式】',
-        'id'    => "git_card_b",
+        'id'    => 'git_card_b',
         'type'  => 'checkbox',
         'std'   => 'checked'
     ),
     array(
         'name'  => 'cms 分类文章数目',
         'desc'  => '默认4个,也可以8个',
-        'id'    => "git_cat_num",
+        'id'    => 'git_cat_num',
         'type'  => 'number',
         'std'   => 4
     ),
@@ -929,7 +921,7 @@ $options = array(
     array(
         'name'  => '是否开启',
         'desc'  => '启用',
-        'id'    => "git_blockcat_b",
+        'id'    => 'git_blockcat_b',
         'type'  => 'checkbox'
     ),
     array(
@@ -1039,48 +1031,48 @@ $options = array(
     array(
         'name'  => '超级Footer',
         'desc'  => '启用【开启后，下面的设置才会有效】',
-        'id'    => "git_superfoot_b",
+        'id'    => 'git_superfoot_b',
         'type'  => 'checkbox'
     ),
     array(
         'name'  => 'Footer1标题',
         'desc'  => '在这里输入第一个footer的标题',
-        'id'    => "git_foottitle1",
+        'id'    => 'git_foottitle1',
         'type'  => 'text',
         'std'   => '版权声明'
     ),
     array(
         'name'  => 'Footer1内容',
         'desc'  => '在这里输入第一个footer的内容',
-        'id'    => "git_footconent1",
+        'id'    => 'git_footconent1',
         'type'  => 'textarea',
-        'std'   => "本站的文章和资源来自互联网或者站长<br>的原创，按照 CC BY -NC -SA 3.0 CN<br>协议发布和共享，转载或引用本站文章<br>应遵循相同协议。如果有侵犯版权的资<br>源请尽快联系站长，我们会在24h内删<br>除有争议的资源。"
+        'std'   => '本站的文章和资源来自互联网或者站长<br>的原创，按照 CC BY -NC -SA 3.0 CN<br>协议发布和共享，转载或引用本站文章<br>应遵循相同协议。如果有侵犯版权的资<br>源请尽快联系站长，我们会在24h内删<br>除有争议的资源。'
     ),
     array(
         'name'  => 'Footer2标题',
         'desc'  => '在这里输入第二个footer的标题',
-        'id'    => "git_foottitle2",
+        'id'    => 'git_foottitle2',
         'type'  => 'text',
         'std'   => '网站驱动'
     ),
     array(
         'name'  => 'Footer2内容',
         'desc'  => '在这里输入第二个footer的内容',
-        'id'    => "git_footconent2",
+        'id'    => 'git_footconent2',
         'type'  => 'textarea',
         'std'   => '<ul><li><a href="http://googlo.me/goto/ad" title="云左" target="_blank">云左主机</a></li><li><a href="http://googlo.me/go/qiniu" title="七牛云" target="_blank">七牛云</a></li></ul>'
     ),
     array(
         'name'  => 'Footer3标题',
         'desc'  => '在这里输入第三个footer的标题',
-        'id'    => "git_foottitle3",
+        'id'    => 'git_foottitle3',
         'type'  => 'text',
         'std'   => '友情链接'
     ),
     array(
         'name'  => 'Footer3内容',
         'desc'  => '在这里输入第三个footer的内容',
-        'id'    => "git_footconent3",
+        'id'    => 'git_footconent3',
         'type'  => 'textarea',
         'std'   => '<ul><li><a href="http://googlo.me/go/weibo" title="云落的新浪微博" target="_blank">云落的新浪微博</a></li>
 <li><a href="http://t.qq.com/sp865113728" title="云落的腾讯微博" target="_blank">云落的腾讯微博</a></li>
@@ -1091,14 +1083,14 @@ $options = array(
     array(
         'name'  => 'Footer4标题',
         'desc'  => '在这里输入第四个footer的标题',
-        'id'    => "git_foottitle4",
+        'id'    => 'git_foottitle4',
         'type'  => 'text',
         'std'   => '支持主题'
     ),
     array(
         'name'  => 'Footer4内容',
         'desc'  => '在这里输入第四个footer的内容',
-        'id'    => "git_footconent4",
+        'id'    => 'git_footconent4',
         'type'  => 'textarea',
         'std'   => '<img style="width:180px;height:180px;" src="https://img.alicdn.com/imgextra/i3/1597576229/TB22Ic4lXXXXXcyXpXXXXXXXXXX_!!1597576229.png_310x310.jpg" alt="yunluo">'
     ),
@@ -1223,55 +1215,49 @@ $options = array(
     array(
         'name'  => '链接去掉Categroy',
         'desc'  => '启用  【开启后，需要至设置——固定连接——重新保存一下，否则会发生404错误】',
-        'id'    => "git_categroy_b",
-        'type'  => 'checkbox'
-    ),
-    array(
-        'name'  => '头像旋转',
-        'desc'  => '启用',
-        'id'    => "git_avataer_b",
+        'id'    => 'git_categroy_b',
         'type'  => 'checkbox'
     ),
     array(
         'name'  => '百度收录提示',
         'desc'  => '启用   【开启后，将会在文章标题下显示百度收录状态，需要curl扩展的支持，否则不生效】',
-        'id'    => "git_baidurecord_b",
+        'id'    => 'git_baidurecord_b',
         'type'  => 'checkbox'
     ),
     array(
         'name'  => '网站下雪特效',
         'desc'  => '启用    【开启后，将产生全站下雪特效，但是对网站性能略有影响】',
-        'id'    => "git_snow_b",
+        'id'    => 'git_snow_b',
         'type'  => 'checkbox'
     ),
     array(
         'name'  => '网站禁止复制',
         'desc'  => '启用    【启用后访客无法使用右键复制】',
-        'id'    => "git_copy_b",
+        'id'    => 'git_copy_b',
         'type'  => 'checkbox'
     ),
     array(
         'name'  => '复制弹窗提醒',
         'desc'  => '启用   【启用后，访客复制之后会弹出提示弹窗】',
-        'id'    => "git_copydialog_b",
+        'id'    => 'git_copydialog_b',
         'type'  => 'checkbox'
     ),
     array(
         'name'  => '页面伪静态',
         'desc'  => '启用   【开启后，请前往固定连接重新保存一下，否则404】',
-        'id'    => "git_pagehtml_b",
+        'id'    => 'git_pagehtml_b',
         'type'  => 'checkbox'
     ),
     array(
         'name'  => '评论UA',
         'desc'  => '启用',
-        'id'    => "git_ua_b",
+        'id'    => 'git_ua_b',
         'type'  => 'checkbox'
     ),
     array(
         'name'  => '取消静态资源的版本查询',
         'desc'  => '启用',
-        'id'    => "git_query",
+        'id'    => 'git_query',
         'type'  => 'checkbox'
     ),
     array(
@@ -1284,33 +1270,33 @@ $options = array(
     array(
         'name'  => '加密WordPress后台',
         'desc'  => '启用 【启用之后，请填写下面的问题与答案，访问链接格式：http://yoursite/wp-login.php?问题=答案】',
-        'id'    => "git_admin",
+        'id'    => 'git_admin',
         'type'  => 'checkbox'
     ),
     array(
         'name'  => '访问问题[绝对不准用中文]',
         'desc'  => '这里随便填写一个字符，比如：googlo',
-        'id'    => "git_admin_q",
+        'id'    => 'git_admin_q',
         'type'  => 'text',
         'std'   => ''
     ),
     array(
         'name'  => '访问答案[绝对不准用中文]',
         'desc'  => '这里随便填写一个字符，比如：yunluo',
-        'id'    => "git_admin_a",
+        'id'    => 'git_admin_a',
         'type'  => 'text',
         'std'   => ''
     ),
 	array(
         'name'  => '后台登录错误报警',
         'desc'  => '启用 【启用之后，后台登录错误之后会自动邮件报警】',
-        'id'    => "git_login_tx",
+        'id'    => 'git_login_tx',
         'type'  => 'checkbox'
     ),
     array(
         'name'  => '禁用HTML标签评论',
         'desc'  => '启用 【启用之后，评论框下方的一些按钮将不可用，谨慎考虑】',
-        'id'    => "git_html_comment",
+        'id'    => 'git_html_comment',
         'type'  => 'checkbox'
     ),
     array(
@@ -1324,19 +1310,19 @@ $options = array(
     array(
         'name'  => 'HTML代码压缩',
         'desc'  => '启用 【开启后，将压缩网页HTML代码，可读性会降低，但是性能略有提升】',
-        'id'    => "git_compress",
+        'id'    => 'git_compress',
         'type'  => 'checkbox'
     ),
     array(
         'name'  => '侧边栏缓存',
         'desc'  => '启用 【开启后，将会在wp-content/cache文件夹下生成sidebar.txt缓存文件，开启缓存可以提高侧边栏加载速度，但是丧失是一些动态效果，请知悉，如果侧边栏有异常可以删除sidebar.txt缓存文件或者直接关闭本功能】',
-        'id'    => "git_sidebar_cache",
+        'id'    => 'git_sidebar_cache',
         'type'  => 'checkbox'
     ),
     array(
         'name'  => '开启前台弹窗登录',
         'desc'  => '',
-        'id'    => "git_fancylogin",
+        'id'    => 'git_fancylogin',
         'type'  => 'checkbox'
     ),
     array(
@@ -1349,27 +1335,27 @@ $options = array(
     array(
         'name'  => '开启',
         'desc'  => '',
-        'id'    => "git_sinasync_b",
+        'id'    => 'git_sinasync_b',
         'type'  => 'checkbox'
     ),
     array(
         'name'  => '新浪用户名',
         'desc'  => '最好输入您的微博的登陆邮箱',
-        'id'    => "git_wbuser_b",
+        'id'    => 'git_wbuser_b',
         'type'  => 'text',
         'std'   => ''
     ),
     array(
         'name'  => '新浪密码',
         'desc'  => '请输入您的微博密码',
-        'id'    => "git_wbpasd_b",
+        'id'    => 'git_wbpasd_b',
         'type'  => 'password',
         'std'   => ''
     ),
     array(
         'name'  => '新浪appkey',
         'desc'  => '请输入您的微博appkey，这个需要您自己去<a class="button-primary" target="_blank" href="http://open.weibo.com/webmaster/add" title="微博开放平台">微博开放平台</a>申请',
-        'id'    => "git_wbapky_b",
+        'id'    => 'git_wbapky_b',
         'type'  => 'text',
         'std'   => ''
     ),
@@ -1383,40 +1369,40 @@ $options = array(
     array(
         'name'  => '开启',
         'desc'  => '',
-        'id'    => "git_qncdn_b",
+        'id'    => 'git_qncdn_b',
         'type'  => 'checkbox'
     ),
     array(
         'name'  => 'CDN加速域名',
         'desc'  => '输入本项目之前，必须开启本功能，输入您的七牛云自定义域名，必须带 <font color="#cc0000"><strong>http://</strong></font>  结尾不能带/  <a class="button-primary" target="_blank" href="http://googlo.me/go/qiniu" title="立刻注册七牛，免费使用免备案高速CDN">注册七牛</a>，并获取链接<a rel="nofollow" href="https://img.alicdn.com/imgextra/i3/1597576229/TB2uLdxpFXXXXbCXpXXXXXXXXXX_!!1597576229.jpg" target="_blank">如图</a>',
-        'id'    => "git_cdnurl_b",
+        'id'    => 'git_cdnurl_b',
         'type'  => 'text',
         'std'   => ''
     ),
 	array(
         'name'  => 'CDN镜像文件格式',
         'desc'  => '在输入框内添加准备镜像的文件格式，比如jpg，png，gif，mp3，mp4（使用|分隔）',
-        'id'    => "git_cdnurl_format",
+        'id'    => 'git_cdnurl_format',
         'type'  => 'text',
         'std'   => 'png|jpg|jpeg|gif|ico|html|7z|zip|rar|pdf|ppt|wmv|mp4|avi|mp3|txt'
     ),
 	array(
         'name'  => 'CDN镜像文件夹',
         'desc'  => '在输入框内添加准备镜像的文件夹，比如wp-content|wp-includes（使用|分隔）',
-        'id'    => "git_cdnurl_dir",
+        'id'    => 'git_cdnurl_dir',
         'type'  => 'text',
         'std'   => 'wp-content|wp-includes'
     ),
     array(
         'name'  => 'CDN自定义样式',
         'desc'  => '启用【使用七牛CDN可以不启用,其他CDN必须启用,如果启用CDN自定义样式,则<font color="#cc0000"><strong><a target="_blank" href="http://googlo.me/go/qiniu" >必须看本篇文章</a></strong></font>】',
-        'id'    => "git_cdnurl_style",
+        'id'    => 'git_cdnurl_style',
         'type'  => 'checkbox'
     ),
     array(
         'name'  => 'CDN镜像后台化',
         'desc'  => '启用【一般可不启用，如果您启用CDN镜像之后并删除了本地文件，则必须开启】',
-        'id'    => "git_adminqn_b",
+        'id'    => 'git_adminqn_b',
         'type'  => 'checkbox'
     ),
     array(
@@ -1429,27 +1415,27 @@ $options = array(
     array(
         'name'  => '评论微信推送提醒',
         'desc'  => '启用【开启后，如果网站有新的评论，可以给您的微信推送提醒，这个只是给网站管理员提醒，不涉及访客】，具体设置<a class="button-primary" target="_blank" href="http://googlo.me/archives/4500.html" title="点击查看设置教程">点击查看设置教程</a>',
-        'id'    => "git_Server",
+        'id'    => 'git_Server',
         'type'  => 'checkbox'
     ),
     array(
         'name'  => '微信推送KEY',
         'desc'  => '请输入您的微信推送KEY,根据上面教程获取',
-        'id'    => "git_Server_key",
+        'id'    => 'git_Server_key',
         'type'  => 'text',
         'std'   => ''
     ),
     array(
         'name'  => '微信订阅号/公众号二维码',
         'desc'  => '请输入您的微信订阅号/公众号二维码图片链接，不要想得太多，只是给主题调用的。',
-        'id'    => "git_mp_qr",
+        'id'    => 'git_mp_qr',
         'type'  => 'text',
         'std'   => ''
     ),
 	array(
         'name'  => '微信验证码',
         'desc'  => '请输入您的微信验证码，这里的必须要要和微信里面回复的保持一致。',
-        'id'    => "git_mp_code",
+        'id'    => 'git_mp_code',
         'type'  => 'text',
         'std'   => '2233'
     ),
@@ -1458,7 +1444,7 @@ $options = array(
         'desc'  => '在本输入框内输入您的微信公众号描述信息，支持html代码，字数合适就行，不能太多',
         'id'    => 'git_mp_tips',
         'type'  => 'textarea',
-        'std'   => '请关注乐趣公园官方微信公众号，关注并订阅<span style="color:#E96463;font-weight:bold;">云落乐趣公园</span>获取验证码。在微信里搜索<span style="color:#E96463;font-weight:bold;">云落乐趣公园</span>或者微信扫描二维码都可以关注乐趣公园官方微信公众号。<span style="color:#E53333;font-weight:bold;">【据说人品差的需要提交两次哦】</span>'
+        'std'   => '请关注乐趣公园官方微信公众号，关注并订阅<span style="color:#E96463;font-weight:bold;">云落乐趣公园</span>获取验证码。在微信里搜索<span style="color:#E96463;font-weight:bold;">云落乐趣公园</span>或者微信扫描二维码都可以关注乐趣公园官方微信公众号。'
     ),
     array(
         'type'  => 'hr'
@@ -1470,7 +1456,7 @@ $options = array(
     array(
         'name'  => '发件人地址',
         'desc'  => '请输入您的邮箱地址',
-        'id'    => "git_maildizhi_b",
+        'id'    => 'git_maildizhi_b',
         'type'  => 'text',
         'std'   => ''
     ),
@@ -1484,34 +1470,34 @@ $options = array(
     array(
         'name'  => 'SMTP服务器地址',
         'desc'  => '请输入您的邮箱的SMTP服务器，查看<a class="button-primary" target="_blank" href="http://wenku.baidu.com/link?url=Xc_mRFw2K-dimKX845QalqLpZzly07mC4a_t_QjOSPov0uFx3MWTl3wgw4tOAyTbDlS7lT8TOAj8VOxDYU186wQLKPt1fKncz7k_jbP_RQi">查看常用SMTP地址</a>',
-        'id'    => "git_mailsmtp_b",
+        'id'    => 'git_mailsmtp_b',
         'type'  => 'text',
         'std'   => 'smtp.qq.com'
     ),
     array(
         'name'  => 'SSL安全连接',
         'desc'  => '启用【如果你布吉岛这个是什么东东，那么请不要启用】',
-        'id'    => "git_smtpssl_b",
+        'id'    => 'git_smtpssl_b',
         'type'  => 'checkbox'
     ),
     array(
         'name'  => 'SMTP服务器端口',
         'desc'  => '请输入您的smtp端口，一般QQ邮箱25就可以了',
-        'id'    => "git_mailport_b",
+        'id'    => 'git_mailport_b',
         'type'  => 'number',
         'std'   => 25
     ),
     array(
         'name'  => '邮箱账号',
         'desc'  => '请输入您的邮箱地址，比如云落的sp91@qq.com',
-        'id'    => "git_mailuser_b",
+        'id'    => 'git_mailuser_b',
         'type'  => 'text',
         'std'   => ''
     ),
     array(
         'name'  => '邮箱密码',
         'desc'  => '请输入您的邮箱密码',
-        'id'    => "git_mailpass_b",
+        'id'    => 'git_mailpass_b',
         'type'  => 'password',
         'std'   => ''
     ),
@@ -1521,7 +1507,7 @@ $options = array(
     array(
         'name'  => 'Gravatar头像设置',
         'desc'  => '头像设置，请务必点击→→<a class="button-primary" target="_blank" href="http://googlo.me/archives/4667.html">使用说明</a>',
-        'id'    => "git_avater",
+        'id'    => 'git_avater',
         'type'  => 'radio',
         'options' => array(
             '本地随机头像' => 'git_avatar_rand',
@@ -1533,21 +1519,21 @@ $options = array(
     array(
         'name'  => '本地随机头像数目',
         'desc'  => '默认140个头像，增加的话需要同步增加头像服务器数量！',
-        'id'    => "git_avatar_randnum",
+        'id'    => 'git_avatar_randnum',
         'type'  => 'number',
         'std'   => 140
     ),
     array(
         'name'  => 'Gravatar头像镜像服务器',
         'desc'  => '注意：本选项不可加加http://这些前缀，另外请务必查看上面的使用说明！！',
-        'id'    => "git_avatar_qnurl",
+        'id'    => 'git_avatar_qnurl',
         'type'  => 'text',
         'std'   => 'fdn.geekzu.org'
     ),
     array(
         'name'  => 'jQuery来源设置',
         'desc'  => '选择一个适合自己的jQuery公共库来源',
-        'id'    => "git_jqcdn",
+        'id'    => 'git_jqcdn',
         'type'  => 'radio',
         'options' => array(
             '又拍云jQuery库【底部加载,速度快,兼容差】' => 'git_jqcdn_upai',
@@ -1669,10 +1655,12 @@ function git_options_page() {
     <p><?php echo Coding_notice(); ?></p>
     </div>
     <?php endif; ?>
-    <div class="notice notice-info is-dismissible">
+    <div class="notice notice-info catlist">
     <p>您的网站分类列表：<?php echo Bing_show_category(); ?></p>
 	</div>
+	<div class="options-search">
 	<input placeholder="搜索主题选项…" type="search" id="theme-options-search" />
+	</div>
     <form method="post">
         <h2 class="nav-tab-wrapper">
 <?php
@@ -1849,7 +1837,7 @@ switch ( $value['type'] ) {
 </p>
 </form>
 </div>
-<style>.panel{display:none}.panel h3{margin:0;font-size:1.2em}#panel_update ul{list-style-type:disc}.nav-tab-wrapper{clear:both}.nav-tab{position:relative}.nav-tab i:before{position:absolute;top:-10px;right:-8px;display:inline-block;padding:2px;border-radius:50%;background:#e14d43;color:#fff;content:"\f463";vertical-align:text-bottom;font:400 18px/1 dashicons;speak:none}#theme-options-search{display:none;float:right;margin-top:-34px;width:280px;font-weight:300;font-size:16px;line-height:1.5}.updated+#theme-options-search{margin-top:-91px}.wrap.searching .nav-tab-wrapper a,.wrap.searching .panel tr,#attrselector{display:none}.wrap.searching .panel{display:block !important}#attrselector[attrselector*=ok]{display:block}</style>
+<style>.panel{display:none}.panel h3{margin:0;font-size:1.2em}#panel_update ul{list-style-type:disc}.nav-tab-wrapper{clear:both}.nav-tab{position:relative}.nav-tab i:before{position:absolute;top:-10px;right:-8px;display:inline-block;padding:2px;border-radius:50%;background:#e14d43;color:#fff;content:"\f463";vertical-align:text-bottom;font:400 18px/1 dashicons;speak:none}#theme-options-search{display:block;float:right;margin-top:5px;width:280px;font-weight:300;font-size:16px;line-height:1.5}.catlist{float:left;display:block}.wrap.searching .nav-tab-wrapper a,.wrap.searching .panel tr,#attrselector{display:none}.wrap.searching .panel{display:block !important}#attrselector[attrselector*=ok]{display:block}</style>
 <style id="theme-options-filter"></style>
 <div id="attrselector" attrselector="ok" ></div>
 <script>

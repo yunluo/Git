@@ -17,7 +17,7 @@ if (git_get_option('git_cms_b')) {
     include 'modules/cms.php';
 } else {
     $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-    if (git_get_option('git_orderbygx')) {  $orderby = modified;  } else {  $orderby = date ; }
+    if (git_get_option('git_orderbygx')) {  $orderby = 'modified';  } else {  $orderby = 'date'; }
     $args = array(
         'ignore_sticky_posts' => 1,
         'paged' => $paged,

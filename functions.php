@@ -1056,7 +1056,7 @@ add_filter('login_headertitle', create_function(false, "return get_bloginfo('nam
 */
 function git_esc_html($content) {
     $regex = '/(<pre\s+[^>]*?class\s*?=\s*?[",\'].*?prettyprint.*?[",\'].*?>)(.*?)(<\/pre>)/sim';
-    return preg_replace_callback($regex, git_esc_callback, $content);
+    return preg_replace_callback($regex, 'git_esc_callback', $content);
 }
 function git_esc_callback($matches) {
     $tag_open = $matches[1];
@@ -2284,7 +2284,8 @@ function git_reset_password_message($message, $key) {
     $msg.= network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login) , 'login');
     return $msg;
 }
-add_filter('retrieve_password_message', git_reset_password_message, null, 2);
+add_filter('retrieve_password_message', 'git_reset_password_message', null, 2);
+
 //保护后台登录
 if(git_get_option('git_admin')):
 function git_login_protection() {
@@ -2498,17 +2499,6 @@ function wp_bili($matches, $attr, $url, $rawattr) {
     return apply_filters('iframe_bili', $iframe, $matches, $attr, $url, $ramattr);
 }
 wp_embed_register_handler('bili_iframe', '#https://www.bilibili.com/video/av(.*?)/#i', 'wp_bili');
-
-//评论作者链接新窗口打开
-function target_get_comment_author_link() {
-$url = get_comment_author_url( $comment_ID );
-$author = get_comment_author( $comment_ID );
-if ( empty( $url ) || 'http://' == $url )
-return $author;
-else
-return "<a target='_blank' href='$url' rel='external nofollow' class='url'>$author</a>";
-}
-add_filter('get_comment_author_link', 'target_get_comment_author_link');
 
 //文章目录,来自露兜,云落修改
 if(git_get_option('git_article_list')  ){

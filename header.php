@@ -102,34 +102,32 @@ if (git_get_option('git_pichead_b')) { ?>
 if (git_get_option('git_tmnav_b')) echo '<style type="text/css">#nav-header{background-color: rgba(85,84,85, 0.5);background: rgba(85,84,85, 0.5);color: rgba(85,84,85, 0.5);}</style>'; ?>
 <?php
 if (git_get_option('git_skin_b') == 'git_red_b') {
-	$skin_nom = "#E74C3C";
-	$skin_hover = "#D52D1A";
+	$skin_nom = '#E74C3C';
+	$skin_hover = '#D52D1A';
 }elseif (git_get_option('git_skin_b') == 'git_blue_b'){
-	$skin_nom = "#003399";
-	$skin_hover = "#002266";
+	$skin_nom = '#003399';
+	$skin_hover = '#002266';
 }elseif (git_get_option('git_skin_b') == 'git_black_b'){
-	$skin_nom = "#616161";
-	$skin_hover = "#474747";
+	$skin_nom = '#616161';
+	$skin_hover = '#474747';
 }elseif (git_get_option('git_skin_b') == 'git_purple_b'){
-	$skin_nom = "#9932CC";
-	$skin_hover = "#7B28A4";
+	$skin_nom = '#9932CC';
+	$skin_hover = '#7B28A4';
 }elseif (git_get_option('git_skin_b') == 'git_yellow_b'){
-	$skin_nom = "#f5e011";
-	$skin_hover = "#C9B508";
+	$skin_nom = '#f5e011';
+	$skin_hover = '#C9B508';
 }elseif (git_get_option('git_skin_b') == 'git_light_b'){
-	$skin_nom = "#03A9F4";
-	$skin_hover = "#2196F3";
+	$skin_nom = '#03A9F4';
+	$skin_hover = '#2196F3';
 }elseif (git_get_option('git_skin_b') == 'git_green_b'){
-	$skin_nom = "#4CAF50";
-	$skin_hover = "#388E3C";
+	$skin_nom = '#4CAF50';
+	$skin_hover = '#388E3C';
 }elseif (git_get_option('git_skin_b') == 'git_custom_color'){
 	$skin_nom = git_get_option('git_color_nom');
 	$skin_hover = git_get_option('git_color_hover');
 }
     echo '<style type="text/css">.navbar .nav li:hover a, .navbar .nav li.current-menu-item a, .navbar .nav li.current-menu-parent a, .navbar .nav li.current_page_item a, .navbar .nav li.current-post-ancestor a,.toggle-search ,#submit ,.pagination ul>.active>a,.pagination ul>.active>span,.bdcs-container .bdcs-search-form-submit,.metacat a{background: ' . $skin_nom . ';}.footer,.title h2,.card-item .cardpricebtn{color: ' . $skin_nom . ';}.bdcs-container .bdcs-search-form-submit ,.bdcs-container .bdcs-search {border-color: ' . $skin_nom . ';}.pagination ul>li>a:hover,.navbar .nav li a:focus, .navbar .nav li a:hover,.toggle-search:hover,#submit:hover,.cardpricebtn .cardbuy {background-color: ' . $skin_hover . ';}.tooltip-inner{background-color:' . $skin_hover . ';}.tooltip.top .tooltip-arrow{border-top-color:' . $skin_hover . ';}.tooltip.right .tooltip-arrow{border-right-color:' . $skin_hover . ';}.tooltip.left .tooltip-arrow{border-left-color:' . $skin_hover . ';}.tooltip.bottom .tooltip-arrow{border-bottom-color:' . $skin_hover . ';}</style>';
 ?>
-<?php
-if (git_get_option('git_avataer_b')) echo '<style type="text/css">.avatar{-webkit-transition:0.4s;-webkit-transition:-webkit-transform 0.4s ease-out;transition:transform 0.4s ease-out;-moz-transition:-moz-transform 0.4s ease-out;}.avatar:hover{transform:rotateZ(360deg);-webkit-transform:rotateZ(360deg);-moz-transform:rotateZ(360deg);}</style>'; ?>
 
 <div class="container-inner"><?php
 if (git_get_option('git_piclogo_left') && !G_is_mobile()) {

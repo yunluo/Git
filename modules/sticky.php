@@ -7,7 +7,7 @@ $sticky = get_option('sticky_posts');
 rsort($sticky);
 query_posts(array(
     'post__in' => $sticky,
-    'caller_get_posts' => 1,
+    'ignore_sticky_posts' => 1,
     'showposts' => git_get_option('git_sticky_count') ? git_get_option('git_sticky_count') : 4
 ));
 while (have_posts()):
@@ -30,7 +30,7 @@ if (git_get_option('git_qncdn_b')) {
     rsort($sticky);
     query_posts(array(
         'post__in' => $sticky,
-        'caller_get_posts' => 1,
+        'ignore_sticky_posts' => 1,
         'showposts' => git_get_option('git_sticky_count') ? git_get_option('git_sticky_count') : 4
     ));
     while (have_posts()):
@@ -51,7 +51,7 @@ if (git_get_option('git_qncdn_b')) {
     rsort($sticky);
     query_posts(array(
         'post__in' => $sticky,
-        'caller_get_posts' => 1,
+        'ignore_sticky_posts' => 1,
         'showposts' => git_get_option('git_sticky_count') ? git_get_option('git_sticky_count') : 4
     ));
     while (have_posts()):

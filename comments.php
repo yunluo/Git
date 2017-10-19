@@ -13,8 +13,6 @@ if ( !comments_open() ) return;
 $my_email = get_bloginfo ( 'admin_email' );
 $str = "SELECT COUNT(*) FROM $wpdb->comments WHERE comment_post_ID = $post->ID AND comment_approved = '1' AND comment_type = '' AND comment_author_email";
 $count_t = $post->comment_count;
-
-date_default_timezone_set(PRC);
 $closeTimer = (strtotime(date('Y-m-d G:i:s'))-strtotime(get_the_time('Y-m-d G:i:s')))/86400;
 ?>
 <div id="respond" class="no_webshot">
