@@ -817,7 +817,7 @@ function no_category_base_request($query_vars) {
 function git_copyright($content ) {
     if (is_single() || is_feed()) {
 		$copyright = str_replace(array('{{title}}', '{{link}}'), array(get_the_title(), get_permalink()), stripslashes(git_get_option('git_copyright_b')));
-        $content.= '<hr /><div class="open-message"><i class="fa fa-bullhorn"></i>' . $copyright . '</div>';
+        $content.= '<hr /><div class="open-message">' . $copyright . '</div>';
     }
     return $content;
 }
