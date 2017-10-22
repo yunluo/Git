@@ -23,7 +23,7 @@ while (have_posts()):
     }
 ?>
 <?php if( has_post_format( 'aside' )) { //一图 ?>
-<div class="post post-style-image">
+<div class="imgpost post-style-image">
     <a class="post-img img-response d-block gradient-mask" href="<?php the_permalink() ?>"><?php
         if (git_get_option('git_qncdn_b') ) {
             if(git_get_option('git_cdnurl_style') ){
@@ -85,7 +85,7 @@ while (have_posts()):
     </div>
 </div>
 <?php } else if ( has_post_format( 'gallery' )) { //日志 ?>
-    <div class="post post-style-standard">
+    <div class="imgpost post-style-standard">
     <div class="post-title" style="padding-bottom: 10px;">
         <a href="<?php the_permalink() ?>"><?php the_title(); ?></a>
     </div>

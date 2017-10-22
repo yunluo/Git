@@ -250,7 +250,8 @@ if (git_get_option('git_sign_b')) {
 		            if(get_option('users_can_register')){
 		            echo '&nbsp;&nbsp;<i class="fa fa-pencil-square-o" ></i>  <a style="cursor:pointer;" data-sign="1" class="user-reg">注册</a>';}
 		        }else{/*如果没有按照um插件的话就..*/
-		            echo '<i class="fa fa-sign-in" ></i> <a id="showdiv" href="#loginbox" data-original-title="点击登录">点击登录</a>';
+		            echo '<i class="fa fa-sign-in" ></i> <a id="showdiv" href="#loginbox" data-original-title="点击登录">登录</a>';
+		            echo '&nbsp;&nbsp;<i class="fa fa-pencil-square-o" ></i>  <a href="' . home_url() . '/wp-login.php?action=register">注册</a>';
 		        }
 		    }
 		    ?>
