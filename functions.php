@@ -1736,43 +1736,52 @@ add_filter( 'comment_text_rss', 'git_comment_display', '', 1);
 add_filter( 'comment_excerpt', 'git_comment_display', '', 1);
 endif;
 
+if(!defined('UM_DIR')){/*判断是否按照UM插件*/
 //注册表单
-add_action( 'register_form', 'git_show_extra_register_fields' );
 function git_show_extra_register_fields(){
-?>
+    ?>
     <p>
-    <label for="user_pass">填写密码[不少于8位]<br/>
-    <input id="user_pass" class="input" type="password" tabindex="30" size="25" value="" name="user_pass" />
+    <label for="password"><?php _e( '密码' );?><br/>
+    <input id="password" class="input" type="password" tabindex="30" size="25" value="" name="password" />
     </label>
     </p>
     <p>
-    <label for="user_pass2">重填密码[不少于8位]<br/>
-    <input id="user_pass2" class="input" type="password" tabindex="40" size="25" value="" name="user_pass2" />
+    <label for="repeat_password"><?php _e( '确认密码' );?><br/>
+    <input id="repeat_password" class="input" type="password" tabindex="40" size="25" value="" name="repeat_password" />
     </label>
     </p>
     <p>
-    <label for="are_you_human" style="font-size:11px">为防止垃圾注册，请输入本站名称：<?php echo get_bloginfo( 'name' );?><br/>
+    <label for="are_you_human" style="font-size:12px"><?php _e( '为防止垃圾注册,请输入本站名字: <span style="coler:#F0104E;font-weight:bold;">'.get_bloginfo( 'name' ).'</span>' ); ?><br/>
     <input id="are_you_human" class="input" type="text" tabindex="40" size="25" value="" name="are_you_human" />
     </label>
     </p>
-<?php
+    <?php
 }
-//错误提示
+add_action( 'register_form', 'git_show_extra_register_fields' );
+
+/*
+ * Check the form for errors
+ */
+
 function git_check_extra_register_fields($login, $email, $errors) {
-    if ( $_POST['user_pass'] !== $_POST['user_pass2'] ) {
-        $errors->add( 'passwords_not_matched', "<strong>错误提示</strong>: 两次填写密码不一致" );
+    if ( $_POST['password'] !== $_POST['repeat_password'] ) {
+        $errors->add( 'passwords_not_matched', __("<strong>错误提示</strong>: 两次填写密码不一致" ) );
     }
-    if ( strlen( $_POST['user_pass'] ) < 6 ) {
-        $errors->add( 'password_too_short', "<strong>错误提示</strong>: 密码必须大于6个字符" );
+    if ( strlen( $_POST['password'] ) < 8 ) {
+        $errors->add( 'password_too_short', __("<strong>错误提示</strong>: 密码必须大于8个字符" ) );
     }
     if ( $_POST['are_you_human'] !== get_bloginfo( 'name' ) ) {
-        $errors->add( 'not_human', "<strong>错误提示</strong>: 您为填写验证问题或者验证问题错误" );
+        $errors->add( 'not_human', __("<strong>错误提示</strong>: 您未填写验证问题或者验证问题错误" ) );
     }
 }
 add_action( 'register_post', 'git_check_extra_register_fields', 10, 3 );
-//数据提交
+
+/*
+ * 提交用户密码进数据库
+ */
 function git_register_extra_fields( $user_id ){
     $userdata = array();
+    
     $userdata['ID'] = $user_id;
     if ( $_POST['password'] !== '' ) {
         $userdata['user_pass'] = $_POST['password'];
@@ -1780,14 +1789,23 @@ function git_register_extra_fields( $user_id ){
     $new_user_id = wp_update_user( $userdata );
 }
 add_action( 'user_register', 'git_register_extra_fields', 100 );
-// Editing WordPress registration confirmation message
-function git_edit_password_email_text ( $text ) {
-    if ( $text == 'A password will be e-mailed to you.' ) {
-        $text = 'If you leave password fields empty one will be generated for you. Password must be at least eight characters long.';
+
+/*
+ * 返回修改WordPress自带的注册完成消息
+ */
+function git_edit_password_email_text ( $translated_text, $untranslated_text, $domain ) {
+    if(in_array($GLOBALS['pagenow'], array('wp-login.php'))){
+        if ( $untranslated_text == 'A password will be e-mailed to you.' ) {
+            $translated_text = __( '若密码留空,则自动生成一个密码,并邮件密码给您' );
+        }
+        if( $untranslated_text == 'Registration complete. Please check your e-mail.' ) {
+            $translated_text = __( '注册已完成,请用您的密码登录或者检查您的邮箱' );
+        }
     }
-    return $text;
+    return $translated_text;
 }
-add_filter( 'gettext', 'git_edit_password_email_text' );
+add_filter( 'gettext', 'git_edit_password_email_text',20, 3 );
+}
 
 //SMTP邮箱设置
 function googlo_mail_smtp($phpmailer) {
