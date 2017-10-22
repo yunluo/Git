@@ -261,9 +261,11 @@ if (git_get_option('git_sign_b')) {
         echo '  <i class="fa fa-power-off"></i> ';
         echo wp_loginout();
         echo '';
-        } elseif (get_option('users_can_register')) {/*如果没有登录并且可以注册的话就...*/
+        } else {/*如果没有登录的话就...*/
         echo '<i class="fa fa-sign-in" ></i>  <a href="' . home_url() . '/wp-login.php">登录</a>';
+        if (get_option('users_can_register')){
         echo '&nbsp;&nbsp;<i class="fa fa-pencil-square-o" ></i>  <a href="' . home_url() . '/wp-login.php?action=register">注册</a>';
+            }
         };
     }?>
 <div id="loginbox" style="width:350px;height:280px;overflow:auto;display:none;">
