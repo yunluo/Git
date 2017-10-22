@@ -235,7 +235,7 @@ if (git_get_option('git_sign_b')) {
                         echo '&nbsp;&nbsp;<i class="fa fa-power-off"></i> ';
                         echo wp_loginout();
                         echo '';}else{/*如果不是管理员的话就..*/
-                        echo '<i class="fa fa-user"></i> <a href="' . home_url() . '/archives/author/'.$uid.'">' . $u_name . '</a>';
+                        echo '<i class="fa fa-user"></i> <a href="'.get_author_posts_url( $uid ).'">' . $u_name . '</a>';
                         echo '&nbsp;&nbsp;<i class="fa fa-power-off"></i> ';
                         echo wp_loginout();
                         echo '';}
