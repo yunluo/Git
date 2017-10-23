@@ -293,7 +293,7 @@ if ( $query->have_posts() ) {
 	while ( $query->have_posts() ) {
 		$query->the_post();
 		echo '<li>';
-		esc_html(the_content());
+		deel_strimwidth(strip_tags(the_content()), 0,280,'……');
 		echo '</li>';
 	}
 } else {
