@@ -7,6 +7,18 @@ $options = array(
         'type'  => 'panelstart' //panelatart 是顶部标签的意思
     ),
     array(
+        'name'  => '滚动内容来源',
+        'desc'  => '选择一个内容调用显示在顶部的滚动',
+        'id'    => 'git_gun_b',
+        'type'  => 'radio',
+        'options' => array(
+            '调用说说' => 'git_gun_shuo',
+            '调用公告' => 'git_gun_tui'
+        ),
+        'std'   => 'git_gun_tui'
+    ),
+    
+    array(
         'name'  => '滚动公告栏',
         'desc'  => '最新消息显示在全站导航条下方，非常给力的推广位置',
         'id'    => 'git_tui',
