@@ -41,7 +41,7 @@ add_action( 'wp_footer', 'git_deregister_embed_script' );
     //添加主题特性
     add_theme_support('custom-background', array( 'default-image' => get_template_directory_uri() . '/assets/img/bg.png' ));
     //添加文字形式支持
-    add_theme_support( 'post-formats', array(  'aside', 'gallery' ) );
+    add_theme_support( 'post-formats', array(  'aside' ) );
     //屏蔽顶部工具栏
 	add_filter( 'show_admin_bar', '__return_false' );
     //关键字
