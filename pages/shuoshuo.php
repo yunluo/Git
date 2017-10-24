@@ -22,7 +22,7 @@ query_posts('post_type=shuoshuo&post_status=publish&showposts=' . $limit=10 . '&
 if (have_posts()) : while (have_posts()) : the_post(); ?>
  <li><span class="tt"><?php
         the_time('Y年n月j日G:i'); ?></span>
- <div class="shuoshuo-content"><?php
+ <div id="shuo-<?php the_ID(); ?>" class="shuoshuo-content"><?php
         the_content(); ?><br/><div class="shuoshuo-meta"><span class="shuoshuo-sjsj" style="float:left"><?php
         the_time('Y年n月j日G:i'); ?></span ><span >— <i class="fa fa-user"></i> <?php
         the_author() ?></span></div></div>

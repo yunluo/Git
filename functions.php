@@ -1949,6 +1949,7 @@ function git_shuoshuo() {
         'menu_position' => 4 ,
         'supports' => array(
             'editor',
+			'title',
             'author'
         )
     );
@@ -1971,6 +1972,18 @@ function custom_shuoshuo_rewrites_init(){
 		'top' );
 }
 add_action( 'init', 'custom_shuoshuo_rewrites_init' );
+
+//自动填充说说标题
+function filter_post_empty_title($title)
+{
+    if ($title == $post_id || $title == '') {
+        $time = get_the_time('Y-m-d H:i:s');
+        $title = ' 这是一个说说@ ' . $time;
+    }
+    return $title;
+}
+add_filter('the_title', 'filter_post_empty_title');
+add_filter('get_the_title', 'filter_post_empty_title');
 
 //添加产品功能
 if(!defined('UM_DIR')):{/*如果安装um的话，就禁用这个功能*/
@@ -2358,6 +2371,24 @@ if(!function_exists('Baidu_Submit') && git_get_option('git_sitemap_api') ){
     }
     add_action('publish_post', 'Baidu_Submit', 0);
 }
+
+//登录可见
+function login_to_read($atts, $content = null)
+{   
+    if(defined('UM_DIR'){
+        $logina = '<a style="cursor:pointer;" data-sign="0" class="user-login">登录</a>';
+    }else{
+        $logina = '<a href="' . home_url() . '/wp-login.php">登录</a>';
+    }
+    extract(shortcode_atts(array("notice" => '<blockquote><center><p class="reply-to-read" style="color: blue;">注意：本段内容须成功“'.$logina.'”后方可查看！</p></center></blockquote>'), $atts));
+    if (is_user_logged_in() && !is_null($content) && !is_feed()) {
+        return '<div class="e-secret"><fieldset><legend>隐藏的内容</legend>
+	'.$content.'<div class="clear"></div></fieldset></div>';
+    }
+    return $notice;
+}
+add_shortcode('vip', 'login_to_read');
+
 // 部分内容输入密码可见
 function e_secret($atts, $content=null){
 	if ( !isset($_COOKIE['weixin_fensi']) && isset($_POST['e_secret_key']) && $_POST['e_secret_key']==git_get_option('git_mp_code')) {
@@ -2381,7 +2412,7 @@ add_shortcode('secret','e_secret');
 function secret_css() {
 	global $post,$posts;
 		foreach ($posts as $post) {
-			if ( has_shortcode( $post->post_content, 'secret') && is_singular() ){
+			if ( has_shortcode( $post->post_content, 'secret') || has_shortcode( $post->post_content, 'vip') && is_singular() ){
     echo '<style type="text/css">form.e-secret{margin:20px 0;padding:20px;height:60px;background:#f8f8f8}.e-secret input.euc-y-i[type=password]{float:left;background:#fff;width:100%;line-height:36px;margin-top:5px;border-radius:3px}.e-secret input.euc-y-s[type=submit]{float:right;margin-top:-47px;width:30%;margin-right:1px;border-radius:0 3px 3px 0}input.euc-y-s[type=submit]{background-color:#3498db;color:#fff;font-size:21px;box-shadow:none;-webkit-transition:.4s;-moz-transition:.4s;-o-transition:.4s;transition:.4s;-webkit-backface-visibility:hidden;position:relative;cursor:pointer;padding:13px 20px;text-align:center;border-radius:50px;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;border:0;height:auto;outline:medium;line-height:20px;margin:0}input.euc-y-s[type=submit]:hover{background-color:#5dade2}input.euc-y-i[type=password],input.euc-y-i[type=text]{border:1px solid #F2EFEF;color:#777;display:block;background:#FCFCFC;font-size:18px;transition:all .5s ease 0;outline:0;box-sizing:border-box;-webkit-border-radius:25px;-moz-border-radius:25px;border-radius:25px;padding:5px 16px;margin:0;height:auto;line-height:30px}input.euc-y-i[type=password]:hover,input.euc-y-i[type=text]:hover{border:1px solid #56b4ef;box-shadow:0 0 4px #56b4ef}.e-secret fieldset{background:#fff;margin:5px 0;padding:0 5px 10px 10px;width:98%;border-radius:2px;border:1px solid #ddd}.e-secret legend{width:90px;padding:2px 10px;margin:5px;border-radius:2px;border:1px solid #ddd}.wxbox{border:1px dashed #F60;line-height:200%;padding-top:5px;color:red;background-color:#FFF4FF;overflow:hidden;clear:both}.wxbox.yzts{padding-left:10%}.wx form{float:left}.wxbox #verifycode{width:46%;height:32px;line-height:30px;padding:0 25px;border:1px solid #F60}.wxbox #verifybtn{width:10%;height:34px;line-height:34px;padding:0 5px;background-color:#F60;text-align:center;border:none;cursor:pointer;color:#FFF}.cl{clear:both;height:0}.wxpic{float:left;width:18%}.wxtips{color:#32B9B5;float:left;width:72%;padding-left:5%;padding-top:0;font-size:20px;line-height:150%;text-align:left;font-family:Microsoft YaHei}.yzts{margin-left: 40px}@media (max-width:600px){.yzts{margin-left:5px}.wxpic{float:left}.wxbox #verifycode{width:35%}.wxbox #verifybtn{width:22%}.wxpic,.wxtips{width:100%}.wxtips{font-size:15px;padding:2px}}</style>';}}}
 add_action('wp_head', 'secret_css');
 //小工具支持PHP代码运行，其实是不安全的
