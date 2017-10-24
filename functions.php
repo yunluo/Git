@@ -1973,18 +1973,6 @@ function custom_shuoshuo_rewrites_init(){
 }
 add_action( 'init', 'custom_shuoshuo_rewrites_init' );
 
-//自动填充说说标题
-function filter_post_empty_title($title)
-{
-    if ($title == $post_id || $title == '') {
-        $time = get_the_time('Y-m-d H:i:s');
-        $title = ' 这是一个说说@ ' . $time;
-    }
-    return $title;
-}
-add_filter('the_title', 'filter_post_empty_title');
-add_filter('get_the_title', 'filter_post_empty_title');
-
 //添加产品功能
 if(!defined('UM_DIR')):{/*如果安装um的话，就禁用这个功能*/
 function git_product() {
@@ -2375,8 +2363,8 @@ if(!function_exists('Baidu_Submit') && git_get_option('git_sitemap_api') ){
 //登录可见
 function login_to_read($atts, $content = null)
 {   
-    if(defined('UM_DIR'){
-        $logina = '<a style="cursor:pointer;" data-sign="0" class="user-login">登录</a>';
+    if(defined('UM_DIR')){
+        $logina = '<a style="cursor:pointer" data-sign="0" class="user-login">登录</a>';
     }else{
         $logina = '<a href="' . home_url() . '/wp-login.php">登录</a>';
     }
