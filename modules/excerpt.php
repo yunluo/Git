@@ -84,7 +84,7 @@ while (have_posts()):
 </ul>
     </div>
 </div>
-<?php } else{ //标准 ?>
+<?php } else{ //标准博客 ?>
 <article class="excerpt<?php
     echo !$_thumbnail ? ' excerpt-nothumbnail' : '' ?>">
 	<header><?php
