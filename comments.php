@@ -18,7 +18,13 @@ $closeTimer = (strtotime(date('Y-m-d G:i:s'))-strtotime(get_the_time('Y-m-d G:i:
 <div id="respond" class="no_webshot">
 	<?php if ( get_option('comment_registration') && !is_user_logged_in() ) { ?>
 	<h3 class="queryinfo">
-		<?php printf('您必须 <a href="%s">登录</a> 才能发表评论！', wp_login_url( get_permalink() ) );?>
+		<?php 
+		if(defined('UM_DIR')){
+			printf('您必须 <a style="cursor:pointer;" data-sign="0" class="user-login">登录</a> 才能发表评论！' );
+		}else{
+			printf('您必须 <a href="%s">登录</a> 才能发表评论！', wp_login_url( get_permalink() ) );
+		}
+		?>
 	</h3>
 	<?php }elseif( get_option('close_comments_for_old_posts') && $closeTimer > get_option('close_comments_days_old') ) { ?>
 	<h3 class="queryinfo">
