@@ -12,8 +12,8 @@ $options = array(
         'id'    => 'git_gun_b',
         'type'  => 'radio',
         'options' => array(
-            '调用说说' => 'git_gun_shuo',
-            '调用公告' => 'git_gun_tui'
+            '调用说说标题' => 'git_gun_shuo',
+            '调用下方公告' => 'git_gun_tui'
         ),
         'std'   => 'git_gun_tui'
     ),
@@ -42,7 +42,7 @@ $options = array(
     */
     array(
         'name'  => '列表Ajax下拉加载',
-        'desc'  => '开启本选项之后网站会采用ajax方式下拉自动加载',
+        'desc'  => '开启本选项之后网站会采用ajax方式下拉自动加载,默认只在传统blog列表页面生效,如果使用卡片式或者CMS,请关闭',
         'id'    => 'git_ajaxpager_b',
         'type'  => 'checkbox'
     ),
@@ -352,7 +352,7 @@ $options = array(
         'std'   => 'checked'
     ),
     array(
-        'name'  => '屏蔽含有链接评论',
+        'name'  => '屏蔽�����有链接评论',
         'desc'  => '开启 【启用后，屏蔽内容或者评论昵称含有链接的评论，如果您的评论需要输入链接或者图片的话，请慎选！！！】',
         'id'    => 'git_spam_url',
         'type'  => 'checkbox',
@@ -430,7 +430,7 @@ $options = array(
     ),
     array(
         'name'  => 'VIP 2',
-        'desc'  => '输入的数字减去上面的数字就是VIP 2的所要求的评论数字区间，默认是10',
+        'desc'  => '输入的数字减去上面的数字就是VIP 2的所���求���评论数字区间，默认是10',
         'id'    => 'git_vip2',
         'type'  => 'number',
         'std'   => 10
@@ -635,7 +635,7 @@ $options = array(
         'desc'  => '登录页面使用必应每日美图作为背景图，填写此项将使用自定义图片背景，不使用必应美图背景',
         'id'    => 'git_loginbg',
         'type'  => 'text',
-        'std'   => ''
+        'std'   => 'http://71bbs.people.com.cn/postImages/61/6A/4C/FE/1509167877374.jpg'
     ),
     array(
         'type'  => 'hr'
@@ -1327,7 +1327,7 @@ $options = array(
     ),
     array(
         'name'  => '侧边栏缓存',
-        'desc'  => '启用 【开启后，将会在wp-content/cache文件夹下生成sidebar.txt缓存文件，开启缓存可以提高侧边栏加载速度，但是丧失是一些动态效果，请知悉，如果侧边栏有异常可以删除sidebar.txt缓存文件或者直接关闭本功能】',
+        'desc'  => '启用 【开启后，将会在wp-content/cache文件夹下生成sidebar.txt缓存文件，开启缓存可以提高侧边栏加载速度，但是丧失是一些动态效果，请知悉，如果侧边栏有异常���以删除sidebar.txt缓存文件或者直接关闭本功能】',
         'id'    => 'git_sidebar_cache',
         'type'  => 'checkbox'
     ),

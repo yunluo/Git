@@ -706,7 +706,7 @@ add_filter('pre_get_posts', 'search_filter_page');
 // 更改后台字体
 function Bing_admin_lettering() {
     echo '<style type="text/css">
-        * { font-family: "Microsoft YaHei" !important; }.wp-admin img.rand_avatar {max-Width:50px !important;}i, .ab-icon, .mce-close, i.mce-i-aligncenter, i.mce-i-alignjustify, i.mce-i-alignleft, i.mce-i-alignright, i.mce-i-blockquote, i.mce-i-bold, i.mce-i-bullist, i.mce-i-charmap, i.mce-i-forecolor, i.mce-i-fullscreen, i.mce-i-help, i.mce-i-hr, i.mce-i-indent, i.mce-i-italic, i.mce-i-link, i.mce-i-ltr, i.mce-i-numlist, i.mce-i-outdent, i.mce-i-pastetext, i.mce-i-pasteword, i.mce-i-redo, i.mce-i-removeformat, i.mce-i-spellchecker, i.mce-i-strikethrough, i.mce-i-underline, i.mce-i-undo, i.mce-i-unlink, i.mce-i-wp-media-library, i.mce-i-wp_adv, i.mce-i-wp_fullscreen, i.mce-i-wp_help, i.mce-i-wp_more, i.mce-i-wp_page, .qt-fullscreen, .star-rating .star { font-family: dashicons !important; }
+        * { font-family: "Microsoft YaHei" !important; }.wp-admin img.rand_avatar {max-Width:50px !important;}i, .ab-icon, .mce-close, i.mce-i-aligncenter, i.mce-i-alignjustify, i.mce-i-alignleft, i.mce-i-alignright, i.mce-i-blockquote, i.mce-i-bold, i.mce-i-bullist, i.mce-i-charmap, i.mce-i-forecolor, i.mce-i-fullscreen, i.mce-i-help, i.mce-i-hr, i.mce-i-indent, i.mce-i-italic, i.mce-i-link, i.mce-i-ltr, i.mce-i-numlist, i.mce-i-outdent, i.mce-i-pastetext, i.mce-i-pasteword, i.mce-i-redo, i.mce-i-removeformat, i.mce-i-spellchecker, i.mce-i-strikethrough, i.mce-i-underline, i.mce-i-undo, i.mce-i-unlink, i.mce-i-wp-media-library, i.mce-i-wp_adv, i.mce-i-wp_fullscreen, i.mce-i-wp_help, i.mce-i-wp_more, i.mce-i-wp_page, .qt-fullscreen, .star-rating .star,.qt-dfw{ font-family: dashicons !important; }
         .mce-ico { font-family: tinymce, Arial !important; }
         .fa { font-family: FontAwesome !important; }
         .genericon { font-family: "Genericons" !important; }
@@ -744,12 +744,13 @@ function post_thumbnail_src() {
 }
 
 //禁用谷歌字体
-    function googlo_remove_open_sans_from_wp_core() {
-        wp_deregister_style('open-sans');
-        wp_register_style('open-sans', false);
-        wp_enqueue_style('open-sans', '');
-    }
-    add_action('init', 'googlo_remove_open_sans_from_wp_core');
+function googlo_remove_open_sans_from_wp_core() {
+    wp_deregister_style('open-sans');
+    wp_register_style('open-sans', false);
+    wp_enqueue_style('open-sans', '');
+}
+add_action('init', 'googlo_remove_open_sans_from_wp_core');
+    
 //免插件去除Category
 if (git_get_option('git_category_b')) {
     add_action('load-themes.php', 'no_category_base_refresh_rules');
@@ -1045,7 +1046,7 @@ function custom_login_head() {
             $imgurl = 'http://cn.bing.com' . $matches[1];
         }
         if(defined('UM_DIR')){echo '<style type="text/css">#um_captcha{width:170px!important;}</style>';}
-        echo '<style type="text/css">#reg_passmail{display:none!important}body{background: url(' . $imgurl . ');background-repeat: no-repeat;background-position: top center;background-attachment: fixed;background-size: cover;width: 100%!important;height: 100%!important;}.login label,a {font-weight: bold;}.login-action-register #login{padding: 5% 0 0;}.login-action-register h1 {display: none;}.login p {line-height: 1;}.login form {margin-top: 10px;padding: 16px 24px 16px;}h1 a { background-image:url(' . home_url() . '/favicon.ico)!important;width:32px;height:32px;-webkit-border-radius:50px;-moz-border-radius:50px;border-radius:50px;}#registerform,#loginform {background-color:rgba(251,251,251,0.3)!important;}.login label,a{color:#000!important;}</style>';
+        echo '<style type="text/css">#reg_passmail{display:none!important}body{background: url(' . $imgurl . ');background-repeat: no-repeat;background-position: top center;background-attachment: fixed;background-size: cover;width: 100%!important;height: 100%!important;}.login label,a {font-weight: bold;}.login-action-register #login{padding: 5% 0 0;}.login p {line-height: 1;}.login form {margin-top: 10px;padding: 16px 24px 16px;}h1 a { background-image:url(' . home_url() . '/favicon.ico)!important;width:32px;height:32px;-webkit-border-radius:50px;-moz-border-radius:50px;border-radius:50px;}#registerform,#loginform {background-color:rgba(251,251,251,0.3)!important;}.login label,a{color:#000!important;}@media screen and (max-width:600px){.login-action-register h1 {display: none;}.login-action-register #login{top:50%!important;}}</style>';
     }
 }
 add_action('login_head', 'custom_login_head');
@@ -1836,6 +1837,7 @@ function git_upload_filter($file) {
     return $file;
 }
 add_filter('wp_handle_upload_prefilter', 'git_upload_filter');
+
 //后台文章重新排序
 function git_post_order_in_admin( $wp_query ) {
   if ( is_admin() ) {
@@ -2368,7 +2370,7 @@ function login_to_read($atts, $content = null)
     }else{
         $logina = '<a href="' . home_url() . '/wp-login.php">登录</a>';
     }
-    extract(shortcode_atts(array("notice" => '<blockquote><center><p class="reply-to-read" style="color: blue;">注意：本段内容须成功“'.$logina.'”后方可查看！</p></center></blockquote>'), $atts));
+    extract(shortcode_atts(array("notice" => '<blockquote><center><p class="reply-to-read" style="color: blue;">注意：本段内容须“'.$logina.'”后方可查看！</p></center></blockquote>'), $atts));
     if (is_user_logged_in() && !is_null($content) && !is_feed()) {
         return '<div class="e-secret"><fieldset><legend>隐藏的内容</legend>
 	'.$content.'<div class="clear"></div></fieldset></div>';
