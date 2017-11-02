@@ -352,7 +352,7 @@ $options = array(
         'std'   => 'checked'
     ),
     array(
-        'name'  => '屏蔽�����有链接评论',
+        'name'  => '屏蔽含有链接的评论',
         'desc'  => '开启 【启用后，屏蔽内容或者评论昵称含有链接的评论，如果您的评论需要输入链接或者图片的话，请慎选！！！】',
         'id'    => 'git_spam_url',
         'type'  => 'checkbox',
@@ -430,7 +430,7 @@ $options = array(
     ),
     array(
         'name'  => 'VIP 2',
-        'desc'  => '输入的数字减去上面的数字就是VIP 2的所���求���评论数字区间，默认是10',
+        'desc'  => '输入的数字减去上面的数字就是VIP 2的所要求的评论数字区间认是10',
         'id'    => 'git_vip2',
         'type'  => 'number',
         'std'   => 10
@@ -1327,13 +1327,13 @@ $options = array(
     ),
     array(
         'name'  => '侧边栏缓存',
-        'desc'  => '启用 【开启后，将会在wp-content/cache文件夹下生成sidebar.txt缓存文件，开启缓存可以提高侧边栏加载速度，但是丧失是一些动态效果，请知悉，如果侧边栏有异常���以删除sidebar.txt缓存文件或者直接关闭本功能】',
+        'desc'  => '启用 【开启后，将会在wp-content/cache文件夹下生成sidebar.txt缓存文件，开启缓存可以提高侧边栏加载速度，但是丧失一些侧边栏动态效果，请知悉，如果侧边栏有异常可以删除sidebar.txt缓存文件或者直接关闭本功能】',
         'id'    => 'git_sidebar_cache',
         'type'  => 'checkbox'
     ),
     array(
         'name'  => '开启前台弹窗登录',
-        'desc'  => '',
+        'desc'  => '如果启用UM插件,最好开启',
         'id'    => 'git_fancylogin',
         'type'  => 'checkbox'
     ),
@@ -1407,7 +1407,7 @@ $options = array(
     ),
     array(
         'name'  => 'CDN自定义样式',
-        'desc'  => '启用【使用七牛CDN可以不启用,其他CDN必须启用,如果启用CDN自定义样式,则<font color="#cc0000"><strong><a target="_blank" href="http://googlo.me/go/qiniu" >必须看本篇文章</a></strong></font>】',
+        'desc'  => '启用【使用七牛CDN可以不启用,其他CDN必须启用,如果启用CDN自定义样式,则<font color="#cc0000"><strong><a target="_blank" href="http://googlo.me/archives/5015.html" >必须看本篇文章</a></strong></font>】',
         'id'    => 'git_cdnurl_style',
         'type'  => 'checkbox'
     ),
@@ -1518,7 +1518,7 @@ $options = array(
     ),
     array(
         'name'  => 'Gravatar头像设置',
-        'desc'  => '头像设置，请务必点击→→<a class="button-primary" target="_blank" href="http://googlo.me/archives/4667.html">使用说明</a>',
+        'desc'  => '头像设置，请务必点击 -->> <a class="button-primary" target="_blank" href="http://googlo.me/archives/4667.html">使用说明</a>',
         'id'    => 'git_avater',
         'type'  => 'radio',
         'options' => array(
