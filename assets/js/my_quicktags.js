@@ -21,6 +21,7 @@ QTags.addButton( 'v_act', '蓝边文本', "[v_act]", "[/v_act]" );
 QTags.addButton( 'bs_notice', 'BS绿色', '<div class="alert alert-success" role="alert">', '</div>' );
 QTags.addButton( 'bs_error', 'BS蓝色', '<div class="alert alert-info" role="alert">', '</div>' );
 QTags.addButton( 'bs_warn', 'BS黄色', '<div class="alert alert-warning" role="alert">', '</div>' );
+QTags.addButton( 'bs_tip', 'BS黄色', '<div class="alert alert-error" role="alert">', '</div>' );
 QTags.addButton( 'gb', '绿色按钮', "[gb href='']", "[/gb]" );
 QTags.addButton( 'bb', '蓝色按钮', "[bb href='']", "[/bb]" );
 QTags.addButton( 'yb', '黄色按钮', "[yb href='']", "[/yb]" );
