@@ -1338,6 +1338,19 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+        'name'  => '开启用户注册成功重定向',
+        'desc'  => '开启',
+        'id'    => 'git_register_redirect_ok',
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '注册成功重定向URL',
+        'desc'  => '如果上面开启的话,这里一定要填写链接,默认是后台',
+        'id'    => 'git_register_redirect_url',
+        'type'  => 'text',
+        'std'   => admin_url('wp-admin/profile.php')
+    ),
+    array(
         'type'  => 'hr'
     ),
     array(

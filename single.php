@@ -2,7 +2,7 @@
 <div class="content-wrap">
 	<div class="content">
 <?php
-if (git_get_option('git_singleMenu_b')) echo '<div class="breadcrumbs">' . deel_breadcrumbs() . '</div>';
+if (git_get_option('git_singleMenu_b') || get_post_type() !== 'product') echo '<div class="breadcrumbs">' . deel_breadcrumbs() . '</div>';
 if(git_get_option('git_suojin')){echo '<style type="text/css">.article-content p {text-indent: 2em;}.article-content p a,.article-content p video,.article-content table p{text-indent: 0 !important;}</style>';}
 ?>
 <?php

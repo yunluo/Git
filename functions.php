@@ -19,11 +19,66 @@ function deel_setup() {
     remove_action('wp_head', 'wp_generator');//移除WordPress版本号
 	remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0);//本页短链接
 
+add_filter('xmlrpc_enabled', '__return_false');
+add_filter( 'embed_oembed_discover', '__return_false' );
+add_filter( 'rewrite_rules_array', 'disable_embeds_rewrites' );
+remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
+remove_action( 'wp_head', 'wp_oembed_add_host_js' );
+remove_filter( 'pre_oembed_result', 'wp_filter_pre_oembed_result', 10 );
+
+// 屏蔽 REST API
+add_filter('rest_enabled', '__return_false');
+add_filter('rest_jsonp_enabled', '__return_false');
+
+// 移除头部 wp-json 标签和 HTTP header 中的 link
+remove_action('wp_head', 'rest_output_link_wp_head', 10 );
+remove_action('template_redirect', 'rest_output_link_header', 11 );
+
 //清除wp_footer带入的embed.min.js
 function git_deregister_embed_script(){
   wp_deregister_script( 'wp-embed' );
 }
 add_action( 'wp_footer', 'git_deregister_embed_script' );
+
+//显示数据库查询次数、查询时间及内存占用的代码
+function iperformance($visible = false)
+{
+    $stat = sprintf('%d 次查询 用时 %.3f 秒, 耗费了 %.2fMB 内存', get_num_queries(), timer_stop(0, 3), memory_get_peak_usage() / 1024 / 1024);
+    echo $visible ? $stat : "<!-- {$stat} -->";
+}
+add_action('wp_footer', 'iperformance', 20);
+
+//禁止 s.w.org
+function remove_dns_prefetch($hints, $relation_type)
+{
+    if ('dns-prefetch' === $relation_type) {
+        return array_diff(wp_dependencies_unique_hosts(), $hints);
+    }
+    return $hints;
+}
+add_filter('wp_resource_hints', 'remove_dns_prefetch', 10, 2);
+
+//新用户注册后不发邮件
+if ( ! function_exists( 'wp_new_user_notification' ) ) :
+
+function wp_new_user_notification( $user_id, $plaintext_pass = '' ) {
+	return;
+}
+endif;
+
+//改变密码不用通知
+if( ! function_exists( 'wp_password_change_notification' ) ) {
+	function wp_password_change_notification( $user ) {}
+}
+remove_action( 'after_password_reset', 'wp_password_change_notification', 10 );
+
+//禁用WordPress活动
+function dweandw_remove() {
+	remove_meta_box( 'dashboard_primary', get_current_screen(), 'side' );
+}
+add_action( 'wp_network_dashboard_setup', 'dweandw_remove', 20 );
+add_action( 'wp_user_dashboard_setup',    'dweandw_remove', 20 );
+add_action( 'wp_dashboard_setup',         'dweandw_remove', 20 );
 
     //去除部分默认小工具
     function unregister_d_widget(){
@@ -352,6 +407,8 @@ function git_go_url($content){
 	return $content;
 }
 add_filter('the_content','git_go_url',999);
+add_filter('asgarosforum_filter_post_content','git_go_url',999);
+
 endif;
 //关键字
 function deel_keywords() {
@@ -875,6 +932,8 @@ function imagesalt($content) {
        return $content;
 }
 add_filter('the_content', 'imagesalt');
+add_filter('asgarosforum_filter_post_content', 'imagesalt');
+
 //图片A标签添加title属性
 function aimagesalt($content) {
        global $post;
@@ -921,7 +980,9 @@ function git_auto_nofollow( $content ) {
     return $content;
 }
 add_filter( 'the_content', 'git_auto_nofollow');
+add_filter( 'asgarosforum_filter_post_content', 'git_auto_nofollow');
 endif;
+
 //输出WordPress表情
 function fa_get_wpsmiliestrans() {
     global $wpsmiliestrans;
@@ -1069,14 +1130,18 @@ function git_esc_callback($matches) {
 }
 add_filter('the_content', 'git_esc_html', 2);
 add_filter('comment_text', 'git_esc_html', 2);
+add_filter('asgarosforum_filter_post_content', 'git_esc_html', 2);
+
 
 //强制兼容<pre>
 function git_prettify_replace($text){
-$replace = array( '<pre>' => '<pre class="prettyprint" >' );
+$replace = array( '<pre>' => '<pre class="prettyprint linenums" >' );
 $text = str_replace(array_keys($replace), $replace, $text);
 return $text;
 }
 add_filter('the_content', 'git_prettify_replace');
+add_filter('asgarosforum_filter_post_content', 'git_prettify_replace');
+
 //首页隐藏一些分类
 function exclude_category_home($query) {
     if ($query->is_home) {
@@ -1808,6 +1873,15 @@ function git_edit_password_email_text ( $translated_text, $untranslated_text, $d
 add_filter( 'gettext', 'git_edit_password_email_text',20, 3 );
 }
 
+//注册之后跳转
+if (git_get_option('git_register_redirect_ok')) {
+    function git_registration_redirect() {
+	    $redirect_url = git_get_option('git_register_redirect_url');
+	    return $redirect_url;
+    }
+add_filter( 'registration_redirect', 'git_registration_redirect' );
+}
+
 //SMTP邮箱设置
 function googlo_mail_smtp($phpmailer) {
     $phpmailer->From = git_get_option('git_maildizhi_b'); //发件人地址
@@ -2135,6 +2209,8 @@ function convert_smilie9s( $text ) {
 add_filter( 'the_content' , 'convert_smilie9s' , 11 );
 add_filter( 'the_excerpt' , 'convert_smilie9s' , 11 );
 add_filter( 'comment_text' , 'convert_smilie9s' , 21 );
+add_filter( 'asgarosforum_filter_post_content' , 'convert_smilie9s' , 21 );
+
 //压缩html代码
 if(git_get_option('git_compress')):
 function wp_compress_html(){
@@ -2173,6 +2249,8 @@ function git_unCompress($content) {
     return $content;
 }
 add_filter( "the_content", "git_unCompress");
+add_filter( "asgarosforum_filter_post_content", "git_unCompress");
+
 endif;
 //增强编辑器开始
 function git_editor_buttons($buttons) {
