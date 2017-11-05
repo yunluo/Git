@@ -21,7 +21,6 @@ function deel_setup() {
 
 add_filter('xmlrpc_enabled', '__return_false');
 add_filter( 'embed_oembed_discover', '__return_false' );
-add_filter( 'rewrite_rules_array', 'disable_embeds_rewrites' );
 remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
 remove_action( 'wp_head', 'wp_oembed_add_host_js' );
 remove_filter( 'pre_oembed_result', 'wp_filter_pre_oembed_result', 10 );
