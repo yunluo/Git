@@ -48,14 +48,14 @@ function iperformance($visible = false)
 add_action('wp_footer', 'iperformance', 20);
 
 //禁止 s.w.org
-function remove_dns_prefetch($hints, $relation_type)
+function git_remove_dns_prefetch($hints, $relation_type)
 {
     if ('dns-prefetch' === $relation_type) {
         return array_diff(wp_dependencies_unique_hosts(), $hints);
     }
     return $hints;
 }
-add_filter('wp_resource_hints', 'remove_dns_prefetch', 10, 2);
+add_filter('wp_resource_hints', 'git_remove_dns_prefetch', 10, 2);
 
 //新用户注册后不发邮件
 if ( ! function_exists( 'wp_new_user_notification' ) ) :
@@ -72,12 +72,12 @@ if( ! function_exists( 'wp_password_change_notification' ) ) {
 remove_action( 'after_password_reset', 'wp_password_change_notification', 10 );
 
 //禁用WordPress活动
-function dweandw_remove() {
+function git_dweandw_remove() {
 	remove_meta_box( 'dashboard_primary', get_current_screen(), 'side' );
 }
-add_action( 'wp_network_dashboard_setup', 'dweandw_remove', 20 );
-add_action( 'wp_user_dashboard_setup',    'dweandw_remove', 20 );
-add_action( 'wp_dashboard_setup',         'dweandw_remove', 20 );
+add_action( 'wp_network_dashboard_setup', 'git_dweandw_remove', 20 );
+add_action( 'wp_user_dashboard_setup',    'git_dweandw_remove', 20 );
+add_action( 'wp_dashboard_setup',         'git_dweandw_remove', 20 );
 
     //去除部分默认小工具
     function unregister_d_widget(){
