@@ -2626,7 +2626,7 @@ if(git_get_option('git_article_list')  ){
         $matches = array();
         $ul_li = '';
         $r = "/<h2>([^<]+)<\/h2>/im";
-        if(is_singular() && preg_match_all($r, $content, $matches)) {
+        if(is_single() && preg_match_all($r, $content, $matches)) {
             foreach($matches[1] as $num => $title) {
                 $title = trim(strip_tags($title));
                 $content = str_replace($matches[0][$num], '<h2 id="title-'.$num.'">'.$title.'</h2>', $content);
