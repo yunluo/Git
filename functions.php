@@ -880,14 +880,16 @@ function git_copyright($content ) {
 }
 add_filter('the_content', 'git_copyright');
 //fancybox图片灯箱效果
-    function fancybox($content) {
-        global $post;
-        $pattern = "/<a(.*?)href=('|\")([^>]*).(bmp|gif|jpeg|jpg|png|swf)('|\")(.*?)>(.*?)<\/a>/i";
-        $replacement = '<a$1href=$2$3.$4$5 rel="box" class="fancybox"$6>$7</a>';
-        $content = preg_replace($pattern, $replacement, $content);
-        return $content;
-    }
-    add_filter('the_content', 'fancybox');
+function fancybox($content)
+{
+    global $post;
+    $pattern = "/<a(.*?)href=('|\")([^>]*).(bmp|gif|jpeg|jpg|png|swf)('|\")(.*?)>(.*?)<\\/a>/i";
+    $replacement = '<a$1href=$2$3.$4$5 rel="box" class="fancybox"$6>$7</a>';
+    $content = preg_replace($pattern, $replacement, $content);
+    return $content;
+}
+add_filter('the_content', 'fancybox');
+add_filter('asgarosforum_filter_post_content', 'fancybox');
 //WordPress文字标签关键词自动内链
 $match_num_min = git_get_option('git_autolink_1'); //一篇文章中同一個標籤少於幾次不自動鏈接
 $match_num_max = git_get_option('git_autolink_2'); //一篇文章中同一個標籤最多自動鏈接幾次
@@ -942,6 +944,7 @@ function aimagesalt($content) {
        return $content;
 }
 add_filter('the_content', 'aimagesalt');
+add_filter('asgarosforum_filter_post_content', 'aimagesalt');
 endif;
 //自动给文章以及评论添加nofollow属性
 if(git_get_option('git_nofollow')):

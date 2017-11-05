@@ -61,7 +61,7 @@ $options = array(
     ),
     array(
         'name'  => '排序根据',
-        'desc'  => '选择一个参数作为排序的根据，可以选择评论数目，浏览数目或者点赞数目',
+        'desc'  => '选择一个参数作为排序的根据，可以选择评论数目，浏览数目或者点赞数目，新安装主题建议选择按照评论排序',
         'id'    => 'git_hot_b',
         'type'  => 'radio',
         'options' => array(
@@ -714,7 +714,7 @@ $options = array(
         'desc'  => '在这里输入您的幻灯片的图片路径',
         'id'    => 'git_slick1img_b',
         'type'  => 'text',
-        'std'   => 'https://img.alicdn.com/imgextra/i3/1597576229/TB2zQVclpXXXXakXpXXXXXXXXXX_!!1597576229.png'
+        'std'   => 'http://71bbs.people.com.cn/postImages/89/C5/D7/F9/1509844965369.jpg'
     ),
     array(
         'name'  => '幻灯片一链接',
@@ -735,7 +735,7 @@ $options = array(
         'desc'  => '在这里输入您的幻灯片的图片路径',
         'id'    => 'git_slick2img_b',
         'type'  => 'text',
-        'std'   => 'https://img.alicdn.com/imgextra/i3/1597576229/TB286RXlpXXXXbkXpXXXXXXXXXX_!!1597576229.png'
+        'std'   => 'http://71bbs.people.com.cn/postImages/89/C5/95/38/1509844948280.jpg'
     ),
     array(
         'name'  => '幻灯片二链接',
@@ -756,7 +756,7 @@ $options = array(
         'desc'  => '在这里输入您的幻灯片的图片路径',
         'id'    => 'git_slick3img_b',
         'type'  => 'text',
-        'std'   => 'https://img.alicdn.com/imgextra/i3/1597576229/TB2B_xilpXXXXXEXpXXXXXXXXXX_!!1597576229.png'
+        'std'   => 'http://71bbs.people.com.cn/postImages/89/C5/48/AC/1509844928684.jpg'
     ),
     array(
         'name'  => '幻灯片三链接',
@@ -777,7 +777,7 @@ $options = array(
         'desc'  => '在这里输入您的幻灯片的图片路径',
         'id'    => 'git_slick4img_b',
         'type'  => 'text',
-        'std'   => 'https://img.alicdn.com/imgextra/i4/1597576229/TB2pnNklpXXXXXbXpXXXXXXXXXX_!!1597576229.png'
+        'std'   => 'http://71bbs.people.com.cn/postImages/89/C4/EE/A9/1509844905641.jpg'
     ),
     array(
         'name'  => '幻灯片四链接',
@@ -798,7 +798,7 @@ $options = array(
         'desc'  => '在这里输入您的幻灯片的图片路径',
         'id'    => 'git_slick5img_b',
         'type'  => 'text',
-        'std'   => 'https://img.alicdn.com/imgextra/i3/1597576229/TB2lnRklpXXXXXvXpXXXXXXXXXX_!!1597576229.png'
+        'std'   => 'http://71bbs.people.com.cn/postImages/89/C4/91/CC/1509844881868.jpg'
     ),
     array(
         'name'  => '幻灯片五链接',
@@ -819,7 +819,7 @@ $options = array(
         'desc'  => '在这里输入您的幻灯片的图片路径',
         'id'    => 'git_slick6img_b',
         'type'  => 'text',
-        'std'   => 'https://img.alicdn.com/imgextra/i2/1597576229/TB2FsFalpXXXXaAXpXXXXXXXXXX_!!1597576229.png'
+        'std'   => 'http://71bbs.people.com.cn/postImages/89/C4/2A/07/1509844855303.jpg'
     ),
     array(
         'name'  => '幻灯片六链接',
@@ -999,7 +999,7 @@ $options = array(
     ),
     array(
         'name'  => 'Email',
-        'desc'  => '请填写好您的邮我代码，<a class="button-primary" rel="nofollow" href="http://open.mail.qq.com/cgi-bin/qm_help_mailme?sid=,2,zh_CN&t=open_mailme" target="_blank">获取邮我组建代码</a>并<a class="button-primary" rel="nofollow" href="https://img.alicdn.com/imgextra/i4/1597576229/TB2xg4llpXXXXXhXpXXXXXXXXXX_!!1597576229.png" target="_blank">如图设置</a>',
+        'desc'  => '请填写好您的邮我代码，<a class="button-primary" rel="nofollow" href="http://open.mail.qq.com/cgi-bin/qm_help_mailme?sid=,2,zh_CN&t=open_mailme" target="_blank">获取邮我组建代码</a>并<a class="button-primary" rel="nofollow" href="http://71bbs.people.com.cn/postImages/89/CB/A1/8F/1509845344655.png" target="_blank">如图设置</a>',
         'id'    => 'git_emailContact',
         'type'  => 'text',
         'std'   => ''
@@ -1023,7 +1023,7 @@ $options = array(
         'desc'  => '请输入您的支付宝图片路径',
         'id'    => 'git_pay_qr',
         'type'  => 'text',
-        'std'   => 'https://img.alicdn.com/imgextra/i1/1597576229/TB2ov76lXXXXXb0XpXXXXXXXXXX_!!1597576229.jpg_310x310.jpg'
+        'std'   => 'http://71bbs.people.com.cn/postImages/89/CD/90/93/1509845471379.jpg'
     ),
     array(
         'name'  => 'GitHub',
@@ -1104,7 +1104,7 @@ $options = array(
         'desc'  => '在这里输入第四个footer的内容',
         'id'    => 'git_footconent4',
         'type'  => 'textarea',
-        'std'   => '<img style="width:180px;height:180px;" src="https://img.alicdn.com/imgextra/i3/1597576229/TB22Ic4lXXXXXcyXpXXXXXXXXXX_!!1597576229.png_310x310.jpg" alt="yunluo">'
+        'std'   => '<img style="width:180px;height:180px;" src="http://71bbs.people.com.cn/postImages/89/CD/90/93/1509845471379.jpg" alt="yunluo">'
     ),
     array(
         'name'  => '网站footer公共代码',
@@ -1399,7 +1399,7 @@ $options = array(
     ),
     array(
         'name'  => 'CDN加速域名',
-        'desc'  => '输入本项目之前，必须开启本功能，输入您的七牛云自定义域名，必须带 <font color="#cc0000"><strong>http://</strong></font>  结尾不能带/  <a class="button-primary" target="_blank" href="http://googlo.me/go/qiniu" title="立刻注册七牛，免费使用免备案高速CDN">注册七牛</a>，并获取链接<a rel="nofollow" href="https://img.alicdn.com/imgextra/i3/1597576229/TB2uLdxpFXXXXbCXpXXXXXXXXXX_!!1597576229.jpg" target="_blank">如图</a>',
+        'desc'  => '输入本项目之前，必须开启本功能，输入您的七牛云自定义域名，必须带 <font color="#cc0000"><strong>http://</strong></font>  结尾不能带/  <a class="button-primary" target="_blank" href="http://googlo.me/go/qiniu" title="立刻注册七牛，免费使用免备案高速CDN">注册七牛</a>，并获取链接<a rel="nofollow" href="http://71bbs.people.com.cn/postImages/89/CF/7B/F5/1509845597173.jpg" target="_blank">如图</a>',
         'id'    => 'git_cdnurl_b',
         'type'  => 'text',
         'std'   => ''
@@ -1844,11 +1844,13 @@ switch ( $value['type'] ) {
         <p>&nbsp;&nbsp;故，在经过多次修改后，自觉主题修改的足够完整，更名以将其与欲思主题以区分，并且将其代码托管至<a href="https://coding.net/u/googlo/p/Git/git" target="_blank">Coding</a>，并且将其更名为：Git ！</p>
         <p>&nbsp;&nbsp;定名为Git，首先是因为主题采用Git版本系统管理代码的，写的最多的代码就是Git了，另外G代表我的Googlo.Me，遂定名为Git。</p>
         <p>&nbsp;&nbsp;感谢大前端的D8主题，感谢欲思的欲思主题，感谢小影的主题，感谢知更鸟的主题，感谢露兜博客，感谢devework，感谢开源中国，感谢一直跟随主题版本升级的朋友们</p>
+<h2>其他事项</h2>
+<a class="button button-primary" href="https://coding.net/u/googlo/p/Git/git/commits/alpha" target="_blank">更新日志</a>
+<a class="button button-primary" href="http://googlo.me/bbs.html" target="_blank">支持论坛</a>
+<a class="button button-primary" href="http://googlo.me/git-faq.html" target="_blank">使用文档</a>
 <h2>支持云落</h2>
 <p>如果您觉的这款主题很赞，欢迎您扫码支持云落，<font color="#ff0000">PS.主题不会用，扫码之后联系云落QQ</font></p>
-<img src="https://img.alicdn.com/imgextra/i1/1597576229/TB2ov76lXXXXXb0XpXXXXXXXXXX_!!1597576229.jpg_310x310.jpg"></img>
-<h2>联系云落</h2>
-<a class="button button-primary" href="http://googlo.me/about.html" target="_blank">乐趣公园留言板</a>
+<img src="http://71bbs.people.com.cn/postImages/89/CD/90/93/1509845471379.jpg"></img>
 </div>
 <p class="submit">
     <input name="submit" type="submit" class="button button-primary" value="保存选项"/>
