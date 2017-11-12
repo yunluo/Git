@@ -225,7 +225,7 @@ if (git_get_option('git_sign_b')) {
     $uid = $current_user->ID;
     $u_name = get_user_meta($uid, 'nickname', true);
 ?>
-			<div class="pull-right">
+			<div class="login-sign pull-right">
 		<?php if(git_get_option('git_fancylogin')) { /*判断是否打开弹窗登录*/ ?>
 		<?php
 		    if(is_user_logged_in()){/*判断是否登录，如果登录了就... */
