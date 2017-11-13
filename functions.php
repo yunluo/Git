@@ -989,8 +989,8 @@ endif;
 function fa_get_wpsmiliestrans() {
     global $wpsmiliestrans;
     $wpsmilies = array_unique($wpsmiliestrans);
+		$output = '';
     foreach ($wpsmilies as $alt => $src_path) {
-        $output = '';
         $output.= '<a class="add-smily" data-smilies="' . $alt . '"><img class="wp-smiley" src="' . get_template_directory_uri() . '/assets/img/smilies/' . rtrim($src_path, "gif") . 'gif" /></a>';
     }
     return $output;
@@ -2222,6 +2222,7 @@ function wp_compress_html(){
         $initial=strlen($buffer);
         $buffer=explode("<!--wp-compress-html-->", $buffer);
         $count=count ($buffer);
+		$buffer_out = '';
         for ($i = 0; $i <= $count; $i++){
             if (stristr($buffer[$i], '<!--wp-compress-html no compression-->')) {
                 $buffer[$i]=(str_replace("<!--wp-compress-html no compression-->", " ", $buffer[$i]));
@@ -2234,7 +2235,6 @@ function wp_compress_html(){
                     $buffer[$i]=(str_replace("  ", " ", $buffer[$i]));
                 }
             }
-            $buffer_out = '';
             $buffer_out.=$buffer[$i];
         }
         $final=strlen($buffer_out);
