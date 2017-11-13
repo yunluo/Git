@@ -2234,6 +2234,7 @@ function wp_compress_html(){
                     $buffer[$i]=(str_replace("  ", " ", $buffer[$i]));
                 }
             }
+            $buffer_out = '';
             $buffer_out.=$buffer[$i];
         }
         $final=strlen($buffer_out);
