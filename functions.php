@@ -2623,6 +2623,41 @@ function wp_bili($matches, $attr, $url, $rawattr) {
 }
 wp_embed_register_handler('bili_iframe', '#https://www.bilibili.com/video/av(.*?)/#i', 'wp_bili');
 
+//仅显示作者自己的文章
+function mypo_query_useronly( $wp_query ) {
+    if ( strpos( $_SERVER[ 'REQUEST_URI' ], '/wp-admin/edit.php' ) !== false ) {
+        if ( !current_user_can( 'manage_options' ) ) {
+            global $current_user;
+            $wp_query->set( 'author', $current_user->id );
+        }
+    }
+}
+add_filter('parse_query', 'mypo_query_useronly' );
+
+//在文章编辑页面的[添加媒体]只显示用户自己上传的文件
+function only_my_upload_media( $wp_query_obj ) {
+	global $current_user, $pagenow;
+	if( !is_a( $current_user, 'WP_User') )
+		return;
+	if( 'admin-ajax.php' != $pagenow || $_REQUEST['action'] != 'query-attachments' )
+		return;
+	if( !current_user_can( 'manage_options' ) && !current_user_can('manage_media_library') )
+		$wp_query_obj->set('author', $current_user->ID );
+	return;
+}
+add_action('pre_get_posts','only_my_upload_media');
+ 
+//在[媒体库]只显示用户上传的文件
+function only_my_media_library( $wp_query ) {
+    if ( strpos( $_SERVER[ 'REQUEST_URI' ], '/wp-admin/upload.php' ) !== false ) {
+        if ( !current_user_can( 'manage_options' ) && !current_user_can( 'manage_media_library' ) ) {
+            global $current_user;
+            $wp_query->set( 'author', $current_user->id );
+        }
+    }
+}
+add_filter('parse_query', 'only_my_media_library' );
+
 //文章目录,来自露兜,云落修改
 if(git_get_option('git_article_list')  ){
     function article_index($content) {
