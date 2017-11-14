@@ -114,9 +114,9 @@ if ( !class_exists('myCustomFields') ) {
                 "capability"    => "edit_posts"
             ),
             array(
-                "name"          => "download_link",
-                "title"         => "单页下载下载链接",
-                "description"   => "这里可以输入您的下载链接，这里使用的是A标签，如果多个的话就加入多个A标签",
+                "name"          => "cs_download_link",
+                "title"         => "单页下载下载链接【新版】",
+                "description"   => "按照链接,名字,备注的格式，注意中间是用英文逗号，换行可添加多个，举个栗子：<code>https://www.baidu.com,百度官网,中国最大的搜索引擎网站</code>",
                 "type"          =>   "textarea",
                 "scope"         =>   array( "post", "page" ),
                 "capability"    => "edit_posts"
@@ -128,6 +128,14 @@ if ( !class_exists('myCustomFields') ) {
                 "type"          => "textarea",
                 "scope"         =>   array( "post", "page" ),
                 "capability"    => "edit_pages"
+            ),
+            array(
+                "name"          => "download_link",
+                "title"         => "单页下载下载链接",
+                "description"   => "【已弃用，请使用上方的下载链接输入框，仅限于给已使用的修改之用，如果正在使用这个文本框，请转移到上面的新版链接输入框】",
+                "type"          =>   "textarea",
+                "scope"         =>   array( "post", "page" ),
+                "capability"    => "edit_posts"
             )
         );
         /**
@@ -204,7 +212,7 @@ if ( !class_exists('myCustomFields') ) {
                                 case "wysiwyg": {
                                     // Text area
                                     echo '<label for="' . $this->prefix . $customField[ 'name' ] .'"><b>' . $customField[ 'title' ] . '</b></label>';
-                                    echo '<textarea name="' . $this->prefix . $customField[ 'name' ] . '" id="' . $this->prefix . $customField[ 'name' ] . '" columns="30" rows="3">' . htmlspecialchars( get_post_meta( $post->ID, $this->prefix . $customField[ 'name' ], true ) ) . '</textarea>';
+                                    echo '<textarea name="' . $this->prefix . $customField[ 'name' ] . '" id="' . $this->prefix . $customField[ 'name' ] . '" columns="30" rows="5">' . htmlspecialchars( get_post_meta( $post->ID, $this->prefix . $customField[ 'name' ], true ) ) . '</textarea>';
                                     // WYSIWYG
                                     if ( $customField[ 'type' ] == "wysiwyg" ) { ?>
                                         <script type="text/javascript">
