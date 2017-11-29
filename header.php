@@ -235,12 +235,12 @@ if (git_get_option('git_sign_b')) {
                         echo '&nbsp;&nbsp;<i class="fa fa-power-off"></i> ';
                         echo wp_loginout();
                         echo '';}else{/*如果不是管理员的话就..*/
-                        echo '<i class="fa fa-user"></i> <a href="'.get_author_posts_url( $uid ).'">' . $u_name . '</a>';
+                        echo '<i class="fa fa-user"></i> <a target="_blank" href="'.get_author_posts_url( $uid ).'">' . $u_name . '</a>';
                         echo '&nbsp;&nbsp;<i class="fa fa-power-off"></i> ';
                         echo wp_loginout();
                         echo '';}
 		        }else{/*如果没安装um插件就...*/
-		            echo '<i class="fa fa-user"></i> <a href="' . home_url() . '/wp-admin">' . $u_name . '</a>';
+		            echo '<i class="fa fa-user"></i> <a target="_blank" href="'.get_author_posts_url( $uid ).'">' . $u_name . '</a>';
                     echo '&nbsp;&nbsp;<i class="fa fa-power-off"></i> ';
                     echo wp_loginout();
                     echo '';}
@@ -257,14 +257,14 @@ if (git_get_option('git_sign_b')) {
 		    ?>
 		<?php }else{ //如果没打开弹窗登录，那么就。。。?>
         <?php if (is_user_logged_in()) { /*判断是否登录 */
-        echo '<i class="fa fa-user"></i> <a href="' . home_url() . '/wp-admin">' . $u_name . '</a> ';
+        echo '<i class="fa fa-user"></i> <a target="_blank" href="'.get_author_posts_url( $uid ).'">' . $u_name . '</a>';
         echo '  <i class="fa fa-power-off"></i> ';
         echo wp_loginout();
         echo '';
         } else {/*如果没有登录的话就...*/
-        echo '<i class="fa fa-sign-in" ></i>  <a href="' . home_url() . '/wp-login.php">登录</a>';
+        echo '<i class="fa fa-sign-in" ></i>  <a target="_blank" href="' . home_url() . '/wp-login.php">登录</a>';
         if (get_option('users_can_register')){
-        echo '&nbsp;&nbsp;<i class="fa fa-pencil-square-o" ></i>  <a href="' . home_url() . '/wp-login.php?action=register">注册</a>';
+        echo '&nbsp;&nbsp;<i class="fa fa-pencil-square-o" ></i>  <a target="_blank" href="' . home_url() . '/wp-login.php?action=register">注册</a>';
             }
         };
     }?>
@@ -275,9 +275,7 @@ if (git_get_option('git_sign_b')) {
 		<?php
 } ?>
 		<div class="toptip" id="callboard"><ul style="font-size:16px;margin-top: 2px;">
-		
 		<?php
-		
 		if(git_get_option('git_gun_b')=='git_gun_tui'){
 			echo git_get_option('git_tui');
 		}elseif(git_get_option('git_gun_b')=='git_gun_shuo'){
