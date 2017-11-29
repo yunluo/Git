@@ -17,7 +17,7 @@ $options = array(
         ),
         'std'   => 'git_gun_tui'
     ),
-    
+
     array(
         'name'  => '滚动公告栏',
         'desc'  => '最新消息显示在全站导航条下方，非常给力的推广位置',
@@ -174,10 +174,10 @@ $options = array(
         'type'  => 'textarea'
     ),
     array(
-    'name'  => '主题更新设置',
-    'desc'  => '禁止主题更新【 选择后，您将无法收到本主题的更新推送，但是选择后可以有效减缓后台卡顿的问题(8.5以后版本)】',
-    'id'    => 'git_updates_b',
-    'type'  => 'checkbox'
+        'name'  => '主题更新设置',
+        'desc'  => '禁止主题更新【 选择后，您将无法收到本主题的更新推送，但是选择后可以有效减缓后台卡顿的问题(8.5以后版本)】',
+        'id'    => 'git_updates_b',
+        'type'  => 'checkbox'
     ),
     array(
         'type'  => 'panelend'//标签段的结束
@@ -488,12 +488,14 @@ $options = array(
         'id'    => 'git_article_list',
         'type'  => 'checkbox'
     ),
+    /*  准备删除
     array(
         'name'  => '留言链接二维码',
         'desc'  => '启用  【开启之后，您的留言者的网站会生成一个二维码】',
         'id'    => 'git_autherqr_b',
         'type'  => 'checkbox'
     ),
+    */
     array(
         'name'  => '相关文章显示条数',
         'desc'  => '条&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 这是是显示文章下面的相关文章数目的',
@@ -1422,6 +1424,12 @@ $options = array(
         'name'  => 'CDN自定义样式',
         'desc'  => '启用【使用七牛CDN可以不启用,其他CDN必须启用,如果启用CDN自定义样式,则<font color="#cc0000"><strong><a target="_blank" href="http://googlo.me/archives/5015.html" >必须看本篇文章</a></strong></font>】',
         'id'    => 'git_cdnurl_style',
+        'type'  => 'checkbox'
+    ),
+	array(
+        'name'  => 'CDN水印',
+        'desc'  => '启用【如果启用，请在七牛，又拍，OSS等CDN中设置自定义样式，名字为：<font color="#cc0000"><strong>water.jpg</strong></font>，分隔符为 ! 】',
+        'id'    => 'git_cdn_water',
         'type'  => 'checkbox'
     ),
     array(

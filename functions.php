@@ -59,7 +59,6 @@ add_filter('wp_resource_hints', 'git_remove_dns_prefetch', 10, 2);
 
 //新用户注册后不发邮件
 if ( ! function_exists( 'wp_new_user_notification' ) ) :
-
 function wp_new_user_notification( $user_id, $plaintext_pass = '' ) {
 	return;
 }
@@ -155,8 +154,14 @@ add_filter('admin_footer_text', 'git_admin_footer_text');
     add_filter('smilies_src', 'deel_smilies_src', 1, 10);
     //移除自动保存和修订版本
     if (git_get_option('git_autosave_b')) {
-        add_action('wp_print_scripts', 'deel_disable_autosave');
-        remove_action('pre_post_update', 'wp_save_post_revision');
+        add_action('wp_print_scripts', 'disable_autosave');
+        function disable_autosave(){
+            wp_deregister_script('autosave');
+        }
+        add_filter('wp_revisions_to_keep', 'specs_wp_revisions_to_keep', 10, 2);
+        function specs_wp_revisions_to_keep($num, $post){
+        return 0;
+        }
     }
 
     //修改默认发信地址
@@ -407,7 +412,6 @@ function git_go_url($content){
 }
 add_filter('the_content','git_go_url',999);
 add_filter('asgarosforum_filter_post_content','git_go_url',999);
-
 endif;
 //关键字
 function deel_keywords() {
@@ -486,10 +490,6 @@ function deel_noself_ping(&$links) {
     $home = home_url();
     foreach ($links as $l => $link) if (0 === strpos($link, $home)) unset($links[$l]);
 }
-//移除自动保存
-function deel_disable_autosave() {
-    wp_deregister_script('autosave');
-}
 //修改默认发信地址
 function deel_res_from_email($email) {
     $wp_from_email = get_option('admin_email');
@@ -501,7 +501,7 @@ function deel_res_from_name($email) {
 }
 //评论回应邮件通知
 function comment_mail_notify($comment_id) {
-    $admin_notify = '1'; // admin 要不要收回复通知 ( '1'=要 ; '0'=不要 )
+    $admin_notify = '0'; // admin 要不要收回复通知 ( '1'=要 ; '0'=不要 )
     $admin_email = get_bloginfo('admin_email'); // $admin_email 可改为你指定的 e-mail.
     $comment = get_comment($comment_id);
     $comment_author_email = trim($comment->comment_author_email);
@@ -569,12 +569,11 @@ function deel_comment_list($comment, $args, $depth) {
         echo '<span class="c-approved">您的评论正在排队审核中，请稍后！</span><br />';
     }
     //信息
-    echo '<div class="c-meta">';
-    if (git_get_option('git_autherqr_b') && !G_is_mobile()) {
-        echo '<span class="c-author"><a href="' . get_comment_author_url() . '" class="weixin" style="cursor:pointer;">' . get_comment_author() . '<span class="qr weixin-popover"><img style="position:absolute;z-index:99999;" src="http://qr.topscan.com/api.php?text=' . get_comment_author_url() . '"></span></a></span>';
-    } else {
-        echo '<span class="c-author">' . get_comment_author_link() . '</span>';
-    }
+	if(is_user_logged_in() ){
+		echo '<div class="c-meta"><span class="c-author"><a target="_blank" href="' . get_author_posts_url( $comment->user_id ) . '">' . get_comment_author() . '</a></span>';
+	}else{
+		echo '<div class="c-meta"><span class="c-author">' . get_comment_author_link() . '</span>';
+	}
   if ($comment->user_id == '1') {
         echo '<a title="博主认证" class="vip"></a>';
 	}elseif(git_get_option('git_vip')){
@@ -593,6 +592,14 @@ function deel_comment_list($comment, $args, $depth) {
     }
     echo '</div>';
     echo '</div></div>';
+}
+
+//通过模板文件名获取链接
+function get_pagelink_through_template($page_temp){
+    global $wpdb;
+    $page_id = $wpdb->get_var("SELECT post_id FROM {$wpdb->postmeta} LEFT OUTER JOIN {$wpdb->posts} ON ({$wpdb->postmeta}.post_id = {$wpdb->posts}.ID ) WHERE meta_key = '_wp_page_template' AND meta_value = '" . $page_temp . "' AND {$wpdb->posts}.post_status = 'publish' AND {$wpdb->posts}.post_type = 'page'");
+    $pageurl = get_page_link($page_id);
+    return $pageurl;
 }
 //添加钮Download
 function DownloadUrl($atts, $content = null) {
@@ -762,7 +769,7 @@ add_filter('pre_get_posts', 'search_filter_page');
 // 更改后台字体
 function Bing_admin_lettering() {
     echo '<style type="text/css">
-        * { font-family: "Microsoft YaHei" !important; }.wp-admin img.rand_avatar {max-Width:50px !important;}i, .ab-icon, .mce-close, i.mce-i-aligncenter, i.mce-i-alignjustify, i.mce-i-alignleft, i.mce-i-alignright, i.mce-i-blockquote, i.mce-i-bold, i.mce-i-bullist, i.mce-i-charmap, i.mce-i-forecolor, i.mce-i-fullscreen, i.mce-i-help, i.mce-i-hr, i.mce-i-indent, i.mce-i-italic, i.mce-i-link, i.mce-i-ltr, i.mce-i-numlist, i.mce-i-outdent, i.mce-i-pastetext, i.mce-i-pasteword, i.mce-i-redo, i.mce-i-removeformat, i.mce-i-spellchecker, i.mce-i-strikethrough, i.mce-i-underline, i.mce-i-undo, i.mce-i-unlink, i.mce-i-wp-media-library, i.mce-i-wp_adv, i.mce-i-wp_fullscreen, i.mce-i-wp_help, i.mce-i-wp_more, i.mce-i-wp_page, .qt-fullscreen, .star-rating .star,.qt-dfw{ font-family: dashicons !important; }
+		#role {width:8%;}* { font-family: "Microsoft YaHei" !important; }.wp-admin img.rand_avatar {max-Width:50px !important;}i, .ab-icon, .mce-close, i.mce-i-aligncenter, i.mce-i-alignjustify, i.mce-i-alignleft, i.mce-i-alignright, i.mce-i-blockquote, i.mce-i-bold, i.mce-i-bullist, i.mce-i-charmap, i.mce-i-forecolor, i.mce-i-fullscreen, i.mce-i-help, i.mce-i-hr, i.mce-i-indent, i.mce-i-italic, i.mce-i-link, i.mce-i-ltr, i.mce-i-numlist, i.mce-i-outdent, i.mce-i-pastetext, i.mce-i-pasteword, i.mce-i-redo, i.mce-i-removeformat, i.mce-i-spellchecker, i.mce-i-strikethrough, i.mce-i-underline, i.mce-i-undo, i.mce-i-unlink, i.mce-i-wp-media-library, i.mce-i-wp_adv, i.mce-i-wp_fullscreen, i.mce-i-wp_help, i.mce-i-wp_more, i.mce-i-wp_page, .qt-fullscreen, .star-rating .star,.qt-dfw{ font-family: dashicons !important; }
         .mce-ico { font-family: tinymce, Arial !important; }
         .fa { font-family: FontAwesome !important; }
         .genericon { font-family: "Genericons" !important; }
@@ -806,7 +813,7 @@ function googlo_remove_open_sans_from_wp_core() {
     wp_enqueue_style('open-sans', '');
 }
 add_action('init', 'googlo_remove_open_sans_from_wp_core');
-    
+
 //免插件去除Category
 if (git_get_option('git_category_b')) {
     add_action('load-themes.php', 'no_category_base_refresh_rules');
@@ -1111,7 +1118,7 @@ function custom_login_head() {
             $imgurl = 'http://cn.bing.com' . $matches[1];
         }
         if(defined('UM_DIR')){echo '<style type="text/css">#um_captcha{width:170px!important;}</style>';}
-        echo '<style type="text/css">#reg_passmail{display:none!important}body{background: url(' . $imgurl . ');background-repeat: no-repeat;background-position: top center;background-attachment: fixed;background-size: cover;width: 100%!important;height: 100%!important;}.login label,a {font-weight: bold;}.login-action-register #login{padding: 5% 0 0;}.login p {line-height: 1;}.login form {margin-top: 10px;padding: 16px 24px 16px;}h1 a { background-image:url(' . home_url() . '/favicon.ico)!important;width:32px;height:32px;-webkit-border-radius:50px;-moz-border-radius:50px;border-radius:50px;}#registerform,#loginform {background-color:rgba(251,251,251,0.3)!important;}.login label,a{color:#000!important;}@media screen and (max-width:600px){.login-action-register h1 {display: none;}.login-action-register #login{top:50%!important;}}</style>';
+        echo '<style type="text/css">#reg_passmail{display:none!important}body{background: url(' . $imgurl . ');background-repeat: no-repeat;background-position: top center;background-attachment: fixed;background-size: cover;width: 100%!important;height: 100%!important;}.login label,a {font-weight: bold;}.login-action-register #login{padding: 5% 0 0;}.login p {line-height: 1;}.login form {margin-top: 10px;padding: 16px 24px 16px;}h1 a { background-image:url(' . home_url() . '/favicon.ico)!important;width:32px;height:32px;-webkit-border-radius:50px;-moz-border-radius:50px;border-radius:50px;}#registerform,#loginform {background-color:rgba(251,251,251,0.3)!important;}.login label,a{color:#000!important;}form label input{margin-top:10px!important;}@media screen and (max-width:600px){.login-action-register h1 {display: none;}.login-action-register #login{top:50%!important;}}</style>';
     }
 }
 add_action('login_head', 'custom_login_head');
@@ -1820,11 +1827,6 @@ function git_show_extra_register_fields(){
     <input id="repeat_password" class="input" type="password" tabindex="40" size="25" value="" name="repeat_password" />
     </label>
     </p>
-    <p>
-    <label for="are_you_human" style="font-size:12px"><?php _e( '为防止垃圾注册,请输入本站名字: <span style="coler:#F0104E;font-weight:bold;">'.get_bloginfo( 'name' ).'</span>' ); ?><br/>
-    <input id="are_you_human" class="input" type="text" tabindex="40" size="25" value="" name="are_you_human" />
-    </label>
-    </p>
     <?php
 }
 add_action( 'register_form', 'git_show_extra_register_fields' );
@@ -1840,9 +1842,6 @@ function git_check_extra_register_fields($login, $email, $errors) {
     if ( strlen( $_POST['password'] ) < 8 ) {
         $errors->add( 'password_too_short', __("<strong>错误提示</strong>: 密码必须大于8个字符" ) );
     }
-    if ( $_POST['are_you_human'] !== get_bloginfo( 'name' ) ) {
-        $errors->add( 'not_human', __("<strong>错误提示</strong>: 您未填写验证问题或者验证问题错误" ) );
-    }
 }
 add_action( 'register_post', 'git_check_extra_register_fields', 10, 3 );
 
@@ -1851,7 +1850,7 @@ add_action( 'register_post', 'git_check_extra_register_fields', 10, 3 );
  */
 function git_register_extra_fields( $user_id ){
     $userdata = array();
-    
+
     $userdata['ID'] = $user_id;
     if ( $_POST['password'] !== '' ) {
         $userdata['user_pass'] = $_POST['password'];
@@ -2447,7 +2446,7 @@ if(!function_exists('Baidu_Submit') && git_get_option('git_sitemap_api') ){
 
 //登录可见
 function login_to_read($atts, $content = null)
-{   
+{
     if(defined('UM_DIR')){
         $logina = '<a style="cursor:pointer" data-sign="0" class="user-login">登录</a>';
     }else{
@@ -2646,7 +2645,7 @@ function only_my_upload_media( $wp_query_obj ) {
 	return;
 }
 add_action('pre_get_posts','only_my_upload_media');
- 
+
 //在[媒体库]只显示用户上传的文件
 function only_my_media_library( $wp_query ) {
     if ( strpos( $_SERVER[ 'REQUEST_URI' ], '/wp-admin/upload.php' ) !== false ) {
@@ -2657,6 +2656,17 @@ function only_my_media_library( $wp_query ) {
     }
 }
 add_filter('parse_query', 'only_my_media_library' );
+
+//CDN水印
+if (git_get_option('git_cdn_water')) {
+    function cdn_water($text)
+    {
+        $replace = array('.jpg' => '.jpg!water.jpg', '.png' => '.png!water.jpg');
+        $text = str_replace(array_keys($replace), $replace, $text);
+        return $text;
+    }
+    add_filter('the_content', 'cdn_water');
+}
 
 //文章目录,来自露兜,云落修改
 if(git_get_option('git_article_list')  ){
@@ -2679,5 +2689,148 @@ if(git_get_option('git_article_list')  ){
     }
     add_filter( 'the_content', 'article_index' );
 }
+
+// 创建一个新字段存储用户登录时间
+function git_insert_last_login( $login ) {
+	global $user_id;
+	$user = get_userdatabylogin( $login );
+	update_user_meta( $user->ID, 'last_login', current_time( 'mysql' ) );
+}
+add_action( 'wp_login', 'git_insert_last_login' );
+
+// 添加一个新栏目“上次登录”
+function git_add_last_login_column( $columns ) {
+	$columns['last_login'] = '上次登录';
+	unset($columns['name']);
+	return $columns;
+}
+add_filter( 'manage_users_columns', 'git_add_last_login_column' );
+
+// 显示登录时间到新增栏目
+function git_add_last_login_column_value ( $value, $column_name, $user_id ) {
+	$user = get_userdata( $user_id );
+	if ( 'last_login' == $column_name && $user->last_login )
+		$value = get_user_meta( $user->ID, 'last_login', ture );
+	return $value;
+}
+add_action( 'manage_users_custom_column', 'git_add_last_login_column_value', 10, 3 );
+
+//注册时间
+add_filter('manage_users_columns','git_add_users_column_reg_time');
+function git_add_users_column_reg_time($column_headers){
+	$column_headers['reg_time'] = '注册时间';
+	return $column_headers;
+}
+
+add_filter('manage_users_custom_column', 'git_show_users_column_reg_time',11,3);
+function git_show_users_column_reg_time($value, $column_name, $user_id){
+	if($column_name=='reg_time'){
+		$user = get_userdata($user_id);
+		return get_date_from_gmt($user->user_registered);
+	}else{
+		return $value;
+	}
+}
+
+add_filter( 'manage_users_sortable_columns', 'git_users_sortable_columns' );
+function git_users_sortable_columns($sortable_columns){
+	$sortable_columns['reg_time'] = 'reg_time';
+	return $sortable_columns;
+}
+
+add_action( 'pre_user_query', 'git_users_search_order' );
+function git_users_search_order($obj){
+	if(!isset($_REQUEST['orderby']) || $_REQUEST['orderby']=='reg_time' ){
+		if( !in_array($_REQUEST['order'],array('asc','desc')) ){
+			$_REQUEST['order'] = 'desc';
+		}
+		$obj->query_orderby = "ORDER BY user_registered ".$_REQUEST['order']."";
+	}
+}
+
+// 添加一个新的列 ID
+function ssid_column($cols) {
+	$cols['ssid'] = 'ID';
+	return $cols;
+}
+
+function ssid_return_value($value, $column_name, $id) {
+	if ($column_name == 'ssid')
+		$value = $id;
+	return $value;
+}
+add_action('manage_users_columns', 'ssid_column');
+add_filter('manage_users_custom_column', 'ssid_return_value', 10, 3);
+
+//登录页面信息文字
+function wps_login_message( $message ) {
+    if ( empty($message) ){
+        return "<p class='message'>欢迎注册，注册请无视密码修改邮件</p>";
+    } else {
+        return $message;
+    }
+}
+add_filter( 'login_message', 'wps_login_message' );
+
+// 添加一个字段保存IP地址
+function git_log_ip($user_id){
+	$ip = $_SERVER['REMOTE_ADDR'];
+	update_user_meta($user_id, 'signup_ip', $ip);
+}
+add_action('user_register', 'git_log_ip');
+
+// 添加“IP地址”这个栏目
+function git_signup_ip($column_headers) {
+	$column_headers['signup_ip'] = __('IP地址', 'signup_ip');
+	return $column_headers;
+}
+add_filter('manage_users_columns', 'git_signup_ip');
+
+// 格式化输出内容
+function git_ripms_columns($value, $column_name, $user_id) {
+	if ( $column_name == 'signup_ip' ) {
+		$ip = get_user_meta($user_id, 'signup_ip', true);
+		if ($ip != ""){
+			$ret = '<em>'.$ip.'</em>';
+			return $ret;
+		} else {
+			$ret = '<em>没有记录</em>';
+			return $ret;
+		}
+	}
+	return $value;
+}
+add_action('manage_users_custom_column',  'git_ripms_columns', 10, 3);
+
+//后台登陆数学验证码
+function git_add_login_fields(){
+    //获取两个随机数, 范围0~9
+    $num1 = rand(0, 99);
+    $num2 = rand(0, 20);
+    //最终网页中的具体内容
+    echo "<p><label for='sum'> {$num1} + {$num2} = ?<br /><input type='text' name='sum' class='input' value='' size='25' tabindex='4'>" . "<input type='hidden' name='num1' value='{$num1}'>" . "<input type='hidden' name='num2' value='{$num2}'></label></p>";
+}
+add_action('login_form', 'git_add_login_fields');
+add_action('register_form', 'git_add_login_fields');
+
+function git_login_val(){
+    $sum = $_POST['sum'];
+    //用户提交的计算结果
+    switch ($sum) {
+        //得到正确的计算结果则直接跳出
+        case $_POST['num1'] + $_POST['num2']:
+            break;
+        //未填写结果时的错误讯息
+        case null:
+            wp_die('错误: 请输入验证码.');
+            break;
+        //计算错误时的错误讯息
+        default:
+            wp_die('错误: 验证码错误,请重试.');
+    }
+}
+add_action('login_form_login', 'git_login_val');
+add_action('register_post', 'git_login_val');
+
 //WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://googlo.me/archives/4032.html
 ?>
