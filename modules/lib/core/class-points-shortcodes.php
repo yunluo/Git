@@ -96,7 +96,11 @@ class Points_Shortcodes {
 			$notice .='<div style="background-color: #ffffe0;border: 1px solid #993;padding:1em;" class="pay-content">';
 			$notice .='<p style="color:red;">本段内容需要支付 '.$point.''. get_option('points-points_label', POINTS_DEFAULT_POINTS_LABEL).' 查看</p>';
 			$notice .='<p style="color:red;">您当前拥有 <em><strong>'.Points::get_user_total_points($user_id, POINTS_STATUS_ACCEPTED ).'</strong></em> 金币，您的金币不足，请充值</p>';
-			$notice .='<p><a class="lhb" href="' . get_permalink(git_get_page_id_from_template('chongzhi.php')) . '" target="_blank" rel="nofollow" data-original-title="立即充值" title="">立即充值</a></p>';
+			if (git_get_option('git_pagehtml_b')){
+			$notice .='<p><a class="lhb" href="' . home_url() . '/chongzhi.html" target="_blank" rel="nofollow" data-original-title="立即充值" title="">立即充值</a></p>';
+			}else{
+			$notice .='<p><a class="lhb" href="' . home_url() . '/chongzhi" target="_blank" rel="nofollow" data-original-title="立即充值" title="">立即充值</a></p>';
+			}
 			$notice .='</div>';
 			return $notice;
 			}

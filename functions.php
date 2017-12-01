@@ -403,7 +403,11 @@ function git_go_url($content){
 	if($matches && !is_page('about')){
 		foreach($matches[2] as $val){
 			if(strpos($val,'://')!==false && strpos($val,home_url())===false && !preg_match('/\.(jpg|jepg|png|ico|bmp|gif|tiff)/i',$val)){
-			        $content=str_replace("href=\"$val\"", "href=\"" . get_permalink(git_get_page_id_from_template('go.php')) . "?url=$val\" ",$content);
+			    if(git_get_option('git_pagehtml_b')) {
+                    $content=str_replace("href=\"$val\"", "href=\"".home_url()."/go.html?url=$val\" ",$content);
+                }else{
+                    $content=str_replace("href=\"$val\"", "href=\"".home_url()."/go?url=$val\" ",$content);
+                }
 			}
 		}
 	}
@@ -593,12 +597,6 @@ function deel_comment_list($comment, $args, $depth) {
     echo '</div></div>';
 }
 
-//通过模板文件名获取页面ID,然后通过get_permalink(git_get_page_id_from_template('login.php')) 输出链接
-function git_get_page_id_from_template($template) {
-   global $wpdb;
-   $page_id = $wpdb->get_var($wpdb->prepare("SELECT `post_id` FROM `$wpdb->postmeta`, `$wpdb->posts` WHERE `post_id` = `ID` AND `post_status` = 'publish' AND `meta_key` = '_wp_page_template' AND `meta_value` = %s LIMIT 1;", $template));
-   return $page_id;
-}
 //添加钮Download
 function DownloadUrl($atts, $content = null) {
     extract(shortcode_atts(array(
@@ -1272,12 +1270,20 @@ function ton($atts, $content = null) {
 add_shortcode('fanctdl', 'ton');
 //代码演示短代码
 function git_demo($atts, $content = null) {
-    return '<a class="lhb" href="' . get_permalink(git_get_page_id_from_template('demo.php')) . '?pid='.get_the_ID().'" target="_blank" rel="nofollow">' . $content . '</a>';
+    if (git_get_option('git_pagehtml_b')){
+    return '<a class="lhb" href="'.site_url().'/demo.html?pid='.get_the_ID().'" target="_blank" rel="nofollow">' . $content . '</a>';
+    }else{
+    return '<a class="lhb" href="'.site_url().'/demo?pid='.get_the_ID().'" target="_blank" rel="nofollow">' . $content . '</a>';
+    }
 }
 add_shortcode('demo', 'git_demo');
 //下载单页短代码
 function git_download($atts, $content = null) {
-    return '<a class="lhb" href="' . get_permalink(git_get_page_id_from_template('download.php')) . '?pid='.get_the_ID().'" target="_blank" rel="nofollow">' . $content . '</a>';
+    if (git_get_option('git_pagehtml_b')){
+    return '<a class="lhb" href="'.site_url().'/download.html?pid='.get_the_ID().'" target="_blank" rel="nofollow">' . $content . '</a>';
+    }else{
+    return '<a class="lhb" href="'.site_url().'/download?pid='.get_the_ID().'" target="_blank" rel="nofollow">' . $content . '</a>';
+    }
 }
 add_shortcode('download', 'git_download');
 /* 短代码信息框 完毕*/
