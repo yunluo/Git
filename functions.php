@@ -1808,12 +1808,12 @@ if(!defined('UM_DIR')){/*判断是否按照UM插件*/
 function git_show_extra_register_fields(){
     ?>
     <p>
-    <label for="password"><?php _e( '密码' );?><br/>
+    <label for="password">密码<br/>
     <input id="password" class="input" type="password" tabindex="30" size="25" value="" name="password" />
     </label>
     </p>
     <p>
-    <label for="repeat_password"><?php _e( '确认密码' );?><br/>
+    <label for="repeat_password">确认密码<br/>
     <input id="repeat_password" class="input" type="password" tabindex="40" size="25" value="" name="repeat_password" />
     </label>
     </p>
