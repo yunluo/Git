@@ -1257,7 +1257,7 @@ add_shortcode('video', 'too');
 function tkk($atts, $content = null) {
 	extract(shortcode_atts(array("play" => '0' ) , $atts));
 	if( $play == 0){
-		return '<audio style="width:100%;" src="' . $content . '" controls loop>您的浏���器不支持 audio 标签。</audio>';
+		return '<audio style="width:100%;" src="' . $content . '" controls loop>您的浏览器支持 audio 标签。</audio>';
 	}if( $play == 1){
 		return '<audio style="width:100%;" src="' . $content . '" controls autoplay loop>您的浏览器不支持 audio 标签。</audio>';
 	}
@@ -2794,7 +2794,7 @@ add_action('user_register', 'git_log_ip');
 
 // 添加“IP地址”这个栏目
 function git_signup_ip($column_headers) {
-	$column_headers['signup_ip'] = __('IP地址', 'signup_ip');
+	$column_headers['signup_ip'] = 'IP地址';
 	return $column_headers;
 }
 add_filter('manage_users_columns', 'git_signup_ip');
@@ -2814,7 +2814,6 @@ function git_ripms_columns($value, $column_name, $user_id) {
 	return $value;
 }
 add_action('manage_users_custom_column',  'git_ripms_columns', 10, 3);
-
 
 //用户列表显示积分
 add_filter( 'manage_users_columns', 'my_users_columns' );

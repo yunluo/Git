@@ -48,6 +48,9 @@ $offset = ($paged-1)*$number;
 <!-- 标签内容开始 -->
                         <div class="tab_container_author">
                             <div id="tab1_author" class="tab_content_author">
+                            	<?php
+                            	$localavatar = get_user_meta($curauth->ID, 'simple_local_avatar', true);
+                            	if ($oneself && empty($localavatar)) {echo '<div class="alert alert-error">您尚未上传您的自定义头像，您当前使用的是随机头像，请点击编辑资料以上传头像</div>';} ?>
 							<h2>会员资料</h2>
 									<div class="alert alert-info w49">ID：<?php echo $curauth->ID; ?></div>
 									<div class="alert alert-success w49">邮箱：<?php if ($oneself) {echo $curauth->user_email;}else{echo'您没有查看权限';} ?></div>
@@ -142,7 +145,7 @@ wp_reset_postdata();
 									正在紧张施工中……
                             </div>
 							<div id="tab5_author" class="tab_content_author" style="display:none;">
-									<div class="alert alert-info" role="alert">当前拥有<?php
+									<div class="alert alert-info" role="alert">当前拥有 <?php
 								$jinbis = Points::get_user_total_points($curauth->ID, POINTS_STATUS_ACCEPTED );
 								if($jinbis != ""){echo $jinbis;}else{ echo '0';}?> 金币，<?php
 								$jinbis = Points::get_user_total_points($curauth->ID, POINTS_STATUS_ACCEPTED );
