@@ -1840,11 +1840,14 @@ add_action( 'register_post', 'git_check_extra_register_fields', 10, 3 );
  */
 function git_register_extra_fields( $user_id ){
     $userdata = array();
-
     $userdata['ID'] = $user_id;
     if ( $_POST['password'] !== '' ) {
         $userdata['user_pass'] = $_POST['password'];
     }
+	$pattern = '/[一-龥]/u';
+	if(preg_match($pattern, $_POST['user_login'])) {
+    $userdata['user_nicename'] = $user_id;
+	}
     $new_user_id = wp_update_user( $userdata );
 }
 add_action( 'user_register', 'git_register_extra_fields', 100 );
