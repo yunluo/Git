@@ -5,6 +5,9 @@ add_action('after_setup_theme', 'deel_setup');
 include ('inc/theme-options.php');
 include ('inc/theme-widgets.php');
 include ('inc/theme-metabox.php');
+if ( !defined( 'POINTS_CORE_DIR' ) ) {
+include ('modules/points.php');
+}
 function deel_setup() {
     //去除头部冗余代码
     remove_action('wp_head', 'feed_links_extra', 3);
@@ -400,11 +403,7 @@ function git_go_url($content){
 	if($matches && !is_page('about')){
 		foreach($matches[2] as $val){
 			if(strpos($val,'://')!==false && strpos($val,home_url())===false && !preg_match('/\.(jpg|jepg|png|ico|bmp|gif|tiff)/i',$val)){
-			    if(git_get_option('git_pagehtml_b')) {
-			        $content=str_replace("href=\"$val\"", "href=\"".home_url()."/go.html?url=$val\" ",$content);
-			    }else{
-			        $content=str_replace("href=\"$val\"", "href=\"".home_url()."/go?url=$val\" ",$content);
-			    }
+			        $content=str_replace("href=\"$val\"", "href=\"" . get_permalink(git_get_page_id_from_template('go.php')) . "?url=$val\" ",$content);
 			}
 		}
 	}
@@ -594,12 +593,11 @@ function deel_comment_list($comment, $args, $depth) {
     echo '</div></div>';
 }
 
-//通过模板文件名获取链接
-function get_pagelink_through_template($page_temp){
-    global $wpdb;
-    $page_id = $wpdb->get_var("SELECT post_id FROM {$wpdb->postmeta} LEFT OUTER JOIN {$wpdb->posts} ON ({$wpdb->postmeta}.post_id = {$wpdb->posts}.ID ) WHERE meta_key = '_wp_page_template' AND meta_value = '" . $page_temp . "' AND {$wpdb->posts}.post_status = 'publish' AND {$wpdb->posts}.post_type = 'page'");
-    $pageurl = get_page_link($page_id);
-    return $pageurl;
+//通过模板文件名获取页面ID,然后通过get_permalink(git_get_page_id_from_template('login.php')) 输出链接
+function git_get_page_id_from_template($template) {
+   global $wpdb;
+   $page_id = $wpdb->get_var($wpdb->prepare("SELECT `post_id` FROM `$wpdb->postmeta`, `$wpdb->posts` WHERE `post_id` = `ID` AND `post_status` = 'publish' AND `meta_key` = '_wp_page_template' AND `meta_value` = %s LIMIT 1;", $template));
+   return $page_id;
 }
 //添加钮Download
 function DownloadUrl($atts, $content = null) {
@@ -793,7 +791,7 @@ function post_thumbnail_src() {
         ob_start();
         ob_end_clean();
         $output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
-        $post_thumbnail_src = $matches[1][0]; //获取该图片 src
+        @$post_thumbnail_src = $matches[1][0]; //获取该图片 src
         if (empty($post_thumbnail_src)) { //如果日志中没有图片，则显示随机图片
             $random = mt_rand(1, 12);
             echo get_template_directory_uri();
@@ -1259,7 +1257,7 @@ add_shortcode('video', 'too');
 function tkk($atts, $content = null) {
 	extract(shortcode_atts(array("play" => '0' ) , $atts));
 	if( $play == 0){
-		return '<audio style="width:100%;" src="' . $content . '" controls loop>您的浏览器不支持 audio 标签。</audio>';
+		return '<audio style="width:100%;" src="' . $content . '" controls loop>您的浏���器不支持 audio 标签。</audio>';
 	}if( $play == 1){
 		return '<audio style="width:100%;" src="' . $content . '" controls autoplay loop>您的浏览器不支持 audio 标签。</audio>';
 	}
@@ -1274,20 +1272,12 @@ function ton($atts, $content = null) {
 add_shortcode('fanctdl', 'ton');
 //代码演示短代码
 function git_demo($atts, $content = null) {
-    if (git_get_option('git_pagehtml_b')){
-    return '<a class="lhb" href="'.site_url().'/demo.html?pid='.get_the_ID().'" target="_blank" rel="nofollow">' . $content . '</a>';
-    }else{
-    return '<a class="lhb" href="'.site_url().'/demo?pid='.get_the_ID().'" target="_blank" rel="nofollow">' . $content . '</a>';
-    }
+    return '<a class="lhb" href="' . get_permalink(git_get_page_id_from_template('demo.php')) . '?pid='.get_the_ID().'" target="_blank" rel="nofollow">' . $content . '</a>';
 }
 add_shortcode('demo', 'git_demo');
 //下载单页短代码
 function git_download($atts, $content = null) {
-    if (git_get_option('git_pagehtml_b')){
-    return '<a class="lhb" href="'.site_url().'/download.html?pid='.get_the_ID().'" target="_blank" rel="nofollow">' . $content . '</a>';
-    }else{
-    return '<a class="lhb" href="'.site_url().'/download?pid='.get_the_ID().'" target="_blank" rel="nofollow">' . $content . '</a>';
-    }
+    return '<a class="lhb" href="' . get_permalink(git_get_page_id_from_template('download.php')) . '?pid='.get_the_ID().'" target="_blank" rel="nofollow">' . $content . '</a>';
 }
 add_shortcode('download', 'git_download');
 /* 短代码信息框 完毕*/
@@ -2659,14 +2649,27 @@ add_filter('parse_query', 'only_my_media_library' );
 
 //CDN水印
 if (git_get_option('git_cdn_water')) {
-    function cdn_water($text)
-    {
+    function cdn_water($text){
         $replace = array('.jpg' => '.jpg!water.jpg', '.png' => '.png!water.jpg');
         $text = str_replace(array_keys($replace), $replace, $text);
         return $text;
     }
     add_filter('the_content', 'cdn_water');
 }
+
+//快速插入列表
+function git_list_shortcode_handler($atts, $content='') {
+    $lists = explode("\n", $content);
+    $ouput = '';
+    foreach($lists as $li){
+        if(trim($li) != '') {
+            $output .= "<li>{$li}</li>";
+        }
+    }
+        $output = "<ul>".$output."</ul>\n";
+    return $output;
+}
+add_shortcode( 'list', 'git_list_shortcode_handler' );
 
 //文章目录,来自露兜,云落修改
 if(git_get_option('git_article_list')  ){
@@ -2708,9 +2711,16 @@ add_filter( 'manage_users_columns', 'git_add_last_login_column' );
 
 // 显示登录时间到新增栏目
 function git_add_last_login_column_value ( $value, $column_name, $user_id ) {
-	$user = get_userdata( $user_id );
-	if ( 'last_login' == $column_name && $user->last_login )
-		$value = get_user_meta( $user->ID, 'last_login', ture );
+	if ( $column_name == 'last_login' ) {
+		$login = get_user_meta($user_id, 'last_login', true);
+		if ($login != ""){
+			$ret = $login;
+			return $ret;
+		} else {
+			$ret = '暂未登录';
+			return $ret;
+		}
+	}
 	return $value;
 }
 add_action( 'manage_users_custom_column', 'git_add_last_login_column_value', 10, 3 );
@@ -2722,7 +2732,7 @@ function git_add_users_column_reg_time($column_headers){
 	return $column_headers;
 }
 
-add_filter('manage_users_custom_column', 'git_show_users_column_reg_time',11,3);
+add_filter('manage_users_custom_column', 'git_show_users_column_reg_time',10,3);
 function git_show_users_column_reg_time($value, $column_name, $user_id){
 	if($column_name=='reg_time'){
 		$user = get_userdata($user_id);
@@ -2791,10 +2801,10 @@ function git_ripms_columns($value, $column_name, $user_id) {
 	if ( $column_name == 'signup_ip' ) {
 		$ip = get_user_meta($user_id, 'signup_ip', true);
 		if ($ip != ""){
-			$ret = '<em>'.$ip.'</em>';
+			$ret = $ip;
 			return $ret;
 		} else {
-			$ret = '<em>没有记录</em>';
+			$ret = '没有记录';
 			return $ret;
 		}
 	}
@@ -2802,12 +2812,32 @@ function git_ripms_columns($value, $column_name, $user_id) {
 }
 add_action('manage_users_custom_column',  'git_ripms_columns', 10, 3);
 
+
+//用户列表显示积分
+add_filter( 'manage_users_columns', 'my_users_columns' );
+add_action( 'manage_users_custom_column', 'output_my_users_columns', 10, 3 );
+function my_users_columns( $columns ){
+    $columns[ 'points' ] = __( '金币' );
+    return $columns;
+}
+function  output_my_users_columns( $value, $column_name, $user_id ){
+	if ( $column_name == 'points' ) {
+		$jinbi = Points::get_user_total_points($user_id, POINTS_STATUS_ACCEPTED );
+		if ($jinbi != ""){
+			$ret = $jinbi;
+			return $ret;
+		} else {
+			$ret = '穷逼一个';
+			return $ret;
+		}
+	}
+    return $value;
+}
+
 //后台登陆数学验证码
 function git_add_login_fields(){
-    //获取两个随机数, 范围0~9
     $num1 = rand(0, 99);
     $num2 = rand(0, 20);
-    //最终网页中的具体内容
     echo "<p><label for='sum'> {$num1} + {$num2} = ?<br /><input type='text' name='sum' class='input' value='' size='25' tabindex='4'>" . "<input type='hidden' name='num1' value='{$num1}'>" . "<input type='hidden' name='num2' value='{$num2}'></label></p>";
 }
 add_action('login_form', 'git_add_login_fields');
@@ -2815,22 +2845,17 @@ add_action('register_form', 'git_add_login_fields');
 
 function git_login_val(){
     $sum = $_POST['sum'];
-    //用户提交的计算结果
     switch ($sum) {
-        //得到正确的计算结果则直接跳出
         case $_POST['num1'] + $_POST['num2']:
             break;
-        //未填写结果时的错误讯息
         case null:
             wp_die('错误: 请输入验证码.');
             break;
-        //计算错误时的错误讯息
         default:
             wp_die('错误: 验证码错误,请重试.');
     }
 }
 add_action('login_form_login', 'git_login_val');
 add_action('register_post', 'git_login_val');
-
 //WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://googlo.me/archives/4032.html
 ?>

@@ -71,22 +71,6 @@ $options = array(
         ),
         'std'   => 'git_hot_comment'
     ),
-    /* 暂时取消
-    array(
-        'name'  => '显示天数',
-        'desc'  => '天（默认300天）',
-        'id'    => 'hot_list_date',
-        'type'  => 'number',
-        'std'   => 300
-    ),
-    array(
-        'name'  => '显示数量',
-        'desc'  => '条（默认5条）',
-        'id'    => 'hot_list_number',
-        'type'  => 'number',
-        'std'   => 5
-    ),
-    */
     array(
         'name'  => '排行名称',
         'desc'  => '这里是显示在网站首页热门排行那里',
@@ -488,14 +472,6 @@ $options = array(
         'id'    => 'git_article_list',
         'type'  => 'checkbox'
     ),
-    /*  准备删除
-    array(
-        'name'  => '留言链接二维码',
-        'desc'  => '启用  【开启之后，您的留言者的网站会生成一个二维码】',
-        'id'    => 'git_autherqr_b',
-        'type'  => 'checkbox'
-    ),
-    */
     array(
         'name'  => '相关文章显示条数',
         'desc'  => '条&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 这是是显示文章下面的相关文章数目的',
@@ -976,7 +952,7 @@ $options = array(
         'desc'  => '填写腾讯微博个人主页链接',
         'id'    => 'git_tqq',
         'type'  => 'text',
-        'std'   => 'http://t.qq.com/sp865113728'
+        'std'   => ''
     ),
     array(
         'name'  => '腾讯微信',
@@ -1437,6 +1413,34 @@ $options = array(
         'desc'  => '启用【一般可不启用，如果您启用CDN镜像之后并删除了本地文件，则必须开启】',
         'id'    => 'git_adminqn_b',
         'type'  => 'checkbox'
+    ),
+    array(
+        'type'  => 'hr'
+    ),
+    array(
+        'title' => '在线充值设置',
+        'type'  => 'subtitle'
+    ),
+    array(
+        'name'  => '金币和RMB兑换关系',
+        'desc'  => '请输入兑换关系，比如1RMB=10金币',
+        'id'    => 'git_chongzhi_dh',
+        'type'  => 'number',
+        'std'   => 10
+    ),
+    array(
+        'name'  => '收款微信/支付宝账号',
+        'desc'  => '请输入您的微信账号/支付宝账号',
+        'id'    => 'git_chongzhi_hao',
+        'type'  => 'text',
+        'std'   => 'sp91@qq.com'
+    ),
+    array(
+        'name'  => '收款微信/支付宝二维码',
+        'desc'  => '请输入您的微信账号/支付宝二维码链接',
+        'id'    => 'git_chongzhi_qr',
+        'type'  => 'text',
+        'std'   => 'https://img.alicdn.com/imgextra/i1/1597576229/TB2ov76lXXXXXb0XpXXXXXXXXXX_!!1597576229.jpg_310x310.jpg'
     ),
     array(
         'type'  => 'hr'

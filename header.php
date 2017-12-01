@@ -240,10 +240,16 @@ if (git_get_option('git_sign_b')) {
                         echo wp_loginout();
                         echo '';}
 		        }else{/*如果没安装um插件就...*/
-		            echo '<i class="fa fa-user"></i> <a target="_blank" href="'.get_author_posts_url( $uid ).'">' . $u_name . '</a>';
-                    echo '&nbsp;&nbsp;<i class="fa fa-power-off"></i> ';
-                    echo wp_loginout();
-                    echo '';}
+		            if( current_user_can( 'manage_options' ) ) {/*如果是管理员的话...*/
+                        echo '<i class="fa fa-user"></i> <a href="' . home_url() . '/wp-admin">' . $u_name . '</a>';
+                        echo '&nbsp;&nbsp;<i class="fa fa-power-off"></i> ';
+                        echo wp_loginout();
+                        echo '';}else{/*如果不是管理员的话就..*/
+                        echo '<i class="fa fa-user"></i> <a target="_blank" href="'.get_author_posts_url( $uid ).'">' . $u_name . '</a>';
+                        echo '&nbsp;&nbsp;<i class="fa fa-power-off"></i> ';
+                        echo wp_loginout();
+                        echo '';}
+		        }
 		    }else{/*如果没有登录就...*/
 		        if(defined('UM_DIR')){/*如果安装um的话，就...*/
 		            echo '<i class="fa fa-sign-in" ></i>  <a style="cursor:pointer;" data-sign="0" class="user-login">登录</a>';
@@ -269,7 +275,9 @@ if (git_get_option('git_sign_b')) {
         };
     }?>
 <div id="loginbox" style="width:350px;height:280px;overflow:auto;display:none;">
-<?php if(!defined('UM_DIR'))  wp_login_form(array('echo' => ture, 'redirect' => site_url( $_SERVER['REQUEST_URI'] ) ));?>
+<?php if(!defined('UM_DIR')){
+wp_login_form(array('echo' => ture, 'redirect' => site_url( $_SERVER['REQUEST_URI'] ) ));
+}?>
 </div>
 </div>
 		<?php
