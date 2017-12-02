@@ -2660,7 +2660,7 @@ function only_my_media_library( $wp_query ) {
 add_filter('parse_query', 'only_my_media_library' );
 
 //CDN水印
-if (git_get_option('git_cdn_water')) {
+if (git_get_option('git_cdn_water') && get_post_type() == 'post') {
     function cdn_water($text){
         $replace = array('.jpg' => '.jpg!water.jpg', '.png' => '.png!water.jpg');
         $text = str_replace(array_keys($replace), $replace, $text);

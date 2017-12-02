@@ -103,7 +103,7 @@ if ( $query->have_posts() ) {
         </article>
 <?php
 	}
-		echo '<div class="alert alert-success pull_center" role="alert">共有 '.$posts_count.' 篇文章，仅显示前20篇文章，更多文章请<a href="/wp-admin/edit.php?author='.$curauth->ID.'" target="_blank">登录进入后台查看</a></div>';
+		echo '<div class="alert alert-success pull-center" role="alert">共有 '.$posts_count.' 篇文章，仅显示前20篇文章，更多文章请<a href="/wp-admin/edit.php?author='.$curauth->ID.'" target="_blank">登录进入后台查看</a></div>';
 } else {
 	echo '暂无文章';
 }
@@ -133,7 +133,7 @@ wp_reset_postdata();
 			$comment_html .= '<a href="'.htmlspecialchars( get_comment_link( $comment->comment_ID) ).'">'.$comment->comment_date.'  发表在  '.get_the_title($comment->comment_post_ID).'</a></div>';
 			$comment_html .= '</li>';
 		}
-		if($pages>1) $comment_html .= '<li class="alert alert-info pull_center">第 '.$paged.' 页，共 '.$pages.' 页，仅显示前 '.$number.' 条，更多评论请<a href="/wp-admin/edit-comments.php?user_id='.$curauth->ID.'" target="_blank">登录进入后台查看</a></li>';
+		if($pages>1) $comment_html .= '<li class="alert alert-info pull-center">第 '.$paged.' 页，共 '.$pages.' 页，仅显示前 '.$number.' 条，更多评论请<a href="/wp-admin/edit-comments.php?user_id='.$curauth->ID.'" target="_blank">登录进入后台查看</a></li>';
 	}
 	echo '<ul class="user-comment">'.$comment_html.'</ul>';
 }

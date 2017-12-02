@@ -79,7 +79,8 @@ while (have_posts()):
 					<li class="product-market"><span class="dt">商品编号</span>' . get_the_id() . '</li>
                 </ul>
 			    </div>
-			    <div class="product-buy">
+			    <div class="clearfix"></div>
+			    <div class="product-buy pull-center">
                 	<a class="lhb" href="' . get_post_meta($post->ID, 'git_product_tblink', true) . '" target="_blank" rel="nofollow" ><i class="fa fa-shopping-cart"></i> 立即购买</a>
                 </div></div>';}?>
 		</header>
