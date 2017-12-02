@@ -52,7 +52,7 @@ if (isset($_POST['pay_form']) && $_POST['pay_form'] == 'send') {
 ?>
 <?php if(is_user_logged_in()) {?>
 <div class="alert alert-warning" role="alert" style="font-size:16px;">本站金币规则：<span style="font-style:italic;font-weight:bold;color:#E53333;">1RMB=<?php echo git_get_option('git_chongzhi_dh');?>金币</span>，充值的时候请输入RMB金额数目</div>
-<blockquote>您当前拥有 <?php 
+<blockquote>您当前拥有 <?php
 $jinbis = Points::get_user_total_points($current_user->ID, POINTS_STATUS_ACCEPTED );
 if($jinbis != ""){echo $jinbis;}else{ echo '0';}?> 金币</blockquote>
 <hr />
@@ -61,10 +61,8 @@ if($jinbis != ""){echo $jinbis;}else{ echo '0';}?> 金币</blockquote>
 </div>
 <form method="post" action="<?php echo $_SERVER["REQUEST_URI"];?>">
 	<p>
-		<label for="pay_number">RMB金额:<span style="color:#E53333;">*</span></label>
-	</p>
-	<p>
-		<input type="number" placeholder="请输入充值的RMB金额" name="pay_number" id="pay_number" onkeyup="javascript:senddata(this);"/> 元 &nbsp;&nbsp; <span id="outdiv"></span>
+		<label for="pay_number">RMB金额:<span style="color:#E53333;">*</span>&nbsp;
+		<input type="number" placeholder="请输入充值的RMB金额" name="pay_number" id="pay_number" onkeyup="javascript:senddata(this);"/> 元 &nbsp;&nbsp; <span id="outdiv"></span></label>
 	</p>
 	<div class="alert alert-error" role="alert">
 		充值步骤二：将下方红色充值码输入二维码转账备注中【必须，重要，否则无法自动到账】
@@ -102,5 +100,4 @@ function senddata(inputobj) {
 		<?php comments_template('', true); endwhile;  ?>
 	</div>
 </div>
-
 <?php get_footer(); ?>

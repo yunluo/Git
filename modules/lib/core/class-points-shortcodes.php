@@ -87,7 +87,7 @@ class Points_Shortcodes {
 		if(!is_user_logged_in()){
 			$notice .='<div style="background-color: #ffffe0;border:1px solid #993;padding:1em;" class="pay-content">';
 			$notice .='<p style="color:red;">本段内容需要付费查看</p>';
-			$notice .='<p style="color:red;">您未登录，请 <a id="showdiv" href="#loginbox" data-original-title="点击登录">点击登录</a></p>';
+			$notice .='<p style="color:red;">您未登录，请 <a id="showdiv" href="#loginbox" data-original-title="点击登录">点击登录</a>  或者<a target="_blank" href="/wp-login.php?action=register">立即注册</a></p>';
 			$notice .='</div>';
 			return $notice;
 		}else{
