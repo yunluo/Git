@@ -2,17 +2,13 @@
 /**
  * Theme Update Checker Library 1.2
  * http://w-shadow.com/
- *
- * Copyright 2012 Janis Elsts
- * Licensed under the GNU GPL license.
- * http://www.gnu.org/licenses/gpl.html
  */
 
 if ( !class_exists('ThemeUpdateChecker') ):
 
 class ThemeUpdateChecker {
 	public $theme = 'Git-alpha';              //待检查更新的主题名
-	public $metadataUrl = 'https://coding.net/u/googlo/p/File/git/raw/master/info.json';  //元数据文件的路径
+	public $metadataUrl = 'http://gitapi.test.upcdn.net/info.json';  //元数据文件的路径
 	public $enableAutomaticChecking = true; //是否启用自动更新
 	protected $optionName = '';      //更新时候的文字信息
 	protected $automaticCheckDone = false;
