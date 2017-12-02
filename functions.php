@@ -764,12 +764,7 @@ function search_filter_page($query) {
 add_filter('pre_get_posts', 'search_filter_page');
 // 更改后台字体
 function Bing_admin_lettering() {
-    echo '<style type="text/css">
-		#role {width:8%;}* { font-family: "Microsoft YaHei" !important; }.wp-admin img.rand_avatar {max-Width:50px !important;}i, .ab-icon, .mce-close, i.mce-i-aligncenter, i.mce-i-alignjustify, i.mce-i-alignleft, i.mce-i-alignright, i.mce-i-blockquote, i.mce-i-bold, i.mce-i-bullist, i.mce-i-charmap, i.mce-i-forecolor, i.mce-i-fullscreen, i.mce-i-help, i.mce-i-hr, i.mce-i-indent, i.mce-i-italic, i.mce-i-link, i.mce-i-ltr, i.mce-i-numlist, i.mce-i-outdent, i.mce-i-pastetext, i.mce-i-pasteword, i.mce-i-redo, i.mce-i-removeformat, i.mce-i-spellchecker, i.mce-i-strikethrough, i.mce-i-underline, i.mce-i-undo, i.mce-i-unlink, i.mce-i-wp-media-library, i.mce-i-wp_adv, i.mce-i-wp_fullscreen, i.mce-i-wp_help, i.mce-i-wp_more, i.mce-i-wp_page, .qt-fullscreen, .star-rating .star,.qt-dfw{ font-family: dashicons !important; }
-        .mce-ico { font-family: tinymce, Arial !important; }
-        .fa { font-family: FontAwesome !important; }
-        .genericon { font-family: "Genericons" !important; }
-        .appearance_page_scte-theme-editor #wpbody *, .ace_editor * { font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace !important; }
+    echo '<style type="text/css">.users #the-list tr:hover{background:rgba(132,219,162,.61)}#role {width:8%;}* { font-family: "Microsoft YaHei" !important; }.wp-admin img.rand_avatar {max-Width:50px !important;}i, .ab-icon, .mce-close, i.mce-i-aligncenter, i.mce-i-alignjustify, i.mce-i-alignleft, i.mce-i-alignright, i.mce-i-blockquote, i.mce-i-bold, i.mce-i-bullist, i.mce-i-charmap, i.mce-i-forecolor, i.mce-i-fullscreen, i.mce-i-help, i.mce-i-hr, i.mce-i-indent, i.mce-i-italic, i.mce-i-link, i.mce-i-ltr, i.mce-i-numlist, i.mce-i-outdent, i.mce-i-pastetext, i.mce-i-pasteword, i.mce-i-redo, i.mce-i-removeformat, i.mce-i-spellchecker, i.mce-i-strikethrough, i.mce-i-underline, i.mce-i-undo, i.mce-i-unlink, i.mce-i-wp-media-library, i.mce-i-wp_adv, i.mce-i-wp_fullscreen, i.mce-i-wp_help, i.mce-i-wp_more, i.mce-i-wp_page, .qt-fullscreen, .star-rating .star,.qt-dfw{ font-family: dashicons !important; }.mce-ico { font-family: tinymce, Arial !important; }.fa { font-family: FontAwesome !important; }.genericon { font-family: "Genericons" !important; }.appearance_page_scte-theme-editor #wpbody *, .ace_editor * { font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace !important; }
     </style>';
 }
 add_action('admin_head', 'Bing_admin_lettering');
@@ -1763,7 +1758,7 @@ if (!is_admin() && git_get_option('git_qncdn_b') ) {
     }
 }
 
-//自动替换媒体库图片的域名
+//自动替���媒体库图片的域名
 function attachment_replace($text) {
     $replace = array(
         '' . home_url() . '' => '' . git_get_option('git_cdnurl_b') . ''
@@ -2705,6 +2700,106 @@ if(git_get_option('git_article_list')  ){
     add_filter( 'the_content', 'article_index' );
 }
 
+// 添加一个新的列 ID
+function ssid_column($cols) {
+	$cols['ssid'] = 'ID';
+	return $cols;
+}
+add_action('manage_users_columns', 'ssid_column');
+function ssid_return_value($value, $column_name, $id) {
+	if ($column_name == 'ssid')
+		$value = $id;
+	return $value;
+}
+add_filter('manage_users_custom_column', 'ssid_return_value', 10, 3);
+//用户列表显示积分
+add_filter( 'manage_users_columns', 'my_users_columns' );
+function my_users_columns( $columns ){
+    $columns[ 'points' ] = __( '金币' );
+    return $columns;
+}
+function  output_my_users_columns( $value, $column_name, $user_id ){
+	if ( $column_name == 'points' ) {
+		$jinbi = Points::get_user_total_points($user_id, POINTS_STATUS_ACCEPTED );
+		if ($jinbi != ""){
+			$ret = $jinbi;
+			return $ret;
+		} else {
+			$ret = '穷逼一个';
+			return $ret;
+		}
+	}
+    return $value;
+}
+add_action( 'manage_users_custom_column', 'output_my_users_columns', 10, 3 );
+//本地头像
+function git_user_avatar($column_headers) {
+	$column_headers['local_avatar'] = '本地头像';
+	return $column_headers;
+}
+add_filter('manage_users_columns', 'git_user_avatar');
+function git_ripms_user_avatar($value, $column_name, $user_id) {
+	if ( $column_name == 'local_avatar' ) {
+		$localavatar = get_user_meta($user_id, 'simple_local_avatar', true);
+		if (empty($localavatar)){
+			$ret = '未设置';
+			return $ret;
+		} else {
+			$ret = '已设置';
+			return $ret;
+		}
+	}
+	return $value;
+}
+add_action('manage_users_custom_column',  'git_ripms_user_avatar', 10, 3);
+//用户增加评论数量
+function git_users_comments( $columns ){
+    $columns[ 'comments' ] = __( '评论' );
+    return $columns;
+}
+add_filter( 'manage_users_columns', 'git_users_comments' );
+function  git_show_users_comments( $value, $column_name, $user_id ){
+	if ( $column_name == 'comments' ) {
+		$comments_counts = get_comments( array('status' => '1', 'user_id'=>$user_id, 'count' => true) );
+		if ($comments_counts != ""){
+			$ret = $comments_counts;
+			return $ret;
+		} else {
+			$ret = '暂未评论';
+			return $ret;
+		}
+	}
+    return $value;
+}
+add_action( 'manage_users_custom_column', 'git_show_users_comments', 10, 3 );
+// 添加一个字段保存IP地址
+function git_log_ip($user_id){
+	$ip = $_SERVER['REMOTE_ADDR'];
+	update_user_meta($user_id, 'signup_ip', $ip);
+}
+add_action('user_register', 'git_log_ip');
+// 添加“IP地址”这个栏目
+function git_signup_ip($column_headers) {
+	$column_headers['signup_ip'] = 'IP地址';
+	return $column_headers;
+}
+add_filter('manage_users_columns', 'git_signup_ip');
+
+function git_ripms_columns($value, $column_name, $user_id) {
+	if ( $column_name == 'signup_ip' ) {
+		$ip = get_user_meta($user_id, 'signup_ip', true);
+		if ($ip != ""){
+			$ret = $ip;
+			return $ret;
+		} else {
+			$ret = '没有记录';
+			return $ret;
+		}
+	}
+	return $value;
+}
+add_action('manage_users_custom_column',  'git_ripms_columns', 10, 3);
+
 // 创建一个新字段存储用户登录时间
 function git_insert_last_login( $login ) {
 	global $user_id;
@@ -2769,21 +2864,6 @@ function git_users_search_order($obj){
 		$obj->query_orderby = "ORDER BY user_registered ".$_REQUEST['order']."";
 	}
 }
-
-// 添加一个新的列 ID
-function ssid_column($cols) {
-	$cols['ssid'] = 'ID';
-	return $cols;
-}
-
-function ssid_return_value($value, $column_name, $id) {
-	if ($column_name == 'ssid')
-		$value = $id;
-	return $value;
-}
-add_action('manage_users_columns', 'ssid_column');
-add_filter('manage_users_custom_column', 'ssid_return_value', 10, 3);
-
 //登录页面信息文字
 function wps_login_message( $message ) {
     if ( empty($message) ){
@@ -2794,56 +2874,6 @@ function wps_login_message( $message ) {
 }
 add_filter( 'login_message', 'wps_login_message' );
 
-// 添加一个字段保存IP地址
-function git_log_ip($user_id){
-	$ip = $_SERVER['REMOTE_ADDR'];
-	update_user_meta($user_id, 'signup_ip', $ip);
-}
-add_action('user_register', 'git_log_ip');
-
-// 添加“IP地址”这个栏目
-function git_signup_ip($column_headers) {
-	$column_headers['signup_ip'] = 'IP地址';
-	return $column_headers;
-}
-add_filter('manage_users_columns', 'git_signup_ip');
-
-// 格式化输出内容
-function git_ripms_columns($value, $column_name, $user_id) {
-	if ( $column_name == 'signup_ip' ) {
-		$ip = get_user_meta($user_id, 'signup_ip', true);
-		if ($ip != ""){
-			$ret = $ip;
-			return $ret;
-		} else {
-			$ret = '没有记录';
-			return $ret;
-		}
-	}
-	return $value;
-}
-add_action('manage_users_custom_column',  'git_ripms_columns', 10, 3);
-
-//用户列表显示积分
-add_filter( 'manage_users_columns', 'my_users_columns' );
-add_action( 'manage_users_custom_column', 'output_my_users_columns', 10, 3 );
-function my_users_columns( $columns ){
-    $columns[ 'points' ] = __( '金币' );
-    return $columns;
-}
-function  output_my_users_columns( $value, $column_name, $user_id ){
-	if ( $column_name == 'points' ) {
-		$jinbi = Points::get_user_total_points($user_id, POINTS_STATUS_ACCEPTED );
-		if ($jinbi != ""){
-			$ret = $jinbi;
-			return $ret;
-		} else {
-			$ret = '穷逼一个';
-			return $ret;
-		}
-	}
-    return $value;
-}
 
 //后台登陆数学验证码
 function git_add_login_fields(){
@@ -2869,4 +2899,3 @@ function git_login_val(){
 add_action('login_form_login', 'git_login_val');
 add_action('register_post', 'git_login_val');
 //WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://googlo.me/archives/4032.html
-?>
