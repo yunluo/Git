@@ -1,6 +1,6 @@
 <?php
 /*
-*	template name: 网址导航页面
+*	template name: 网址导航
 *	description: template for Git theme
 */
 get_header();
@@ -17,6 +17,7 @@ get_header();
 		<?php while (have_posts()) : the_post(); ?>
 			<div class="article-content">
 				<?php the_content(); ?>
+				<style type="text/css">.apollo_1 .sitename{padding-left:25px;}</style>
 				<?php echo get_link_items(); ?>
 		</div>
 <?php comments_template('', true); endwhile;  ?>
