@@ -227,7 +227,7 @@ if (function_exists('register_sidebar')) {
 //获取最新版本号
 if (!git_get_option('git_updates_b')):
 function Coding_git_ver() {
-	$jsonbody = wp_remote_retrieve_body( wp_remote_get('http://gitapi.test.upcdn.net/info.json') );
+	$jsonbody = wp_remote_retrieve_body( wp_remote_get('https://coding.net/u/googlo/p/File/git/raw/master/info.json') );
     $arr = json_decode($jsonbody);//解析
     $coding_ver = $arr->version;
     return $coding_ver;
@@ -1371,7 +1371,7 @@ function Bing_show_category() {
 if (!git_get_option('git_updates_b')):
 function Coding_notice() {
 
-            $contents = wp_remote_retrieve_body( wp_remote_get('http://gitapi.test.upcdn.net/notice.txt') );
+            $contents = wp_remote_retrieve_body( wp_remote_get('https://coding.net/u/googlo/p/File/git/raw/master/notice.txt') );
 			if (!is_wp_error($contents)) {
             return $contents;
 			}
@@ -1526,8 +1526,7 @@ endif;
 //主题自动更新服务
 if (!git_get_option('git_updates_b')):
     require 'modules/updates.php';
-    $example_update_checker = new ThemeUpdateChecker('Git-alpha', 'http://gitapi.test.upcdn.net/info.json'/*此处链接不可改*/
-    );
+    $example_update_checker = new ThemeUpdateChecker('Git-alpha', 'https://coding.net/u/googlo/p/File/git/raw/master/info.json'/*此处链接不可改*/);
 endif;
 
 //本地头像
