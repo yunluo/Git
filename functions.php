@@ -2874,7 +2874,9 @@ function wps_login_message( $message ) {
     }
 }
 add_filter( 'login_message', 'wps_login_message' );
+
 //后台登陆数学验证码
+if(git_get_option('git_admin_captcha')):
 function git_add_login_fields(){
     $num1 = rand(0, 99);
     $num2 = rand(0, 20);
@@ -2889,13 +2891,14 @@ function git_login_val(){
         case $_POST['num1'] + $_POST['num2']:
             break;
         case null:
-            wp_die('错误: 请输入验证码.');
+            wp_die('错误: 请输入验证码&nbsp; <a href="javascript:;" onclick="javascript:history.back();">返回上页</a>');
             break;
         default:
-            wp_die('错误: 验证码错误,请重试.');
+            wp_die('错误: 验证码错误,请重试&nbsp; <a href="javascript:;" onclick="javascript:history.back();">返回上页</a>');
     }
 }
 add_action('login_form_login', 'git_login_val');
 add_action('register_post', 'git_login_val');
+endif;
 //WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://googlo.me/archives/4032.html
 ?>

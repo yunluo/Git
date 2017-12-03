@@ -1284,6 +1284,12 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+        'name'  => '登录和注册安全验证',
+        'desc'  => '启用 【启用之后，将在登录和注册页面添加数学题验证，若有更好的验证方法，可关闭】',
+        'id'    => 'git_admin_captcha',
+        'type'  => 'checkbox'
+    ),
+    array(
         'name'  => '禁用HTML标签评论',
         'desc'  => '启用 【启用之后，评论框下方的一些按钮将不可用，谨慎考虑】',
         'id'    => 'git_html_comment',
