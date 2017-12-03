@@ -51,6 +51,7 @@ class Points_List_Table extends WP_List_Table {
 		$columns = array(
 				'point_id' => 'ID',
 				'user_id' => '用户ID',
+				
 				'points' => '积分',
 				'description' => '描述',
 				'datetime' => '日期&时间',

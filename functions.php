@@ -1758,7 +1758,7 @@ if (!is_admin() && git_get_option('git_qncdn_b') ) {
     }
 }
 
-//自动替���媒体库图片的域名
+//自动替换媒体库图片的域名
 function attachment_replace($text) {
     $replace = array(
         '' . home_url() . '' => '' . git_get_option('git_cdnurl_b') . ''
@@ -2873,8 +2873,6 @@ function wps_login_message( $message ) {
     }
 }
 add_filter( 'login_message', 'wps_login_message' );
-
-
 //后台登陆数学验证码
 function git_add_login_fields(){
     $num1 = rand(0, 99);
@@ -2899,3 +2897,4 @@ function git_login_val(){
 add_action('login_form_login', 'git_login_val');
 add_action('register_post', 'git_login_val');
 //WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://googlo.me/archives/4032.html
+?>

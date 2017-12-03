@@ -61,7 +61,7 @@ if($jinbis != ""){echo $jinbis;}else{ echo '0';}?> 金币</blockquote>
 </div>
 <form method="post" action="<?php echo $_SERVER["REQUEST_URI"];?>">
 	<p>
-		<label for="pay_number">RMB金额:<span style="color:#E53333;">*</span>&nbsp;
+		<label for="pay_number"><span class="pay_number">RMB金额:</span>&nbsp;
 		<input type="number" placeholder="请输入充值的RMB金额" name="pay_number" id="pay_number" onkeyup="javascript:senddata(this);"/> 元 &nbsp;&nbsp; <span id="outdiv"></span></label>
 	</p>
 	<div class="alert alert-error" role="alert">
@@ -74,8 +74,9 @@ if($jinbis != ""){echo $jinbis;}else{ echo '0';}?> 金币</blockquote>
 		充值步骤三：下面直接扫码，金额与上方输入保持一致，并将上方充值码输入备注中！重要！！！
 	</div>
 	<p>
-		<label for="pay_qr">扫描下方二维码或转账至账号：<span style="font-style:italic; font-weight:bold;color:#E53333;font-size:16px;"><?php echo git_get_option('git_chongzhi_hao');?></span></label>
+		<label for="pay_qr"><span class="pay_qr">扫描下方二维码或转账至账号：<span style="font-style:italic;font-weight:bold;color:#E53333;font-size:16px;"><?php echo git_get_option('git_chongzhi_hao');?></span></span></label>
 	</p>
+	<hr/>
 	<p>
 	<img style="margin-left:0px;height:300px;width:auto" src="<?php echo git_get_option('git_chongzhi_qr');?>">
 	</p>
@@ -88,7 +89,7 @@ if($jinbis != ""){echo $jinbis;}else{ echo '0';}?> 金币</blockquote>
 <?php }else{?>
 <div class="alert alert-error" role="alert">本页面需要您登录才可以操作，请先 <a id="showdiv" href="#loginbox" data-original-title="点击登录">点击登录</a>  或者<a target="_blank" href="/wp-login.php?action=register">立即注册</a></div>
 <?php }?>
-<style type="text/css">input[type=number]{-moz-appearance:textfield}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}.czbtn{background:#e27575;border:none;padding:10px 50px 30px;color:#fff;box-shadow:1px 1px 5px #b6b6b6;border-radius:3px;text-shadow:1px 1px 1px #9e3f3f;cursor:pointer}.czbtn:hover{background:#cf7a7a}</style>
+<style type="text/css">input[type=number]{-moz-appearance:textfield}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}.czbtn{background:#e27575;border:none;padding:10px 50px 30px;color:#fff;box-shadow:1px 1px 5px #b6b6b6;border-radius:3px;text-shadow:1px 1px 1px #9e3f3f;cursor:pointer}.czbtn:hover{background:#cf7a7a}.pay_qr,.pay_number{line-height:150%;}</style>
 <script type="text/javascript">
 function senddata(inputobj) {
 	var obj;
