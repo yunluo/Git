@@ -573,7 +573,7 @@ function deel_comment_list($comment, $args, $depth) {
     }
     //信息
     echo '<div class="c-meta">';
-	if(is_user_logged_in() && $comment->user_id !== '0'){
+	if( $comment->user_id !== '0'){
 		echo '<span class="c-author"><a target="_blank" href="' . get_author_posts_url( $comment->user_id ) . '">' . get_comment_author() . '</a></span>';
 	}else{
 		echo '<span class="c-author">' . get_comment_author_link() . '</span>';
