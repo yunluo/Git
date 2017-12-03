@@ -1370,7 +1370,6 @@ function Bing_show_category() {
 //获取远程通知以及更新提示
 if (!git_get_option('git_updates_b')):
 function Coding_notice() {
-
             $contents = wp_remote_retrieve_body( wp_remote_get('https://coding.net/u/googlo/p/File/git/raw/master/notice.txt') );
 			if (!is_wp_error($contents)) {
             return $contents;
