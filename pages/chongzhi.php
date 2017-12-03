@@ -32,7 +32,7 @@ if (isset($_POST['pay_form']) && $_POST['pay_form'] == 'send') {
 	$last_chongzhi = $wpdb->get_row("SELECT datetime FROM " . Points_Database::points_get_table( "users" ) . " ORDER BY `datetime` desc LIMIT 0, 1;", ARRAY_A )['datetime'];
 	$yanchi = current_time('timestamp') - strtotime($last_chongzhi);
     $rmb_number = isset($_POST['pay_number']) ? trim(htmlspecialchars($_POST['pay_number'], ENT_QUOTES)) : '';//输入的金额
-    $point_number = $rmb_number * 10;
+    $point_number = $rmb_number * git_get_option('git_chongzhi_dh');
     $tomail = get_bloginfo('admin_email');
 	if($yanchi > 28860){
 		if (!empty($rmb_number)) {
