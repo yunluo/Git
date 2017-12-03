@@ -1,20 +1,18 @@
 </section>
-	<?php
+<?php
 	/*云落私人邮箱订阅代码，可以直接删除，开始*/
-if (isset($_POST['dingyue_form']) && $_POST['dingyue_form'] == 'send') {
+    if (isset($_POST['dingyue_form']) && $_POST['dingyue_form'] == 'send') {
+    $tomail = get_bloginfo('admin_email');
+    $headers = "Content-Type:text/html;charset=UTF-8\n";
     $email = isset($_POST['dingyue_email']) ? trim(htmlspecialchars($_POST['dingyue_email'], ENT_QUOTES)) : '';
-    $dingyue = array(
-        'post_title' => '邮箱订阅:'.$email.''
-    );
+    $mail_content = '<p>邮箱订阅：'.$email.'</p><p>请前往 <a target="_blank" href="https://us16.admin.mailchimp.com/">MailChimp</a> 操作</p>';
 	if(empty($email)){
 	echo '<script type="text/javascript">alert("邮箱地址不能为空");window.location = document.referrer;</script>';
-	}else{$status = wp_insert_post($dingyue);}
-	if($status != 0 ){
-		echo '<script type="text/javascript">alert("订阅成功！");window.location = document.referrer;</script>';
-		}else{echo '<script type="text/javascript">alert("订阅失败，请重试或者检查邮箱地址！");window.location = document.referrer;</script>';
-		}
-}
-/*云落私人邮箱订阅代码，可以直接删除，结束*/
+	}else{
+	wp_mail($tomail, '[邮箱订阅]邮箱:'.$email.'', $mail_content, $headers);
+	echo '<script type="text/javascript">alert("订阅成功！");window.location = document.referrer;</script>';}
+    }
+    /*云落私人邮箱订阅代码，可以直接删除，结束*/
 ?>
 <?php
 if (git_get_option('git_superfoot_b') && !G_is_mobile()) { ?>

@@ -1437,7 +1437,7 @@ $options = array(
     ),
     array(
         'name'  => '收款微信/支付宝二维码',
-        'desc'  => '请输入您的微信账号/支付宝二维码链接',
+        'desc'  => '请输入您的微信账号/支付宝二维码链接,图片宽度推荐400px',
         'id'    => 'git_chongzhi_qr',
         'type'  => 'text',
         'std'   => 'https://img.alicdn.com/imgextra/i1/1597576229/TB2ov76lXXXXXb0XpXXXXXXXXXX_!!1597576229.jpg_310x310.jpg'

@@ -572,10 +572,11 @@ function deel_comment_list($comment, $args, $depth) {
         echo '<span class="c-approved">您的评论正在排队审核中，请稍后！</span><br />';
     }
     //信息
-	if(is_user_logged_in() ){
-		echo '<div class="c-meta"><span class="c-author"><a target="_blank" href="' . get_author_posts_url( $comment->user_id ) . '">' . get_comment_author() . '</a></span>';
+    echo '<div class="c-meta">';
+	if(is_user_logged_in() && $comment->user_id !== '0'){
+		echo '<span class="c-author"><a target="_blank" href="' . get_author_posts_url( $comment->user_id ) . '">' . get_comment_author() . '</a></span>';
 	}else{
-		echo '<div class="c-meta"><span class="c-author">' . get_comment_author_link() . '</span>';
+		echo '<span class="c-author">' . get_comment_author_link() . '</span>';
 	}
   if ($comment->user_id == '1') {
         echo '<a title="博主认证" class="vip"></a>';
