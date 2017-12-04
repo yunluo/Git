@@ -120,7 +120,6 @@ class Points_Admin {
 							if ( current_user_can( 'administrator' ) ) {
 								Points::remove_points( $_GET['point_id'] );
 								$alert= "金币已删除";
-								echo '<script type="text/javascript">setTimeout("window.opener=null;window.close()",500);</script>';//关闭浏览器窗口
 								/*删除金币*/
 								global $wpdb;
 								$useresult = $wpdb->get_row( "SELECT user_id FROM " . Points_Database::points_get_table( "users" ) . " WHERE point_id=".$_GET['point_id']." AND description LIKE '%chongzhi%' LIMIT 0, 1;", ARRAY_A )['user_id'];
