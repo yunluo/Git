@@ -2654,14 +2654,14 @@ function only_my_media_library( $wp_query ) {
 add_filter('parse_query', 'only_my_media_library' );
 
 //CDN水印
-if (git_get_option('git_cdn_water') && get_post_type() == 'post') {
+if (git_get_option('git_cdn_water') && get_post_type() !== 'product') :
     function cdn_water($text){
         $replace = array('.jpg' => '.jpg!water.jpg', '.png' => '.png!water.jpg');
         $text = str_replace(array_keys($replace), $replace, $text);
         return $text;
     }
     add_filter('the_content', 'cdn_water');
-}
+endif;
 
 //快速插入列表
 function git_list_shortcode_handler($atts, $content='') {
