@@ -1,11 +1,6 @@
 <?php
-define( 'POINTS_FILE', __FILE__ );
-
 if ( !defined( 'POINTS_CORE_LIB' ) && defined( 'git_Ver' ) ) {
-	define( 'POINTS_CORE_LIB', get_stylesheet_directory() . '/modules/lib/core' );
-}
-if ( !defined( 'POINTS_CORE_LIB_EXT' ) && defined( 'git_Ver' ) ) {
-	define( 'POINTS_CORE_LIB_EXT', get_stylesheet_directory() . '/modules/lib/ext' );
+	define( 'POINTS_CORE_LIB', get_stylesheet_directory() . '/modules/lib' );
 }
 
 define( 'POINTS_DEFAULT_POINTS_LABEL', 'points' );
@@ -16,16 +11,15 @@ require_once ( POINTS_CORE_LIB . '/class-points-shortcodes.php' );
 require_once ( POINTS_CORE_LIB . '/class-points-widget.php' );
 require_once ( POINTS_CORE_LIB . '/class-points-admin.php' );
 require_once ( POINTS_CORE_LIB . '/class-points-table.php' );
-require_once ( POINTS_CORE_LIB_EXT . '/class-points-wordpress.php' );
+require_once ( POINTS_CORE_LIB . '/class-points-wordpress.php' );
 
 class Points_Class {
 	private static $notices = array();
 	public static function init() {
-		register_activation_hook( POINTS_FILE, array( __CLASS__, 'activate' ) );
 		add_action( 'init', array( __CLASS__, 'wp_init' ) );
+		add_action( 'after_switch_theme', array( __CLASS__, 'activate' ) );
 		add_action( 'widgets_init', array( __CLASS__,'points_widgets_init' ) );
 	}
-
 
 	public static function wp_init() {
 		Points_Admin::init();
@@ -36,7 +30,7 @@ class Points_Class {
 	}
 
 	/**
-	 * Plugin activation work.
+	 * activation work.
 	 *
 	 */
 	public static function activate() {
