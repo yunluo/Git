@@ -509,12 +509,6 @@ $options = array(
         'id'    => 'panel_stylish',
         'type'  => 'panelstart'
     ),
-        array(
-        'name'  => '顶部悬浮菜单导航',
-        'desc'  => '开启【开启后您的菜单导航就会悬停在网站顶部，另外选择此项的话，jQuery来源请选择本地jQuery】',
-        'id'    => "git_topnav_b",
-        'type'  => 'checkbox'
-    ),
     array(
         'name'  => '透明导航栏',
         'desc'  => '开启【开启后您的菜单导航栏就会变成半透明】',
