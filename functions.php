@@ -269,7 +269,7 @@ endif;
 
 //面包屑导航
 function deel_breadcrumbs() {
-    if (!is_single() || get_post_type() == 'gallery'|| get_post_type() == 'product') return false;
+    if (!is_single() || get_post_type() == 'shuoshuo'|| get_post_type() == 'product') return false;
     $categorys = get_the_category();
     $category = $categorys[0];
     return '<a title="返回首页" href="' . home_url() . '"><i class="fa fa-home"></i></a> <small>></small> ' . get_category_parents($category->term_id, true, ' <small>></small> ') . '<span class="muted">' . get_the_title() . '</span>';
