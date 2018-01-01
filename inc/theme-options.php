@@ -1290,6 +1290,19 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+        'name'  => '限制每个IP的注册',
+        'desc'  => '启用 【启用之后，主题会在网站根目录生成ips.txt文件，里面的ip就是保存的已注册用户的ip】',
+        'id'    => 'git_regist_ips',
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '每个IP允许注册的用户数',
+        'desc'  => '请输入每个IP允许的注册数目，默认为1',
+        'id'    => 'git_regist_ips_num',
+        'type'  => 'number',
+        'std'   => 1
+    ),
+    array(
         'name'  => '禁用HTML标签评论',
         'desc'  => '启用 【启用之后，评论框下方的一些按钮将不可用，谨慎考虑】',
         'id'    => 'git_html_comment',

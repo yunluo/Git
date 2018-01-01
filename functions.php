@@ -2893,5 +2893,47 @@ function git_login_val(){
 add_action('login_form_login', 'git_login_val');
 add_action('register_post', 'git_login_val');
 endif;
+
+//限制每个ip的注册数量
+if(git_get_option('git_regist_ips')):
+function validate_reg_ips() {
+	global $err_msg;
+	$allow_time = git_get_option('git_regist_ips_num'); //每个IP允许注册的用户数
+	$allowed = true;
+	$ips = file_get_contents("ips.txt");
+	$times = substr_count($ips,getIp());
+	if($times >=$allow_time) {
+		$allowed = false;
+		$err_msg = "该IP注册用户超过上限，无法继续注册！";
+	}
+	$ips = '';
+	return $allowed;
+}
+add_filter('validate_username', 'validate_reg_ips', 10, 1);
+function ip_restrict_errors($errors) {
+	global $err_msg;
+	if ( isset( $errors->errors['invalid_username'] ) )
+	$errors->errors['invalid_username'][0] = __( $err_msg, ' ' );
+	return $errors;
+}
+add_filter('registration_errors', 'ip_restrict_errors');
+function update_reg_ips(){
+file_put_contents("ips.txt",getIp()."\r\n",FILE_APPEND);
+}
+add_action('user_register','update_reg_ips');
+function getIp(){
+	if (getenv("HTTP_CLIENT_IP") && strcasecmp(getenv("HTTP_CLIENT_IP"), "unknown"))
+	$ip = getenv("HTTP_CLIENT_IP");
+	else if (getenv("HTTP_X_FORWARDED_FOR") && strcasecmp(getenv("HTTP_X_FORWARDED_FOR"), "unknown"))
+	$ip = getenv("HTTP_X_FORWARDED_FOR");
+	else if (getenv("REMOTE_ADDR") && strcasecmp(getenv("REMOTE_ADDR"), "unknown"))
+	$ip = getenv("REMOTE_ADDR");
+	else if (isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] && strcasecmp($_SERVER['REMOTE_ADDR'], "unknown"))
+	$ip = $_SERVER['REMOTE_ADDR'];
+	else
+	$ip = "unknown";
+	return $ip;
+}
+endif;
 //WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://googlo.me/archives/4032.html
 ?>
