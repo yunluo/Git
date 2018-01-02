@@ -1,6 +1,6 @@
 <?php
 if ( !defined( 'POINTS_CORE_LIB' ) && defined( 'git_Ver' ) ) {
-	define( 'POINTS_CORE_LIB', get_stylesheet_directory() . '/modules/lib' );
+	define( 'POINTS_CORE_LIB', get_template_directory() . '/modules/lib' );
 }
 
 define( 'POINTS_DEFAULT_POINTS_LABEL', 'points' );
