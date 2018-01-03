@@ -43,16 +43,14 @@ function git_deregister_embed_script(){
 add_action( 'wp_footer', 'git_deregister_embed_script' );
 
 //显示数据库查询次数、查询时间及内存占用的代码
-function iperformance($visible = false)
-{
+function iperformance($visible = false){
     $stat = sprintf('%d 次查询 用时 %.3f 秒, 耗费了 %.2fMB 内存', get_num_queries(), timer_stop(0, 3), memory_get_peak_usage() / 1024 / 1024);
     echo $visible ? $stat : "<!-- {$stat} -->";
 }
 add_action('wp_footer', 'iperformance', 20);
 
 //禁止 s.w.org
-function git_remove_dns_prefetch($hints, $relation_type)
-{
+function git_remove_dns_prefetch($hints, $relation_type){
     if ('dns-prefetch' === $relation_type) {
         return array_diff(wp_dependencies_unique_hosts(), $hints);
     }
@@ -2288,6 +2286,8 @@ function git_wps_login_error() {
 add_action('login_head', 'git_wps_login_error');
 //设HTML为默认编辑器
 //add_filter( 'wp_default_editor', create_function('', 'return "html";') );
+//使链接自动可点击
+add_filter('the_content', 'make_clickable');
 //管理后台添加按钮
 function git_custom_adminbar_menu($meta = TRUE) {
     global $wp_admin_bar;
@@ -2572,8 +2572,7 @@ function git_insert_posts($atts, $content = null){
 add_shortcode('neilian', 'git_insert_posts');
 
 //给文章加外链短代码
-function git_external_posts($atts, $content = null)
-{
+function git_external_posts($atts, $content = null){
 	$ch = curl_init( $content );
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	$result = curl_exec($ch);
@@ -2925,5 +2924,13 @@ function getIp(){
 	return $ip;
 }
 endif;
+
+//文章链接自动新标签打开
+function autoblank($content) {
+    $content = preg_replace("/<a(.*?)>/", "<a$1 target=\"_blank\">", $content);
+    return $content;
+}
+add_filter('the_content', 'autoblank');
+add_filter('asgarosforum_filter_post_content', 'autoblank');
 //WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://googlo.me/archives/4032.html
 ?>
