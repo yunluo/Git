@@ -879,8 +879,7 @@ function git_copyright($content ) {
 }
 add_filter('the_content', 'git_copyright');
 //fancybox图片灯箱效果
-function fancybox($content)
-{
+function fancybox($content){
     global $post;
     $pattern = "/<a(.*?)href=('|\")([^>]*).(bmp|gif|jpeg|jpg|png|swf)('|\")(.*?)>(.*?)<\\/a>/i";
     $replacement = '<a$1href=$2$3.$4$5 rel="box" class="fancybox"$6>$7</a>';
@@ -2858,15 +2857,6 @@ function git_users_search_order($obj){
 		$obj->query_orderby = "ORDER BY user_registered ".$_REQUEST['order']."";
 	}
 }
-//登录页面信息文字
-function wps_login_message( $message ) {
-    if ( empty($message) ){
-        return "<p class='message'>欢迎注册，注册请无视密码修改邮件</p>";
-    } else {
-        return $message;
-    }
-}
-add_filter( 'login_message', 'wps_login_message' );
 
 //后台登陆数学验证码
 if(git_get_option('git_admin_captcha')):
