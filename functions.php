@@ -2648,8 +2648,8 @@ add_filter('parse_query', 'only_my_media_library' );
 if (git_get_option('git_cdn_water') && get_post_type() !== 'product') :
 function cdn_water($content) {
        global $post;
-       $pattern ="/<a(.*?)href=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)><img(.*?)src=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>/i";
-       $replacement = '<a$1href=$2$3.$4!water.jpg$5$6><img$7src=$8$9.$10!water.jpg$11$12>';
+       $pattern ="/<img(.*?)src=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>/i";
+       $replacement = '<img$1src=$2$3.$4!water.jpg$5$6>';
        $content = preg_replace($pattern, $replacement, $content);
        return $content;
 }
