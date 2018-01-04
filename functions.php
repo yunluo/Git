@@ -755,7 +755,7 @@ function G_is_mobile() {
 }
 //搜索结果排除所有页面
 function search_filter_page($query) {
-    if ($query->is_search) {
+    if ($query->is_search && !is_admin()) {
         $query->set('post_type', 'post');
     }
     return $query;
