@@ -25,17 +25,18 @@ while (have_posts()):
 <?php if( has_post_format( 'aside' )) { //一图 ?>
 <div class="imgpost post-style-image">
     <a class="post-img img-response d-block gradient-mask" href="<?php the_permalink() ?>"><?php
+    if(git_get_option('git_lazyload') ){$src = 'data-original';}else{$src = 'src';}
         if (git_get_option('git_qncdn_b') ) {
             if(git_get_option('git_cdnurl_style') ){
                 $githumb7 = '!githumb7.jpg';
             }else{
                 $githumb7 = '?imageView2/1/w/856/h/237/q/75';
             }
-			echo '<img class="thumb" src="';
+			echo '<img class="thumb" '.$src.'="';
             echo post_thumbnail_src();
             echo ''.$githumb7.'" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img class="thumb" src="' . get_template_directory_uri() . '/timthumb.php?src=';
+            echo '<img class="thumb" '.$src.'="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=237&w=856&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
         } ?>
@@ -109,17 +110,18 @@ while (have_posts()):
     if ($_thumbnail) { ?>
 <div class="focus"><a target="_blank" href="<?php
         the_permalink(); ?>"><?php
+        if(git_get_option('git_lazyload') ){$src = 'data-original';}else{$src = 'src';}
         if (git_get_option('git_qncdn_b') ) {
             if(git_get_option('git_cdnurl_style') ){
                 $githumb4 = '!githumb4.jpg';
             }else{
                 $githumb4 = '?imageView2/1/w/260/h/160/q/75';
             }
-            echo '<img class="thumb" style="width:260px;height:160px" src="';
+            echo '<img class="thumb" style="width:260px;height:160px" '.$src.'="';
             echo post_thumbnail_src();
             echo ''.$githumb4.'" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img class="thumb" style="width:260px;height:160px" src="' . get_template_directory_uri() . '/timthumb.php?src=';
+            echo '<img class="thumb" style="width:260px;height:160px" '.$src.'="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=160&w=260&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
         } ?></a></div>

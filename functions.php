@@ -755,7 +755,7 @@ function G_is_mobile() {
 }
 //搜索结果排除所有页面
 function search_filter_page($query) {
-    if ($query->is_search && !is_admin()) {
+    if ($query->is_search && !$query->is_admin) {
         $query->set('post_type', 'post');
     }
     return $query;
@@ -2932,5 +2932,18 @@ function autoblank($content) {
 }
 add_filter('the_content', 'autoblank');
 add_filter('asgarosforum_filter_post_content', 'autoblank');
+
+//懒加载
+if(git_get_option('git_lazyload')):
+function lazyload($content){
+    $loadimg_url = get_bloginfo('template_directory') . '/assets/img/loading.gif';
+    if (!is_feed() || !is_robots()) {
+        $content = preg_replace('/<img(.+)src=[\'"]([^\'"]+)[\'"](.*)>/i', "<img\$1data-original=\"\$2\" src=\"{$loadimg_url}\"\$3>\n<noscript>\$0</noscript>", $content);
+    }
+    return $content;
+}
+add_filter('the_content', 'lazyload');
+add_filter('asgarosforum_filter_post_content', 'lazyload');
+endif;
 //WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://googlo.me/archives/4032.html
 ?>

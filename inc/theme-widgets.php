@@ -267,6 +267,7 @@ function githeme_posts_list($orderby, $limit, $cat, $img) {
 <a target="_blank" href="<?php
         the_permalink(); ?>" title="<?php
         the_title(); ?>" ><?php
+        if(git_get_option('git_lazyload') ){$src = 'data-original';}else{$src = 'src';}
                 if (git_get_option('git_qncdn_b')) {
                     if(git_get_option('git_cdnurl_style') ){
                         $githumb1 = '!githumb1.jpg';
@@ -275,7 +276,7 @@ function githeme_posts_list($orderby, $limit, $cat, $img) {
                     }
             if ($img) {
                 echo '<span class="thumbnail">';
-                echo '<img width="100px" height="64px" src="';
+                echo '<img width="100px" height="64px" '.$src.'="';
                 echo post_thumbnail_src();
                 echo ''.$githumb1.'" alt="' . get_the_title() . '" /></span>';
             } else {
@@ -284,7 +285,7 @@ function githeme_posts_list($orderby, $limit, $cat, $img) {
         } else {
             if ($img) {
                 echo '<span class="thumbnail">';
-                echo '<img width="100px" height="64px" src="' . get_template_directory_uri() . '/timthumb.php?src=';
+                echo '<img width="100px" height="64px" '.$src.'="' . get_template_directory_uri() . '/timthumb.php?src=';
                 echo post_thumbnail_src();
                 echo '&h=64&w=100&q=90&zc=1&ct=1" alt="' . get_the_title() . '" /></span>';
             } else {

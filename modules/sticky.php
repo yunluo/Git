@@ -12,8 +12,9 @@ query_posts(array(
 ));
 while (have_posts()):
     the_post();
+    if(git_get_option('git_lazyload') ){$src = 'data-original';}else{$src = 'src';}
     echo '<li><a target="_blank" href="' . get_permalink() . '" title="' . get_the_title() . '">';
-    echo '<img src="';
+    echo '<img '.$src.'="';
     echo post_thumbnail_src();
     echo '" title="' . get_the_title() . '" alt="' . get_the_title() . '" /></a></li>';
 endwhile;
@@ -25,6 +26,7 @@ wp_reset_query();
 <div class="ws_thumbs">
 <div>
 <?php
+if(git_get_option('git_lazyload') ){$src = 'data-original';}else{$src = 'src';}
 if (git_get_option('git_qncdn_b')) {
     $sticky = get_option('sticky_posts');
     rsort($sticky);
@@ -41,7 +43,7 @@ if (git_get_option('git_qncdn_b')) {
                 $githumb2 = '?imageView2/1/w/120/h/62/q/75';
             }
         echo '<a target="_blank" href="#" title="' . get_the_title() . '">';
-        echo '<img src="';
+        echo '<img '.$src.'="';
         echo post_thumbnail_src();
         echo ''.$githumb2.'" alt="' . get_the_title() . '" /></a>';
     endwhile;
@@ -57,7 +59,7 @@ if (git_get_option('git_qncdn_b')) {
     while (have_posts()):
         the_post();
         echo '<a target="_blank" href="#" title="' . get_the_title() . '">';
-        echo '<img src="' . get_template_directory_uri() . '/timthumb.php?src=';
+        echo '<img '.$src.'="' . get_template_directory_uri() . '/timthumb.php?src=';
         echo post_thumbnail_src();
         echo '&h=62&w=120&q=90&zc=1&ct=1" /></a>';
     endwhile;

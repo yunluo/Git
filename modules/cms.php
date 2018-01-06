@@ -55,12 +55,13 @@ if (git_get_option('git_cat_1')) { ?>
 				<ul class="related_img" style="display:inline" ><li class="related_box" ><a href="<?php
         the_permalink(); ?>" title="<?php
         the_title(); ?>" ><?php
+        if(git_get_option('git_lazyload') ){$src = 'data-original';}else{$src = 'src';}
        if (git_get_option('git_qncdn_b') ) {
-            echo '<img style="width:185px;height:110px" src="';
+            echo '<img style="width:185px;height:110px" '.$src.'="';
             echo post_thumbnail_src();
             echo ''.$githumb3.'" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img style="width:185px;height:110px" src="' . get_template_directory_uri() . '/timthumb.php?src=';
+            echo '<img style="width:185px;height:110px" '.$src.'="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=110&w=185&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
         } ?><br><span class="r_title"><?php
@@ -88,12 +89,13 @@ if (git_get_option('git_cat_2')) { ?>
 				<ul class="related_img" style="display:inline" ><li class="related_box" ><a href="<?php
         the_permalink(); ?>" title="<?php
         the_title(); ?>" ><?php
+        if(git_get_option('git_lazyload') ){$src = 'data-original';}else{$src = 'src';}
        if (git_get_option('git_qncdn_b') ) {
-            echo '<img style="width:185px;height:110px" src="';
+            echo '<img style="width:185px;height:110px" '.$src.'="';
             echo post_thumbnail_src();
             echo ''.$githumb3.'" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img style="width:185px;height:110px" src="' . get_template_directory_uri() . '/timthumb.php?src=';
+            echo '<img style="width:185px;height:110px" '.$src.'="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=110&w=185&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
         } ?><br><span class="r_title"><?php
@@ -121,12 +123,13 @@ if (git_get_option('git_cat_3')) { ?>
 				<ul class="related_img" style="display:inline" ><li class="related_box" ><a href="<?php
         the_permalink(); ?>" title="<?php
         the_title(); ?>" ><?php
+        if(git_get_option('git_lazyload') ){$src = 'data-original';}else{$src = 'src';}
        if (git_get_option('git_qncdn_b') ) {
-            echo '<img style="width:185px;height:110px" src="';
+            echo '<img style="width:185px;height:110px" '.$src.'="';
             echo post_thumbnail_src();
             echo ''.$githumb3.'" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img style="width:185px;height:110px" src="' . get_template_directory_uri() . '/timthumb.php?src=';
+            echo '<img style="width:185px;height:110px" '.$src.'="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=110&w=185&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
         } ?><br><span class="r_title"><?php
@@ -154,12 +157,13 @@ if (git_get_option('git_cat_4')) { ?>
 				<ul class="related_img" style="display:inline" ><li class="related_box" ><a href="<?php
         the_permalink(); ?>" title="<?php
         the_title(); ?>" ><?php
+        if(git_get_option('git_lazyload') ){$src = 'data-original';}else{$src = 'src';}
        if (git_get_option('git_qncdn_b') ) {
-            echo '<img style="width:185px;height:110px" src="';
+            echo '<img style="width:185px;height:110px" '.$src.'="';
             echo post_thumbnail_src();
             echo ''.$githumb3.'" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img style="width:185px;height:110px" src="' . get_template_directory_uri() . '/timthumb.php?src=';
+            echo '<img style="width:185px;height:110px" '.$src.'="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=110&w=185&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
         } ?><br><span class="r_title"><?php
@@ -187,12 +191,13 @@ if (git_get_option('git_cat_5')) { ?>
 				<ul class="related_img" style="display:inline" ><li class="related_box" ><a href="<?php
         the_permalink(); ?>" title="<?php
         the_title(); ?>" ><?php
+        if(git_get_option('git_lazyload') ){$src = 'data-original';}else{$src = 'src';}
        if (git_get_option('git_qncdn_b') ) {
-            echo '<img style="width:185px;height:110px" src="';
+            echo '<img style="width:185px;height:110px" '.$src.'="';
             echo post_thumbnail_src();
             echo ''.$githumb3.'" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img style="width:185px;height:110px" src="' . get_template_directory_uri() . '/timthumb.php?src=';
+            echo '<img style="width:185px;height:110px" '.$src.'="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=110&w=185&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
         } ?><br><span class="r_title"><?php
@@ -220,12 +225,13 @@ if (git_get_option('git_cat_6')) { ?>
 				<ul class="related_img" style="display:inline" ><li class="related_box" ><a href="<?php
         the_permalink(); ?>" title="<?php
         the_title(); ?>" ><?php
+        if(git_get_option('git_lazyload') ){$src = 'data-original';}else{$src = 'src';}
        if (git_get_option('git_qncdn_b') ) {
-            echo '<img style="width:185px;height:110px" src="';
+            echo '<img style="width:185px;height:110px" '.$src.'="';
             echo post_thumbnail_src();
             echo ''.$githumb3.'" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img style="width:185px;height:110px" src="' . get_template_directory_uri() . '/timthumb.php?src=';
+            echo '<img style="width:185px;height:110px" '.$src.'="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=110&w=185&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
         } ?><br><span class="r_title"><?php
@@ -253,12 +259,13 @@ if (git_get_option('git_cat_7')) { ?>
 				<ul class="related_img" style="display:inline" ><li class="related_box" ><a href="<?php
         the_permalink(); ?>" title="<?php
         the_title(); ?>" ><?php
+        if(git_get_option('git_lazyload') ){$src = 'data-original';}else{$src = 'src';}
        if (git_get_option('git_qncdn_b') ) {
-            echo '<img style="width:185px;height:110px" src="';
+            echo '<img style="width:185px;height:110px" '.$src.'="';
             echo post_thumbnail_src();
             echo ''.$githumb3.'" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img style="width:185px;height:110px" src="' . get_template_directory_uri() . '/timthumb.php?src=';
+            echo '<img style="width:185px;height:110px" '.$src.'="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=110&w=185&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
         } ?><br><span class="r_title"><?php
@@ -286,12 +293,13 @@ if (git_get_option('git_cat_8')) { ?>
 				<ul class="related_img" style="display:inline" ><li class="related_box" ><a href="<?php
         the_permalink(); ?>" title="<?php
         the_title(); ?>" ><?php
+        if(git_get_option('git_lazyload') ){$src = 'data-original';}else{$src = 'src';}
        if (git_get_option('git_qncdn_b') ) {
-            echo '<img style="width:185px;height:110px" src="';
+            echo '<img style="width:185px;height:110px" '.$src.'="';
             echo post_thumbnail_src();
             echo ''.$githumb3.'" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img style="width:185px;height:110px" src="' . get_template_directory_uri() . '/timthumb.php?src=';
+            echo '<img style="width:185px;height:110px" '.$src.'="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=110&w=185&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
         } ?><br><span class="r_title"><?php

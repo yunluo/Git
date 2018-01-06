@@ -26,17 +26,18 @@ if (have_posts()) : while (have_posts()) : the_post(); ?>
         the_title(); ?>" class="fancyimg home-blog-entry-thumb">
 					<div class="thumb-img focus">
 					<?php
+		if(git_get_option('git_lazyload') ){$src = 'data-original';}else{$src = 'src';}
         if (git_get_option('git_qncdn_b') ) {
         	if(git_get_option('git_cdnurl_style') ){
                 $githumb6 = '!githumb6.jpg';
             }else{
                 $githumb6 = '?imageView2/1/w/275/h/275/q/75';
             }
-            echo '<img class="thumb" style="width:275px;height:275px" src="';
+            echo '<img class="thumb" style="width:275px;height:275px" '.$src.'="';
             echo post_thumbnail_src();
             echo ''.$githumb6.'" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img class="thumb" style="width:275px;height:275px" src="' . get_template_directory_uri() . '/timthumb.php?src=';
+            echo '<img class="thumb" style="width:275px;height:275px" '.$src.'="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=275&w=275&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
         } ?>
