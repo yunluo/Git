@@ -1,4 +1,5 @@
 <?php
+if(phpversion()<=5.4){ wp_die( '本主题不支持在PHP5.4及以下版本运行，请升级PHP版本 ^_^' );}
 /*定义一些常量*/
 define( 'git_Ver', wp_get_theme()->get( 'Version' ) );
 add_action('after_setup_theme', 'deel_setup');
@@ -8,6 +9,7 @@ include ('inc/theme-metabox.php');
 if ( !defined( 'POINTS_CORE_DIR' ) ) {
 include ('modules/points.php');
 }
+
 function deel_setup() {
     //去除头部冗余代码
     remove_action('wp_head', 'feed_links_extra', 3);
