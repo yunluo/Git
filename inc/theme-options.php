@@ -1699,7 +1699,7 @@ function git_add_theme_options_page() {
             die;
         }
     }
-    add_menu_page('Git主题选项', 'Git主题选项', 'manage_options', basename(__FILE__) , 'git_options_page');
+    add_menu_page('Git主题选项', 'Git主题选项', 'manage_options', basename(__FILE__) , 'git_options_page' ,'dashicons-universal-access-alt');
 }
 add_action('admin_menu', 'git_add_theme_options_page');
 

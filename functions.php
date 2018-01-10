@@ -2016,7 +2016,7 @@ function git_shuoshuo() {
         'rewrite' => true,
         'capability_type' => 'post',
         'has_archive' => true,
-        'menu_icon'   => 'dashicons-format-chat',
+        'menu_icon'   => 'dashicons-megaphone',
         'hierarchical' => false,
         'menu_position' => 4 ,
         'supports' => array(

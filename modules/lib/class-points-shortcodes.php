@@ -65,7 +65,7 @@ class Points_Shortcodes {
 		global $wpdb;
 		$user_id = get_current_user_id();
 		$description = get_the_ID();
-		$result = $wpdb->get_row( "SELECT description FROM " . Points_Database::points_get_table( "users" ) . " WHERE user_id=".$user_id." AND description=" . $description . " AND status='accepted' LIMIT 0, 1;", ARRAY_A )['description'];//验证是否支付
+		$result = $wpdb->get_row( "SELECT description FROM " . Points_Database::points_get_table( "users" ) . " WHERE user_id=".$user_id." AND description=" . $description . " AND status='accepted' LIMIT 0, 1;", ARRAY_A )['description'];//验证是否支付，如报错，请升级PHP版本
 		if(isset($_POST['buy_content_points'])){//如果点击按钮的话
 			Points::set_points( -$_POST['buy_content_points'],
 					$user_id,
