@@ -8,7 +8,6 @@ require_once ( POINTS_CORE_LIB . '/constants.php' );
 require_once ( POINTS_CORE_LIB . '/class-points.php' );
 require_once ( POINTS_CORE_LIB . '/class-points-database.php' );
 require_once ( POINTS_CORE_LIB . '/class-points-shortcodes.php' );
-require_once ( POINTS_CORE_LIB . '/class-points-widget.php' );
 require_once ( POINTS_CORE_LIB . '/class-points-admin.php' );
 require_once ( POINTS_CORE_LIB . '/class-points-table.php' );
 require_once ( POINTS_CORE_LIB . '/class-points-wordpress.php' );
@@ -18,15 +17,10 @@ class Points_Class {
 	public static function init() {
 		add_action( 'init', array( __CLASS__, 'wp_init' ) );
 		add_action( 'load-themes.php', array( __CLASS__, 'activate' ) );
-		add_action( 'widgets_init', array( __CLASS__,'points_widgets_init' ) );
 	}
 
 	public static function wp_init() {
 		Points_Admin::init();
-	}
-
-	public static function points_widgets_init() {
-		register_widget( 'Points_Widget' );
 	}
 
 	/**
