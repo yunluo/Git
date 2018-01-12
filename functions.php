@@ -1,5 +1,5 @@
 <?php
-if(phpversion()<=5.4){ wp_die( '本主题不支持在PHP5.4及以下版本运行，请升级PHP版本 ^_^' );}
+if(phpversion()<5.5){ wp_die( '本主题不支持在PHP5.4及以下版本运行，请升级PHP版本 ^_^' );}
 /*定义一些常量*/
 define( 'git_Ver', wp_get_theme()->get( 'Version' ) );
 add_action('after_setup_theme', 'deel_setup');
@@ -871,7 +871,7 @@ function no_category_base_request($query_vars) {
 }
 //添加文章版权信息
 function git_copyright($content ) {
-    if (is_single() || is_feed()) {
+    if ((is_single() || is_feed()) && git_get_option('git_copyright_b')) {
 		$copyright = str_replace(array('{{title}}', '{{link}}'), array(get_the_title(), get_permalink()), stripslashes(git_get_option('git_copyright_b')));
         $content.= '<hr /><div class="open-message">' . $copyright . '</div>';
     }
@@ -2938,9 +2938,8 @@ add_filter('asgarosforum_filter_post_content', 'autoblank');
 //懒加载
 if(git_get_option('git_lazyload')):
 function lazyload($content){
-    $loadimg_url = get_bloginfo('template_directory') . '/assets/img/loading.gif';
     if (!is_feed() || !is_robots()) {
-        $content = preg_replace('/<img(.+)src=[\'"]([^\'"]+)[\'"](.*)>/i', "<img\$1data-original=\"\$2\" src=\"{$loadimg_url}\"\$3>\n<noscript>\$0</noscript>", $content);
+        $content = preg_replace('/<img(.+)src=[\'"]([^\'"]+)[\'"](.*)>/i', "<img\$1data-original=\"\$2\" \$3>\n<noscript>\$0</noscript>", $content);
     }
     return $content;
 }
