@@ -2927,14 +2927,6 @@ function getIp(){
 }
 endif;
 
-//文章链接自动新标签打开
-function autoblank($content) {
-    $content = preg_replace("/<a(.*?)>/", "<a$1 target=\"_blank\">", $content);
-    return $content;
-}
-add_filter('the_content', 'autoblank');
-add_filter('asgarosforum_filter_post_content', 'autoblank');
-
 //懒加载
 if(git_get_option('git_lazyload')):
 function lazyload($content){
