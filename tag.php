@@ -8,10 +8,10 @@
 			<h1>标签：<?php echo single_tag_title(); ?></h1>
 			<?php };?>
 		</header>
-		<?php if (git_get_option('git_card_b'))
+		<?php if (git_get_option('git_tag_style') == 'git_tag_card')
 		{
 		include 'modules/card.php';
-		}else{
+		}elseif (git_get_option('git_tag_style') == 'git_tag_list'){
 		include 'modules/excerpt.php';
 		}?>
 	</div>

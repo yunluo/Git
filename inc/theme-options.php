@@ -832,11 +832,33 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
-        'name'  => '博客是否开启卡片式',
+        'name'  => '网站是否开启卡片式',
         'desc'  => '启用 【不启用的话，显示是传统博客形式】',
         'id'    => 'git_card_b',
         'type'  => 'checkbox',
         'std'   => 'checked'
+    ),
+    array(
+        'name'  => '选择分类展示形式',
+        'desc'  => '选择一种风格作为分类页面的展示形式，有卡片式和列表式',
+        'id'    => 'git_cat_style',
+        'type'  => 'radio',
+        'options' => array(
+            '卡片风格' => 'git_cat_card',
+            '列表风格' => 'git_cat_list'
+        ),
+        'std'   => 'git_cat_card'
+    ),
+    array(
+        'name'  => '选择标签展示形式',
+        'desc'  => '选择一种风格作为标签页面的展示形式，有卡片式和列表式',
+        'id'    => 'git_tag_style',
+        'type'  => 'radio',
+        'options' => array(
+            '卡片风格' => 'git_tag_card',
+            '列表风格' => 'git_tag_list'
+        ),
+        'std'   => 'git_tag_card'
     ),
     array(
         'name'  => 'cms 分类文章数目',
@@ -1669,7 +1691,7 @@ $options = array(
         'desc'  => '这里的文字在下载单页中粗线，纯文字即可',
         'id'    => 'git_dlpage_mz',
         'type'  => 'textarea',
-        'std'   => '本站大部分下载资源收集于网络，只做学习和交流使用，版权归原作者所有，若为付费内容，请在下载后24小时之内自觉删除，若作商业用途，请购买正版，由于未及时购买和付费发生的侵权行为，与本站无关。本站发布的内容若侵犯到您的权益，请联系站长删除，我们将及时处理！'
+        'std'   => '本站大部分下载资源收集于网络，只做学习和交流使用，版权归原作者所有，若为付费内容，请在下载后24小时之内自觉删除，若作商业用途���请购买正版，由于未及时购买和付费发生的侵权行为，与本站无关。本站发布的内容若侵犯到您的权益，请联系站长删除，我们将及时处理！'
     ),
     array(
         'type'  => 'panelend'
