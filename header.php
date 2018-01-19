@@ -276,7 +276,7 @@ if (git_get_option('git_sign_b')) {
     }?>
 <div id="loginbox" style="width:350px;height:280px;overflow:auto;display:none;">
 <?php if(!defined('UM_DIR')){
-wp_login_form(array('echo' => ture, 'redirect' => site_url( $_SERVER['REQUEST_URI'] ) ));
+wp_login_form(array( 'redirect' => site_url( $_SERVER['REQUEST_URI'] ) ));
 }?>
 </div>
 </div>
