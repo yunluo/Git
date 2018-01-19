@@ -10,6 +10,7 @@ class Points_Shortcodes {
 		add_shortcode( 'points_users_list', array( __CLASS__, 'points_users_list' ) );
 		add_shortcode( 'points_user_points', array( __CLASS__, 'points_user_points' ) );
 		add_shortcode( 'pay', array( __CLASS__, 'pay' ) );
+		add_shortcode( 'points_user_points_details', array( __CLASS__, 'points_user_points_details' ) );
 
 	}
 	public static function points_users_list ( $atts, $content = null ) {
@@ -32,7 +33,7 @@ class Points_Shortcodes {
 				$output .= get_user_meta ( $pointsuser, 'nickname', true );
 				$output .= ':</span>';
 				$output .= '<span class="points-user-points">';
-				$output .= " ". $total . " " . get_option('points-points_label', POINTS_DEFAULT_POINTS_LABEL);
+				$output .= " ". $total . " " . Points::get_label( $total );
 				$output .= '</span>';
 				$output .= '</div>';
 			}
@@ -50,7 +51,6 @@ class Points_Shortcodes {
 				$atts
 		);
 		extract( $options );
-		//echo 'ID:' . $id . "-" . $options['id'];
 		if ( $id == "" ) {
 			$id = get_current_user_id();
 		}
@@ -118,6 +118,88 @@ class Points_Shortcodes {
 			}
 			}else{return $content;}
 		}
-	}/*付费可见短代码结束*/
+	}
+	/*付费可见短代码结束*/
+	/**
+	 * Shortcode. 显示用户的积分细节
+	 */
+	public static function points_user_points_details ( $atts, $content = null ) {
+		$options = shortcode_atts(
+				array(
+						'user_id'         => '',
+						'items_per_page'  => 10,
+						'order_by'        => 'point_id',
+						'order'           => 'DESC',
+						'description'     => true
+				),
+				$atts
+		);
+		extract( $options );
+
+		if ( is_string( $description ) && ( ( $description == '0' ) || ( strtolower( $description ) == 'false' ) ) ) {
+			$description = false;
+		}
+
+		$desc_th = '';
+		if ( $description ) {
+			$desc_th = 	'<th>描述</th>';
+		}
+		global $wp_query;
+		$curauth = $wp_query->get_queried_object();
+		$user_id = $curauth->ID;
+		$points = Points::get_points_by_user( $user_id, null, $order_by, $order, OBJECT );
+
+		// Pagination
+		$total           = sizeof( $points );
+		$page            = isset( $_GET['cpage'] ) ? abs( (int) $_GET['cpage'] ) : 1;
+		$offset          = ( $page * $items_per_page ) - $items_per_page;
+		$totalPage       = ceil($total / $items_per_page);
+
+		$points = Points::get_points_by_user( $user_id, $items_per_page, $order_by, $order, OBJECT, $offset );
+
+		if ( $user_id !== 0 ) {
+			if ( sizeof( $points ) > 0 ) {
+				foreach ( $points as $point ) {
+					$output = '<table class="points_user_points_table">' .
+					'<tr>' .
+					'<th>日期时间' .
+					'<th>' . ucfirst( Points::get_label( 100 ) ) . '</th>' .
+					'<th>类别</th>' .
+					'<th>状态</th>' .
+					$desc_th .
+					'</tr>';
+					$desc_td = '';
+					if ( $description ) {
+						$desc_td = 	'<td>' . $point->description . '</td>';
+					}
+					if($point->points > 0){ $leibie = '充值';}elseif($point->points < 0){$leibie = '消费';}
+					$output .= '<tr>' .
+							'<td>' . $point->datetime . '</td>' .
+							'<td>' . $point->points . '</td>' .
+							'<td>' . $leibie . '</td>' .
+							'<td>' . $point->status . '</td>' .
+							$desc_td .
+							'</tr>';
+				}
+			}
+		}
+
+		$output .= '</table>';
+
+		// Pagination
+		if($totalPage > 1){
+			$customPagHTML = '<div><span>' . __( 'Page', 'points' ) . ' '. $page .' '. __( 'of', 'points' ) . ' ' . $totalPage . '</span><br>' . paginate_links( array(
+					'base' => add_query_arg( 'cpage', '%#%' ),
+					'format' => '',
+					'prev_text' => __('&laquo;'),
+					'next_text' => __('&raquo;'),
+					'total' => $totalPage,
+					'current' => $page
+			)).'</div>';
+			$output .= $customPagHTML;
+		}
+
+		return $output;
+	}
 }
 Points_Shortcodes::init();

@@ -47,11 +47,12 @@ class Points_Class {
 			points   BIGINT(20) DEFAULT 0,
 			datetime     datetime NOT NULL,
 			description  varchar(5000),
+			ref_id       BIGINT(20) DEFAULT null,
 			ip           int(10) unsigned default NULL,
 			ipv6         decimal(39,0) unsigned default NULL,
 			data         longtext default NULL,
 			status       varchar(10) NOT NULL DEFAULT '" . POINTS_STATUS_ACCEPTED . "',
-			type         varchar(10) NULL,
+			type         varchar(32) NULL,
 			PRIMARY KEY   (point_id)
 			) $charset_collate;";
 		}

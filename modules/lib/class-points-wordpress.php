@@ -15,22 +15,25 @@ class Points_Wordpress {
 			add_action('comment_post', array( __CLASS__, 'comment_post' ), 10, 2);
 		}
 
-		if ( get_option('points-welcome', "0") !== "0" ) {
+		if ( get_option('points-welcome', '0') !== '0' ) {
 			add_action( 'user_register', array( __CLASS__,'user_register' ) );
 		}
 		/*继续构建*/
-		if ( get_option('points-post', "0") !== "0" ) {
+		if ( get_option('points-post', '0') !== '0' ) {
 			add_action( 'asgarosforum_after_add_thread_submit', array( __CLASS__,'points_post' ) );
 		}
 		/*构建结束*/
 	}
 
 	public static function user_register ( $user_id ) {
-		Points::set_points( get_option('points-welcome', 0), $user_id,
-					array(
-						'description' => 'register_'.$user_id.'' ,
-						'status' => get_option( 'points-points_status', POINTS_STATUS_ACCEPTED )
-					));
+		if ( !defined( 'POINTS_TYPE_USER_REGISTRATION' ) ) {
+			require_once ( POINTS_CORE_LIB . '/constants.php' );
+		}
+		Points::set_points( get_option('points-welcome', 0), $user_id, array(
+			'description' => 'register_'.$user_id.'' ,
+			'status' 	  => get_option( 'points-points_status', POINTS_STATUS_ACCEPTED ),
+			'type'        => POINTS_TYPE_USER_REGISTRATION
+		) );
 	}
 
 	public static function points_post ( $user_id ) {/*论坛发帖子+积分*/
@@ -38,32 +41,37 @@ class Points_Wordpress {
 	}
 
 	public static function wp_set_comment_status( $comment_id, $status ) {
+		if ( !defined( 'POINTS_TYPE_NEW_COMMENT' ) ) {
+			require_once ( POINTS_CORE_LIB . '/constants.php' );
+		}
 		$user = get_user_by( 'email', get_comment_author_email( $comment_id ) );
 		if ( $user ) {
 			if ( $status == "approve" ) {
 				Points::set_points( get_option('points-comments', 1),
 					$user->ID,
 					array(
-						'description' => sprintf( __( 'comment_approve_%d', 'points' ), $comment_id ),
-						'status' => get_option( 'points-points_status', POINTS_STATUS_ACCEPTED )
+						'description' => 'comment_approved_'.$comment_id.'',
+						'status'      => get_option( 'points-points_status', POINTS_STATUS_ACCEPTED ),
+						'type'        => POINTS_TYPE_NEW_COMMENT
 					)
 				);
-			} else if ( $status == "hold" || $status == "spam" || $status == "delete" || $status == "trash" ) {
-				// @todo cambiar el status de los comentarios está mal implementado. Hay que actualizar points, no añadir ni eliminar
-				Points::set_points( Points::get_user_total_points( $user->ID ) - get_option('points-comments', 1), $user->ID );
 			}
 		}
 	}
 
 	public static function comment_post( $comment_id, $status ) {
+		if ( !defined( 'POINTS_TYPE_NEW_COMMENT' ) ) {
+			require_once ( POINTS_CORE_LIB . '/constants.php' );
+		}
 		$user = get_user_by( 'email', get_comment_author_email( $comment_id ) );
 		if ( $user ) {
 			if ( $status == "1" ) {
-				Points::set_points( get_option('points-comments', 1),
+				Points::set_points( get_option('points-comments', 0),
 					$user->ID,
 					array(
-						'description' => sprintf( __( 'comment_post_%d', 'points' ), $comment_id ),
-						'status' => get_option( 'points-points_status', POINTS_STATUS_ACCEPTED )
+						'description' => 'comment_posted_'.$comment_id.'',
+						'status'      => get_option( 'points-points_status', POINTS_STATUS_ACCEPTED ),
+						'type'        => POINTS_TYPE_NEW_COMMENT
 					)
 				);
 			}

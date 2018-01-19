@@ -186,26 +186,15 @@ class Points_Admin {
 	public static function points_admin_options() {
 		$alert = "";
 		if ( isset( $_POST['submit'] ) ) {
-			add_option( 'points-comments_enable', $_POST['points_comments_enable'] );
 			update_option( 'points-comments_enable', $_POST['points_comments_enable'] );
-
-			add_option( 'points-comments', $_POST['points_comments'] );
 			update_option( 'points-comments', $_POST['points_comments'] );
-
-			add_option( 'points-welcome', $_POST['points_welcome'] );
 			update_option( 'points-welcome', $_POST['points_welcome'] );
-
-			add_option( 'points-post', $_POST['points_post'] );
 			update_option( 'points-post', $_POST['points_post'] );
-
 			$label = ( isset( $_POST['points_label'] ) && $_POST['points_label'] !== "" )?$_POST['points_label']:"";
-			add_option( 'points-points_label', $label );
 			update_option( 'points-points_label', $label );
-
-			add_option( 'points-points_status', $_POST['points_status'] );
 			update_option( 'points-points_status', $_POST['points_status'] );
 
-			$alert= "保存";
+			$alert= "已保存";
 		}
 
 		if ($alert != "") {
@@ -352,7 +341,6 @@ class Points_Admin {
 			$output .= '编辑金币';
 		}
 		$output .= '</h2>';
-
 		$output .= '<form id="points" action="' . $current_url . '" method="post">';
 		$output .= '<div>';
 
@@ -361,7 +349,6 @@ class Points_Admin {
 		}
 
 		$output .= '<input type="hidden" name="action" value="edit" />';
-
 		$output .= '<p class="usermail">';
 		$output .= '<label>';
 		$output .= '<span class="title">用户邮箱</span>';
@@ -371,7 +358,6 @@ class Points_Admin {
 		$output .= '<span class="description">用户在网站的注册邮箱</span>';
 		$output .= '</label>';
 		$output .= '</p>';
-
 		$output .= '<p class="userid">';
 		$output .= '<label>';
 		$output .= '<span class="title">用户ID</span>';
@@ -381,7 +367,6 @@ class Points_Admin {
 		$output .= '<span class="description">请勿填写，仅供自动生成</span>';
 		$output .= '</label>';
 		$output .= '</p>';
-
 		$output .= '<p>';
 		$output .= '<label>';
 		$output .= '<span class="title">日期&时间</span>';
@@ -391,7 +376,6 @@ class Points_Admin {
 		$output .= '<span class="description">格式 : YYYY-MM-DD HH:MM:SS【可忽略，自动生成】</span>';
 		$output .= '</label>';
 		$output .= '</p>';
-
 		$output .= '<p>';
 		$output .= '<label>';
 		$output .= '<span class="title">描述</span>';
@@ -401,7 +385,6 @@ class Points_Admin {
 		$output .= '</textarea>';
 		$output .= '</label>';
 		$output .= '</p>';
-
 		$output .= '<p>';
 		$output .= '<label>';
 		$output .= '<span class="title">金币</span>';
@@ -409,7 +392,6 @@ class Points_Admin {
 		$output .= sprintf( '<input type="text" name="points" value="%s" />', esc_attr( $num_points ) );
 		$output .= '</label>';
 		$output .= '</p>';
-
 		$status_descriptions = array(
 				POINTS_STATUS_ACCEPTED => __( 'Accepted', 'points' ),
 				POINTS_STATUS_PENDING  => __( 'Pending', 'points' ),
@@ -427,18 +409,13 @@ class Points_Admin {
 		$output .= '</select>';
 		$output .= '</label>';
 		$output .= '</p>';
-
 		$output .= wp_nonce_field( 'save', 'points-nonce', true, false );
-
 		$output .= sprintf( '<input class="button" type="submit" name="save" value="%s"/>', '保存' );
 		$output .= ' ';
 		$output .= sprintf( '<a class="cancel" href="%s">%s</a>', $cancel_url, $saved ? '返回' : '取消' );
-
 		$output .= '</div>';
 		$output .= '</form>';
-
 		$output .= '</div>';
-
 		echo $output;
 	}
 

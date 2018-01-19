@@ -4,12 +4,12 @@
  */
 class Points {
 
-	public static function get_points_by_user ( $user_id, $limit = null, $order_by = null, $order = null, $output = OBJECT ) {
+	public static function get_points_by_user ( $user_id, $limit = null, $order_by = null, $order = null, $output = OBJECT, $offset = 0 ) {
 		global $wpdb;
-		
-		$limit_str = "";
+
+		$limit_str = '';
 		if ( isset( $limit ) && ( $limit !== null ) ) {
-			$limit_str = " LIMIT 0 ," . $limit;
+			$limit_str = ' LIMIT ' . $offset . ' ,' . $limit;
 		}
 		$order_by_str = "";
 		if ( isset( $order_by ) && ( $order_by !== null ) ) {
@@ -19,11 +19,10 @@ class Points {
 		if ( isset( $order ) && ( $order !== null ) ) {
 			$order_str = " " . $order;
 		}
-		
-		$result = $wpdb->get_results("SELECT * as total FROM " . Points_Database::points_get_table( "users" ) . " WHERE user_id = '$user_id'" . $order_by_str . $order_str . $limit_str, $output );
-		
+
+		$result = $wpdb->get_results('SELECT * FROM ' . Points_Database::points_get_table( 'users' ) . " WHERE user_id = '$user_id'" . $order_by_str . $order_str . $limit_str, $output );
+
 		return $result;
-	
 	}
 
 	public static function get_user_total_points ( $user_id, $status = null ) {
@@ -37,7 +36,7 @@ class Points {
 		}
 		$points = $wpdb->get_row("SELECT SUM(points) as total FROM " . Points_Database::points_get_table( "users" ) . " WHERE user_id = '$user_id' " . $where_status);
 
-		if ( $points ) {
+		if ( $points && ( $points->total !== NULL ) ) {
 			$result = $points->total;
 		}
 		return $result;
@@ -118,9 +117,9 @@ class Points {
 	 */
 	public static function get_points ( $limit = null, $order_by = null, $order = null, $output = OBJECT ) {
 		global $wpdb;
-		
+
 		$where_str = " WHERE status != '" . POINTS_STATUS_REMOVED . "'";
-		
+
 		$limit_str = "";
 		if ( isset( $limit ) && ( $limit !== null ) ) {
 			$limit_str = " LIMIT 0 ," . $limit;
@@ -199,12 +198,17 @@ class Points {
 		if ( isset( $info['ipv6'] ) ) {
 			$values['ipv6'] = $info['ipv6'];
 		}
-	
+
 		$rows_affected = $wpdb->update( Points_Database::points_get_table("users"), $values , array( 'point_id' => $point_id ) );
-	
+
 		if ( !$rows_affected ) { // insert
 			$rows_affected = null;
 		}
 		return $rows_affected;
+	}
+
+	public static function get_label ( $points ) {
+		$output = get_option( 'points-points_label', 'points' );
+		return $output;
 	}
 }
