@@ -170,10 +170,9 @@ class Points_Admin {
 		$exampleListTable->prepare_items();
 		?>
 		<div class="wrap">
-			<div id="icon-users" class="icon32"></div>
 			<h2>金币管理</h2>
 			<div class="manage add">
-				<a class="add button" href="<?php echo esc_url( add_query_arg( 'action', 'edit', $current_url ) ); ?>" title="<?php echo '点击手动添加金币';?>">添加金币</a>
+				<a class="add button" href="<?php echo esc_url( add_query_arg( 'action', 'edit', $current_url ) ); ?>" title="点击手动添加金币">添加金币</a>
 			</div>
 			<?php echo '<style type="text/css">tbody#the-list tr:hover{background:rgba(132,219,162,.61)}</style>';$exampleListTable->display(); ?>
 		</div>
@@ -203,13 +202,12 @@ class Points_Admin {
 		?>
 			<h2>金币设置</h2>
 			<hr>
-			<style type="text/css">.points-admin-line{clear:both}.points-admin-label{min-width:200px;width:25%}</style>
+			<style type="text/css">.points-admin-line{clear:both}.points-admin-label{min-width:200px;width:25%;margin-bottom:10px;}</style>
 			<form method="post" action="">
 				<div class="wrap" style="border: 1px solid #ccc; padding:10px;">
 					<h3>常规</h3>
 					<div class="points-admin-line">
-						<div class="points-admin-label">金币后缀</div>
-						<div class="points-admin-value">
+						<div class="points-admin-label">金币后缀
 							<?php
 							$label = get_option('points-points_label', '金币');
 							?>
@@ -218,10 +216,7 @@ class Points_Admin {
 					</div>
 
 					<div class="points-admin-line">
-						<div class="points-admin-label">
-							<?php echo __( '默认金币状态', 'points' ); ?>
-						</div>
-						<div class="points-admin-value">
+						<div class="points-admin-label">默认金币状态
 							<select name="points_status">
 							<?php
 							$output = "";
@@ -244,8 +239,7 @@ class Points_Admin {
 				<div class="wrap" style="border: 1px solid #ccc; padding:10px;">
 					<h3>评论</h3>
 					<div class="points-admin-line">
-						<div class="points-admin-label">启用评论金币</div>
-						<div class="points-admin-label">
+						<div class="points-admin-label">启用评论金币
 							<?php
 							$enable_comments = get_option('points-comments_enable', 1);
 							?>
@@ -253,10 +247,7 @@ class Points_Admin {
 						</div>
 					</div>
 					<div class="points-admin-line">
-						<div class="points-admin-label">
-							评论金币
-						</div>
-						<div class="points-admin-label">
+						<div class="points-admin-label">评论金币
 							<?php
 							$enable_comments = get_option('points-comments_enable', 1);
 							?>
@@ -267,23 +258,16 @@ class Points_Admin {
 				<div class="wrap" style="border: 1px solid #ccc; padding:10px;">
 					<h3>其他</h3>
 					<div class="points-admin-line">
-						<div class="points-admin-label">
-							<?php echo '注册欢迎金币'; ?>
-						</div>
-						<div class="points-admin-label">
+						<div class="points-admin-label">注册欢迎金币
 							<input type="text" name="points_welcome" value="<?php echo get_option('points-welcome', "0"); ?>" size="4">
 						</div>
 
-						<div class="points-admin-label">
-							<?php echo '论坛发帖金币'; ?>
-						</div>
-						<div class="points-admin-label">
+						<div class="points-admin-label">论坛发帖金币
 							<input type="text" name="points_post" value="<?php echo get_option('points-post', "0"); ?>" size="4">
 						</div>
-
+						<a class="button button-primary" href="<?php echo admin_url('themes.php'); ?>" target="_blank">【重要】无法增加金币请点此修复</a>
 					</div>
 				</div>
-
 				<div class="points-admin-line">
 					<?php submit_button("保存"); ?>
 				</div>
@@ -293,13 +277,11 @@ class Points_Admin {
 	}
 
 	public static function points_admin_points_edit( $point_id = null ) {
-
 		global $wpdb;
-
 		$output = '';
 
 		if ( !current_user_can( 'administrator' ) ) {
-			wp_die( __( 'Access denied.', 'points' ) );
+			wp_die( 'Access denied.' );
 		}
 
 		$current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
@@ -399,7 +381,7 @@ class Points_Admin {
 		);
 		$output .= '<p>';
 		$output .= '<label>';
-		$output .= '<span class="title">' . __( '状态', 'points' ) . '</span>';
+		$output .= '<span class="title">状态</span>';
 		$output .= ' ';
 		$output .= '<select name="status">';
 		foreach ( $status_descriptions as $key => $label ) {
@@ -418,5 +400,4 @@ class Points_Admin {
 		$output .= '</div>';
 		echo $output;
 	}
-
 }
