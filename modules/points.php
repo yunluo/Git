@@ -1,5 +1,5 @@
 <?php
-if ( !defined( 'POINTS_CORE_LIB' ) && defined( 'git_Ver' ) ) {
+if ( !defined( 'POINTS_CORE_LIB' ) && defined( 'GIT_VER' ) ) {
 	define( 'POINTS_CORE_LIB', get_template_directory() . '/modules/lib' );
 }
 

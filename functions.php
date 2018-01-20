@@ -1,7 +1,9 @@
 <?php
-if(phpversion()<5.5){ wp_die( '本主题不支持在PHP5.4及以下版本运行，请升级PHP版本 ^_^' );}
+if(phpversion() < 5.5 ){
+    wp_die( '本主题不支持在PHP5.4及以下版本运行，请升级PHP版本 ^_^' );
+}
 /*定义一些常量*/
-define( 'git_Ver', wp_get_theme()->get( 'Version' ) );
+define( 'GIT_VER', wp_get_theme()->get( 'Version' ) );
 add_action('after_setup_theme', 'deel_setup');
 include ('inc/theme-options.php');
 include ('inc/theme-widgets.php');
@@ -128,11 +130,11 @@ add_action('admin_footer', 'googlo_admin_site_ctrlenter');
 //添加后台左下角文字
 function git_admin_footer_text($text) {
     if (!git_get_option('git_updates_b')){
-        if( Coding_git_ver() > git_Ver ){
+        if( Coding_git_ver() > GIT_VER ){
             $text = '<strong><a href="/wp-admin/update-core.php" >更新Git最新版本 '.Coding_git_ver().'</a></strong>';
         }
     }else{
-        $text = '感谢使用<a target="_blank" href="http://googlo.me/" >Git主题 '.git_Ver.'</a>进行创作';
+        $text = '感谢使用<a target="_blank" href="http://googlo.me/" >Git主题 '.GIT_VER.'</a>进行创作';
     }
     return $text;
 }
@@ -300,7 +302,6 @@ if (!function_exists('deel_paging')):
         if ($max_page == 1) return;
         echo '<div class="pagination"><ul>';
         if (empty($paged)) $paged = 1;
-        // echo '<span class="pages">Page: ' . $paged . ' of ' . $max_page . ' </span> ';
         echo '<li class="prev-page">';
         previous_posts_link('上一页');
         echo '</li>';
@@ -310,11 +311,9 @@ if (!function_exists('deel_paging')):
             if ($i > 0 && $i <= $max_page) $i == $paged ? print "<li class=\"active\"><span>{$i}</span></li>" : p_link($i);
         }
         if ($paged < $max_page - $p - 1) echo "<li><span> ... </span></li>";
-        //if ( $paged < $max_page - $p ) p_link( $max_page, '&raquo;' );
         echo '<li class="next-page">';
         next_posts_link('下一页');
         echo '</li>';
-        // echo '<li><span>共 '.$max_page.' 页</span></li>';
         echo '</ul></div>';
     }
     function p_link($i, $title = '') {
@@ -820,11 +819,8 @@ function no_category_base_refresh_rules() {
 // Remove category base
 add_action('init', 'no_category_base_permastruct');
 function no_category_base_permastruct() {
-    global $wp_rewrite, $wp_version;
-    if (version_compare($wp_version, '3.4', '<')) {
-    } else {
+    global $wp_rewrite;
         $wp_rewrite->extra_permastructs['category']['struct'] = '%category%';
-    }
 }
 // Add our custom category rewrite rules
 add_filter('category_rewrite_rules', 'no_category_base_rewrite_rules');
@@ -1126,7 +1122,6 @@ function git_esc_callback($matches) {
     $tag_open = $matches[1];
     $content = $matches[2];
     $tag_close = $matches[3];
-    //$content = htmlspecialchars($content, ENT_NOQUOTES, get_bloginfo('charset'));
     $content = esc_html($content);
     return $tag_open . $content . $tag_close;
 }
@@ -1378,10 +1373,10 @@ endif;
 
 //获取更新提示
 if(!git_get_option('git_updates_b')):
-    if( Coding_git_ver() > git_Ver ):
+    if( Coding_git_ver() > GIT_VER ):
 function shapeSpace_custom_admin_notice() {
     echo '<div class="notice notice-error is-dismissible">
-        <p>Git主题版本现已更新至 '.Coding_git_ver().' 版本 , 您目前的版本是 '.git_Ver.'&nbsp;&nbsp;<a href="/wp-admin/update-core.php" class="button button-primary" aria-label="现在更新Git-alpha" id="update-theme" data-slug="Git-alpha">现在更新</a></p>
+        <p>Git主题版本现已更新至 '.Coding_git_ver().' 版本 , 您目前的版本是 '.GIT_VER.'&nbsp;&nbsp;<a href="/wp-admin/update-core.php" class="button button-primary" aria-label="现在更新Git-alpha" id="update-theme" data-slug="Git-alpha">现在更新</a></p>
     </div>';
  }
 add_action('admin_notices', 'shapeSpace_custom_admin_notice');
@@ -1586,7 +1581,6 @@ class Simple_Local_Avatars {
         return apply_filters('simple_local_avatar', $avatar);
     }
     public function admin_init() {
-        //load_plugin_textdomain( 'git', false, dirname( plugin_basename( __FILE__ ) ) . '/localization/' );
         register_setting('discussion', 'simple_local_avatars_caps', array(
             $this,
             'sanitize_options'
@@ -1648,8 +1642,9 @@ class Simple_Local_Avatars {
     <?php
     }
     public function edit_user_profile_update($user_id) {
-        if (!isset($_POST['_simple_local_avatar_nonce']) || !wp_verify_nonce($_POST['_simple_local_avatar_nonce'], 'simple_local_avatar_nonce')) //security
-        return;
+        if (!isset($_POST['_simple_local_avatar_nonce']) || !wp_verify_nonce($_POST['_simple_local_avatar_nonce'], 'simple_local_avatar_nonce')) {
+            return;
+        }
         if (!empty($_FILES['simple-local-avatar']['name'])) {
             $mimes = array(
                 'jpg|jpeg|jpe' => 'image/jpeg',
@@ -1673,12 +1668,9 @@ class Simple_Local_Avatars {
                 )
             ));
             if (empty($avatar['file'])) { // handle failures
-                switch ($avatar['error']) {
-                    case 'File type does not meet security guidelines. Try another.':
+                if ($avatar['error'] = 'File type does not meet security guidelines. Try another.') {
                         add_action('user_profile_update_errors', create_function('$a', '$a->add("avatar_error",__("请上传有效的图片文件。","git"));'));
-                        break;
-
-                    default:
+                }else{
                         add_action('user_profile_update_errors', create_function('$a', '$a->add("avatar_error","<strong>".__("上传头像过程中出现以下错误：","git")."</strong> ' . esc_attr($avatar['error']) . '");'));
                 }
                 return;
@@ -2287,7 +2279,7 @@ function git_wps_login_error() {
 }
 add_action('login_head', 'git_wps_login_error');
 //设HTML为默认编辑器
-//add_filter( 'wp_default_editor', create_function('', 'return "html";') );
+add_filter( 'wp_default_editor', create_function('', 'return "html";') );
 //使链接自动可点击
 add_filter('the_content', 'make_clickable');
 //管理后台添加按钮
@@ -2903,9 +2895,10 @@ function validate_reg_ips() {
 add_filter('validate_username', 'validate_reg_ips', 10, 1);
 function ip_restrict_errors($errors) {
 	global $err_msg;
-	if ( isset( $errors->errors['invalid_username'] ) )
+	if ( isset( $errors->errors['invalid_username'] ) ){
 	$errors->errors['invalid_username'][0] = __( $err_msg, ' ' );
 	return $errors;
+	}
 }
 add_filter('registration_errors', 'ip_restrict_errors');
 function update_reg_ips(){
@@ -2913,16 +2906,16 @@ file_put_contents("ips.txt",getIp()."\r\n",FILE_APPEND);
 }
 add_action('user_register','update_reg_ips');
 function getIp(){
-	if (getenv("HTTP_CLIENT_IP") && strcasecmp(getenv("HTTP_CLIENT_IP"), "unknown"))
-	$ip = getenv("HTTP_CLIENT_IP");
-	else if (getenv("HTTP_X_FORWARDED_FOR") && strcasecmp(getenv("HTTP_X_FORWARDED_FOR"), "unknown"))
-	$ip = getenv("HTTP_X_FORWARDED_FOR");
-	else if (getenv("REMOTE_ADDR") && strcasecmp(getenv("REMOTE_ADDR"), "unknown"))
-	$ip = getenv("REMOTE_ADDR");
-	else if (isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] && strcasecmp($_SERVER['REMOTE_ADDR'], "unknown"))
-	$ip = $_SERVER['REMOTE_ADDR'];
-	else
-	$ip = "unknown";
+	if (getenv("HTTP_CLIENT_IP") && strcasecmp(getenv("HTTP_CLIENT_IP"), "unknown")){
+	$ip = getenv("HTTP_CLIENT_IP");}
+	else if (getenv("HTTP_X_FORWARDED_FOR") && strcasecmp(getenv("HTTP_X_FORWARDED_FOR"), "unknown")){
+	$ip = getenv("HTTP_X_FORWARDED_FOR");}
+	else if (getenv("REMOTE_ADDR") && strcasecmp(getenv("REMOTE_ADDR"), "unknown")){
+	$ip = getenv("REMOTE_ADDR");}
+	else if (isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] && strcasecmp($_SERVER['REMOTE_ADDR'], "unknown")){
+	$ip = $_SERVER['REMOTE_ADDR'];}
+	else{
+	$ip = "unknown";}
 	return $ip;
 }
 endif;
