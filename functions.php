@@ -401,7 +401,7 @@ function git_go_url($content){
 	preg_match_all('/<a(.*?)href="(.*?)"(.*?)>/',$content,$matches);
 	if($matches && !is_page('about')){
 		foreach($matches[2] as $val){
-			if(strpos($val,'://')!==false && strpos($val,home_url())===false && !preg_match('/\.(jpg|jepg|png|ico|bmp|gif|tiff)/i',$val)){
+			if(strpos($val,'://')!==false && strpos($val,home_url())===false && !preg_match('/\.(jpg|jpeg|png|ico|bmp|gif|tiff)/i',$val)){
 			    if(git_get_option('git_pagehtml_b')) {
                     $content=str_replace("href=\"$val\"", "href=\"".home_url()."/go.html?url=$val\" ",$content);
                 }else{
