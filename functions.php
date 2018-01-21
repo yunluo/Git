@@ -361,6 +361,7 @@ function deel_avatar_default() {
     return get_template_directory_uri() . '/assets/img/default.png';
 }
 //评论头像缓存
+if (git_get_option('git_avater')=='git_avatar_b') {
 function deel_avatar($avatar) {
     $tmp = strpos($avatar, 'http');
     $g = substr($avatar, $tmp, strpos($avatar, "'", $tmp) - $tmp);
@@ -376,7 +377,6 @@ function deel_avatar($avatar) {
     if (filesize($e) < 500) copy(get_template_directory_uri() . '/assets/img/default.png', $e);
     return $avatar;
 }
-if (git_get_option('git_avater')=='git_avatar_b') {
     add_filter('get_avatar', 'deel_avatar');
 }
 //头像镜像
@@ -625,34 +625,33 @@ add_shortcode('dm', 'DemoUrl');
 function my_quicktags() {
     global $pagenow;
     if( $pagenow == 'post-new.php' || $pagenow == 'post.php' ){
-    wp_enqueue_script('my_quicktags', get_stylesheet_directory_uri() . '/assets/js/my_quicktags.js', array(
-        'quicktags'
-    ));}
+    wp_enqueue_script('my_quicktags', get_stylesheet_directory_uri() . '/assets/js/my_quicktags.js', array('quicktags'), '1.0', true );
+	}
 };
 add_action('admin_print_scripts', 'my_quicktags');
 //过滤外文评论
 if (git_get_option('git_spam_lang') && !is_user_logged_in()):
-function refused_spam_comments($comment_data) {
+function refused_spam_comments($commentdata) {
     $pattern = '/[一-龥]/u';
     $jpattern = '/[ぁ-ん]+|[ァ-ヴ]+/u';
-    if (!preg_match($pattern, $comment_data['comment_content'])) {
-        err(__('写点汉字吧，博主外语很捉急！You should type some Chinese word!'));
+    if (!preg_match($pattern, $commentdata['comment_content'])) {
+        err('写点汉字吧，博主外语很捉急！You should type some Chinese word!');
     }
-    if (preg_match($jpattern, $comment_data['comment_content'])) {
-        err(__('日文滚粗！Japanese Get out！日本语出て行け！ You should type some Chinese word！'));
+    if (preg_match($jpattern, $commentdata['comment_content'])) {
+        err('日文滚粗！Japanese Get out！日本语出て行け！ You should type some Chinese word！');
     }
-    return ($comment_data);
+    return ($commentdata);
 }
     add_filter('preprocess_comment', 'refused_spam_comments');
 endif;
 //屏蔽关键词，email，url，ip
 if (git_get_option('git_spam_keywords') && !is_user_logged_in()):
-function Googlofuckspam($comment) {
-    if (wp_blacklist_check($comment['comment_author'], $comment['comment_author_email'], $comment['comment_author_url'], $comment['comment_content'], $comment['comment_author_IP'], $comment['comment_agent'])) {
+function Googlofuckspam($commentdata) {
+    if (wp_blacklist_check($commentdata['comment_author'], $commentdata['comment_author_email'], $commentdata['comment_author_url'], $commentdata['comment_content'], $commentdata['comment_author_IP'], $commentdata['comment_agent'])) {
         header("Content-type: text/html; charset=utf-8");
-        err(__('不好意思，您的评论违反本站评论规则'));
+        err('不好意思，您的评论违反本站评论规则');
     } else {
-        return $comment;
+        return $commentdata;
     }
 }
 add_filter('preprocess_comment', 'Googlofuckspam');
@@ -667,12 +666,12 @@ add_filter('pre_comment_approved', 'lang_url_spamcheck', 99, 2);
 endif;
 //屏蔽昵称，评论内容带链接的评论
 if (git_get_option('git_spam_url') && !is_user_logged_in()):
-function Googlolink($comment_data) {
+function Googlolink($commentdata) {
     $links = '/http:\/\/|https:\/\/|www\./u';
-    if (preg_match($links, $comment_data['comment_author']) || preg_match($links, $comment_data['comment_content'])) {
+    if (preg_match($links, $commentdata['comment_author']) || preg_match($links, $commentdata['comment_content'])) {
         err(__('在昵称和评论里面是不准发链接滴.'));
     }
-    return ($comment_data);
+    return ($commentdata);
 }
     add_filter('preprocess_comment', 'Googlolink');
 endif;
@@ -806,57 +805,48 @@ function googlo_remove_open_sans_from_wp_core() {
 add_action('init', 'googlo_remove_open_sans_from_wp_core');
 
 //免插件去除Category
-if (git_get_option('git_category_b')) {
+if (git_get_option('git_category_b')) :
     add_action('load-themes.php', 'no_category_base_refresh_rules');
     add_action('created_category', 'no_category_base_refresh_rules');
     add_action('edited_category', 'no_category_base_refresh_rules');
     add_action('delete_category', 'no_category_base_refresh_rules');
-}
 function no_category_base_refresh_rules() {
     global $wp_rewrite;
     $wp_rewrite->flush_rules();
 }
-// Remove category base
 add_action('init', 'no_category_base_permastruct');
 function no_category_base_permastruct() {
     global $wp_rewrite;
         $wp_rewrite->extra_permastructs['category']['struct'] = '%category%';
 }
-// Add our custom category rewrite rules
 add_filter('category_rewrite_rules', 'no_category_base_rewrite_rules');
 function no_category_base_rewrite_rules($category_rewrite) {
-    //var_dump($category_rewrite); // For Debugging
     $category_rewrite = array();
     $categories = get_categories(array(
         'hide_empty' => false
     ));
     foreach ($categories as $category) {
         $category_nicename = $category->slug;
-        if ($category->parent == $category->cat_ID) // recursive recursion
+        if ($category->parent == $category->cat_ID)
         $category->parent = 0;
         elseif ($category->parent != 0) $category_nicename = get_category_parents($category->parent, false, '/', true) . $category_nicename;
         $category_rewrite['(' . $category_nicename . ')/(?:feed/)?(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?category_name=$matches[1]&feed=$matches[2]';
         $category_rewrite['(' . $category_nicename . ')/page/?([0-9]{1,})/?$'] = 'index.php?category_name=$matches[1]&paged=$matches[2]';
         $category_rewrite['(' . $category_nicename . ')/?$'] = 'index.php?category_name=$matches[1]';
     }
-    // Redirect support from Old Category Base
     global $wp_rewrite;
     $old_category_base = get_option('category_base') ? get_option('category_base') : 'category';
     $old_category_base = trim($old_category_base, '/');
     $category_rewrite[$old_category_base . '/(.*)$'] = 'index.php?category_redirect=$matches[1]';
-    //var_dump($category_rewrite); // For Debugging
     return $category_rewrite;
 }
-// Add 'category_redirect' query variable
 add_filter('query_vars', 'no_category_base_query_vars');
 function no_category_base_query_vars($public_query_vars) {
     $public_query_vars[] = 'category_redirect';
     return $public_query_vars;
 }
-// Redirect if 'category_redirect' is set
 add_filter('request', 'no_category_base_request');
 function no_category_base_request($query_vars) {
-    //print_r($query_vars); // For Debugging
     if (isset($query_vars['category_redirect'])) {
         $catlink = trailingslashit(home_url()) . user_trailingslashit($query_vars['category_redirect'], 'category');
         status_header(301);
@@ -865,6 +855,7 @@ function no_category_base_request($query_vars) {
     }
     return $query_vars;
 }
+endif;
 //添加文章版权信息
 function git_copyright($content ) {
     if ((is_single() || is_feed()) && git_get_option('git_copyright_b')) {
@@ -884,7 +875,9 @@ function fancybox($content){
 }
 add_filter('the_content', 'fancybox');
 add_filter('asgarosforum_filter_post_content', 'fancybox');
+
 //WordPress文字标签关键词自动内链
+if (git_get_option('git_autolink_b')) {
 $match_num_min = git_get_option('git_autolink_1'); //一篇文章中同一個標籤少於幾次不自動鏈接
 $match_num_max = git_get_option('git_autolink_2'); //一篇文章中同一個標籤最多自動鏈接幾次
 function tag_sort($a, $b) {
@@ -914,11 +907,11 @@ function tag_link($content) {
     }
     return $content;
 }
-if (git_get_option('git_autolink_b')) {
     add_filter('the_content', 'tag_link', 1);
 }
-if(git_get_option('git_imgalt_b')):
+
 //图片img标签添加alt，title属性
+if(git_get_option('git_imgalt_b')):
 function imagesalt($content) {
        global $post;
        $pattern ="/<img(.*?)src=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>/i";
@@ -1058,8 +1051,11 @@ function Ajax_data_zfunc_smiley_button() {
 }
 add_action('init', 'Ajax_data_zfunc_smiley_button');
 //后台回复评论支持表情插入
-function zfunc_admin_enqueue_scripts($hook_suffix) {
-    wp_enqueue_script('zfunc-comment-reply', get_template_directory_uri() . '/assets/js/admin_reply.js');
+function zfunc_admin_enqueue_scripts() {
+	global $pagenow;
+    if( $pagenow == 'edit-comments.php' ){
+    wp_enqueue_script('zfunc-comment-reply', get_template_directory_uri() . '/assets/js/admin_reply.js', false, '1.0', true );
+	}
 }
 add_action('admin_print_styles', 'zfunc_admin_enqueue_scripts');
 //使用短代码添加回复后可见内容开始
@@ -1140,13 +1136,13 @@ add_filter('the_content', 'git_prettify_replace');
 add_filter('asgarosforum_filter_post_content', 'git_prettify_replace');
 
 //首页隐藏一些分类
+if (git_get_option('git_blockcat_b')) {
 function exclude_category_home($query) {
     if ($query->is_home) {
         $query->set('cat', '' . git_get_option('git_blockcat') . ''); //隐藏这两个分类
     }
     return $query;
 }
-if (git_get_option('git_blockcat_b')) {
     add_filter('pre_get_posts', 'exclude_category_home');
 }
 //固化插入图片选项
@@ -1873,23 +1869,23 @@ add_filter( 'registration_redirect', 'git_registration_redirect' );
 }
 
 //SMTP邮箱设置
-function googlo_mail_smtp($phpmailer) {
-    $phpmailer->From = git_get_option('git_maildizhi_b'); //发件人地址
-    $phpmailer->FromName = git_get_option('git_mailnichen_b'); //发件人昵称
-    $phpmailer->Host = git_get_option('git_mailsmtp_b'); //SMTP服务器地址
-    $phpmailer->Port = git_get_option('git_mailport_b'); //SMTP邮件发送端口
-    if (git_get_option('git_smtpssl_b')) {
-    $phpmailer->SMTPSecure = 'ssl';
-    }else{
-    $phpmailer->SMTPSecure = '';
-    }//SMTP加密方式(SSL/TLS)没有为空即可
-    $phpmailer->Username = git_get_option('git_mailuser_b'); //邮箱帐号
-    $phpmailer->Password = git_get_option('git_mailpass_b'); //邮箱密码
-    $phpmailer->IsSMTP();
-    $phpmailer->SMTPAuth = true; //启用SMTPAuth服务
-
-}
 if (git_get_option('git_mailsmtp_b')) {
+	function googlo_mail_smtp($phpmailer) {
+		$phpmailer->From = git_get_option('git_maildizhi_b'); //发件人地址
+		$phpmailer->FromName = git_get_option('git_mailnichen_b'); //发件人昵称
+		$phpmailer->Host = git_get_option('git_mailsmtp_b'); //SMTP服务器地址
+		$phpmailer->Port = git_get_option('git_mailport_b'); //SMTP邮件发送端口
+		if (git_get_option('git_smtpssl_b')) {
+		$phpmailer->SMTPSecure = 'ssl';
+		}else{
+		$phpmailer->SMTPSecure = '';
+		}//SMTP加密方式(SSL/TLS)没有为空即可
+		$phpmailer->Username = git_get_option('git_mailuser_b'); //邮箱帐号
+		$phpmailer->Password = git_get_option('git_mailpass_b'); //邮箱密码
+		$phpmailer->IsSMTP();
+		$phpmailer->SMTPAuth = true; //启用SMTPAuth服务
+
+	}
     add_action('phpmailer_init', 'googlo_mail_smtp');
 }
 /*中文文件重命名
