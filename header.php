@@ -13,7 +13,7 @@
 <?php
 if (git_get_option('git_robot_b')): ?>
 <?php
-    if (is_single() || is_page() || is_home()): ?>
+    if (is_single() || is_home()): ?>
 <meta name="robots" content="index,follow" />
 <?php
     else: ?>
@@ -102,29 +102,29 @@ if (git_get_option('git_pichead_b')) { ?>
 if (git_get_option('git_tmnav_b')) echo '<style type="text/css">#nav-header{background-color: rgba(85,84,85, 0.5);background: rgba(85,84,85, 0.5);color: rgba(85,84,85, 0.5);}</style>'; ?>
 <?php
 if (git_get_option('git_skin_b') == 'git_red_b') {
-	$skin_nom = '#E74C3C';
-	$skin_hover = '#D52D1A';
+    $skin_nom = '#E74C3C';
+    $skin_hover = '#D52D1A';
 }elseif (git_get_option('git_skin_b') == 'git_blue_b'){
-	$skin_nom = '#003399';
-	$skin_hover = '#002266';
+    $skin_nom = '#003399';
+    $skin_hover = '#002266';
 }elseif (git_get_option('git_skin_b') == 'git_black_b'){
-	$skin_nom = '#616161';
-	$skin_hover = '#474747';
+    $skin_nom = '#616161';
+    $skin_hover = '#474747';
 }elseif (git_get_option('git_skin_b') == 'git_purple_b'){
-	$skin_nom = '#9932CC';
-	$skin_hover = '#7B28A4';
+    $skin_nom = '#9932CC';
+    $skin_hover = '#7B28A4';
 }elseif (git_get_option('git_skin_b') == 'git_yellow_b'){
-	$skin_nom = '#f5e011';
-	$skin_hover = '#C9B508';
+    $skin_nom = '#f5e011';
+    $skin_hover = '#C9B508';
 }elseif (git_get_option('git_skin_b') == 'git_light_b'){
-	$skin_nom = '#03A9F4';
-	$skin_hover = '#2196F3';
+    $skin_nom = '#03A9F4';
+    $skin_hover = '#2196F3';
 }elseif (git_get_option('git_skin_b') == 'git_green_b'){
-	$skin_nom = '#4CAF50';
-	$skin_hover = '#388E3C';
+    $skin_nom = '#4CAF50';
+    $skin_hover = '#388E3C';
 }elseif (git_get_option('git_skin_b') == 'git_custom_color'){
-	$skin_nom = git_get_option('git_color_nom');
-	$skin_hover = git_get_option('git_color_hover');
+    $skin_nom = git_get_option('git_color_nom');
+    $skin_hover = git_get_option('git_color_hover');
 }
     echo '<style type="text/css">.navbar .nav li:hover a, .navbar .nav li.current-menu-item a, .navbar .nav li.current-menu-parent a, .navbar .nav li.current_page_item a, .navbar .nav li.current-post-ancestor a,.toggle-search ,#submit ,.pagination ul>.active>a,.pagination ul>.active>span,.bdcs-container .bdcs-search-form-submit,.metacat a{background: ' . $skin_nom . ';}.footer,.title h2,.card-item .cardpricebtn{color: ' . $skin_nom . ';}.bdcs-container .bdcs-search-form-submit ,.bdcs-container .bdcs-search {border-color: ' . $skin_nom . ';}.pagination ul>li>a:hover,.navbar .nav li a:focus, .navbar .nav li a:hover,.toggle-search:hover,#submit:hover,.cardpricebtn .cardbuy {background-color: ' . $skin_hover . ';}.tooltip-inner{background-color:' . $skin_hover . ';}.tooltip.top .tooltip-arrow{border-top-color:' . $skin_hover . ';}.tooltip.right .tooltip-arrow{border-right-color:' . $skin_hover . ';}.tooltip.left .tooltip-arrow{border-left-color:' . $skin_hover . ';}.tooltip.bottom .tooltip-arrow{border-bottom-color:' . $skin_hover . ';}</style>';
 ?>
@@ -189,48 +189,40 @@ if (git_get_option('git_skin_b') == 'git_red_b') {
 } ?>
 <?php
 if (git_get_option('git_bdshare_b')) echo '<style type="text/css">.bdsharebuttonbox a{cursor:pointer;border-bottom:0;margin-right:5px;width:28px;height:28px;line-height:28px;color:#fff}.bds_renren{background:#94b3eb}.bds_qzone{background:#fac33f}.bds_more{background:#40a57d}.bds_weixin{background:#7ad071}.bdsharebuttonbox a:hover{background-color:#7fb4ab;color:#fff;border-bottom:0}</style>'; ?>
+<div class="toggle-search m-search" style="float:right;position:absolute;top:0;right:0;"><i class="fa fa-search"></i></div><div class="search-expand m-search" style="display:none;"><div class="search-expand-inner m-search">
+<?php if (git_get_option('git_search_baidu')) { ?>
+<?php echo git_get_option('git_search_code'); ?></div></div>
+<?php }else{ ?>
+<?php git_searchform();?>
+<?php } ?>
 <ul class="nav">
 <?php
 echo str_replace('</ul></div>', '', preg_replace('/<div[^>]*><ul[^>]*>/', '', wp_nav_menu(array('theme_location' => 'nav', 'echo' => false))));?>
 <li style="float:right;"><div class="toggle-search"><i class="fa fa-search"></i></div><div class="search-expand" style="display: none;"><div class="search-expand-inner">
-    <?php
-if (git_get_option('git_search_baidu')) { ?>
-    <?php
-    echo git_get_option('git_search_code'); ?></div></div>
-<?php
-} elseif (git_get_option('git_search') && !git_get_option('git_search_baidu')) { ?>
-<form method="get" class="searchform themeform" onsubmit="location.href='/?s=' + encodeURIComponent(this.s.value).replace(/%20/g, '+'); return false;" action="/"><div><input type="ext" class="search" name="s" onblur="if(this.value=='')this.value='<?php
-    echo git_get_option('git_search_placeholder', '输入内容并回车'); ?>';" onfocus="if(this.value=='<?php
-    echo git_get_option('git_search_placeholder', '输入内容并回车'); ?>')this.value='';" value="<?php
-    echo git_get_option('git_search_placeholder', '输入内容并回车'); ?>"></div></form></div></div>
-<?php
-} elseif (!git_get_option('git_search') && !git_get_option('git_search_baidu')) { ?>
-<form method="get" class="searchform themeform" onsubmit="location.href='<?php
-    echo home_url('/search/'); ?>' + encodeURIComponent(this.s.value).replace(/%20/g, '+'); return false;" action="/"><div><input type="ext" class="search" name="s" onblur="if(this.value=='')this.value='<?php
-    echo git_get_option('git_search_placeholder', '输入内容并回车'); ?>';" onfocus="if(this.value=='<?php
-    echo git_get_option('git_search_placeholder', '输入内容并回车'); ?>')this.value='';" value="<?php
-    echo git_get_option('git_search_placeholder', '输入内容并回车'); ?>"></div></form></div></div>
- <?php
-} ?>
+<?php if (git_get_option('git_search_baidu')) { ?>
+<?php echo git_get_option('git_search_code'); ?></div></div>
+<?php }else{ ?>
+<?php git_searchform();?>
+<?php } ?>
 </li>
 </ul>
 </div>
 </header>
 <section class="container">
 <div class="speedbar">
-		<?php
+        <?php
 if (git_get_option('git_sign_b')) {
     global $current_user;
     wp_get_current_user();
     $uid = $current_user->ID;
     $u_name = get_user_meta($uid, 'nickname', true);
 ?>
-			<div class="login-sign pull-right">
-		<?php if(git_get_option('git_fancylogin')) { /*判断是否打开弹窗登录*/ ?>
-		<?php
-		    if(is_user_logged_in()){/*判断是否登录，如果登录了就... */
-		        if(defined('UM_DIR')){/*判断是否按照um插件，如果安装就...*/
-		            if( current_user_can( 'manage_options' ) ) {/*如果是管理员的话...*/
+            <div class="login-sign pull-right">
+        <?php if(git_get_option('git_fancylogin')) { /*判断是否打开弹窗登录*/ ?>
+        <?php
+            if(is_user_logged_in()){/*判断是否登录，如果登录了就... */
+                if(defined('UM_DIR')){/*判断是否按照um插件，如果安装就...*/
+                    if( current_user_can( 'manage_options' ) ) {/*如果是管理员的话...*/
                         echo '<i class="fa fa-user"></i> <a href="' . home_url() . '/wp-admin">' . $u_name . '</a>';
                         echo '&nbsp;&nbsp;<i class="fa fa-power-off"></i> ';
                         echo wp_loginout();
@@ -239,8 +231,8 @@ if (git_get_option('git_sign_b')) {
                         echo '&nbsp;&nbsp;<i class="fa fa-power-off"></i> ';
                         echo wp_loginout();
                         echo '';}
-		        }else{/*如果没安装um插件就...*/
-		            if( current_user_can( 'manage_options' ) ) {/*如果是管理员的话...*/
+                }else{/*如果没安装um插件就...*/
+                    if( current_user_can( 'manage_options' ) ) {/*如果是管理员的话...*/
                         echo '<i class="fa fa-user"></i> <a href="' . home_url() . '/wp-admin">' . $u_name . '</a>';
                         echo '&nbsp;&nbsp;<i class="fa fa-power-off"></i> ';
                         echo wp_loginout();
@@ -249,19 +241,19 @@ if (git_get_option('git_sign_b')) {
                         echo '&nbsp;&nbsp;<i class="fa fa-power-off"></i> ';
                         echo wp_loginout();
                         echo '';}
-		        }
-		    }else{/*如果没有登录就...*/
-		        if(defined('UM_DIR')){/*如果安装um的话，就...*/
-		            echo '<i class="fa fa-sign-in" ></i>  <a style="cursor:pointer;" data-sign="0" class="user-login">登录</a>';
-		            if(get_option('users_can_register')){
-		            echo '&nbsp;&nbsp;<i class="fa fa-pencil-square-o" ></i>  <a style="cursor:pointer;" data-sign="1" class="user-reg">注册</a>';}
-		        }else{/*如果没有按照um插件的话就..*/
-		            echo '<i class="fa fa-sign-in" ></i> <a id="showdiv" href="#loginbox" data-original-title="点击登录">登录</a>';
-		            echo '&nbsp;&nbsp;<i class="fa fa-pencil-square-o" ></i>  <a href="' . home_url() . '/wp-login.php?action=register">注册</a>';
-		        }
-		    }
-		    ?>
-		<?php }else{ //如果没打开弹窗登录，那么就。。。?>
+                }
+            }else{/*如果没有登录就...*/
+                if(defined('UM_DIR')){/*如果安装um的话，就...*/
+                    echo '<i class="fa fa-sign-in" ></i>  <a style="cursor:pointer;" data-sign="0" class="user-login">登录</a>';
+                    if(get_option('users_can_register')){
+                    echo '&nbsp;&nbsp;<i class="fa fa-pencil-square-o" ></i>  <a style="cursor:pointer;" data-sign="1" class="user-reg">注册</a>';}
+                }else{/*如果没有按照um插件的话就..*/
+                    echo '<i class="fa fa-sign-in" ></i> <a id="showdiv" href="#loginbox" data-original-title="点击登录">登录</a>';
+                    echo '&nbsp;&nbsp;<i class="fa fa-pencil-square-o" ></i>  <a href="' . home_url() . '/wp-login.php?action=register">注册</a>';
+                }
+            }
+            ?>
+        <?php }else{ //如果没打开弹窗登录，那么就。。。?>
         <?php if (is_user_logged_in()) { /*判断是否登录 */
         echo '<i class="fa fa-user"></i> <a target="_blank" href="'.get_author_posts_url( $uid ).'">' . $u_name . '</a>';
         echo '  <i class="fa fa-power-off"></i> ';
@@ -280,35 +272,35 @@ wp_login_form(array( 'redirect' => site_url( $_SERVER['REQUEST_URI'] ) ));
 }?>
 </div>
 </div>
-		<?php
+        <?php
 } ?>
-		<div class="toptip" id="callboard"><ul style="font-size:16px;margin-top: 2px;">
-		<?php
-		if(git_get_option('git_gun_b')=='git_gun_tui'){
-			echo git_get_option('git_tui');
-		}elseif(git_get_option('git_gun_b')=='git_gun_shuo'){
+        <div class="toptip" id="callboard"><ul style="font-size:16px;margin-top: 2px;">
+        <?php
+        if(git_get_option('git_gun_b')=='git_gun_tui'){
+            echo git_get_option('git_tui');
+        }elseif(git_get_option('git_gun_b')=='git_gun_shuo'){
 $args = array(
-	'post_type'              => array( 'shuoshuo' ),
-	'post_status'            => array( 'publish' ),
-	'posts_per_page'         => '10',
-	'ignore_sticky_posts'    => false,
-	'cache_results'          => true,
+    'post_type'              => array( 'shuoshuo' ),
+    'post_status'            => array( 'publish' ),
+    'posts_per_page'         => '10',
+    'ignore_sticky_posts'    => false,
+    'cache_results'          => true,
 );
 $query = new WP_Query( $args );
 if ( $query->have_posts() ) {
-	while ( $query->have_posts() ) {
-		$query->the_post();
-		echo '<li>';
-		strip_tags(the_title());
-		echo '</li>';
-	}
+    while ( $query->have_posts() ) {
+        $query->the_post();
+        echo '<li>';
+        strip_tags(the_title());
+        echo '</li>';
+    }
 } else {
-	echo '暂无说说';
+    echo '暂无说说';
 }
 wp_reset_postdata();
-		}	
+        }
  ?>
 </ul></div>
-	</div>
+    </div>
 <?php
 if (git_get_option('git_adsite_01')) echo '<div class="banner banner-site">' . git_get_option('git_adsite_01') . '</div>'; ?>

@@ -1,7 +1,5 @@
 <?php
-if(phpversion() < 5.5 ){
-    wp_die( '本主题不支持在PHP5.4及以下版本运行，请升级PHP版本 ^_^' );
-}
+if(phpversion()<5.5){ wp_die( '本主题不支持在PHP5.4及以下版本运行，请升级PHP版本 ^_^' );}
 /*定义一些常量*/
 define( 'GIT_VER', wp_get_theme()->get( 'Version' ) );
 add_action('after_setup_theme', 'deel_setup');
@@ -302,6 +300,7 @@ if (!function_exists('deel_paging')):
         if ($max_page == 1) return;
         echo '<div class="pagination"><ul>';
         if (empty($paged)) $paged = 1;
+        // echo '<span class="pages">Page: ' . $paged . ' of ' . $max_page . ' </span> ';
         echo '<li class="prev-page">';
         previous_posts_link('上一页');
         echo '</li>';
@@ -311,9 +310,11 @@ if (!function_exists('deel_paging')):
             if ($i > 0 && $i <= $max_page) $i == $paged ? print "<li class=\"active\"><span>{$i}</span></li>" : p_link($i);
         }
         if ($paged < $max_page - $p - 1) echo "<li><span> ... </span></li>";
+        //if ( $paged < $max_page - $p ) p_link( $max_page, '&raquo;' );
         echo '<li class="next-page">';
         next_posts_link('下一页');
         echo '</li>';
+        // echo '<li><span>共 '.$max_page.' 页</span></li>';
         echo '</ul></div>';
     }
     function p_link($i, $title = '') {
@@ -357,11 +358,19 @@ function deel_share() {
     global $dHasShare;
     $dHasShare = true;
 }
+
+//搜索表单
+function git_searchform() {
+$search_placeholder = git_get_option('git_search_placeholder', '输入内容并回车');
+?>
+<form method="get" class="searchform themeform" onsubmit="location.href='<?php echo home_url('/search/'); ?>' + encodeURIComponent(this.s.value).replace(/%20/g, '+'); return false;" action="/"><div><input type="ext" class="search" name="s" onblur="if(this.value=='')this.value='<?php echo $search_placeholder; ?>';" onfocus="if(this.value=='<?php echo $search_placeholder; ?>')this.value='';" value="<?php echo $search_placeholder; ?>"></div></form></div></div>
+<?php
+}
+
 function deel_avatar_default() {
     return get_template_directory_uri() . '/assets/img/default.png';
 }
 //评论头像缓存
-if (git_get_option('git_avater')=='git_avatar_b') {
 function deel_avatar($avatar) {
     $tmp = strpos($avatar, 'http');
     $g = substr($avatar, $tmp, strpos($avatar, "'", $tmp) - $tmp);
@@ -377,6 +386,7 @@ function deel_avatar($avatar) {
     if (filesize($e) < 500) copy(get_template_directory_uri() . '/assets/img/default.png', $e);
     return $avatar;
 }
+if (git_get_option('git_avater')=='git_avatar_b') {
     add_filter('get_avatar', 'deel_avatar');
 }
 //头像镜像
@@ -805,48 +815,60 @@ function googlo_remove_open_sans_from_wp_core() {
 add_action('init', 'googlo_remove_open_sans_from_wp_core');
 
 //免插件去除Category
-if (git_get_option('git_category_b')) :
+if (git_get_option('git_category_b')) {
     add_action('load-themes.php', 'no_category_base_refresh_rules');
     add_action('created_category', 'no_category_base_refresh_rules');
     add_action('edited_category', 'no_category_base_refresh_rules');
     add_action('delete_category', 'no_category_base_refresh_rules');
+}
 function no_category_base_refresh_rules() {
     global $wp_rewrite;
     $wp_rewrite->flush_rules();
 }
+// Remove category base
 add_action('init', 'no_category_base_permastruct');
 function no_category_base_permastruct() {
-    global $wp_rewrite;
+    global $wp_rewrite, $wp_version;
+    if (version_compare($wp_version, '3.4', '<')) {
+    } else {
         $wp_rewrite->extra_permastructs['category']['struct'] = '%category%';
+    }
 }
+// Add our custom category rewrite rules
 add_filter('category_rewrite_rules', 'no_category_base_rewrite_rules');
 function no_category_base_rewrite_rules($category_rewrite) {
+    //var_dump($category_rewrite); // For Debugging
     $category_rewrite = array();
     $categories = get_categories(array(
         'hide_empty' => false
     ));
     foreach ($categories as $category) {
         $category_nicename = $category->slug;
-        if ($category->parent == $category->cat_ID)
+        if ($category->parent == $category->cat_ID) // recursive recursion
         $category->parent = 0;
         elseif ($category->parent != 0) $category_nicename = get_category_parents($category->parent, false, '/', true) . $category_nicename;
         $category_rewrite['(' . $category_nicename . ')/(?:feed/)?(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?category_name=$matches[1]&feed=$matches[2]';
         $category_rewrite['(' . $category_nicename . ')/page/?([0-9]{1,})/?$'] = 'index.php?category_name=$matches[1]&paged=$matches[2]';
         $category_rewrite['(' . $category_nicename . ')/?$'] = 'index.php?category_name=$matches[1]';
     }
+    // Redirect support from Old Category Base
     global $wp_rewrite;
     $old_category_base = get_option('category_base') ? get_option('category_base') : 'category';
     $old_category_base = trim($old_category_base, '/');
     $category_rewrite[$old_category_base . '/(.*)$'] = 'index.php?category_redirect=$matches[1]';
+    //var_dump($category_rewrite); // For Debugging
     return $category_rewrite;
 }
+// Add 'category_redirect' query variable
 add_filter('query_vars', 'no_category_base_query_vars');
 function no_category_base_query_vars($public_query_vars) {
     $public_query_vars[] = 'category_redirect';
     return $public_query_vars;
 }
+// Redirect if 'category_redirect' is set
 add_filter('request', 'no_category_base_request');
 function no_category_base_request($query_vars) {
+    //print_r($query_vars); // For Debugging
     if (isset($query_vars['category_redirect'])) {
         $catlink = trailingslashit(home_url()) . user_trailingslashit($query_vars['category_redirect'], 'category');
         status_header(301);
@@ -855,7 +877,6 @@ function no_category_base_request($query_vars) {
     }
     return $query_vars;
 }
-endif;
 //添加文章版权信息
 function git_copyright($content ) {
     if ((is_single() || is_feed()) && git_get_option('git_copyright_b')) {
@@ -875,9 +896,7 @@ function fancybox($content){
 }
 add_filter('the_content', 'fancybox');
 add_filter('asgarosforum_filter_post_content', 'fancybox');
-
 //WordPress文字标签关键词自动内链
-if (git_get_option('git_autolink_b')) {
 $match_num_min = git_get_option('git_autolink_1'); //一篇文章中同一個標籤少於幾次不自動鏈接
 $match_num_max = git_get_option('git_autolink_2'); //一篇文章中同一個標籤最多自動鏈接幾次
 function tag_sort($a, $b) {
@@ -907,11 +926,11 @@ function tag_link($content) {
     }
     return $content;
 }
+if (git_get_option('git_autolink_b')) {
     add_filter('the_content', 'tag_link', 1);
 }
-
-//图片img标签添加alt，title属性
 if(git_get_option('git_imgalt_b')):
+//图片img标签添加alt，title属性
 function imagesalt($content) {
        global $post;
        $pattern ="/<img(.*?)src=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>/i";
@@ -1051,7 +1070,7 @@ function Ajax_data_zfunc_smiley_button() {
 }
 add_action('init', 'Ajax_data_zfunc_smiley_button');
 //后台回复评论支持表情插入
-function zfunc_admin_enqueue_scripts() {
+function zfunc_admin_enqueue_scripts($hook_suffix) {
 	global $pagenow;
     if( $pagenow == 'edit-comments.php' ){
     wp_enqueue_script('zfunc-comment-reply', get_template_directory_uri() . '/assets/js/admin_reply.js', false, '1.0', true );
@@ -1118,6 +1137,7 @@ function git_esc_callback($matches) {
     $tag_open = $matches[1];
     $content = $matches[2];
     $tag_close = $matches[3];
+    //$content = htmlspecialchars($content, ENT_NOQUOTES, get_bloginfo('charset'));
     $content = esc_html($content);
     return $tag_open . $content . $tag_close;
 }
@@ -1136,13 +1156,13 @@ add_filter('the_content', 'git_prettify_replace');
 add_filter('asgarosforum_filter_post_content', 'git_prettify_replace');
 
 //首页隐藏一些分类
-if (git_get_option('git_blockcat_b')) {
 function exclude_category_home($query) {
     if ($query->is_home) {
         $query->set('cat', '' . git_get_option('git_blockcat') . ''); //隐藏这两个分类
     }
     return $query;
 }
+if (git_get_option('git_blockcat_b')) {
     add_filter('pre_get_posts', 'exclude_category_home');
 }
 //固化插入图片选项
@@ -1577,6 +1597,7 @@ class Simple_Local_Avatars {
         return apply_filters('simple_local_avatar', $avatar);
     }
     public function admin_init() {
+        //load_plugin_textdomain( 'git', false, dirname( plugin_basename( __FILE__ ) ) . '/localization/' );
         register_setting('discussion', 'simple_local_avatars_caps', array(
             $this,
             'sanitize_options'
@@ -1638,9 +1659,8 @@ class Simple_Local_Avatars {
     <?php
     }
     public function edit_user_profile_update($user_id) {
-        if (!isset($_POST['_simple_local_avatar_nonce']) || !wp_verify_nonce($_POST['_simple_local_avatar_nonce'], 'simple_local_avatar_nonce')) {
-            return;
-        }
+        if (!isset($_POST['_simple_local_avatar_nonce']) || !wp_verify_nonce($_POST['_simple_local_avatar_nonce'], 'simple_local_avatar_nonce')) //security
+        return;
         if (!empty($_FILES['simple-local-avatar']['name'])) {
             $mimes = array(
                 'jpg|jpeg|jpe' => 'image/jpeg',
@@ -1664,9 +1684,12 @@ class Simple_Local_Avatars {
                 )
             ));
             if (empty($avatar['file'])) { // handle failures
-                if ($avatar['error'] = 'File type does not meet security guidelines. Try another.') {
+                switch ($avatar['error']) {
+                    case 'File type does not meet security guidelines. Try another.':
                         add_action('user_profile_update_errors', create_function('$a', '$a->add("avatar_error",__("请上传有效的图片文件。","git"));'));
-                }else{
+                        break;
+
+                    default:
                         add_action('user_profile_update_errors', create_function('$a', '$a->add("avatar_error","<strong>".__("上传头像过程中出现以下错误：","git")."</strong> ' . esc_attr($avatar['error']) . '");'));
                 }
                 return;
@@ -2275,7 +2298,7 @@ function git_wps_login_error() {
 }
 add_action('login_head', 'git_wps_login_error');
 //设HTML为默认编辑器
-add_filter( 'wp_default_editor', create_function('', 'return "html";') );
+//add_filter( 'wp_default_editor', create_function('', 'return "html";') );
 //使链接自动可点击
 add_filter('the_content', 'make_clickable');
 //管理后台添加按钮
@@ -2465,11 +2488,10 @@ function e_secret($atts, $content=null){
 add_shortcode('secret','e_secret');
 //加载密码可见的样式
 function secret_css() {
-	global $post,$posts;
-		foreach ($posts as $post) {
-				if( is_singular() ) {
+	global $post;
+			if( is_singular() ) {
 			if ( has_shortcode( $post->post_content, 'secret') || has_shortcode( $post->post_content, 'vip')  ){
-    echo '<style type="text/css">form.e-secret{margin:20px 0;padding:20px;height:60px;background:#f8f8f8}.e-secret input.euc-y-i[type=password]{float:left;background:#fff;width:100%;line-height:36px;margin-top:5px;border-radius:3px}.e-secret input.euc-y-s[type=submit]{float:right;margin-top:-47px;width:30%;margin-right:1px;border-radius:0 3px 3px 0}input.euc-y-s[type=submit]{background-color:#3498db;color:#fff;font-size:21px;box-shadow:none;-webkit-transition:.4s;-moz-transition:.4s;-o-transition:.4s;transition:.4s;-webkit-backface-visibility:hidden;position:relative;cursor:pointer;padding:13px 20px;text-align:center;border-radius:50px;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;border:0;height:auto;outline:medium;line-height:20px;margin:0}input.euc-y-s[type=submit]:hover{background-color:#5dade2}input.euc-y-i[type=password],input.euc-y-i[type=text]{border:1px solid #F2EFEF;color:#777;display:block;background:#FCFCFC;font-size:18px;transition:all .5s ease 0;outline:0;box-sizing:border-box;-webkit-border-radius:25px;-moz-border-radius:25px;border-radius:25px;padding:5px 16px;margin:0;height:auto;line-height:30px}input.euc-y-i[type=password]:hover,input.euc-y-i[type=text]:hover{border:1px solid #56b4ef;box-shadow:0 0 4px #56b4ef}.e-secret fieldset{background:#fff;margin:5px 0;padding:0 5px 10px 10px;width:98%;border-radius:2px;border:1px solid #ddd}.e-secret legend{width:90px;padding:2px 10px;margin:5px;border-radius:2px;border:1px solid #ddd}.wxbox{border:1px dashed #F60;line-height:200%;padding-top:5px;color:red;background-color:#FFF4FF;overflow:hidden;clear:both}.wxbox.yzts{padding-left:10%}.wx form{float:left}.wxbox #verifycode{width:46%;height:32px;line-height:30px;padding:0 25px;border:1px solid #F60}.wxbox #verifybtn{width:10%;height:34px;line-height:34px;padding:0 5px;background-color:#F60;text-align:center;border:none;cursor:pointer;color:#FFF}.cl{clear:both;height:0}.wxpic{float:left;width:18%}.wxtips{color:#32B9B5;float:left;width:72%;padding-left:5%;padding-top:0;font-size:20px;line-height:150%;text-align:left;font-family:Microsoft YaHei}.yzts{margin-left: 40px}@media (max-width:600px){.yzts{margin-left:5px}.wxpic{float:left}.wxbox #verifycode{width:35%}.wxbox #verifybtn{width:22%}.wxpic,.wxtips{width:100%}.wxtips{font-size:15px;padding:2px}}</style>';}}}}
+    echo '<style type="text/css">form.e-secret{margin:20px 0;padding:20px;height:60px;background:#f8f8f8}.e-secret input.euc-y-i[type=password]{float:left;background:#fff;width:100%;line-height:36px;margin-top:5px;border-radius:3px}.e-secret input.euc-y-s[type=submit]{float:right;margin-top:-47px;width:30%;margin-right:1px;border-radius:0 3px 3px 0}input.euc-y-s[type=submit]{background-color:#3498db;color:#fff;font-size:21px;box-shadow:none;-webkit-transition:.4s;-moz-transition:.4s;-o-transition:.4s;transition:.4s;-webkit-backface-visibility:hidden;position:relative;cursor:pointer;padding:13px 20px;text-align:center;border-radius:50px;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;border:0;height:auto;outline:medium;line-height:20px;margin:0}input.euc-y-s[type=submit]:hover{background-color:#5dade2}input.euc-y-i[type=password],input.euc-y-i[type=text]{border:1px solid #F2EFEF;color:#777;display:block;background:#FCFCFC;font-size:18px;transition:all .5s ease 0;outline:0;box-sizing:border-box;-webkit-border-radius:25px;-moz-border-radius:25px;border-radius:25px;padding:5px 16px;margin:0;height:auto;line-height:30px}input.euc-y-i[type=password]:hover,input.euc-y-i[type=text]:hover{border:1px solid #56b4ef;box-shadow:0 0 4px #56b4ef}.e-secret fieldset{background:#fff;margin:5px 0;padding:0 5px 10px 10px;width:98%;border-radius:2px;border:1px solid #ddd}.e-secret legend{width:90px;padding:2px 10px;margin:5px;border-radius:2px;border:1px solid #ddd}.wxbox{border:1px dashed #F60;line-height:200%;padding-top:5px;color:red;background-color:#FFF4FF;overflow:hidden;clear:both}.wxbox.yzts{padding-left:10%}.wx form{float:left}.wxbox #verifycode{width:46%;height:32px;line-height:30px;padding:0 25px;border:1px solid #F60}.wxbox #verifybtn{width:10%;height:34px;line-height:34px;padding:0 5px;background-color:#F60;text-align:center;border:none;cursor:pointer;color:#FFF}.cl{clear:both;height:0}.wxpic{float:left;width:18%}.wxtips{color:#32B9B5;float:left;width:72%;padding-left:5%;padding-top:0;font-size:20px;line-height:150%;text-align:left;font-family:Microsoft YaHei}.yzts{margin-left: 40px}@media (max-width:600px){.yzts{margin-left:5px}.wxpic{float:left}.wxbox #verifycode{width:35%}.wxbox #verifybtn{width:22%}.wxpic,.wxtips{width:100%}.wxtips{font-size:15px;padding:2px}}</style>';}}}
 add_action('wp_head', 'secret_css');
 //小工具支持PHP代码运行，其实是不安全的
 function widget_php($text){
@@ -2891,10 +2913,9 @@ function validate_reg_ips() {
 add_filter('validate_username', 'validate_reg_ips', 10, 1);
 function ip_restrict_errors($errors) {
 	global $err_msg;
-	if ( isset( $errors->errors['invalid_username'] ) ){
+	if ( isset( $errors->errors['invalid_username'] ) )
 	$errors->errors['invalid_username'][0] = __( $err_msg, ' ' );
 	return $errors;
-	}
 }
 add_filter('registration_errors', 'ip_restrict_errors');
 function update_reg_ips(){
@@ -2902,16 +2923,16 @@ file_put_contents("ips.txt",getIp()."\r\n",FILE_APPEND);
 }
 add_action('user_register','update_reg_ips');
 function getIp(){
-	if (getenv("HTTP_CLIENT_IP") && strcasecmp(getenv("HTTP_CLIENT_IP"), "unknown")){
-	$ip = getenv("HTTP_CLIENT_IP");}
-	else if (getenv("HTTP_X_FORWARDED_FOR") && strcasecmp(getenv("HTTP_X_FORWARDED_FOR"), "unknown")){
-	$ip = getenv("HTTP_X_FORWARDED_FOR");}
-	else if (getenv("REMOTE_ADDR") && strcasecmp(getenv("REMOTE_ADDR"), "unknown")){
-	$ip = getenv("REMOTE_ADDR");}
-	else if (isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] && strcasecmp($_SERVER['REMOTE_ADDR'], "unknown")){
-	$ip = $_SERVER['REMOTE_ADDR'];}
-	else{
-	$ip = "unknown";}
+	if (getenv("HTTP_CLIENT_IP") && strcasecmp(getenv("HTTP_CLIENT_IP"), "unknown"))
+	$ip = getenv("HTTP_CLIENT_IP");
+	else if (getenv("HTTP_X_FORWARDED_FOR") && strcasecmp(getenv("HTTP_X_FORWARDED_FOR"), "unknown"))
+	$ip = getenv("HTTP_X_FORWARDED_FOR");
+	else if (getenv("REMOTE_ADDR") && strcasecmp(getenv("REMOTE_ADDR"), "unknown"))
+	$ip = getenv("REMOTE_ADDR");
+	else if (isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] && strcasecmp($_SERVER['REMOTE_ADDR'], "unknown"))
+	$ip = $_SERVER['REMOTE_ADDR'];
+	else
+	$ip = "unknown";
 	return $ip;
 }
 endif;
@@ -2927,5 +2948,14 @@ function lazyload($content){
 add_filter('the_content', 'lazyload');
 add_filter('asgarosforum_filter_post_content', 'lazyload');
 endif;
+
+//自动中英文空格
+function content_autospace( $data ) {
+	$data = preg_replace('/([\x{4e00}-\x{9fa5}]+)([A-Za-z0-9_]+)/u', '${1} ${2}', $data);
+	$data = preg_replace('/([A-Za-z0-9_]+)([\x{4e00}-\x{9fa5}]+)/u', '${1} ${2}', $data);
+	return $data;
+}
+add_filter( 'the_content','content_autospace' );
+add_filter('asgarosforum_filter_post_content', 'content_autospace');
 //WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://googlo.me/archives/4032.html
 ?>

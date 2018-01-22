@@ -29,5 +29,4 @@ echo str_replace('</ul></div>', '', preg_replace('/<div[^>]*><ul[^>]*>/', '', wp
 		<?php comments_template('', true); endwhile;  ?>
 	</div>
 </div>
-
 <?php get_footer(); ?>
