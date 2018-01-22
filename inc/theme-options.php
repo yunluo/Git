@@ -1533,6 +1533,55 @@ $options = array(
     array(
         'type'  => 'hr'
     ),
+	array(
+        'title' => 'HTML5 桌面推送',
+        'type'  => 'subtitle'
+    ),
+	array(
+        'name'  => 'HTML5推送标题【必选】',
+        'desc'  => '显示在弹窗顶部',
+        'id'    => 'git_notification_title',
+        'type'  => 'text',
+        'std'   => 'Hi，你好'
+    ),
+	array(
+        'name'  => 'HTML5推送间隔【必选】',
+        'desc'  => '输入数字，当自动关闭或者用户关闭之后多久再次弹窗，默认10天',
+        'id'    => 'git_notification_days',
+        'type'  => 'number',
+        'std'   => 10
+    ),
+	array(
+        'name'  => 'HTML5推送COOKIE【必选】',
+        'desc'  => '修改COOKIE值可以强制向访客推送新的信息，无视时间间隔，不能使用中文，默认233',
+        'id'    => 'git_notification_cookie',
+        'type'  => 'text',
+        'std'   => '233'
+    ),
+	array(
+        'name'  => 'HTML5推送图片【必选】',
+        'desc'  => '填写一个正方形的图片，显示在推送信息左侧，默认为默认头像',
+        'id'    => 'git_notification_icon',
+        'type'  => 'text',
+        'std'   => deel_avatar_default()
+    ),
+	array(
+        'name'  => 'HTML5推送链接【可选】',
+        'desc'  => '当用户点击弹窗的时候说点击的链接，默认为乐趣公园',
+        'id'    => 'git_notification_link',
+        'type'  => 'text',
+        'std'   => 'https://googlo.me'
+    ),
+	array(
+        'name'  => 'HTML5推送内容',
+        'desc'  => '在这里输入推送主体内容，字数合适就行，不能太多【必选】',
+        'id'    => 'git_notification_body',
+        'type'  => 'textarea',
+        'std'   => '乐趣公园，一个分享有趣的安卓APP和实用的WordPress技术以及Windows使用技巧的网站'
+    ),
+	array(
+        'type'  => 'hr'
+    ),
     array(
         'title' => 'STMP邮箱设置',
         'type'  => 'subtitle'

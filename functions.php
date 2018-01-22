@@ -777,6 +777,7 @@ function Bing_admin_lettering() {
     </style>';
 }
 add_action('admin_head', 'Bing_admin_lettering');
+
 //添加相关文章图片文章
 if (function_exists('add_theme_support')) add_theme_support('post-thumbnails');
 //输出缩略图地址
@@ -2951,5 +2952,56 @@ function content_autospace( $data ) {
 }
 add_filter( 'the_content','content_autospace' );
 add_filter('asgarosforum_filter_post_content', 'content_autospace');
+
+//HTML5 桌面通知
+function Notification_js(){
+	if( git_get_option('git_notification_days') && git_get_option('git_notification_title') && git_get_option('git_notification_body') && git_get_option('git_notification_icon') && git_get_option('git_notification_cookie')){
+    ?>
+    <script type="text/javascript">
+    if (window.Notification) {
+	function setCookie(name, value) {
+		var exp = new Date();
+		exp.setTime(exp.getTime() + <?php echo git_get_option('git_notification_days');?> * 24 * 60 * 60 * 1000);
+		document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString() + ";path=/";
+	}
+	function getCookie(name) {
+		var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+		if (arr != null) return unescape(arr[2]);
+		return null
+	}
+	var popNotice = function() {
+			if (Notification.permission == "granted") {
+				var n = new Notification("<?php echo git_get_option('git_notification_title');?>", {
+					body: "<?php echo git_get_option('git_notification_body');?>",
+					icon: "<?php echo git_get_option('git_notification_icon');?>"
+				});
+				n.onclick = function() {
+					window.open("<?php echo git_get_option('git_notification_link');?>", "_blank");
+					n.close()
+				};
+				n.onclose = function() {
+					setCookie("git_Notification", "<?php echo git_get_option('git_notification_cookie');?>")
+				}
+			}
+		};
+	if (getCookie("git_Notification") == "<?php echo git_get_option('git_notification_cookie');?>") {
+		console.log("您已关闭桌面弹窗提醒，有效期为<?php echo git_get_option('git_notification_days');?>天！")
+	} else {
+		if (Notification.permission == "granted") {
+			popNotice()
+		} else if (Notification.permission != "denied") {
+			Notification.requestPermission(function(permission) {
+				popNotice()
+			})
+		}
+	}
+} else {
+	console.log("您的浏览器不支持Web Notification")
+}
+</script>
+    <?php
+	}
+}
+add_action('get_footer','Notification_js');
 //WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://googlo.me/archives/4032.html
 ?>
