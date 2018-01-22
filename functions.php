@@ -828,11 +828,8 @@ function no_category_base_refresh_rules() {
 // Remove category base
 add_action('init', 'no_category_base_permastruct');
 function no_category_base_permastruct() {
-    global $wp_rewrite, $wp_version;
-    if (version_compare($wp_version, '3.4', '<')) {
-    } else {
+    global $wp_rewrite;
         $wp_rewrite->extra_permastructs['category']['struct'] = '%category%';
-    }
 }
 // Add our custom category rewrite rules
 add_filter('category_rewrite_rules', 'no_category_base_rewrite_rules');
@@ -1602,7 +1599,7 @@ class Simple_Local_Avatars {
             $this,
             'sanitize_options'
         ));
-        add_settings_field('git-caps', __('本地上传头像权限管理', 'git') , array(
+        add_settings_field('git-caps', '本地上传头像权限管理', array(
             $this,
             'avatar_settings_field'
         ) , 'discussion', 'avatars');
@@ -1615,20 +1612,16 @@ class Simple_Local_Avatars {
         $options = get_option('simple_local_avatars_caps');
         echo '
             <label for="simple_local_avatars_caps">
-                <input type="checkbox" name="simple_local_avatars_caps" id="simple_local_avatars_caps" value="1" ' . @checked($options['simple_local_avatars_caps'], 1, false) . ' />
-                ' . __('仅具有头像上传权限的用户具有设置本地头像权限（作者及更高等级角色）。', 'git') . '
-            </label>
+                <input type="checkbox" name="simple_local_avatars_caps" id="simple_local_avatars_caps" value="1" ' . @checked($options['simple_local_avatars_caps'], 1, false) . ' />仅具有头像上传权限的用户具有设置本地头像权限（作者及更高等级角色）</label>
         ';
     }
     public function edit_user_profile($profileuser) {
 ?>
-    <h3><?php
-        _e('头像', 'git'); ?></h3>
+    <h3>头像</h3>
 
     <table class="form-table">
         <tr>
-            <th><label for="simple-local-avatar"><?php
-        _e('上传头像', 'git'); ?></label></th>
+            <th><label for="simple-local-avatar">上传头像</label></th>
             <td style="width: 50px;" valign="top">
                 <?php
         echo get_avatar($profileuser->ID); ?>
@@ -1642,14 +1635,14 @@ class Simple_Local_Avatars {
 ?>
                     <input type="file" name="simple-local-avatar" id="simple-local-avatar" /><br />
             <?php
-            if (empty($profileuser->simple_local_avatar)) echo '<span class="description">' . __('尚未设置本地头像，请点击“浏览”按钮上传本地头像。', 'git') . '</span>';
+            if (empty($profileuser->simple_local_avatar)) echo '<span class="description">尚未设置本地头像，请点击“浏览”按钮上传本地头像。</span>';
             else echo '
-                            <input type="checkbox" name="simple-local-avatar-erase" value="1" /> ' . __('移除本地头像', 'git') . '<br />
-                            <span class="description">' . __('如需要修改本地头像，请重新上传新头像。如需要移除本地头像，请选中上方的“移除本地头像”复选框并更新个人资料即可。<br/>移除本地头像后，将恢复使用 Gravatar 头像。', 'git') . '</span>
+                            <input type="checkbox" name="simple-local-avatar-erase" value="1" />移除本地头像<br />
+                            <span class="description">如需要修改本地头像，请重新上传新头像。如需要移除本地头像，请选中上方的“移除本地头像”复选框并更新个人资料即可。<br/>移除本地头像后，将恢复使用 Gravatar 头像</span>
                         ';
         } else {
-            if (empty($profileuser->simple_local_avatar)) echo '<span class="description">' . __('尚未设置本地头像，请在 Gravatar.com 网站设置头像。', 'git') . '</span>';
-            else echo '<span class="description">' . __('你没有头像上传权限，如需要修改本地头像，请联系站点管理员。', 'git') . '</span>';
+            if (empty($profileuser->simple_local_avatar)) echo '<span class="description">尚未设置本地头像，请在 Gravatar.com 网站设置头像</span>';
+            else echo '<span class="description">你没有头像上传权限，如需要修改本地头像，请联系站点管理员</span>';
         }
 ?>
             </td>
@@ -1688,7 +1681,6 @@ class Simple_Local_Avatars {
                     case 'File type does not meet security guidelines. Try another.':
                         add_action('user_profile_update_errors', create_function('$a', '$a->add("avatar_error",__("请上传有效的图片文件。","git"));'));
                         break;
-
                     default:
                         add_action('user_profile_update_errors', create_function('$a', '$a->add("avatar_error","<strong>".__("上传头像过程中出现以下错误：","git")."</strong> ' . esc_attr($avatar['error']) . '");'));
                 }
@@ -1768,14 +1760,14 @@ if (!is_admin() && git_get_option('git_qncdn_b') ) {
 }
 
 //自动替换媒体库图片的域名
+if (is_admin() && git_get_option('git_cdnurl_b') && git_get_option('git_adminqn_b')) {
 function attachment_replace($text) {
     $replace = array(
         '' . home_url() . '' => '' . git_get_option('git_cdnurl_b') . ''
     );
     $text = str_replace(array_keys($replace) , $replace, $text);
     return $text;
-}
-if (is_admin() && git_get_option('git_cdnurl_b') && git_get_option('git_adminqn_b')) {
+    }
     add_filter('wp_get_attachment_url', 'attachment_replace');
 }
 
@@ -2059,7 +2051,7 @@ function custom_shuoshuo_rewrites_init(){
 add_action( 'init', 'custom_shuoshuo_rewrites_init' );
 
 //添加产品功能
-if(!defined('UM_DIR')):{/*如果安装um的话，就禁用这个功能*/
+if(!defined('UM_DIR')):/*如果安装um的话，就禁用这个功能*/
 function git_product() {
 	$labels = array(
 		'name'                  => '产品',
@@ -2133,7 +2125,7 @@ function custom_product_rewrites_init(){
 		'top' );
 }
 add_action( 'init', 'custom_product_rewrites_init' );
-}endif;
+endif;
 /*
 修复4.2表情bug
 下面代码来自：http://www.9sep.org/remove-emoji-in-wordpress
@@ -2407,6 +2399,7 @@ add_action('login_enqueue_scripts', 'git_login_protection');
 endif;
 /*救命啊！ps.很好，搜索这段代码很可能意味着你把自己后台给锁了，将保护后台登录这大段代码删除即可*/
 //登录失败提醒
+if(git_get_option('git_login_tx')){
 function git_login_failed_notify(){
     date_default_timezone_set('PRC');
     $admin_email = get_bloginfo ('admin_email');
@@ -2423,7 +2416,7 @@ function git_login_failed_notify(){
 	$from = "From: \"" . get_option('blogname') . "\" <$wp_email>";
 	$headers = "$from\nContent-Type: text/html; charset=" . get_option('blog_charset') . "\n";
 	wp_mail( $to, $subject, $message, $headers );
-}if(git_get_option('git_login_tx')){
+}
 add_action('wp_login_failed', 'git_login_failed_notify');
 }
 //取消静态资源的版本查询
@@ -2516,6 +2509,7 @@ function php_include($attr){
 add_shortcode('phpcode', 'php_include');
 
 //评论微信推送
+if(git_get_option('git_Server') && !is_admin() ){
 function sc_send($comment_id){
     $text = '网站上有新的评论，请及时查看';//微信推送信息标题
     $comment = get_comment($comment_id);
@@ -2531,7 +2525,7 @@ function sc_send($comment_id){
     $opts = array('http' => array('method' => 'POST', 'header' => 'Content-type: application/x-www-form-urlencoded', 'content' => $postdata));
     $context = stream_context_create($opts);
     return $result = file_get_contents('http://sc.ftqq.com/' . $key . '.send', false, $context);
-}if(git_get_option('git_Server') && !is_admin() ){
+}
 add_action('comment_post', 'sc_send', 19, 2);
 }
 // 内链图片src
