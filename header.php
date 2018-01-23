@@ -28,7 +28,7 @@ if (git_get_option('git_headcode')) echo git_get_option('git_headcode'); ?>
 <title><?php
 wp_title('' . git_get_option('git_delimiter') . '', true, 'right');
 echo get_option('blogname');
-if (is_home()) echo '' . git_get_option('git_delimiter') . '', get_option('blogdescription');
+if (is_home() || is_front_page()) echo '' . git_get_option('git_delimiter') . '', get_option('blogdescription');
 if ($paged > 1) echo '-Page ', $paged; ?></title>
 <?php
 $sr_1 = 0;

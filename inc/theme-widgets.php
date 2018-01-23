@@ -1012,8 +1012,7 @@ class git_subscribe extends WP_Widget {
         $placeholder = esc_attr($instance['placeholder']);
 ?>
 		<p><label for="<?php
-        echo $this->get_field_id('title'); ?>"><?php
-        _e('Title:'); ?></label>
+        echo $this->get_field_id('title'); ?>">标题</label>
 		<input class="widefat" id="<?php
         echo $this->get_field_id('title'); ?>" name="<?php
         echo $this->get_field_name('title'); ?>" type="text" value="<?php

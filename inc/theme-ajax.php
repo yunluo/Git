@@ -12,7 +12,7 @@ $comment_post_ID = isset($_POST['comment_post_ID']) ? (int) $_POST['comment_post
 $post = get_post($comment_post_ID);
 if ( empty($post->comment_status) ) {
 	do_action('comment_id_not_found', $comment_post_ID);
-	err(__('Invalid comment status.')); // 將exit 改為錯誤提示
+	err('Invalid comment status.'); // 將exit 改為錯誤提示
 }
 
 $status = get_post_status($post);
@@ -88,7 +88,7 @@ echo '<li '; comment_class(); echo ' id="comment-'.get_comment_ID().'">';
 
 //头像
 echo '<div class="c-avatar">';
-echo get_avatar( $comment->comment_author_email, $size = '54' , deel_avatar_default() ); 
+echo get_avatar( $comment->comment_author_email, $size = '54' , deel_avatar_default() );
 //内容
 echo '<div class="c-main" id="div-comment-'.get_comment_ID().'">';
 	echo comment_text();
@@ -97,7 +97,7 @@ echo '<div class="c-main" id="div-comment-'.get_comment_ID().'">';
 	}
 	//信息
 	echo '<div class="c-meta">';
-		echo '<span class="c-author">'.get_comment_author_link().'</span>'; echo get_comment_time('m-d H:i '); echo time_ago(); 
+		echo '<span class="c-author">'.get_comment_author_link().'</span>'; echo get_comment_time('m-d H:i '); echo time_ago();
 	echo '</div>';
 echo '</div></div>';
 ?>

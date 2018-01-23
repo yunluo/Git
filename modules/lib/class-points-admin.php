@@ -222,9 +222,9 @@ class Points_Admin {
 							$output = "";
 							$status = get_option( 'points-points_status', POINTS_STATUS_ACCEPTED );
 							$status_descriptions = array(
-									POINTS_STATUS_ACCEPTED => __( 'Accepted', 'points' ),
-									POINTS_STATUS_PENDING   => __( 'Pending', 'points' ),
-									POINTS_STATUS_REJECTED => __( 'Rejected', 'points' ),
+									POINTS_STATUS_ACCEPTED => '正常',
+									POINTS_STATUS_PENDING  => '待审',
+									POINTS_STATUS_REJECTED => '驳回',
 							);
 							foreach ( $status_descriptions as $key => $label ) {
 								$selected = $key == $status ? ' selected="selected" ' : '';
@@ -374,9 +374,9 @@ class Points_Admin {
 		$output .= '</label>';
 		$output .= '</p>';
 		$status_descriptions = array(
-				POINTS_STATUS_ACCEPTED => __( 'Accepted', 'points' ),
-				POINTS_STATUS_PENDING  => __( 'Pending', 'points' ),
-				POINTS_STATUS_REJECTED => __( 'Rejected', 'points' ),
+				POINTS_STATUS_ACCEPTED => '正常',
+				POINTS_STATUS_PENDING  => '待审',
+				POINTS_STATUS_REJECTED => '驳回',
 		);
 		$output .= '<p>';
 		$output .= '<label>';

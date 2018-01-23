@@ -95,6 +95,9 @@ add_action( 'wp_dashboard_setup',         'git_dweandw_remove', 20 );
 	remove_filter( 'pre_link_notes', 'wp_filter_kses' );
 	remove_filter( 'term_description', 'wp_kses_data' );
     //添加主题特性
+	add_theme_support( 'title-tag' );//title
+    add_theme_support('post-thumbnails');//缩略图设置
+	add_theme_support( 'post-formats', array(  'aside' ) );//增加文章形式
     add_theme_support('custom-background', array(
 		'default-image' => get_template_directory_uri() . '/assets/img/bg.png',
 		'default-repeat'         => 'repeat',
@@ -104,8 +107,6 @@ add_action( 'wp_dashboard_setup',         'git_dweandw_remove', 20 );
 		'default-attachment'     => 'fixed'
 		)
 	);
-    //添加文字形式支持
-    add_theme_support( 'post-formats', array(  'aside' ) );
     //屏蔽顶部工具栏
 	add_filter( 'show_admin_bar', '__return_false' );
     //关键字
@@ -178,15 +179,14 @@ add_filter('admin_footer_text', 'git_admin_footer_text');
     //修改默认发信地址
     add_filter('wp_mail_from', 'deel_res_from_email');
     add_filter('wp_mail_from_name', 'deel_res_from_name');
-    //缩略图设置
-    add_theme_support('post-thumbnails');
+
     add_editor_style('editor-style.css');
 	add_filter( 'max_srcset_image_width', create_function( '', 'return 1;' ) );
     //定义菜单
     if (function_exists('register_nav_menus')) {
         register_nav_menus(array(
-            'nav' => __('网站导航') ,
-            'pagemenu' => __('页面导航')
+            'nav' => '网站导航' ,
+            'pagemenu' => '页面导航'
         ));
     }
 }
@@ -244,34 +244,11 @@ endif;
 //页面伪静态
 if (git_get_option('git_pagehtml_b') ):
     add_action('init', 'html_page_permalink', -1);
-    register_activation_hook(__FILE__, 'active');
-    register_deactivation_hook(__FILE__, 'deactive');
     function html_page_permalink() {
         global $wp_rewrite;
         if (!strpos($wp_rewrite->get_page_permastruct() , '.html')) {
             $wp_rewrite->page_structure = $wp_rewrite->page_structure . '.html';
         }
-    }
-    add_filter('user_trailingslashit', 'no_page_slash', 66, 2);
-    function no_page_slash($string, $type) {
-        global $wp_rewrite;
-        if ($wp_rewrite->using_permalinks() && $wp_rewrite->use_trailing_slashes == true && $type == 'page') {
-            return untrailingslashit($string);
-        } else {
-            return $string;
-        }
-    }
-    function active() {
-        global $wp_rewrite;
-        if (!strpos($wp_rewrite->get_page_permastruct() , '.html')) {
-            $wp_rewrite->page_structure = $wp_rewrite->page_structure . '.html';
-        }
-        $wp_rewrite->flush_rules();
-    }
-    function deactive() {
-        global $wp_rewrite;
-        $wp_rewrite->page_structure = str_replace(".html", "", $wp_rewrite->page_structure);
-        $wp_rewrite->flush_rules();
     }
 endif;
 
@@ -608,7 +585,7 @@ function deel_comment_list($comment, $args, $depth) {
             'depth' => $depth,
             'max_depth' => $args['max_depth']
         )));
-        echo edit_comment_link(__('(编辑)') , ' - ', '');
+        echo edit_comment_link('(编辑)' , ' - ', '');
         if (git_get_option('git_ua_b')) echo '<span style="color: #ff6600;"> ' . user_agent($comment->comment_agent) . '</span>';
     }
     echo '</div>';
@@ -687,7 +664,7 @@ if (git_get_option('git_spam_url') && !is_user_logged_in()):
 function Googlolink($commentdata) {
     $links = '/http:\/\/|https:\/\/|www\./u';
     if (preg_match($links, $commentdata['comment_author']) || preg_match($links, $commentdata['comment_content'])) {
-        err(__('在昵称和评论里面是不准发链接滴.'));
+        err('在昵称和评论里面是不准发链接滴.');
     }
     return ($commentdata);
 }
@@ -786,8 +763,6 @@ function Bing_admin_lettering() {
 }
 add_action('admin_head', 'Bing_admin_lettering');
 
-//添加相关文章图片文章
-if (function_exists('add_theme_support')) add_theme_support('post-thumbnails');
 //输出缩略图地址
 function post_thumbnail_src() {
     global $post;
@@ -918,7 +893,7 @@ function tag_link($content) {
             $link = get_tag_link($tag->term_id);
             $keyword = $tag->name;
             $cleankeyword = stripslashes($keyword);
-            $url = "<a href=\"$link\" title=\"" . str_replace('%s', addcslashes($cleankeyword, '$') , __('查看更多关于%s的文章')) . "\"";
+            $url = "<a href=\"$link\" title=\"" . str_replace('%s', addcslashes($cleankeyword, '$') , '查看更多关于%s的文章') . "\"";
             $url.= ' target="_blank"';
             $url.= ">" . addcslashes($cleankeyword, '$') . "</a>";
             $limit = $match_num_max;
@@ -1181,7 +1156,7 @@ add_action( 'after_setup_theme', 'git_attachment_display_settings' );
 //后台日志阅读统计
 add_filter('manage_posts_columns', 'postviews_admin_add_column');
 function postviews_admin_add_column($columns) {
-    $columns['views'] = __('阅读');
+    $columns['views'] = '阅读';
     return $columns;
 }
 add_action('manage_posts_custom_column', 'postviews_admin_show', 10, 2);
@@ -1545,206 +1520,192 @@ if (!git_get_option('git_updates_b')):
 endif;
 
 //本地头像
-class Simple_Local_Avatars {
-    private $user_id_being_edited;
-    public function __construct() {
-        add_filter('get_avatar', array(
-            $this,
-            'get_avatar'
-        ) , 10, 5);
-        add_action('admin_init', array(
-            $this,
-            'admin_init'
-        ));
-        add_action('show_user_profile', array(
-            $this,
-            'edit_user_profile'
-        ));
-        add_action('edit_user_profile', array(
-            $this,
-            'edit_user_profile'
-        ));
-        add_action('personal_options_update', array(
-            $this,
-            'edit_user_profile_update'
-        ));
-        add_action('edit_user_profile_update', array(
-            $this,
-            'edit_user_profile_update'
-        ));
-        add_filter('avatar_defaults', array(
-            $this,
-            'avatar_defaults'
-        ));
-    }
-    public function get_avatar($avatar = '', $id_or_email, $size = 96, $default = '', $alt = false) {
-        if (is_numeric($id_or_email)) $user_id = (int)$id_or_email;
-        elseif (is_string($id_or_email) && ($user = get_user_by('email', $id_or_email))) $user_id = $user->ID;
-        elseif (is_object($id_or_email) && !empty($id_or_email->user_id)) $user_id = (int)$id_or_email->user_id;
-        if (empty($user_id)) return $avatar;
-        $local_avatars = get_user_meta($user_id, 'simple_local_avatar', true);
-        if (empty($local_avatars) || empty($local_avatars['full'])) return $avatar;
-        $size = (int)$size;
-        if (empty($alt)) $alt = get_the_author_meta('display_name', $user_id);
-        // generate a new size
-        if (empty($local_avatars[$size])) {
-            $upload_path = wp_upload_dir();
-            $avatar_full_path = str_replace($upload_path['baseurl'], $upload_path['basedir'], $local_avatars['full']);
-            $image_sized = image_resize($avatar_full_path, $size, $size, true);
-            // deal with original being >= to original image (or lack of sizing ability)
-            $local_avatars[$size] = is_wp_error($image_sized) ? $local_avatars[$size] = $local_avatars['full'] : str_replace($upload_path['basedir'], $upload_path['baseurl'], $image_sized);
-            // save updated avatar sizes
-            update_user_meta($user_id, 'simple_local_avatar', $local_avatars);
-        } elseif (substr($local_avatars[$size], 0, 4) != 'http') {
-            $local_avatars[$size] = home_url($local_avatars[$size]);
-        }
-        $author_class = is_author($user_id) ? ' current-author' : '';
-        $avatar = "<img alt='" . esc_attr($alt) . "' src='" . $local_avatars[$size] . "' class='avatar avatar-{$size}{$author_class} photo' height='{$size}' width='{$size}' />";
-        return apply_filters('simple_local_avatar', $avatar);
-    }
-    public function admin_init() {
-        //load_plugin_textdomain( 'git', false, dirname( plugin_basename( __FILE__ ) ) . '/localization/' );
-        register_setting('discussion', 'simple_local_avatars_caps', array(
-            $this,
-            'sanitize_options'
-        ));
-        add_settings_field('git-caps', '本地上传头像权限管理', array(
-            $this,
-            'avatar_settings_field'
-        ) , 'discussion', 'avatars');
-    }
-    public function sanitize_options($input) {
-        $new_input['simple_local_avatars_caps'] = empty($input['simple_local_avatars_caps']) ? 0 : 1;
-        return $new_input;
-    }
-    public function avatar_settings_field($args) {
-        $options = get_option('simple_local_avatars_caps');
-        echo '
-            <label for="simple_local_avatars_caps">
-                <input type="checkbox" name="simple_local_avatars_caps" id="simple_local_avatars_caps" value="1" ' . @checked($options['simple_local_avatars_caps'], 1, false) . ' />仅具有头像上传权限的用户具有设置本地头像权限（作者及更高等级角色）</label>
-        ';
-    }
-    public function edit_user_profile($profileuser) {
-?>
-    <h3>头像</h3>
+class simple_local_avatars {
+	private $user_id_being_edited;
+	public function __construct() {
+		add_action( 'admin_init',                array( $this, 'admin_init'               )        );
+		add_action( 'show_user_profile',         array( $this, 'edit_user_profile'        )        );
+		add_action( 'edit_user_profile',         array( $this, 'edit_user_profile'        )        );
+		add_action( 'personal_options_update',   array( $this, 'edit_user_profile_update' )        );
+		add_action( 'edit_user_profile_update',  array( $this, 'edit_user_profile_update' )        );
+		add_filter( 'get_avatar',                array( $this, 'get_avatar'               ), 10, 5 );
+		add_filter( 'avatar_defaults',           array( $this, 'avatar_defaults'          )        );
+	}
+	public function admin_init() {
+		register_setting('discussion', 'simple_local_avatars_caps', array($this,'sanitize_options'));
+		add_settings_field( 'basic-user-avatars-caps', '本地上传头像权限管理', array( $this, 'avatar_settings_field' ), 'discussion', 'avatars' );
+	}
+	public function avatar_settings_field( $args ) {
+		$options = get_option( 'simple_local_avatars_caps' );
+		?>
+		<label for="simple_local_avatars_caps">
+			<input type="checkbox" name="simple_local_avatars_caps" id="simple_local_avatars_caps" value="1" <?php checked( $options['simple_local_avatars_caps'], 1 ); ?>/>仅具有头像上传权限的用户具有设置本地头像权限（作者及更高等级角色）</label>
+		<?php
+	}
+	public function sanitize_options( $input ) {
+		$new_input['simple_local_avatars_caps'] = empty( $input['simple_local_avatars_caps'] ) ? 0 : 1;
+		return $new_input;
+	}
+	public function get_avatar( $avatar, $id_or_email, $size = 96, $default, $alt ) {
+		if ( is_numeric( $id_or_email ) )
+			$user_id = (int) $id_or_email;
+		elseif ( is_string( $id_or_email ) && ( $user = get_user_by( 'email', $id_or_email ) ) )
+			$user_id = $user->ID;
+		elseif ( is_object( $id_or_email ) && ! empty( $id_or_email->user_id ) )
+			$user_id = (int) $id_or_email->user_id;
+		if ( empty( $user_id ) )
+			return $avatar;
+		$local_avatars = get_user_meta( $user_id, 'simple_local_avatar', true );
+		if ( empty( $local_avatars ) || empty( $local_avatars['full'] ) )
+			return $avatar;
+		$size = (int) $size;
+		if ( empty( $alt ) )
+			$alt = get_the_author_meta( 'display_name', $user_id );
+		if ( empty( $local_avatars[$size] ) ) {
+			$upload_path      = wp_upload_dir();
+			$avatar_full_path = str_replace( $upload_path['baseurl'], $upload_path['basedir'], $local_avatars['full'] );
+			$image            = wp_get_image_editor( $avatar_full_path );
+			if ( ! is_wp_error( $image ) ) {
+				$image->resize( $size, $size, true );
+				$image_sized = $image->save();
+			}
+			$local_avatars[$size] = is_wp_error( $image_sized ) ? $local_avatars[$size] = $local_avatars['full'] : str_replace( $upload_path['basedir'], $upload_path['baseurl'], $image_sized['path'] );
+			update_user_meta( $user_id, 'simple_local_avatar', $local_avatars );
+		} elseif ( substr( $local_avatars[$size], 0, 4 ) != 'http' ||substr( $local_avatars[$size], 0, 5 ) != 'https' ) {
+			$local_avatars[$size] = home_url( $local_avatars[$size] );
+		}
+		$author_class = is_author( $user_id ) ? ' current-author' : '' ;
+		$avatar       = "<img alt='" . esc_attr( $alt ) . "' src='" . $local_avatars[$size] . "' class='avatar avatar-{$size}{$author_class} photo' height='{$size}' width='{$size}' />";
+		return apply_filters( 'simple_local_avatar', $avatar );
+	}
+	public function edit_user_profile( $profileuser ) {
+		?>
+		<h3>头像</h3>
+		<table class="form-table">
+			<tr>
+				<th><label for="basic-user-avatar">上传头像</label></th>
+				<td style="width: 50px;" valign="top">
+					<?php echo get_avatar( $profileuser->ID ); ?>
+				</td>
+				<td>
+				<?php
+				$options = get_option( 'simple_local_avatars_caps' );
+				if ( empty( $options['simple_local_avatars_caps'] ) || current_user_can( 'upload_files' ) ) {
+					// Nonce security ftw
+					wp_nonce_field( 'simple_local_avatar_nonce', '_simple_local_avatar_nonce', false );
 
-    <table class="form-table">
-        <tr>
-            <th><label for="simple-local-avatar">上传头像</label></th>
-            <td style="width: 50px;" valign="top">
-                <?php
-        echo get_avatar($profileuser->ID); ?>
-            </td>
-            <td>
-            <?php
-        $options = get_option('simple_local_avatars_caps');
-        if (empty($options['simple_local_avatars_caps']) || current_user_can('upload_files')) {
-            do_action('simple_local_avatar_notices');
-            wp_nonce_field('simple_local_avatar_nonce', '_simple_local_avatar_nonce', false);
-?>
-                    <input type="file" name="simple-local-avatar" id="simple-local-avatar" /><br />
-            <?php
-            if (empty($profileuser->simple_local_avatar)) echo '<span class="description">尚未设置本地头像，请点击“浏览”按钮上传本地头像。</span>';
-            else echo '
-                            <input type="checkbox" name="simple-local-avatar-erase" value="1" />移除本地头像<br />
-                            <span class="description">如需要修改本地头像，请重新上传新头像。如需要移除本地头像，请选中上方的“移除本地头像”复选框并更新个人资料即可。<br/>移除本地头像后，将恢复使用 Gravatar 头像</span>
-                        ';
-        } else {
-            if (empty($profileuser->simple_local_avatar)) echo '<span class="description">尚未设置本地头像，请在 Gravatar.com 网站设置头像</span>';
-            else echo '<span class="description">你没有头像上传权限，如需要修改本地头像，请联系站点管理员</span>';
-        }
-?>
-            </td>
-        </tr>
-    </table>
-    <script type="text/javascript">var form = document.getElementById('your-profile');form.encoding = 'multipart/form-data';form.setAttribute('enctype', 'multipart/form-data');</script>
-    <?php
-    }
-    public function edit_user_profile_update($user_id) {
-        if (!isset($_POST['_simple_local_avatar_nonce']) || !wp_verify_nonce($_POST['_simple_local_avatar_nonce'], 'simple_local_avatar_nonce')) //security
-        return;
-        if (!empty($_FILES['simple-local-avatar']['name'])) {
-            $mimes = array(
-                'jpg|jpeg|jpe' => 'image/jpeg',
-                'gif' => 'image/gif',
-                'png' => 'image/png',
-                'bmp' => 'image/bmp',
-                'tif|tiff' => 'image/tiff'
-            );
-            // front end (theme my profile etc) support
-            if (!function_exists('wp_handle_upload')) require_once (ABSPATH . 'wp-inc/includes/file.php');
-            $this->avatar_delete($user_id); // delete old images if successful
-            // need to be more secure since low privelege users can upload
-            if (strstr($_FILES['simple-local-avatar']['name'], '.php')) wp_die('For security reasons, the extension ".php" cannot be in your file name.');
-            $this->user_id_being_edited = $user_id; // make user_id known to unique_filename_callback function
-            $avatar = wp_handle_upload($_FILES['simple-local-avatar'], array(
-                'mimes' => $mimes,
-                'test_form' => false,
-                'unique_filename_callback' => array(
-                    $this,
-                    'unique_filename_callback'
-                )
-            ));
-            if (empty($avatar['file'])) { // handle failures
-                switch ($avatar['error']) {
-                    case 'File type does not meet security guidelines. Try another.':
-                        add_action('user_profile_update_errors', create_function('$a', '$a->add("avatar_error",__("请上传有效的图片文件。","git"));'));
-                        break;
-                    default:
-                        add_action('user_profile_update_errors', create_function('$a', '$a->add("avatar_error","<strong>".__("上传头像过程中出现以下错误：","git")."</strong> ' . esc_attr($avatar['error']) . '");'));
-                }
-                return;
-            }
-            update_user_meta($user_id, 'simple_local_avatar', array(
-                'full' => $avatar['url']
-            )); // save user information (overwriting old)
+					// File upload input
+					echo '<input type="file" name="basic-user-avatar" id="basic-local-avatar" /><br />';
 
-        } elseif (!empty($_POST['simple-local-avatar-erase'])) {
-            $this->avatar_delete($user_id);
-        }
-    }
-    /**
-     * remove the custom get_avatar hook for the default avatar list output on options-discussion.php
-     */
-    public function avatar_defaults($avatar_defaults) {
-        remove_action('get_avatar', array(
-            $this,
-            'get_avatar'
-        ));
-        return $avatar_defaults;
-    }
-    /**
-     * delete avatars based on user_id
-     */
-    public function avatar_delete($user_id) {
-        $old_avatars = get_user_meta($user_id, 'simple_local_avatar', true);
-        $upload_path = wp_upload_dir();
-        if (is_array($old_avatars)) {
-            foreach ($old_avatars as $old_avatar) {
-                $old_avatar_path = str_replace($upload_path['baseurl'], $upload_path['basedir'], $old_avatar);
-                @unlink($old_avatar_path);
-            }
-        }
-        delete_user_meta($user_id, 'simple_local_avatar');
-    }
-    public function unique_filename_callback($dir, $name, $ext) {
-        $user = get_user_by('id', (int)$this->user_id_being_edited);
-        $name = $base_name = sanitize_file_name(substr(md5($user->user_login) , 0, 12) . '_avatar');
-        $number = 1;
-        while (file_exists($dir . "/$name$ext")) {
-            $name = $base_name . '_' . $number;
-            $number++;
-        }
-        return $name . $ext;
-    }
+					if ( empty( $profileuser->simple_local_avatar ) ) {
+						echo '<span class="description">尚未设置本地头像，请点击“浏览”按钮上传本地头像</span>';
+					} else {
+						echo '<input type="checkbox" name="basic-user-avatar-erase" value="1" />移除本地头像<br />';
+						echo '<span class="description">如需要修改本地头像，请重新上传新头像。如需要移除本地头像，请选中上方的“移除本地头像”复选框并更新个人资料即可。<br/>移除本地头像后，将恢复使用 Gravatar 头像</span>';
+					}
+
+				} else {
+					if ( empty( $profileuser->simple_local_avatar ) ) {
+						echo '<span class="description">尚未设置本地头像，请在 Gravatar.com 网站设置头像</span>';
+					} else {
+						echo '<span class="description">你没有头像上传权限，如需要修改本地头像，请联系站点管理员</span>';
+					}
+				}
+				?>
+				</td>
+			</tr>
+		</table>
+		<script type="text/javascript">var form = document.getElementById('your-profile');form.encoding = 'multipart/form-data';form.setAttribute('enctype', 'multipart/form-data');</script>
+		<?php
+	}
+
+
+	public function edit_user_profile_update( $user_id ) {
+
+		// Check for nonce otherwise bail
+		if ( ! isset( $_POST['_simple_local_avatar_nonce'] ) || ! wp_verify_nonce( $_POST['_simple_local_avatar_nonce'], 'simple_local_avatar_nonce' ) )
+			return;
+
+		if ( ! empty( $_FILES['basic-user-avatar']['name'] ) ) {
+
+			// Allowed file extensions/types
+			$mimes = array(
+				'jpg|jpeg|jpe' => 'image/jpeg',
+				'gif'          => 'image/gif',
+				'png'          => 'image/png',
+			);
+
+			// Front end support - shortcode, bbPress, etc
+			if ( ! function_exists( 'wp_handle_upload' ) )
+				require_once ABSPATH . 'wp-admin/includes/file.php';
+
+			// Delete old images if successful
+			$this->avatar_delete( $user_id );
+
+			// Need to be more secure since low privelege users can upload
+			if ( strstr( $_FILES['basic-user-avatar']['name'], '.php' ) )
+				wp_die( '基于安全考虑 ".php" 格式文件禁止删除' );
+
+			// Make user_id known to unique_filename_callback function
+			$this->user_id_being_edited = $user_id;
+			$avatar = wp_handle_upload( $_FILES['basic-user-avatar'], array( 'mimes' => $mimes, 'test_form' => false, 'unique_filename_callback' => array( $this, 'unique_filename_callback' ) ) );
+
+			// Handle failures
+			if ( empty( $avatar['file'] ) ) {
+				switch ( $avatar['error'] ) {
+				case '文件不是正确的图片文件，请重试' :
+					add_action( 'user_profile_update_errors', create_function( '$a', '$a->add("avatar_error","请上传有效的图片文件");' ) );
+					break;
+				default :
+					add_action( 'user_profile_update_errors', create_function( '$a', '$a->add("avatar_error","<strong>上传头像过程中出现以下错误：</strong> ' . esc_attr( $avatar['error'] ) . '");' ) );
+				}
+				return;
+			}
+
+			// Save user information (overwriting previous)
+			update_user_meta( $user_id, 'simple_local_avatar', array( 'full' => $avatar['url'] ) );
+
+		} elseif ( ! empty( $_POST['basic-user-avatar-erase'] ) ) {
+			// Nuke the current avatar
+			$this->avatar_delete( $user_id );
+		}
+	}
+
+	public function avatar_defaults( $avatar_defaults ) {
+		remove_action( 'get_avatar', array( $this, 'get_avatar' ) );
+		return $avatar_defaults;
+	}
+
+	public function avatar_delete( $user_id ) {
+		$old_avatars = get_user_meta( $user_id, 'simple_local_avatar', true );
+		$upload_path = wp_upload_dir();
+
+		if ( is_array( $old_avatars ) ) {
+			foreach ( $old_avatars as $old_avatar ) {
+				$old_avatar_path = str_replace( $upload_path['baseurl'], $upload_path['basedir'], $old_avatar );
+				@unlink( $old_avatar_path );
+			}
+		}
+
+		delete_user_meta( $user_id, 'simple_local_avatar' );
+	}
+
+
+	public function unique_filename_callback( $dir, $name, $ext ) {
+		$user = get_user_by( 'id', (int) $this->user_id_being_edited );
+		$name = $base_name = sanitize_file_name( $user->display_name . '_avatar' );
+		$number = 1;
+
+		while ( file_exists( $dir . "/$name$ext" ) ) {
+			$name = $base_name . '_' . $number;
+			$number++;
+		}
+
+		return $name . $ext;
+	}
 }
-$simple_local_avatars = new Simple_Local_Avatars;
-function get_simple_local_avatar($id_or_email, $size = '96', $default = '', $alt = false) {
-    global $simple_local_avatars;
-    $avatar = $simple_local_avatars->get_avatar('', $id_or_email, $size, $default, $alt);
-    if (empty($avatar)) $avatar = get_avatar($id_or_email, $size, $default, $alt);
-    return $avatar;
-}
+$simple_local_avatars = new simple_local_avatars;
+
 //七牛CDN
 if (!is_admin() && git_get_option('git_qncdn_b') ) {
     add_action('wp_loaded', 'Googlo_ob_start');
@@ -1841,10 +1802,10 @@ add_action( 'register_form', 'git_show_extra_register_fields' );
 
 function git_check_extra_register_fields($login, $email, $errors) {
     if ( $_POST['password'] !== $_POST['repeat_password'] ) {
-        $errors->add( 'passwords_not_matched', __("<strong>错误提示</strong>: 两次填写密码不一致" ) );
+        $errors->add( 'passwords_not_matched', "<strong>错误提示</strong>: 两次填写密码不一致"  );
     }
     if ( strlen( $_POST['password'] ) < 8 ) {
-        $errors->add( 'password_too_short', __("<strong>错误提示</strong>: 密码必须大于8个字符" ) );
+        $errors->add( 'password_too_short', "<strong>错误提示</strong>: 密码必须大于8个字符"  );
     }
 }
 add_action( 'register_post', 'git_check_extra_register_fields', 10, 3 );
@@ -1872,10 +1833,10 @@ add_action( 'user_register', 'git_register_extra_fields', 100 );
 function git_edit_password_email_text ( $translated_text, $untranslated_text, $domain ) {
     if(in_array($GLOBALS['pagenow'], array('wp-login.php'))){
         if ( $untranslated_text == 'A password will be e-mailed to you.' ) {
-            $translated_text = __( '若密码留空,则自动生成一个密码,并邮件密码给您' );
+            $translated_text = '若密码留空,则自动生成一个密码,并邮件密码给您';
         }
         if( $untranslated_text == 'Registration complete. Please check your e-mail.' ) {
-            $translated_text = __( '注册已完成,请用您的密码登录或者检查您的邮箱' );
+            $translated_text = '注册已完成,请用您的密码登录或者检查您的邮箱';
         }
     }
     return $translated_text;
@@ -2388,11 +2349,11 @@ function git_reset_password_message($message, $key) {
         $user_data = get_user_by('login', $login);
     }
     $user_login = $user_data->user_login;
-    $msg = __('有人要求重设如下帐号的密码：') . "\r\n\r\n";
+    $msg = "有人要求重设如下帐号的密码：\r\n\r\n";
     $msg.= network_site_url() . "\r\n\r\n";
-    $msg.= sprintf(__('用户名：%s') , $user_login) . "\r\n\r\n";
-    $msg.= __('若这不是您本人要求的，请忽略本邮件，一切如常。') . "\r\n\r\n";
-    $msg.= __('要重置您的密码，请打开下面的链接：') . "\r\n\r\n";
+    $msg.= sprintf('用户名：%s' , $user_login) . "\r\n\r\n";
+    $msg.= "若这不是您本人要求的，请忽略本邮件，一切如常。\r\n\r\n";
+    $msg.= "要重置您的密码，请打开下面的链接：\r\n\r\n";
     $msg.= network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login) , 'login');
     return $msg;
 }
@@ -2495,17 +2456,7 @@ function secret_css() {
 			if ( has_shortcode( $post->post_content, 'secret') || has_shortcode( $post->post_content, 'vip')  ){
     echo '<style type="text/css">form.e-secret{margin:20px 0;padding:20px;height:60px;background:#f8f8f8}.e-secret input.euc-y-i[type=password]{float:left;background:#fff;width:100%;line-height:36px;margin-top:5px;border-radius:3px}.e-secret input.euc-y-s[type=submit]{float:right;margin-top:-47px;width:30%;margin-right:1px;border-radius:0 3px 3px 0}input.euc-y-s[type=submit]{background-color:#3498db;color:#fff;font-size:21px;box-shadow:none;-webkit-transition:.4s;-moz-transition:.4s;-o-transition:.4s;transition:.4s;-webkit-backface-visibility:hidden;position:relative;cursor:pointer;padding:13px 20px;text-align:center;border-radius:50px;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;border:0;height:auto;outline:medium;line-height:20px;margin:0}input.euc-y-s[type=submit]:hover{background-color:#5dade2}input.euc-y-i[type=password],input.euc-y-i[type=text]{border:1px solid #F2EFEF;color:#777;display:block;background:#FCFCFC;font-size:18px;transition:all .5s ease 0;outline:0;box-sizing:border-box;-webkit-border-radius:25px;-moz-border-radius:25px;border-radius:25px;padding:5px 16px;margin:0;height:auto;line-height:30px}input.euc-y-i[type=password]:hover,input.euc-y-i[type=text]:hover{border:1px solid #56b4ef;box-shadow:0 0 4px #56b4ef}.e-secret fieldset{background:#fff;margin:5px 0;padding:0 5px 10px 10px;width:98%;border-radius:2px;border:1px solid #ddd}.e-secret legend{width:90px;padding:2px 10px;margin:5px;border-radius:2px;border:1px solid #ddd}.wxbox{border:1px dashed #F60;line-height:200%;padding-top:5px;color:red;background-color:#FFF4FF;overflow:hidden;clear:both}.wxbox.yzts{padding-left:10%}.wx form{float:left}.wxbox #verifycode{width:46%;height:32px;line-height:30px;padding:0 25px;border:1px solid #F60}.wxbox #verifybtn{width:10%;height:34px;line-height:34px;padding:0 5px;background-color:#F60;text-align:center;border:none;cursor:pointer;color:#FFF}.cl{clear:both;height:0}.wxpic{float:left;width:18%}.wxtips{color:#32B9B5;float:left;width:72%;padding-left:5%;padding-top:0;font-size:20px;line-height:150%;text-align:left;font-family:Microsoft YaHei}.yzts{margin-left: 40px}@media (max-width:600px){.yzts{margin-left:5px}.wxpic{float:left}.wxbox #verifycode{width:35%}.wxbox #verifybtn{width:22%}.wxpic,.wxtips{width:100%}.wxtips{font-size:15px;padding:2px}}</style>';}}}
 add_action('wp_head', 'secret_css');
-//小工具支持PHP代码运行，其实是不安全的
-function widget_php($text){
-    if (strpos($text, '<' . '?') !== false) {
-        ob_start();
-        eval('?' . '>' . $text);
-        $text = ob_get_contents();
-        ob_end_clean();
-    }
-    return $text;
-}
-add_filter('widget_text', 'widget_php', 99);
+
 // 支持文章和页面运行PHP代码
 function php_include($attr){
     $file = $attr['file'];
@@ -2722,7 +2673,7 @@ add_filter('manage_users_custom_column', 'ssid_return_value', 10, 3);
 //用户列表显示积分
 add_filter( 'manage_users_columns', 'my_users_columns' );
 function my_users_columns( $columns ){
-    $columns[ 'points' ] = __( '金币' );
+    $columns[ 'points' ] = '金币';
     return $columns;
 }
 function  output_my_users_columns( $value, $column_name, $user_id ){
@@ -2761,7 +2712,7 @@ function git_ripms_user_avatar($value, $column_name, $user_id) {
 add_action('manage_users_custom_column',  'git_ripms_user_avatar', 10, 3);
 //用户增加评论数量
 function git_users_comments( $columns ){
-    $columns[ 'comments' ] = __( '评论' );
+    $columns[ 'comments' ] = '评论';
     return $columns;
 }
 add_filter( 'manage_users_columns', 'git_users_comments' );
@@ -2917,7 +2868,7 @@ add_filter('validate_username', 'validate_reg_ips', 10, 1);
 function ip_restrict_errors($errors) {
 	global $err_msg;
 	if ( isset( $errors->errors['invalid_username'] ) )
-	$errors->errors['invalid_username'][0] = __( $err_msg, ' ' );
+	$errors->errors['invalid_username'][0] = $err_msg;
 	return $errors;
 }
 add_filter('registration_errors', 'ip_restrict_errors');
