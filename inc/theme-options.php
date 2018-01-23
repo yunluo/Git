@@ -17,7 +17,6 @@ $options = array(
         ),
         'std'   => 'git_gun_tui'
     ),
-
     array(
         'name'  => '滚动公告栏',
         'desc'  => '最新消息显示在全站导航条下方，非常给力的推广位置',
@@ -1950,9 +1949,9 @@ switch ( $value['type'] ) {
 <a class="button button-primary" href="https://coding.net/u/googlo/p/Git/git/commits/alpha" target="_blank">更新日志</a>
 <a class="button button-primary" href="http://googlo.me/bbs.html" target="_blank">支持论坛</a>
 <a class="button button-primary" href="http://googlo.me/git-faq.html" target="_blank">使用文档</a>
-<h2>支持云落</h2>
-<p>如果您觉的这款主题很赞，欢迎您扫码支持云落，<font color="#ff0000">PS.主题不会用，扫码之后联系云落QQ</font></p>
-<img src="http://71bbs.people.com.cn/postImages/89/CD/90/93/1509845471379.jpg"></img>
+<h2>关注公众号</h2>
+<p>欢迎关注乐趣公园公众号，<font color="#ff0000">PS.主题有不会使用的，也可以直接在公众号查找使用方法哦</font></p>
+<img src="http://71bbs.people.com.cn/postImages/21/AE/7C/33/1516688538675.jpg"></img>
 </div>
 <p class="submit">
     <input name="submit" type="submit" class="button button-primary" value="保存选项"/>
