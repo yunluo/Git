@@ -265,7 +265,6 @@ class Points_Admin {
 						<div class="points-admin-label">论坛发帖金币
 							<input type="text" name="points_post" value="<?php echo get_option('points-post', "0"); ?>" size="4">
 						</div>
-						<a class="button button-primary" href="<?php echo admin_url('themes.php'); ?>" target="_blank">【重要】无法增加金币请点此修复</a>
 					</div>
 				</div>
 				<div class="points-admin-line">

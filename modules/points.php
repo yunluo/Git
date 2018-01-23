@@ -16,7 +16,7 @@ class Points_Class {
 	private static $notices = array();
 	public static function init() {
 		add_action( 'init', array( __CLASS__, 'wp_init' ) );
-		add_action( 'load-themes.php', array( __CLASS__, 'activate' ) );
+		add_action( 'admin_init', array( __CLASS__, 'activate' ) );
 	}
 
 	public static function wp_init() {
