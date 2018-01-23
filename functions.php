@@ -1591,19 +1591,14 @@ class simple_local_avatars {
 				<?php
 				$options = get_option( 'simple_local_avatars_caps' );
 				if ( empty( $options['simple_local_avatars_caps'] ) || current_user_can( 'upload_files' ) ) {
-					// Nonce security ftw
 					wp_nonce_field( 'simple_local_avatar_nonce', '_simple_local_avatar_nonce', false );
-
-					// File upload input
 					echo '<input type="file" name="basic-user-avatar" id="basic-local-avatar" /><br />';
-
 					if ( empty( $profileuser->simple_local_avatar ) ) {
 						echo '<span class="description">尚未设置本地头像，请点击“浏览”按钮上传本地头像</span>';
 					} else {
 						echo '<input type="checkbox" name="basic-user-avatar-erase" value="1" />移除本地头像<br />';
 						echo '<span class="description">如需要修改本地头像，请重新上传新头像。如需要移除本地头像，请选中上方的“移除本地头像”复选框并更新个人资料即可。<br/>移除本地头像后，将恢复使用 Gravatar 头像</span>';
 					}
-
 				} else {
 					if ( empty( $profileuser->simple_local_avatar ) ) {
 						echo '<span class="description">尚未设置本地头像，请在 Gravatar.com 网站设置头像</span>';
@@ -1618,39 +1613,22 @@ class simple_local_avatars {
 		<script type="text/javascript">var form = document.getElementById('your-profile');form.encoding = 'multipart/form-data';form.setAttribute('enctype', 'multipart/form-data');</script>
 		<?php
 	}
-
-
 	public function edit_user_profile_update( $user_id ) {
-
-		// Check for nonce otherwise bail
 		if ( ! isset( $_POST['_simple_local_avatar_nonce'] ) || ! wp_verify_nonce( $_POST['_simple_local_avatar_nonce'], 'simple_local_avatar_nonce' ) )
 			return;
-
 		if ( ! empty( $_FILES['basic-user-avatar']['name'] ) ) {
-
-			// Allowed file extensions/types
 			$mimes = array(
 				'jpg|jpeg|jpe' => 'image/jpeg',
 				'gif'          => 'image/gif',
 				'png'          => 'image/png',
 			);
-
-			// Front end support - shortcode, bbPress, etc
 			if ( ! function_exists( 'wp_handle_upload' ) )
 				require_once ABSPATH . 'wp-admin/includes/file.php';
-
-			// Delete old images if successful
 			$this->avatar_delete( $user_id );
-
-			// Need to be more secure since low privelege users can upload
 			if ( strstr( $_FILES['basic-user-avatar']['name'], '.php' ) )
 				wp_die( '基于安全考虑 ".php" 格式文件禁止删除' );
-
-			// Make user_id known to unique_filename_callback function
 			$this->user_id_being_edited = $user_id;
 			$avatar = wp_handle_upload( $_FILES['basic-user-avatar'], array( 'mimes' => $mimes, 'test_form' => false, 'unique_filename_callback' => array( $this, 'unique_filename_callback' ) ) );
-
-			// Handle failures
 			if ( empty( $avatar['file'] ) ) {
 				switch ( $avatar['error'] ) {
 				case '文件不是正确的图片文件，请重试' :
@@ -1661,46 +1639,34 @@ class simple_local_avatars {
 				}
 				return;
 			}
-
-			// Save user information (overwriting previous)
 			update_user_meta( $user_id, 'simple_local_avatar', array( 'full' => $avatar['url'] ) );
-
 		} elseif ( ! empty( $_POST['basic-user-avatar-erase'] ) ) {
-			// Nuke the current avatar
 			$this->avatar_delete( $user_id );
 		}
 	}
-
 	public function avatar_defaults( $avatar_defaults ) {
 		remove_action( 'get_avatar', array( $this, 'get_avatar' ) );
 		return $avatar_defaults;
 	}
-
 	public function avatar_delete( $user_id ) {
 		$old_avatars = get_user_meta( $user_id, 'simple_local_avatar', true );
 		$upload_path = wp_upload_dir();
-
 		if ( is_array( $old_avatars ) ) {
 			foreach ( $old_avatars as $old_avatar ) {
 				$old_avatar_path = str_replace( $upload_path['baseurl'], $upload_path['basedir'], $old_avatar );
 				@unlink( $old_avatar_path );
 			}
 		}
-
 		delete_user_meta( $user_id, 'simple_local_avatar' );
 	}
-
-
 	public function unique_filename_callback( $dir, $name, $ext ) {
 		$user = get_user_by( 'id', (int) $this->user_id_being_edited );
 		$name = $base_name = sanitize_file_name( $user->display_name . '_avatar' );
 		$number = 1;
-
 		while ( file_exists( $dir . "/$name$ext" ) ) {
 			$name = $base_name . '_' . $number;
 			$number++;
 		}
-
 		return $name . $ext;
 	}
 }
