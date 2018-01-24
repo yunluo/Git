@@ -1573,7 +1573,7 @@ class simple_local_avatars {
 			}
 			$local_avatars[$size] = is_wp_error( $image_sized ) ? $local_avatars[$size] = $local_avatars['full'] : str_replace( $upload_path['basedir'], $upload_path['baseurl'], $image_sized['path'] );
 			update_user_meta( $user_id, 'simple_local_avatar', $local_avatars );
-		} elseif ( substr( $local_avatars[$size], 0, 4 ) != 'http' ||substr( $local_avatars[$size], 0, 5 ) != 'https' ) {
+		} elseif ( substr( $local_avatars[$size], 0, 4 ) != 'http' ) {
 			$local_avatars[$size] = home_url( $local_avatars[$size] );
 		}
 		$author_class = is_author( $user_id ) ? ' current-author' : '' ;
