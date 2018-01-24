@@ -123,13 +123,13 @@ class timthumb {
 			if(! is_dir(FILE_CACHE_DIRECTORY)){
 				@mkdir(FILE_CACHE_DIRECTORY);
 				if(! is_dir(FILE_CACHE_DIRECTORY)){
-					$this->error("Could not create the file cache directory.");
+					$this->error("无法在cache文件夹创建文件，请授予cache文件夹777权限.");
 					return false;
 				}
 			}
 			$this->cacheDirectory = FILE_CACHE_DIRECTORY;
 			if (!touch($this->cacheDirectory . '/index.html')) {
-				$this->error("Could not create the index.html file - to fix this create an empty file named index.html file in the cache directory.");
+				$this->error("无法创建 index.html 文件 - 请授予cache文件夹777权限.");
 			}
 		} else {
 			$this->cacheDirectory = sys_get_temp_dir();
@@ -194,7 +194,7 @@ class timthumb {
 		} else {
 			$this->localImage = $this->getLocalImagePath($this->src);
 			if(! $this->localImage){
-				$this->debug(1, "Could not find the local image: {$this->localImage}");
+				$this->debug(1, "没有发现本地图片: {$this->localImage}");
 				$this->error("Could not find the internal image you specified.");
 				$this->set404();
 				return false;
@@ -390,14 +390,14 @@ class timthumb {
 		if(! is_file($lastCleanFile)){
 			$this->debug(1, "File tracking last clean doesn't exist. Creating $lastCleanFile");
 			if (!touch($lastCleanFile)) {
-				$this->error("Could not create cache clean timestamp file.");
+				$this->error("无法创建缩略图缓存文件，请授予cache文件夹777权限.");
 			}
 			return;
 		}
 		if(@filemtime($lastCleanFile) < (time() - FILE_CACHE_TIME_BETWEEN_CLEANS) ){ //Cache was last cleaned more than 1 day ago
 			$this->debug(1, "Cache was last cleaned more than " . FILE_CACHE_TIME_BETWEEN_CLEANS . " seconds ago. Cleaning now.");
 			if (!touch($lastCleanFile)) {
-				$this->error("Could not create cache clean timestamp file.");
+				$this->error("无法创建缩略图缓存文件，请授予cache文件夹777权限.");
 			}
 			$files = glob($this->cacheDirectory . '/*' . FILE_CACHE_SUFFIX);
 			if ($files) {
@@ -426,7 +426,7 @@ class timthumb {
 		}
 
 		if (!function_exists ('imagecreatetruecolor')) {
-		    return $this->error('GD Library Error: imagecreatetruecolor does not exist - please contact your webhost and ask them to install the GD library');
+		    return $this->error('GD 库错误: 没有发现GD库，请联系主机商安装GD库');
 		}
 
 		if (function_exists ('imagefilter') && defined ('IMG_FILTER_NEGATE')) {
