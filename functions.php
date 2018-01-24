@@ -522,7 +522,7 @@ function comment_mail_notify($comment_id) {
 }
 //自动勾选
 function deel_add_checkbox() {
-    echo '<label for="comment_mail_notify" class="checkbox inline" style="padding-top:0"><input type="checkbox" name="comment_mail_notify" id="comment_mail_notify" value="comment_mail_notify" checked="checked"/>有人回复时通知我</label>';
+    echo '<label for="comment_mail_notify" class="checkbox inline" style="padding-top:0;float:right;"><input name="comment_mail_notify" id="comment_mail_notify" value="comment_mail_notify" checked="checked" type="checkbox">评论回复通知我</label>';
 }
 //时间显示方式‘xx以前’
 function time_ago($type = 'commennt', $day = 7) {
@@ -757,11 +757,13 @@ function search_filter_page($query) {
 }
 add_filter('pre_get_posts', 'search_filter_page');
 // 更改后台字体
-function Bing_admin_lettering() {
-    echo '<style type="text/css">#wp-admin-bar-git_guide>.ab-item::before {content:"\f331";top:3px;}#wp-admin-bar-git_option>.ab-item::before{content:"\f507";top:3px;}.users #the-list tr:hover{background:rgba(132,219,162,.61)}#role {width:8%;}* { font-family: "Microsoft YaHei" !important; }.wp-admin img.rand_avatar {max-Width:50px !important;}i, .ab-icon, .mce-close, i.mce-i-aligncenter, i.mce-i-alignjustify, i.mce-i-alignleft, i.mce-i-alignright, i.mce-i-blockquote, i.mce-i-bold, i.mce-i-bullist, i.mce-i-charmap, i.mce-i-forecolor, i.mce-i-fullscreen, i.mce-i-help, i.mce-i-hr, i.mce-i-indent, i.mce-i-italic, i.mce-i-link, i.mce-i-ltr, i.mce-i-numlist, i.mce-i-outdent, i.mce-i-pastetext, i.mce-i-pasteword, i.mce-i-redo, i.mce-i-removeformat, i.mce-i-spellchecker, i.mce-i-strikethrough, i.mce-i-underline, i.mce-i-undo, i.mce-i-unlink, i.mce-i-wp-media-library, i.mce-i-wp_adv, i.mce-i-wp_fullscreen, i.mce-i-wp_help, i.mce-i-wp_more, i.mce-i-wp_page, .qt-fullscreen, .star-rating .star,.qt-dfw{ font-family: dashicons !important; }.mce-ico { font-family: tinymce, Arial}.fa { font-family: FontAwesome !important; }.genericon { font-family: "Genericons" !important; }.appearance_page_scte-theme-editor #wpbody *, .ace_editor * { font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace !important; }
+function git_admin_style() {
+    echo '<style type="text/css">
+	.setting select.link-to option[value="post"],.setting select[data-setting="link"] option[value="post"]{display:none;}
+	#wp-admin-bar-git_guide>.ab-item::before {content:"\f331";top:3px;}#wp-admin-bar-git_option>.ab-item::before{content:"\f507";top:3px;}.users #the-list tr:hover{background:rgba(132,219,162,.61)}#role {width:8%;}* { font-family: "Microsoft YaHei" !important; }.wp-admin img.rand_avatar {max-Width:50px !important;}i, .ab-icon, .mce-close, i.mce-i-aligncenter, i.mce-i-alignjustify, i.mce-i-alignleft, i.mce-i-alignright, i.mce-i-blockquote, i.mce-i-bold, i.mce-i-bullist, i.mce-i-charmap, i.mce-i-forecolor, i.mce-i-fullscreen, i.mce-i-help, i.mce-i-hr, i.mce-i-indent, i.mce-i-italic, i.mce-i-link, i.mce-i-ltr, i.mce-i-numlist, i.mce-i-outdent, i.mce-i-pastetext, i.mce-i-pasteword, i.mce-i-redo, i.mce-i-removeformat, i.mce-i-spellchecker, i.mce-i-strikethrough, i.mce-i-underline, i.mce-i-undo, i.mce-i-unlink, i.mce-i-wp-media-library, i.mce-i-wp_adv, i.mce-i-wp_fullscreen, i.mce-i-wp_help, i.mce-i-wp_more, i.mce-i-wp_page, .qt-fullscreen, .star-rating .star,.qt-dfw{ font-family: dashicons !important; }.mce-ico { font-family: tinymce, Arial}.fa { font-family: FontAwesome !important; }.genericon { font-family: "Genericons" !important; }.appearance_page_scte-theme-editor #wpbody *, .ace_editor * { font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace !important; }
     </style>';
 }
-add_action('admin_head', 'Bing_admin_lettering');
+add_action('admin_head', 'git_admin_style');
 
 //输出缩略图地址
 function post_thumbnail_src() {
@@ -1591,7 +1593,9 @@ class simple_local_avatars {
 				<?php
 				$options = get_option( 'simple_local_avatars_caps' );
 				if ( empty( $options['simple_local_avatars_caps'] ) || current_user_can( 'upload_files' ) ) {
+					// Nonce security ftw
 					wp_nonce_field( 'simple_local_avatar_nonce', '_simple_local_avatar_nonce', false );
+
 					echo '<input type="file" name="basic-user-avatar" id="basic-local-avatar" /><br />';
 					if ( empty( $profileuser->simple_local_avatar ) ) {
 						echo '<span class="description">尚未设置本地头像，请点击“浏览”按钮上传本地头像</span>';
@@ -1599,6 +1603,7 @@ class simple_local_avatars {
 						echo '<input type="checkbox" name="basic-user-avatar-erase" value="1" />移除本地头像<br />';
 						echo '<span class="description">如需要修改本地头像，请重新上传新头像。如需要移除本地头像，请选中上方的“移除本地头像”复选框并更新个人资料即可。<br/>移除本地头像后，将恢复使用 Gravatar 头像</span>';
 					}
+
 				} else {
 					if ( empty( $profileuser->simple_local_avatar ) ) {
 						echo '<span class="description">尚未设置本地头像，请在 Gravatar.com 网站设置头像</span>';
@@ -1613,6 +1618,7 @@ class simple_local_avatars {
 		<script type="text/javascript">var form = document.getElementById('your-profile');form.encoding = 'multipart/form-data';form.setAttribute('enctype', 'multipart/form-data');</script>
 		<?php
 	}
+
 	public function edit_user_profile_update( $user_id ) {
 		if ( ! isset( $_POST['_simple_local_avatar_nonce'] ) || ! wp_verify_nonce( $_POST['_simple_local_avatar_nonce'], 'simple_local_avatar_nonce' ) )
 			return;
@@ -1625,10 +1631,12 @@ class simple_local_avatars {
 			if ( ! function_exists( 'wp_handle_upload' ) )
 				require_once ABSPATH . 'wp-admin/includes/file.php';
 			$this->avatar_delete( $user_id );
+
 			if ( strstr( $_FILES['basic-user-avatar']['name'], '.php' ) )
-				wp_die( '基于安全考虑 ".php" 格式文件禁止删除' );
+				wp_die( '基于安全考虑 ".php" 格式文件禁止上传' );
 			$this->user_id_being_edited = $user_id;
 			$avatar = wp_handle_upload( $_FILES['basic-user-avatar'], array( 'mimes' => $mimes, 'test_form' => false, 'unique_filename_callback' => array( $this, 'unique_filename_callback' ) ) );
+
 			if ( empty( $avatar['file'] ) ) {
 				switch ( $avatar['error'] ) {
 				case '文件不是正确的图片文件，请重试' :
@@ -1644,10 +1652,12 @@ class simple_local_avatars {
 			$this->avatar_delete( $user_id );
 		}
 	}
+
 	public function avatar_defaults( $avatar_defaults ) {
 		remove_action( 'get_avatar', array( $this, 'get_avatar' ) );
 		return $avatar_defaults;
 	}
+
 	public function avatar_delete( $user_id ) {
 		$old_avatars = get_user_meta( $user_id, 'simple_local_avatar', true );
 		$upload_path = wp_upload_dir();
@@ -1657,11 +1667,13 @@ class simple_local_avatars {
 				@unlink( $old_avatar_path );
 			}
 		}
+
 		delete_user_meta( $user_id, 'simple_local_avatar' );
 	}
+
 	public function unique_filename_callback( $dir, $name, $ext ) {
 		$user = get_user_by( 'id', (int) $this->user_id_being_edited );
-		$name = $base_name = sanitize_file_name( $user->display_name . '_avatar' );
+		$name = $base_name = sanitize_file_name( $user->ID . '_avatar' );
 		$number = 1;
 		while ( file_exists( $dir . "/$name$ext" ) ) {
 			$name = $base_name . '_' . $number;
@@ -2601,6 +2613,21 @@ function git_list_shortcode_handler($atts, $content='') {
     return $output;
 }
 add_shortcode( 'list', 'git_list_shortcode_handler' );
+
+//禁用默认的附件页面
+function git_disable_attachment_pages() {
+	global $post;
+	if ( is_attachment() ) {
+		if ( ! empty( $post->post_parent ) ) {
+			wp_redirect( get_permalink( $post->post_parent ), 301 );
+			exit;
+		}else{
+		wp_redirect( home_url() );
+		exit;
+		}
+	}
+}
+add_action( 'template_redirect', 'git_disable_attachment_pages', 1 );
 
 //文章目录,来自露兜,云落修改
 if(git_get_option('git_article_list')  ){

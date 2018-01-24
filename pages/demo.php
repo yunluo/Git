@@ -4,7 +4,7 @@
 	description: template for Git theme
 */
 $pid = isset( $_GET['pid'] ) ? trim(htmlspecialchars($_GET['pid'], ENT_QUOTES)) : '';
-if( !$pid ) { wp_redirect( home_url() );}
+if( !$pid ) { wp_redirect( home_url() );exit;}
 $title = get_the_title($pid);
 $values = get_post_custom_values('git_demo',$pid);
 empty($values) ? Header('Location:/') : $theCode = $values[0];

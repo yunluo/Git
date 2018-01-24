@@ -3,7 +3,7 @@
  Template Name: 用户投稿
  description: template for Git theme
  */
-if (!git_get_option('git_tougao_b')) { wp_redirect( home_url() );}
+if (!git_get_option('git_tougao_b')) { wp_redirect( home_url() );exit;}
 if (isset($_POST['tougao_form']) && $_POST['tougao_form'] == 'send') {
     global $wpdb;
     $current_url = '' . get_permalink() . ''; // 注意修改此处的链接地址
