@@ -1582,7 +1582,7 @@ $options = array(
         'type'  => 'hr'
     ),
     array(
-        'title' => 'STMP邮箱设置',
+        'title' => 'SMTP邮箱设置',
         'type'  => 'subtitle'
     ),
     array(
@@ -1595,7 +1595,7 @@ $options = array(
     array(
         'name'  => '发件人昵称',
         'desc'  => '请输入您的网站名称',
-        'id'    => "git_mailnichen_b",
+        'id'    => 'git_mailnichen_b',
         'type'  => 'text',
         'std'   => ''
     ),
@@ -1614,7 +1614,7 @@ $options = array(
     ),
     array(
         'name'  => 'SMTP服务器端口',
-        'desc'  => '请输入您的smtp端口，一般QQ邮箱25就可以了',
+        'desc'  => '请输入您的smtp端口，一般QQ邮箱25就可以了,如果选择了上面的SSL，推荐使用465端口',
         'id'    => 'git_mailport_b',
         'type'  => 'number',
         'std'   => 25
@@ -1761,6 +1761,8 @@ function git_add_theme_options_page() {
             delete_option('git_options_setup');
             header('Location: admin.php?page=theme-options.php&reset=true');
             die;
+        }else if( 'test' == $_REQUEST['action'] ) {
+             wp_mail( get_bloginfo( 'admin_email' ) ,'[TEST]SMTP测试邮件','SMTP测试内容，当您收到这封邮件的时候，证明您的网站SMTP配置已成功！');
         }
     }
     add_menu_page('Git主题选项', 'Git主题选项', 'manage_options', basename(__FILE__) , 'git_options_page' ,'dashicons-universal-access-alt');
@@ -1772,6 +1774,7 @@ function git_options_page() {
     $optionsSetup = git_get_option('git_options_setup') != '';
     if ($_REQUEST['update']) echo '<div class="updated"><p><strong>设置已保存。</strong></p></div>';
     if ($_REQUEST['reset']) echo '<div class="updated"><p><strong>设置已重置。</strong></p></div>';
+	if ($_REQUEST['test']) echo '<div class="updated"><p>测试邮件已发出，如您的站长邮箱收到测试邮件则<strong><font color="#339900">SMTP成功</font></strong>，否则<strong><font color="#ff0000">SMTP失败</font></strong></p></div>';
 ?>
 
 <div class="wrap">
@@ -1951,7 +1954,7 @@ switch ( $value['type'] ) {
 <a class="button button-primary" href="http://googlo.me/git-faq.html" target="_blank">使用文档</a>
 <h2>关注公众号</h2>
 <p>欢迎关注乐趣公园公众号，<font color="#ff0000">PS.主题有不会使用的，也可以直接在公众号查找使用方法哦</font></p>
-<img src="http://71bbs.people.com.cn/postImages/21/AE/7C/33/1516688538675.jpg">
+<img src="http://71bbs.people.com.cn/postImages/21/AE/7C/33/1516688538675.jpg"></img>
 </div>
 <p class="submit">
     <input name="submit" type="submit" class="button button-primary" value="保存选项"/>
@@ -1959,7 +1962,13 @@ switch ( $value['type'] ) {
 </p>
 </form>
 <form method="post">
-<p>
+<p class="test">
+    <input name="test" type="submit" class="button button-primary" value="SMTP测试"/>
+    <input type="hidden" name="action" value="test" />
+</p>
+</form>
+<form method="post">
+<p class="reset">
     <input name="reset" type="submit" class="button button-secondary" value="重置选项" onclick="return confirm('你确定要重置选项吗？重置之后您的全部设置将被清空，您确定您不是手残了？？？→_→ ');"/>
     <input type="hidden" name="action" value="reset" />
 </p>
