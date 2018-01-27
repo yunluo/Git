@@ -522,7 +522,7 @@ function comment_mail_notify($comment_id) {
 }
 //自动勾选
 function deel_add_checkbox() {
-    echo '<label for="comment_mail_notify" class="checkbox inline" style="padding-top:0;float:right;"><input name="comment_mail_notify" id="comment_mail_notify" value="comment_mail_notify" checked="checked" type="checkbox">评论回复通知我</label>';
+    echo '<label for="comment_mail_notify" class="checkbox inline" style="padding-top:0;float:right;"><input name="comment_mail_notify" id="comment_mail_notify" value="comment_mail_notify" checked="checked" type="checkbox">评论通知</label>';
 }
 //时间显示方式‘xx以前’
 function time_ago($type = 'commennt', $day = 7) {
