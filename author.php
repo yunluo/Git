@@ -32,7 +32,7 @@ $offset = ($paged-1)*$number;
 					<span class="url-desc">个人网站：<?php if($curauth->user_url){echo $curauth->user_url;}else{echo '该用户很懒，还没有填写网站哦。';}?></span>
 				</p>
 				<?php if ($oneself)
-				echo '<a style="color:#555;" target="_blank" href="/wp-admin/profile.php#simple-local-avatar" class="skin-setting-btn log-skin-setting bdown"><i class="fa fa-cogs"></i> 编辑资料</a>'; ?>
+				echo '<a style="color:#555;" target="_blank" href="/wp-admin/profile.php#basic-local-avatar" class="skin-setting-btn log-skin-setting bdown"><i class="fa fa-cogs"></i> 编辑资料</a>'; ?>
 			</div>
 		</div>
 <!-- 标签菜单开始 -->

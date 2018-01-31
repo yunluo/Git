@@ -60,18 +60,32 @@ function git_remove_dns_prefetch($hints, $relation_type){
 }
 add_filter('wp_resource_hints', 'git_remove_dns_prefetch', 10, 2);
 
-//新用户注册后不发邮件
-if ( ! function_exists( 'wp_new_user_notification' ) ) :
-function wp_new_user_notification( $user_id, $plaintext_pass = '' ) {
-	return;
+//站长评论邮件添加评论链接
+function git_notify_postauthor( $comment_id ) {
+	$notify_message = $comment_id;
+	$notify_message .= '快速回复此评论: '.admin_url( "edit-comments.php" );
+	return $notify_message;
 }
-endif;
+add_filter( 'comment_notification_text', 'git_notify_postauthor' );
 
-//改变密码不用通知
-if( ! function_exists( 'wp_password_change_notification' ) ) {
-	function wp_password_change_notification( $user ) {}
+add_filter( 'password_change_email', '__return_false' );//关闭密码修改用户邮件
+if (git_get_option('git_user_notification_to_admin')){
+    add_filter( 'wp_new_user_notification_email_admin', '__return_false' );//关闭新用户注册站长邮件
 }
-remove_action( 'after_password_reset', 'wp_password_change_notification', 10 );
+
+//欢迎新用户邮件
+if(git_get_option('git_user_notification_to_user')){
+function git_register_mail( $user_id ) {
+	$user = get_user_by( 'id', $user_id );
+	$user_pass = $_POST['password'];
+	$blogname = get_option('blogname');
+	$message = '<div class="emailcontent" style="width:100%;max-width:720px;text-align:left;margin:0 auto;padding-top:80px;padding-bottom:20px"><div class="emailtitle"><h1 style="color:#fff;background:#51a0e3;line-height:70px;font-size:24px;font-weight:400;padding-left:40px;margin:0">注册成功通知</h1><div class="emailtext" style="background:#fff;padding:20px 32px 20px"><div style="padding:0;font-weight:700;color:#6e6e6e;font-size:16px">尊敬的'.$user->user_login.',您好！</div><p style="color:#6e6e6e;font-size:13px;line-height:24px">欢迎您注册['.$blogname.']，下面是您的账号信息，请妥善保管！</p><table cellpadding="0" cellspacing="0" border="0" style="width:100%;border-top:1px solid #eee;border-left:1px solid #eee;color:#6e6e6e;font-size:16px;font-weight:normal"><thead><tr><th colspan="2" style="padding:10px 0;border-right:1px solid #eee;border-bottom:1px solid #eee;text-align:center;background:#f8f8f8">您的详细注册信息</th></tr></thead><tbody><tr><td style="padding:10px 0;border-right:1px solid #eee;border-bottom:1px solid #eee;text-align:center;width:100px">登录邮箱</td><td style="padding:10px 20px 10px 30px;border-right:1px solid #eee;border-bottom:1px solid #eee;line-height:30px">'.$user->user_email.'</td></tr><tr><td style="padding:10px 0;border-right:1px solid #eee;border-bottom:1px solid #eee;text-align:center">登录密码</td><td style="padding:10px 20px 10px 30px;border-right:1px solid #eee;border-bottom:1px solid #eee;line-height:30px">'.$user_pass.'</td></tr></tbody></table><p style="color:#6e6e6e;font-size:13px;line-height:24px">如果您的账号有异常，请您在第一时间和我们取得联系哦，联系邮箱：'.get_bloginfo('admin_email').'</p></div><div class="emailad" style="margin-top:4px"><a href="'.home_url().'"><img src="http://reg.163.com/images/secmail/adv.png" alt="" style="margin:auto;width:100%;max-width:700px;height:auto"></a></div></div></div>';
+	$headers = "Content-Type:text/html;charset=UTF-8\n";
+	wp_mail($user->user_email, '['.$blogname.']欢迎注册'.$blogname, $message , $headers);
+}
+add_action( 'user_register', 'git_register_mail');
+add_filter( 'wp_new_user_notification_email', '__return_false' );//关闭新用户注册用户邮件
+}
 
 //禁用WordPress活动
 function git_dweandw_remove() {
@@ -1825,8 +1839,16 @@ add_filter( 'gettext', 'git_edit_password_email_text',20, 3 );
 //注册之后跳转
 if (git_get_option('git_register_redirect_ok')) {
     function git_registration_redirect() {
-	    $redirect_url = git_get_option('git_register_redirect_url');
-	    return $redirect_url;
+        if (git_get_option('git_redirect_choise') == 'git_redirect_home') {
+            $redirect_url = home_url();
+        }elseif(git_get_option('git_redirect_choise') == 'git_redirect_author'){
+            $redirect_url = get_author_posts_url( $user_id );
+        }elseif(git_get_option('git_redirect_choise') == 'git_redirect_profile'){
+            $redirect_url = admin_url('wp-admin/profile.php');
+        }elseif(git_get_option('git_redirect_choise') == 'git_redirect_profile' && git_get_option('git_register_redirect_url')){
+            $redirect_url = git_get_option('git_register_redirect_url');
+        }
+        return $redirect_url;
     }
 add_filter( 'registration_redirect', 'git_registration_redirect' );
 }
@@ -2342,6 +2364,7 @@ if(git_get_option('git_admin')):
 function git_login_protection() {
     if ($_GET[''.git_get_option('git_admin_q').''] !== ''.git_get_option('git_admin_a').'')
     header('Location: http://www.baidu.com');/* 不用密码登录，直接滚到百度去 */
+    exit;
 }
 add_action('login_enqueue_scripts', 'git_login_protection');
 endif;
@@ -2848,7 +2871,8 @@ function validate_reg_ips() {
 	global $err_msg;
 	$allow_time = git_get_option('git_regist_ips_num'); //每个IP允许注册的用户数
 	$allowed = true;
-	$ips = file_get_contents("ips.txt");
+	$ipsfile = ABSPATH . '/ips.txt';
+	$ips = file_get_contents( $ipsfile );
 	$times = substr_count($ips,getIp());
 	if($times >=$allow_time) {
 		$allowed = false;
@@ -2866,7 +2890,8 @@ function ip_restrict_errors($errors) {
 }
 add_filter('registration_errors', 'ip_restrict_errors');
 function update_reg_ips(){
-file_put_contents("ips.txt",getIp()."\r\n",FILE_APPEND);
+    $ipsfile = ABSPATH . '/ips.txt';
+file_put_contents( $ipsfile,getIp()."\r\n",FILE_APPEND);
 }
 add_action('user_register','update_reg_ips');
 function getIp(){

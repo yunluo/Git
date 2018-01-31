@@ -1305,6 +1305,19 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
+        'name'  => '禁用HTML标签评论',
+        'desc'  => '启用 【启用之后，评论框下方的一些按钮将不可用，谨慎考虑】',
+        'id'    => 'git_html_comment',
+        'type'  => 'checkbox'
+    ),
+    array(
+        'type'  => 'hr'
+    ),
+    array(
+        'title' => 'WordPress注册登录设置',
+        'type'  => 'subtitle'
+    ),
+    array(
         'name'  => '登录和注册安全验证',
         'desc'  => '启用 【启用之后，将在登录和注册页面添加数学题验证，若有更好的验证方法，可关闭】',
         'id'    => 'git_admin_captcha',
@@ -1324,11 +1337,44 @@ $options = array(
         'std'   => 1
     ),
     array(
-        'name'  => '禁用HTML标签评论',
-        'desc'  => '启用 【启用之后，评论框下方的一些按钮将不可用，谨慎考虑】',
-        'id'    => 'git_html_comment',
+        'name'  => '新用户注册站长邮件',
+        'desc'  => '关闭  【该功能为有用户注册时给站长发邮件，鸡肋功能，建议关闭】',
+        'id'    => 'git_user_notification_to_admin',
         'type'  => 'checkbox'
     ),
+    array(
+        'name'  => '自定义注册欢迎邮件',
+        'desc'  => '开启  【本功能为用户注册后发一个体验较好的邮件，开启后同时关闭默认欢迎邮件】',
+        'id'    => 'git_user_notification_to_user',
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '开启用户注册成功重定向',
+        'desc'  => '开启',
+        'id'    => 'git_register_redirect_ok',
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '注册成功后重定向',
+        'desc'  => '选择一个重定向链接,如果选择自定义URL，请在下方填写好跳转链接',
+        'id'    => 'git_redirect_choise',
+        'type'  => 'radio',
+        'options' => array(
+            '网站首页' => 'git_redirect_home',
+            '前台个人中心' => 'git_redirect_author',
+            '后台台个人中心' => 'git_redirect_profile',
+            '自定义URL' => 'git_redirect_customurl'
+        ),
+        'std'   => 'git_redirect_home'
+    ),
+    array(
+        'name'  => '自定义注册重定向URL',
+        'desc'  => '如果上面开启的话,这里一定要填写链接',
+        'id'    => 'git_register_redirect_url',
+        'type'  => 'text',
+        'std'   => ''
+    ),
+
     array(
         'type'  => 'panelend'
     ),
@@ -1360,19 +1406,6 @@ $options = array(
         'desc'  => '如果启用UM插件,最好开启',
         'id'    => 'git_fancylogin',
         'type'  => 'checkbox'
-    ),
-    array(
-        'name'  => '开启用户注册成功重定向',
-        'desc'  => '开启',
-        'id'    => 'git_register_redirect_ok',
-        'type'  => 'checkbox'
-    ),
-    array(
-        'name'  => '注册成功重定向URL',
-        'desc'  => '如果上面开启的话,这里一定要填写链接,默认是后台',
-        'id'    => 'git_register_redirect_url',
-        'type'  => 'text',
-        'std'   => admin_url('wp-admin/profile.php')
     ),
     array(
         'type'  => 'hr'
@@ -2064,6 +2097,5 @@ function git_pointer_print_scripts() {
         });
     });
     </script>
-
 <?php
 }
