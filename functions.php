@@ -2930,6 +2930,25 @@ function content_autospace( $data ) {
 add_filter( 'the_content','content_autospace' );
 add_filter('asgarosforum_filter_post_content', 'content_autospace');
 
+//只搜索文章标题
+function git_search_by_title($search, $wp_query){
+    if (!empty($search) && !empty($wp_query->query_vars['search_terms'])) {
+        global $wpdb;
+        $q = $wp_query->query_vars;
+        $n = !empty($q['exact']) ? '' : '%';
+        $search = array();
+        foreach ((array) $q['search_terms'] as $term) {
+            $search[] = $wpdb->prepare("{$wpdb->posts}.post_title LIKE %s", $n . $wpdb->esc_like($term) . $n);
+        }
+        if (!is_user_logged_in()) {
+            $search[] = "{$wpdb->posts}.post_password = ''";
+        }
+        $search = ' AND ' . implode(' AND ', $search);
+    }
+    return $search;
+}
+add_filter('posts_search', 'git_search_by_title', 10, 2);
+
 //HTML5 桌面通知
 function Notification_js(){
 	if( git_get_option('git_notification_days') && git_get_option('git_notification_title') && git_get_option('git_notification_body') && git_get_option('git_notification_icon') && git_get_option('git_notification_cookie')){
