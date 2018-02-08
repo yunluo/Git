@@ -193,7 +193,6 @@ add_filter('admin_footer_text', 'git_admin_footer_text');
     //修改默认发信地址
     add_filter('wp_mail_from', 'deel_res_from_email');
     add_filter('wp_mail_from_name', 'deel_res_from_name');
-
     add_editor_style('editor-style.css');
 	add_filter( 'max_srcset_image_width', create_function( '', 'return 1;' ) );
     //定义菜单
@@ -268,7 +267,7 @@ endif;
 
 //面包屑导航
 function deel_breadcrumbs() {
-    if (!is_single() || get_post_type() == 'shuoshuo'|| get_post_type() == 'product') return false;
+    if (!is_single() || get_post_type() == 'shuoshuo' || get_post_type() == 'product') return false;
     $categorys = get_the_category();
     $category = $categorys[0];
     return '<a title="返回首页" href="' . home_url() . '"><i class="fa fa-home"></i></a> <small>></small> ' . get_category_parents($category->term_id, true, ' <small>></small> ') . '<span class="muted">' . get_the_title() . '</span>';
@@ -1109,16 +1108,14 @@ add_shortcode('reply', 'reply_to_read');
 
 //bing美图自定义登录页面背景
 function custom_login_head() {
-    $str = file_get_contents('http://cn.bing.com/HPImageArchive.aspx?idx=0&n=1');
-    if (preg_match("/<url>(.+?)<\/url>/ies", $str, $matches)) {
+    $arr = json_decode(file_get_contents('https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1'));
         if(git_get_option('git_loginbg')){
             $imgurl = git_get_option('git_loginbg');
         }else{
-            $imgurl = 'http://cn.bing.com' . $matches[1];
+            $imgurl = 'http://cn.bing.com'.$arr->images[0]->url;
         }
         if(defined('UM_DIR')){echo '<style type="text/css">#um_captcha{width:170px!important;}</style>';}
-        echo '<style type="text/css">#reg_passmail{display:none!important}body{background: url(' . $imgurl . ');background-repeat: no-repeat;background-position: top center;background-attachment: fixed;background-size: cover;width: 100%!important;height: 100%!important;}.login label,a {font-weight: bold;}.login-action-register #login{padding: 5% 0 0;}.login p {line-height: 1;}.login form {margin-top: 10px;padding: 16px 24px 16px;}h1 a { background-image:url(' . home_url() . '/favicon.ico)!important;width:32px;height:32px;-webkit-border-radius:50px;-moz-border-radius:50px;border-radius:50px;}#registerform,#loginform {background-color:rgba(251,251,251,0.3)!important;}.login label,a{color:#000!important;}form label input{margin-top:10px!important;}@media screen and (max-width:600px){.login-action-register h1 {display: none;}.login-action-register #login{top:50%!important;}}</style>';
-    }
+        echo '<style type="text/css">#reg_passmail{display:none!important}body{background: url('.$imgurl.') center center no-repeat;-moz-background-size: cover;-o-background-size: cover;-webkit-background-size: cover;background-size: cover;background-attachment: fixed;}.login label,a {font-weight: bold;}.login-action-register #login{padding: 5% 0 0;}.login p {line-height: 1;}.login form {margin-top: 10px;padding: 16px 24px 16px;}h1 a { background-image:url(' . home_url() . '/favicon.ico)!important;width:32px;height:32px;-webkit-border-radius:50px;-moz-border-radius:50px;border-radius:50px;}#registerform,#loginform {background-color:rgba(251,251,251,0.3)!important;}.login label,a{color:#000!important;}form label input{margin-top:10px!important;}@media screen and (max-width:600px){.login-action-register h1 {display: none;}.login-action-register #login{top:50%!important;}}</style>';
 }
 add_action('login_head', 'custom_login_head');
 add_filter('login_headerurl', create_function(false, "return home_url();"));
@@ -1141,7 +1138,6 @@ function git_esc_callback($matches) {
 add_filter('the_content', 'git_esc_html', 2);
 add_filter('comment_text', 'git_esc_html', 2);
 add_filter('asgarosforum_filter_post_content', 'git_esc_html', 2);
-
 
 //强制兼容<pre>
 function git_prettify_replace($text){
