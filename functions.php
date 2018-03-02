@@ -1139,6 +1139,7 @@ add_filter('the_content', 'git_esc_html', 2);
 add_filter('comment_text', 'git_esc_html', 2);
 add_filter('asgarosforum_filter_post_content', 'git_esc_html', 2);
 
+
 //强制兼容<pre>
 function git_prettify_replace($text){
 $replace = array( '<pre>' => '<pre class="prettyprint linenums" >' );

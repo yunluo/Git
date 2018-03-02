@@ -313,7 +313,6 @@ class Points_Admin {
 		} else {
 			$pointsclass = 'editpoint';
 		}
-		$output .= '<style type="text/css">.newpoint .userid,.editpoint .usermail{display:none}</style>';
 		$output .= '<div class="points '.$pointsclass.'">';
 		$output .= '<h2>';
 		if ( empty( $point_id ) ) {
@@ -345,7 +344,7 @@ class Points_Admin {
 		$output .= ' ';
 		$output .= sprintf( '<input type="text" name="user_id" value="%s" />',  $user_id );
 		$output .= ' ';
-		$output .= '<span class="description">请勿填写，仅供自动生成</span>';
+		$output .= '<span class="description">输入用户ID，与用户邮箱勿冲突</span>';
 		$output .= '</label>';
 		$output .= '</p>';
 		$output .= '<p>';
