@@ -98,22 +98,6 @@ class Points_Admin {
 							return self::points_admin_points_edit();
 						}
 						break;
-					case 'success' :
-						if ( isset( $_GET['point_id'] ) && ( $_GET['point_id'] !== null ) ) {
-							if ( current_user_can( 'administrator' ) ) {
-								Points::update_points( $_GET['point_id'], array( 'status' => 'accepted') );
-								$alert= "金币已到账";
-								echo '<script type="text/javascript">setTimeout("window.opener=null;window.close()",500);</script>';//关闭浏览器窗口
-								global $wpdb;
-								$useresult = $wpdb->get_row( "SELECT user_id FROM " . Points_Database::points_get_table( "users" ) . " WHERE point_id=".$_GET['point_id']." AND description LIKE '%chongzhi%' LIMIT 0, 1;", ARRAY_A )['user_id'];
-								$pointss = $wpdb->get_row( "SELECT points FROM " . Points_Database::points_get_table( "users" ) . " WHERE point_id=".$_GET['point_id']." LIMIT 0, 1;", ARRAY_A )['points'];
-								$user = get_user_by( 'id', $useresult  );
-								$message = '<div class="emailcontent" style="width:100%;max-width:720px;text-align:left;margin:0 auto;padding-top:80px;padding-bottom:20px"><div class="emailtitle"><h1 style="color:#fff;background:#51a0e3;line-height:70px;font-size:24px;font-weight:400;padding-left:40px;margin:0">充值到账通知</h1><div class="emailtext" style="background:#fff;padding:20px 32px 40px"><div style="padding:0;font-weight:700;color:#6e6e6e;font-size:16px">尊敬的'.$user->display_name.',您好！</div><p style="color:#6e6e6e;font-size:13px;line-height:24px">您的金币充值已成功到账，请查收！</p><table cellpadding="0" cellspacing="0" border="0" style="width:100%;border-top:1px solid #eee;border-left:1px solid #eee;color:#6e6e6e;font-size:16px;font-weight:normal"><thead><tr><th colspan="2" style="padding:10px 0;border-right:1px solid #eee;border-bottom:1px solid #eee;text-align:center;background:#f8f8f8">您的金币详细情况</th></tr></thead><tbody><tr><td style="padding:10px 0;border-right:1px solid #eee;border-bottom:1px solid #eee;text-align:center;width:100px">用户名</td><td style="padding:10px 20px 10px 30px;border-right:1px solid #eee;border-bottom:1px solid #eee;line-height:30px">'.$user->display_name.'</td></tr><tr><td style="padding:10px 0;border-right:1px solid #eee;border-bottom:1px solid #eee;text-align:center">充值金币</td><td style="padding:10px 20px 10px 30px;border-right:1px solid #eee;border-bottom:1px solid #eee;line-height:30px">'.$pointss.'</td></tr><tr><td style="padding:10px 0;border-right:1px solid #eee;border-bottom:1px solid #eee;text-align:center">金币总额</td><td style="padding:10px 20px 10px 30px;border-right:1px solid #eee;border-bottom:1px solid #eee;line-height:30px">'.Points::get_user_total_points($useresult, POINTS_STATUS_ACCEPTED ).'</td></tr></tbody></table><p style="color:#6e6e6e;font-size:13px;line-height:24px">如果您的金币金额有异常，请您在第一时间和我们取得联系哦，联系邮箱：'.get_bloginfo('admin_email').'</p></div><div class="emailad" style="margin-top:4px"><a href="'.home_url().'"><img src="http://reg.163.com/images/secmail/adv.png" alt="" style="margin:auto;width:100%;max-width:700px;height:auto"></a></div></div></div>';
-								$headers = "Content-Type:text/html;charset=UTF-8\n";
-								wp_mail( $user->user_email , 'Hi,'.$user->display_name.'，充值成功到账通知！', $message, $headers);
-							}
-						}
-						break;
 					case 'fail' :
 						if ( $_GET['point_id'] !== null ) {
 							if ( current_user_can( 'administrator' ) ) {

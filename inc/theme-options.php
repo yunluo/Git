@@ -1493,33 +1493,40 @@ $options = array(
         'id'    => 'git_adminqn_b',
         'type'  => 'checkbox'
     ),
-    array(
+	array(
         'type'  => 'hr'
     ),
-    array(
-        'title' => '在线充值设置',
+	array(
+        'title' => '有赞支付设置',
         'type'  => 'subtitle'
     ),
-    array(
+	array(
+        'name'  => '有赞client_id',
+        'desc'  => '<a target="_blank" href="https://console.youzanyun.com/application/setting" >获取地址</a>',
+        'id'    => 'git_yzclient_id',
+        'type'  => 'text',
+        'std'   => 2333333333
+    ),
+	array(
+        'name'  => '有赞client_secret',
+        'desc'  => '<a target="_blank" href="https://webapproach.net/tint-2-5-new-payment-intro.html" >使用教程</a>',
+        'id'    => 'git_yzclient_secret',
+        'type'  => 'text',
+        'std'   => 444444444
+    ),
+	array(
+        'name'  => '有赞授权店铺id',
+        'desc'  => '推送地址：你的域名/wp-content/themes/Git-alpha/modules/push.php，需要https，且不支持LetEncrypt证书，手续费1%',
+        'id'    => 'git_yzkdt_id',
+        'type'  => 'text',
+        'std'   => 4025684
+    ),
+	array(
         'name'  => '金币和RMB兑换关系',
         'desc'  => '请输入兑换关系，比如1RMB=10金币',
         'id'    => 'git_chongzhi_dh',
         'type'  => 'number',
         'std'   => 10
-    ),
-    array(
-        'name'  => '收款微信/支付宝账号',
-        'desc'  => '请输入您的微信账号/支付宝账号',
-        'id'    => 'git_chongzhi_hao',
-        'type'  => 'text',
-        'std'   => 'sp91@qq.com'
-    ),
-    array(
-        'name'  => '收款微信/支付宝二维码',
-        'desc'  => '请输入您的微信账号/支付宝二维码链接,图片宽度推荐400px',
-        'id'    => 'git_chongzhi_qr',
-        'type'  => 'text',
-        'std'   => 'https://img.alicdn.com/imgextra/i1/1597576229/TB2ov76lXXXXXb0XpXXXXXXXXXX_!!1597576229.jpg_310x310.jpg'
     ),
     array(
         'type'  => 'hr'
