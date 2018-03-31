@@ -50,7 +50,10 @@ $tid = $msg['tid'];
 
     $method = 'youzan.trade.get'; //要调用的api名称
     $api_version = '3.0.0'; //要调用的api版本号
-    $resp = $client->post($method, $api_version);
+    $params = array(
+        'tid' => $tid,
+    );
+	$resp = $client->post($method, $api_version, $params);
     $trade = $resp['response']['trade'];
 	$userid = $trade['title'];//用户id=订单备注
 	$payment = $trade['payment'];//金额
