@@ -48,7 +48,7 @@ $my_params = [
 ];
 if(is_user_logged_in()) {
 echo '<span class="pull-center"><form method="post">
-	<input type="number" placeholder="1元='.git_get_option('git_chongzhi_dh').'金币" name="money">&nbsp;&nbsp;元
+	<input type="number" placeholder="1元='.git_get_option('git_chongzhi_dh').'金币" name="money" required="required">&nbsp;&nbsp;元
 	<input type="submit" value="点击充值">
 	</form></span>';
 if(isset($_POST['money'])){
@@ -58,7 +58,6 @@ echo '<p class="pull-center">请使用微信或者支付宝扫描二维码</p>
 }else{
 	echo '<div class="alert alert-error" role="alert">本页面需要您登录才可以操作，请先 <a id="showdiv" href="#loginbox" data-original-title="点击登录">点击登录</a>  或者<a target="_blank" href="/wp-login.php?action=register">立即注册</a></div>';
 }
-
 ?>
 <style type="text/css">input[type=number]{-moz-appearance:textfield}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}</style>
 			</div>
