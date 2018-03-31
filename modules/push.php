@@ -1,8 +1,6 @@
 <?php
 /**
- * 有赞推送服务消息接收示例
- * Doc：https://www.youzanyun.com/docs/guide/push/692
- * Auther: 墨鱼
+ * 有赞推送服务消息接收文件
  */
 require( '../../../../wp-load.php' );
 $client_id = git_get_option('git_yzclient_id');
