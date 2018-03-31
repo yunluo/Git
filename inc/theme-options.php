@@ -1509,7 +1509,7 @@ $options = array(
     ),
 	array(
         'name'  => '有赞client_secret',
-        'desc'  => '<a target="_blank" href="https://webapproach.net/tint-2-5-new-payment-intro.html" >使用教程</a>',
+        'desc'  => '<a target="_blank" href="https://googlo.me/archives/6519.html" >使用教程</a>',
         'id'    => 'git_yzclient_secret',
         'type'  => 'text',
         'std'   => 444444444
