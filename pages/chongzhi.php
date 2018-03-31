@@ -1,6 +1,6 @@
 <?php
 /*
-	template name: 在线充值
+	template name: 新版在线充值
 	description: template for Git theme
 */
 get_header();
@@ -52,12 +52,13 @@ echo '<span class="pull-center"><form method="post">
 	<input type="submit" value="点击充值">
 	</form></span>';
 if(isset($_POST['money'])){
-echo '<p class="pull-center">注意：请使用微信或者支付宝扫描下面二维码充值</p>
-<p class="pull-center">你当前的充值金额为<font color="#cc0000">'.$_POST['money'].'</font> 元,</p>
+echo '<p class="pull-center">请使用微信或者支付宝扫描二维码</p>
+<p class="pull-center">你当前正在充值的金额为&nbsp;<font style="font-weight:bold;" color="#cc0000">'.$_POST['money'].'</font> 元</p>
 <img src="' . $client->post($method, $api_version, $my_params)['response']['qr_code'] . '" />';}
 }else{
 	echo '<div class="alert alert-error" role="alert">本页面需要您登录才可以操作，请先 <a id="showdiv" href="#loginbox" data-original-title="点击登录">点击登录</a>  或者<a target="_blank" href="/wp-login.php?action=register">立即注册</a></div>';
 }
+
 ?>
 <style type="text/css">input[type=number]{-moz-appearance:textfield}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}</style>
 			</div>
