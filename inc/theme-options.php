@@ -1477,7 +1477,7 @@ $options = array(
     ),
     array(
         'name'  => 'CDN自定义样式',
-        'desc'  => '启用【使用七牛CDN可以不启用,其他CDN必须启用,如果启用CDN自定义样式,则<font color="#cc0000"><strong><a target="_blank" href="http://googlo.me/archives/5015.html" >必须看本篇文章</a></strong></font>】',
+        'desc'  => '启用【使用七牛CDN可以不启用,其他CDN必须启用',
         'id'    => 'git_cdnurl_style',
         'type'  => 'checkbox'
     ),
@@ -1502,21 +1502,21 @@ $options = array(
     ),
 	array(
         'name'  => '有赞client_id',
-        'desc'  => '<a target="_blank" href="https://console.youzanyun.com/application/setting" >获取地址</a>',
+        'desc'  => '',
         'id'    => 'git_yzclient_id',
         'type'  => 'text',
         'std'   => 2333333333
     ),
 	array(
         'name'  => '有赞client_secret',
-        'desc'  => '<a target="_blank" href="https://googlo.me/archives/6519.html" >使用教程</a>',
+        'desc'  => '',
         'id'    => 'git_yzclient_secret',
         'type'  => 'text',
         'std'   => 444444444
     ),
 	array(
         'name'  => '有赞授权店铺id',
-        'desc'  => '推送地址：你的域名/wp-content/themes/Git-alpha/modules/push.php，需要https，且不支持LetEncrypt证书，手续费1%',
+        'desc'  => '',
         'id'    => 'git_yzkdt_id',
         'type'  => 'text',
         'std'   => 4025684
@@ -1537,7 +1537,7 @@ $options = array(
     ),
     array(
         'name'  => '评论微信推送提醒',
-        'desc'  => '启用【开启后，如果网站有新的评论，可以给您的微信推送提醒，这个只是给网站管理员提醒，不涉及访客】，具体设置<a class="button-primary" target="_blank" href="http://googlo.me/archives/4500.html" title="点击查看设置教程">点击查看设置教程</a>',
+        'desc'  => '启用【开启后，如果网站有新的评论，可以给您的微信推送提醒，这个只是给网站管理员提醒，不涉及访客】',
         'id'    => 'git_Server',
         'type'  => 'checkbox'
     ),
@@ -1678,7 +1678,7 @@ $options = array(
     ),
     array(
         'name'  => 'Gravatar头像设置',
-        'desc'  => '头像设置，请务必点击 -->> <a class="button-primary" target="_blank" href="http://googlo.me/archives/4667.html">使用说明</a>',
+        'desc'  => '头像设置，请查看使用文档说明',
         'id'    => 'git_avater',
         'type'  => 'radio',
         'options' => array(
@@ -1763,7 +1763,7 @@ $options = array(
         'desc'  => '这里的文字在下载单页中粗线，采用<code>&lt;ol&gt;&lt;li&gt;文字&lt;/li&gt;&lt;/ol&gt;</code>的形式',
         'id'    => 'git_dlpage_dl',
         'type'  => 'textarea',
-        'std'   => '<p>下载文件若出现其中一个渠道链接失效，可切换其���渠道下载，若下载地址全部失效，请回复文章，博猪会第一时间更新！</p>
+        'std'   => '<p>下载文件若出现其中一个渠道链接失效，可切换其其他渠道下载，若下载地址全部失效，请回复文章，博猪会第一时间更新！</p>
                 <p>下载文件若为压缩包，亲留意文章中的解压密码，并尽量使用最新版压缩软件解压</p>
                 <p>下载压缩包文件损坏，请切换其他渠道下载损坏部分</p>
                 <p>以上如有疑问，请在文章中留言给博猪</p>'
@@ -1773,7 +1773,7 @@ $options = array(
         'desc'  => '这里的文字在下载单页中粗线，纯文字即可',
         'id'    => 'git_dlpage_mz',
         'type'  => 'textarea',
-        'std'   => '本站大部分下载资源收集于网络，只做学习和交流使用，版权归原作者所有，若为付费内容，请在下载后24小时之内自觉删除，若作商业用途���请购买正版，由于未及时购买和付费发生的侵权行为，与本站无关。本站发布的内容若侵犯到您的权益，请联系站长删除，我们将及时处理！'
+        'std'   => '本站大部分下载资源收集于网络，只做学习和交流使用，版权归原作者所有，若为付费内容，请在下载后24小时之内自觉删除，若作商业用途请购买正版，由于未及时购买和付费发生的侵权行为，与本站无关。本站发布的内容若侵犯到您的权益，请联系站长删除，我们将及时处理！'
     ),
     array(
         'type'  => 'panelend'
