@@ -11,16 +11,7 @@
 <meta name="keywords" content="站点地图,<?php bloginfo('name'); ?>" />
 <meta name="copyright" content="<?php bloginfo('name'); ?>" />
 <link rel="canonical" href="<?php echo get_permalink(); ?>" />
-<style type="text/css">
-	body {font-family: Microsoft Yahei,Verdana;font-size:13px;margin:0 auto;color: #000000;background: #ffffff;width: 990px;margin: 0 auto}
-	a:link,a:visited {color:#000;text-decoration:none;}
-	a:hover {color:#08d;text-decoration:none;}
-	h1,h2,h3,h4,h5,h6 {font-weight:normal;}
-	img {border:0;}
-	li {margin-top: 8px;}
-	.page {padding: 4px; border-top: 1px #EEEEEE solid}
-	.author {background-color:#EEEEFF; padding: 6px; border-top: 1px #ddddee solid}
-	#nav, #content, #footer {padding: 8px; border: 1px solid #EEEEEE; clear: both; width: 95%; margin: auto; margin-top: 10px;}
+<style type="text/css">body {font-family: Microsoft Yahei,Verdana;font-size:13px;margin:0 auto;color: #000000;background: #ffffff;width: 990px;margin: 0 auto}a:link,a:visited {color:#000;text-decoration:none;}a:hover {color:#08d;text-decoration:none;}h1,h2,h3,h4,h5,h6 {font-weight:normal;}img {border:0;}li {margin-top: 8px;}.page {padding: 4px; border-top: 1px #EEEEEE solid}.author {background-color:#EEEEFF; padding: 6px; border-top: 1px #ddddee solid}#nav, #content, #footer {padding: 8px; border: 1px solid #EEEEEE; clear: both; width: 95%; margin: auto; margin-top: 10px;}
 </style>
 </head>
 <body vlink="#333333" link="#333333">
@@ -34,9 +25,7 @@
 $previous_year = $year = 0;
 $previous_month = $month = 0;
 $ul_open = false;
-
 $myposts = get_posts('numberposts=-1&orderby=post_date&order=DESC');
-
 foreach($myposts as $post) :
 ?>
 <li><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" target="_blank"><?php the_title(); ?></a></li>
@@ -44,12 +33,11 @@ foreach($myposts as $post) :
 </ul>
 </div>
 <div id="content">
-<li class="categories">分类目录<ul>
-<?php wp_list_categories('title_li='); ?>
-</ul></li>
+<h3>分类目录</h3>
+<ul><?php wp_list_categories('title_li='); ?></ul>
 </div>
 <div id="content">
-<li class="categories">单页面</li>
+<h3>单页面</h3>
 <?php wp_page_menu( $args ); ?>
 </div>
 <div id="footer">查看博客首页: <strong><a href="<?php echo esc_url( home_url() ); ?>/"><?php bloginfo('name'); ?></a></strong></div><br />
