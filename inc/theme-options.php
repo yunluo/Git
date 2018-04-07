@@ -1709,7 +1709,7 @@ $options = array(
         'type'  => 'radio',
         'options' => array(
             '又拍云jQuery库【底部加载,速度快,兼容差】' => 'git_jqcdn_upai',
-            '本地jQuery库【头部加载,速度慢,兼容好】' => 'git_jqcdn_bendi'
+            '本地jQuery库【头部加载,速度慢,兼容好���' => 'git_jqcdn_bendi'
         ),
         'std'   => 'git_jqcdn_bendi'
     ),
@@ -1991,7 +1991,7 @@ switch ( $value['type'] ) {
 <h2>其他事项</h2>
 <a class="button button-primary" href="https://coding.net/u/googlo/p/Git/git/commits/alpha" target="_blank">更新日志</a>
 <a class="button button-primary" href="http://googlo.me/bbs.html" target="_blank">支持论坛</a>
-<a class="button button-primary" href="http://googlo.me/git-faq.html" target="_blank">使用文档</a>
+<a class="button button-primary" href="https://googlo.me/archives/3275.html" target="_blank">使用文档</a>
 <h2>关注公众号</h2>
 <p>欢迎关注乐趣公园公众号，<font color="#ff0000">PS.主题有不会使用的，也可以直接在公众号查找使用方法哦</font></p>
 <img src="http://71bbs.people.com.cn/postImages/21/AE/7C/33/1516688538675.jpg"></img>
