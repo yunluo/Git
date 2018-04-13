@@ -1,5 +1,5 @@
 <?php
-if(phpversion()<5.5){ wp_die( '本主题不支持在PHP5.4及以下版本运行，请升级PHP版本 ^_^' );}
+if(phpversion()<5.4){ wp_die( '本主题不支持在PHP5.4以下版本运行，请升级PHP版本 ^_^' );}
 /*定义一些常量*/
 define( 'GIT_VER', wp_get_theme()->get( 'Version' ) );
 add_action('after_setup_theme', 'deel_setup');
