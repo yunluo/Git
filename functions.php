@@ -254,6 +254,7 @@ function Coding_git_ver() {
     return $coding_ver;
 }
 endif;
+
 //页面伪静态
 if (git_get_option('git_pagehtml_b') ):
     add_action('init', 'html_page_permalink', -1);
@@ -1406,17 +1407,6 @@ function shapeSpace_custom_admin_notice() {
  }
 add_action('admin_notices', 'shapeSpace_custom_admin_notice');
     endif;
-endif;
-
-//试验小公具
-if (!git_get_option('git_updates_b')):
-    function dashboard_widget_function( $post, $callback_args ) {
-        echo Coding_notice();
-    }
-    function add_dashboard_widgets() {
-        wp_add_dashboard_widget('dashboard_widget', 'Git通知', 'dashboard_widget_function', 'high');
-    }
-    add_action('wp_dashboard_setup', 'add_dashboard_widgets' );
 endif;
 
 //新文章同步到新浪微博
