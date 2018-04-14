@@ -867,59 +867,10 @@ $options = array(
         'std'   => 4
     ),
     array(
-        'name'  => '分类一',
-        'desc'  => '启用',
-        'id'    => 'git_cat_1',
-        'type'  => 'number',
-        'std'   => ''
-    ),
-    array(
-        'name'  => '分类二',
-        'desc'  => '启用',
-        'id'    => 'git_cat_2',
-        'type'  => 'number',
-        'std'   => ''
-    ),
-    array(
-        'name'  => '分类三',
-        'desc'  => '启用',
-        'id'    => 'git_cat_3',
-        'type'  => 'number',
-        'std'   => ''
-    ),
-    array(
-        'name'  => '分类四',
-        'desc'  => '启用',
-        'id'    => 'git_cat_4',
-        'type'  => 'number',
-        'std'   => ''
-    ),
-    array(
-        'name'  => '分类五',
-        'desc'  => '启用',
-        'id'    => 'git_cat_5',
-        'type'  => 'number',
-        'std'   => ''
-    ),
-    array(
-        'name'  => '分类六',
-        'desc'  => '启用',
-        'id'    => 'git_cat_6',
-        'type'  => 'number',
-        'std'   => ''
-    ),
-    array(
-        'name'  => '分类七',
-        'desc'  => '启用',
-        'id'    => 'git_cat_7',
-        'type'  => 'number',
-        'std'   => ''
-    ),
-    array(
-        'name'  => '分类八',
-        'desc'  => '启用',
-        'id'    => 'git_cat_8',
-        'type'  => 'number',
+        'name'  => '分类ID',
+        'desc'  => '显示在CMS首页的分类,举例：1,15,5,6,12,13,16,20',
+        'id'    => 'git_cat_id',
+        'type'  => 'text',
         'std'   => ''
     ),
     array(
@@ -1709,7 +1660,7 @@ $options = array(
         'type'  => 'radio',
         'options' => array(
             '又拍云jQuery库【底部加载,速度快,兼容差】' => 'git_jqcdn_upai',
-            '本地jQuery库【头部加载,速度慢,兼容好���' => 'git_jqcdn_bendi'
+            '本地jQuery库【头部加载,速度慢,兼容好�����' => 'git_jqcdn_bendi'
         ),
         'std'   => 'git_jqcdn_bendi'
     ),

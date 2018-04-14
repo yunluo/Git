@@ -51,8 +51,7 @@ echo $sr_1
 echo $sr_2
 ?>]}
 </script>
-<!--[if lt IE 9]><script src="<?php
-echo esc_url( get_template_directory_uri() ); ?>/assets/js/html5.js"></script><![endif]-->
+<!--[if lt IE 9]><script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script><![endif]-->
 <?php
 if (git_get_option('git_customcss')) echo '<style type="text/css">'.git_get_option('git_customcss').'</style>'; ?>
 </head>

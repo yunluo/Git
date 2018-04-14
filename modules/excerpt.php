@@ -30,7 +30,7 @@ while (have_posts()):
             if(git_get_option('git_cdnurl_style') ){
                 $githumb7 = '!githumb7.jpg';
             }else{
-                $githumb7 = '?imageView2/1/w/856/h/237/q/75';
+                $githumb7 = '?imageView2/1/w/856/h/273/q/75';
             }
 			echo '<img class="thumb" '.$src.'="';
             echo post_thumbnail_src();
@@ -38,7 +38,7 @@ while (have_posts()):
         } else {
             echo '<img class="thumb" '.$src.'="' . get_template_directory_uri() . '/timthumb.php?src=';
             echo post_thumbnail_src();
-            echo '&h=237&w=856&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
+            echo '&h=273&w=856&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
         } ?>
     </a>
     <div class="post-style-image-content">
