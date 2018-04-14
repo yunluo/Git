@@ -1152,13 +1152,28 @@ add_filter('asgarosforum_filter_post_content', 'git_prettify_replace');
 //首页隐藏一些分类
 function exclude_category_home($query) {
     if ($query->is_home) {
-        $query->set('cat', '' . git_get_option('git_blockcat') . ''); //隐藏这两个分类
+        $query->set('cat', git_get_option('git_blockcat')); //隐藏这两个分类
     }
     return $query;
 }
-if (git_get_option('git_blockcat_b')) {
     add_filter('pre_get_posts', 'exclude_category_home');
+    
+function git_exclude_category_search($query) {
+	if ( !$query->is_admin && $query->is_search) {
+        $query->set('cat', git_get_option('git_blockcat_search')); //隐藏这两个分类
+    }
+    return $query;
 }
+    add_filter('pre_get_posts', 'git_exclude_category_search');
+
+function git_exclude_category_rss($query) {
+    if ( $query->is_feed ) {
+        $query->set('cat', git_get_option('git_blockcat_rss')); //隐藏这两个分类
+    }
+    return $query;
+}
+    add_filter('pre_get_posts', 'git_exclude_category_rss');
+
 //固化插入图片选项
 function git_attachment_display_settings() {
 	update_option( 'image_default_align', 'center' );//居中显示

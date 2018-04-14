@@ -881,15 +881,31 @@ $options = array(
         'type'  => 'subtitle'
     ),
     array(
-        'name'  => '是否开启',
-        'desc'  => '启用',
-        'id'    => 'git_blockcat_b',
-        'type'  => 'checkbox'
+        'name'  => '屏蔽分类',
+        'desc'  => '格式按照-3,-4,-5输入',
+        'id'    => 'git_blockcat',
+        'type'  => 'text',
+        'std'   => ''
+    ),
+    array(
+        'title' => 'RSS隐藏分类',
+        'type'  => 'subtitle'
     ),
     array(
         'name'  => '屏蔽分类',
         'desc'  => '格式按照-3,-4,-5输入',
-        'id'    => 'git_blockcat',
+        'id'    => 'git_blockcat_rss',
+        'type'  => 'text',
+        'std'   => ''
+    ),
+    array(
+        'title' => '搜索隐藏分类',
+        'type'  => 'subtitle'
+    ),
+    array(
+        'name'  => '屏蔽分类',
+        'desc'  => '格式按照-3,-4,-5输入',
+        'id'    => 'git_blockcat_search',
         'type'  => 'text',
         'std'   => ''
     ),

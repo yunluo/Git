@@ -20,6 +20,7 @@ if (is_home()) { ?>
     $args = array(
   'numberposts' => 10,
   'post_status'    => 'publish',
+  'category'       => git_get_option('git_blockcat')
 );
 $result = get_posts( $args );
 foreach ($result as $post) :
