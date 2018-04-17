@@ -129,7 +129,7 @@ if (git_get_option('git_skin_b') == 'git_red_b') {
 ?>
 
 <div class="container-inner"><?php
-if (git_get_option('git_piclogo_left') && !G_is_mobile()) {
+if (git_get_option('git_piclogo_left') && !git_is_mobile()) {
     echo '<div class="g-logo pull-left">';
 } else {
     echo '<div class="g-logo pull-center">';
@@ -165,7 +165,7 @@ if (is_home()) {
     echo '</div>';
 } ?>
 </a></div></div><div id="toubuads"><?php
-if (git_get_option('git_toubuads') && git_get_option('git_piclogo_left') && !G_is_mobile()) echo git_get_option('git_toubuads'); ?></div>
+if (git_get_option('git_toubuads') && git_get_option('git_piclogo_left') && !git_is_mobile()) echo git_get_option('git_toubuads'); ?></div>
 <?php
 if (git_get_option('git_skin_b') == 'git_red_b') {
     echo '<div id="nav-header" class="navbar" style="border-bottom: 4px solid #E74C3C ;">';
@@ -222,7 +222,7 @@ if (git_get_option('git_sign_b')) {
             if(is_user_logged_in()){/*判断是否登录，如果登录了就... */
                 if(defined('UM_DIR')){/*判断是否按照um插件，如果安装就...*/
                     if( current_user_can( 'manage_options' ) ) {/*如果是管理员的话...*/
-                        echo '<i class="fa fa-user"></i> <a href="' . home_url() . '/wp-admin">' . $u_name . '</a>';
+                        echo '<i class="fa fa-user"></i> <a href="' . admin_url() . '">' . $u_name . '</a>';
                         echo '&nbsp;&nbsp;<i class="fa fa-power-off"></i> ';
                         echo wp_loginout();
                         echo '';}else{/*如果不是管理员的话就..*/
@@ -232,7 +232,7 @@ if (git_get_option('git_sign_b')) {
                         echo '';}
                 }else{/*如果没安装um插件就...*/
                     if( current_user_can( 'manage_options' ) ) {/*如果是管理员的话...*/
-                        echo '<i class="fa fa-user"></i> <a href="' . home_url() . '/wp-admin">' . $u_name . '</a>';
+                        echo '<i class="fa fa-user"></i> <a href="' . admin_url() . '">' . $u_name . '</a>';
                         echo '&nbsp;&nbsp;<i class="fa fa-power-off"></i> ';
                         echo wp_loginout();
                         echo '';}else{/*如果不是管理员的话就..*/
@@ -248,7 +248,7 @@ if (git_get_option('git_sign_b')) {
                     echo '&nbsp;&nbsp;<i class="fa fa-pencil-square-o" ></i>  <a style="cursor:pointer;" data-sign="1" class="user-reg">注册</a>';}
                 }else{/*如果没有按照um插件的话就..*/
                     echo '<i class="fa fa-sign-in" ></i> <a id="showdiv" href="#loginbox" data-original-title="点击登录">登录</a>';
-                    echo '&nbsp;&nbsp;<i class="fa fa-pencil-square-o" ></i>  <a href="' . home_url() . '/wp-login.php?action=register">注册</a>';
+                    echo '&nbsp;&nbsp;<i class="fa fa-pencil-square-o" ></i>  <a href="'.esc_url( wp_registration_url() ).'">注册</a>';
                 }
             }
             ?>
@@ -259,9 +259,9 @@ if (git_get_option('git_sign_b')) {
         echo wp_loginout();
         echo '';
         } else {/*如果没有登录的话就...*/
-        echo '<i class="fa fa-sign-in" ></i>  <a target="_blank" href="' . home_url() . '/wp-login.php">登录</a>';
+        echo '<i class="fa fa-sign-in" ></i>  <a target="_blank" href="'.esc_url( wp_login_url( get_permalink() ) ).'">登录</a>';
         if (get_option('users_can_register')){
-        echo '&nbsp;&nbsp;<i class="fa fa-pencil-square-o" ></i>  <a target="_blank" href="' . home_url() . '/wp-login.php?action=register">注册</a>';
+        echo '&nbsp;&nbsp;<i class="fa fa-pencil-square-o" ></i>  <a href="'.esc_url( wp_registration_url() ).'">注册</a>';
             }
         };
     }?>

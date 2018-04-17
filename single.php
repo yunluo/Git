@@ -49,7 +49,7 @@ while (have_posts()):
 				<?php
     if (comments_open()) echo '<span class="muted"><i class="fa fa-comments-o"></i> <a href="' . get_comments_link() . '">' . get_comments_number('0', '1', '%') . '个评论</a></span>'; ?>
 				<?php
-    if (git_get_option('git_qr_b') && !G_is_mobile()) { ?><span class="muted"><i class="fa fa-qrcode"></i> <a style="cursor : pointer;" onMouseOver="document.all.qr.style.visibility=''" onMouseOut="document.all.qr.style.visibility='hidden'">扫描二维码</a>
+    if (git_get_option('git_qr_b') && !git_is_mobile()) { ?><span class="muted"><i class="fa fa-qrcode"></i> <a style="cursor : pointer;" onMouseOver="document.all.qr.style.visibility=''" onMouseOut="document.all.qr.style.visibility='hidden'">扫描二维码</a>
 				<span id="qr" style="visibility: hidden;"><img alt = <?php the_title();?> style="position:absolute;z-index:99999;" src="https://pan.baidu.com/share/qrcode?w=145&h=145&url=<?php
         the_permalink(); ?>"/></span></span><?php
     } ?>
@@ -87,7 +87,7 @@ while (have_posts()):
 <?php
     if (git_get_option('git_adpost_01') && get_post_type() !== 'product') echo '<div class="banner banner-post">' . git_get_option('git_adpost_01') . '</div>'; ?>
 <?php
-    if (wp_is_mobile()): ?><?php
+    if (git_is_mobile()): ?><?php
         if (git_get_option('Mobiled_adpost_01')) echo '<div class="banner-post mobileads">' . git_get_option('Mobiled_adpost_01') . '</div>'; ?><?php
     endif; ?>
 		<article class="article-content">
@@ -207,7 +207,7 @@ if (git_get_option('git_auther_b') && !defined('UM_DIR')) { ?>
 include ('modules/related.php'); ?>
 		</div>
 		<?php
-if (wp_is_mobile()): ?>
+if (git_is_mobile()): ?>
 		<?php
     if (git_get_option('Mobiled_adpost_02')) echo '<div id="comment-ad" class="banner-related mobileads">' . git_get_option('Mobiled_adpost_02') . '</div>'; ?><?php
 endif; ?>

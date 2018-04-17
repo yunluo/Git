@@ -87,7 +87,7 @@ class Points_Shortcodes {
 		if(!is_user_logged_in()){
 			$notice .='<div style="background-color: #ffffe0;border:1px solid #993;padding:1em;" class="pay-content">';
 			$notice .='<p style="color:red;">本段内容需要支付 '.$point.''. get_option('points-points_label', POINTS_DEFAULT_POINTS_LABEL).' 查看</p>';
-			$notice .='<p style="color:red;">您未登录，请 <a id="showdiv" href="#loginbox" data-original-title="点击登录">点击登录</a>  或者<a target="_blank" href="/wp-login.php?action=register">立即注册</a></p>';
+			$notice .='<p style="color:red;">您未登录，请 <a id="showdiv" href="#loginbox" data-original-title="点击登录">点击登录</a>  或者<a href="'.esc_url( wp_registration_url() ).'">立即注册</a></p>';
 			$notice .='</div>';
 			return $notice;
 		}else{
@@ -96,11 +96,7 @@ class Points_Shortcodes {
 			$notice .='<div style="background-color: #ffffe0;border: 1px solid #993;padding:1em;" class="pay-content">';
 			$notice .='<p style="color:red;">本段内容需要支付 '.$point.''. get_option('points-points_label', POINTS_DEFAULT_POINTS_LABEL).' 查看</p>';
 			$notice .='<p style="color:red;">您当前拥有 <em><strong>'.Points::get_user_total_points($user_id, POINTS_STATUS_ACCEPTED ).'</strong></em> 金币，您的金币不足，请充值</p>';
-			if (git_get_option('git_pagehtml_b')){
-			$notice .='<p><a class="lhb" href="' . home_url() . '/chongzhi.html" target="_blank" rel="nofollow" data-original-title="立即充值" title="">立即充值</a></p>';
-			}else{
-			$notice .='<p><a class="lhb" href="' . home_url() . '/chongzhi" target="_blank" rel="nofollow" data-original-title="立即充值" title="">立即充值</a></p>';
-			}
+			$notice .='<p><a class="lhb" href="'.get_permalink(git_page_id('chongzhi')).'" target="_blank" rel="nofollow" data-original-title="立即充值" title="">立即充值</a></p>';
 			$notice .='</div>';
 			return $notice;
 			}

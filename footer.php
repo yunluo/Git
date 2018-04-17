@@ -1,6 +1,6 @@
 </section>
 <?php
-if (git_get_option('git_superfoot_b') && !G_is_mobile()) { ?>
+if (git_get_option('git_superfoot_b') && !git_is_mobile()) { ?>
 <div id="footbar" style="border-top: 2px solid #8E44AD;"><ul>
 <li><p class="first"><?php
     echo git_get_option('git_foottitle1'); ?></p><span><?php
