@@ -1843,22 +1843,6 @@ function git_register_extra_fields( $user_id ){
     $new_user_id = wp_update_user( $userdata );
 }
 add_action( 'user_register', 'git_register_extra_fields', 100 );
-
-/*		
- * 返回修改WordPress自带的注册完成消息		
- */		
-function git_edit_password_email_text ( $translated_text, $untranslated_text, $domain ) {		
-    if(in_array($GLOBALS['pagenow'], array('wp-login.php'))){		
-        if ( $untranslated_text == 'A password will be e-mailed to you.' ) {		
-            $translated_text = '若密码留空,则自动生成一个密码,并邮件密码给您';		
-        }		
-        if( $untranslated_text == 'Registration complete. Please check your e-mail.' ) {		
-            $translated_text = '注册已完成,请用您的密码登录或者检查您的邮箱';		
-        }		
-    }		
-    return $translated_text;		
-}		
-add_filter( 'gettext', 'git_edit_password_email_text',20, 3 );		
 }
 
 //注册之后跳转
