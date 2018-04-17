@@ -882,9 +882,7 @@ function curl_post($url, $postfields = '', $headers = '', $timeout = 20, $file =
 		CURLOPT_POST => true,
 		CURLOPT_USERAGENT => 'User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36',
 		CURLOPT_TIMEOUT => $timeout,
-		CURLOPT_MAXREDIRS => 20,
 		CURLOPT_RETURNTRANSFER => true,
-		CURLOPT_FOLLOWLOCATION => true,
 		CURLOPT_SSL_VERIFYHOST => 0,
 		CURLOPT_SSL_VERIFYPEER => 0
 		);
@@ -896,6 +894,10 @@ function curl_post($url, $postfields = '', $headers = '', $timeout = 20, $file =
     curl_setopt_array($ch, $options);
     if (is_array($headers)) {
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    }
+    if (ini_get('open_basedir') == '' && ini_get('safe_mode' == 'Off')) {
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+	curl_setopt($ch, CURLOPT_MAXREDIRS,20);
     }
     $result = curl_exec($ch);
     $code = curl_errno($ch);
