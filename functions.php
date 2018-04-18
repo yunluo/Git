@@ -110,7 +110,6 @@ add_action( 'wp_dashboard_setup',         'git_dweandw_remove', 20 );
 	remove_filter( 'pre_link_notes', 'wp_filter_kses' );
 	remove_filter( 'term_description', 'wp_kses_data' );
     //添加主题特性
-	add_theme_support( 'title-tag' );//title
     add_theme_support('post-thumbnails');//缩略图设置
 	add_theme_support( 'post-formats', array(  'aside' ) );//增加文章形式
     add_theme_support('custom-background', array(
