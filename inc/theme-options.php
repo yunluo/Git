@@ -1676,7 +1676,7 @@ $options = array(
         'type'  => 'radio',
         'options' => array(
             '又拍云jQuery库【底部加载,速度快,兼容差】' => 'git_jqcdn_upai',
-            '本地jQuery库【头部加载,速度慢,兼容好�����' => 'git_jqcdn_bendi'
+            '本地jQuery库【头部加载,速度慢,兼容好】' => 'git_jqcdn_bendi'
         ),
         'std'   => 'git_jqcdn_bendi'
     ),
