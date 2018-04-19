@@ -463,7 +463,7 @@ function deel_description() {
         if (!empty($iexcerpt)) {
             $text = $iexcerpt;
         } else {
-            $text = $post->post_content;
+            $text = strip_shortcodes($post->post_content);
         }
         $description = trim(str_replace(array(
             "\r\n",
