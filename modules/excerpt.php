@@ -129,7 +129,7 @@ while (have_posts()):
     } ?>
 		<span class="note"> <?php
 		$excerpt = $post->post_excerpt;
-		if(post_password_required()){
+		if(!post_password_required()){
 		    if (empty($excerpt)) {
             echo deel_strimwidth(strip_tags(apply_filters('the_content', strip_shortcodes($post->post_content))) , 0, git_get_option('git_excerpt_length') ? git_get_option('git_excerpt_length') : 210 , '……<a href="' . get_permalink() . '" rel="nofollow" class="more-link">继续阅读 &raquo;</a>');
             } else {
