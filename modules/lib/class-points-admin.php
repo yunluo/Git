@@ -33,6 +33,15 @@ class Points_Admin {
 	public static function points_menu() {
 
 		$alert = "";
+		if(isset( $_POST['psearch'] )){
+			$points = Points::get_points_by_user( $_POST['psearch'] );
+				$k[] = '<div style="margin-bottom:10px;">用户ID：'.$_POST['psearch'].'  &nbsp;&nbsp;总积分为：'.Points::get_user_total_points( $_POST['psearch'] ).'</div>';
+				foreach ( $points as $point ) {
+					$k[] = '<div style="margin-bottom:5px;">积分：'.$point->points.' &nbsp;&nbsp;描述：'.$point->description.' &nbsp;&nbsp;日期：'.$point->datetime.'</div>';
+				}
+				$alert = implode(" ", $k);
+		}
+
 		if ( isset( $_POST['save'] ) && isset( $_POST['action'] ) ) {
 			if ( $_POST['action'] == "edit" ) {
 				$point_id = isset($_POST['point_id'])?intval( $_POST['point_id'] ) : null;
@@ -95,6 +104,9 @@ class Points_Admin {
 						if ( $_GET['point_id'] !== null ) {
 							if ( current_user_can( 'administrator' ) ) {
 								Points::remove_points( $_GET['point_id'] );
+								global $wpdb;
+								$wcu_sql = "DELETE FROM " . Points_Database::points_get_table( "users" ) . " WHERE status = 'removed'";
+								$wpdb->query($wcu_sql);
 								$alert= "金币已删除";
 							}
 						}
@@ -116,9 +128,12 @@ class Points_Admin {
 		?>
 		<div class="wrap">
 			<h2>金币管理</h2>
-			<div class="manage add">
+			<span class="manage add">
 				<a class="add button" href="<?php echo esc_url( add_query_arg( 'action', 'edit', $current_url ) ); ?>" title="点击手动添加金币">添加金币</a>
-			</div>
+			</span>
+			<form method="POST" style="float:right;">
+				<input placeholder="搜索用户ID" type="search" name="psearch" value="" />
+				</form>
 			<?php echo '<style type="text/css">tbody#the-list tr:hover{background:rgba(132,219,162,.61)}</style>';$exampleListTable->display(); ?>
 		</div>
 		<?php

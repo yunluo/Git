@@ -879,9 +879,11 @@ function curl_post($url, $postfields = '', $headers = '', $timeout = 20, $file =
 		CURLOPT_HEADER => false,
 		CURLOPT_NOBODY => false,
 		CURLOPT_POST => true,
+		CURLOPT_MAXREDIRS => 20,
 		CURLOPT_USERAGENT => 'User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36',
 		CURLOPT_TIMEOUT => $timeout,
 		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_FOLLOWLOCATION => true,
 		CURLOPT_SSL_VERIFYHOST => 0,
 		CURLOPT_SSL_VERIFYPEER => 0
 		);
@@ -893,10 +895,6 @@ function curl_post($url, $postfields = '', $headers = '', $timeout = 20, $file =
     curl_setopt_array($ch, $options);
     if (is_array($headers)) {
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    }
-    if (ini_get('open_basedir') == '' && ini_get('safe_mode' == 'Off')) {
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-	curl_setopt($ch, CURLOPT_MAXREDIRS,20);
     }
     $result = curl_exec($ch);
     $code = curl_errno($ch);
@@ -1527,7 +1525,7 @@ function baidu_check($url) {
     $post_id = (null === $post_id) ? get_the_ID() : $post_id;
     $baidu_record = get_post_meta($post_id, 'baidu_record', true);
     if ($baidu_record != 1) {
-        $url = 'http://www.baidu.com/s?wd=' . $url;
+        $url = 'http://www.baidu.com/s?wd=site:'.$_SERVER['HTTP_HOST'].' ' . $url;
         $rs = curl_post($url);
         if (!strpos($rs['data'], '没有找到')) {
             if ($baidu_record == 0) {

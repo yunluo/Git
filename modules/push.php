@@ -45,14 +45,13 @@ if($sign != $data['sign']){
     $token = $token_client->get_token($type, $keys);
     $client = new YZTokenClient($token['access_token']);
     $method = 'youzan.trade.get'; //要调用的api名称
-    $api_version = '3.0.0'; //要调用的api版本号
+    $api_version = '4.0.0'; //要调用的api版本号
     $params = array(
         'tid' => $tid,
     );
-	$resp = $client->post($method, $api_version, $params);
-    $trade = $resp['response']['trade'];
-	$userid = $trade['title'];//用户id=订单备注
-	$payment = $trade['payment'];//金额
+	$resp = $client->post($method, $api_version, $params)['response']['full_order_info'];
+	$userid = $resp['orders'][0]['title'];//用户id=订单备注
+	$payment = $resp['pay_info']['payment'];//金额
 	$status = $msg['status'];
 	$point_number = $payment * git_get_option('git_chongzhi_dh');
 
