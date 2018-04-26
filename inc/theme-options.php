@@ -936,13 +936,6 @@ $options = array(
         'std'   => 'http://googlo.me/go/weibo'
     ),
     array(
-        'name'  => '腾讯微博',
-        'desc'  => '填写腾讯微博个人主页链接',
-        'id'    => 'git_tqq',
-        'type'  => 'text',
-        'std'   => ''
-    ),
-    array(
         'name'  => '腾讯微信',
         'desc'  => '请输入您的微信号',
         'id'    => 'git_weixin',
@@ -971,13 +964,6 @@ $options = array(
         'std'   => ''
     ),
     array(
-        'name'  => '百度贴吧',
-        'desc'  => '',
-        'id'    => 'git_baidu',
-        'type'  => 'text',
-        'std'   => 'http://googlo.me/go/baidu'
-    ),
-    array(
         'name'  => '支付宝',
         'desc'  => '',
         'id'    => 'git_pay',
@@ -992,12 +978,26 @@ $options = array(
         'std'   => 'http://71bbs.people.com.cn/postImages/89/CD/90/93/1509845471379.jpg'
     ),
     array(
-        'name'  => 'GitHub',
-        'desc'  => '',
-        'id'    => 'git_git',
+        'name'  => '自定义社交网络名字',
+        'desc'  => '输入您的其他的社交网络名字，比如：github',
+        'id'    => 'git_customicon_name',
         'type'  => 'text',
         'std'   => ''
     ),
+    array(
+        'name'  => '自定义社交网络链接',
+        'desc'  => '输入您的其他的社交网络链接',
+        'id'    => 'git_customicon_url',
+        'type'  => 'text',
+        'std'   => ''
+    ),
+    array(
+        'name'  => '自定义社交网络图标',
+        'desc'  => '输入您的其他的社交网络图标，使用awesome图标，格式类似于fa-github',
+        'id'    => 'git_customicon_icon',
+        'type'  => 'text',
+        'std'   => ''
+    ), 
     array(
         'type'  => 'panelend'
     ),
@@ -1701,7 +1701,7 @@ $options = array(
         'std'   => ''
     ),
     array(
-        'title' => '下载设置',
+        'title' => '下载���置',
         'type'  => 'subtitle'
     ),
     array(
