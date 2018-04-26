@@ -712,10 +712,8 @@ function bigfa_like() {
 
 //最热排行
 function hot_posts_list() {
-    if (git_get_option('git_hot_b') == 'git_hot_views') {
-    $result = get_posts("numberposts=5&meta_key=views&orderby=meta_value_num&order=desc");
-    } elseif (git_get_option('git_hot_b') == 'git_hot_zan') {
-    $result = get_posts("numberposts=5&meta_key=bigfa_ding&orderby=meta_value_num&order=desc");
+    if (git_get_option('git_hot_b') == 'git_hot_zd') {
+    $result = get_posts(array('post__in' =>get_option('sticky_posts'),'order'=>'DESC','orderby'=>'comment_count','posts_per_page'=>'10'));
     } elseif (git_get_option('git_hot_b') == 'git_hot_comment') {
     $result = get_posts("numberposts=5&orderby=comment_count&order=desc");
     }
@@ -2950,6 +2948,70 @@ function git_search_by_title($search, $wp_query){
 }
 add_filter('posts_search', 'git_search_by_title', 10, 2);
 
+//小工具缓存
+class GIT_Widget_cache{
+    public $cache_time = 18000;
+	/*
+    MINUTE_IN_SECONDS = 60 seconds
+    HOUR_IN_SECONDS = 3600 seconds
+    DAY_IN_SECONDS = 86400 seconds
+    WEEK_IN_SECONDS = 604800 seconds
+    YEAR_IN_SECONDS = 3153600 seconds
+*/
+    function __construct(){
+        add_filter( 'widget_display_callback', array($this,'_cache_widget_output'), 10, 3 );
+        add_action('in_widget_form', array($this,'in_widget_form'),5,3);
+        add_filter('widget_update_callback', array($this,'widget_update_callback'),5,3);
+    }
+    function get_widget_key($i,$a){
+        return 'WC-' . md5( serialize( array( $i, $a ) ) );
+    }
+    function _cache_widget_output($instance, $widget, $args){
+        if ( false === $instance )
+            return $instance;
+        if(isset($instance['wc_cache']) && $instance['wc_cache'] == true)
+            return $instance;
+        $timer_start = microtime(true);
+        $transient_name = $this->get_widget_key($instance,$args);
+        if ( false === ( $cached_widget = get_transient( $transient_name ) ) ){
+            ob_start();
+            $widget->widget( $args, $instance );
+            $cached_widget = ob_get_clean();
+            set_transient( $transient_name, $cached_widget, $this->cache_time);
+        }
+        echo $cached_widget;
+        echo '<!-- From widget cache in '.number_format( microtime(true) - $timer_start, 5 ).' seconds -->';
+        return false;
+    }
+
+    function in_widget_form($t,$return,$instance){
+        $instance = wp_parse_args(
+            (array) $instance,
+            array(
+                'title' => '',
+                'text' => '',
+                'wc_cache' => null
+            )
+        );
+
+        if ( !isset($instance['wc_cache']) )
+            $instance['wc_cache'] = null;
+        ?>
+        <p>
+            <input id="<?php echo $t->get_field_id('wc_cache'); ?>" name="<?php echo $t->get_field_name('wc_cache'); ?>" type="checkbox" <?php checked(isset($instance['wc_cache']) ? $instance['wc_cache'] : 0); ?> />
+            <label for="<?php echo $t->get_field_id('wc_cache'); ?>">禁止缓存本工具?</label>
+        </p>
+        <?php
+    }
+
+    function widget_update_callback($instance, $new_instance, $old_instance){
+        $instance['wc_cache'] = isset($new_instance['wc_cache']);
+        return $instance;
+    }
+}//end GIT_Widget_cache class
+if(git_get_option('git_sidebar_cache') ){
+$GLOBALS['GIT_Widget_cache'] = new GIT_Widget_cache();
+}
 //HTML5 桌面通知
 function Notification_js(){
 	if( git_get_option('git_notification_days') && git_get_option('git_notification_title') && git_get_option('git_notification_body') && git_get_option('git_notification_icon') && git_get_option('git_notification_cookie')){

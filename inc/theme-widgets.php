@@ -152,7 +152,7 @@ class git_postlist extends WP_Widget {
     function __construct() {
         $widget_ops = array(
             'classname' => 'git_postlist',
-            'description' => '图文展示（最新文章+热门文章+随机文章+指定文章）'
+            'description' => '图文展示（最新文章+热门文章+随机文章）'
         );
         parent::__construct('git_postlist', 'Git-聚合文章', $widget_ops);
     }
@@ -161,12 +161,10 @@ class git_postlist extends WP_Widget {
         $title = apply_filters('widget_name', $instance['title']);
         $limit = $instance['limit'];
         $cat = $instance['cat'];
-        $p = $instance['p'];
         $orderby = $instance['orderby'];
         $more = $instance['more'];
         $link = $instance['link'];
         $img = $instance['img'];
-        $xpost = $instance['xpost'];
         $mo = '';
         $style = '';
         if ($more != '' && $link != '') $mo = '<a class="btn" target="_blank" href="' . $link . '">' . $more . '</a>';
@@ -216,16 +214,6 @@ class git_postlist extends WP_Widget {
 		</p>
 		<p>
 			<label>
-				选择文章ID：
-				<a style="font-weight:bold;color:#f60;text-decoration:none;" href="javascript:;" title="格式：1,2 &nbsp;表显示ID为1,2的文章&#13;注意逗号须是英文的">？</a>
-				<input style="width:100%;" id="<?php
-        echo $this->get_field_id('p'); ?>" name="<?php
-        echo $this->get_field_name('p'); ?>" type="text" value="<?php
-        echo $instance['p']; ?>" size="24" />
-			</label>
-		</p>
-		<p>
-			<label>
 				显示数目：
 				<input style="width:100%;" id="<?php
         echo $this->get_field_id('limit'); ?>" name="<?php
@@ -259,26 +247,10 @@ class git_postlist extends WP_Widget {
         echo $this->get_field_name('img'); ?>">显示图片
 			</label>
 		</p>
-		<p>
-			<label>
-			    选择该选项将使排序失效，且必须选择具体ID
-				<input style="vertical-align:-3px;margin-right:4px;" class="checkbox" type="checkbox" <?php
-        checked($instance['xpost'], 'on'); ?> id="<?php
-        echo $this->get_field_id('xpost'); ?>" name="<?php
-        echo $this->get_field_name('xpost'); ?>">指定文章
-			</label>
-		</p>
-
 	<?php
     }
 }
 function githeme_posts_list($orderby, $limit, $cat, $img) {
-    if ($xpost) {
-        $args = array(
-        'p' => $p,
-        'ignore_sticky_posts' => 1
-        );
-    }else{
         $args = array(
         'order' => 'DESC',
         'cat' => $cat,
@@ -286,7 +258,6 @@ function githeme_posts_list($orderby, $limit, $cat, $img) {
         'showposts' => $limit,
         'ignore_sticky_posts' => 1
         );
-    }
     query_posts($args);
     while (have_posts()):
         the_post();

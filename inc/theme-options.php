@@ -60,13 +60,12 @@ $options = array(
     ),
     array(
         'name'  => '排序根据',
-        'desc'  => '选择一个参数作为排序的根据，可以选择评论数目，浏览数目或者点赞数目，新安装主题建议选择按照评论排序',
+        'desc'  => '选择一个参数作为排序的根据，可以选择评论数目，文章置顶，置顶文章最多10篇',
         'id'    => 'git_hot_b',
         'type'  => 'radio',
         'options' => array(
             '评论数目' => 'git_hot_comment',
-            '浏览数目' => 'git_hot_views',
-            '点赞数目' => 'git_hot_zan'
+            '文章置顶' => 'git_hot_zd'
         ),
         'std'   => 'git_hot_comment'
     ),
@@ -1364,7 +1363,7 @@ $options = array(
     ),
     array(
         'name'  => '侧边栏缓存',
-        'desc'  => '启用 【开启后，将会在wp-content/cache文件夹下生成sidebar.txt缓存文件，开启缓存可以提高侧边栏加载速度，但是丧失一些侧边栏动态效果，请知悉，如果侧边栏有异常可以删除sidebar.txt缓存文件或者直接关闭本功能】',
+        'desc'  => '启用 【开启后，将会自动缓存小工具，如果想禁止缓存某个小工具，可以去小工具页面排除】',
         'id'    => 'git_sidebar_cache',
         'type'  => 'checkbox'
     ),
@@ -1701,7 +1700,7 @@ $options = array(
         'std'   => ''
     ),
     array(
-        'title' => '下载���置',
+        'title' => '下载设置',
         'type'  => 'subtitle'
     ),
     array(
