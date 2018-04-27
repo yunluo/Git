@@ -197,7 +197,7 @@ if (git_get_option('git_bdshare_b')) echo '<style type="text/css">.bdsharebutton
 <ul class="nav">
 <?php
 echo str_replace('</ul></div>', '', preg_replace('/<div[^>]*><ul[^>]*>/', '', wp_nav_menu(array('theme_location' => 'nav', 'echo' => false))));?>
-<li style="float:right;"><div class="toggle-search"><i class="fa fa-search"></i></div><div class="search-expand" style="display: none;"><div class="search-expand-inner">
+<li style="float:right;"><div class="toggle-search pc-search"><i class="fa fa-search"></i></div><div class="search-expand" style="display: none;"><div class="search-expand-inner">
 <?php if (git_get_option('git_search_baidu')) { ?>
 <?php echo git_get_option('git_search_code'); ?></div></div>
 <?php }else{ ?>
