@@ -222,21 +222,21 @@ if (git_get_option('git_sign_b')) {
             if(is_user_logged_in()){/*判断是否登录，如果登录了就... */
                 if(defined('UM_DIR')){/*判断是否按照um插件，如果安装就...*/
                     if( current_user_can( 'manage_options' ) ) {/*如果是管理员的话...*/
-                        echo '<i class="fa fa-user"></i> <a href="' . admin_url() . '">' . $u_name . '</a>';
+                        echo '<i class="fa fa-user"></i> <a href="' . esc_url(admin_url()) . '">' . $u_name . '</a>';
                         echo '&nbsp;&nbsp;<i class="fa fa-power-off"></i> ';
                         echo wp_loginout();
                         echo '';}else{/*如果不是管理员的话就..*/
-                        echo '<i class="fa fa-user"></i> <a target="_blank" href="'.get_author_posts_url( $uid ).'">' . $u_name . '</a>';
+                        echo '<i class="fa fa-user"></i> <a target="_blank" href="'.esc_url(get_author_posts_url( $uid )).'">' . $u_name . '</a>';
                         echo '&nbsp;&nbsp;<i class="fa fa-power-off"></i> ';
                         echo wp_loginout();
                         echo '';}
                 }else{/*如果没安装um插件就...*/
                     if( current_user_can( 'manage_options' ) ) {/*如果是管理员的话...*/
-                        echo '<i class="fa fa-user"></i> <a href="' . admin_url() . '">' . $u_name . '</a>';
+                        echo '<i class="fa fa-user"></i> <a href="' . esc_url(admin_url()) . '">' . $u_name . '</a>';
                         echo '&nbsp;&nbsp;<i class="fa fa-power-off"></i> ';
                         echo wp_loginout();
                         echo '';}else{/*如果不是管理员的话就..*/
-                        echo '<i class="fa fa-user"></i> <a target="_blank" href="'.get_author_posts_url( $uid ).'">' . $u_name . '</a>';
+                        echo '<i class="fa fa-user"></i> <a target="_blank" href="'.esc_url(get_author_posts_url( $uid )).'">' . $u_name . '</a>';
                         echo '&nbsp;&nbsp;<i class="fa fa-power-off"></i> ';
                         echo wp_loginout();
                         echo '';}
@@ -254,10 +254,15 @@ if (git_get_option('git_sign_b')) {
             ?>
         <?php }else{ //如果没打开弹窗登录，那么就。。。?>
         <?php if (is_user_logged_in()) { /*判断是否登录 */
-        echo '<i class="fa fa-user"></i> <a target="_blank" href="'.get_author_posts_url( $uid ).'">' . $u_name . '</a>';
-        echo '  <i class="fa fa-power-off"></i> ';
-        echo wp_loginout();
-        echo '';
+                    if( current_user_can( 'manage_options' ) ) {/*如果是管理员的话...*/
+                        echo '<i class="fa fa-user"></i> <a href="' . esc_url(admin_url()) . '">' . $u_name . '</a>';
+                        echo '&nbsp;&nbsp;<i class="fa fa-power-off"></i> ';
+                        echo wp_loginout();
+                        echo '';}else{/*如果不是管理员的话就..*/
+                        echo '<i class="fa fa-user"></i> <a target="_blank" href="'.esc_url( get_author_posts_url( $uid )).'">' . $u_name . '</a>';
+                        echo '&nbsp;&nbsp;<i class="fa fa-power-off"></i> ';
+                        echo wp_loginout();
+                        echo '';}
         } else {/*如果没有登录的话就...*/
         echo '<i class="fa fa-sign-in" ></i>  <a target="_blank" href="'.esc_url( wp_login_url( get_permalink() ) ).'">登录</a>';
         if (get_option('users_can_register')){

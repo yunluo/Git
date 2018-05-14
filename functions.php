@@ -1,5 +1,5 @@
 <?php
-if(phpversion()<5.4){ wp_die( '本主题不支持在PHP5.4以下版本运行，请升级PHP版本 ^_^' );}
+if(phpversion()<5.5){ wp_die( '本主题不支持在PHP5.5以下版本运行，请升级PHP版本 ^_^' );}
 /*定义一些常量*/
 define( 'GIT_VER', wp_get_theme()->get( 'Version' ) );
 add_action('after_setup_theme', 'deel_setup');
@@ -270,7 +270,7 @@ endif;
 
 //面包屑导航
 function deel_breadcrumbs() {
-    if (!is_single() || get_post_type() == 'shuoshuo' || get_post_type() == 'product') return false;
+    if (!is_single() || get_post_type() != 'post') return false;
     $categorys = get_the_category();
     $category = $categorys[0];
     return '<a title="返回首页" href="' . home_url() . '"><i class="fa fa-home"></i></a> <small>></small> ' . get_category_parents($category->term_id, true, ' <small>></small> ') . '<span class="muted">' . get_the_title() . '</span>';
@@ -355,7 +355,7 @@ endif;
 $dHasShare = false;
 function deel_share() {
  if (!git_get_option('git_bdshare_b')) return false;
- echo '<span class="action action-share bdsharebuttonbox"><i class="fa fa-share-alt"></i>分享 (<span class="bds_count" data-cmd="count" title="累计分享0次">0</span>)<div class="action-popover"><div class="popover top in"><div class="arrow"></div><div class="popover-content"><a href="#" class="sinaweibo fa fa-weibo" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_qzone fa fa-star" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="tencentweibo fa fa-tencent-weibo" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="qq fa fa-qq" data-cmd="sqq" title="分享到QQ好友"></a><a href="#" class="bds_renren fa fa-renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin fa fa-weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_more fa fa-ellipsis-h" data-cmd="more"></a></div></div></div></span>';
+ echo '<span class="action action-share bdsharebuttonbox"><i class="fa fa-share-alt"></i>分享 (<span class="bds_count" data-cmd="count" title="累计分享0次">0</span>)<div class="action-popover"><div class="popover top in"><div class="arrow"></div><div class="popover-content"><a href="#" class="sinaweibo fa fa-weibo" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_qzone fa fa-star" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="qq fa fa-qq" data-cmd="sqq" title="分享到QQ好友"></a><a href="#" class="bds_renren fa fa-renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin fa fa-weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_more fa fa-ellipsis-h" data-cmd="more"></a></div></div></div></span>';
     global $dHasShare;
     $dHasShare = true;
 }
@@ -817,12 +817,12 @@ function git_remove_open_sans() {
 add_action('init', 'git_remove_open_sans');
 
 //免插件去除Category
-if (git_get_option('git_category_b')) {
+if (git_get_option('git_category_b')):
     add_action('load-themes.php', 'no_category_base_refresh_rules');
     add_action('created_category', 'no_category_base_refresh_rules');
     add_action('edited_category', 'no_category_base_refresh_rules');
     add_action('delete_category', 'no_category_base_refresh_rules');
-}
+
 function no_category_base_refresh_rules() {
     global $wp_rewrite;
     $wp_rewrite->flush_rules();
@@ -868,6 +868,7 @@ function no_category_base_request($query_vars) {
     }
     return $query_vars;
 }
+endif;
 /*cURL库 */
 if(function_exists('curl_init')):
 function curl_post($url, $postfields = '', $headers = '', $timeout = 20, $file = 0){
@@ -2331,7 +2332,7 @@ function get_the_link_items($id = null){
 }
 
 function get_link_items(){
-    $linkcats = get_terms( 'link_category' );
+    $linkcats = get_terms( 'link_category' , 'orderby=count&hide_empty=1&exclude='.git_get_option('git_linkpage_cat') );
     if ( !empty($linkcats) ) {
         foreach( $linkcats as $linkcat){
             $result .=  '<h2 class="link_title">'.$linkcat->name.'</h2>';
