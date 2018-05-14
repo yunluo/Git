@@ -947,12 +947,13 @@ function tag_link($content) {
             $url.= ' target="_blank"';
             $url.= ">" . addcslashes($cleankeyword, '$') . "</a>";
             $limit = $match_num_max;
-            $content = preg_replace('|(<a[^>]+>)(<pre)(.*)(' . $ex_word . ')(.*)(</a[^>]*>)|U' . $case, '$1$2%&&&&&%$4$5', $content);
-            $content = preg_replace('|(<img)(.*?)(' . $ex_word . ')(.*?)(>)|U' . $case, '$1$2%&&&&&%$4$5', $content);
+            $content = preg_replace( '|(<a[^>]+>)(.*)('.$keyword.')(.*)(</a[^>]*>)|U'.$case, '$1$2%&&&&&%$4$5', $content);
+            $content = preg_replace( '|(<img)(.*?)('.$keyword.')(.*?)(>)|U'.$case, '$1$2%&&&&&%$4$5', $content);
+            $content = preg_replace( '|(<h[^>]+>)(.*)('.$keyword.')(.*)(</h[^>]*>)|U'.$case, '$1$2%&&&&&%$4$5', $content);
             $cleankeyword = preg_quote($cleankeyword, '\'');
             $regEx = '\'(?!((<.*?)|(<a.*?)))(' . $cleankeyword . ')(?!(([^<>]*?)>)|([^>]*?</a>))\'s' . $case;
             $content = preg_replace($regEx, $url, $content, $limit);
-            $content = str_replace('%&&&&&%', stripslashes($ex_word) , $content);
+            $content = str_replace('%&&&&&%', stripslashes($keyword) , $content);
         }
     }
     return $content;
