@@ -817,12 +817,11 @@ function git_remove_open_sans() {
 add_action('init', 'git_remove_open_sans');
 
 //免插件去除Category
-if (git_get_option('git_category_b')):
+if (git_get_option('git_categroy_b')):
     add_action('load-themes.php', 'no_category_base_refresh_rules');
     add_action('created_category', 'no_category_base_refresh_rules');
     add_action('edited_category', 'no_category_base_refresh_rules');
     add_action('delete_category', 'no_category_base_refresh_rules');
-
 function no_category_base_refresh_rules() {
     global $wp_rewrite;
     $wp_rewrite->flush_rules();
