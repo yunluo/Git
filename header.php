@@ -167,25 +167,35 @@ if (is_home()) {
 </a></div></div><div id="toubuads"><?php
 if (git_get_option('git_toubuads') && git_get_option('git_piclogo_left') && !git_is_mobile()) echo git_get_option('git_toubuads'); ?></div>
 <?php
-if (git_get_option('git_skin_b') == 'git_red_b') {
-    echo '<div id="nav-header" class="navbar" style="border-bottom: 4px solid #E74C3C ;">';
-} elseif (git_get_option('git_skin_b') == 'git_blue_b') {
-    echo '<div id="nav-header" class="navbar" style="border-bottom: 4px solid #003399 ;">';
-} elseif (git_get_option('git_skin_b') == 'git_black_b') {
-    echo '<div id="nav-header" class="navbar" style="border-bottom: 4px solid #616161 ;">';
-} elseif (git_get_option('git_skin_b') == 'git_purple_b') {
-    echo '<div id="nav-header" class="navbar" style="border-bottom: 4px solid #9932CC ;">';
-} elseif (git_get_option('git_skin_b') == 'git_yellow_b') {
-    echo '<div id="nav-header" class="navbar" style="border-bottom: 4px solid #f5e011 ;">';
-} elseif (git_get_option('git_skin_b') == 'git_light_b') {
-    echo '<div id="nav-header" class="navbar" style="border-bottom: 4px solid #03A9F4 ;">';
-} elseif (git_get_option('git_skin_b') == 'git_green_b') {
-    echo '<div id="nav-header" class="navbar" style="border-bottom: 4px solid #4CAF50 ;">';
-} elseif (git_get_option('git_skin_b') == 'git_custom_color') {
-    echo '<div id="nav-header" class="navbar" style="border-bottom: 4px solid ' . git_get_option('git_color_nom') . ' ;">';
-} else {
-    echo '<div id="nav-header" class="navbar" style="border-bottom: 4px solid #009966 ;">';
-} ?>
+switch ( git_get_option('git_skin_b') ){
+  case 'git_red_b':
+  $navcolor = '#E74C3C';
+  break;
+  case 'git_blue_b':
+  $navcolor = '#003399';
+  break;
+  case 'git_black_b':
+  $navcolor = '#616161';
+  break;
+  case 'git_purple_b':
+  $navcolor = '#9932CC';
+  break;
+  case 'git_yellow_b':
+  $navcolor = '#f5e011';
+  break;
+  case 'git_light_b':
+  $navcolor = '#03A9F4';
+  break;
+  case 'git_green_b':
+  $navcolor = '#4CAF50';
+  break;
+  case 'git_custom_color':
+  $navcolor = git_get_option('git_color_nom');
+  break;
+  default:
+  $navcolor = '#009966';
+}?>
+<div id="nav-header" class="navbar" style="border-bottom: 4px solid ".$navcolor." ;">
 <?php
 if (git_get_option('git_bdshare_b')) echo '<style type="text/css">.bdsharebuttonbox a{cursor:pointer;border-bottom:0;margin-right:5px;width:28px;height:28px;line-height:28px;color:#fff}.bds_renren{background:#94b3eb}.bds_qzone{background:#fac33f}.bds_more{background:#40a57d}.bds_weixin{background:#7ad071}.bdsharebuttonbox a:hover{background-color:#7fb4ab;color:#fff;border-bottom:0}</style>'; ?>
 <div class="toggle-search m-search" style="float:right;position:absolute;top:0;right:0;"><i class="fa fa-search"></i></div><div class="search-expand m-search" style="display:none;"><div class="search-expand-inner m-search">

@@ -1,208 +1,192 @@
 <?php
-if(phpversion()<5.5){ wp_die( '本主题不支持在PHP5.5以下版本运行，请升级PHP版本 ^_^' );}
+if (phpversion() < 5.5) {
+    wp_die('本主题不支持在PHP5.5以下版本运行，请升级PHP版本 ^_^');
+}
 /*定义一些常量*/
-define( 'GIT_VER', wp_get_theme()->get( 'Version' ) );
+define('GIT_VER', wp_get_theme()->get('Version'));
 add_action('after_setup_theme', 'deel_setup');
 include ('inc/theme-options.php');
 include ('inc/theme-widgets.php');
 include ('inc/theme-metabox.php');
-if ( !defined( 'POINTS_CORE_DIR' ) ) {
-include ('modules/points.php');
+if (!defined('POINTS_CORE_DIR')) {
+    include ('modules/points.php');
 }
-
 function deel_setup() {
-    //去除头部冗余代码
-    remove_action('wp_head', 'feed_links_extra', 3);
-	remove_action('wp_head', 'feed_links', 2, 1);
-    remove_action('wp_head', 'rsd_link');//移除离线编辑器开放接口
-    remove_action('wp_head', 'wlwmanifest_link');//移除离线编辑器开放接口
-    remove_action('wp_head', 'index_rel_link');//本页链接
-    remove_action('wp_head', 'parent_post_rel_link');//清除前后文信息
-	remove_action('wp_head', 'start_post_rel_link');//清除前后文信息
-	remove_action('wp_head', 'adjacent_posts_rel_link_wp_head');
-	remove_action('wp_head', 'rel_canonical');//本页链接
-    remove_action('wp_head', 'wp_generator');//移除WordPress版本号
-	remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0);//本页短链接
-
-add_filter('xmlrpc_enabled', '__return_false');
-add_filter( 'embed_oembed_discover', '__return_false' );
-remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
-remove_action( 'wp_head', 'wp_oembed_add_host_js' );
-remove_filter( 'pre_oembed_result', 'wp_filter_pre_oembed_result', 10 );
-
-// 屏蔽 REST API
-add_filter('rest_enabled', '__return_false');
-add_filter('rest_jsonp_enabled', '__return_false');
-
-// 移除头部 wp-json 标签和 HTTP header 中的 link
-remove_action('wp_head', 'rest_output_link_wp_head', 10 );
-remove_action('template_redirect', 'rest_output_link_header', 11 );
-
-//清除wp_footer带入的embed.min.js
-function git_deregister_embed_script(){
-  wp_deregister_script( 'wp-embed' );
-}
-add_action( 'wp_footer', 'git_deregister_embed_script' );
-
-//显示数据库查询次数、查询时间及内存占用的代码
-function iperformance($visible = false){
-    $stat = sprintf('%d 次查询 用时 %.3f 秒, 耗费了 %.2fMB 内存', get_num_queries(), timer_stop(0, 3), memory_get_peak_usage() / 1024 / 1024);
-    echo $visible ? $stat : "<!-- {$stat} -->";
-}
-add_action('wp_footer', 'iperformance', 20);
-
-//禁止 s.w.org
-function git_remove_dns_prefetch($hints, $relation_type){
-    if ('dns-prefetch' === $relation_type) {
-        return array_diff(wp_dependencies_unique_hosts(), $hints);
-    }
-    return $hints;
-}
-add_filter('wp_resource_hints', 'git_remove_dns_prefetch', 10, 2);
-
-//站长评论邮件添加评论链接
-function git_notify_postauthor( $comment_id ) {
-	$notify_message = $comment_id;
-	$notify_message .= '快速回复此评论: '.admin_url( "edit-comments.php" );
-	return $notify_message;
-}
-add_filter( 'comment_notification_text', 'git_notify_postauthor' );
-
-add_filter( 'wp_password_change_notification_email', '__return_false' );//关闭密码修改站长邮件
-add_filter( 'password_change_email', '__return_false' );//关闭密码修改用户邮件
-if (git_get_option('git_user_notification_to_admin')){
-    add_filter( 'wp_new_user_notification_email_admin', '__return_false' );//关闭新用户注册站长邮件
-}
-
-//欢迎新用户邮件
-if(git_get_option('git_user_notification_to_user')){
-function git_register_mail( $user_id ) {
-	$user = get_user_by( 'id', $user_id );
-	$user_pass = $_POST['password'];
-	$blogname = get_option('blogname');
-	$message = '<div class="emailcontent" style="width:100%;max-width:720px;text-align:left;margin:0 auto;padding-top:80px;padding-bottom:20px"><div class="emailtitle"><h1 style="color:#fff;background:#51a0e3;line-height:70px;font-size:24px;font-weight:400;padding-left:40px;margin:0">注册成功通知</h1><div class="emailtext" style="background:#fff;padding:20px 32px 20px"><div style="padding:0;font-weight:700;color:#6e6e6e;font-size:16px">尊敬的'.$user->user_login.',您好！</div><p style="color:#6e6e6e;font-size:13px;line-height:24px">欢迎您注册['.$blogname.']，下面是您的账号信息，请妥善保管！</p><table cellpadding="0" cellspacing="0" border="0" style="width:100%;border-top:1px solid #eee;border-left:1px solid #eee;color:#6e6e6e;font-size:16px;font-weight:normal"><thead><tr><th colspan="2" style="padding:10px 0;border-right:1px solid #eee;border-bottom:1px solid #eee;text-align:center;background:#f8f8f8">您的详细注册信息</th></tr></thead><tbody><tr><td style="padding:10px 0;border-right:1px solid #eee;border-bottom:1px solid #eee;text-align:center;width:100px">登录邮箱</td><td style="padding:10px 20px 10px 30px;border-right:1px solid #eee;border-bottom:1px solid #eee;line-height:30px">'.$user->user_email.'</td></tr><tr><td style="padding:10px 0;border-right:1px solid #eee;border-bottom:1px solid #eee;text-align:center">登录密码</td><td style="padding:10px 20px 10px 30px;border-right:1px solid #eee;border-bottom:1px solid #eee;line-height:30px">'.$user_pass.'</td></tr></tbody></table><p style="color:#6e6e6e;font-size:13px;line-height:24px">如果您的账号有异常，请您在第一时间和我们取得联系哦，联系邮箱：'.get_bloginfo('admin_email').'</p></div><div class="emailad" style="margin-top:4px"><a href="'.home_url().'"><img src="http://reg.163.com/images/secmail/adv.png" alt="" style="margin:auto;width:100%;max-width:700px;height:auto"></a></div></div></div>';
-	$headers = "Content-Type:text/html;charset=UTF-8\n";
-	wp_mail($user->user_email, '['.$blogname.']欢迎注册'.$blogname, $message , $headers);
-}
-add_action( 'user_register', 'git_register_mail');
-add_filter( 'wp_new_user_notification_email', '__return_false' );//关闭新用户注册用户邮件
-}
-
-//禁用WordPress活动
-function git_dweandw_remove() {
-	remove_meta_box( 'dashboard_primary', get_current_screen(), 'side' );
-}
-add_action( 'wp_network_dashboard_setup', 'git_dweandw_remove', 20 );
-add_action( 'wp_user_dashboard_setup',    'git_dweandw_remove', 20 );
-add_action( 'wp_dashboard_setup',         'git_dweandw_remove', 20 );
-
-    //去除部分默认小工具
-    function unregister_d_widget(){
-    unregister_widget('WP_Widget_Search');
-    unregister_widget('WP_Widget_Recent_Comments');
-    unregister_widget('WP_Widget_Tag_Cloud');
-    unregister_widget('WP_Nav_Menu_Widget');
-    }
-	add_action('widgets_init','unregister_d_widget');
-	//分类，标签描述添加图片
-    remove_filter( 'pre_term_description', 'wp_filter_kses' );
-	remove_filter( 'pre_link_description', 'wp_filter_kses' );
-	remove_filter( 'pre_link_notes', 'wp_filter_kses' );
-	remove_filter( 'term_description', 'wp_kses_data' );
     //添加主题特性
-    add_theme_support('post-thumbnails');//缩略图设置
-	add_theme_support( 'post-formats', array(  'aside' ) );//增加文章形式
+    add_theme_support('post-formats', array('aside')); //增加文章形式
     add_theme_support('custom-background', array(
-		'default-image' => get_template_directory_uri() . '/assets/img/bg.png',
-		'default-repeat'         => 'repeat',
-		'default-position-x'     => 'left',
-        'default-position-y'     => 'top',
-        'default-size'           => 'auto',
-		'default-attachment'     => 'fixed'
-		)
-	);
-    //屏蔽顶部工具栏
-	add_filter( 'show_admin_bar', '__return_false' );
-    //关键字
-    if (git_get_option('git_keywords')) {
-        add_action('wp_head', 'deel_keywords');
-    }
-//新标签打开文章链接
-global $pagenow;
-if( $pagenow == 'post.php' ):
-function googlo_admin_aritical_ctrlenter() {
-    echo '<script type="text/javascript">
-    var postlink = document.getElementById("edit-slug-box").getElementsByTagName("a");
-        for(var i=0;i<postlink.length;i++)
-    { postlink[i].target = "_blank"; }
-        </script>';
-};
-add_action('admin_footer', 'googlo_admin_aritical_ctrlenter');
-endif;
-//新标签打开顶部网站链接
-function googlo_admin_site_ctrlenter() {
-    echo '<script type="text/javascript">
-    var sitelink = document.getElementById("wp-admin-bar-site-name").getElementsByClassName("ab-item");
-        for(var i=0;i<sitelink.length;i++)
-    { sitelink[i].target = "_blank"; }
-        </script>';
-};
-add_action('admin_footer', 'googlo_admin_site_ctrlenter');
-//添加后台左下角文字
-function git_admin_footer_text($text) {
-    if (!git_get_option('git_updates_b')){
-        if( Coding_git_ver() > GIT_VER ){
-            $text = '<strong><a href="/wp-admin/update-core.php" >更新Git最新版本 '.Coding_git_ver().'</a></strong>';
-        }
-    }else{
-        $text = '感谢使用<a target="_blank" href="http://googlo.me/" >Git主题 '.GIT_VER.'</a>进行创作';
-    }
-    return $text;
-}
-add_filter('admin_footer_text', 'git_admin_footer_text');
-
-
-    //页面描述 d_description
-    if (git_get_option('git_description')) {
-        add_action('wp_head', 'deel_description');
-    }
-    //阻止站内PingBack
-    if (git_get_option('git_pingback_b')) {
-        add_action('pre_ping', 'deel_noself_ping');
-    }
-    // 友情链接扩展
-    add_filter('pre_option_link_manager_enabled', '__return_true');
-    //评论回复邮件通知
-    add_action('comment_post', 'comment_mail_notify');
-    //自动勾选评论回复邮件通知，不勾选则注释掉
-    add_action('comment_form', 'deel_add_checkbox');
-    //评论表情改造，如需更换表情，assets/img/smilies/下替换
-    add_filter('smilies_src', 'deel_smilies_src', 1, 10);
-    //移除自动保存和修订版本
-    if (git_get_option('git_autosave_b')) {
-        add_action('wp_print_scripts', 'disable_autosave');
-        function disable_autosave(){
-            wp_deregister_script('autosave');
-        }
-        add_filter('wp_revisions_to_keep', 'specs_wp_revisions_to_keep', 10, 2);
-        function specs_wp_revisions_to_keep($num, $post){
-        return 0;
-        }
-    }
-
-    //修改默认发信地址
-    add_filter('wp_mail_from', 'deel_res_from_email');
-    add_filter('wp_mail_from_name', 'deel_res_from_name');
+        'default-image' => get_template_directory_uri() . '/assets/img/bg.png',
+        'default-repeat' => 'repeat',
+        'default-position-x' => 'left',
+        'default-position-y' => 'top',
+        'default-size' => 'auto',
+        'default-attachment' => 'fixed'
+    ));
     add_editor_style('editor-style.css');
-	add_filter( 'max_srcset_image_width', create_function( '', 'return 1;' ) );
     //定义菜单
     if (function_exists('register_nav_menus')) {
         register_nav_menus(array(
-            'nav' => '网站导航' ,
+            'nav' => '网站导航',
             'pagemenu' => '页面导航'
         ));
     }
 }
+//禁用响应式图片
+function msiw(){
+	return 1;
+}
+add_filter('max_srcset_image_width', 'msiw');
+//去除部分默认小工具
+function unregister_d_widget() {
+	unregister_widget('WP_Widget_Search');
+	unregister_widget('WP_Widget_Recent_Comments');
+	unregister_widget('WP_Widget_Tag_Cloud');
+	unregister_widget('WP_Nav_Menu_Widget');
+}
+add_action('widgets_init', 'unregister_d_widget');
+//添加后台左下角文字
+function git_admin_footer_text($text) {
+    if (!git_get_option('git_updates_b')) {
+        if (Coding_git_ver() > GIT_VER) {
+            $text = '<strong><a href="/wp-admin/update-core.php" >更新Git最新版本 ' . Coding_git_ver() . '</a></strong>';
+        }
+    } else {
+        $text = '感谢使用<a target="_blank" href="http://googlo.me/" >Git主题 ' . GIT_VER . '</a>进行创作';
+    }
+    return $text;
+}
+add_filter('admin_footer_text', 'git_admin_footer_text');
+//修改默认发信地址
+add_filter('wp_mail_from', 'deel_res_from_email');
+add_filter('wp_mail_from_name', 'deel_res_from_name');
+//分类，标签描述添加图片
+remove_filter('pre_term_description', 'wp_filter_kses');
+remove_filter('pre_link_description', 'wp_filter_kses');
+remove_filter('pre_link_notes', 'wp_filter_kses');
+remove_filter('term_description', 'wp_kses_data');
+//屏蔽顶部工具栏
+add_filter('show_admin_bar', '__return_false');
+//关键字
+if (git_get_option('git_keywords')) add_action('wp_head', 'deel_keywords');
+//新标签打开文章链接
+global $pagenow;
+if ($pagenow == 'post.php'):
+    function googlo_admin_aritical_ctrlenter() {
+        echo '<script type="text/javascript">
+var postlink = document.getElementById("edit-slug-box").getElementsByTagName("a");
+	for(var i=0;i<postlink.length;i++)
+{ postlink[i].target = "_blank"; }
+	</script>';
+    };
+    add_action('admin_footer', 'googlo_admin_aritical_ctrlenter');
+endif;
+//新标签打开顶部网站链接
+function googlo_admin_site_ctrlenter() {
+    echo '<script type="text/javascript">
+var sitelink = document.getElementById("wp-admin-bar-site-name").getElementsByClassName("ab-item");
+	for(var i=0;i<sitelink.length;i++)
+{ sitelink[i].target = "_blank"; }
+	</script>';
+};
+add_action('admin_footer', 'googlo_admin_site_ctrlenter');
+//页面描述 d_description
+if (git_get_option('git_description')) add_action('wp_head', 'deel_description');
+
+//阻止站内PingBack
+if (git_get_option('git_pingback_b')) add_action('pre_ping', 'deel_noself_ping');
+
+// 友情链接扩展
+add_filter('pre_option_link_manager_enabled', '__return_true');
+//评论回复邮件通知
+add_action('comment_post', 'comment_mail_notify');
+//自动勾选评论回复邮件通知，不勾选则注释掉
+add_action('comment_form', 'deel_add_checkbox');
+//评论表情改造，如需更换表情，assets/img/smilies/下替换
+add_filter('smilies_src', 'deel_smilies_src', 1, 10);
+//移除自动保存和修订版本
+if (git_get_option('git_autosave_b')) {
+    add_action('wp_print_scripts', 'disable_autosave');
+    function disable_autosave() {
+        wp_deregister_script('autosave');
+    }
+    add_filter('wp_revisions_to_keep', 'specs_wp_revisions_to_keep', 10, 2);
+    function specs_wp_revisions_to_keep($num, $post) {
+        return 0;
+    }
+}
+//去除头部冗余代码
+remove_action('wp_head', 'feed_links_extra', 3);
+remove_action('wp_head', 'feed_links', 2, 1);
+remove_action('wp_head', 'rsd_link'); //移除离线编辑器开放接口
+remove_action('wp_head', 'wlwmanifest_link'); //移除离线编辑器开放接口
+remove_action('wp_head', 'index_rel_link'); //本页链接
+remove_action('wp_head', 'parent_post_rel_link'); //清除前后文信息
+remove_action('wp_head', 'start_post_rel_link'); //清除前后文信息
+remove_action('wp_head', 'adjacent_posts_rel_link_wp_head');
+remove_action('wp_head', 'rel_canonical'); //本页链接
+remove_action('wp_head', 'wp_generator'); //移除WordPress版本号
+remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0); //本页短链接
+add_filter('xmlrpc_enabled', '__return_false');
+add_filter('embed_oembed_discover', '__return_false');
+remove_action('wp_head', 'wp_oembed_add_discovery_links');
+remove_action('wp_head', 'wp_oembed_add_host_js');
+remove_filter('pre_oembed_result', 'wp_filter_pre_oembed_result', 10);
+// 屏蔽 REST API
+add_filter('rest_enabled', '__return_false');
+add_filter('rest_jsonp_enabled', '__return_false');
+// 移除头部 wp-json 标签和 HTTP header 中的 link
+remove_action('wp_head', 'rest_output_link_wp_head', 10);
+remove_action('template_redirect', 'rest_output_link_header', 11);
+//清除wp_footer带入的embed.min.js
+function git_deregister_embed_script() {
+    wp_deregister_script('wp-embed');
+}
+add_action('wp_footer', 'git_deregister_embed_script');
+//显示数据库查询次数、查询时间及内存占用的代码
+function iperformance($visible = false) {
+    $stat = sprintf('%d 次查询 用时 %.3f 秒, 耗费了 %.2fMB 内存', get_num_queries() , timer_stop(0, 3) , memory_get_peak_usage() / 1024 / 1024);
+    echo $visible ? $stat : "<!-- {$stat} -->";
+}
+add_action('wp_footer', 'iperformance', 20);
+//禁止 s.w.org
+function git_remove_dns_prefetch($hints, $relation_type) {
+    if ('dns-prefetch' === $relation_type) {
+        return array_diff(wp_dependencies_unique_hosts() , $hints);
+    }
+    return $hints;
+}
+add_filter('wp_resource_hints', 'git_remove_dns_prefetch', 10, 2);
+//站长评论邮件添加评论链接
+function git_notify_postauthor($comment_id) {
+    $notify_message = $comment_id;
+    $notify_message.= '快速回复此评论: ' . admin_url("edit-comments.php");
+    return $notify_message;
+}
+add_filter('comment_notification_text', 'git_notify_postauthor');
+add_filter('wp_password_change_notification_email', '__return_false'); //关闭密码修改站长邮件
+add_filter('password_change_email', '__return_false'); //关闭密码修改用户邮件
+if (git_get_option('git_user_notification_to_admin')) add_filter('wp_new_user_notification_email_admin', '__return_false'); //关闭新用户注册站长邮件
+//欢迎新用户邮件
+if (git_get_option('git_user_notification_to_user')) {
+    function git_register_mail($user_id) {
+        $user = get_user_by('id', $user_id);
+        $user_pass = $_POST['password'];
+        $blogname = get_option('blogname');
+        $message = '<div class="emailcontent" style="width:100%;max-width:720px;text-align:left;margin:0 auto;padding-top:80px;padding-bottom:20px"><div class="emailtitle"><h1 style="color:#fff;background:#51a0e3;line-height:70px;font-size:24px;font-weight:400;padding-left:40px;margin:0">注册成功通知</h1><div class="emailtext" style="background:#fff;padding:20px 32px 20px"><div style="padding:0;font-weight:700;color:#6e6e6e;font-size:16px">尊敬的' . $user->user_login . ',您好！</div><p style="color:#6e6e6e;font-size:13px;line-height:24px">欢迎您注册[' . $blogname . ']，下面是您的账号信息，请妥善保管！</p><table cellpadding="0" cellspacing="0" border="0" style="width:100%;border-top:1px solid #eee;border-left:1px solid #eee;color:#6e6e6e;font-size:16px;font-weight:normal"><thead><tr><th colspan="2" style="padding:10px 0;border-right:1px solid #eee;border-bottom:1px solid #eee;text-align:center;background:#f8f8f8">您的详细注册信息</th></tr></thead><tbody><tr><td style="padding:10px 0;border-right:1px solid #eee;border-bottom:1px solid #eee;text-align:center;width:100px">登录邮箱</td><td style="padding:10px 20px 10px 30px;border-right:1px solid #eee;border-bottom:1px solid #eee;line-height:30px">' . $user->user_email . '</td></tr><tr><td style="padding:10px 0;border-right:1px solid #eee;border-bottom:1px solid #eee;text-align:center">登录密码</td><td style="padding:10px 20px 10px 30px;border-right:1px solid #eee;border-bottom:1px solid #eee;line-height:30px">' . $user_pass . '</td></tr></tbody></table><p style="color:#6e6e6e;font-size:13px;line-height:24px">如果您的账号有异常，请您在第一时间和我们取得联系哦，联系邮箱：' . get_bloginfo('admin_email') . '</p></div><div class="emailad" style="margin-top:4px"><a href="' . home_url() . '"><img src="http://reg.163.com/images/secmail/adv.png" alt="" style="margin:auto;width:100%;max-width:700px;height:auto"></a></div></div></div>';
+        $headers = "Content-Type:text/html;charset=UTF-8\n";
+        wp_mail($user->user_email, '[' . $blogname . ']欢迎注册' . $blogname, $message, $headers);
+    }
+    add_action('user_register', 'git_register_mail');
+    add_filter('wp_new_user_notification_email', '__return_false'); //关闭新用户注册用户邮件
+
+}
+//禁用WordPress活动
+function git_dweandw_remove() {
+    remove_meta_box('dashboard_primary', get_current_screen() , 'side');
+}
+add_action('wp_network_dashboard_setup', 'git_dweandw_remove', 20);
+add_action('wp_user_dashboard_setup', 'git_dweandw_remove', 20);
+add_action('wp_dashboard_setup', 'git_dweandw_remove', 20);
 if (function_exists('register_sidebar')) {
     register_sidebar(array(
         'name' => '全站侧栏',
@@ -247,23 +231,12 @@ if (function_exists('register_sidebar')) {
 }
 //获取最新版本号
 if (!git_get_option('git_updates_b')):
-function Coding_git_ver() {
-	$jsonbody = curl_post('https://coding.net/u/googlo/p/File/git/raw/master/info.json');
-    $arr = json_decode($jsonbody['data']);//解析
-    $coding_ver = $arr->version;
-    if($jsonbody['code'] == 200){
-        return $coding_ver;
-    }
-}
-endif;
-
-//页面伪静态
-if (git_get_option('git_pagehtml_b') ):
-    add_action('init', 'html_page_permalink', -1);
-    function html_page_permalink() {
-        global $wp_rewrite;
-        if (!strpos($wp_rewrite->get_page_permastruct() , '.html')) {
-            $wp_rewrite->page_structure = $wp_rewrite->page_structure . '.html';
+    function Coding_git_ver() {
+        $jsonbody = curl_post('https://coding.net/u/googlo/p/File/git/raw/master/info.json');
+        $arr = json_decode($jsonbody['data']); //解析
+        $coding_ver = $arr->version;
+        if ($jsonbody['code'] == 200) {
+            return $coding_ver;
         }
     }
 endif;
@@ -279,13 +252,15 @@ function deel_breadcrumbs() {
 function footerScript() {
     if (!is_admin()) {
         wp_deregister_script('jquery');
-        if(git_get_option('git_jqcdn')=='git_jqcdn_upai'){
-            wp_register_script('jquery', 'https://upcdn.b0.upaiyun.com/libs/jquery/jquery-1.8.3.min.js', false, '1.0', true );//底部加载,速度快,兼容差
-        }else{
-            wp_register_script('jquery', get_template_directory_uri() . '/assets/js/jquery.min.js', false, '1.0', false );//头部加载,速度慢,兼容好
+        if (git_get_option('git_jqcdn') == 'git_jqcdn_upai') {
+            wp_register_script('jquery', 'https://upcdn.b0.upaiyun.com/libs/jquery/jquery-1.8.3.min.js', false, '1.0', true); //底部加载,速度快,兼容差
+
+        } else {
+            wp_register_script('jquery', get_template_directory_uri() . '/assets/js/jquery.min.js', false, '1.0', false); //头部加载,速度慢,兼容好
+
         }
         wp_enqueue_script('jquery');
-        wp_register_script('default', get_template_directory_uri() . '/assets/js/global.js', false, '1.0', true );//底部加载
+        wp_register_script('default', get_template_directory_uri() . '/assets/js/global.js', false, '1.0', true); //底部加载
         wp_enqueue_script('default');
         wp_register_style('style', get_template_directory_uri() . '/style.css', false, '1.0');
         wp_enqueue_style('style');
@@ -354,25 +329,46 @@ endif;
 //baidu分享
 $dHasShare = false;
 function deel_share() {
- if (!git_get_option('git_bdshare_b')) return false;
- echo '<span class="action action-share bdsharebuttonbox"><i class="fa fa-share-alt"></i>分享 (<span class="bds_count" data-cmd="count" title="累计分享0次">0</span>)<div class="action-popover"><div class="popover top in"><div class="arrow"></div><div class="popover-content"><a href="#" class="sinaweibo fa fa-weibo" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_qzone fa fa-star" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="qq fa fa-qq" data-cmd="sqq" title="分享到QQ好友"></a><a href="#" class="bds_renren fa fa-renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin fa fa-weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_more fa fa-ellipsis-h" data-cmd="more"></a></div></div></div></span>';
+    if (!git_get_option('git_bdshare_b')) return false;
+    echo '<span class="action action-share bdsharebuttonbox"><i class="fa fa-share-alt"></i>分享 (<span class="bds_count" data-cmd="count" title="累计分享0次">0</span>)<div class="action-popover"><div class="popover top in"><div class="arrow"></div><div class="popover-content"><a href="#" class="sinaweibo fa fa-weibo" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_qzone fa fa-star" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="qq fa fa-qq" data-cmd="sqq" title="分享到QQ好友"></a><a href="#" class="bds_renren fa fa-renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin fa fa-weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_more fa fa-ellipsis-h" data-cmd="more"></a></div></div></div></span>';
     global $dHasShare;
     $dHasShare = true;
 }
-
 //获取页面id，并且不可重用
-function git_page_id($pagephp){
+function git_page_id($pagephp) {
     global $wpdb;
-    $pageid = $wpdb->get_row( "SELECT `post_id` FROM `{$wpdb->postmeta}` WHERE `meta_value` = 'pages/{$pagephp}.php'", ARRAY_A )['post_id'];
+    $pageid = $wpdb->get_row("SELECT `post_id` FROM `{$wpdb->postmeta}` WHERE `meta_value` = 'pages/{$pagephp}.php'", ARRAY_A) ['post_id'];
     return $pageid;
 }
 //搜索表单
 function git_searchform() {
-$search_placeholder = git_get_option('git_search_placeholder', '输入内容并回车');
+    $search_placeholder = git_get_option('git_search_placeholder');
 ?>
-<form method="get" class="searchform themeform" onsubmit="location.href='<?php echo home_url('/search/'); ?>' + encodeURIComponent(this.s.value).replace(/%20/g, '+'); return false;" action="/"><div><input type="ext" class="search" name="s" onblur="if(this.value=='')this.value='<?php echo $search_placeholder; ?>';" onfocus="if(this.value=='<?php echo $search_placeholder; ?>')this.value='';" value="<?php echo $search_placeholder; ?>"></div></form></div></div>
+<form role="search" method="get" class="searchform themeform" action="<?php
+    echo esc_url(home_url('/')); ?>">
+<div><input type="search" class="search" placeholder="<?php
+    echo esc_attr($search_placeholder); ?>" value="<?php
+    echo get_search_query(); ?>" name="s" /></div></form></div></div>
 <?php
 }
+//搜索伪静态
+function git_search_url_rewrite() {
+    if (is_search() && !is_admin() && !empty($_GET['s'])) {
+        wp_redirect(home_url('/search/') . urlencode(get_query_var('s')));
+        exit();
+    }
+}
+//页面伪静态
+function html_page_permalink() {
+    global $wp_rewrite;
+        if (!strpos($wp_rewrite->get_page_permastruct() , '.html')) {
+            $wp_rewrite->page_structure = $wp_rewrite->page_structure . '.html';
+        }
+}
+if (git_get_option('git_pagehtml_b')):
+add_action('template_redirect', 'git_search_url_rewrite');
+add_action('init', 'html_page_permalink', -1);
+endif;
 
 function deel_avatar_default() {
     return get_template_directory_uri() . '/assets/img/default.png';
@@ -393,40 +389,45 @@ function deel_avatar($avatar) {
     if (filesize($e) < 500) copy(get_template_directory_uri() . '/assets/img/default.png', $e);
     return $avatar;
 }
-if (git_get_option('git_avater')=='git_avatar_b') {
+if (git_get_option('git_avater') == 'git_avatar_b') {
     add_filter('get_avatar', 'deel_avatar');
 }
 //头像镜像
 function git_avatar_cache($avatar) {
-    $avatar = str_replace(array("www.gravatar.com", "0.gravatar.com", "1.gravatar.com", "2.gravatar.com" ) , git_get_option('git_avatar_qnurl') , $avatar);
+    $avatar = str_replace(array(
+        "www.gravatar.com",
+        "0.gravatar.com",
+        "1.gravatar.com",
+        "2.gravatar.com"
+    ) , git_get_option('git_avatar_qnurl') , $avatar);
     return $avatar;
 }
-if(git_get_option('git_avater')=='git_avatar_qn'){
-add_filter('get_avatar', 'git_avatar_cache', 10, 3);
-}
+if (git_get_option('git_avater') == 'git_avatar_qn') add_filter('get_avatar', 'git_avatar_cache', 10, 3);
+
 //本地随机头像
-function local_random_avatar( $avatar ) {
-        $avatarsrc = '//'.git_get_option('git_avatar_qnurl').'/myavatar/'. mt_rand(1, git_get_option('git_avatar_randnum')) .'.jpg';
-		$avatar = "<img src=$avatarsrc class='avatar rand_avatar photo' />";
+function local_random_avatar($avatar) {
+    $avatarsrc = '//' . git_get_option('git_avatar_qnurl') . '/myavatar/' . mt_rand(1, git_get_option('git_avatar_randnum')) . '.jpg';
+    $avatar = "<img src=$avatarsrc class='avatar rand_avatar photo' />";
     return $avatar;
-}if(git_get_option('git_avater')=='git_avatar_rand'){
-add_filter( 'get_avatar' , 'local_random_avatar' , 1 , 5 );
+}
+if (git_get_option('git_avater') == 'git_avatar_rand') {
+    add_filter('get_avatar', 'local_random_avatar', 1, 5);
 }
 //给外部链接加上跳转
-if(git_get_option('git_go')):
-function git_go_url($content){
-	preg_match_all('/<a(.*?)href="(.*?)"(.*?)>/',$content,$matches);
-	if($matches && !is_page('about')){
-		foreach($matches[2] as $val){  
-			if(strpos($val,'://')!==false && strpos($val,home_url())===false && !preg_match('/\.(jpg|jpeg|png|ico|bmp|gif|tiff)/i',$val)){
-                    $content=str_replace("href=\"$val\"", "href=\"".get_permalink(git_page_id('go'))."?url=$val\" ",$content);
-			}
-		}
-	}
-	return $content;
-}
-add_filter('the_content','git_go_url',999);
-add_filter('asgarosforum_filter_post_content','git_go_url',999);
+if (git_get_option('git_go')):
+    function git_go_url($content) {
+        preg_match_all('/<a(.*?)href="(.*?)"(.*?)>/', $content, $matches);
+        if ($matches && !is_page('about')) {
+            foreach ($matches[2] as $val) {
+                if (strpos($val, '://') !== false && strpos($val, home_url()) === false && !preg_match('/\.(jpg|jpeg|png|ico|bmp|gif|tiff)/i', $val)) {
+                    $content = str_replace("href=\"$val\"", "href=\"" . get_permalink(git_page_id('go')) . "?url=$val\" ", $content);
+                }
+            }
+        }
+        return $content;
+    }
+    add_filter('the_content', 'git_go_url', 999);
+    add_filter('asgarosforum_filter_post_content', 'git_go_url', 999);
 endif;
 //关键字
 function deel_keywords() {
@@ -475,7 +476,6 @@ function deel_description() {
         if (!($description)) $description = $blog_name . "-" . trim(wp_title('', false));
     } elseif (is_home()) {
         $description = git_get_option('git_description'); // 首頁要自己加
-
     } elseif (is_tag()) {
         $description = $blog_name . "'" . single_tag_title('', false) . "'";
     } elseif (is_category()) {
@@ -490,7 +490,6 @@ function deel_description() {
     $description = mb_substr($description, 0, 220, 'utf-8');
     echo "<meta name=\"description\" content=\"$description\">\n";
 }
-
 //最新发布加new 单位'小时'
 function deel_post_new($timer = '48') {
     $t = (strtotime(date("Y-m-d H:i:s")) - strtotime($post->post_date)) / 3600;
@@ -521,7 +520,7 @@ function comment_mail_notify($comment_id) {
     $comment = get_comment($comment_id);
     $comment_author_email = trim($comment->comment_author_email);
     $parent_id = $comment->comment_parent ? $comment->comment_parent : '';
-	$blogname = get_option("blogname");
+    $blogname = get_option("blogname");
     global $wpdb;
     if ($wpdb->query("Describe {$wpdb->comments} comment_mail_notify") == '') $wpdb->query("ALTER TABLE {$wpdb->comments} ADD COLUMN comment_mail_notify TINYINT NOT NULL DEFAULT 0;");
     if (($comment_author_email != $admin_email && isset($_POST['comment_mail_notify'])) || ($comment_author_email == $admin_email && $admin_notify == '1')) $wpdb->query("UPDATE {$wpdb->comments} SET comment_mail_notify='1' WHERE comment_ID='$comment_id'");
@@ -531,11 +530,12 @@ function comment_mail_notify($comment_id) {
         $wp_email = 'no-reply@' . preg_replace('#^www\.#', '', strtolower($_SERVER['SERVER_NAME'])); // e-mail 发出点, no-reply 可改为可用的 e-mail.
         $to = trim(get_comment($parent_id)->comment_author_email);
         $subject = 'Hi，您在 [' . get_option("blogname") . '] 的留言有人回复啦！';
-		$message = '<div style="color:#555;font:12px/1.5 微软雅黑,Tahoma,Helvetica,Arial,sans-serif;width:650px;margin:50px auto;border-top: none;box-shadow:0 0px 3px #aaaaaa;" ><table border="0" cellspacing="0" cellpadding="0"><tbody><tr valign="top" height="2"><td valign="top"><div style="background-color:white;border-top:2px solid #12ADDB;line-padding:0 15px 12px;width:650px;color:#555555;font-family:微软雅黑, Arial;;font-size:12px;"><h2 style="border-bottom:1px solid #DDD;font-size:14px;font-weight:normal;padding:8px 0 10px 8px;"><span style="color: #12ADDB;font-weight: bold;">&gt; </span>您在 <a style="text-decoration:none; color:#58B5F5;font-weight:600;" target="_blank" href="' . home_url() . '">' . $blogname . '</a> 网站上的留言有回复啦！</h2><div style="padding:0 12px 0 12px;margin-top:18px"><p>您好, ' . trim(get_comment($parent_id)->comment_author) . '! 您发表在文章 <a style="text-decoration:none;" target="_blank" href="' . get_the_permalink($comment->comment_post_ID) . '">《' . get_the_title($comment->comment_post_ID) . '》</a> 的评论:</p><p style="background-color: #EEE;border: 1px solid #DDD;padding: 20px;margin: 15px 0;">' . nl2br(strip_tags(get_comment($parent_id)->comment_content)) . '</p><p>' . trim($comment->comment_author) . ' 给您的回复如下:</p><p style="background-color: #EEE;border: 1px solid #DDD;padding: 20px;margin: 15px 0;">' . nl2br(strip_tags($comment->comment_content)) . '</p><p>您可以点击 <a style="text-decoration:none; color:#5692BC" target="_blank" href="' . htmlspecialchars(get_comment_link($parent_id)) . '">这里查看回复的完整內容</a>，也欢迎再次光临 <a style="text-decoration:none; color:#5692BC" target="_blank" href="' . home_url() . '">' . $blogname . '</a>。祝您天天开心，欢迎下次访问 <a style="text-decoration:none; color:#5692BC" target="_blank" href="' . home_url() . '">' . $blogname . '</a>！谢谢。</p><p style="float:right;">(此邮件由系统自动发出, 请勿回复)</p></div></div></td></tr></tbody></table><div style="color:#fff;background-color: #12ADDB;text-align : center;height:35px;padding-top:15px">Copyright © 2013-2018 ' . $blogname . '</div></div>';
+        $message = '<div style="color:#555;font:12px/1.5 微软雅黑,Tahoma,Helvetica,Arial,sans-serif;width:650px;margin:50px auto;border-top: none;box-shadow:0 0px 3px #aaaaaa;" ><table border="0" cellspacing="0" cellpadding="0"><tbody><tr valign="top" height="2"><td valign="top"><div style="background-color:white;border-top:2px solid #12ADDB;line-padding:0 15px 12px;width:650px;color:#555555;font-family:微软雅黑, Arial;;font-size:12px;"><h2 style="border-bottom:1px solid #DDD;font-size:14px;font-weight:normal;padding:8px 0 10px 8px;"><span style="color: #12ADDB;font-weight: bold;">&gt; </span>您在 <a style="text-decoration:none; color:#58B5F5;font-weight:600;" target="_blank" href="' . home_url() . '">' . $blogname . '</a> 网站上的留言有回复啦！</h2><div style="padding:0 12px 0 12px;margin-top:18px"><p>您好, ' . trim(get_comment($parent_id)->comment_author) . '! 您发表在文章 <a style="text-decoration:none;" target="_blank" href="' . get_the_permalink($comment->comment_post_ID) . '">《' . get_the_title($comment->comment_post_ID) . '》</a> 的评论:</p><p style="background-color: #EEE;border: 1px solid #DDD;padding: 20px;margin: 15px 0;">' . nl2br(strip_tags(get_comment($parent_id)->comment_content)) . '</p><p>' . trim($comment->comment_author) . ' 给您的回复如下:</p><p style="background-color: #EEE;border: 1px solid #DDD;padding: 20px;margin: 15px 0;">' . nl2br(strip_tags($comment->comment_content)) . '</p><p>您可以点击 <a style="text-decoration:none; color:#5692BC" target="_blank" href="' . htmlspecialchars(get_comment_link($parent_id)) . '">这里查看回复的完整內容</a>，也欢迎再次光临 <a style="text-decoration:none; color:#5692BC" target="_blank" href="' . home_url() . '">' . $blogname . '</a>。祝您天天开心，欢迎下次访问 <a style="text-decoration:none; color:#5692BC" target="_blank" href="' . home_url() . '">' . $blogname . '</a>！谢谢。</p><p style="float:right;">(此邮件由系统自动发出, 请勿回复)</p></div></div></td></tr></tbody></table><div style="color:#fff;background-color: #12ADDB;text-align : center;height:35px;padding-top:15px">Copyright © 2013-2018 ' . $blogname . '</div></div>';
         $from = "From: \"" . get_option('blogname') . "\" <$wp_email>";
         $headers = "$from\nContent-Type: text/html; charset=" . get_option('blog_charset') . "\n";
         wp_mail($to, $subject, $message, $headers);
         //echo 'mail to ', $to, '<br/> ' , $subject, $message; // for testing
+
     }
 }
 //自动勾选
@@ -585,16 +585,16 @@ function deel_comment_list($comment, $args, $depth) {
     }
     //信息
     echo '<div class="c-meta">';
-	if( $comment->user_id !== '0'){
-		echo '<span class="c-author"><a target="_blank" href="' . get_author_posts_url( $comment->user_id ) . '">' . get_comment_author() . '</a></span>';
-	}else{
-		echo '<span class="c-author">' . get_comment_author_link() . '</span>';
-	}
-  if ($comment->user_id == '1') {
+    if ($comment->user_id !== '0') {
+        echo '<span class="c-author"><a target="_blank" href="' . get_author_posts_url($comment->user_id) . '">' . get_comment_author() . '</a></span>';
+    } else {
+        echo '<span class="c-author">' . get_comment_author_link() . '</span>';
+    }
+    if ($comment->user_id == '1') {
         echo '<a title="博主认证" class="vip"></a>';
-	}elseif(git_get_option('git_vip')){
-		echo get_author_class($comment->comment_author_email,$comment->user_id);
-	}
+    } elseif (git_get_option('git_vip')) {
+        echo get_author_class($comment->comment_author_email, $comment->user_id);
+    }
     echo get_comment_time('Y-m-d H:i ');
     echo time_ago();
     if ($comment->comment_approved !== '0') {
@@ -603,13 +603,12 @@ function deel_comment_list($comment, $args, $depth) {
             'depth' => $depth,
             'max_depth' => $args['max_depth']
         )));
-        echo edit_comment_link('(编辑)' , ' - ', '');
+        echo edit_comment_link('(编辑)', ' - ', '');
         if (git_get_option('git_ua_b')) echo '<span style="color: #ff6600;"> ' . user_agent($comment->comment_agent) . '</span>';
     }
     echo '</div>';
     echo '</div></div>';
 }
-
 //添加钮Download
 function DownloadUrl($atts, $content = null) {
     extract(shortcode_atts(array(
@@ -637,55 +636,56 @@ add_shortcode('dm', 'DemoUrl');
 //添加编辑器快捷按钮
 function my_quicktags() {
     global $pagenow;
-    if( $pagenow == 'post-new.php' || $pagenow == 'post.php' ){
-    wp_enqueue_script('my_quicktags', get_stylesheet_directory_uri() . '/assets/js/my_quicktags.js', array('quicktags'), '1.0', true );
-	}
+    if ($pagenow == 'post-new.php' || $pagenow == 'post.php') {
+        wp_enqueue_script('my_quicktags', get_stylesheet_directory_uri() . '/assets/js/my_quicktags.js', array(
+            'quicktags'
+        ) , '1.0', true);
+    }
 };
 add_action('admin_print_scripts', 'my_quicktags');
 //过滤外文评论
 if (git_get_option('git_spam_lang') && !is_user_logged_in()):
-function refused_spam_comments($commentdata) {
-    $pattern = '/[一-龥]/u';
-    $jpattern = '/[ぁ-ん]+|[ァ-ヴ]+/u';
-    if (!preg_match($pattern, $commentdata['comment_content'])) {
-        err('写点汉字吧，博主外语很捉急！You should type some Chinese word!');
+    function refused_spam_comments($commentdata) {
+        $pattern = '/[一-龥]/u';
+        $jpattern = '/[ぁ-ん]+|[ァ-ヴ]+/u';
+        if (!preg_match($pattern, $commentdata['comment_content'])) {
+            err('写点汉字吧，博主外语很捉急！You should type some Chinese word!');
+        }
+        if (preg_match($jpattern, $commentdata['comment_content'])) {
+            err('日文滚粗！Japanese Get out！日本语出て行け！ You should type some Chinese word！');
+        }
+        return $commentdata;
     }
-    if (preg_match($jpattern, $commentdata['comment_content'])) {
-        err('日文滚粗！Japanese Get out！日本语出て行け！ You should type some Chinese word！');
-    }
-    return $commentdata;
-}
     add_filter('preprocess_comment', 'refused_spam_comments');
 endif;
 //屏蔽关键词，email，url，ip
 if (git_get_option('git_spam_keywords') && !is_user_logged_in()):
-function Googlofuckspam($commentdata) {
-    if (wp_blacklist_check($commentdata['comment_author'], $commentdata['comment_author_email'], $commentdata['comment_author_url'], $commentdata['comment_content'], $commentdata['comment_author_IP'], $commentdata['comment_agent'])) {
-        header("Content-type: text/html; charset=utf-8");
-        err('不好意思，您的评论违反本站评论规则');
-    } else {
-        return $commentdata;
+    function Googlofuckspam($commentdata) {
+        if (wp_blacklist_check($commentdata['comment_author'], $commentdata['comment_author_email'], $commentdata['comment_author_url'], $commentdata['comment_content'], $commentdata['comment_author_IP'], $commentdata['comment_agent'])) {
+            header("Content-type: text/html; charset=utf-8");
+            err('不好意思，您的评论违反本站评论规则');
+        } else {
+            return $commentdata;
+        }
     }
-}
-add_filter('preprocess_comment', 'Googlofuckspam');
+    add_filter('preprocess_comment', 'Googlofuckspam');
 endif;
 //屏蔽长连接评论
 if (git_get_option('git_spam_long') && !is_user_logged_in()):
-function lang_url_spamcheck($approved, $commentdata) {
-    return (strlen($commentdata['comment_author_url']) > 50) ?
-    'spam' : $approved;
-}
-add_filter('pre_comment_approved', 'lang_url_spamcheck', 99, 2);
+    function lang_url_spamcheck($approved, $commentdata) {
+        return (strlen($commentdata['comment_author_url']) > 50) ? 'spam' : $approved;
+    }
+    add_filter('pre_comment_approved', 'lang_url_spamcheck', 99, 2);
 endif;
 //屏蔽昵称，评论内容带链接的评论
 if (git_get_option('git_spam_url') && !is_user_logged_in()):
-function Googlolink($commentdata) {
-    $links = '/http:\/\/|https:\/\/|www\./u';
-    if (preg_match($links, $commentdata['comment_author']) || preg_match($links, $commentdata['comment_content'])) {
-        err('在昵称和评论里面是不准发链接滴.');
+    function Googlolink($commentdata) {
+        $links = '/http:\/\/|https:\/\/|www\./u';
+        if (preg_match($links, $commentdata['comment_author']) || preg_match($links, $commentdata['comment_content'])) {
+            err('在昵称和评论里面是不准发链接滴.');
+        }
+        return ($commentdata);
     }
-    return ($commentdata);
-}
     add_filter('preprocess_comment', 'Googlolink');
 endif;
 //点赞
@@ -709,13 +709,17 @@ function bigfa_like() {
     }
     die;
 }
-
 //最热排行
 function hot_posts_list() {
     if (git_get_option('git_hot_b') == 'git_hot_zd') {
-    $result = get_posts(array('post__in' =>get_option('sticky_posts'),'order'=>'DESC','orderby'=>'comment_count','posts_per_page'=>'10'));
+        $result = get_posts(array(
+            'post__in' => get_option('sticky_posts') ,
+            'order' => 'DESC',
+            'orderby' => 'comment_count',
+            'posts_per_page' => '10'
+        ));
     } elseif (git_get_option('git_hot_b') == 'git_hot_comment') {
-    $result = get_posts("numberposts=5&orderby=comment_count&order=desc");
+        $result = get_posts("numberposts=5&orderby=comment_count&order=desc");
     }
     $output = '';
     if (empty($result)) {
@@ -780,7 +784,6 @@ function git_admin_style() {
     </style>';
 }
 add_action('admin_head', 'git_admin_style');
-
 //输出缩略图地址
 function post_thumbnail_src() {
     global $post;
@@ -807,7 +810,6 @@ function post_thumbnail_src() {
     };
     echo $post_thumbnail_src;
 }
-
 //禁用谷歌字体
 function git_remove_open_sans() {
     wp_deregister_style('open-sans');
@@ -815,109 +817,114 @@ function git_remove_open_sans() {
     wp_enqueue_style('open-sans', '');
 }
 add_action('init', 'git_remove_open_sans');
-
 //免插件去除Category
 if (git_get_option('git_categroy_b')):
     add_action('load-themes.php', 'no_category_base_refresh_rules');
     add_action('created_category', 'no_category_base_refresh_rules');
     add_action('edited_category', 'no_category_base_refresh_rules');
     add_action('delete_category', 'no_category_base_refresh_rules');
-function no_category_base_refresh_rules() {
-    global $wp_rewrite;
-    $wp_rewrite->flush_rules();
-}
-add_action('init', 'no_category_base_permastruct');
-function no_category_base_permastruct() {
-    global $wp_rewrite;
+    function no_category_base_refresh_rules() {
+        global $wp_rewrite;
+        $wp_rewrite->flush_rules();
+    }
+    add_action('init', 'no_category_base_permastruct');
+    function no_category_base_permastruct() {
+        global $wp_rewrite;
         $wp_rewrite->extra_permastructs['category']['struct'] = '%category%';
-}
-add_filter('category_rewrite_rules', 'no_category_base_rewrite_rules');
-function no_category_base_rewrite_rules($category_rewrite) {
-    $category_rewrite = array();
-    $categories = get_categories(array(
-        'hide_empty' => false
-    ));
-    foreach ($categories as $category) {
-        $category_nicename = $category->slug;
-        if ($category->parent == $category->cat_ID) // recursive recursion
-        $category->parent = 0;
-        elseif ($category->parent != 0) $category_nicename = get_category_parents($category->parent, false, '/', true) . $category_nicename;
-        $category_rewrite['(' . $category_nicename . ')/(?:feed/)?(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?category_name=$matches[1]&feed=$matches[2]';
-        $category_rewrite['(' . $category_nicename . ')/page/?([0-9]{1,})/?$'] = 'index.php?category_name=$matches[1]&paged=$matches[2]';
-        $category_rewrite['(' . $category_nicename . ')/?$'] = 'index.php?category_name=$matches[1]';
     }
-    global $wp_rewrite;
-    $old_category_base = get_option('category_base') ? get_option('category_base') : 'category';
-    $old_category_base = trim($old_category_base, '/');
-    $category_rewrite[$old_category_base . '/(.*)$'] = 'index.php?category_redirect=$matches[1]';
-    return $category_rewrite;
-}
-add_filter('query_vars', 'no_category_base_query_vars');
-function no_category_base_query_vars($public_query_vars) {
-    $public_query_vars[] = 'category_redirect';
-    return $public_query_vars;
-}
-add_filter('request', 'no_category_base_request');
-function no_category_base_request($query_vars) {
-    if (isset($query_vars['category_redirect'])) {
-        $catlink = trailingslashit(home_url()) . user_trailingslashit($query_vars['category_redirect'], 'category');
-        status_header(301);
-        header("Location: $catlink");
-        exit();
+    add_filter('category_rewrite_rules', 'no_category_base_rewrite_rules');
+    function no_category_base_rewrite_rules($category_rewrite) {
+        $category_rewrite = array();
+        $categories = get_categories(array(
+            'hide_empty' => false
+        ));
+        foreach ($categories as $category) {
+            $category_nicename = $category->slug;
+            if ($category->parent == $category->cat_ID) // recursive recursion
+            $category->parent = 0;
+            elseif ($category->parent != 0) $category_nicename = get_category_parents($category->parent, false, '/', true) . $category_nicename;
+            $category_rewrite['(' . $category_nicename . ')/(?:feed/)?(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?category_name=$matches[1]&feed=$matches[2]';
+            $category_rewrite['(' . $category_nicename . ')/page/?([0-9]{1,})/?$'] = 'index.php?category_name=$matches[1]&paged=$matches[2]';
+            $category_rewrite['(' . $category_nicename . ')/?$'] = 'index.php?category_name=$matches[1]';
+        }
+        global $wp_rewrite;
+        $old_category_base = get_option('category_base') ? get_option('category_base') : 'category';
+        $old_category_base = trim($old_category_base, '/');
+        $category_rewrite[$old_category_base . '/(.*)$'] = 'index.php?category_redirect=$matches[1]';
+        return $category_rewrite;
     }
-    return $query_vars;
-}
+    add_filter('query_vars', 'no_category_base_query_vars');
+    function no_category_base_query_vars($public_query_vars) {
+        $public_query_vars[] = 'category_redirect';
+        return $public_query_vars;
+    }
+    add_filter('request', 'no_category_base_request');
+    function no_category_base_request($query_vars) {
+        if (isset($query_vars['category_redirect'])) {
+            $catlink = trailingslashit(home_url()) . user_trailingslashit($query_vars['category_redirect'], 'category');
+            status_header(301);
+            header("Location: $catlink");
+            exit();
+        }
+        return $query_vars;
+    }
 endif;
 /*cURL库 */
-if(function_exists('curl_init')):
-function curl_post($url, $postfields = '', $headers = '', $timeout = 20, $file = 0){
-    $ch = curl_init();
-    $options = array(
-		CURLOPT_URL => $url,
-		CURLOPT_HEADER => false,
-		CURLOPT_NOBODY => false,
-		CURLOPT_POST => true,
-		CURLOPT_MAXREDIRS => 20,
-		CURLOPT_USERAGENT => 'User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36',
-		CURLOPT_TIMEOUT => $timeout,
-		CURLOPT_RETURNTRANSFER => true,
-		CURLOPT_FOLLOWLOCATION => true,
-		CURLOPT_SSL_VERIFYHOST => 0,
-		CURLOPT_SSL_VERIFYPEER => 0
-		);
-    if (is_array($postfields) && $file == 0) {
-        $options[CURLOPT_POSTFIELDS] = http_build_query($postfields);
-    } else {
-        $options[CURLOPT_POSTFIELDS] = $postfields;
+if (function_exists('curl_init')):
+    function curl_post($url, $postfields = '', $headers = '', $timeout = 20, $file = 0) {
+        $ch = curl_init();
+        $options = array(
+            CURLOPT_URL => $url,
+            CURLOPT_HEADER => false,
+            CURLOPT_NOBODY => false,
+            CURLOPT_POST => true,
+            CURLOPT_MAXREDIRS => 20,
+            CURLOPT_USERAGENT => 'User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36',
+            CURLOPT_TIMEOUT => $timeout,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_SSL_VERIFYHOST => 0,
+            CURLOPT_SSL_VERIFYPEER => 0
+        );
+        if (is_array($postfields) && $file == 0) {
+            $options[CURLOPT_POSTFIELDS] = http_build_query($postfields);
+        } else {
+            $options[CURLOPT_POSTFIELDS] = $postfields;
+        }
+        curl_setopt_array($ch, $options);
+        if (is_array($headers)) {
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        }
+        $result = curl_exec($ch);
+        $code = curl_errno($ch);
+        $msg = curl_error($ch);
+        $info = curl_getinfo($ch);
+        curl_close($ch);
+        return array(
+            'data' => $result,
+            'code' => $code,
+            'msg' => $msg,
+            'info' => $info
+        );
     }
-    curl_setopt_array($ch, $options);
-    if (is_array($headers)) {
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    }
-    $result = curl_exec($ch);
-    $code = curl_errno($ch);
-    $msg = curl_error($ch);
-    $info = curl_getinfo($ch);
-    curl_close($ch);
-    return array(
-		'data' => $result,
-		'code' => $code,
-		'msg' => $msg,
-		'info' => $info
-		);
-}
 endif;
 //添加文章版权信息
-function git_copyright($content ) {
+function git_copyright($content) {
     if ((is_single() || is_feed()) && git_get_option('git_copyright_b')) {
-		$copyright = str_replace(array('{{title}}', '{{link}}'), array(get_the_title(), get_permalink()), stripslashes(git_get_option('git_copyright_b')));
+        $copyright = str_replace(array(
+            '{{title}}',
+            '{{link}}'
+        ) , array(
+            get_the_title() ,
+            get_permalink()
+        ) , stripslashes(git_get_option('git_copyright_b')));
         $content.= '<hr /><div class="open-message">' . $copyright . '</div>';
     }
     return $content;
 }
 add_filter('the_content', 'git_copyright');
 //fancybox图片灯箱效果
-function fancybox($content){
+function fancybox($content) {
     global $post;
     $pattern = "/<a(.*?)href=('|\")([^>]*).(bmp|gif|jpeg|jpg|png|swf)('|\")(.*?)>(.*?)<\\/a>/i";
     $replacement = '<a$1href=$2$3.$4$5 rel="box" class="fancybox"$6>$7</a>';
@@ -946,9 +953,9 @@ function tag_link($content) {
             $url.= ' target="_blank"';
             $url.= ">" . addcslashes($cleankeyword, '$') . "</a>";
             $limit = $match_num_max;
-            $content = preg_replace( '|(<a[^>]+>)(.*)('.$keyword.')(.*)(</a[^>]*>)|U'.$case, '$1$2%&&&&&%$4$5', $content);
-            $content = preg_replace( '|(<img)(.*?)('.$keyword.')(.*?)(>)|U'.$case, '$1$2%&&&&&%$4$5', $content);
-            $content = preg_replace( '|(<h[^>]+>)(.*)('.$keyword.')(.*)(</h[^>]*>)|U'.$case, '$1$2%&&&&&%$4$5', $content);
+            $content = preg_replace('|(<a[^>]+>)(.*)(' . $keyword . ')(.*)(</a[^>]*>)|U' . $case, '$1$2%&&&&&%$4$5', $content);
+            $content = preg_replace('|(<img)(.*?)(' . $keyword . ')(.*?)(>)|U' . $case, '$1$2%&&&&&%$4$5', $content);
+            $content = preg_replace('|(<h[^>]+>)(.*)(' . $keyword . ')(.*)(</h[^>]*>)|U' . $case, '$1$2%&&&&&%$4$5', $content);
             $cleankeyword = preg_quote($cleankeyword, '\'');
             $regEx = '\'(?!((<.*?)|(<a.*?)))(' . $cleankeyword . ')(?!(([^<>]*?)>)|([^>]*?</a>))\'s' . $case;
             $content = preg_replace($regEx, $url, $content, $limit);
@@ -960,73 +967,66 @@ function tag_link($content) {
 if (git_get_option('git_autolink_b')) {
     add_filter('the_content', 'tag_link', 1);
 }
-if(git_get_option('git_imgalt_b')):
-//图片img标签添加alt，title属性
-function imagesalt($content) {
-       global $post;
-       $pattern ="/<img(.*?)src=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>/i";
-       $replacement = '<img$1src=$2$3.$4$5 alt="'.$post->post_title.'" title="'.$post->post_title.'"$6>';
-       $content = preg_replace($pattern, $replacement, $content);
-       return $content;
-}
-add_filter('the_content', 'imagesalt');
-add_filter('asgarosforum_filter_post_content', 'imagesalt');
-
-//图片A标签添加title属性
-function aimagesalt($content) {
-       global $post;
-       $pattern ="/<a(.*?)href=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>/i";
-       $replacement = '<a$1href=$2$3.$4$5 title="'.$post->post_title.'"$6>';
-       $content = preg_replace($pattern, $replacement, $content);
-       return $content;
-}
-add_filter('the_content', 'aimagesalt');
-add_filter('asgarosforum_filter_post_content', 'aimagesalt');
+if (git_get_option('git_imgalt_b')):
+    //图片img标签添加alt，title属性
+    function imagesalt($content) {
+        global $post;
+        $pattern = "/<img(.*?)src=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>/i";
+        $replacement = '<img$1src=$2$3.$4$5 alt="' . $post->post_title . '" title="' . $post->post_title . '"$6>';
+        $content = preg_replace($pattern, $replacement, $content);
+        return $content;
+    }
+    add_filter('the_content', 'imagesalt');
+    add_filter('asgarosforum_filter_post_content', 'imagesalt');
+    //图片A标签添加title属性
+    function aimagesalt($content) {
+        global $post;
+        $pattern = "/<a(.*?)href=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>/i";
+        $replacement = '<a$1href=$2$3.$4$5 title="' . $post->post_title . '"$6>';
+        $content = preg_replace($pattern, $replacement, $content);
+        return $content;
+    }
+    add_filter('the_content', 'aimagesalt');
+    add_filter('asgarosforum_filter_post_content', 'aimagesalt');
 endif;
 //自动给文章以及评论添加nofollow属性
-if(git_get_option('git_nofollow')):
-function git_auto_nofollow( $content ) {
-    $regexp = "<a\s[^>]*href=(\"??)([^\" >]*?)\\1[^>]*>";
-    if(preg_match_all("/$regexp/siU", $content, $matches, PREG_SET_ORDER)) {
-        if( !empty($matches) ) {
-
-            $srcUrl = get_option('siteurl');
-            for ($i=0; $i < count($matches); $i++)
-            {
-                $tag = $matches[$i][0];
-                $tag2 = $matches[$i][0];
-                $url = $matches[$i][0];
-                $noFollow = '';
-                $pattern = '/target\s*=\s*"\s*_blank\s*"/';
-                preg_match($pattern, $tag2, $match, PREG_OFFSET_CAPTURE);
-                if( count($match) < 1 )
-                    $noFollow .= ' target="_blank" ';
-                $pattern = '/rel\s*=\s*"\s*[n|d]ofollow\s*"/';
-                preg_match($pattern, $tag2, $match, PREG_OFFSET_CAPTURE);
-                if( count($match) < 1 )
-                    $noFollow .= ' rel="nofollow" ';
-                $pos = strpos($url,$srcUrl);
-                if ($pos === false) {
-                    $tag = rtrim ($tag,'>');
-                    $tag .= $noFollow.'>';
-                    $content = str_replace($tag2,$tag,$content);
+if (git_get_option('git_nofollow')):
+    function git_auto_nofollow($content) {
+        $regexp = "<a\s[^>]*href=(\"??)([^\" >]*?)\\1[^>]*>";
+        if (preg_match_all("/$regexp/siU", $content, $matches, PREG_SET_ORDER)) {
+            if (!empty($matches)) {
+                $srcUrl = get_option('siteurl');
+                for ($i = 0; $i < count($matches); $i++) {
+                    $tag = $matches[$i][0];
+                    $tag2 = $matches[$i][0];
+                    $url = $matches[$i][0];
+                    $noFollow = '';
+                    $pattern = '/target\s*=\s*"\s*_blank\s*"/';
+                    preg_match($pattern, $tag2, $match, PREG_OFFSET_CAPTURE);
+                    if (count($match) < 1) $noFollow.= ' target="_blank" ';
+                    $pattern = '/rel\s*=\s*"\s*[n|d]ofollow\s*"/';
+                    preg_match($pattern, $tag2, $match, PREG_OFFSET_CAPTURE);
+                    if (count($match) < 1) $noFollow.= ' rel="nofollow" ';
+                    $pos = strpos($url, $srcUrl);
+                    if ($pos === false) {
+                        $tag = rtrim($tag, '>');
+                        $tag.= $noFollow . '>';
+                        $content = str_replace($tag2, $tag, $content);
+                    }
                 }
             }
         }
+        $content = str_replace(']]>', ']]>', $content);
+        return $content;
     }
-
-    $content = str_replace(']]>', ']]>', $content);
-    return $content;
-}
-add_filter( 'the_content', 'git_auto_nofollow');
-add_filter( 'asgarosforum_filter_post_content', 'git_auto_nofollow');
+    add_filter('the_content', 'git_auto_nofollow');
+    add_filter('asgarosforum_filter_post_content', 'git_auto_nofollow');
 endif;
-
 //输出WordPress表情
 function fa_get_wpsmiliestrans() {
     global $wpsmiliestrans;
     $wpsmilies = array_unique($wpsmiliestrans);
-		$output = '';
+    $output = '';
     foreach ($wpsmilies as $alt => $src_path) {
         $output.= '<a class="add-smily" data-smilies="' . $alt . '"><img class="wp-smiley" src="' . get_template_directory_uri() . '/assets/img/smilies/' . rtrim($src_path, "gif") . 'gif" /></a>';
     }
@@ -1034,7 +1034,7 @@ function fa_get_wpsmiliestrans() {
 }
 add_action('media_buttons_context', 'fa_smilies_custom_button');
 function fa_smilies_custom_button($context) {
-    $context= '';
+    $context = '';
     $context.= '<style>.smilies-wrap{background:#fff;border: 1px solid #ccc;box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.24);padding: 10px;position: absolute;top: 60px;width: 375px;display:none}.smilies-wrap img{height:24px;width:24px;cursor:pointer;margin-bottom:5px} .is-active.smilies-wrap{display:block}</style> <a id="insert-media-button" style="position:relative" class="button insert-smilies add_smilies" title="添加表情" data-editor="content" href="javascript:;">^_^ 添加表情</a><div class="smilies-wrap">' . fa_get_wpsmiliestrans() . '</div><script>jQuery(document).ready(function(){jQuery(document).on("click", ".insert-smilies",function() { if(jQuery(".smilies-wrap").hasClass("is-active")){jQuery(".smilies-wrap").removeClass("is-active");}else{jQuery(".smilies-wrap").addClass("is-active");}});jQuery(document).on("click", ".add-smily",function() { send_to_editor(" " + jQuery(this).data("smilies") + " ");jQuery(".smilies-wrap").removeClass("is-active");return false;});});</script>';
     return $context;
 }
@@ -1099,13 +1099,13 @@ function Ajax_data_zfunc_smiley_button() {
         die();
     }
 }
-add_action('init', 'Ajax_data_zfunc_smiley_button');
+add_action('admin_init', 'Ajax_data_zfunc_smiley_button');
 //后台回复评论支持表情插入
 function zfunc_admin_enqueue_scripts($hook_suffix) {
-	global $pagenow;
-    if( $pagenow == 'edit-comments.php' ){
-    wp_enqueue_script('zfunc-comment-reply', get_template_directory_uri() . '/assets/js/admin_reply.js', false, '1.0', true );
-	}
+    global $pagenow;
+    if ($pagenow == 'edit-comments.php') {
+        wp_enqueue_script('zfunc-comment-reply', get_template_directory_uri() . '/assets/js/admin_reply.js', false, '1.0', true);
+    }
 }
 add_action('admin_print_styles', 'zfunc_admin_enqueue_scripts');
 //使用短代码添加回复后可见内容开始
@@ -1140,21 +1140,28 @@ function reply_to_read($atts, $content = null) {
     }
 }
 add_shortcode('reply', 'reply_to_read');
-
 //bing美图自定义登录页面背景
 function custom_login_head() {
-    $arr = json_decode(curl_post('https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1')['data']);
-        if(git_get_option('git_loginbg')){
-            $imgurl = git_get_option('git_loginbg');
-        }else{
-            $imgurl = 'http://cn.bing.com'.$arr->images[0]->url;
-        }
-        if(defined('UM_DIR')){echo '<style type="text/css">#um_captcha{width:170px!important;}</style>';}
-        echo '<style type="text/css">#reg_passmail{display:none!important}body{background: url('.$imgurl.') center center no-repeat;-moz-background-size: cover;-o-background-size: cover;-webkit-background-size: cover;background-size: cover;background-attachment: fixed;}.login label,a {font-weight: bold;}.login-action-register #login{padding: 5% 0 0;}.login p {line-height: 1;}.login form {margin-top: 10px;padding: 16px 24px 16px;}h1 a { background-image:url(' . home_url() . '/favicon.ico)!important;width:32px;height:32px;-webkit-border-radius:50px;-moz-border-radius:50px;border-radius:50px;}#registerform,#loginform {background-color:rgba(251,251,251,0.3)!important;}.login label,a{color:#000!important;}form label input{margin-top:10px!important;}@media screen and (max-width:600px){.login-action-register h1 {display: none;}.login-action-register #login{top:50%!important;}}</style>';
+    $arr = json_decode(curl_post('https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1') ['data']);
+    if (git_get_option('git_loginbg')) {
+        $imgurl = git_get_option('git_loginbg');
+    } else {
+        $imgurl = 'http://cn.bing.com' . $arr->images[0]->url;
+    }
+    if (defined('UM_DIR')) {
+        echo '<style type="text/css">#um_captcha{width:170px!important;}</style>';
+    }
+    echo '<style type="text/css">#reg_passmail{display:none!important}body{background: url(' . $imgurl . ') center center no-repeat;-moz-background-size: cover;-o-background-size: cover;-webkit-background-size: cover;background-size: cover;background-attachment: fixed;}.login label,a {font-weight: bold;}.login-action-register #login{padding: 5% 0 0;}.login p {line-height: 1;}.login form {margin-top: 10px;padding: 16px 24px 16px;}h1 a { background-image:url(' . home_url() . '/favicon.ico)!important;width:32px;height:32px;-webkit-border-radius:50px;-moz-border-radius:50px;border-radius:50px;}#registerform,#loginform {background-color:rgba(251,251,251,0.3)!important;}.login label,a{color:#000!important;}form label input{margin-top:10px!important;}@media screen and (max-width:600px){.login-action-register h1 {display: none;}.login-action-register #login{top:50%!important;}}</style>';
 }
 add_action('login_head', 'custom_login_head');
-add_filter('login_headerurl', create_function(false, "return home_url();"));
-add_filter('login_headertitle', create_function(false, "return get_bloginfo('name');"));
+function lhu(){
+	return home_url();
+}
+add_filter('login_headerurl', 'lhu');
+function lht(){
+	return get_bloginfo('name');
+}
+add_filter('login_headertitle', 'lht');
 /*
  * 强制阻止WordPress代码转义，关于代码高亮可以看这里http://googlo.me/archives/2986.html
 */
@@ -1166,23 +1173,22 @@ function git_esc_callback($matches) {
     $tag_open = $matches[1];
     $content = $matches[2];
     $tag_close = $matches[3];
-    //$content = htmlspecialchars($content, ENT_NOQUOTES, get_bloginfo('charset'));
     $content = esc_html($content);
     return $tag_open . $content . $tag_close;
 }
 add_filter('the_content', 'git_esc_html', 2);
 add_filter('comment_text', 'git_esc_html', 2);
 add_filter('asgarosforum_filter_post_content', 'git_esc_html', 2);
-
 //强制兼容<pre>
-function git_prettify_replace($text){
-$replace = array( '<pre>' => '<pre class="prettyprint linenums" >' );
-$text = str_replace(array_keys($replace), $replace, $text);
-return $text;
+function git_prettify_replace($text) {
+    $replace = array(
+        '<pre>' => '<pre class="prettyprint linenums" >'
+    );
+    $text = str_replace(array_keys($replace) , $replace, $text);
+    return $text;
 }
 add_filter('the_content', 'git_prettify_replace');
 add_filter('asgarosforum_filter_post_content', 'git_prettify_replace');
-
 //首页隐藏一些分类
 function exclude_category_home($query) {
     if ($query->is_home) {
@@ -1190,31 +1196,28 @@ function exclude_category_home($query) {
     }
     return $query;
 }
-    add_filter('pre_get_posts', 'exclude_category_home');
-    
+add_filter('pre_get_posts', 'exclude_category_home');
 function git_exclude_category_search($query) {
-	if ( !$query->is_admin && $query->is_search) {
+    if (!$query->is_admin && $query->is_search) {
         $query->set('cat', git_get_option('git_blockcat_search')); //隐藏这两个分类
     }
     return $query;
 }
-    add_filter('pre_get_posts', 'git_exclude_category_search');
-
+add_filter('pre_get_posts', 'git_exclude_category_search');
 function git_exclude_category_rss($query) {
-    if ( $query->is_feed ) {
+    if ($query->is_feed) {
         $query->set('cat', git_get_option('git_blockcat_rss')); //隐藏这两个分类
     }
     return $query;
 }
-    add_filter('pre_get_posts', 'git_exclude_category_rss');
-
+add_filter('pre_get_posts', 'git_exclude_category_rss');
 //固化插入图片选项
 function git_attachment_display_settings() {
-	update_option( 'image_default_align', 'center' );//居中显示
-	update_option( 'image_default_link_type', 'file' );//连接到媒体文件本身
-	update_option( 'image_default_size', 'full' );//完整尺寸
+    update_option('image_default_align', 'center'); //居中显示
+    update_option('image_default_link_type', 'file'); //连接到媒体文件本身
+    update_option('image_default_size', 'full'); //完整尺寸
 }
-add_action( 'after_setup_theme', 'git_attachment_display_settings' );
+add_action('after_setup_theme', 'git_attachment_display_settings');
 //后台日志阅读统计
 add_filter('manage_posts_columns', 'postviews_admin_add_column');
 function postviews_admin_add_column($columns) {
@@ -1292,57 +1295,74 @@ function tom($atts, $content = null) {
 add_shortcode('lhb', 'tom');
 /*添加视频按钮*/
 function too($atts, $content = null) {
-	extract(shortcode_atts(array("play" => '0' ) , $atts));
-	if( $play == 0){
-		return '<video style="width:100%;" src="' . $content . '" controls preload >您的浏览器不支持HTML5的 video 标签，无法为您播放！</video>';
-	}if( $play == 1){
-		return '<video style="width:100%;" src="' . $content . '" controls preload autoplay >您的浏览器不支持HTML5的 video 标签，无法为您播放！</video>';
-	}
+    extract(shortcode_atts(array(
+        "play" => '0'
+    ) , $atts));
+    if ($play == 0) {
+        return '<video style="width:100%;" src="' . $content . '" controls preload >您的浏览器不支持HTML5的 video 标签，无法为您播放！</video>';
+    }
+    if ($play == 1) {
+        return '<video style="width:100%;" src="' . $content . '" controls preload autoplay >您的浏览器不支持HTML5的 video 标签，无法为您播放！</video>';
+    }
 }
 add_shortcode('video', 'too');
 /*添加音频按钮*/
 function tkk($atts, $content = null) {
-	extract(shortcode_atts(array("play" => '0' ) , $atts));
-	if( $play == 0){
-		return '<audio style="width:100%;" src="' . $content . '" controls loop>您的浏览器不支持 audio 标签。</audio>';
-	}if( $play == 1){
-		return '<audio style="width:100%;" src="' . $content . '" controls autoplay loop>您的浏览器不支持 audio 标签。</audio>';
-	}
+    extract(shortcode_atts(array(
+        "play" => '0'
+    ) , $atts));
+    if ($play == 0) {
+        return '<audio style="width:100%;" src="' . $content . '" controls loop>您的浏览器不支持 audio 标签。</audio>';
+    }
+    if ($play == 1) {
+        return '<audio style="width:100%;" src="' . $content . '" controls autoplay loop>您的浏览器不支持 audio 标签。</audio>';
+    }
 }
 add_shortcode('audio', 'tkk');
-
 /*弹窗下载*/
 function ton($atts, $content = null) {
-    extract(shortcode_atts(array("href" => 'http://',"filename" => '',"filesize" => '',"filedown" => '' ) , $atts));
-    return '<a class="lhb" id="showdiv" href="#fancydlbox" >文件下载</a><div id="fancydlbox" style="cursor:default;display:none;width:800px;"><div class="part" style="padding:20px 0;"><h2>下载声明:</h2> <div class="fancydlads" align="left"><p>' . git_get_option('git_fancydlcp') . '</p></div></div><div class="part" style="padding:20px 0;"><h2>文件信息：</h2> <div class="dlnotice" align="left"><p>文件名称：' . $filename . '<br />文件大小:' . $filesize . '<br />发布日期:' .get_the_modified_time('Y年n月j日') . '</p></div></div><div class="part" id="download_button_part"><a id="download_button" target="_blank" href="' . $href . '"><span></span>' . $filedown . '</a> </div><div class="part" style="padding:20px 0;"><div class="moredl" style="text-align:center;">[更多地址] : '.$content.'</div></div><div class="dlfooter">' . git_get_option('git_fancydlad') . '</div></div>';
+    extract(shortcode_atts(array(
+        "href" => 'http://',
+        "filename" => '',
+        "filesize" => '',
+        "filedown" => ''
+    ) , $atts));
+    return '<a class="lhb" id="showdiv" href="#fancydlbox" >文件下载</a><div id="fancydlbox" style="cursor:default;display:none;width:800px;"><div class="part" style="padding:20px 0;"><h2>下载声明:</h2> <div class="fancydlads" align="left"><p>' . git_get_option('git_fancydlcp') . '</p></div></div><div class="part" style="padding:20px 0;"><h2>文件信息：</h2> <div class="dlnotice" align="left"><p>文件名称：' . $filename . '<br />文件大小:' . $filesize . '<br />发布日期:' . get_the_modified_time('Y年n月j日') . '</p></div></div><div class="part" id="download_button_part"><a id="download_button" target="_blank" href="' . $href . '"><span></span>' . $filedown . '</a> </div><div class="part" style="padding:20px 0;"><div class="moredl" style="text-align:center;">[更多地址] : ' . $content . '</div></div><div class="dlfooter">' . git_get_option('git_fancydlad') . '</div></div>';
 }
 add_shortcode('fanctdl', 'ton');
 //代码演示短代码
 function git_demo($atts, $content = null) {
-    return '<a class="lhb" href="'.get_permalink(git_page_id('demo')).'?pid='.get_the_ID().'" target="_blank" rel="nofollow">' . $content . '</a>';
+    return '<a class="lhb" href="' . get_permalink(git_page_id('demo')) . '?pid=' . get_the_ID() . '" target="_blank" rel="nofollow">' . $content . '</a>';
 }
 add_shortcode('demo', 'git_demo');
 //下载单页短代码
 function git_download($atts, $content = null) {
-    return '<a class="lhb" href="'.get_permalink(git_page_id('download')).'?pid='.get_the_ID().'" target="_blank" rel="nofollow">' . $content . '</a>';
+    return '<a class="lhb" href="' . get_permalink(git_page_id('download')) . '?pid=' . get_the_ID() . '" target="_blank" rel="nofollow">' . $content . '</a>';
 }
 add_shortcode('download', 'git_download');
 /* 短代码信息框 完毕*/
 //为WordPress添加展开收缩功能
 function xcollapse($atts, $content = null) {
-    extract(shortcode_atts(array( "title" => "" ) , $atts));
+    extract(shortcode_atts(array(
+        "title" => ""
+    ) , $atts));
     return '<div style="margin: 0.5em 0;"><div class="xControl"><a href="javascript:void(0)" class="collapseButton xButton"><i class="fa fa-plus-square" ></i> ' . $title . '</a><div style="clear: both;"></div></div><div class="xContent" style="display: none;">' . $content . '</div></div>';
 }
 add_shortcode('collapse', 'xcollapse');
 //简单的下载面板
 function xdltable($atts, $content = null) {
-    extract(shortcode_atts(array("file" => "","size" => "" ) , $atts));
-    return '<table class="dltable"><tbody><tr><td style="background-color:#F9F9F9;" rowspan="3"><p>文件下载</p></td><td><i class="fa fa-list-alt"></i>&nbsp;&nbsp;文件名称：' . $file . '</td><td><i class="fa fa-th-large"></i>&nbsp;&nbsp;文件大小：' . $size . '</td></tr><tr><td colspan="2"><i class="fa fa-volume-up"></i>&nbsp;&nbsp;下载声明：'.git_get_option('git_dltable_b').'</td></tr><tr><td colspan="2"><i class="fa fa-download"></i>&nbsp;&nbsp;下载地址：' . $content . '</td></tr></tbody></table>';
+    extract(shortcode_atts(array(
+        "file" => "",
+        "size" => ""
+    ) , $atts));
+    return '<table class="dltable"><tbody><tr><td style="background-color:#F9F9F9;" rowspan="3"><p>文件下载</p></td><td><i class="fa fa-list-alt"></i>&nbsp;&nbsp;文件名称：' . $file . '</td><td><i class="fa fa-th-large"></i>&nbsp;&nbsp;文件大小：' . $size . '</td></tr><tr><td colspan="2"><i class="fa fa-volume-up"></i>&nbsp;&nbsp;下载声明：' . git_get_option('git_dltable_b') . '</td></tr><tr><td colspan="2"><i class="fa fa-download"></i>&nbsp;&nbsp;下载地址：' . $content . '</td></tr></tbody></table>';
 }
 add_shortcode('dltable', 'xdltable');
 //网易云音乐
 function music163($atts, $content = null) {
-    extract(shortcode_atts(array("play" => "1" ) , $atts));
+    extract(shortcode_atts(array(
+        "play" => "1"
+    ) , $atts));
     return '<iframe style="width:100%;max-height:86px;" frameborder="no" border="0" marginwidth="0" marginheight="0" src="http://music.163.com/outchain/player?type=2&id=' . $content . '&auto=' . $play . '&height=66"></iframe>';
 }
 add_shortcode('netmusic', 'music163');
@@ -1371,20 +1391,20 @@ wp_embed_register_handler('tudou_iframe', '#http://www.tudou.com/programs/view/(
 wp_embed_unregister_handler('youku');
 wp_embed_unregister_handler('tudou');
 //添加后台个人信息
-function git_add_contact_fields( $contactmethods ) {
-	$contactmethods['qq'] = 'QQ';
-	$contactmethods['qq_weibo'] = '腾讯微博';
-	$contactmethods['sina_weibo'] = '新浪微博';
-	$contactmethods['baidu'] = '百度ID';
-	$contactmethods['twitter'] = 'Twitter';
-	$contactmethods['google_plus'] = 'Google+';
-	$contactmethods['github'] = 'GitHub';
-	unset( $contactmethods['yim'] );
-	unset( $contactmethods['aim'] );
-	unset( $contactmethods['jabber'] );
-	return $contactmethods;
+function git_add_contact_fields($contactmethods) {
+    $contactmethods['qq'] = 'QQ';
+    $contactmethods['qq_weibo'] = '腾讯微博';
+    $contactmethods['sina_weibo'] = '新浪微博';
+    $contactmethods['baidu'] = '百度ID';
+    $contactmethods['twitter'] = 'Twitter';
+    $contactmethods['google_plus'] = 'Google+';
+    $contactmethods['github'] = 'GitHub';
+    unset($contactmethods['yim']);
+    unset($contactmethods['aim']);
+    unset($contactmethods['jabber']);
+    return $contactmethods;
 }
-add_filter( 'user_contactmethods', 'git_add_contact_fields' );
+add_filter('user_contactmethods', 'git_add_contact_fields');
 //后台快捷键回复
 function hui_admin_comment_ctrlenter() {
     echo '<script type="text/javascript">
@@ -1412,45 +1432,34 @@ function Bing_show_category() {
     }
 }
 
-//获取远程通知以及更新提示
-if (!git_get_option('git_updates_b')):
-function Coding_notice() {
-            $contents = curl_post('https://coding.net/u/googlo/p/File/git/raw/master/notice.txt');
-			if ($contents['code'] == 200) {
-            return $contents['data'];
-			}
-}
-endif;
-
 //获取更新提示
-if(!git_get_option('git_updates_b')):
-    if( Coding_git_ver() > GIT_VER ):
-function shapeSpace_custom_admin_notice() {
-    echo '<div class="notice notice-error is-dismissible">
-        <p>Git主题版本现已更新至 '.Coding_git_ver().' 版本 , 您目前的版本是 '.GIT_VER.'&nbsp;&nbsp;<a href="/wp-admin/update-core.php" class="button button-primary" aria-label="现在更新Git-alpha" id="update-theme" data-slug="Git-alpha">现在更新</a></p>
+if (!git_get_option('git_updates_b')):
+    if (Coding_git_ver() > GIT_VER):
+        function shapeSpace_custom_admin_notice() {
+            echo '<div class="notice notice-error is-dismissible">
+        <p>Git主题版本现已更新至 ' . Coding_git_ver() . ' 版本 , 您目前的版本是 ' . GIT_VER . '&nbsp;&nbsp;<a href="/wp-admin/update-core.php" class="button button-primary" aria-label="现在更新Git-alpha" id="update-theme" data-slug="Git-alpha">现在更新</a></p>
     </div>';
- }
-add_action('admin_notices', 'shapeSpace_custom_admin_notice');
+        }
+        add_action('admin_notices', 'shapeSpace_custom_admin_notice');
     endif;
 endif;
-
 //新文章同步到新浪微博
 function post_to_sina_weibo($post_ID) {
-   if(get_post_meta($post_ID,'git_weibo_sync',true) == 1) return;
-   $get_post_info = get_post($post_ID);
-   $get_post_centent = get_post($post_ID)->post_content;
-   $get_post_title = get_post($post_ID)->post_title;
-   if ($get_post_info->post_status == 'publish' && $_POST['original_post_status'] != 'publish') {
-       $appkey = git_get_option('git_wbapky_b');
-       $username = git_get_option('git_wbuser_b');
-       $userpassword = git_get_option('git_wbpasd_b');
-       $request = new WP_Http;
-       $keywords = "";
-       $tags = wp_get_post_tags($post_ID);
-       foreach ($tags as $tag ) {
-          $keywords = $keywords.'#'.$tag->name."#";
-       }
-	  $string1 = '【' . strip_tags($get_post_title) . '】：';
+    if (get_post_meta($post_ID, 'git_weibo_sync', true) == 1) return;
+    $get_post_info = get_post($post_ID);
+    $get_post_centent = get_post($post_ID)->post_content;
+    $get_post_title = get_post($post_ID)->post_title;
+    if ($get_post_info->post_status == 'publish' && $_POST['original_post_status'] != 'publish') {
+        $appkey = git_get_option('git_wbapky_b');
+        $username = git_get_option('git_wbuser_b');
+        $userpassword = git_get_option('git_wbpasd_b');
+        $request = new WP_Http;
+        $keywords = "";
+        $tags = wp_get_post_tags($post_ID);
+        foreach ($tags as $tag) {
+            $keywords = $keywords . '#' . $tag->name . "#";
+        }
+        $string1 = '【' . strip_tags($get_post_title) . '】：';
         $string2 = $keywords . ' [阅读全文]：' . get_permalink($post_ID);
         /* 微博字数控制，避免超标同步失败 */
         $wb_num = (138 - WeiboLength($string1 . $string2)) * 2;
@@ -1471,258 +1480,265 @@ function post_to_sina_weibo($post_ID) {
         add_post_meta($post_ID, 'git_weibo_sync', 1, true);
     }
 }
-if(git_get_option('git_sinasync_b')) {
-add_action('publish_post', 'post_to_sina_weibo', 0);
+if (git_get_option('git_sinasync_b')) {
+    add_action('publish_post', 'post_to_sina_weibo', 0);
 }
 /*
 //获取微博字符长度函数
 */
-function WeiboLength($str)
-{
-    $arr = arr_split_zh($str);   //先将字符串分割到数组中
-    foreach ($arr as $v){
-        $temp = ord($v);        //转换为ASCII码
+function WeiboLength($str) {
+    $arr = arr_split_zh($str); //先将字符串分割到数组中
+    foreach ($arr as $v) {
+        $temp = ord($v); //转换为ASCII码
         if ($temp > 0 && $temp < 127) {
-            $len = $len+0.5;
-        }else{
-            $len ++;
+            $len = $len + 0.5;
+        } else {
+            $len++;
         }
     }
-    return ceil($len);        //加一取整
+    return ceil($len); //加一取整
+
 }
 /*
 //拆分字符串函数,只支持 gb2312编码
 //参考：http://u-czh.iteye.com/blog/1565858
 */
-function arr_split_zh($tempaddtext){
+function arr_split_zh($tempaddtext) {
     $tempaddtext = iconv("UTF-8", "GBK//IGNORE", $tempaddtext);
     $cind = 0;
-    $arr_cont=array();
-    for($i=0;$i<strlen($tempaddtext);$i++)
-    {
-        if(strlen(substr($tempaddtext,$cind,1)) > 0){
-            if(ord(substr($tempaddtext,$cind,1)) < 0xA1 ){ //如果为英文则取1个字节
-                array_push($arr_cont,substr($tempaddtext,$cind,1));
+    $arr_cont = array();
+    for ($i = 0; $i < strlen($tempaddtext); $i++) {
+        if (strlen(substr($tempaddtext, $cind, 1)) > 0) {
+            if (ord(substr($tempaddtext, $cind, 1)) < 0xA1) { //如果为英文则取1个字节
+                array_push($arr_cont, substr($tempaddtext, $cind, 1));
                 $cind++;
-            }else{
-                array_push($arr_cont,substr($tempaddtext,$cind,2));
-                $cind+=2;
+            } else {
+                array_push($arr_cont, substr($tempaddtext, $cind, 2));
+                $cind+= 2;
             }
         }
     }
-    foreach ($arr_cont as &$row)
-    {
-        $row=iconv("gb2312","UTF-8",$row);
+    foreach ($arr_cont as & $row) {
+        $row = iconv("gb2312", "UTF-8", $row);
     }
     return $arr_cont;
 }
-
 //百度收录提示
-if(git_get_option('git_baidurecord_b') && function_exists('curl_init')):
-function baidu_check($url) {
-    global $wpdb;
-    $post_id = (null === $post_id) ? get_the_ID() : $post_id;
-    $baidu_record = get_post_meta($post_id, 'baidu_record', true);
-    if ($baidu_record != 1) {
-        $url = 'http://www.baidu.com/s?wd=site:'.$_SERVER['HTTP_HOST'].' ' . $url;
-        $rs = curl_post($url);
-        if (!strpos($rs['data'], '没有找到')) {
-            if ($baidu_record == 0) {
-                update_post_meta($post_id, 'baidu_record', 1);
+if (git_get_option('git_baidurecord_b') && function_exists('curl_init')):
+    function baidu_check($url) {
+        global $wpdb;
+        $post_id = (null === $post_id) ? get_the_ID() : $post_id;
+        $baidu_record = get_post_meta($post_id, 'baidu_record', true);
+        if ($baidu_record != 1) {
+            $url = 'http://www.baidu.com/s?wd=site:' . $_SERVER['HTTP_HOST'] . ' ' . $url;
+            $rs = curl_post($url);
+            if (!strpos($rs['data'], '没有找到')) {
+                if ($baidu_record == 0) {
+                    update_post_meta($post_id, 'baidu_record', 1);
+                } else {
+                    add_post_meta($post_id, 'baidu_record', 1, true);
+                }
+                return 1;
             } else {
-                add_post_meta($post_id, 'baidu_record', 1, true);
+                if ($baidu_record == false) {
+                    add_post_meta($post_id, 'baidu_record', 0, true);
+                }
+                return 0;
             }
-            return 1;
         } else {
-            if ($baidu_record == false) {
-                add_post_meta($post_id, 'baidu_record', 0, true);
-            }
-            return 0;
+            return 1;
         }
-    } else {
-        return 1;
     }
-}
-function baidu_record() {
-    if (baidu_check(get_permalink()) == 1) {
-        echo '<a target="_blank" title="点击查看" rel="external nofollow" href="http://www.baidu.com/s?wd=' . get_the_title() . '">已收录</a>';
-    } else {
-        echo '<a style="color:red;" rel="external nofollow" title="点击提交，谢谢您！" target="_blank" href="http://zhanzhang.baidu.com/sitesubmit/index?sitename=' . get_permalink() . '">未收录</a>';
+    function baidu_record() {
+        if (baidu_check(get_permalink()) == 1) {
+            echo '<a target="_blank" title="点击查看" rel="external nofollow" href="http://www.baidu.com/s?wd=' . get_the_title() . '">已收录</a>';
+        } else {
+            echo '<a style="color:red;" rel="external nofollow" title="点击提交，谢谢您！" target="_blank" href="http://zhanzhang.baidu.com/sitesubmit/index?sitename=' . get_permalink() . '">未收录</a>';
+        }
     }
-}
 endif;
-
 //主题自动更新服务
 if (!git_get_option('git_updates_b')):
     require 'modules/updates.php';
-    $example_update_checker = new ThemeUpdateChecker('Git-alpha', 'https://coding.net/u/googlo/p/File/git/raw/master/info.json'/*此处链接不可改*/);
+    $example_update_checker = new ThemeUpdateChecker('Git-alpha', 'https://coding.net/u/googlo/p/File/git/raw/master/info.json' /*此处链接不可改*/);
 endif;
-
 //本地头像
 class simple_local_avatars {
-	private $user_id_being_edited;
-	public function __construct() {
-		add_action( 'admin_init',                array( $this, 'admin_init'               )        );
-		add_action( 'show_user_profile',         array( $this, 'edit_user_profile'        )        );
-		add_action( 'edit_user_profile',         array( $this, 'edit_user_profile'        )        );
-		add_action( 'personal_options_update',   array( $this, 'edit_user_profile_update' )        );
-		add_action( 'edit_user_profile_update',  array( $this, 'edit_user_profile_update' )        );
-		add_filter( 'get_avatar',                array( $this, 'get_avatar'               ), 10, 5 );
-		add_filter( 'avatar_defaults',           array( $this, 'avatar_defaults'          )        );
-	}
-	public function admin_init() {
-		register_setting('discussion', 'simple_local_avatars_caps', array($this,'sanitize_options'));
-		add_settings_field( 'basic-user-avatars-caps', '本地上传头像权限管理', array( $this, 'avatar_settings_field' ), 'discussion', 'avatars' );
-	}
-	public function avatar_settings_field( $args ) {
-		$options = get_option( 'simple_local_avatars_caps' );
-		?>
+    private $user_id_being_edited;
+    public function __construct() {
+        add_action('admin_init', array(
+            $this,
+            'admin_init'
+        ));
+        add_action('show_user_profile', array(
+            $this,
+            'edit_user_profile'
+        ));
+        add_action('edit_user_profile', array(
+            $this,
+            'edit_user_profile'
+        ));
+        add_action('personal_options_update', array(
+            $this,
+            'edit_user_profile_update'
+        ));
+        add_action('edit_user_profile_update', array(
+            $this,
+            'edit_user_profile_update'
+        ));
+        add_filter('get_avatar', array(
+            $this,
+            'get_avatar'
+        ) , 10, 5);
+        add_filter('avatar_defaults', array(
+            $this,
+            'avatar_defaults'
+        ));
+    }
+    public function admin_init() {
+        register_setting('discussion', 'simple_local_avatars_caps', array(
+            $this,
+            'sanitize_options'
+        ));
+        add_settings_field('basic-user-avatars-caps', '本地上传头像权限管理', array(
+            $this,
+            'avatar_settings_field'
+        ) , 'discussion', 'avatars');
+    }
+    public function avatar_settings_field($args) {
+        $options = get_option('simple_local_avatars_caps');
+?>
 		<label for="simple_local_avatars_caps">
-			<input type="checkbox" name="simple_local_avatars_caps" id="simple_local_avatars_caps" value="1" <?php checked( $options['simple_local_avatars_caps'], 1 ); ?>/>仅具有头像上传权限的用户具有设置本地头像权限（作者及更高等级角色）</label>
+			<input type="checkbox" name="simple_local_avatars_caps" id="simple_local_avatars_caps" value="1" <?php
+        checked($options['simple_local_avatars_caps'], 1); ?>/>仅具有头像上传权限的用户具有设置本地头像权限（作者及更高等级角色）</label>
 		<?php
-	}
-	public function sanitize_options( $input ) {
-		$new_input['simple_local_avatars_caps'] = empty( $input['simple_local_avatars_caps'] ) ? 0 : 1;
-		return $new_input;
-	}
-	public function get_avatar( $avatar, $id_or_email, $size = 96, $default, $alt ) {
-		if ( is_numeric( $id_or_email ) )
-			$user_id = (int) $id_or_email;
-		elseif ( is_string( $id_or_email ) && ( $user = get_user_by( 'email', $id_or_email ) ) )
-			$user_id = $user->ID;
-		elseif ( is_object( $id_or_email ) && ! empty( $id_or_email->user_id ) )
-			$user_id = (int) $id_or_email->user_id;
-		if ( empty( $user_id ) )
-			return $avatar;
-		$local_avatars = get_user_meta( $user_id, 'simple_local_avatar', true );
-		if ( empty( $local_avatars ) || empty( $local_avatars['full'] ) )
-			return $avatar;
-		$size = (int) $size;
-		if ( empty( $alt ) )
-			$alt = get_the_author_meta( 'display_name', $user_id );
-		if ( empty( $local_avatars[$size] ) ) {
-			$upload_path      = wp_upload_dir();
-			$avatar_full_path = str_replace( $upload_path['baseurl'], $upload_path['basedir'], $local_avatars['full'] );
-			$image            = wp_get_image_editor( $avatar_full_path );
-			if ( ! is_wp_error( $image ) ) {
-				$image->resize( $size, $size, true );
-				$image_sized = $image->save();
-			}
-			$local_avatars[$size] = is_wp_error( $image_sized ) ? $local_avatars[$size] = $local_avatars['full'] : str_replace( $upload_path['basedir'], $upload_path['baseurl'], $image_sized['path'] );
-			update_user_meta( $user_id, 'simple_local_avatar', $local_avatars );
-		} elseif ( substr( $local_avatars[$size], 0, 4 ) != 'http' ) {
-			$local_avatars[$size] = home_url( $local_avatars[$size] );
-		}
-		$author_class = is_author( $user_id ) ? ' current-author' : '' ;
-		$avatar       = "<img alt='" . esc_attr( $alt ) . "' src='" . $local_avatars[$size] . "' class='avatar avatar-{$size}{$author_class} photo' height='{$size}' width='{$size}' />";
-		return apply_filters( 'simple_local_avatar', $avatar );
-	}
-	public function edit_user_profile( $profileuser ) {
-		?>
+    }
+    public function sanitize_options($input) {
+        $new_input['simple_local_avatars_caps'] = empty($input['simple_local_avatars_caps']) ? 0 : 1;
+        return $new_input;
+    }
+    public function get_avatar($avatar, $id_or_email, $size = 96, $default, $alt) {
+        if (is_numeric($id_or_email)) $user_id = (int)$id_or_email;
+        elseif (is_string($id_or_email) && ($user = get_user_by('email', $id_or_email))) $user_id = $user->ID;
+        elseif (is_object($id_or_email) && !empty($id_or_email->user_id)) $user_id = (int)$id_or_email->user_id;
+        if (empty($user_id)) return $avatar;
+        $local_avatars = get_user_meta($user_id, 'simple_local_avatar', true);
+        if (empty($local_avatars) || empty($local_avatars['full'])) return $avatar;
+        $size = (int)$size;
+        if (empty($alt)) $alt = get_the_author_meta('display_name', $user_id);
+        if (empty($local_avatars[$size])) {
+            $upload_path = wp_upload_dir();
+            $avatar_full_path = str_replace($upload_path['baseurl'], $upload_path['basedir'], $local_avatars['full']);
+            $image = wp_get_image_editor($avatar_full_path);
+            if (!is_wp_error($image)) {
+                $image->resize($size, $size, true);
+                $image_sized = $image->save();
+            }
+            $local_avatars[$size] = is_wp_error($image_sized) ? $local_avatars[$size] = $local_avatars['full'] : str_replace($upload_path['basedir'], $upload_path['baseurl'], $image_sized['path']);
+            update_user_meta($user_id, 'simple_local_avatar', $local_avatars);
+        } elseif (substr($local_avatars[$size], 0, 4) != 'http') {
+            $local_avatars[$size] = home_url($local_avatars[$size]);
+        }
+        $author_class = is_author($user_id) ? ' current-author' : '';
+        $avatar = "<img alt='" . esc_attr($alt) . "' src='" . $local_avatars[$size] . "' class='avatar avatar-{$size}{$author_class} photo' height='{$size}' width='{$size}' />";
+        return apply_filters('simple_local_avatar', $avatar);
+    }
+    public function edit_user_profile($profileuser) {
+?>
 		<h3>头像</h3>
 		<table class="form-table">
 			<tr>
 				<th><label for="basic-user-avatar">上传头像</label></th>
 				<td style="width: 50px;" valign="top">
-					<?php echo get_avatar( $profileuser->ID ); ?>
+					<?php
+        echo get_avatar($profileuser->ID); ?>
 				</td>
 				<td>
 				<?php
-				$options = get_option( 'simple_local_avatars_caps' );
-				if ( empty( $options['simple_local_avatars_caps'] ) || current_user_can( 'upload_files' ) ) {
-					// Nonce security ftw
-					wp_nonce_field( 'simple_local_avatar_nonce', '_simple_local_avatar_nonce', false );
-
-					echo '<input type="file" name="basic-user-avatar" id="basic-local-avatar" /><br />';
-					if ( empty( $profileuser->simple_local_avatar ) ) {
-						echo '<span class="description">尚未设置本地头像，请点击“浏览”按钮上传本地头像</span>';
-					} else {
-						echo '<input type="checkbox" name="basic-user-avatar-erase" value="1" />移除本地头像<br />';
-						echo '<span class="description">如需要修改本地头像，请重新上传新头像。如需要移除本地头像，请选中上方的“移除本地头像”复选框并更新个人资料即可。<br/>移除本地头像后，将恢复使用 Gravatar 头像</span>';
-					}
-
-				} else {
-					if ( empty( $profileuser->simple_local_avatar ) ) {
-						echo '<span class="description">尚未设置本地头像，请在 Gravatar.com 网站设置头像</span>';
-					} else {
-						echo '<span class="description">你没有头像上传权限，如需要修改本地头像，请联系站点管理员</span>';
-					}
-				}
-				?>
+        $options = get_option('simple_local_avatars_caps');
+        if (empty($options['simple_local_avatars_caps']) || current_user_can('upload_files')) {
+            // Nonce security ftw
+            wp_nonce_field('simple_local_avatar_nonce', '_simple_local_avatar_nonce', false);
+            echo '<input type="file" name="basic-user-avatar" id="basic-local-avatar" /><br />';
+            if (empty($profileuser->simple_local_avatar)) {
+                echo '<span class="description">尚未设置本地头像，请点击“浏览”按钮上传本地头像</span>';
+            } else {
+                echo '<input type="checkbox" name="basic-user-avatar-erase" value="1" />移除本地头像<br />';
+                echo '<span class="description">如需要修改本地头像，请重新上传新头像。如需要移除本地头像，请选中上方的“移除本地头像”复选框并更新个人资料即可。<br/>移除本地头像后，将恢复使用 Gravatar 头像</span>';
+            }
+        } else {
+            if (empty($profileuser->simple_local_avatar)) {
+                echo '<span class="description">尚未设置本地头像，请在 Gravatar.com 网站设置头像</span>';
+            } else {
+                echo '<span class="description">你没有头像上传权限，如需要修改本地头像，请联系站点管理员</span>';
+            }
+        }
+?>
 				</td>
 			</tr>
 		</table>
 		<script type="text/javascript">var form = document.getElementById('your-profile');form.encoding = 'multipart/form-data';form.setAttribute('enctype', 'multipart/form-data');</script>
 		<?php
-	}
-
-	public function edit_user_profile_update( $user_id ) {
-		if ( ! isset( $_POST['_simple_local_avatar_nonce'] ) || ! wp_verify_nonce( $_POST['_simple_local_avatar_nonce'], 'simple_local_avatar_nonce' ) )
-			return;
-		if ( ! empty( $_FILES['basic-user-avatar']['name'] ) ) {
-			$mimes = array(
-				'jpg|jpeg|jpe' => 'image/jpeg',
-				'gif'          => 'image/gif',
-				'png'          => 'image/png',
-			);
-			if ( ! function_exists( 'wp_handle_upload' ) )
-				require_once ABSPATH . 'wp-admin/includes/file.php';
-			$this->avatar_delete( $user_id );
-
-			if ( strstr( $_FILES['basic-user-avatar']['name'], '.php' ) )
-				wp_die( '基于安全考虑 ".php" 格式文件禁止上传' );
-			$this->user_id_being_edited = $user_id;
-			$avatar = wp_handle_upload( $_FILES['basic-user-avatar'], array( 'mimes' => $mimes, 'test_form' => false, 'unique_filename_callback' => array( $this, 'unique_filename_callback' ) ) );
-
-			if ( empty( $avatar['file'] ) ) {
-				switch ( $avatar['error'] ) {
-				case '文件不是正确的图片文件，请重试' :
-					add_action( 'user_profile_update_errors', create_function( '$a', '$a->add("avatar_error","请上传有效的图片文件");' ) );
-					break;
-				default :
-					add_action( 'user_profile_update_errors', create_function( '$a', '$a->add("avatar_error","<strong>上传头像过程中出现以下错误：</strong> ' . esc_attr( $avatar['error'] ) . '");' ) );
-				}
-				return;
-			}
-			update_user_meta( $user_id, 'simple_local_avatar', array( 'full' => $avatar['url'] ) );
-		} elseif ( ! empty( $_POST['basic-user-avatar-erase'] ) ) {
-			$this->avatar_delete( $user_id );
-		}
-	}
-
-	public function avatar_defaults( $avatar_defaults ) {
-		remove_action( 'get_avatar', array( $this, 'get_avatar' ) );
-		return $avatar_defaults;
-	}
-
-	public function avatar_delete( $user_id ) {
-		$old_avatars = get_user_meta( $user_id, 'simple_local_avatar', true );
-		$upload_path = wp_upload_dir();
-		if ( is_array( $old_avatars ) ) {
-			foreach ( $old_avatars as $old_avatar ) {
-				$old_avatar_path = str_replace( $upload_path['baseurl'], $upload_path['basedir'], $old_avatar );
-				@unlink( $old_avatar_path );
-			}
-		}
-
-		delete_user_meta( $user_id, 'simple_local_avatar' );
-	}
-
-	public function unique_filename_callback( $dir, $name, $ext ) {
-		$user = get_user_by( 'id', (int) $this->user_id_being_edited );
-		$name = $base_name = sanitize_file_name( $user->ID . '_avatar' );
-		$number = 1;
-		while ( file_exists( $dir . "/$name$ext" ) ) {
-			$name = $base_name . '_' . $number;
-			$number++;
-		}
-		return $name . $ext;
-	}
+    }
+    public function edit_user_profile_update($user_id) {
+        if (!isset($_POST['_simple_local_avatar_nonce']) || !wp_verify_nonce($_POST['_simple_local_avatar_nonce'], 'simple_local_avatar_nonce')) return;
+        if (!empty($_FILES['basic-user-avatar']['name'])) {
+            $mimes = array(
+                'jpg|jpeg|jpe' => 'image/jpeg',
+                'gif' => 'image/gif',
+                'png' => 'image/png',
+            );
+            if (!function_exists('wp_handle_upload')) require_once ABSPATH . 'wp-admin/includes/file.php';
+            $this->avatar_delete($user_id);
+            if (strstr($_FILES['basic-user-avatar']['name'], '.php')) wp_die('基于安全考虑 ".php" 格式文件禁止上传');
+            $this->user_id_being_edited = $user_id;
+            $avatar = wp_handle_upload($_FILES['basic-user-avatar'], array(
+                'mimes' => $mimes,
+                'test_form' => false,
+                'unique_filename_callback' => array(
+                    $this,
+                    'unique_filename_callback'
+                )
+            ));
+            update_user_meta($user_id, 'simple_local_avatar', array(
+                'full' => $avatar['url']
+            ));
+        } elseif (!empty($_POST['basic-user-avatar-erase'])) {
+            $this->avatar_delete($user_id);
+        }
+    }
+    public function avatar_defaults($avatar_defaults) {
+        remove_action('get_avatar', array(
+            $this,
+            'get_avatar'
+        ));
+        return $avatar_defaults;
+    }
+    public function avatar_delete($user_id) {
+        $old_avatars = get_user_meta($user_id, 'simple_local_avatar', true);
+        $upload_path = wp_upload_dir();
+        if (is_array($old_avatars)) {
+            foreach ($old_avatars as $old_avatar) {
+                $old_avatar_path = str_replace($upload_path['baseurl'], $upload_path['basedir'], $old_avatar);
+                @unlink($old_avatar_path);
+            }
+        }
+        delete_user_meta($user_id, 'simple_local_avatar');
+    }
+    public function unique_filename_callback($dir, $name, $ext) {
+        $user = get_user_by('id', (int)$this->user_id_being_edited);
+        $name = $base_name = sanitize_file_name($user->ID . '_avatar');
+        $number = 1;
+        while (file_exists($dir . "/$name$ext")) {
+            $name = $base_name . '_' . $number;
+            $number++;
+        }
+        return $name . $ext;
+    }
 }
 $simple_local_avatars = new simple_local_avatars;
-
 //七牛CDN
-if (!is_admin() && git_get_option('git_qncdn_b') ) {
+if (!is_admin() && git_get_option('git_qncdn_b')) {
     add_action('wp_loaded', 'Googlo_ob_start');
     function Googlo_ob_start() {
         ob_start('Googlo_qiniu_cdn_replace');
@@ -1743,60 +1759,56 @@ if (!is_admin() && git_get_option('git_qncdn_b') ) {
         return $html;
     }
 }
-
 //自动替换媒体库图片的域名
 if (is_admin() && git_get_option('git_cdnurl_b') && git_get_option('git_adminqn_b')) {
-function attachment_replace($text) {
-    $replace = array(
-        '' . home_url() . '' => '' . git_get_option('git_cdnurl_b') . ''
-    );
-    $text = str_replace(array_keys($replace) , $replace, $text);
-    return $text;
+    function attachment_replace($text) {
+        $replace = array(
+            '' . home_url() . '' => '' . git_get_option('git_cdnurl_b') . ''
+        );
+        $text = str_replace(array_keys($replace) , $replace, $text);
+        return $text;
     }
     add_filter('wp_get_attachment_url', 'attachment_replace');
 }
-
 //评论分页的seo处理
 function canonical_for_git() {
-        global $post;
-        if ( get_query_var('paged') > 1 ) :
-                echo "\n";
-                echo "<link rel='canonical' href='";
-                echo get_permalink( $post->ID );
-                echo "' />\n";
-                echo "<meta name=\"robots\" content=\"noindex,follow\">";
-         endif;
+    global $post;
+    if (get_query_var('paged') > 1):
+        echo "\n";
+        echo "<link rel='canonical' href='";
+        echo get_permalink($post->ID);
+        echo "' />\n";
+        echo "<meta name=\"robots\" content=\"noindex,follow\">";
+    endif;
 }
-add_action( 'wp_head', 'canonical_for_git' );
-
+add_action('wp_head', 'canonical_for_git');
 //移除默认的图片宽度以及高度
-function remove_wps_width( $html ) {
-    $html = preg_replace( '/(width|height)=\"\d*\"\s/', "", $html );
+function remove_wps_width($html) {
+    $html = preg_replace('/(width|height)=\"\d*\"\s/', "", $html);
     return $html;
 }
-add_filter( 'post_thumbnail_html', 'remove_wps_width', 10 );
-add_filter( 'image_send_to_editor', 'remove_wps_width', 10 );
+add_filter('post_thumbnail_html', 'remove_wps_width', 10);
+add_filter('image_send_to_editor', 'remove_wps_width', 10);
 //评论拒绝HTML代码
-if(git_get_option('git_html_comment') ):
-function git_comment_post( $incoming_comment ) {
+if (git_get_option('git_html_comment')):
+    function git_comment_post($incoming_comment) {
         $incoming_comment['comment_content'] = htmlspecialchars($incoming_comment['comment_content']);
-        $incoming_comment['comment_content'] = str_replace( "'", '&apos;', $incoming_comment['comment_content'] );
-        return( $incoming_comment );
-}
-function git_comment_display( $comment_to_display ) {
-        $comment_to_display = str_replace( '&apos;', "'", $comment_to_display );
+        $incoming_comment['comment_content'] = str_replace("'", '&apos;', $incoming_comment['comment_content']);
+        return ($incoming_comment);
+    }
+    function git_comment_display($comment_to_display) {
+        $comment_to_display = str_replace('&apos;', "'", $comment_to_display);
         return $comment_to_display;
-}
-add_filter( 'preprocess_comment', 'git_comment_post', '', 1);
-add_filter( 'comment_text', 'git_comment_display', '', 1);
-add_filter( 'comment_text_rss', 'git_comment_display', '', 1);
-add_filter( 'comment_excerpt', 'git_comment_display', '', 1);
+    }
+    add_filter('preprocess_comment', 'git_comment_post', '', 1);
+    add_filter('comment_text', 'git_comment_display', '', 1);
+    add_filter('comment_text_rss', 'git_comment_display', '', 1);
+    add_filter('comment_excerpt', 'git_comment_display', '', 1);
 endif;
-
-if(!defined('UM_DIR')){/*判断是否按照UM插件*/
-//注册表单
-function git_show_extra_register_fields(){
-    ?>
+if (!defined('UM_DIR')) { /*判断是否按照UM插件*/
+    //注册表单
+    function git_show_extra_register_fields() {
+?>
     <p>
     <label for="password">密码<br/>
     <input id="password" class="input" type="password" tabindex="30" size="25" value="" name="password" />
@@ -1808,76 +1820,71 @@ function git_show_extra_register_fields(){
     </label>
     </p>
     <?php
-}
-add_action( 'register_form', 'git_show_extra_register_fields' );
-
-/*
- * Check the form for errors
- */
-
-function git_check_extra_register_fields($login, $email, $errors) {
-    if ( $_POST['password'] !== $_POST['repeat_password'] ) {
-        $errors->add( 'passwords_not_matched', "<strong>错误提示</strong>: 两次填写密码不一致"  );
     }
-    if ( strlen( $_POST['password'] ) < 8 ) {
-        $errors->add( 'password_too_short', "<strong>错误提示</strong>: 密码必须大于8个字符"  );
+    add_action('register_form', 'git_show_extra_register_fields');
+    /*
+     * Check the form for errors
+    */
+    function git_check_extra_register_fields($login, $email, $errors) {
+        if ($_POST['password'] !== $_POST['repeat_password']) {
+            $errors->add('passwords_not_matched', "<strong>错误提示</strong>: 两次填写密码不一致");
+        }
+        if (strlen($_POST['password']) < 8) {
+            $errors->add('password_too_short', "<strong>错误提示</strong>: 密码必须大于8个字符");
+        }
     }
-}
-add_action( 'register_post', 'git_check_extra_register_fields', 10, 3 );
-
-/*
- * 提交用户密码进数据库
- */
-function git_register_extra_fields( $user_id ){
-    $userdata = array();
-    $userdata['ID'] = $user_id;
-    if ( $_POST['password'] !== '' ) {
-        $userdata['user_pass'] = $_POST['password'];
+    add_action('register_post', 'git_check_extra_register_fields', 10, 3);
+    /*
+     * 提交用户密码进数据库
+    */
+    function git_register_extra_fields($user_id) {
+        $userdata = array();
+        $userdata['ID'] = $user_id;
+        if ($_POST['password'] !== '') {
+            $userdata['user_pass'] = $_POST['password'];
+        }
+        $pattern = '/[一-龥]/u';
+        if (preg_match($pattern, $_POST['user_login'])) {
+            $userdata['user_nicename'] = $user_id;
+        }
+        $new_user_id = wp_update_user($userdata);
     }
-	$pattern = '/[一-龥]/u';
-	if(preg_match($pattern, $_POST['user_login'])) {
-    $userdata['user_nicename'] = $user_id;
-	}
-    $new_user_id = wp_update_user( $userdata );
+    add_action('user_register', 'git_register_extra_fields', 100);
 }
-add_action( 'user_register', 'git_register_extra_fields', 100 );
-}
-
 //注册之后跳转
 if (git_get_option('git_register_redirect_ok')) {
     function git_registration_redirect() {
         if (git_get_option('git_redirect_choise') == 'git_redirect_home') {
             $redirect_url = home_url();
-        }elseif(git_get_option('git_redirect_choise') == 'git_redirect_author'){
-            $redirect_url = get_author_posts_url( $user_id );
-        }elseif(git_get_option('git_redirect_choise') == 'git_redirect_profile'){
+        } elseif (git_get_option('git_redirect_choise') == 'git_redirect_author') {
+            $redirect_url = get_author_posts_url($user_id);
+        } elseif (git_get_option('git_redirect_choise') == 'git_redirect_profile') {
             $redirect_url = admin_url('wp-admin/profile.php');
-        }elseif(git_get_option('git_redirect_choise') == 'git_redirect_profile' && git_get_option('git_register_redirect_url')){
+        } elseif (git_get_option('git_redirect_choise') == 'git_redirect_profile' && git_get_option('git_register_redirect_url')) {
             $redirect_url = git_get_option('git_register_redirect_url');
         }
         return $redirect_url;
     }
-add_filter( 'registration_redirect', 'git_registration_redirect' );
+    add_filter('registration_redirect', 'git_registration_redirect');
 }
-
 //SMTP邮箱设置
 if (git_get_option('git_mailsmtp_b')) {
-	function googlo_mail_smtp($phpmailer) {
-		$phpmailer->From = git_get_option('git_maildizhi_b'); //发件人地址
-		$phpmailer->FromName = git_get_option('git_mailnichen_b'); //发件人昵称
-		$phpmailer->Host = git_get_option('git_mailsmtp_b'); //SMTP服务器地址
-		$phpmailer->Port = git_get_option('git_mailport_b'); //SMTP邮件发送端口
-		if (git_get_option('git_smtpssl_b')) {
-		$phpmailer->SMTPSecure = 'ssl';
-		}else{
-		$phpmailer->SMTPSecure = '';
-		}//SMTP加密方式(SSL/TLS)没有为空即可
-		$phpmailer->Username = git_get_option('git_mailuser_b'); //邮箱帐号
-		$phpmailer->Password = git_get_option('git_mailpass_b'); //邮箱密码
-		$phpmailer->IsSMTP();
-		$phpmailer->SMTPAuth = true; //启用SMTPAuth服务
+    function googlo_mail_smtp($phpmailer) {
+        $phpmailer->From = git_get_option('git_maildizhi_b'); //发件人地址
+        $phpmailer->FromName = git_get_option('git_mailnichen_b'); //发件人昵称
+        $phpmailer->Host = git_get_option('git_mailsmtp_b'); //SMTP服务器地址
+        $phpmailer->Port = git_get_option('git_mailport_b'); //SMTP邮件发送端口
+        if (git_get_option('git_smtpssl_b')) {
+            $phpmailer->SMTPSecure = 'ssl';
+        } else {
+            $phpmailer->SMTPSecure = '';
+        } //SMTP加密方式(SSL/TLS)没有为空即可
+        $phpmailer->Username = git_get_option('git_mailuser_b'); //邮箱帐号
+        $phpmailer->Password = git_get_option('git_mailpass_b'); //邮箱密码
+        $phpmailer->IsSMTP();
+        $phpmailer->SMTPAuth = true; //启用SMTPAuth服务
 
-	}
+    }
     add_action('phpmailer_init', 'googlo_mail_smtp');
 }
 /*中文文件重命名
@@ -1889,15 +1896,14 @@ function git_upload_filter($file) {
     return $file;
 }
 add_filter('wp_handle_upload_prefilter', 'git_upload_filter');
-
 //后台文章重新排序
-function git_post_order_in_admin( $wp_query ) {
-  if ( is_admin() ) {
-    $wp_query->set( 'orderby', 'modified' );
-    $wp_query->set( 'order', 'DESC' );
-  }
+function git_post_order_in_admin($wp_query) {
+    if (is_admin()) {
+        $wp_query->set('orderby', 'modified');
+        $wp_query->set('order', 'DESC');
+    }
 }
-add_filter('pre_get_posts', 'git_post_order_in_admin' );
+add_filter('pre_get_posts', 'git_post_order_in_admin');
 /*
 UA信息
 */
@@ -1957,7 +1963,7 @@ if (git_get_option('git_ua_b')):
             $browser = 'UC浏览器 ' . $matches[1];
         } elseif (preg_match('#Vivaldi/([a-zA-Z0-9.]+)#i', $ua, $matches)) {
             $browser = 'Vivaldi浏览器 ' . $matches[1];
-        }elseif (preg_match('#wp-(iphone|android)/([a-zA-Z0-9.]+)#i', $ua, $matches)) {
+        } elseif (preg_match('#wp-(iphone|android)/([a-zA-Z0-9.]+)#i', $ua, $matches)) {
             $browser = 'WordPress客户端 ' . $matches[1];
         } elseif (preg_match('#Edge ([a-zA-Z0-9.]+)#i', $ua, $matches)) {
             $browser = '微软Edge浏览器 ' . $matches[1];
@@ -1971,7 +1977,6 @@ if (git_get_option('git_ua_b')):
         return $os . "  |  " . $browser;
     }
 endif;
-
 //添加碎语功能
 function git_shuoshuo() {
     $labels = array(
@@ -1998,12 +2003,12 @@ function git_shuoshuo() {
         'rewrite' => true,
         'capability_type' => 'post',
         'has_archive' => true,
-        'menu_icon'   => 'dashicons-megaphone',
+        'menu_icon' => 'dashicons-megaphone',
         'hierarchical' => false,
-        'menu_position' => 4 ,
+        'menu_position' => 4,
         'supports' => array(
             'editor',
-			'title',
+            'title',
             'author'
         )
     );
@@ -2011,97 +2016,96 @@ function git_shuoshuo() {
 }
 add_action('init', 'git_shuoshuo');
 //说说的固定连接格式
-function custom_shuoshuo_link( $link, $post = 0 ){
-	if ( $post->post_type == 'shuoshuo' ){
-		return home_url( 'shuoshuo/' . $post->ID .'.html' );
-	} else {
-		return $link;
-	}
+function custom_shuoshuo_link($link, $post = 0) {
+    if ($post->post_type == 'shuoshuo') {
+        return home_url('shuoshuo/' . $post->ID . '.html');
+    } else {
+        return $link;
+    }
 }
 add_filter('post_type_link', 'custom_shuoshuo_link', 1, 3);
-function custom_shuoshuo_rewrites_init(){
-	add_rewrite_rule(
-		'shuoshuo/([0-9]+)?.html$',
-		'index.php?post_type=shuoshuo&p=$matches[1]',
-		'top' );
+function custom_shuoshuo_rewrites_init() {
+    add_rewrite_rule('shuoshuo/([0-9]+)?.html$', 'index.php?post_type=shuoshuo&p=$matches[1]', 'top');
 }
-add_action( 'init', 'custom_shuoshuo_rewrites_init' );
-
+add_action('init', 'custom_shuoshuo_rewrites_init');
 //添加产品功能
-if(!defined('UM_DIR')):/*如果安装um的话，就禁用这个功能*/
-function git_product() {
-	$labels = array(
-		'name'                  => '产品',
-		'singular_name'         => '产品',
-		'menu_name'             => '产品',
-		'name_admin_bar'        => '产品',
-		'archives'              => '产品分类',
-		'parent_item_colon'     => '父分类',
-		'all_items'             => '所有产品',
-		'add_new_item'          => '添加新的产品',
-		'add_new'               => '添加新产品',
-		'new_item'              => '新产品',
-		'edit_item'             => '编辑产品',
-		'update_item'           => '更新产品',
-		'view_item'             => '查看产品',
-		'search_items'          => '搜索产品',
-		'not_found'             => '没有产品',
-		'not_found_in_trash'    => '回收站内没有产品',
-		'featured_image'        => '特色图片',
-		'set_featured_image'    => '设置特色图片',
-		'remove_featured_image' => '移除特色图片',
-		'use_featured_image'    => '设为特色图片',
-		'insert_into_item'      => '插入产品',
-		'uploaded_to_this_item' => '上传',
-		'items_list'            => '产品列表',
-		'items_list_navigation' => '产品列表导航',
-		'filter_items_list'     => '筛选产品列表',
-	);
-	$rewrite = array(
-		'slug'                  => 'product',
-		'with_front'            => true,
-		'pages'                 => true,
-		'feeds'                 => true,
-	);
-	$args = array(
-		'label'                 => '产品',
-		'description'           => '产品功能',
-		'labels'                => $labels,
-		'supports'              => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'custom-fields',  ),
-		'hierarchical'          => false,
-		'public'                => true,
-		'menu_position'         => 7,
-		'menu_icon'             => 'dashicons-cart',
-		'show_in_admin_bar'     => true,
-		'show_in_nav_menus'     => true,
-		'can_export'            => true,
-		'has_archive'           => 'product',
-		'exclude_from_search'   => true,
-		'publicly_queryable'    => true,
-		'rewrite'               => $rewrite,
-		'capability_type'       => 'page',
-	);
-	register_post_type( 'product', $args );
-
-}
-add_action( 'init', 'git_product', 0 );
-
-//产品的固定连接格式
-function custom_product_link( $link, $post = 0 ){
-	if ( $post->post_type == 'product' ){
-		return home_url( 'product/' . $post->ID .'.html' );
-	} else {
-		return $link;
-	}
-}
-add_filter('post_type_link', 'custom_product_link', 1, 3);
-function custom_product_rewrites_init(){
-	add_rewrite_rule(
-		'product/([0-9]+)?.html$',
-		'index.php?post_type=product&p=$matches[1]',
-		'top' );
-}
-add_action( 'init', 'custom_product_rewrites_init' );
+if (!defined('UM_DIR')): /*如果安装um的话，就禁用这个功能*/
+    function git_product() {
+        $labels = array(
+            'name' => '产品',
+            'singular_name' => '产品',
+            'menu_name' => '产品',
+            'name_admin_bar' => '产品',
+            'archives' => '产品分类',
+            'parent_item_colon' => '父分类',
+            'all_items' => '所有产品',
+            'add_new_item' => '添加新的产品',
+            'add_new' => '添加新产品',
+            'new_item' => '新产品',
+            'edit_item' => '编辑产品',
+            'update_item' => '更新产品',
+            'view_item' => '查看产品',
+            'search_items' => '搜索产品',
+            'not_found' => '没有产品',
+            'not_found_in_trash' => '回收站内没有产品',
+            'featured_image' => '特色图片',
+            'set_featured_image' => '设置特色图片',
+            'remove_featured_image' => '移除特色图片',
+            'use_featured_image' => '设为特色图片',
+            'insert_into_item' => '插入产品',
+            'uploaded_to_this_item' => '上传',
+            'items_list' => '产品列表',
+            'items_list_navigation' => '产品列表导航',
+            'filter_items_list' => '筛选产品列表',
+        );
+        $rewrite = array(
+            'slug' => 'product',
+            'with_front' => true,
+            'pages' => true,
+            'feeds' => true,
+        );
+        $args = array(
+            'label' => '产品',
+            'description' => '产品功能',
+            'labels' => $labels,
+            'supports' => array(
+                'title',
+                'editor',
+                'excerpt',
+                'author',
+                'thumbnail',
+                'comments',
+                'custom-fields',
+            ) ,
+            'hierarchical' => false,
+            'public' => true,
+            'menu_position' => 7,
+            'menu_icon' => 'dashicons-cart',
+            'show_in_admin_bar' => true,
+            'show_in_nav_menus' => true,
+            'can_export' => true,
+            'has_archive' => 'product',
+            'exclude_from_search' => true,
+            'publicly_queryable' => true,
+            'rewrite' => $rewrite,
+            'capability_type' => 'page',
+        );
+        register_post_type('product', $args);
+    }
+    add_action('init', 'git_product', 0);
+    //产品的固定连接格式
+    function custom_product_link($link, $post = 0) {
+        if ($post->post_type == 'product') {
+            return home_url('product/' . $post->ID . '.html');
+        } else {
+            return $link;
+        }
+    }
+    add_filter('post_type_link', 'custom_product_link', 1, 3);
+    function custom_product_rewrites_init() {
+        add_rewrite_rule('product/([0-9]+)?.html$', 'index.php?post_type=product&p=$matches[1]', 'top');
+    }
+    add_action('init', 'custom_product_rewrites_init');
 endif;
 /*
 修复4.2表情bug
@@ -2181,56 +2185,54 @@ function init_gitsmilie() {
 }
 add_action('init', 'init_gitsmilie', 5);
 //修复4.2表情问题
-function convert_smilie9s( $text ) {
-	return str_replace( 'style="height: 2em; max-height: 2em;" ' , '' , $text );
+function convert_smilie9s($text) {
+    return str_replace('style="height: 2em; max-height: 2em;" ', '', $text);
 }
-add_filter( 'the_content' , 'convert_smilie9s' , 11 );
-add_filter( 'the_excerpt' , 'convert_smilie9s' , 11 );
-add_filter( 'comment_text' , 'convert_smilie9s' , 21 );
-add_filter( 'asgarosforum_filter_post_content' , 'convert_smilie9s' , 21 );
-
+add_filter('the_content', 'convert_smilie9s', 11);
+add_filter('the_excerpt', 'convert_smilie9s', 11);
+add_filter('comment_text', 'convert_smilie9s', 21);
+add_filter('asgarosforum_filter_post_content', 'convert_smilie9s', 21);
 //压缩html代码
-if(git_get_option('git_compress')):
-function wp_compress_html(){
-    function wp_compress_html_main ($buffer){
-        $initial=strlen($buffer);
-        $buffer=explode("<!--wp-compress-html-->", $buffer);
-        $count=count ($buffer);
-		$buffer_out = '';
-        for ($i = 0; $i <= $count; $i++){
-            if (stristr($buffer[$i], '<!--wp-compress-html no compression-->')) {
-                $buffer[$i]=(str_replace("<!--wp-compress-html no compression-->", " ", $buffer[$i]));
-            } else {
-                $buffer[$i]=(str_replace("\t", " ", $buffer[$i]));
-                $buffer[$i]=(str_replace("\n\n", "\n", $buffer[$i]));
-                $buffer[$i]=(str_replace("\n", "", $buffer[$i]));
-                $buffer[$i]=(str_replace("\r", "", $buffer[$i]));
-                while (stristr($buffer[$i], '  ')) {
-                    $buffer[$i]=(str_replace("  ", " ", $buffer[$i]));
+if (git_get_option('git_compress')):
+    function wp_compress_html() {
+        function wp_compress_html_main($buffer) {
+            $initial = strlen($buffer);
+            $buffer = explode("<!--wp-compress-html-->", $buffer);
+            $count = count($buffer);
+            $buffer_out = '';
+            for ($i = 0; $i <= $count; $i++) {
+                if (stristr($buffer[$i], '<!--wp-compress-html no compression-->')) {
+                    $buffer[$i] = (str_replace("<!--wp-compress-html no compression-->", " ", $buffer[$i]));
+                } else {
+                    $buffer[$i] = (str_replace("\t", " ", $buffer[$i]));
+                    $buffer[$i] = (str_replace("\n\n", "\n", $buffer[$i]));
+                    $buffer[$i] = (str_replace("\n", "", $buffer[$i]));
+                    $buffer[$i] = (str_replace("\r", "", $buffer[$i]));
+                    while (stristr($buffer[$i], '  ')) {
+                        $buffer[$i] = (str_replace("  ", " ", $buffer[$i]));
+                    }
                 }
+                $buffer_out.= $buffer[$i];
             }
-            $buffer_out.=$buffer[$i];
+            $final = strlen($buffer_out);
+            $savings = ($initial - $final) / $initial * 100;
+            $savings = round($savings, 2);
+            $buffer_out.= "\n<!--压缩前的大小: $initial bytes; 压缩后的大小: $final bytes; 节约：$savings% -->";
+            return $buffer_out;
         }
-        $final=strlen($buffer_out);
-        $savings=($initial-$final)/$initial*100;
-        $savings=round($savings, 2);
-        $buffer_out.="\n<!--压缩前的大小: $initial bytes; 压缩后的大小: $final bytes; 节约：$savings% -->";
-    return $buffer_out;
-}
-ob_start("wp_compress_html_main");
-}
-add_action('get_header', 'wp_compress_html');
-function git_unCompress($content) {
-    if(preg_match_all('/(crayon-|<\/pre>)/i', $content, $matches)) {
-        $content = '<!--wp-compress-html--><!--wp-compress-html no compression-->'.$content;
-        $content.= '<!--wp-compress-html no compression--><!--wp-compress-html-->';
+        ob_start("wp_compress_html_main");
     }
-    return $content;
-}
-add_filter( "the_content", "git_unCompress");
-add_filter( "asgarosforum_filter_post_content", "git_unCompress");
+    add_action('get_header', 'wp_compress_html');
+    function git_unCompress($content) {
+        if (preg_match_all('/(crayon-|<\/pre>)/i', $content, $matches)) {
+            $content = '<!--wp-compress-html--><!--wp-compress-html no compression-->' . $content;
+            $content.= '<!--wp-compress-html no compression--><!--wp-compress-html-->';
+        }
+        return $content;
+    }
+    add_filter('the_content', 'git_unCompress');
+    add_filter('asgarosforum_filter_post_content', 'git_unCompress');
 endif;
-
 //增强编辑器开始
 function git_editor_buttons($buttons) {
     $buttons[] = 'fontselect';
@@ -2238,32 +2240,24 @@ function git_editor_buttons($buttons) {
     $buttons[] = 'backcolor';
     return $buttons;
 }
-add_filter("mce_buttons_3", "git_editor_buttons");
+add_filter('mce_buttons_3', 'git_editor_buttons');
 //获取访客VIP样式
-if(git_get_option('git_vip')):
-function get_author_class($comment_author_email, $user_id){
-	global $wpdb;
-	$author_count = count($wpdb->get_results(
-	"SELECT comment_ID as author_count FROM $wpdb->comments WHERE comment_author_email = '$comment_author_email' "));
-	if($author_count>=1 && $author_count< git_get_option('git_vip1'))
-		echo '<a class="vip1" title="评论达人 LV.1"></a>';
-	else if($author_count>=git_get_option('git_vip1') && $author_count< git_get_option('git_vip2'))
-		echo '<a class="vip2" title="评论达人 LV.2"></a>';
-	else if($author_count>=git_get_option('git_vip2') && $author_count< git_get_option('git_vip3'))
-		echo '<a class="vip3" title="评论达人 LV.3"></a>';
-	else if($author_count>=git_get_option('git_vip3') && $author_count< git_get_option('git_vip4'))
-		echo '<a class="vip4" title="评论达人 LV.4"></a>';
-	else if($author_count>=git_get_option('git_vip4') && $author_count< git_get_option('git_vip5'))
-		echo '<a class="vip5" title="评论达人 LV.5"></a>';
-	else if($author_count>=git_get_option('git_vip5') && $author_count< git_get_option('git_vip6'))
-		echo '<a class="vip6" title="评论达人 LV.6"></a>';
-	else if($author_count>=git_get_option('git_vip6'))
-		echo '<a class="vip7" title="评论达人 LV.7"></a>';
-}
+if (git_get_option('git_vip')):
+    function get_author_class($comment_author_email, $user_id) {
+        global $wpdb;
+        $author_count = count($wpdb->get_results("SELECT comment_ID as author_count FROM $wpdb->comments WHERE comment_author_email = '$comment_author_email' "));
+        if ($author_count >= 1 && $author_count < git_get_option('git_vip1')) echo '<a class="vip1" title="评论达人 LV.1"></a>';
+        else if ($author_count >= git_get_option('git_vip1') && $author_count < git_get_option('git_vip2')) echo '<a class="vip2" title="评论达人 LV.2"></a>';
+        else if ($author_count >= git_get_option('git_vip2') && $author_count < git_get_option('git_vip3')) echo '<a class="vip3" title="评论达人 LV.3"></a>';
+        else if ($author_count >= git_get_option('git_vip3') && $author_count < git_get_option('git_vip4')) echo '<a class="vip4" title="评论达人 LV.4"></a>';
+        else if ($author_count >= git_get_option('git_vip4') && $author_count < git_get_option('git_vip5')) echo '<a class="vip5" title="评论达人 LV.5"></a>';
+        else if ($author_count >= git_get_option('git_vip5') && $author_count < git_get_option('git_vip6')) echo '<a class="vip6" title="评论达人 LV.6"></a>';
+        else if ($author_count >= git_get_option('git_vip6')) echo '<a class="vip7" title="评论达人 LV.7"></a>';
+    }
 endif;
 //取消后台登陆错误的抖动提示
 function git_wps_login_error() {
-        remove_action('login_head', 'wp_shake_js', 12);
+    remove_action('login_head', 'wp_shake_js', 12);
 }
 add_action('login_head', 'git_wps_login_error');
 //设HTML为默认编辑器
@@ -2295,49 +2289,47 @@ function git_custom_adminbar_menu($meta = TRUE) {
 }
 add_action('admin_bar_menu', 'git_custom_adminbar_menu', 100);
 //支持中文名注册，来自肚兜
-function git_sanitize_user ($username, $raw_username, $strict) {
-  $username = wp_strip_all_tags( $raw_username );
-  $username = remove_accents( $username );
-  $username = preg_replace( '|%([a-fA-F0-9][a-fA-F0-9])|', '', $username );
-  $username = preg_replace( '/&.+?;/', '', $username ); // Kill entities
-  if ($strict) {
-    $username = preg_replace ('|[^a-z\p{Han}0-9 _.\-@]|iu', '', $username);
-  }
-  $username = trim( $username );
-  $username = preg_replace( '|\s+|', ' ', $username );
-  return $username;
+function git_sanitize_user($username, $raw_username, $strict) {
+    $username = wp_strip_all_tags($raw_username);
+    $username = remove_accents($username);
+    $username = preg_replace('|%([a-fA-F0-9][a-fA-F0-9])|', '', $username);
+    $username = preg_replace('/&.+?;/', '', $username); // Kill entities
+    if ($strict) {
+        $username = preg_replace('|[^a-z\p{Han}0-9 _.\-@]|iu', '', $username);
+    }
+    $username = trim($username);
+    $username = preg_replace('|\s+|', ' ', $username);
+    return $username;
 }
-add_filter ('sanitize_user', 'git_sanitize_user', 10, 3);
+add_filter('sanitize_user', 'git_sanitize_user', 10, 3);
 // 评论添加@，来自：http://www.ludou.org/wordpress-comment-reply-add-at.html
-function git_comment_add_at( $comment_text, $comment = '') {
-  if( $comment->comment_parent > 0) {
-    $comment_text = '@<a href="#comment-' . $comment->comment_parent . '">'.get_comment_author( $comment->comment_parent ) . '</a> ' . $comment_text;
-  }
-
-  return $comment_text;
+function git_comment_add_at($comment_text, $comment = '') {
+    if ($comment->comment_parent > 0) {
+        $comment_text = '@<a href="#comment-' . $comment->comment_parent . '">' . get_comment_author($comment->comment_parent) . '</a> ' . $comment_text;
+    }
+    return $comment_text;
 }
-add_filter( 'comment_text' , 'git_comment_add_at', 20, 2);
+add_filter('comment_text', 'git_comment_add_at', 20, 2);
 //导航单页函数
-function get_the_link_items($id = null){
-    $bookmarks = get_bookmarks('orderby=date&category=' .$id );
+function get_the_link_items($id = null) {
+    $bookmarks = get_bookmarks('orderby=date&category=' . $id);
     $output = '';
-    if ( !empty($bookmarks) ) {
-        $output .= '<div class="link_items fontSmooth">';
+    if (!empty($bookmarks)) {
+        $output.= '<div class="link_items fontSmooth">';
         foreach ($bookmarks as $bookmark) {
-            $output .=  '<div class="link_item"><a class="link_item_inner apollo_' . $bookmark->link_rating . '" rel="nofollow" href="' . $bookmark->link_url . '" title="' . $bookmark->link_description . '" target="_blank" ><span class="sitename sitecolor_' . mt_rand(1, 14) . '">'. $bookmark->link_name .'</span></a></div>';
+            $output.= '<div class="link_item"><a class="link_item_inner apollo_' . $bookmark->link_rating . '" rel="nofollow" href="' . $bookmark->link_url . '" title="' . $bookmark->link_description . '" target="_blank" ><span class="sitename sitecolor_' . mt_rand(1, 14) . '">' . $bookmark->link_name . '</span></a></div>';
         }
-        $output .= '</div>';
+        $output.= '</div>';
     }
     return $output;
 }
-
-function get_link_items(){
-    $linkcats = get_terms( 'link_category' , 'orderby=count&hide_empty=1&exclude='.git_get_option('git_linkpage_cat') );
-    if ( !empty($linkcats) ) {
-        foreach( $linkcats as $linkcat){
-            $result .=  '<h2 class="link_title">'.$linkcat->name.'</h2>';
-            if( $linkcat->description ) $result .= '<div class="link_description">' . $linkcat->description . '</div>';
-            $result .=  get_the_link_items($linkcat->term_id);
+function get_link_items() {
+    $linkcats = get_terms('link_category', 'orderby=count&hide_empty=1&exclude=' . git_get_option('git_linkpage_cat'));
+    if (!empty($linkcats)) {
+        foreach ($linkcats as $linkcat) {
+            $result.= '<h2 class="link_title">' . $linkcat->name . '</h2>';
+            if ($linkcat->description) $result.= '<div class="link_description">' . $linkcat->description . '</div>';
+            $result.= get_the_link_items($linkcat->term_id);
         }
     } else {
         $result = get_the_link_items();
@@ -2358,111 +2350,109 @@ function git_reset_password_message($message, $key) {
     $user_login = $user_data->user_login;
     $msg = "有人要求重设如下帐号的密码：\r\n\r\n";
     $msg.= network_site_url() . "\r\n\r\n";
-    $msg.= sprintf('用户名：%s' , $user_login) . "\r\n\r\n";
+    $msg.= sprintf('用户名：%s', $user_login) . "\r\n\r\n";
     $msg.= "若这不是您本人要求的，请忽略本邮件，一切如常。\r\n\r\n";
     $msg.= "要重置您的密码，请打开下面的链接：\r\n\r\n";
-    $msg.= wp_login_url()."?action=rp&key=$key&login=" . rawurlencode($user_login);
+    $msg.= wp_login_url() . "?action=rp&key=$key&login=" . rawurlencode($user_login);
     return $msg;
 }
 add_filter('retrieve_password_message', 'git_reset_password_message', null, 2);
-
 //保护后台登录
-if(git_get_option('git_admin')):
-function git_login_protection() {
-    if ($_GET[''.git_get_option('git_admin_q').''] !== ''.git_get_option('git_admin_a').'')
-    header('Location: http://www.baidu.com');/* 不用密码登录，直接滚到百度去 */
-    exit;
-}
-add_action('login_enqueue_scripts', 'git_login_protection');
+if (git_get_option('git_admin')):
+    function git_login_protection() {
+        if ($_GET['' . git_get_option('git_admin_q') . ''] !== '' . git_get_option('git_admin_a') . '') header('Location: http://www.baidu.com'); /* 不用密码登录，直接滚到百度去 */
+        exit;
+    }
+    add_action('login_enqueue_scripts', 'git_login_protection');
 endif;
 /*救命啊！ps.很好，搜索这段代码很可能意味着你把自己后台给锁了，将保护后台登录这大段代码删除即可*/
 //登录失败提醒
-if(git_get_option('git_login_tx')){
-function git_login_failed_notify(){
-    date_default_timezone_set('PRC');
-    $admin_email = get_bloginfo ('admin_email');
-    $to = $admin_email;
-	$subject = '您的网站登录错误警告';
-	$message = '<p>您好！您的网站(' . get_option("blogname") . ')有登录错误！</p>' .
-	'<p>请确定是您自己的登录失误，以防别人攻击！登录信息如下：</p>' .
-	'<p>登录名：' . $_POST['log'] . '</p>' .
-	'<p>登录密码：' . $_POST['pwd'] .  '</p>' .
-	'<p>登录时间：' . date("Y-m-d H:i:s") .  '</p>' .
-	'<p>登录IP：' . $_SERVER['REMOTE_ADDR'] . '</p>' .
-	'<p style="float:right">————本邮件由系统发送，无需回复</p>';
-	$wp_email = 'no-reply@' . preg_replace('#^www\.#', '', strtolower($_SERVER['SERVER_NAME']));
-	$from = "From: \"" . get_option('blogname') . "\" <$wp_email>";
-	$headers = "$from\nContent-Type: text/html; charset=" . get_option('blog_charset') . "\n";
-	wp_mail( $to, $subject, $message, $headers );
-}
-add_action('wp_login_failed', 'git_login_failed_notify');
+if (git_get_option('git_login_tx')) {
+    function git_login_failed_notify() {
+        date_default_timezone_set('PRC');
+        $admin_email = get_bloginfo('admin_email');
+        $to = $admin_email;
+        $subject = '您的网站登录错误警告';
+        $message = '<p>您好！您的网站(' . get_option("blogname") . ')有登录错误！</p>' . '<p>请确定是您自己的登录失误，以防别人攻击！登录信息如下：</p>' . '<p>登录名：' . $_POST['log'] . '</p>' . '<p>登录密码：' . $_POST['pwd'] . '</p>' . '<p>登录时间：' . date("Y-m-d H:i:s") . '</p>' . '<p>登录IP：' . $_SERVER['REMOTE_ADDR'] . '</p>' . '<p style="float:right">————本邮件由系统发送，无需回复</p>';
+        $wp_email = 'no-reply@' . preg_replace('#^www\.#', '', strtolower($_SERVER['SERVER_NAME']));
+        $from = "From: \"" . get_option('blogname') . "\" <$wp_email>";
+        $headers = "$from\nContent-Type: text/html; charset=" . get_option('blog_charset') . "\n";
+        wp_mail($to, $subject, $message, $headers);
+    }
+    add_action('wp_login_failed', 'git_login_failed_notify');
 }
 //取消静态资源的版本查询
-if(git_get_option('git_query')):
-function _remove_script_version( $src ){
-	$parts = explode( '?ver', $src );
+if (git_get_option('git_query')):
+    function _remove_script_version($src) {
+        $parts = explode('?ver', $src);
         return $parts[0];
-}
-add_filter( 'script_loader_src', '_remove_script_version', 15, 1 );
-add_filter( 'style_loader_src', '_remove_script_version', 15, 1 );
+    }
+    add_filter('script_loader_src', '_remove_script_version', 15, 1);
+    add_filter('style_loader_src', '_remove_script_version', 15, 1);
 endif;
 //百度主动推送
-if(!function_exists('Baidu_Submit') && git_get_option('git_sitemap_api') ){
+if (!function_exists('Baidu_Submit') && git_get_option('git_sitemap_api')) {
     function Baidu_Submit($post_ID) {
-        if(get_post_meta($post_ID,'git_baidu_submit',true) == 1) return;
+        if (get_post_meta($post_ID, 'git_baidu_submit', true) == 1) return;
         $url = get_permalink($post_ID);
         $api = git_get_option('git_sitemap_api');
         $request = new WP_Http;
-        $result = $request->request( $api , array( 'method' => 'POST', 'body' => $url , 'headers' => 'Content-Type: text/plain') );
-        $result = json_decode($result['body'],true);
-        if (array_key_exists('success',$result)) {
+        $result = $request->request($api, array(
+            'method' => 'POST',
+            'body' => $url,
+            'headers' => 'Content-Type: text/plain'
+        ));
+        $result = json_decode($result['body'], true);
+        if (array_key_exists('success', $result)) {
             add_post_meta($post_ID, 'git_baidu_submit', 1, true);
         }
     }
     add_action('publish_post', 'Baidu_Submit', 0);
 }
-
 //登录可见
-function login_to_read($atts, $content = null){
-        $logina = '<a target="_blank" href="'.esc_url( wp_login_url( get_permalink() ) ).'">登录</a>';
-    extract(shortcode_atts(array("notice" => '<blockquote><center><p class="reply-to-read" style="color: blue;">注意：本段内容须“'.$logina.'”后方可查看！</p></center></blockquote>'), $atts));
+function login_to_read($atts, $content = null) {
+    $logina = '<a target="_blank" href="' . esc_url(wp_login_url(get_permalink())) . '">登录</a>';
+    extract(shortcode_atts(array(
+        "notice" => '<blockquote><center><p class="reply-to-read" style="color: blue;">注意：本段内容须“' . $logina . '”后方可查看！</p></center></blockquote>'
+    ) , $atts));
     if (is_user_logged_in() && !is_null($content) && !is_feed()) {
         return '<div class="e-secret"><fieldset><legend>隐藏的内容</legend>
-	'.$content.'<div class="clear"></div></fieldset></div>';
+	' . $content . '<div class="clear"></div></fieldset></div>';
     }
     return $notice;
 }
 add_shortcode('vip', 'login_to_read');
-
 // 部分内容输入密码可见
-function e_secret($atts, $content=null){
-	if ( !isset($_COOKIE['weixin_fensi']) && isset($_POST['e_secret_key']) && $_POST['e_secret_key']==git_get_option('git_mp_code')) {
-        setcookie('weixin_fensi', 10086, time()+2592000, COOKIEPATH, COOKIE_DOMAIN, false);//30天时间
+function e_secret($atts, $content = null) {
+    if (!isset($_COOKIE['weixin_fensi']) && isset($_POST['e_secret_key']) && $_POST['e_secret_key'] == git_get_option('git_mp_code')) {
+        setcookie('weixin_fensi', 10086, time() + 2592000, COOKIEPATH, COOKIE_DOMAIN, false); //30天时间
         return '<script type="text/javascript">window.location = document.referrer;</script>';
     }
-    extract(shortcode_atts(array('wx'=>null), $atts));
-		if( $_COOKIE['weixin_fensi']=='10086' || strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ){
-			return '<div class="e-secret"><fieldset><legend>隐藏的内容</legend>
-	'.$content.'<div class="clear"></div></fieldset></div>';
-	}else{
-          if($wx =='1'){
-                return '<div class="wxbox"><img class="wxpic" src="'.git_get_option('git_mp_qr').'" alt="'.git_get_option('git_mp_name').'" title="'.git_get_option('git_mp_name').'" align="right"><form method="post" name="e-secret" action="'.$_SERVER["REQUEST_URI"].'"><span class="yzts" style="font-size:18px;">验证码：</span><input name="e_secret_key" id="verifycode" value="" type="text"><input id="verifybtn" name="" value="提交查看" type="submit"></form><div class="wxtips">'.git_get_option('git_mp_tips').'</div><div class="cl"></div></div>';
-				}else{
-				return '<form class="e-secret" method="post" name="e-secret" action="'.$_SERVER["REQUEST_URI"].'"><label>输入密码查看加密内容：</label><input type="password" name="e_secret_key" class="euc-y-i" maxlength="50"><input type="submit" class="euc-y-s" value="确定"><div class="euc-clear"></div></form>';
-		}
+    extract(shortcode_atts(array(
+        'wx' => null
+    ) , $atts));
+    if ($_COOKIE['weixin_fensi'] == '10086' || strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false) {
+        return '<div class="e-secret"><fieldset><legend>隐藏的内容</legend>
+	' . $content . '<div class="clear"></div></fieldset></div>';
+    } else {
+        if ($wx == '1') {
+            return '<div class="wxbox"><img class="wxpic" src="' . git_get_option('git_mp_qr') . '" alt="' . git_get_option('git_mp_name') . '" title="' . git_get_option('git_mp_name') . '" align="right"><form method="post" name="e-secret" action="' . $_SERVER["REQUEST_URI"] . '"><span class="yzts" style="font-size:18px;">验证码：</span><input name="e_secret_key" id="verifycode" value="" type="text"><input id="verifybtn" name="" value="提交查看" type="submit"></form><div class="wxtips">' . git_get_option('git_mp_tips') . '</div><div class="cl"></div></div>';
+        } else {
+            return '<form class="e-secret" method="post" name="e-secret" action="' . $_SERVER["REQUEST_URI"] . '"><label>输入密码查看加密内容：</label><input type="password" name="e_secret_key" class="euc-y-i" maxlength="50"><input type="submit" class="euc-y-s" value="确定"><div class="euc-clear"></div></form>';
+        }
     }
 }
-add_shortcode('secret','e_secret');
+add_shortcode('secret', 'e_secret');
 //加载密码可见的样式
 function secret_css() {
-	global $post;
-			if ( is_singular() && has_shortcode( $post->post_content, 'secret') ){
-    echo '<style type="text/css">form.e-secret{margin:20px 0;padding:20px;height:60px;background:#f8f8f8}.e-secret input.euc-y-i[type=password]{float:left;background:#fff;width:100%;line-height:36px;margin-top:5px;border-radius:3px}.e-secret input.euc-y-s[type=submit]{float:right;margin-top:-47px;width:30%;margin-right:1px;border-radius:0 3px 3px 0}input.euc-y-s[type=submit]{background-color:#3498db;color:#fff;font-size:21px;box-shadow:none;-webkit-transition:.4s;-moz-transition:.4s;-o-transition:.4s;transition:.4s;-webkit-backface-visibility:hidden;position:relative;cursor:pointer;padding:13px 20px;text-align:center;border-radius:50px;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;border:0;height:auto;outline:medium;line-height:20px;margin:0}input.euc-y-s[type=submit]:hover{background-color:#5dade2}input.euc-y-i[type=password],input.euc-y-i[type=text]{border:1px solid #F2EFEF;color:#777;display:block;background:#FCFCFC;font-size:18px;transition:all .5s ease 0;outline:0;box-sizing:border-box;-webkit-border-radius:25px;-moz-border-radius:25px;border-radius:25px;padding:5px 16px;margin:0;height:auto;line-height:30px}input.euc-y-i[type=password]:hover,input.euc-y-i[type=text]:hover{border:1px solid #56b4ef;box-shadow:0 0 4px #56b4ef}.wxbox{border:1px dashed #F60;line-height:200%;padding-top:5px;color:red;background-color:#FFF4FF;overflow:hidden;clear:both}.wxbox.yzts{padding-left:10%}.wx form{float:left}.wxbox #verifycode{width:46%;height:32px;line-height:30px;padding:0 25px;border:1px solid #F60}.wxbox #verifybtn{width:10%;height:34px;line-height:34px;padding:0 5px;background-color:#F60;text-align:center;border:none;cursor:pointer;color:#FFF}.cl{clear:both;height:0}.wxpic{float:left;width:18%}.wxtips{color:#32B9B5;float:left;width:72%;padding-left:5%;padding-top:0;font-size:20px;line-height:150%;text-align:left;font-family:Microsoft YaHei}.yzts{margin-left: 40px}@media (max-width:600px){.yzts{margin-left:5px}.wxpic{float:left}.wxbox #verifycode{width:35%}.wxbox #verifybtn{width:22%}.wxpic,.wxtips{width:100%}.wxtips{font-size:15px;padding:2px}}</style>';}
-	}
+    global $post;
+    if (is_singular() && has_shortcode($post->post_content, 'secret')) {
+        echo '<style type="text/css">form.e-secret{margin:20px 0;padding:20px;height:60px;background:#f8f8f8}.e-secret input.euc-y-i[type=password]{float:left;background:#fff;width:100%;line-height:36px;margin-top:5px;border-radius:3px}.e-secret input.euc-y-s[type=submit]{float:right;margin-top:-47px;width:30%;margin-right:1px;border-radius:0 3px 3px 0}input.euc-y-s[type=submit]{background-color:#3498db;color:#fff;font-size:21px;box-shadow:none;-webkit-transition:.4s;-moz-transition:.4s;-o-transition:.4s;transition:.4s;-webkit-backface-visibility:hidden;position:relative;cursor:pointer;padding:13px 20px;text-align:center;border-radius:50px;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;border:0;height:auto;outline:medium;line-height:20px;margin:0}input.euc-y-s[type=submit]:hover{background-color:#5dade2}input.euc-y-i[type=password],input.euc-y-i[type=text]{border:1px solid #F2EFEF;color:#777;display:block;background:#FCFCFC;font-size:18px;transition:all .5s ease 0;outline:0;box-sizing:border-box;-webkit-border-radius:25px;-moz-border-radius:25px;border-radius:25px;padding:5px 16px;margin:0;height:auto;line-height:30px}input.euc-y-i[type=password]:hover,input.euc-y-i[type=text]:hover{border:1px solid #56b4ef;box-shadow:0 0 4px #56b4ef}.wxbox{border:1px dashed #F60;line-height:200%;padding-top:5px;color:red;background-color:#FFF4FF;overflow:hidden;clear:both}.wxbox.yzts{padding-left:10%}.wx form{float:left}.wxbox #verifycode{width:46%;height:32px;line-height:30px;padding:0 25px;border:1px solid #F60}.wxbox #verifybtn{width:10%;height:34px;line-height:34px;padding:0 5px;background-color:#F60;text-align:center;border:none;cursor:pointer;color:#FFF}.cl{clear:both;height:0}.wxpic{float:left;width:18%}.wxtips{color:#32B9B5;float:left;width:72%;padding-left:5%;padding-top:0;font-size:20px;line-height:150%;text-align:left;font-family:Microsoft YaHei}.yzts{margin-left: 40px}@media (max-width:600px){.yzts{margin-left:5px}.wxpic{float:left}.wxbox #verifycode{width:35%}.wxbox #verifybtn{width:22%}.wxpic,.wxtips{width:100%}.wxtips{font-size:15px;padding:2px}}</style>';
+    }
+}
 add_action('wp_head', 'secret_css');
-
 // 支持文章和页面运行PHP代码
-function php_include($attr){
+function php_include($attr) {
     $file = $attr['file'];
     $upload_dir = wp_upload_dir();
     $folder = $upload_dir['basedir'] . '/php-content' . "/{$file}.php";
@@ -2471,29 +2461,37 @@ function php_include($attr){
     return ob_get_clean();
 }
 add_shortcode('phpcode', 'php_include');
-
 //评论微信推送
-if(git_get_option('git_Server') && !is_admin() ){
-function sc_send($comment_id){
-    $text = '网站上有新的评论，请及时查看';//微信推送信息标题
-    $comment = get_comment($comment_id);
-    $desp = ''. $comment->comment_content .'
+if (git_get_option('git_Server') && !is_admin()) {
+    function sc_send($comment_id) {
+        $text = '网站上有新的评论，请及时查看'; //微信推送信息标题
+        $comment = get_comment($comment_id);
+        $desp = '' . $comment->comment_content . '
 ***
 <br>
 * 评论人 ：' . get_comment_author($comment_id) . '
 * 文章标题 ：' . get_the_title() . '
 * 文章链接 ：' . get_the_permalink($comment->comment_post_ID) . '
-	';//微信推送内容正文
-    $key = git_get_option('git_Server_key');
-    $postdata = http_build_query(array('text' => $text, 'desp' => $desp));
-    $opts = array('http' => array('method' => 'POST', 'header' => 'Content-type: application/x-www-form-urlencoded', 'content' => $postdata));
-    $context = stream_context_create($opts);
-    return $result = file_get_contents('http://sc.ftqq.com/' . $key . '.send', false, $context);
-}
-add_action('comment_post', 'sc_send', 19, 2);
+	'; //微信推送内容正文
+        $key = git_get_option('git_Server_key');
+        $postdata = http_build_query(array(
+            'text' => $text,
+            'desp' => $desp
+        ));
+        $opts = array(
+            'http' => array(
+                'method' => 'POST',
+                'header' => 'Content-type: application/x-www-form-urlencoded',
+                'content' => $postdata
+            )
+        );
+        $context = stream_context_create($opts);
+        return $result = file_get_contents('http://sc.ftqq.com/' . $key . '.send', false, $context);
+    }
+    add_action('comment_post', 'sc_send', 19, 2);
 }
 // 内链图片src
-function link_the_thumbnail_src(){
+function link_the_thumbnail_src() {
     global $post;
     if (get_post_meta($post->ID, 'thumbnail', true)) {
         //如果有缩略图，则显示缩略图
@@ -2502,7 +2500,7 @@ function link_the_thumbnail_src(){
     } else {
         if (has_post_thumbnail()) {
             //如果有缩略图，则显示缩略图
-            $img_src = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "Full");
+            $img_src = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID) , "Full");
             return $img_src[0];
         } else {
             $content = $post->post_content;
@@ -2511,57 +2509,63 @@ function link_the_thumbnail_src(){
             if ($n > 0) {
                 return $strResult[1][0];
                 //没有缩略图就取文章中第一张图片作为缩略图
+
             } else {
                 $random = mt_rand(1, 12);
                 return get_template_directory_uri() . '/assets/img/pic/' . $random . '.jpg';
                 //文章中没有图片就在 random 文件夹下随机读取图片作为缩略图
+
             }
         }
     }
 }
 //给文章加内链短代码
-function git_insert_posts($atts, $content = null){
-    extract(shortcode_atts(array('ids' => ''), $atts));
+function git_insert_posts($atts, $content = null) {
+    extract(shortcode_atts(array(
+        'ids' => ''
+    ) , $atts));
     global $post;
     $content = '';
     $postids = explode(',', $ids);
-    $inset_posts = get_posts(array('post__in' => $postids));
+    $inset_posts = get_posts(array(
+        'post__in' => $postids
+    ));
     foreach ($inset_posts as $key => $post) {
         setup_postdata($post);
-        $content .= '<div class="neilian"><div class="fll"><a target="_blank" href="' . get_permalink() . '" class="fll linkss"><i class="fa fa-link fa-fw"></i>  ';
-        $content .= get_the_title();
-        $content .= '</a><p class="note">';
-        $content .= get_the_excerpt();
-        $content .= '</p></div><div class="frr"><a target="_blank" href="' . get_permalink() . '"><img src=';
-        $content .= link_the_thumbnail_src();
-        $content .= ' class="neilian-thumb"></a></div></div>';
+        $content.= '<div class="neilian"><div class="fll"><a target="_blank" href="' . get_permalink() . '" class="fll linkss"><i class="fa fa-link fa-fw"></i>  ';
+        $content.= get_the_title();
+        $content.= '</a><p class="note">';
+        $content.= get_the_excerpt();
+        $content.= '</p></div><div class="frr"><a target="_blank" href="' . get_permalink() . '"><img src=';
+        $content.= link_the_thumbnail_src();
+        $content.= ' class="neilian-thumb"></a></div></div>';
     }
     wp_reset_postdata();
     return $content;
 }
 add_shortcode('neilian', 'git_insert_posts');
-
 //给文章加外链短代码
-function git_external_posts($atts, $content = null){
-	$result = curl_post($content)['data'];
-	$title = preg_match('!<title>(.*?)</title>!i', $result, $matches) ? $matches[1] : '我是标题我是标题我是标题我是标题我是标题我是标题我是标题';
-	$tags = get_meta_tags( $content );
-	$description = $tags['description'];
-	$imgpath = get_template_directory_uri() . '/assets/img/pic/' . mt_rand(1, 12) . '.jpg';
-	global $post;
-	$contents = '';
-        setup_postdata($post);
-        $contents .= '<div class="neilian wailian"><div class="fll"><a target="_blank" href="' . $content . '" class="fll linkss"><i class="fa fa-link fa-fw"></i>  ';
-        $contents .= $title;
-        $contents .= '</a><p class="note">';
-        $contents .= $description;
-        $contents .= '</p></div><div class="frr"><a target="_blank" href="' . $content . '"><img src=';
-        $contents .= $imgpath;
-        $contents .= ' class="neilian-thumb"></a></div></div>';
+function git_external_posts($atts, $content = null) {
+    $result = curl_post($content) ['data'];
+    $title = preg_match('!<title>(.*?)</title>!i', $result, $matches) ? $matches[1] : '我是标题我是标题我是标题我是标题我是标题我是标题我是标题';
+    $tags = get_meta_tags($content);
+    $description = $tags['description'];
+    $imgpath = get_template_directory_uri() . '/assets/img/pic/' . mt_rand(1, 12) . '.jpg';
+    global $post;
+    $contents = '';
+    setup_postdata($post);
+    $contents.= '<div class="neilian wailian"><div class="fll"><a target="_blank" href="' . $content . '" class="fll linkss"><i class="fa fa-link fa-fw"></i>  ';
+    $contents.= $title;
+    $contents.= '</a><p class="note">';
+    $contents.= $description;
+    $contents.= '</p></div><div class="frr"><a target="_blank" href="' . $content . '"><img src=';
+    $contents.= $imgpath;
+    $contents.= ' class="neilian-thumb"></a></div></div>';
     wp_reset_postdata();
     return $contents;
-}if ( function_exists('curl_init') ) {
-add_shortcode('wailian', 'git_external_posts');
+}
+if (function_exists('curl_init')) {
+    add_shortcode('wailian', 'git_external_posts');
 }
 //增加B站视频
 wp_embed_unregister_handler('bili');
@@ -2575,94 +2579,84 @@ function wp_bili($matches, $attr, $url, $rawattr) {
     return apply_filters('iframe_bili', $iframe, $matches, $attr, $url, $ramattr);
 }
 wp_embed_register_handler('bili_iframe', '#https://www.bilibili.com/video/av(.*?)/#i', 'wp_bili');
-
 //仅显示作者自己的文章
-function mypo_query_useronly( $wp_query ) {
-    if ( strpos( $_SERVER[ 'REQUEST_URI' ], '/wp-admin/edit.php' ) !== false ) {
-        if ( !current_user_can( 'manage_options' ) ) {
+function mypo_query_useronly($wp_query) {
+    if (strpos($_SERVER['REQUEST_URI'], '/wp-admin/edit.php') !== false) {
+        if (!current_user_can('manage_options')) {
             global $current_user;
-            $wp_query->set( 'author', $current_user->id );
+            $wp_query->set('author', $current_user->id);
         }
     }
 }
-add_filter('parse_query', 'mypo_query_useronly' );
-
+add_filter('parse_query', 'mypo_query_useronly');
 //在文章编辑页面的[添加媒体]只显示用户自己上传的文件
-function only_my_upload_media( $wp_query_obj ) {
-	global $current_user, $pagenow;
-	if( !is_a( $current_user, 'WP_User') )
-		return;
-	if( 'admin-ajax.php' != $pagenow || $_REQUEST['action'] != 'query-attachments' )
-		return;
-	if( !current_user_can( 'manage_options' ) && !current_user_can('manage_media_library') )
-		$wp_query_obj->set('author', $current_user->ID );
-	return;
+function only_my_upload_media($wp_query_obj) {
+    global $current_user, $pagenow;
+    if (!is_a($current_user, 'WP_User')) return;
+    if ('admin-ajax.php' != $pagenow || $_REQUEST['action'] != 'query-attachments') return;
+    if (!current_user_can('manage_options') && !current_user_can('manage_media_library')) $wp_query_obj->set('author', $current_user->ID);
+    return;
 }
-add_action('pre_get_posts','only_my_upload_media');
-
+add_action('pre_get_posts', 'only_my_upload_media');
 //在[媒体库]只显示用户上传的文件
-function only_my_media_library( $wp_query ) {
-    if ( strpos( $_SERVER[ 'REQUEST_URI' ], '/wp-admin/upload.php' ) !== false ) {
-        if ( !current_user_can( 'manage_options' ) && !current_user_can( 'manage_media_library' ) ) {
+function only_my_media_library($wp_query) {
+    if (strpos($_SERVER['REQUEST_URI'], '/wp-admin/upload.php') !== false) {
+        if (!current_user_can('manage_options') && !current_user_can('manage_media_library')) {
             global $current_user;
-            $wp_query->set( 'author', $current_user->id );
+            $wp_query->set('author', $current_user->id);
         }
     }
 }
-add_filter('parse_query', 'only_my_media_library' );
-
+add_filter('parse_query', 'only_my_media_library');
 //CDN水印
-if (git_get_option('git_cdn_water') && get_post_type() !== 'product') :
-function cdn_water($content) {
-       global $post;
-       $pattern ="/<img(.*?)src=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>/i";
-       $replacement = '<img$1src=$2$3.$4!water.jpg$5$6>';
-       $content = preg_replace($pattern, $replacement, $content);
-       return $content;
-}
-add_filter('the_content', 'cdn_water');
+if (git_get_option('git_cdn_water') && get_post_type() !== 'product'):
+    function cdn_water($content) {
+        global $post;
+        $pattern = "/<img(.*?)src=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>/i";
+        $replacement = '<img$1src=$2$3.$4!water.jpg$5$6>';
+        $content = preg_replace($pattern, $replacement, $content);
+        return $content;
+    }
+    add_filter('the_content', 'cdn_water');
 endif;
-
 //快速插入列表
-function git_list_shortcode_handler($atts, $content='') {
+function git_list_shortcode_handler($atts, $content = '') {
     $lists = explode("\n", $content);
     $ouput = '';
-    foreach($lists as $li){
-        if(trim($li) != '') {
-            $output .= "<li>{$li}</li>";
+    foreach ($lists as $li) {
+        if (trim($li) != '') {
+            $output.= "<li>{$li}</li>";
         }
     }
-        $output = "<ul>".$output."</ul>\n";
+    $output = "<ul>" . $output . "</ul>\n";
     return $output;
 }
-add_shortcode( 'list', 'git_list_shortcode_handler' );
-
+add_shortcode('list', 'git_list_shortcode_handler');
 //禁用默认的附件页面
 function git_disable_attachment_pages() {
-	global $post;
-	if ( is_attachment() ) {
-		if ( ! empty( $post->post_parent ) ) {
-			wp_redirect( get_permalink( $post->post_parent ), 301 );
-			exit;
-		}else{
-		wp_redirect( home_url() );
-		exit;
-		}
-	}
+    global $post;
+    if (is_attachment()) {
+        if (!empty($post->post_parent)) {
+            wp_redirect(get_permalink($post->post_parent) , 301);
+            exit;
+        } else {
+            wp_redirect(home_url());
+            exit;
+        }
+    }
 }
-add_action( 'template_redirect', 'git_disable_attachment_pages', 1 );
-
+add_action('template_redirect', 'git_disable_attachment_pages', 1);
 //文章目录,来自露兜,云落修改
-if(git_get_option('git_article_list')  ){
+if (git_get_option('git_article_list')) {
     function article_index($content) {
         $matches = array();
         $ul_li = '';
         $r = "/<h2>([^<]+)<\/h2>/im";
-        if(is_single() && preg_match_all($r, $content, $matches)) {
-            foreach($matches[1] as $num => $title) {
+        if (is_single() && preg_match_all($r, $content, $matches)) {
+            foreach ($matches[1] as $num => $title) {
                 $title = trim(strip_tags($title));
-                $content = str_replace($matches[0][$num], '<h2 id="title-'.$num.'">'.$title.'</h2>', $content);
-                $ul_li .= '<li><a href="#title-'.$num.'">'.$title."</a></li>\n";
+                $content = str_replace($matches[0][$num], '<h2 id="title-' . $num . '">' . $title . '</h2>', $content);
+                $ul_li.= '<li><a href="#title-' . $num . '">' . $title . "</a></li>\n";
             }
             $content = '<div id="article-index">
                             <strong>文章目录<a class="hidetoc">[隐藏]</a></strong>
@@ -2671,273 +2665,260 @@ if(git_get_option('git_article_list')  ){
         }
         return $content;
     }
-    add_filter( 'the_content', 'article_index' );
+    add_filter('the_content', 'article_index');
 }
-
 // 添加一个新的列 ID
 function ssid_column($cols) {
-	$cols['ssid'] = 'ID';
-	return $cols;
+    $cols['ssid'] = 'ID';
+    return $cols;
 }
 add_action('manage_users_columns', 'ssid_column');
 function ssid_return_value($value, $column_name, $id) {
-	if ($column_name == 'ssid')
-		$value = $id;
-	return $value;
+    if ($column_name == 'ssid') $value = $id;
+    return $value;
 }
 add_filter('manage_users_custom_column', 'ssid_return_value', 10, 3);
 //用户列表显示积分
-add_filter( 'manage_users_columns', 'my_users_columns' );
-function my_users_columns( $columns ){
-    $columns[ 'points' ] = '金币';
+add_filter('manage_users_columns', 'my_users_columns');
+function my_users_columns($columns) {
+    $columns['points'] = '金币';
     return $columns;
 }
-function  output_my_users_columns( $value, $column_name, $user_id ){
-	if ( $column_name == 'points' ) {
-		$jinbi = Points::get_user_total_points($user_id, POINTS_STATUS_ACCEPTED );
-		if ($jinbi != ""){
-			$ret = $jinbi;
-			return $ret;
-		} else {
-			$ret = '穷逼一个';
-			return $ret;
-		}
-	}
+function output_my_users_columns($value, $column_name, $user_id) {
+    if ($column_name == 'points') {
+        $jinbi = Points::get_user_total_points($user_id, POINTS_STATUS_ACCEPTED);
+        if ($jinbi != "") {
+            $ret = $jinbi;
+            return $ret;
+        } else {
+            $ret = '穷逼一个';
+            return $ret;
+        }
+    }
     return $value;
 }
-add_action( 'manage_users_custom_column', 'output_my_users_columns', 10, 3 );
+add_action('manage_users_custom_column', 'output_my_users_columns', 10, 3);
 //本地头像
 function git_user_avatar($column_headers) {
-	$column_headers['local_avatar'] = '本地头像';
-	return $column_headers;
+    $column_headers['local_avatar'] = '本地头像';
+    return $column_headers;
 }
 add_filter('manage_users_columns', 'git_user_avatar');
 function git_ripms_user_avatar($value, $column_name, $user_id) {
-	if ( $column_name == 'local_avatar' ) {
-		$localavatar = get_user_meta($user_id, 'simple_local_avatar', true);
-		if (empty($localavatar)){
-			$ret = '未设置';
-			return $ret;
-		} else {
-			$ret = '已设置';
-			return $ret;
-		}
-	}
-	return $value;
-}
-add_action('manage_users_custom_column',  'git_ripms_user_avatar', 10, 3);
-//用户增加评论数量
-function git_users_comments( $columns ){
-    $columns[ 'comments' ] = '评论';
-    return $columns;
-}
-add_filter( 'manage_users_columns', 'git_users_comments' );
-function  git_show_users_comments( $value, $column_name, $user_id ){
-	if ( $column_name == 'comments' ) {
-		$comments_counts = get_comments( array('status' => '1', 'user_id'=>$user_id, 'count' => true) );
-		if ($comments_counts != ""){
-			$ret = $comments_counts;
-			return $ret;
-		} else {
-			$ret = '暂未评论';
-			return $ret;
-		}
-	}
+    if ($column_name == 'local_avatar') {
+        $localavatar = get_user_meta($user_id, 'simple_local_avatar', true);
+        if (empty($localavatar)) {
+            $ret = '未设置';
+            return $ret;
+        } else {
+            $ret = '已设置';
+            return $ret;
+        }
+    }
     return $value;
 }
-add_action( 'manage_users_custom_column', 'git_show_users_comments', 10, 3 );
+add_action('manage_users_custom_column', 'git_ripms_user_avatar', 10, 3);
+//用户增加评论数量
+function git_users_comments($columns) {
+    $columns['comments'] = '评论';
+    return $columns;
+}
+add_filter('manage_users_columns', 'git_users_comments');
+function git_show_users_comments($value, $column_name, $user_id) {
+    if ($column_name == 'comments') {
+        $comments_counts = get_comments(array(
+            'status' => '1',
+            'user_id' => $user_id,
+            'count' => true
+        ));
+        if ($comments_counts != "") {
+            $ret = $comments_counts;
+            return $ret;
+        } else {
+            $ret = '暂未评论';
+            return $ret;
+        }
+    }
+    return $value;
+}
+add_action('manage_users_custom_column', 'git_show_users_comments', 10, 3);
 // 添加一个字段保存IP地址
-function git_log_ip($user_id){
-	$ip = $_SERVER['REMOTE_ADDR'];
-	update_user_meta($user_id, 'signup_ip', $ip);
+function git_log_ip($user_id) {
+    $ip = $_SERVER['REMOTE_ADDR'];
+    update_user_meta($user_id, 'signup_ip', $ip);
 }
 add_action('user_register', 'git_log_ip');
 // 添加“IP地址”这个栏目
 function git_signup_ip($column_headers) {
-	$column_headers['signup_ip'] = 'IP地址';
-	return $column_headers;
+    $column_headers['signup_ip'] = 'IP地址';
+    return $column_headers;
 }
 add_filter('manage_users_columns', 'git_signup_ip');
-
 function git_ripms_columns($value, $column_name, $user_id) {
-	if ( $column_name == 'signup_ip' ) {
-		$ip = get_user_meta($user_id, 'signup_ip', true);
-		if ($ip != ""){
-			$ret = $ip;
-			return $ret;
-		} else {
-			$ret = '没有记录';
-			return $ret;
-		}
-	}
-	return $value;
+    if ($column_name == 'signup_ip') {
+        $ip = get_user_meta($user_id, 'signup_ip', true);
+        if ($ip != "") {
+            $ret = $ip;
+            return $ret;
+        } else {
+            $ret = '没有记录';
+            return $ret;
+        }
+    }
+    return $value;
 }
-add_action('manage_users_custom_column',  'git_ripms_columns', 10, 3);
-
+add_action('manage_users_custom_column', 'git_ripms_columns', 10, 3);
 // 创建一个新字段存储用户登录时间
-function git_insert_last_login( $login ) {
-	global $user_id;
-	$user = get_userdatabylogin( $login );
-	update_user_meta( $user->ID, 'last_login', current_time( 'mysql' ) );
+function git_insert_last_login($login) {
+    global $user_id;
+    $user = get_userdatabylogin($login);
+    update_user_meta($user->ID, 'last_login', current_time('mysql'));
 }
-add_action( 'wp_login', 'git_insert_last_login' );
-
+add_action('wp_login', 'git_insert_last_login');
 // 添加一个新栏目“上次登录”
-function git_add_last_login_column( $columns ) {
-	$columns['last_login'] = '上次登录';
-	unset($columns['name']);
-	return $columns;
+function git_add_last_login_column($columns) {
+    $columns['last_login'] = '上次登录';
+    unset($columns['name']);
+    return $columns;
 }
-add_filter( 'manage_users_columns', 'git_add_last_login_column' );
-
+add_filter('manage_users_columns', 'git_add_last_login_column');
 // 显示登录时间到新增栏目
-function git_add_last_login_column_value ( $value, $column_name, $user_id ) {
-	if ( $column_name == 'last_login' ) {
-		$login = get_user_meta($user_id, 'last_login', true);
-		if ($login != ""){
-			$ret = $login;
-			return $ret;
-		} else {
-			$ret = '暂未登录';
-			return $ret;
-		}
-	}
-	return $value;
+function git_add_last_login_column_value($value, $column_name, $user_id) {
+    if ($column_name == 'last_login') {
+        $login = get_user_meta($user_id, 'last_login', true);
+        if ($login != "") {
+            $ret = $login;
+            return $ret;
+        } else {
+            $ret = '暂未登录';
+            return $ret;
+        }
+    }
+    return $value;
 }
-add_action( 'manage_users_custom_column', 'git_add_last_login_column_value', 10, 3 );
-
+add_action('manage_users_custom_column', 'git_add_last_login_column_value', 10, 3);
 //注册时间
-add_filter('manage_users_columns','git_add_users_column_reg_time');
-function git_add_users_column_reg_time($column_headers){
-	$column_headers['reg_time'] = '注册时间';
-	return $column_headers;
+add_filter('manage_users_columns', 'git_add_users_column_reg_time');
+function git_add_users_column_reg_time($column_headers) {
+    $column_headers['reg_time'] = '注册时间';
+    return $column_headers;
 }
-
-add_filter('manage_users_custom_column', 'git_show_users_column_reg_time',10,3);
-function git_show_users_column_reg_time($value, $column_name, $user_id){
-	if($column_name=='reg_time'){
-		$user = get_userdata($user_id);
-		return get_date_from_gmt($user->user_registered);
-	}else{
-		return $value;
-	}
+add_filter('manage_users_custom_column', 'git_show_users_column_reg_time', 10, 3);
+function git_show_users_column_reg_time($value, $column_name, $user_id) {
+    if ($column_name == 'reg_time') {
+        $user = get_userdata($user_id);
+        return get_date_from_gmt($user->user_registered);
+    } else {
+        return $value;
+    }
 }
-
-add_filter( 'manage_users_sortable_columns', 'git_users_sortable_columns' );
-function git_users_sortable_columns($sortable_columns){
-	$sortable_columns['reg_time'] = 'reg_time';
-	return $sortable_columns;
+add_filter('manage_users_sortable_columns', 'git_users_sortable_columns');
+function git_users_sortable_columns($sortable_columns) {
+    $sortable_columns['reg_time'] = 'reg_time';
+    return $sortable_columns;
 }
-
-add_action( 'pre_user_query', 'git_users_search_order' );
-function git_users_search_order($obj){
-	if(!isset($_REQUEST['orderby']) || $_REQUEST['orderby']=='reg_time' ){
-		if( !in_array($_REQUEST['order'],array('asc','desc')) ){
-			$_REQUEST['order'] = 'desc';
-		}
-		$obj->query_orderby = "ORDER BY user_registered ".$_REQUEST['order']."";
-	}
+add_action('pre_user_query', 'git_users_search_order');
+function git_users_search_order($obj) {
+    if (!isset($_REQUEST['orderby']) || $_REQUEST['orderby'] == 'reg_time') {
+        if (!in_array($_REQUEST['order'], array(
+            'asc',
+            'desc'
+        ))) {
+            $_REQUEST['order'] = 'desc';
+        }
+        $obj->query_orderby = "ORDER BY user_registered " . $_REQUEST['order'] . "";
+    }
 }
-
 //后台登陆数学验证码
-if(git_get_option('git_admin_captcha')):
-function git_add_login_fields(){
-    $num1 = rand(0, 99);
-    $num2 = rand(0, 20);
-    echo "<p><label for='sum'> {$num1} + {$num2} = ?<br /><input type='text' name='sum' class='input' value='' size='25' tabindex='4'>" . "<input type='hidden' name='num1' value='{$num1}'>" . "<input type='hidden' name='num2' value='{$num2}'></label></p>";
-}
-add_action('login_form', 'git_add_login_fields');
-add_action('register_form', 'git_add_login_fields');
-
-function git_login_val(){
-    $sum = $_POST['sum'];
-    switch ($sum) {
-        case $_POST['num1'] + $_POST['num2']:
-            break;
-        case null:
-            wp_die('错误: 请输入验证码&nbsp; <a href="javascript:;" onclick="javascript:history.back();">返回上页</a>');
-            break;
-        default:
-            wp_die('错误: 验证码错误,请重试&nbsp; <a href="javascript:;" onclick="javascript:history.back();">返回上页</a>');
+if (git_get_option('git_admin_captcha')):
+    function git_add_login_fields() {
+        $num1 = rand(0, 99);
+        $num2 = rand(0, 20);
+        echo "<p><label for='sum'> {$num1} + {$num2} = ?<br /><input type='text' name='sum' class='input' value='' size='25' tabindex='4'>" . "<input type='hidden' name='num1' value='{$num1}'>" . "<input type='hidden' name='num2' value='{$num2}'></label></p>";
     }
-}
-add_action('login_form_login', 'git_login_val');
-add_action('register_post', 'git_login_val');
-endif;
+    add_action('login_form', 'git_add_login_fields');
+    add_action('register_form', 'git_add_login_fields');
+    function git_login_val() {
+        $sum = $_POST['sum'];
+        switch ($sum) {
+            case $_POST['num1'] + $_POST['num2']:
+                break;
 
+            case null:
+                wp_die('错误: 请输入验证码&nbsp; <a href="javascript:;" onclick="javascript:history.back();">返回上页</a>');
+                break;
+
+            default:
+                wp_die('错误: 验证码错误,请重试&nbsp; <a href="javascript:;" onclick="javascript:history.back();">返回上页</a>');
+        }
+    }
+    add_action('login_form_login', 'git_login_val');
+    add_action('register_post', 'git_login_val');
+endif;
 //限制每个ip的注册数量
-if(git_get_option('git_regist_ips')):
-function validate_reg_ips() {
-	global $err_msg;
-	$allow_time = git_get_option('git_regist_ips_num'); //每个IP允许注册的用户数
-	$allowed = true;
-	$ipsfile = ABSPATH . '/ips.txt';
-	$ips = file_get_contents( $ipsfile );
-	$times = substr_count($ips,getIp());
-	if($times >=$allow_time) {
-		$allowed = false;
-		$err_msg = "该IP注册用户超过上限，无法继续注册！";
-	}
-	$ips = '';
-	return $allowed;
-}
-add_filter('validate_username', 'validate_reg_ips', 10, 1);
-function ip_restrict_errors($errors) {
-	global $err_msg;
-	if ( isset( $errors->errors['invalid_username'] ) )
-	$errors->errors['invalid_username'][0] = $err_msg;
-	return $errors;
-}
-add_filter('registration_errors', 'ip_restrict_errors');
-function update_reg_ips(){
-    $ipsfile = ABSPATH . '/ips.txt';
-file_put_contents( $ipsfile,getIp()."\r\n",FILE_APPEND);
-}
-add_action('user_register','update_reg_ips');
-function getIp(){
-	if (getenv("HTTP_CLIENT_IP") && strcasecmp(getenv("HTTP_CLIENT_IP"), "unknown"))
-	$ip = getenv("HTTP_CLIENT_IP");
-	else if (getenv("HTTP_X_FORWARDED_FOR") && strcasecmp(getenv("HTTP_X_FORWARDED_FOR"), "unknown"))
-	$ip = getenv("HTTP_X_FORWARDED_FOR");
-	else if (getenv("REMOTE_ADDR") && strcasecmp(getenv("REMOTE_ADDR"), "unknown"))
-	$ip = getenv("REMOTE_ADDR");
-	else if (isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] && strcasecmp($_SERVER['REMOTE_ADDR'], "unknown"))
-	$ip = $_SERVER['REMOTE_ADDR'];
-	else
-	$ip = "unknown";
-	return $ip;
-}
-endif;
-
-//懒加载
-if(git_get_option('git_lazyload')):
-function lazyload($content){
-    if (!is_feed() || !is_robots()) {
-        $content = preg_replace('/<img(.+)src=[\'"]([^\'"]+)[\'"](.*)>/i', "<img\$1data-original=\"\$2\" \$3>\n<noscript>\$0</noscript>", $content);
+if (git_get_option('git_regist_ips')):
+    function validate_reg_ips() {
+        global $err_msg;
+        $allow_time = git_get_option('git_regist_ips_num'); //每个IP允许注册的用户数
+        $allowed = true;
+        $ipsfile = ABSPATH . '/ips.txt';
+        $ips = file_get_contents($ipsfile);
+        $times = substr_count($ips, getIp());
+        if ($times >= $allow_time) {
+            $allowed = false;
+            $err_msg = "该IP注册用户超过上限，无法继续注册！";
+        }
+        $ips = '';
+        return $allowed;
     }
-    return $content;
-}
-add_filter('the_content', 'lazyload');
-add_filter('asgarosforum_filter_post_content', 'lazyload');
+    add_filter('validate_username', 'validate_reg_ips', 10, 1);
+    function ip_restrict_errors($errors) {
+        global $err_msg;
+        if (isset($errors->errors['invalid_username'])) $errors->errors['invalid_username'][0] = $err_msg;
+        return $errors;
+    }
+    add_filter('registration_errors', 'ip_restrict_errors');
+    function update_reg_ips() {
+        $ipsfile = ABSPATH . '/ips.txt';
+        file_put_contents($ipsfile, getIp() . "\r\n", FILE_APPEND);
+    }
+    add_action('user_register', 'update_reg_ips');
+    function getIp() {
+        if (getenv("HTTP_CLIENT_IP") && strcasecmp(getenv("HTTP_CLIENT_IP") , "unknown")) $ip = getenv("HTTP_CLIENT_IP");
+        else if (getenv("HTTP_X_FORWARDED_FOR") && strcasecmp(getenv("HTTP_X_FORWARDED_FOR") , "unknown")) $ip = getenv("HTTP_X_FORWARDED_FOR");
+        else if (getenv("REMOTE_ADDR") && strcasecmp(getenv("REMOTE_ADDR") , "unknown")) $ip = getenv("REMOTE_ADDR");
+        else if (isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] && strcasecmp($_SERVER['REMOTE_ADDR'], "unknown")) $ip = $_SERVER['REMOTE_ADDR'];
+        else $ip = "unknown";
+        return $ip;
+    }
 endif;
-
+//懒加载
+if (git_get_option('git_lazyload')):
+    function lazyload($content) {
+        if (!is_feed() || !is_robots()) {
+            $content = preg_replace('/<img(.+)src=[\'"]([^\'"]+)[\'"](.*)>/i', "<img\$1data-original=\"\$2\" \$3>\n<noscript>\$0</noscript>", $content);
+        }
+        return $content;
+    }
+    add_filter('the_content', 'lazyload');
+    add_filter('asgarosforum_filter_post_content', 'lazyload');
+endif;
 //自动中英文空格
-function content_autospace( $data ) {
-	$data = preg_replace('/([\x{4e00}-\x{9fa5}]+)([A-Za-z0-9_]+)/u', '${1} ${2}', $data);
-	$data = preg_replace('/([A-Za-z0-9_]+)([\x{4e00}-\x{9fa5}]+)/u', '${1} ${2}', $data);
-	return $data;
+function content_autospace($data) {
+    $data = preg_replace('/([\x{4e00}-\x{9fa5}]+)([A-Za-z0-9_]+)/u', '${1} ${2}', $data);
+    $data = preg_replace('/([A-Za-z0-9_]+)([\x{4e00}-\x{9fa5}]+)/u', '${1} ${2}', $data);
+    return $data;
 }
-add_filter( 'the_content','content_autospace' );
+add_filter('the_content', 'content_autospace');
 add_filter('asgarosforum_filter_post_content', 'content_autospace');
-
 //只搜索文章标题
-function git_search_by_title($search, $wp_query){
+function git_search_by_title($search, $wp_query) {
     if (!empty($search) && !empty($wp_query->query_vars['search_terms'])) {
         global $wpdb;
         $q = $wp_query->query_vars;
         $n = !empty($q['exact']) ? '' : '%';
         $search = array();
-        foreach ((array) $q['search_terms'] as $term) {
+        foreach ((array)$q['search_terms'] as $term) {
             $search[] = $wpdb->prepare("{$wpdb->posts}.post_title LIKE %s", $n . $wpdb->esc_like($term) . $n);
         }
         if (!is_user_logged_in()) {
@@ -2948,80 +2929,87 @@ function git_search_by_title($search, $wp_query){
     return $search;
 }
 add_filter('posts_search', 'git_search_by_title', 10, 2);
-
 //小工具缓存
-class GIT_Widget_cache{
+class GIT_Widget_cache {
     public $cache_time = 18000;
-	/*
+    /*
     MINUTE_IN_SECONDS = 60 seconds
     HOUR_IN_SECONDS = 3600 seconds
     DAY_IN_SECONDS = 86400 seconds
     WEEK_IN_SECONDS = 604800 seconds
     YEAR_IN_SECONDS = 3153600 seconds
-*/
-    function __construct(){
-        add_filter( 'widget_display_callback', array($this,'_cache_widget_output'), 10, 3 );
-        add_action('in_widget_form', array($this,'in_widget_form'),5,3);
-        add_filter('widget_update_callback', array($this,'widget_update_callback'),5,3);
+    */
+    function __construct() {
+        add_filter('widget_display_callback', array(
+            $this,
+            '_cache_widget_output'
+        ) , 10, 3);
+        add_action('in_widget_form', array(
+            $this,
+            'in_widget_form'
+        ) , 5, 3);
+        add_filter('widget_update_callback', array(
+            $this,
+            'widget_update_callback'
+        ) , 5, 3);
     }
-    function get_widget_key($i,$a){
-        return 'WC-' . md5( serialize( array( $i, $a ) ) );
+    function get_widget_key($i, $a) {
+        return 'WC-' . md5(serialize(array(
+            $i,
+            $a
+        )));
     }
-    function _cache_widget_output($instance, $widget, $args){
-        if ( false === $instance )
-            return $instance;
-        if(isset($instance['wc_cache']) && $instance['wc_cache'] == true)
-            return $instance;
+    function _cache_widget_output($instance, $widget, $args) {
+        if (false === $instance) return $instance;
+        if (isset($instance['wc_cache']) && $instance['wc_cache'] == true) return $instance;
         $timer_start = microtime(true);
-        $transient_name = $this->get_widget_key($instance,$args);
-        if ( false === ( $cached_widget = get_transient( $transient_name ) ) ){
+        $transient_name = $this->get_widget_key($instance, $args);
+        if (false === ($cached_widget = get_transient($transient_name))) {
             ob_start();
-            $widget->widget( $args, $instance );
+            $widget->widget($args, $instance);
             $cached_widget = ob_get_clean();
-            set_transient( $transient_name, $cached_widget, $this->cache_time);
+            set_transient($transient_name, $cached_widget, $this->cache_time);
         }
         echo $cached_widget;
-        echo '<!-- From widget cache in '.number_format( microtime(true) - $timer_start, 5 ).' seconds -->';
+        echo '<!-- From widget cache in ' . number_format(microtime(true) - $timer_start, 5) . ' seconds -->';
         return false;
     }
-
-    function in_widget_form($t,$return,$instance){
-        $instance = wp_parse_args(
-            (array) $instance,
-            array(
-                'title' => '',
-                'text' => '',
-                'wc_cache' => null
-            )
-        );
-
-        if ( !isset($instance['wc_cache']) )
-            $instance['wc_cache'] = null;
-        ?>
+    function in_widget_form($t, $return, $instance) {
+        $instance = wp_parse_args((array)$instance, array(
+            'title' => '',
+            'text' => '',
+            'wc_cache' => null
+        ));
+        if (!isset($instance['wc_cache'])) $instance['wc_cache'] = null;
+?>
         <p>
-            <input id="<?php echo $t->get_field_id('wc_cache'); ?>" name="<?php echo $t->get_field_name('wc_cache'); ?>" type="checkbox" <?php checked(isset($instance['wc_cache']) ? $instance['wc_cache'] : 0); ?> />
-            <label for="<?php echo $t->get_field_id('wc_cache'); ?>">禁止缓存本工具?</label>
+            <input id="<?php
+        echo $t->get_field_id('wc_cache'); ?>" name="<?php
+        echo $t->get_field_name('wc_cache'); ?>" type="checkbox" <?php
+        checked(isset($instance['wc_cache']) ? $instance['wc_cache'] : 0); ?> />
+            <label for="<?php
+        echo $t->get_field_id('wc_cache'); ?>">禁止缓存本工具?</label>
         </p>
         <?php
     }
-
-    function widget_update_callback($instance, $new_instance, $old_instance){
+    function widget_update_callback($instance, $new_instance, $old_instance) {
         $instance['wc_cache'] = isset($new_instance['wc_cache']);
         return $instance;
     }
-}//end GIT_Widget_cache class
-if(git_get_option('git_sidebar_cache') ){
-$GLOBALS['GIT_Widget_cache'] = new GIT_Widget_cache();
+} //end GIT_Widget_cache class
+if (git_get_option('git_sidebar_cache')) {
+    $GLOBALS['GIT_Widget_cache'] = new GIT_Widget_cache();
 }
 //HTML5 桌面通知
-function Notification_js(){
-	if( git_get_option('git_notification_days') && git_get_option('git_notification_title') && git_get_option('git_notification_body') && git_get_option('git_notification_icon') && git_get_option('git_notification_cookie')){
-    ?>
+function Notification_js() {
+    if (git_get_option('git_notification_days') && git_get_option('git_notification_title') && git_get_option('git_notification_body') && git_get_option('git_notification_icon') && git_get_option('git_notification_cookie')) {
+?>
     <script type="text/javascript">
     if (window.Notification) {
 	function setCookie(name, value) {
 		var exp = new Date();
-		exp.setTime(exp.getTime() + <?php echo git_get_option('git_notification_days');?> * 24 * 60 * 60 * 1000);
+		exp.setTime(exp.getTime() + <?php
+        echo git_get_option('git_notification_days'); ?> * 24 * 60 * 60 * 1000);
 		document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString() + ";path=/";
 	}
 	function getCookie(name) {
@@ -3031,21 +3019,28 @@ function Notification_js(){
 	}
 	var popNotice = function() {
 			if (Notification.permission == "granted") {
-				var n = new Notification("<?php echo git_get_option('git_notification_title');?>", {
-					body: "<?php echo git_get_option('git_notification_body');?>",
-					icon: "<?php echo git_get_option('git_notification_icon');?>"
+				var n = new Notification("<?php
+        echo git_get_option('git_notification_title'); ?>", {
+					body: "<?php
+        echo git_get_option('git_notification_body'); ?>",
+					icon: "<?php
+        echo git_get_option('git_notification_icon'); ?>"
 				});
 				n.onclick = function() {
-					window.location.href="<?php echo git_get_option('git_notification_link');?>";
+					window.location.href="<?php
+        echo git_get_option('git_notification_link'); ?>";
 					n.close()
 				};
 				n.onclose = function() {
-					setCookie("git_Notification", "<?php echo git_get_option('git_notification_cookie');?>")
+					setCookie("git_Notification", "<?php
+        echo git_get_option('git_notification_cookie'); ?>")
 				}
 			}
 		};
-	if (getCookie("git_Notification") == "<?php echo git_get_option('git_notification_cookie');?>") {
-		console.log("您已关闭桌面弹窗提醒，有效期为<?php echo git_get_option('git_notification_days');?>天！")
+	if (getCookie("git_Notification") == "<?php
+        echo git_get_option('git_notification_cookie'); ?>") {
+		console.log("您已关闭桌面弹窗提醒，有效期为<?php
+        echo git_get_option('git_notification_days'); ?>天！")
 	} else {
 		if (Notification.permission == "granted") {
 			popNotice()
@@ -3060,8 +3055,9 @@ function Notification_js(){
 }
 </script>
     <?php
-	}
+    }
 }
-add_action('get_footer','Notification_js');
+add_action('get_footer', 'Notification_js');
 //WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://googlo.me/archives/4032.html
+
 ?>

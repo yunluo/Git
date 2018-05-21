@@ -1220,7 +1220,7 @@ $options = array(
         'type'  => 'checkbox'
     ),
     array(
-        'name'  => '页面伪静态',
+        'name'  => '页面&站内搜索伪静态',
         'desc'  => '启用   【开启后，请前往固定连接重新保存一下，否则404】',
         'id'    => 'git_pagehtml_b',
         'type'  => 'checkbox'
@@ -1785,11 +1785,6 @@ function git_options_page() {
 
 <div class="wrap">
     <h2>Git 主题选项</h2>
-    <?php if (!git_get_option('git_updates_b')):?>
-    <div class="notice notice-success is-dismissible">
-    <p><?php echo Coding_notice(); ?></p>
-    </div>
-    <?php endif; ?>
     <div class="notice notice-info catlist">
     <p>您的网站分类列表：<?php echo Bing_show_category(); ?></p>
 	</div>

@@ -149,7 +149,7 @@ next_post_link('%link  <i class="fa fa-angle-double-right"></i>'); ?></span>
 if (git_get_option('git_auther_b') && !defined('UM_DIR')) { ?>
 <div class="ab-author clr">
 <div class="img"><?php
-    echo get_avatar(get_the_author_meta('email') , '512'); ?></div>
+    echo get_avatar(get_the_author_meta('email') , '110'); ?></div>
 <div class="ab-author-info">
 <div class="words">
 <div class="wordsname">关于作者：<?php
