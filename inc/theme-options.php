@@ -1955,7 +1955,7 @@ switch ( $value['type'] ) {
 <a class="button button-primary" href="https://googlo.me/archives/3275.html" target="_blank">使用文档</a>
 <h2>关注公众号</h2>
 <p>欢迎关注乐趣公园公众号，<font color="#ff0000">PS.主题有不会使用的，也可以直接在公众号查找使用方法哦</font></p>
-<img src="http://71bbs.people.com.cn/postImages/21/AE/7C/33/1516688538675.jpg"></img>
+<img src="https://wx2.sinaimg.cn/large/005zWjpngy1frjdjapztzj30by0by754.jpg"></img>
 </div>
 <p class="submit">
     <input name="submit" type="submit" class="button button-primary" value="保存选项"/>

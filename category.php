@@ -7,8 +7,7 @@ get_header(); ?>
 			<?php
 if (category_description()) echo '<div class="archive-header-banner">' . category_description() . '</div>'; ?>
 		</header>
-		<?php if (git_get_option('git_cat_style') == 'git_cat_card')
-		{
+		<?php if (git_get_option('git_cat_style') == 'git_cat_card'){
 		include 'modules/card.php';
 		}elseif (git_get_option('git_cat_style') == 'git_cat_list'){
 		include 'modules/excerpt.php';
