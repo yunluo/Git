@@ -229,8 +229,6 @@ if (git_get_option('git_sign_b')) {
             <div class="login-sign pull-right">
         <?php if(git_get_option('git_fancylogin')) { /*判断是否打开弹窗登录*/ ?>
         <?php
-        global $wp;
-        $current_url = home_url(add_query_arg(array(),$wp->request));
             if(is_user_logged_in()){/*判断是否登录，如果登录了就... */
                 if(defined('UM_DIR')){/*判断是否按照um插件，如果安装就...*/
                     if( current_user_can( 'manage_options' ) ) {/*如果是管理员的话...*/
@@ -276,7 +274,9 @@ if (git_get_option('git_sign_b')) {
                         echo wp_loginout();
                         echo '';}
         } else {/*如果没有登录的话就...*/
-        echo '<i class="fa fa-sign-in" ></i>  <a target="_blank" href="'.esc_url( wp_login_url( $current_url ) ).'">登录</a>';
+        global $wp;
+        $current_url = home_url(add_query_arg(array(),$wp->request));
+        echo '<i class="fa fa-sign-in" ></i>  <a target="_blank" href="'.wp_login_url( $current_url ).'">登录</a>';
         if (get_option('users_can_register')){
         echo '&nbsp;&nbsp;<i class="fa fa-pencil-square-o" ></i>  <a href="'.esc_url( wp_registration_url() ).'">注册</a>';
             }
