@@ -14,6 +14,7 @@ if (!defined('POINTS_CORE_DIR')) {
 function deel_setup() {
     //添加主题特性
     add_theme_support('post-formats', array('aside')); //增加文章形式
+    add_theme_support('post-thumbnails');//缩略图设置
     add_theme_support('custom-background', array(
         'default-image' => get_template_directory_uri() . '/assets/img/bg.png',
         'default-repeat' => 'repeat',
@@ -2609,12 +2610,14 @@ function only_my_media_library($wp_query) {
 }
 add_filter('parse_query', 'only_my_media_library');
 //CDN水印
-if (git_get_option('git_cdn_water') && get_post_type() !== 'product'):
+if (git_get_option('git_cdn_water') ):
     function cdn_water($content) {
         global $post;
+		if(get_post_type() !== 'product'){
         $pattern = "/<img(.*?)src=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>/i";
         $replacement = '<img$1src=$2$3.$4!water.jpg$5$6>';
         $content = preg_replace($pattern, $replacement, $content);
+		}
         return $content;
     }
     add_filter('the_content', 'cdn_water');
