@@ -14,7 +14,6 @@ if (!defined('POINTS_CORE_DIR')) {
 function deel_setup() {
     //添加主题特性
     add_theme_support('post-formats', array('aside')); //增加文章形式
-    add_theme_support('post-thumbnails');//缩略图设置
     add_theme_support('custom-background', array(
         'default-image' => get_template_directory_uri() . '/assets/img/bg.png',
         'default-repeat' => 'repeat',
@@ -327,6 +326,16 @@ if (!function_exists('deel_views')):
         echo $views, $after;
     }
 endif;
+//页面伪静态
+if (git_get_option('git_pagehtml_b')):
+function html_page_permalink() {
+    global $wp_rewrite;
+        if (!strpos($wp_rewrite->get_page_permastruct() , '.html')) {
+            $wp_rewrite->page_structure = $wp_rewrite->page_structure . '.html';
+        }
+}
+add_action('init', 'html_page_permalink', -1);
+endif;
 //baidu分享
 $dHasShare = false;
 function deel_share() {
@@ -341,35 +350,15 @@ function git_page_id($pagephp) {
     $pageid = $wpdb->get_row("SELECT `post_id` FROM `{$wpdb->postmeta}` WHERE `meta_value` = 'pages/{$pagephp}.php'", ARRAY_A) ['post_id'];
     return $pageid;
 }
+
+
 //搜索表单
 function git_searchform() {
-    $search_placeholder = git_get_option('git_search_placeholder');
+$search_placeholder = git_get_option('git_search_placeholder');
 ?>
-<form role="search" method="get" class="searchform themeform" action="<?php
-    echo esc_url(home_url('/')); ?>">
-<div><input type="search" class="search" placeholder="<?php
-    echo esc_attr($search_placeholder); ?>" value="<?php
-    echo get_search_query(); ?>" name="s" /></div></form></div></div>
+<form method="get" class="searchform themeform" onsubmit="location.href='<?php echo home_url('/search/'); ?>' + encodeURIComponent(this.s.value).replace(/%20/g, '+'); return false;" action="/"><div><input type="ext" class="search" name="s" onblur="if(this.value=='')this.value='<?php echo $search_placeholder; ?>';" onfocus="if(this.value=='<?php echo $search_placeholder; ?>')this.value='';" value="<?php echo $search_placeholder; ?>"></div></form></div></div>
 <?php
 }
-//搜索伪静态
-function git_search_url_rewrite() {
-    if (is_search() && !is_admin() && !empty($_GET['s'])) {
-        wp_redirect(home_url('/search/') . urlencode(get_query_var('s')));
-        exit();
-    }
-}
-//页面伪静态
-function html_page_permalink() {
-    global $wp_rewrite;
-        if (!strpos($wp_rewrite->get_page_permastruct() , '.html')) {
-            $wp_rewrite->page_structure = $wp_rewrite->page_structure . '.html';
-        }
-}
-if (git_get_option('git_pagehtml_b')):
-add_action('template_redirect', 'git_search_url_rewrite');
-add_action('init', 'html_page_permalink', -1);
-endif;
 
 function deel_avatar_default() {
     return get_template_directory_uri() . '/assets/img/default.png';
@@ -1029,7 +1018,7 @@ function fa_get_wpsmiliestrans() {
     $wpsmilies = array_unique($wpsmiliestrans);
     $output = '';
     foreach ($wpsmilies as $alt => $src_path) {
-        $output.= '<a class="add-smily" data-smilies="' . $alt . '"><img class="wp-smiley" src="' . get_template_directory_uri() . '/assets/img/smilies/' . rtrim($src_path, "gif") . 'gif" /></a>';
+        $output.= '<a class="add-smily" data-smilies="' . $alt . '"><img class="wp-smiley" style="height:24px;width:24px;" src="' . get_template_directory_uri() . '/assets/img/smilies/' . rtrim($src_path, "gif") . 'gif" /></a>';
     }
     return $output;
 }
@@ -2185,14 +2174,7 @@ function init_gitsmilie() {
     add_filter('smilies_src', 'custom_gitsmilie_src', 10, 2);
 }
 add_action('init', 'init_gitsmilie', 5);
-//修复4.2表情问题
-function convert_smilie9s($text) {
-    return str_replace('style="height: 2em; max-height: 2em;" ', '', $text);
-}
-add_filter('the_content', 'convert_smilie9s', 11);
-add_filter('the_excerpt', 'convert_smilie9s', 11);
-add_filter('comment_text', 'convert_smilie9s', 21);
-add_filter('asgarosforum_filter_post_content', 'convert_smilie9s', 21);
+
 //压缩html代码
 if (git_get_option('git_compress')):
     function wp_compress_html() {
@@ -2846,7 +2828,6 @@ if (git_get_option('git_admin_captcha')):
         switch ($sum) {
             case $_POST['num1'] + $_POST['num2']:
                 break;
-
             case null:
                 wp_die('错误: 请输入验证码&nbsp; <a href="javascript:;" onclick="javascript:history.back();">返回上页</a>');
                 break;
@@ -3011,8 +2992,7 @@ function Notification_js() {
     if (window.Notification) {
 	function setCookie(name, value) {
 		var exp = new Date();
-		exp.setTime(exp.getTime() + <?php
-        echo git_get_option('git_notification_days'); ?> * 24 * 60 * 60 * 1000);
+		exp.setTime(exp.getTime() + <?php echo git_get_option('git_notification_days'); ?> * 24 * 60 * 60 * 1000);
 		document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString() + ";path=/";
 	}
 	function getCookie(name) {
