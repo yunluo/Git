@@ -1644,13 +1644,13 @@ $options = array(
     ),
     array(
         'name'  => 'Gravatar头像设置',
-        'desc'  => '头像设置，请查看使用文档说明',
+        'desc'  => '头像设置，请查看使用文档说明，懒人配置推荐：选择随机头像，头像镜像服务器不填，就可以了。',
         'id'    => 'git_avater',
         'type'  => 'radio',
         'options' => array(
-            '本地随机头像' => 'git_avatar_rand',
-            '头像镜像服务器' => 'git_avatar_qn',
-            '本地头像755缓存' => 'git_avatar_b'
+            '随机头像[最快]' => 'git_avatar_rand',
+            '头像镜像[精确]' => 'git_avatar_qn',
+            '本地缓存[海外]' => 'git_avatar_b'
         ),
         'std'   => 'git_avatar_qn'
     ),
@@ -1666,7 +1666,7 @@ $options = array(
         'desc'  => '注意：本选项不可加加http://这些前缀，另外请务必查看上面的使用说明！！',
         'id'    => 'git_avatar_qnurl',
         'type'  => 'text',
-        'std'   => 'fdn.geekzu.org'
+        'std'   => ''
     ),
     array(
         'name'  => 'jQuery来源设置',
@@ -1700,7 +1700,7 @@ $options = array(
         'std'   => ''
     ),
     array(
-        'title' => '下载设置',
+        'title' => '���载设置',
         'type'  => 'subtitle'
     ),
     array(
