@@ -37,7 +37,7 @@ foreach ($bookmarks as $bookmark) {
 	if ($bookmark->link_image ) {
 		$ico = $bookmark->link_image ;
 	}else{
-		$ico = 'https://api.byi.pw/favicon/?url=' . $bookmark->link_url . '';
+		$ico = 'https://www.google.cn/s2/favicons?domain=' . $bookmark->link_url . '';
 	}
         echo '<li class="col-md-4 mt-15 mb-15 pd-10">
 <div class="pd-0 h-100 borderr-main-4 tra">
