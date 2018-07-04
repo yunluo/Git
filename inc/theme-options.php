@@ -1700,7 +1700,7 @@ $options = array(
         'std'   => ''
     ),
     array(
-        'title' => '���载设置',
+        'title' => '下载设置',
         'type'  => 'subtitle'
     ),
     array(
