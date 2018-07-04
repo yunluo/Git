@@ -3046,6 +3046,17 @@ function Notification_js() {
     }
 }
 add_action('get_footer', 'Notification_js');
+
+//临时修复文件删除漏洞
+//来自：https://www.wpdaxue.com/wordpress-file-delete-to-code-execution.html
+function git_rips_unlink_tempfix( $data ) {
+    if( isset($data['thumb']) ) {
+        $data['thumb'] = basename($data['thumb']);
+    }
+
+    return $data;
+}
+add_filter( 'wp_update_attachment_metadata', 'git_rips_unlink_tempfix' );
 //WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://googlo.me/archives/4032.html
 
 ?>
