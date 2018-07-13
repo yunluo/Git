@@ -22,7 +22,7 @@ $options = array(
         'desc'  => '最新消息显示在全站导航条下方，非常给力的推广位置',
         'id'    => 'git_tui',
         'type'  => 'textarea',
-        'std'   => '<li>欢迎访问乐趣公园网站，WordPress信息，WordPress教程，推荐使用最新版火狐浏览器和Chrome浏览器访问本网站，欢迎加入乐趣公园<code><a target="_blank" href="http://googlo.me/go/qun"><i class="fa fa-qq"></i> QQ群</a></code></li><li>Git主题现已支持滚动公告栏功能，兼容其他浏览器，看到的就是咯，在后台最新消息那里用li标签添加即可。</li><li>最新版Git主题已支持说说碎语功能，可像添加文章一样直接添加说说，新建说说页面即可，最后重新保存固定连接，<a target="_blank" href="http://googlo.me/shuo.html">演示地址</a></li><li>百度口碑求点赞啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊<a target="_blank" href="http://koubei.baidu.com/s/googlo.me">http://koubei.baidu.com/s/googlo.me</a></li><li>如果您觉得本站非常有看点，那么赶紧使用Ctrl+D 收藏乐趣公园吧</li><li>云落的宠物用品淘宝店铺，传送门：<a target="_blank" href="http://kimipet.taobao.com">http://kimipet.taobao.com</a></li>'
+        'std'   => '<li>欢迎访问乐趣公园网站，WordPress信息，WordPress教程，推荐使用最新版火狐浏览器和Chrome浏览器访问本网站，欢迎加入乐趣公园<code><a target="_blank" href="http://gitcafe.net/go/qun"><i class="fa fa-qq"></i> QQ群</a></code></li><li>Git主题现已支持滚动公告栏功能，兼容其他浏览器，看到的就是咯，在后台最新消息那里用li标签添加即可。</li><li>最新版Git主题已支持说说碎语功能，可像添加文章一样直接添加说说，新建说说页面即可，最后重新保存固定连接，<a target="_blank" href="http://gitcafe.net/shuo.html">演示地址</a></li><li>百度口碑求点赞啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊<a target="_blank" href="http://koubei.baidu.com/s/gitcafe.net">http://koubei.baidu.com/s/gitcafe.net</a></li><li>如果您觉得本站非常有看点，那么赶紧使用Ctrl+D 收藏乐趣公园吧</li><li>云落的宠物用品淘宝店铺，传送门：<a target="_blank" href="http://kimipet.taobao.com">http://kimipet.taobao.com</a></li>'
     ),
     array(
         'name'  => '友情链接页面',
@@ -932,7 +932,7 @@ $options = array(
         'desc'  => '填写新浪微博个人主页链接',
         'id'    => 'git_weibo',
         'type'  => 'text',
-        'std'   => 'http://googlo.me/go/weibo'
+        'std'   => 'http://gitcafe.net/go/weibo'
     ),
     array(
         'name'  => '腾讯微信',
@@ -1037,7 +1037,7 @@ $options = array(
         'desc'  => '在这里输入第二个footer的内容',
         'id'    => 'git_footconent2',
         'type'  => 'textarea',
-        'std'   => '<ul><li><a href="http://googlo.me/goto/ad" title="云左" target="_blank">云左主机</a></li><li><a href="http://googlo.me/go/qiniu" title="七牛云" target="_blank">七牛云</a></li></ul>'
+        'std'   => '<ul><li><a href="http://gitcafe.net/goto/ad" title="云左" target="_blank">云左主机</a></li><li><a href="http://gitcafe.net/go/qiniu" title="七牛云" target="_blank">七牛云</a></li></ul>'
     ),
     array(
         'name'  => 'Footer3标题',
@@ -1051,11 +1051,11 @@ $options = array(
         'desc'  => '在这里输入第三个footer的内容',
         'id'    => 'git_footconent3',
         'type'  => 'textarea',
-        'std'   => '<ul><li><a href="http://googlo.me/go/weibo" title="云落的新浪微博" target="_blank">云落的新浪微博</a></li>
+        'std'   => '<ul><li><a href="http://gitcafe.net/go/weibo" title="云落的新浪微博" target="_blank">云落的新浪微博</a></li>
 <li><a href="http://t.qq.com/sp865113728" title="云落的腾讯微博" target="_blank">云落的腾讯微博</a></li>
 <li><a href="http://git.oschina.net/yunluo/" title="云落的代码" target="_blank">云落的代码</a></li>
-<li><a href="http://googlo.me/go/baidu" title="云落的贴吧" target="_blank">云落的贴吧</a></li>
-<li><a href="http://googlo.me/" title="云落的网站" target="_blank">云落的网站</a></li></ul>'
+<li><a href="http://gitcafe.net/go/baidu" title="云落的贴吧" target="_blank">云落的贴吧</a></li>
+<li><a href="http://gitcafe.net/" title="云落的网站" target="_blank">云落的网站</a></li></ul>'
     ),
     array(
         'name'  => 'Footer4标题',
@@ -1076,7 +1076,7 @@ $options = array(
         'desc'  => '在全站页面footer部分出现，可放置网站的版权信息等等',
         'id'    => 'git_footcode',
         'type'  => 'textarea',
-        'std'   => 'Copyright © 2014-2015 <a href="/" title="乐趣公园">乐趣公园</a> | <a rel="nofollow" target="_blank" href="/about.html">关于网站</a> | <a rel="nofollow" target="_blank" href="/tags.html">标签汇总</a> | <a rel="nofollow" target="_blank" href="/archive.html">文章归档</a> | <a rel="nofollow" target="_blank" href="/links.html">友情链接</a> | <a href="/sitemap.html" target="_blank" title="站点地图（HTML版）">网站地图</a> | 由 <a rel="nofollow" target="_blank" href="http://googlo.me/goto/ad">云左</a> &amp; <a rel="nofollow" target="_blank" href="http://googlo.me/go/qiniu">七牛</a> &amp; <a href="/wp-admin">强力驱动</a>'
+        'std'   => 'Copyright © 2014-2015 <a href="/" title="乐趣公园">乐趣公园</a> | <a rel="nofollow" target="_blank" href="/about.html">关于网站</a> | <a rel="nofollow" target="_blank" href="/tags.html">标签汇总</a> | <a rel="nofollow" target="_blank" href="/archive.html">文章归档</a> | <a rel="nofollow" target="_blank" href="/links.html">友情链接</a> | <a href="/sitemap.html" target="_blank" title="站点地图（HTML版）">网站地图</a> | 由 <a rel="nofollow" target="_blank" href="http://gitcafe.net/goto/ad">云左</a> &amp; <a rel="nofollow" target="_blank" href="http://gitcafe.net/go/qiniu">七牛</a> &amp; <a href="/wp-admin">强力驱动</a>'
     ),
     array(
         'name'  => '全站底部脚本代码',
@@ -1119,7 +1119,7 @@ $options = array(
         'desc'  => '如果幻灯没开启，则不显示',
         'id'    => 'git_adindex_02',
         'type'  => 'textarea',
-        'std'   => '<a target="_blank" href="http://googlo.me/goto/ad"><img src="https://img.alicdn.com/imgextra/i3/1597576229/TB2K9JPb3AEF1JjSZFLXXbzNXXa_!!1597576229.jpg" style="width:100%;"></a>'
+        'std'   => '<a target="_blank" href="http://gitcafe.net/goto/ad"><img src="https://img.alicdn.com/imgextra/i3/1597576229/TB2K9JPb3AEF1JjSZFLXXbzNXXa_!!1597576229.jpg" style="width:100%;"></a>'
     ),
     array(
         'name'  => '广告：文章页 - 页面标题下',
@@ -1422,7 +1422,7 @@ $options = array(
     ),
     array(
         'name'  => 'CDN加速域名',
-        'desc'  => '输入本项目之前，必须开启本功能，输入您的七牛云自定义域名，必须带 <font color="#cc0000"><strong>http://</strong></font>  结尾不能带/  <a class="button-primary" target="_blank" href="http://googlo.me/go/qiniu" title="立刻注册七牛，免费使用免备案高速CDN">注册七牛</a>，并获取链接<a rel="nofollow" href="http://71bbs.people.com.cn/postImages/89/CF/7B/F5/1509845597173.jpg" target="_blank">如图</a>',
+        'desc'  => '输入本项目之前，必须开启本功能，输入您的七牛云自定义域名，必须带 <font color="#cc0000"><strong>http://</strong></font>  结尾不能带/  <a class="button-primary" target="_blank" href="http://gitcafe.net/go/qiniu" title="立刻注册七牛，免费使用免备案高速CDN">注册七牛</a>，并获取链接<a rel="nofollow" href="http://71bbs.people.com.cn/postImages/89/CF/7B/F5/1509845597173.jpg" target="_blank">如图</a>',
         'id'    => 'git_cdnurl_b',
         'type'  => 'text',
         'std'   => ''
@@ -1575,7 +1575,7 @@ $options = array(
         'desc'  => '当用户点击弹窗的时候说点击的链接，默认为乐趣公园',
         'id'    => 'git_notification_link',
         'type'  => 'text',
-        'std'   => 'https://googlo.me'
+        'std'   => 'https://gitcafe.net'
     ),
 	array(
         'name'  => 'HTML5推送内容',
@@ -1951,8 +1951,8 @@ switch ( $value['type'] ) {
         <p>&nbsp;&nbsp;感谢大前端的D8主题，感谢欲思的欲思主题，感谢小影的主题，感谢知更鸟的主题，感谢露兜博客，感谢devework，感谢开源中国，感谢一直跟随主题版本升级的朋友们</p>
 <h2>其他事项</h2>
 <a class="button button-primary" href="https://coding.net/u/googlo/p/Git/git/commits/alpha" target="_blank">更新日志</a>
-<a class="button button-primary" href="http://googlo.me/bbs.html" target="_blank">支持论坛</a>
-<a class="button button-primary" href="https://googlo.me/archives/3275.html" target="_blank">使用文档</a>
+<a class="button button-primary" href="http://gitcafe.net/bbs.html" target="_blank">支持论坛</a>
+<a class="button button-primary" href="https://gitcafe.net/archives/3275.html" target="_blank">使用文档</a>
 <h2>关注公众号</h2>
 <p>欢迎关注乐趣公园公众号，<font color="#ff0000">PS.主题有不会使用的，也可以直接在公众号查找使用方法哦</font></p>
 <img src="https://wx2.sinaimg.cn/large/005zWjpngy1frjdjapztzj30by0by754.jpg"></img>

@@ -52,7 +52,7 @@ function git_admin_footer_text($text) {
             $text = '<strong><a href="/wp-admin/update-core.php" >更新Git最新版本 ' . Coding_git_ver() . '</a></strong>';
         }
     } else {
-        $text = '感谢使用<a target="_blank" href="http://googlo.me/" >Git主题 ' . GIT_VER . '</a>进行创作';
+        $text = '感谢使用<a target="_blank" href="http://gitcafe.net/" >Git主题 ' . GIT_VER . '</a>进行创作';
     }
     return $text;
 }
@@ -1162,7 +1162,7 @@ function lht(){
 }
 add_filter('login_headertitle', 'lht');
 /*
- * 强制阻止WordPress代码转义，关于代码高亮可以看这里http://googlo.me/archives/2986.html
+ * 强制阻止WordPress代码转义，关于代码高亮可以看这里http://gitcafe.net/archives/2986.html
 */
 function git_esc_html($content) {
     $regex = '/(<pre\s+[^>]*?class\s*?=\s*?[",\'].*?prettyprint.*?[",\'].*?>)(.*?)(<\/pre>)/sim';
@@ -2270,7 +2270,7 @@ function git_custom_adminbar_menu($meta = TRUE) {
     $wp_admin_bar->add_menu(array(
         'id' => 'git_guide',
         'title' => 'Git主题使用文档', /* 设置链接名 */
-        'href' => 'http://googlo.me/archives/3275.html', /* 设置链接地址 */
+        'href' => 'http://gitcafe.net/archives/3275.html', /* 设置链接地址 */
         'meta' => array(
             'target' => '_blank'
         )
@@ -3058,6 +3058,6 @@ function git_rips_unlink_tempfix( $data ) {
     return $data;
 }
 add_filter( 'wp_update_attachment_metadata', 'git_rips_unlink_tempfix' );
-//WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://googlo.me/archives/4032.html
+//WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://gitcafe.net/archives/4032.html
 
 ?>
