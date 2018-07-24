@@ -729,7 +729,6 @@ function hot_posts_list() {
             $postid = $topten->ID;
             $title = $topten->post_title;
             $commentcount = $topten->comment_count;
-            if ($commentcount != 0) {
                 $output.= '<li><p><span class="post-comments">评论 (' . $commentcount . ')</span><span class="muted"><a href="javascript:;" data-action="ding" data-id="' . $postid . '" id="Addlike" class="action';
                 if (isset($_COOKIE['bigfa_ding_' . $postid])) $output.= ' actived';
                 $output.= '"><i class="fa fa-heart-o"></i><span class="count">';
@@ -740,7 +739,6 @@ function hot_posts_list() {
                 }
                 $output.= '</span>赞</a></span></p><span class="label label-' . $i . '">' . $i . '</span><a href="' . get_permalink($postid) . '" title="' . $title . '">' . $title . '</a></li>';
                 $i++;
-            }
         }
     }
     echo $output;
