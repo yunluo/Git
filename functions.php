@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL^E_NOTICE);//镇魔石，镇压一切魑魅魍魉
 if (phpversion() < 5.5) {
     wp_die('本主题不支持在PHP5.5以下版本运行，请升级PHP版本 ^_^');
 }
@@ -52,7 +53,7 @@ function git_admin_footer_text($text) {
             $text = '<strong><a href="/wp-admin/update-core.php" >更新Git最新版本 ' . Coding_git_ver() . '</a></strong>';
         }
     } else {
-        $text = '感谢使用<a target="_blank" href="http://gitcafe.net/" >Git主题 ' . GIT_VER . '</a>进行创作';
+        $text = '感谢使用<a target="_blank" href="https://gitcafe.net/" >Git主题 ' . GIT_VER . '</a>进行创作';
     }
     return $text;
 }
@@ -1160,7 +1161,7 @@ function lht(){
 }
 add_filter('login_headertitle', 'lht');
 /*
- * 强制阻止WordPress代码转义，关于代码高亮可以看这里http://gitcafe.net/archives/2986.html
+ * 强制阻止WordPress代码转义，关于代码高亮可以看这里https://gitcafe.net/archives/2986.html
 */
 function git_esc_html($content) {
     $regex = '/(<pre\s+[^>]*?class\s*?=\s*?[",\'].*?prettyprint.*?[",\'].*?>)(.*?)(<\/pre>)/sim';
@@ -1525,7 +1526,7 @@ if (git_get_option('git_baidurecord_b') && function_exists('curl_init')):
 function baidu_check($url, $post_id){
     $baidu_record  = get_post_meta($post_id,'baidu_record',true);
     if( $baidu_record != 1){
-        $url='http://www.baidu.com/s?wd='.$url;
+        $url='https://www.baidu.com/s?wd='.$url;
         $curl=curl_init();
         curl_setopt($curl,CURLOPT_URL,$url);
         curl_setopt($curl,CURLOPT_RETURNTRANSFER,1);
@@ -1545,9 +1546,9 @@ function baidu_record() {
     global $wpdb;
     $post_id = ( null === $post_id ) ? get_the_ID() : $post_id;
     if(baidu_check(get_permalink($post_id), $post_id ) == 1) {
-        echo '<a target="_blank" title="点击查看" rel="external nofollow" href="http://www.baidu.com/s?wd='.get_the_title().'">已收录</a>';
+        echo '<a target="_blank" title="点击查看" rel="external nofollow" href="https://www.baidu.com/s?wd='.get_the_title().'">已收录</a>';
    } else {
-        echo '<a style="color:red;" rel="external nofollow" title="点击提交，谢谢您！" target="_blank" href="http://zhanzhang.baidu.com/sitesubmit/index?sitename='.get_permalink().'">未收录</a>';
+        echo '<a style="color:red;" rel="external nofollow" title="点击提交，谢谢您！" target="_blank" href="https://ziyuan.baidu.com/linksubmit/url?sitename='.get_permalink().'">未收录</a>';
    }
 }
 endif;
@@ -2268,7 +2269,7 @@ function git_custom_adminbar_menu($meta = TRUE) {
     $wp_admin_bar->add_menu(array(
         'id' => 'git_guide',
         'title' => 'Git主题使用文档', /* 设置链接名 */
-        'href' => 'http://gitcafe.net/archives/3275.html', /* 设置链接地址 */
+        'href' => 'https://gitcafe.net/archives/3275.html', /* 设置链接地址 */
         'meta' => array(
             'target' => '_blank'
         )
@@ -3056,6 +3057,6 @@ function git_rips_unlink_tempfix( $data ) {
     return $data;
 }
 add_filter( 'wp_update_attachment_metadata', 'git_rips_unlink_tempfix' );
-//WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://gitcafe.net/archives/4032.html
+//WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：https://gitcafe.net/archives/4032.html
 
 ?>

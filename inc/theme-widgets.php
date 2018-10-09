@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL^E_NOTICE);//镇魔石，镇压一切魑魅魍魉
 //广告小工具
 add_action('widgets_init', 'git_banners');
 function git_banners() {

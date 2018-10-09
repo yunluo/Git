@@ -187,7 +187,7 @@ if (git_get_option('git_auther_b') && !defined('UM_DIR')) { ?>
     } ?>
 <?php
     if (get_the_author_meta('baidu')) {
-        echo '<span class="socials-icon-wrap"><a class="ab-img ab-weixin" target="_blank" href="http://tieba.baidu.com/home/main?un=' . get_the_author_meta('baidu') . '&ie=utf-8" id="ab-weixin-a" title="百度贴吧"><i class="fa fa-paw"></i>
+        echo '<span class="socials-icon-wrap"><a class="ab-img ab-weixin" target="_blank" href="https://tieba.baidu.com/home/main?un=' . get_the_author_meta('baidu') . '&ie=utf-8" id="ab-weixin-a" title="百度贴吧"><i class="fa fa-paw"></i>
 </a></span>';
     } ?>
 <?php
