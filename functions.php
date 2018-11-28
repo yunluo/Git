@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ALL^E_NOTICE);//镇魔石，镇压一切魑魅魍魉
+error_reporting(E_ALL ^ E_NOTICE);//镇魔石，镇压一切魑魅魍魉！
 if (phpversion() < 5.5) {
     wp_die('本主题不支持在PHP5.5以下版本运行，请升级PHP版本 ^_^');
 }
@@ -53,7 +53,7 @@ function git_admin_footer_text($text) {
             $text = '<strong><a href="/wp-admin/update-core.php" >更新Git最新版本 ' . Coding_git_ver() . '</a></strong>';
         }
     } else {
-        $text = '感谢使用<a target="_blank" href="https://gitcafe.net/" >Git主题 ' . GIT_VER . '</a>进行创作';
+        $text = '感谢使用<a target="_blank" href="http://gitcafe.net/" >Git主题 ' . GIT_VER . '</a>进行创作';
     }
     return $text;
 }
@@ -353,6 +353,12 @@ function git_page_id($pagephp) {
     return $pageid;
 }
 
+//金币数据唯一性检查
+function git_check($k) {
+	global $wpdb;
+	$payresult = $wpdb->query("SELECT `point_id` FROM `" . Points_Database::points_get_table("users") . "` WHERE `description` = '{$k}' LIMIT 6", ARRAY_A);
+	return $payresult;//0=无数据，1=正常，>1均为错误数据
+}
 
 //搜索表单
 function git_searchform() {
@@ -1098,6 +1104,7 @@ function Ajax_data_zfunc_smiley_button() {
     }
 }
 add_action('admin_init', 'Ajax_data_zfunc_smiley_button');
+
 //后台回复评论支持表情插入
 function zfunc_admin_enqueue_scripts($hook_suffix) {
     global $pagenow;
@@ -1161,7 +1168,7 @@ function lht(){
 }
 add_filter('login_headertitle', 'lht');
 /*
- * 强制阻止WordPress代码转义，关于代码高亮可以看这里https://gitcafe.net/archives/2986.html
+ * 强制阻止WordPress代码转义，关于代码高亮可以看这里http://gitcafe.net/archives/2986.html
 */
 function git_esc_html($content) {
     $regex = '/(<pre\s+[^>]*?class\s*?=\s*?[",\'].*?prettyprint.*?[",\'].*?>)(.*?)(<\/pre>)/sim';
@@ -1441,6 +1448,56 @@ if (!git_get_option('git_updates_b')):
         add_action('admin_notices', 'shapeSpace_custom_admin_notice');
     endif;
 endif;
+
+//微信订阅推送
+function wx_send($post_ID) {
+	if (get_post_meta($post_ID, 'git_wx_submit', true) == 1) return;
+    if(!isset($_POST['git_wx_submit'])) return;
+	if( wp_is_post_revision($post_ID) ) return;
+	$text = get_the_title($post_ID); //微信推送信息标题
+	$wx_post_link = get_permalink($post_ID);//文章链接
+	$wx_post_content = deel_strimwidth(strip_tags(strip_shortcodes(get_post($post_ID)->post_content)) , 0, 210 , '……');
+	$desp = '>'.$wx_post_content.'
+
+***
+
+[【点击链接查看全文】]('.$wx_post_link.')'; //微信推送内容正文
+	$key = git_get_option('git_Pushbear_key');
+	$request = new WP_Http;
+	$api_url = 'https://pushbear.ftqq.com/sub';
+	$body = array(
+		'sendkey' => $key,
+		'text' => $text,
+		'desp' => $desp
+	);
+	$headers = 'Content-type: application/x-www-form-urlencoded';
+	$result = $request->post($api_url, array(
+            'body' => $body,
+            'headers' => $headers
+        )
+	);
+	add_post_meta($post_ID, 'git_wx_submit', 1, true);
+}
+if(git_get_option('git_Pushbear_key')){
+add_action('publish_post', 'wx_send');
+}
+
+//用于自动清理未付款订单，每天一次
+if(git_get_option('git_pay_way')=='git_eapay_ok'){
+function git_clear_activation() {
+	if ( !wp_next_scheduled( 'clean_daily_unpay' ) ) {
+		wp_schedule_event(time(), 'daily', 'clean_daily_unpay');
+	}
+}
+add_action('wp', 'git_clear_activation');
+function do_this_daily() {
+	global $wpdb;
+	$wcu_sql = "DELETE FROM `" . Points_Database::points_get_table("users") . "` WHERE `status` = 'pending'";
+	$wpdb->query($wcu_sql);
+}
+add_action('clean_daily_unpay', 'do_this_daily');
+}
+
 //新文章同步到新浪微博
 function post_to_sina_weibo($post_ID) {
     if (get_post_meta($post_ID, 'git_weibo_sync', true) == 1) return;
@@ -1481,6 +1538,7 @@ function post_to_sina_weibo($post_ID) {
 if (git_get_option('git_sinasync_b')) {
     add_action('publish_post', 'post_to_sina_weibo', 0);
 }
+
 /*
 //获取微博字符长度函数
 */
@@ -1526,7 +1584,7 @@ if (git_get_option('git_baidurecord_b') && function_exists('curl_init')):
 function baidu_check($url, $post_id){
     $baidu_record  = get_post_meta($post_id,'baidu_record',true);
     if( $baidu_record != 1){
-        $url='https://www.baidu.com/s?wd='.$url;
+        $url='http://www.baidu.com/s?wd='.$url;
         $curl=curl_init();
         curl_setopt($curl,CURLOPT_URL,$url);
         curl_setopt($curl,CURLOPT_RETURNTRANSFER,1);
@@ -1546,9 +1604,9 @@ function baidu_record() {
     global $wpdb;
     $post_id = ( null === $post_id ) ? get_the_ID() : $post_id;
     if(baidu_check(get_permalink($post_id), $post_id ) == 1) {
-        echo '<a target="_blank" title="点击查看" rel="external nofollow" href="https://www.baidu.com/s?wd='.get_the_title().'">已收录</a>';
+        echo '<a target="_blank" title="点击查看" rel="external nofollow" href="http://www.baidu.com/s?wd='.get_the_title().'">已收录</a>';
    } else {
-        echo '<a style="color:red;" rel="external nofollow" title="点击提交，谢谢您！" target="_blank" href="https://ziyuan.baidu.com/linksubmit/url?sitename='.get_permalink().'">未收录</a>';
+        echo '<a style="color:red;" rel="external nofollow" title="点击提交，谢谢您！" target="_blank" href="http://zhanzhang.baidu.com/sitesubmit/index?sitename='.get_permalink().'">未收录</a>';
    }
 }
 endif;
@@ -2269,7 +2327,7 @@ function git_custom_adminbar_menu($meta = TRUE) {
     $wp_admin_bar->add_menu(array(
         'id' => 'git_guide',
         'title' => 'Git主题使用文档', /* 设置链接名 */
-        'href' => 'https://gitcafe.net/archives/3275.html', /* 设置链接地址 */
+        'href' => 'http://gitcafe.net/archives/3275.html', /* 设置链接地址 */
         'meta' => array(
             'target' => '_blank'
         )
@@ -2379,8 +2437,8 @@ if (git_get_option('git_query')):
     add_filter('style_loader_src', '_remove_script_version', 15, 1);
 endif;
 //百度主动推送
-if (!function_exists('Baidu_Submit') && git_get_option('git_sitemap_api')) {
-    function Baidu_Submit($post_ID) {
+if (git_get_option('git_sitemap_api')) {
+    function git_Baidu_Submit($post_ID) {
         if (get_post_meta($post_ID, 'git_baidu_submit', true) == 1) return;
         $url = get_permalink($post_ID);
         $api = git_get_option('git_sitemap_api');
@@ -2395,7 +2453,7 @@ if (!function_exists('Baidu_Submit') && git_get_option('git_sitemap_api')) {
             add_post_meta($post_ID, 'git_baidu_submit', 1, true);
         }
     }
-    add_action('publish_post', 'Baidu_Submit', 0);
+    add_action('publish_post', 'git_Baidu_Submit', 0);
 }
 //登录可见
 function login_to_read($atts, $content = null) {
@@ -2439,6 +2497,7 @@ function secret_css() {
     }
 }
 add_action('wp_head', 'secret_css');
+
 // 支持文章和页面运行PHP代码
 function php_include($attr) {
     $file = $attr['file'];
@@ -2497,7 +2556,6 @@ function link_the_thumbnail_src() {
             if ($n > 0) {
                 return $strResult[1][0];
                 //没有缩略图就取文章中第一张图片作为缩略图
-
             } else {
                 $random = mt_rand(1, 12);
                 return get_template_directory_uri() . '/assets/img/pic/' . $random . '.jpg';
@@ -2822,8 +2880,8 @@ function git_users_search_order($obj) {
 //后台登陆数学验证码
 if (git_get_option('git_admin_captcha')):
     function git_add_login_fields() {
-        $num1 = rand(0, 99);
-        $num2 = rand(0, 20);
+        $num1 = mt_rand(0, 99);
+        $num2 = mt_rand(0, 20);
         echo "<p><label for='sum'> {$num1} + {$num2} = ?<br /><input type='text' name='sum' class='input' value='' size='25' tabindex='4'>" . "<input type='hidden' name='num1' value='{$num1}'>" . "<input type='hidden' name='num2' value='{$num2}'></label></p>";
     }
     add_action('login_form', 'git_add_login_fields');
@@ -3053,10 +3111,9 @@ function git_rips_unlink_tempfix( $data ) {
     if( isset($data['thumb']) ) {
         $data['thumb'] = basename($data['thumb']);
     }
-
     return $data;
 }
 add_filter( 'wp_update_attachment_metadata', 'git_rips_unlink_tempfix' );
-//WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：https://gitcafe.net/archives/4032.html
+//WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://gitcafe.net/archives/4032.html
 
 ?>

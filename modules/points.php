@@ -11,6 +11,16 @@ require_once ( POINTS_CORE_LIB . '/class-points-shortcodes.php' );
 require_once ( POINTS_CORE_LIB . '/class-points-admin.php' );
 require_once ( POINTS_CORE_LIB . '/class-points-table.php' );
 require_once ( POINTS_CORE_LIB . '/class-points-wordpress.php' );
+if(git_get_option('git_pay_way')=='git_youzan_ok'){
+require_once ( POINTS_CORE_LIB.'/youzan/YZGetTokenClient.php' );
+require_once ( POINTS_CORE_LIB.'/youzan/YZTokenClient.php' );
+}
+if(git_get_option('git_pay_way')=='git_payjs_ok'){
+require_once ( POINTS_CORE_LIB.'/Payjs.php' );
+}
+if(git_get_option('git_pay_way')=='git_eapay_ok'){
+require_once ( POINTS_CORE_LIB.'/Eapay.php' );
+}
 
 class Points_Class {
 	private static $notices = array();

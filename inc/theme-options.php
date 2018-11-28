@@ -642,6 +642,102 @@ $options = array(
         'std'   => ''
     ),
     array(
+        'type'  => 'hr'
+    ),
+    array(
+        'title' => '分类设置',
+        'type'  => 'subtitle'
+    ),
+    array(
+        'title' => 'CMS分类布局',
+        'type'  => 'subtitle'
+    ),
+    array(
+        'name'  => '是否开启CMS',
+        'desc'  => '启用 【不启用的话，显示是博客模式】',
+        'id'    => 'git_cms_b',
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => '网站是否开启卡片式',
+        'desc'  => '启用 【不启用的话，显示是传统博客形式】',
+        'id'    => 'git_card_b',
+        'type'  => 'checkbox',
+        'std'   => 'checked'
+    ),
+    array(
+        'name'  => '选择分类展示形式',
+        'desc'  => '选择一种风格作为分类页面的展示形式，有卡片式和列表式',
+        'id'    => 'git_cat_style',
+        'type'  => 'radio',
+        'options' => array(
+            '卡片风格' => 'git_cat_card',
+            '列表风格' => 'git_cat_list'
+        ),
+        'std'   => 'git_cat_card'
+    ),
+    array(
+        'name'  => '选择标签展示形式',
+        'desc'  => '选择一种风格作为标签页面的展示形式，有卡片式和列表式',
+        'id'    => 'git_tag_style',
+        'type'  => 'radio',
+        'options' => array(
+            '卡片风格' => 'git_tag_card',
+            '列表风格' => 'git_tag_list'
+        ),
+        'std'   => 'git_tag_card'
+    ),
+    array(
+        'name'  => 'cms 分类文章数目',
+        'desc'  => '默认4个,也可以8个',
+        'id'    => 'git_cat_num',
+        'type'  => 'number',
+        'std'   => 4
+    ),
+    array(
+        'name'  => '分类ID',
+        'desc'  => '显示在CMS首页的分类,举例：1,15,5,6,12,13,16,20',
+        'id'    => 'git_cat_id',
+        'type'  => 'text',
+        'std'   => ''
+    ),
+    array(
+        'type'  => 'hr'
+    ),
+    array(
+        'title' => '首页隐藏分类',
+        'type'  => 'subtitle'
+    ),
+    array(
+        'name'  => '屏蔽分类',
+        'desc'  => '格式按照-3,-4,-5输入',
+        'id'    => 'git_blockcat',
+        'type'  => 'text',
+        'std'   => ''
+    ),
+    array(
+        'title' => 'RSS隐藏分类',
+        'type'  => 'subtitle'
+    ),
+    array(
+        'name'  => '屏蔽分类',
+        'desc'  => '格式按照-3,-4,-5输入',
+        'id'    => 'git_blockcat_rss',
+        'type'  => 'text',
+        'std'   => ''
+    ),
+    array(
+        'title' => '搜索隐藏分类',
+        'type'  => 'subtitle'
+    ),
+    array(
+        'name'  => '屏蔽分类',
+        'desc'  => '格式按照-3,-4,-5输入',
+        'id'    => 'git_blockcat_search',
+        'type'  => 'text',
+        'std'   => ''
+    ),
+    array(
         'type'  => 'panelend'
     ),
     array(
@@ -816,103 +912,6 @@ $options = array(
         'type'  => 'panelend'
     ),
     array(
-        'title' => '分类设置',
-        'id'    => 'panel_cat',
-        'type'  => 'panelstart'
-    ),
-    array(
-        'title' => 'CMS分类布局',
-        'type'  => 'subtitle'
-    ),
-    array(
-        'name'  => '是否开启CMS',
-        'desc'  => '启用 【不启用的话，显示是博客模式】',
-        'id'    => 'git_cms_b',
-        'type'  => 'checkbox'
-    ),
-    array(
-        'name'  => '网站是否开启卡片式',
-        'desc'  => '启用 【不启用的话，显示是传统博客形式】',
-        'id'    => 'git_card_b',
-        'type'  => 'checkbox',
-        'std'   => 'checked'
-    ),
-    array(
-        'name'  => '选择分类展示形式',
-        'desc'  => '选择一种风格作为分类页面的展示形式，有卡片式和列表式',
-        'id'    => 'git_cat_style',
-        'type'  => 'radio',
-        'options' => array(
-            '卡片风格' => 'git_cat_card',
-            '列表风格' => 'git_cat_list'
-        ),
-        'std'   => 'git_cat_card'
-    ),
-    array(
-        'name'  => '选择标签展示形式',
-        'desc'  => '选择一种风格作为标签页面的展示形式，有卡片式和列表式',
-        'id'    => 'git_tag_style',
-        'type'  => 'radio',
-        'options' => array(
-            '卡片风格' => 'git_tag_card',
-            '列表风格' => 'git_tag_list'
-        ),
-        'std'   => 'git_tag_card'
-    ),
-    array(
-        'name'  => 'cms 分类文章数目',
-        'desc'  => '默认4个,也可以8个',
-        'id'    => 'git_cat_num',
-        'type'  => 'number',
-        'std'   => 4
-    ),
-    array(
-        'name'  => '分类ID',
-        'desc'  => '显示在CMS首页的分类,举例：1,15,5,6,12,13,16,20',
-        'id'    => 'git_cat_id',
-        'type'  => 'text',
-        'std'   => ''
-    ),
-    array(
-        'type'  => 'hr'
-    ),
-    array(
-        'title' => '首页隐藏分类',
-        'type'  => 'subtitle'
-    ),
-    array(
-        'name'  => '屏蔽分类',
-        'desc'  => '格式按照-3,-4,-5输入',
-        'id'    => 'git_blockcat',
-        'type'  => 'text',
-        'std'   => ''
-    ),
-    array(
-        'title' => 'RSS隐藏分类',
-        'type'  => 'subtitle'
-    ),
-    array(
-        'name'  => '屏蔽分类',
-        'desc'  => '格式按照-3,-4,-5输入',
-        'id'    => 'git_blockcat_rss',
-        'type'  => 'text',
-        'std'   => ''
-    ),
-    array(
-        'title' => '搜索隐藏分类',
-        'type'  => 'subtitle'
-    ),
-    array(
-        'name'  => '屏蔽分类',
-        'desc'  => '格式按照-3,-4,-5输入',
-        'id'    => 'git_blockcat_search',
-        'type'  => 'text',
-        'std'   => ''
-    ),
-    array(
-        'type'  => 'panelend'
-    ),
-    array(
         'title' => '社交设置',
         'id'    => 'panel_social',
         'type'  => 'panelstart'
@@ -997,7 +996,7 @@ $options = array(
         'id'    => 'git_customicon_icon',
         'type'  => 'text',
         'std'   => ''
-    ), 
+    ),
     array(
         'type'  => 'panelend'
     ),
@@ -1120,7 +1119,7 @@ $options = array(
         'desc'  => '如果幻灯没开启，则不显示',
         'id'    => 'git_adindex_02',
         'type'  => 'textarea',
-        'std'   => '<a target="_blank" href="https://gitcafe.net/goto/ad"><img src="https://img.alicdn.com/imgextra/i3/1597576229/TB2K9JPb3AEF1JjSZFLXXbzNXXa_!!1597576229.jpg" style="width:100%;"></a>'
+        'std'   => ''
     ),
     array(
         'name'  => '广告：文章页 - 页面标题下',
@@ -1341,7 +1340,107 @@ $options = array(
         'type'  => 'text',
         'std'   => ''
     ),
-
+    array(
+        'type'  => 'panelend'
+    ),
+    array(
+        'title' => '支付设置',
+        'id'    => 'panel_pay',
+        'type'  => 'panelstart'
+    ),
+	array(
+        'title' => '统一支付设置',
+        'type'  => 'subtitle'
+    ),
+	array(
+        'name'  => '金币和RMB兑换关系',
+        'desc'  => '请输入兑换关系，比如1RMB=10金币，请慎重选择，一旦设置好后面不能修改的',
+        'id'    => 'git_chongzhi_dh',
+        'type'  => 'number',
+        'std'   => 10
+    ),
+	array(
+        'name'  => '选择一个支付方式',
+        'desc'  => '三种方案选择其中一种，必须选择一个哦',
+        'id'    => 'git_pay_way',
+        'type'  => 'radio',
+        'options' => array(
+            '调用有赞支付' => 'git_youzan_ok',
+			'调用Payjs支付' => 'git_payjs_ok',
+            '调用简付支付' => 'git_eapay_ok'
+        ),
+        'std'   => 'git_youzan_ok'
+    ),
+	array(
+        'type'  => 'hr'
+    ),
+	array(
+        'title' => '有赞支付设置&nbsp;&nbsp;&nbsp;<a href="https://console.youzanyun.com/login" target="_blank" >注册有赞</a>',
+        'type'  => 'subtitle'
+    ),
+	array(
+        'name'  => '有赞client_id',
+        'desc'  => '',
+        'id'    => 'git_yzclient_id',
+        'type'  => 'text',
+        'std'   => 2333333333
+    ),
+	array(
+        'name'  => '有赞client_secret',
+        'desc'  => '',
+        'id'    => 'git_yzclient_secret',
+        'type'  => 'text',
+        'std'   => 444444444
+    ),
+	array(
+        'name'  => '有赞授权店铺id',
+        'desc'  => '',
+        'id'    => 'git_yzkdt_id',
+        'type'  => 'text',
+        'std'   => 4025684
+    ),
+    array(
+        'type'  => 'hr'
+    ),
+	array(
+        'title' => 'PayJs支付设置&nbsp;&nbsp;&nbsp;<a href="https://payjs.cn/ref/ZVEMKD" target="_blank" >注册PayJs</a>',
+        'type'  => 'subtitle'
+    ),
+	array(
+        'name'  => 'PayJs商户号',
+        'desc'  => '',
+        'id'    => 'git_payjs_id',
+        'type'  => 'text',
+        'std'   => 2333333333
+    ),
+	array(
+        'name'  => 'PayJs密钥',
+        'desc'  => '',
+        'id'    => 'git_payjs_secret',
+        'type'  => 'text',
+        'std'   => 444444444
+    ),
+    array(
+        'type'  => 'hr'
+    ),
+	array(
+        'title' => '简付支付设置&nbsp;&nbsp;&nbsp;<a href="https://b.eapay.cc" target="_blank" >注册简付</a>',
+        'type'  => 'subtitle'
+    ),
+	array(
+        'name'  => '简付App ID',
+        'desc'  => '',
+        'id'    => 'git_eapay_id',
+        'type'  => 'text',
+        'std'   => 2333333333
+    ),
+	array(
+        'name'  => '简付App Key',
+        'desc'  => '',
+        'id'    => 'git_eapay_secret',
+        'type'  => 'text',
+        'std'   => 444444444
+    ),
     array(
         'type'  => 'panelend'
     ),
@@ -1463,41 +1562,6 @@ $options = array(
 	array(
         'type'  => 'hr'
     ),
-	array(
-        'title' => '有赞支付设置',
-        'type'  => 'subtitle'
-    ),
-	array(
-        'name'  => '有赞client_id',
-        'desc'  => '',
-        'id'    => 'git_yzclient_id',
-        'type'  => 'text',
-        'std'   => 2333333333
-    ),
-	array(
-        'name'  => '有赞client_secret',
-        'desc'  => '',
-        'id'    => 'git_yzclient_secret',
-        'type'  => 'text',
-        'std'   => 444444444
-    ),
-	array(
-        'name'  => '有赞授权店铺id',
-        'desc'  => '',
-        'id'    => 'git_yzkdt_id',
-        'type'  => 'text',
-        'std'   => 4025684
-    ),
-	array(
-        'name'  => '金币和RMB兑换关系',
-        'desc'  => '请输入兑换关系，比如1RMB=10金币',
-        'id'    => 'git_chongzhi_dh',
-        'type'  => 'number',
-        'std'   => 10
-    ),
-    array(
-        'type'  => 'hr'
-    ),
     array(
         'title' => '微信推送设置',
         'type'  => 'subtitle'
@@ -1510,8 +1574,15 @@ $options = array(
     ),
     array(
         'name'  => '微信推送KEY',
-        'desc'  => '请输入您的微信推送KEY,根据上面教程获取',
+        'desc'  => '请输入您的微信推送KEY',
         'id'    => 'git_Server_key',
+        'type'  => 'text',
+        'std'   => ''
+    ),
+    array(
+        'name'  => '微信订阅推送KEY',
+        'desc'  => '请输入您的微信推送KEY,和上面那个不一样',
+        'id'    => 'git_Pushbear_key',
         'type'  => 'text',
         'std'   => ''
     ),

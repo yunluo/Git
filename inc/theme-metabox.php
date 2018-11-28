@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL ^ E_NOTICE);//镇魔石，镇压一切魑魅魍魉！
 if ( !class_exists('myCustomFields') ) {
  
     class myCustomFields {
@@ -9,28 +10,20 @@ if ( !class_exists('myCustomFields') ) {
         /**
         * @var  array  $postTypes  这是自定义面板的使用范围，这里一般就是在文章以及页面
         */
-        var $postTypes = array( "page", "post", "product" , "gallery" );
+        var $postTypes = array( "page", "post", "product" );
         /**
         * @var  array  $customFields  开始组件自定义面板数组
         */
         var $customFields = array(
-            /*
+            
             array(
-                "name"          => "baidu_submit",
-                "title"         => "禁用百度实时推送",
-                "description"   => "选择之后本篇文章就不推送到百度",
+                "name"          => "wx_submit",
+                "title"         => "推送到订阅用户微信",
+                "description"   => "请慎重选择是否推送，优质的文章才值得推送哦，滥用此功能的可能会被禁用该功能哦~",
                 "type"          => "checkbox",
-                "scope"         =>   array( "post", "page" ),
+                "scope"         =>   array( "post" ),
                 "capability"    => "manage_options"
             ),
-            array(
-                "name"          => "weibo_sync",
-                "title"         => "禁用新浪微博同步",
-                "description"   => "选择之后文章可以不同步到新浪微博，不选择默认同步【需配置好新浪微博同步】",
-                "type"          => "checkbox",
-                "scope"         =>   array( "post", "page" ),
-                "capability"    => "manage_options"
-            ),*/
             array(
                 "name"          => "thumb",
                 "title"         => "自定义缩略图/主图",
