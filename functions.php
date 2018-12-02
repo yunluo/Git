@@ -235,7 +235,7 @@ if (function_exists('register_sidebar')) {
 //获取最新版本号
 if (!git_get_option('git_updates_b')):
     function Coding_git_ver() {
-        $jsonbody = curl_post('https://coding.net/u/googlo/p/File/git/raw/master/info.json');
+        $jsonbody = curl_post('https://raw.githubusercontent.com/yunluo/Git/gh-pages/info.json');
         $arr = json_decode($jsonbody['data']); //解析
         $coding_ver = $arr->version;
         if ($jsonbody['code'] == 200) {
