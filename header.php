@@ -198,7 +198,7 @@ switch ( git_get_option('git_skin_b') ){
 <div id="nav-header" class="navbar" style="border-bottom: 4px solid <?php echo $navcolor;?> ;">
 <?php
 if (git_get_option('git_bdshare_b')) echo '<style type="text/css">.bdsharebuttonbox a{cursor:pointer;border-bottom:0;margin-right:5px;width:28px;height:28px;line-height:28px;color:#fff}.bds_renren{background:#94b3eb}.bds_qzone{background:#fac33f}.bds_more{background:#40a57d}.bds_weixin{background:#7ad071}.bdsharebuttonbox a:hover{background-color:#7fb4ab;color:#fff;border-bottom:0}</style>'; ?>
-<div class="toggle-search m-search" style="float:right;position:absolute;top:0;right:0;"><i class="fa fa-search"></i></div><div class="search-expand m-search" style="display:none;"><div class="search-expand-inner m-search">
+<div class="toggle-search pc-hide" style="float:right;position:absolute;top:0;right:0;"><i class="fa fa-search"></i></div><div class="search-expand pc-hide" style="display:none;"><div class="search-expand-inner pc-hide">
 <?php if (git_get_option('git_search_baidu')) { ?>
 <?php echo git_get_option('git_search_code'); ?></div></div>
 <?php }else{ ?>
@@ -207,7 +207,7 @@ if (git_get_option('git_bdshare_b')) echo '<style type="text/css">.bdsharebutton
 <ul class="nav">
 <?php
 echo str_replace('</ul></div>', '', preg_replace('/<div[^>]*><ul[^>]*>/', '', wp_nav_menu(array('theme_location' => 'nav', 'echo' => false))));?>
-<li style="float:right;"><div class="toggle-search pc-search"><i class="fa fa-search"></i></div><div class="search-expand" style="display: none;"><div class="search-expand-inner">
+<li style="float:right;"><div class="toggle-search m-hide"><i class="fa fa-search"></i></div><div class="search-expand" style="display: none;"><div class="search-expand-inner">
 <?php if (git_get_option('git_search_baidu')) { ?>
 <?php echo git_get_option('git_search_code'); ?></div></div>
 <?php }else{ ?>
