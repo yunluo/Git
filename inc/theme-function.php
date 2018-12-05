@@ -617,4 +617,20 @@ function git_rips_unlink_tempfix( $data ) {
 }
 add_filter( 'wp_update_attachment_metadata', 'git_rips_unlink_tempfix' );
 
+//禁止WordPress检测重复评价
+function disable_repeat_check($comment_data){
+    $random = md5(time()); 
+    $comment_data['comment_content'] .= "iloveyunluo{" . $random . "}iloveyunluo";
+    return $comment_data;
+}
+add_filter('preprocess_comment', 'disable_repeat_check');
+  
+function disable_repeat_check_post($comment_id){
+    global $wpdb;
+    $comment_content = $wpdb->get_var("SELECT comment_content FROM $wpdb->comments WHERE comment_ID = '$comment_id' LIMIT 1");   
+    $comment_content = preg_replace("/iloveyunluo\{.*\}iloveyunluo/", "", $comment_content);
+    $wpdb->query("UPDATE $wpdb->comments SET comment_content = '" . $wpdb->escape($comment_content) . "' WHERE comment_ID = '$comment_id' LIMIT 1");
+}
+add_action('comment_post', 'disable_repeat_check_post');
+
 ?>

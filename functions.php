@@ -160,12 +160,12 @@ function git_remove_dns_prefetch($hints, $relation_type) {
 }
 add_filter('wp_resource_hints', 'git_remove_dns_prefetch', 10, 2);
 //站长评论邮件添加评论链接
-function git_notify_postauthor($comment_id) {
-    $notify_message = $comment_id;
-    $notify_message.= '快速回复此评论: ' . admin_url("edit-comments.php");
-    return $notify_message;
+function git_notify_postauthor($notify_message,$comment_ID) {
+    $notify = $notify_message;
+    $notify.= '快速回复此评论: ' . admin_url("edit-comments.php").'#comment-'.$comment_ID;
+    return $notify;
 }
-add_filter('comment_notification_text', 'git_notify_postauthor');
+add_filter('comment_notification_text', 'git_notify_postauthor', 10, 2);
 add_filter('wp_password_change_notification_email', '__return_false'); //关闭密码修改站长邮件
 add_filter('password_change_email', '__return_false'); //关闭密码修改用户邮件
 if (git_get_option('git_user_notification_to_admin')) add_filter('wp_new_user_notification_email_admin', '__return_false'); //关闭新用户注册站长邮件
