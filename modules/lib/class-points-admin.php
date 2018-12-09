@@ -116,7 +116,7 @@ class Points_Admin {
 		}
 
 		if ($alert != "") {
-			echo '<div style="background-color: #ffffe0;border: 1px solid #993;padding: 1em;margin-right: 1em;">' . $alert . '</div>';
+			echo '<div style="background-color: #ffffe0;border: 1px solid #993;padding: 1em;margin-right: 1em;">' . filter_var($alert, FILTER_SANITIZE_STRING) . '</div>';
 		}
 
 		$current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];

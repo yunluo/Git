@@ -65,7 +65,7 @@ while (have_posts()):
 <?php
     the_content(); ?>
 <form class="googlo-tougao" method="post" action="<?php
-    echo $_SERVER["REQUEST_URI"];
+    echo htmlspecialchars($_SERVER["REQUEST_URI"]);
     $current_user = wp_get_current_user(); ?>">
 <div style="text-align: left; padding-top: 10px;">
 <p><label for="tougao_authorname">昵称:*</label></p><input style="width : 98%;" type="text" size="80" value="" id="tougao_authorname" name="tougao_authorname" />

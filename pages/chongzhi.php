@@ -93,7 +93,7 @@ if(isset($_POST['money'])){
 	header("Location:{$eapay->cashier($data)}");
 	}else{echo '<div class="pull-center">
 	<p class="pull-center">请使用微信或者支付宝扫描二维码</p>
-<p class="pull-center">你当前正在充值的金额为&nbsp;<font style="font-weight:bold;" color="#cc0000">'.$_POST['money'].'</font> 元</p>
+<p class="pull-center">你当前正在充值的金额为&nbsp;<font style="font-weight:bold;" color="#cc0000">'.filter_var($_POST['money'], FILTER_SANITIZE_NUMBER_INT).'</font> 元</p>
 <img class="pull-center" src="' . $SKQR . '" />
 </div>';}
 }

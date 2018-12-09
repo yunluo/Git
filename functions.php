@@ -700,7 +700,7 @@ add_action('wp_ajax_nopriv_bigfa_like', 'bigfa_like');
 add_action('wp_ajax_bigfa_like', 'bigfa_like');
 function bigfa_like() {
     global $wpdb, $post;
-    $id = $_POST["um_id"];
+    $id = filter_var($_POST["um_id"], FILTER_SANITIZE_NUMBER_INT);
     $action = $_POST["um_action"];
     if ($action == 'ding') {
         $bigfa_raters = get_post_meta($id, 'bigfa_ding', true);
