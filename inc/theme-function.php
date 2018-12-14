@@ -1,5 +1,56 @@
 <?php
 
+//获取页面id，并且不可重用
+function git_page_id($pagephp) {
+    global $wpdb;
+    $pageid = $wpdb->get_row("SELECT `post_id` FROM `{$wpdb->postmeta}` WHERE `meta_value` = 'pages/{$pagephp}.php'", ARRAY_A) ['post_id'];
+    return $pageid;
+}
+
+//金币数据唯一性检查
+function git_check($k) {
+	global $wpdb;
+	$payresult = $wpdb->query("SELECT `point_id` FROM `" . Points_Database::points_get_table("users") . "` WHERE `description` = '{$k}' LIMIT 6", ARRAY_A);
+	return $payresult;//0=无数据，1=正常，>1均为错误数据
+}
+
+//微信订阅推送
+function wx_send($post_ID) {
+	if (get_post_meta($post_ID, 'git_wx_submit', true) == 1) return;
+    if(!isset($_POST['git_wx_submit'])) return;
+	if( wp_is_post_revision($post_ID) ) return;
+	$text = get_the_title($post_ID); //微信推送信息标题
+	$wx_post_link = get_permalink($post_ID);//文章链接
+	$wx_post_content = deel_strimwidth(strip_tags(strip_shortcodes(get_post($post_ID)->post_content)) , 0, 210 , '……');
+	$desp = '>'.$wx_post_content.'
+
+***
+
+[【点击链接查看全文】]('.$wx_post_link.')'; //微信推送内容正文
+	$key = git_get_option('git_Pushbear_key');
+	$request = new WP_Http;
+	$api_url = 'https://pushbear.ftqq.com/sub';
+	$body = array(
+		'sendkey' => $key,
+		'text' => $text,
+		'desp' => $desp
+	);
+	$headers = 'Content-type: application/x-www-form-urlencoded';
+	$result = $request->post($api_url, array(
+            'body' => $body,
+            'headers' => $headers
+        )
+	);
+	add_post_meta($post_ID, 'git_wx_submit', 1, true);
+}
+if(git_get_option('git_Pushbear_key')){
+add_action('publish_post', 'wx_send');
+}
+
+//禁用新版编辑器
+add_filter('use_block_editor_for_post', '__return_false');
+remove_action( 'wp_enqueue_scripts', 'wp_common_block_scripts_and_styles' );
+
 // 支持文章和页面运行PHP代码
 function php_include($attr) {
     $file = $attr['file'];
@@ -618,6 +669,7 @@ function git_rips_unlink_tempfix( $data ) {
 add_filter( 'wp_update_attachment_metadata', 'git_rips_unlink_tempfix' );
 
 //禁止WordPress检测重复评价
+/*  暂时禁用
 function disable_repeat_check($comment_data){
     $random = mt_rand(1, 12); 
     $comment_data['comment_content'] .= "￥{" . $random . "}￥";
@@ -632,5 +684,70 @@ function disable_repeat_check_post($comment_id){
     $wpdb->query("UPDATE $wpdb->comments SET comment_content = '" . $wpdb->escape($comment_content) . "' WHERE comment_ID = '$comment_id' LIMIT 1");
 }
 add_action('comment_post', 'disable_repeat_check_post');
+*/
+//标签增加另外选项
+class Git_Tax_Image{
+    function __construct(){
+		add_action( 'post_tag_add_form_fields', array( $this, 'add_tax_image_field' ) );
+		add_action( 'post_tag_edit_form_fields', array( $this, 'edit_tax_image_field' ) );
+		add_action( 'edited_post_tag', array( $this, 'save_tax_meta' ), 10, 2 );
+		add_action( 'create_post_tag', array( $this, 'save_tax_meta' ), 10, 2 );
+    } // __construct
+    public function add_tax_image_field(){
+    ?>
+        <div class="form-field">
+            <label for="term_meta[tax_image]">标签封面</label>
+            <input type="text" name="term_meta[tax_image]" id="term_meta[tax_image]" value="" />
+            <p class="description">输入标签封面图片URL</p>
+        </div><!-- /.form-field -->
+        <div class="form-field">
+            <label for="term_meta[tax_title]">标签标题</label>
+            <input type="text" name="term_meta[tax_title]" id="term_meta[tax_title]" value="" />
+            <p class="description">输入标签标题</p>
+        </div>
+
+    <?php
+    } // add_tax_image_field
+    public function edit_tax_image_field( $term ){
+        $term_id = $term->term_id;
+        $term_meta = get_option( "ludou_taxonomy_$term_id" );
+        $image = $term_meta['tax_image'] ? $term_meta['tax_image'] : '';
+        $keywords = $term_meta['tax_title'] ? $term_meta['tax_title'] : '';
+
+    ?>
+        <tr class="form-field">
+            <th scope="row">
+                <label for="term_meta[tax_image]">标签封面</label>
+                <td>
+                    <input type="text" name="term_meta[tax_image]" id="term_meta[tax_image]" value="<?php echo esc_url( $image ); ?>" />
+                    <p class="description">输入标签封面图片URL</p>
+                </td>
+            </th>
+        </tr><!-- /.form-field -->
+        <tr class="form-field">
+            <th scope="row">
+                <label for="term_meta[tax_title]">标签标题</label>
+                <td>
+                    <input type="text" name="term_meta[tax_title]" id="term_meta[tax_title]" value="<?php echo $keywords; ?>" />
+                    <p class="description">输入标签标题</p>
+                </td>
+            </th>
+        </tr>
+    <?php
+    } // edit_tax_image_field
+    public function save_tax_meta( $term_id ){
+
+        if ( isset( $_POST['term_meta'] ) ) {
+            $t_id = $term_id;
+            $term_meta = array();
+            $term_meta['tax_image'] = isset ( $_POST['term_meta']['tax_image'] ) ? esc_url( $_POST['term_meta']['tax_image'] ) : '';
+            $term_meta['tax_title'] = isset ( $_POST['term_meta']['tax_title'] ) ? $_POST['term_meta']['tax_title'] : '';
+            update_option( "ludou_taxonomy_$t_id", $term_meta );
+        } // if isset( $_POST['term_meta'] )
+    } // save_tax_meta
+
+} // Git_Tax_Image
+
+$wptt_tax_image = new Git_Tax_Image();
 
 ?>

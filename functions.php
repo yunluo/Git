@@ -347,19 +347,6 @@ function deel_share() {
     global $dHasShare;
     $dHasShare = true;
 }
-//获取页面id，并且不可重用
-function git_page_id($pagephp) {
-    global $wpdb;
-    $pageid = $wpdb->get_row("SELECT `post_id` FROM `{$wpdb->postmeta}` WHERE `meta_value` = 'pages/{$pagephp}.php'", ARRAY_A) ['post_id'];
-    return $pageid;
-}
-
-//金币数据唯一性检查
-function git_check($k) {
-	global $wpdb;
-	$payresult = $wpdb->query("SELECT `point_id` FROM `" . Points_Database::points_get_table("users") . "` WHERE `description` = '{$k}' LIMIT 6", ARRAY_A);
-	return $payresult;//0=无数据，1=正常，>1均为错误数据
-}
 
 //搜索表单
 function git_searchform() {
@@ -1450,38 +1437,6 @@ if (!git_get_option('git_updates_b')):
     endif;
 endif;
 
-//微信订阅推送
-function wx_send($post_ID) {
-	if (get_post_meta($post_ID, 'git_wx_submit', true) == 1) return;
-    if(!isset($_POST['git_wx_submit'])) return;
-	if( wp_is_post_revision($post_ID) ) return;
-	$text = get_the_title($post_ID); //微信推送信息标题
-	$wx_post_link = get_permalink($post_ID);//文章链接
-	$wx_post_content = deel_strimwidth(strip_tags(strip_shortcodes(get_post($post_ID)->post_content)) , 0, 210 , '……');
-	$desp = '>'.$wx_post_content.'
-
-***
-
-[【点击链接查看全文】]('.$wx_post_link.')'; //微信推送内容正文
-	$key = git_get_option('git_Pushbear_key');
-	$request = new WP_Http;
-	$api_url = 'https://pushbear.ftqq.com/sub';
-	$body = array(
-		'sendkey' => $key,
-		'text' => $text,
-		'desp' => $desp
-	);
-	$headers = 'Content-type: application/x-www-form-urlencoded';
-	$result = $request->post($api_url, array(
-            'body' => $body,
-            'headers' => $headers
-        )
-	);
-	add_post_meta($post_ID, 'git_wx_submit', 1, true);
-}
-if(git_get_option('git_Pushbear_key')){
-add_action('publish_post', 'wx_send');
-}
 
 //用于自动清理未付款订单，每天一次
 if(git_get_option('git_pay_way')=='git_eapay_ok'){
