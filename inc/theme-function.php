@@ -1,5 +1,19 @@
 <?php
 
+//获取云落的远程通知，加入缓存，1天一次
+function get_Yunluo_Notice(){
+	$Yunluo_Notice = get_transient('Yunluo_Notice');
+	if(false === $Yunluo_Notice){
+        $Yunluo_Notice = wp_remote_get('https://raw.githubusercontent.com/yunluo/Git/gh-pages/notice.txt');
+		if ( is_array( $Yunluo_Notice ) && !is_wp_error($Yunluo_Notice) && $Yunluo_Notice['response']['code'] == '200' ) {
+			set_transient('Yunluo_Notice', $Yunluo_Notice['body'], 60*60*24);//缓存120小时
+		}else{
+			set_transient('Yunluo_Notice', '有点小尴尬哈啊，服务器菌暂时喝醉了呢，先休息2小时~，', 60*60*2);//缓存2小时
+		}
+    }
+    return $Yunluo_Notice;
+}
+
 //获取页面id，并且不可重用
 function git_page_id($pagephp) {
     global $wpdb;
