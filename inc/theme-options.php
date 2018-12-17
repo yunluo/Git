@@ -1857,7 +1857,9 @@ function git_options_page() {
 
 <div class="wrap">
     <h2>Git 主题选项</h2>
-    <div class="yunluotips"><?php echo get_Yunluo_Notice(); ?></div>
+	<div class="notice notice-warning">
+    <p><?php echo get_Yunluo_Notice(); ?></p>
+	</div>
     <div class="notice notice-info catlist">
     <p>您的网站分类列表：<?php echo Bing_show_category(); ?></p>
 	</div>
@@ -2048,7 +2050,7 @@ switch ( $value['type'] ) {
 </p>
 </form>
 </div>
-<style>.yunluotips{border: 2px solid #FFCC33;padding: 20px}.yunluotips:hover{background: #FFCC33;}.panel{display:none}.panel h3{margin:0;font-size:1.2em}#panel_update ul{list-style-type:disc}.nav-tab-wrapper{clear:both}.nav-tab{position:relative}.nav-tab i:before{position:absolute;top:-10px;right:-8px;display:inline-block;padding:2px;border-radius:50%;background:#e14d43;color:#fff;content:"\f463";vertical-align:text-bottom;font:400 18px/1 dashicons;speak:none}#theme-options-search{display:block;float:right;margin-top:5px;width:280px;font-weight:300;font-size:16px;line-height:1.5}.catlist{float:left;display:block}.wrap.searching .nav-tab-wrapper a,.wrap.searching .panel tr,#attrselector{display:none}.wrap.searching .panel{display:block !important}#attrselector[attrselector*=ok]{display:block}</style>
+<style>.panel{display:none}.panel h3{margin:0;font-size:1.2em}#panel_update ul{list-style-type:disc}.nav-tab-wrapper{clear:both}.nav-tab{position:relative}.nav-tab i:before{position:absolute;top:-10px;right:-8px;display:inline-block;padding:2px;border-radius:50%;background:#e14d43;color:#fff;content:"\f463";vertical-align:text-bottom;font:400 18px/1 dashicons;speak:none}#theme-options-search{display:block;float:right;margin-top:5px;width:280px;font-weight:300;font-size:16px;line-height:1.5}.catlist{float:left;display:block}.wrap.searching .nav-tab-wrapper a,.wrap.searching .panel tr,#attrselector{display:none}.wrap.searching .panel{display:block !important}#attrselector[attrselector*=ok]{display:block}</style>
 <style id="theme-options-filter"></style>
 <div id="attrselector" attrselector="ok" ></div>
 <script>
