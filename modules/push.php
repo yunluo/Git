@@ -30,7 +30,7 @@ if($data['test'] == true){
  }
 
  //需要做唯一性检查
- if(git_check($data['id']) == 1) exit('Repeat push');
+ if(git_check($data['id']) >= 1) exit('Repeat push');
 
  /**
   * msg内容经过 urlencode 编码，需进行解码
@@ -53,7 +53,7 @@ if(git_get_option('git_pay_way')=='git_payjs_ok'){
     $payjs = new Payjs($config);
 	$data = $payjs->notify();//
 	//需要做唯一性检查
-	if(git_check($data['out_trade_no']) == 1) exit('Repeat push');
+	if(git_check($data['out_trade_no']) >= 1) exit('Repeat push');
 	if($data['return_code'] == 1){
 			$amount = $data['total_fee']/100; 	//交易金额
 			$userid = $data['attach']; 	//交易标题
@@ -78,6 +78,7 @@ if(git_get_option('git_pay_way')=='git_eapay_ok'){
 	echo 'success';
 }
 /* 简付支付通知结束 */
+if(empty($userid) ||empty($amount) )exit('数据为空');//阻止某些极少数空值的
 
 	$user = get_user_by( 'id', $userid  );
 	$point_number = $amount * git_get_option('git_chongzhi_dh');
