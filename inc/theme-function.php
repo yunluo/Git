@@ -1,5 +1,18 @@
 <?php
 
+function force_github_login_url( $login_url, $redirect, $force_reauth ){
+    $login_url = github_oauth_url();
+    if ( ! empty( $redirect ) ) {
+        $login_url = add_query_arg( 'redirect_to', urlencode( $redirect ), $login_url );
+    }
+    if ( $force_reauth ) {
+        $login_url = add_query_arg( 'reauth', '1', $login_url );
+    }
+    return $login_url;
+}if(git_get_option('git_github_oauth_force')){
+add_filter( 'login_url', 'force_github_login_url', 10, 3 );
+}
+
 //获取云落的远程通知，加入缓存，1天一次
 function get_Yunluo_Notice(){
 	$Yunluo_Notice = get_transient('Yunluo_Notice');
@@ -36,7 +49,10 @@ function wx_send($post_ID) {
 	$text = get_the_title($post_ID); //微信推送信息标题
 	$wx_post_link = get_permalink($post_ID);//文章链接
 	$wx_post_content = deel_strimwidth(strip_tags(strip_shortcodes(get_post($post_ID)->post_content)) , 0, 210 , '……');
-	$desp = '>'.$wx_post_content.'
+	$desp = '![特色图]('.link_the_thumbnail_src().')
+***
+
+>'.$wx_post_content.'
 
 ***
 
@@ -685,15 +701,15 @@ add_filter( 'wp_update_attachment_metadata', 'git_rips_unlink_tempfix' );
 //禁止WordPress检测重复评价
 /*  暂时禁用
 function disable_repeat_check($comment_data){
-    $random = mt_rand(1, 12); 
+    $random = mt_rand(1, 12);
     $comment_data['comment_content'] .= "￥{" . $random . "}￥";
     return $comment_data;
 }
 add_filter('preprocess_comment', 'disable_repeat_check');
-  
+
 function disable_repeat_check_post($comment_id){
     global $wpdb;
-    $comment_content = $wpdb->get_var("SELECT comment_content FROM $wpdb->comments WHERE comment_ID = '$comment_id' LIMIT 1");   
+    $comment_content = $wpdb->get_var("SELECT comment_content FROM $wpdb->comments WHERE comment_ID = '$comment_id' LIMIT 1");
     $comment_content = preg_replace("/￥\{.*\}￥/", "", $comment_content);
     $wpdb->query("UPDATE $wpdb->comments SET comment_content = '" . $wpdb->escape($comment_content) . "' WHERE comment_ID = '$comment_id' LIMIT 1");
 }

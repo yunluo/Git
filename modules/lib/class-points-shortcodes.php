@@ -84,10 +84,19 @@ class Points_Shortcodes {
 		    $notice .='</div>';
 			return $notice;
 		}
+		global $wp;
+        $current_url = home_url(add_query_arg(array(),$wp->request));
+		if(git_get_option('git_fancylogin')){
+			$login_uri = '<a id="showdiv" href="#loginbox" data-original-title="点击登录">点击登录</a>';
+		}elseif(git_get_option('git_github_oauth')){
+			$login_uri = '<a href="'.esc_url(github_oauth_url()).'" data-original-title="GitHub登录">GitHub登录</a>';
+		}else{
+			$login_uri = '<a href="'.esc_url(wp_login_url( $current_url )).'" data-original-title="点击登录">点击登录</a>';
+		}
 		if(!is_user_logged_in()){
 			$notice .='<div style="background-color: #ffffe0;border:1px solid #993;padding:1em;" class="pay-content">';
 			$notice .='<p style="color:red;">本段内容需要支付 '.$point.''. get_option('points-points_label', POINTS_DEFAULT_POINTS_LABEL).' 查看</p>';
-			$notice .='<p style="color:red;">您未登录，请 <a id="showdiv" href="#loginbox" data-original-title="点击登录">点击登录</a>  或者<a href="'.esc_url( wp_registration_url() ).'">立即注册</a></p>';
+			$notice .='<p style="color:red;">您未登录，请 '.$login_uri.'  或者<a href="'.esc_url( wp_registration_url() ).'">立即注册</a></p>';
 			$notice .='</div>';
 			return $notice;
 		}else{

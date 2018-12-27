@@ -3,7 +3,10 @@ if ( !defined( 'POINTS_CORE_LIB' ) && defined( 'GIT_VER' ) ) {
 	define( 'POINTS_CORE_LIB', get_template_directory() . '/modules/lib' );
 }
 
-define( 'POINTS_DEFAULT_POINTS_LABEL', 'points' );
+define( 'POINTS_DEFAULT_POINTS_LABEL', '金币' );
+if(git_get_option('git_github_oauth')){
+require_once ( POINTS_CORE_LIB . '/github.php' );
+}
 require_once ( POINTS_CORE_LIB . '/constants.php' );
 require_once ( POINTS_CORE_LIB . '/class-points.php' );
 require_once ( POINTS_CORE_LIB . '/class-points-database.php' );

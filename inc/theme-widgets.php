@@ -1,5 +1,55 @@
 <?php
 error_reporting(E_ALL^E_NOTICE);//镇魔石，镇压一切魑魅魍魉
+//Github登录小工具
+add_action('widgets_init', 'GitHub_Login_Widgets');
+function GitHub_Login_Widgets() {
+    register_widget('GitHub_Login_Widget');
+}
+class GitHub_Login_Widget extends WP_Widget {
+    function __construct() {
+        $widget_ops = array(
+            'classname' => 'git_textbanner',
+            'description' => '在这里显示一个GitHub登录按钮'
+        );
+        parent::__construct('Github_login_widget', 'GitHub登录', $widget_ops);
+    }
+    function widget($args, $instance) {
+        extract($args);
+        echo $before_widget;
+        $title = apply_filters('widget_name', $instance['title']);
+        if ($title) {
+            echo $before_title . $title . $after_title;
+        }
+        if (is_user_logged_in()) {?>
+                <a href="<?php
+			global $wp;
+			$current_url = home_url(add_query_arg(array(),$wp->request));
+            echo wp_logout_url($current_url); ?>" title="退出"><p class="pull-center"><input type="button" value="退出登录"></p></a>
+            <?php
+        } else {?>
+                <a href="<?php
+            echo github_oauth_url(); ?>"><p class="pull-center"><input type="button" value="使用GitHub登录"></p></a>
+            <?php
+        }
+        echo $after_widget;
+    }
+    function form($instance) {
+?>
+<p>
+	<label>
+		标题：
+		<input id="<?php
+echo $this->get_field_id('title'); ?>" name="<?php
+echo $this->get_field_name('title'); ?>" type="text" value="<?php
+echo $instance['title']; ?>" class="widefat" />
+	</label>
+</p>
+		<p>显示一个Github登录按钮，详细设置请至主题后台设置</p>
+<?php
+    }
+}
+
+
 //广告小工具
 add_action('widgets_init', 'git_banners');
 function git_banners() {

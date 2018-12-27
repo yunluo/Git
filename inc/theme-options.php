@@ -1563,6 +1563,39 @@ $options = array(
         'type'  => 'hr'
     ),
     array(
+        'title' => 'GitHub登录',
+        'type'  => 'subtitle'
+    ),
+    array(
+        'name'  => '是否启用GitHub登录',
+        'desc'  => '启用 【开启后，需要到github创建Oauth应用<a class="button-primary" target="_blank" href="https://github.com/settings/applications/new" >立即创建Oauth应用</a>，另外回调地址为网站首页，结尾不包含/,启用之后将小工具拖到指定位置】',
+        'id'    => 'git_github_oauth',
+        'type'  => 'checkbox'
+    ),
+    array(
+        'name'  => 'GitHub登录APPID',
+        'desc'  => '请输入GitHub登录APPID',
+        'id'    => 'git_github_oauth_appid',
+        'type'  => 'text',
+        'std'   => ''
+    ),
+    array(
+        'name'  => 'GitHub登录APPSECRET',
+        'desc'  => '请输入GitHub登录APPSECRET',
+        'id'    => 'git_github_oauth_appkey',
+        'type'  => 'text',
+        'std'   => ''
+    ),
+    array(
+        'name'  => '是否启用强制GitHub登录',
+        'desc'  => '启用 【开启后，将禁用WordPress自带的登录，所有登录地址都跳转到github的登录】',
+        'id'    => 'git_github_oauth_force',
+        'type'  => 'checkbox'
+    ),
+	array(
+        'type'  => 'hr'
+    ),
+    array(
         'title' => '微信推送设置',
         'type'  => 'subtitle'
     ),
