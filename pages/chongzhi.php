@@ -25,7 +25,6 @@ echo str_replace('</ul></div>', '', preg_replace('/<div[^>]*><ul[^>]*>/', '', wp
 			<div class="article-content">
 				<?php the_content(); ?>
 <?php
-	global $current_user;
 if(git_get_option('git_pay_way')=='git_youzan_ok'){
 	/*开始有赞*/
 	$client_id = git_get_option('git_yzclient_id');
@@ -42,7 +41,7 @@ if(git_get_option('git_pay_way')=='git_youzan_ok'){
     $method = 'youzan.pay.qrcode.create'; //要调用的api名称
     $api_version = '3.0.0'; //要调用的api版本号
 	$my_params = [
-    'qr_name' => $current_user->ID,
+    'qr_name' => get_current_user_id(),
     'qr_price' => $_POST['money']*100,
     'qr_type' => 'QR_TYPE_DYNAMIC',
 	];
@@ -58,7 +57,7 @@ if(git_get_option('git_pay_way')=='git_payjs_ok'){
 	$payjs = new Payjs($config);
 	$arr = [
 		'body' => '积分充值',   // 订单标题
-		'attach' => $current_user->ID,   // 订单备注
+		'attach' => get_current_user_id(),   // 订单备注
 		'out_trade_no' => 'E'.date("YmdHis").mt_rand(100000000, 999999999),       // 订单号
 		'total_fee' => $_POST['money']*100,             // 金额,单位:分
 		'notify_url' => home_url().'/wp-content/themes/Git-alpha/modules/push.php',
@@ -74,7 +73,7 @@ if(git_get_option('git_pay_way')=='git_eapay_ok'){
 		'out_trade_no' => 'E' . date("YmdHis") . mt_rand(100000000, 999999999), //举例为：E20181125153426343026279
 		'total_fee' => $_POST['money'], //充值的钱，注意金额单位为元
 		'subject' => '积分充值',//根据业务需要吗，一般是固定的
-		'body' => $current_user->ID,//订单备注
+		'body' => get_current_user_id(),//订单备注
 		'show_url' => get_permalink(git_page_id('chongzhi')),
 	);
 	$userid = $data['body'];

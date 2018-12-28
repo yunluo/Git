@@ -1386,11 +1386,9 @@ wp_embed_unregister_handler('tudou');
 //添加后台个人信息
 function git_add_contact_fields($contactmethods) {
     $contactmethods['qq'] = 'QQ';
-    $contactmethods['qq_weibo'] = '腾讯微博';
     $contactmethods['sina_weibo'] = '新浪微博';
     $contactmethods['baidu'] = '百度ID';
     $contactmethods['twitter'] = 'Twitter';
-    $contactmethods['google_plus'] = 'Google+';
     $contactmethods['github'] = 'GitHub';
     unset($contactmethods['yim']);
     unset($contactmethods['aim']);
@@ -1413,12 +1411,16 @@ function hui_admin_comment_ctrlenter() {
 add_action('admin_footer', 'hui_admin_comment_ctrlenter');
 //获取所有站点分类id
 function Bing_show_category() {
+    $Bing_show_category = get_transient('Bing_show_category');
+    if(false === $Bing_show_category){ 
     global $wpdb;
     $request = "SELECT $wpdb->terms.term_id, name FROM $wpdb->terms ";
     $request.= " LEFT JOIN $wpdb->term_taxonomy ON $wpdb->term_taxonomy.term_id = $wpdb->terms.term_id ";
     $request.= " WHERE $wpdb->term_taxonomy.taxonomy = 'category' ";
     $request.= " ORDER BY term_id asc";
     $categorys = $wpdb->get_results($request);
+    set_transient('Bing_show_category', $categorys, 60*60*24*5);//缓存5天
+    }
     foreach ($categorys as $category) { //调用菜单
         $output = '<span>' . $category->name . "=(<b>" . $category->term_id . '</b>)</span>&nbsp;&nbsp;';
         echo $output;
@@ -2246,8 +2248,12 @@ add_filter('mce_buttons_3', 'git_editor_buttons');
 //获取访客VIP样式
 if (git_get_option('git_vip')):
     function get_author_class($comment_author_email, $user_id) {
+        $author_count = get_transient('author_count');
+        if(false === $author_count){ 
         global $wpdb;
         $author_count = count($wpdb->get_results("SELECT comment_ID as author_count FROM $wpdb->comments WHERE comment_author_email = '$comment_author_email' "));
+        set_transient('author_count', $author_count, 60*60*24);//缓存24小时
+        }
         if ($author_count >= 1 && $author_count < git_get_option('git_vip1')) echo '<a class="vip1" title="评论达人 LV.1"></a>';
         else if ($author_count >= git_get_option('git_vip1') && $author_count < git_get_option('git_vip2')) echo '<a class="vip2" title="评论达人 LV.2"></a>';
         else if ($author_count >= git_get_option('git_vip2') && $author_count < git_get_option('git_vip3')) echo '<a class="vip3" title="评论达人 LV.3"></a>';

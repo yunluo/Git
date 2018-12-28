@@ -1,14 +1,14 @@
 <?php get_header();
 	global $wp_query;
 		$curauth = $wp_query->get_queried_object();
-$posts_count =  $wp_query->found_posts;
+$posts_count = $wp_query->found_posts;
 $comments_count = get_comments( array('status' => '1', 'user_id'=>$curauth->ID, 'count' => true) );
 // Current user
 $current_user = wp_get_current_user();
 // Myself?
-$oneself = $current_user->ID==$curauth->ID || current_user_can('edit_users') ? 1 : 0;
+$oneself = $current_user->ID == $curauth->ID || current_user_can('edit_users') ? 1 : 0;
 // Admin?
-$admin = $current_user->ID==$curauth->ID&&current_user_can('edit_users') ? 1 : 0;
+$admin = $current_user->ID == $curauth->ID && current_user_can('edit_users') ? 1 : 0;
 // 页码start
 $paged = max( 1, get_query_var('page') );
 $number = get_option('posts_per_page', 10);
@@ -61,11 +61,9 @@ $offset = ($paged-1)*$number;
 									<div class="clearfix"></div>
 									<div class="alert alert-error">简介：<?php if($curauth->description){echo $curauth->description;}else{echo '该用户很懒，还没有填写个人简介。';} ?></div>
 							<h2>社交网络</h2>
-									<div class="alert alert-info w49">腾讯微博 ：<?php if($curauth->qq_weibo){echo $curauth->qq_weibo;}else{echo '该用户很懒，还没有填写腾讯微博。';} ?></div>
 									<div class="alert alert-success w49">新浪微博 ：<?php if($curauth->sina_weibo){echo $curauth->sina_weibo;}else{echo '该用户很懒，还没有填写新浪微博。';} ?></div>
 									<div class="alert alert-success w49">百度ID ：<?php if($curauth->baidu){echo $curauth->baidu;}else{echo '该用户很懒，还没有填写百度ID。';} ?></div>
 									<div class="alert alert-info w49">Twitter ：<?php if($curauth->twitter){echo $curauth->twitter;}else{echo '该用户很懒，还没有填写Twitter。';} ?></div>
-									<div class="alert alert-info w49">Google+ ：<?php if($curauth->google_plus){echo $curauth->google_plus;}else{echo '该用户很懒，还没有填写Google+。';} ?></div>
 									<div class="alert alert-success w49">GitHub ：<?php if($curauth->github){echo $curauth->github;}else{echo '该用户很懒，还没有填写GitHub。';} ?></div>
 									<div class="clearfix"></div>
                             </div>

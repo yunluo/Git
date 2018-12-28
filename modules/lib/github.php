@@ -35,8 +35,7 @@ function github_oauth(){
     $name = $str['name'];
     if(!$github_id) wp_die('无法获取用户信息');
     if( is_user_logged_in() ){
-        $this_user = wp_get_current_user();
-        update_user_meta($this_user->ID ,'github_id',$github_id);
+        update_user_meta( get_current_user_id() ,'github_id',$github_id);
         github_oauth_redirect();
     } else {
         $user_github = get_users(array(

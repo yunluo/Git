@@ -221,9 +221,7 @@ echo str_replace('</ul></div>', '', preg_replace('/<div[^>]*><ul[^>]*>/', '', wp
 <div class="speedbar">
         <?php
 if (git_get_option('git_sign_b')) {
-    global $current_user;
-    wp_get_current_user();
-    $uid = $current_user->ID;
+    $uid = get_current_user_id();
     $u_name = get_user_meta($uid, 'nickname', true);
 ?>
             <div class="login-sign pull-right">

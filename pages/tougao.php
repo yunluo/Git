@@ -6,7 +6,7 @@
 if (!git_get_option('git_tougao_b')) { wp_redirect( home_url() );exit;}
 if (isset($_POST['tougao_form']) && $_POST['tougao_form'] == 'send') {
     global $wpdb;
-    $current_url = '' . get_permalink() . ''; // 注意修改此处的链接地址
+    $current_url = get_permalink(); // 注意修改此处的链接地址
     $last_post = $wpdb->get_var("SELECT `post_date` FROM `$wpdb->posts` ORDER BY `post_date` DESC LIMIT 1");
     if ((current_time('timestamp') - strtotime($last_post)) < (git_get_option('git_tougao_time') ? git_get_option('git_tougao_time') : 240)) {
         wp_die('您投稿也太勤快了吧，先歇会儿！<a href="' . $current_url . '">点此返回</a>');
@@ -65,8 +65,7 @@ while (have_posts()):
 <?php
     the_content(); ?>
 <form class="googlo-tougao" method="post" action="<?php
-    echo htmlspecialchars($_SERVER["REQUEST_URI"]);
-    $current_user = wp_get_current_user(); ?>">
+    echo htmlspecialchars($_SERVER["REQUEST_URI"]);?>">
 <div style="text-align: left; padding-top: 10px;">
 <p><label for="tougao_authorname">昵称:*</label></p><input style="width : 98%;" type="text" size="80" value="" id="tougao_authorname" name="tougao_authorname" />
 </div>

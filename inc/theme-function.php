@@ -16,7 +16,7 @@ add_filter( 'login_url', 'force_github_login_url', 10, 3 );
 //获取云落的远程通知，加入缓存，1天一次
 function get_Yunluo_Notice(){
 	$Yunluo_Notice = get_transient('Yunluo_Notice');
-	if(false === $Yunluo_Notice){
+	if(false === $Yunluo_Notice){ 
         $Yunluo_Notice = wp_remote_get('https://raw.githubusercontent.com/yunluo/Git/gh-pages/notice.txt');
 		if ( is_array( $Yunluo_Notice ) && !is_wp_error($Yunluo_Notice) && $Yunluo_Notice['response']['code'] == '200' ) {
 			set_transient('Yunluo_Notice', $Yunluo_Notice['body'], 60*60*24);//缓存120小时
@@ -212,18 +212,17 @@ wp_embed_register_handler('bili_iframe', '#https://www.bilibili.com/video/av(.*?
 function mypo_query_useronly($wp_query) {
     if (strpos($_SERVER['REQUEST_URI'], '/wp-admin/edit.php') !== false) {
         if (!current_user_can('manage_options')) {
-            global $current_user;
-            $wp_query->set('author', $current_user->id);
+            $wp_query->set('author', get_current_user_id());
         }
     }
 }
 add_filter('parse_query', 'mypo_query_useronly');
 //在文章编辑页面的[添加媒体]只显示用户自己上传的文件
 function only_my_upload_media($wp_query_obj) {
-    global $current_user, $pagenow;
-    if (!is_a($current_user, 'WP_User')) return;
+    global $pagenow;
+    if (!is_a(wp_get_current_user(), 'WP_User')) return;
     if ('admin-ajax.php' != $pagenow || $_REQUEST['action'] != 'query-attachments') return;
-    if (!current_user_can('manage_options') && !current_user_can('manage_media_library')) $wp_query_obj->set('author', $current_user->ID);
+    if (!current_user_can('manage_options') && !current_user_can('manage_media_library')) $wp_query_obj->set('author', get_current_user_id());
     return;
 }
 add_action('pre_get_posts', 'only_my_upload_media');
@@ -231,8 +230,7 @@ add_action('pre_get_posts', 'only_my_upload_media');
 function only_my_media_library($wp_query) {
     if (strpos($_SERVER['REQUEST_URI'], '/wp-admin/upload.php') !== false) {
         if (!current_user_can('manage_options') && !current_user_can('manage_media_library')) {
-            global $current_user;
-            $wp_query->set('author', $current_user->id);
+            $wp_query->set('author', get_current_user_id());
         }
     }
 }
