@@ -1375,7 +1375,7 @@ $options = array(
         'type'  => 'hr'
     ),
 	array(
-        'title' => '有赞支付设置&nbsp;&nbsp;&nbsp;<a href="https://console.youzanyun.com/login" target="_blank" >注册有赞</a>',
+        'title' => '有赞支付设置&nbsp;&nbsp;&nbsp;<a href="https://console.youzanyun.com/login" target="_blank" >注册有赞</a>&nbsp;&nbsp;&nbsp;【新用户已停止注册，老用户继续使用】',
         'type'  => 'subtitle'
     ),
 	array(
@@ -1403,7 +1403,7 @@ $options = array(
         'type'  => 'hr'
     ),
 	array(
-        'title' => 'PayJs支付设置&nbsp;&nbsp;&nbsp;<a href="https://payjs.cn/ref/ZVEMKD" target="_blank" >注册PayJs</a>',
+        'title' => 'PayJs支付设置&nbsp;&nbsp;&nbsp;<a href="https://payjs.cn/ref/ZVEMKD" target="_blank" >注册PayJs</a>&nbsp;&nbsp;&nbsp;【微信官方，微信正规渠道，强烈推荐】',
         'type'  => 'subtitle'
     ),
 	array(
