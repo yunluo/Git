@@ -49,13 +49,7 @@ function unregister_d_widget() {
 add_action('widgets_init', 'unregister_d_widget');
 //添加后台左下角文字
 function git_admin_footer_text($text) {
-    if (!git_get_option('git_updates_b')) {
-        if (Coding_git_ver() > GIT_VER) {
-            $text = '<strong><a href="/wp-admin/update-core.php" >更新Git最新版本 ' . Coding_git_ver() . '</a></strong>';
-        }
-    } else {
-        $text = '感谢使用<a target="_blank" href="http://gitcafe.net/" >Git主题 ' . GIT_VER . '</a>进行创作';
-    }
+        $text = '感谢使用<a target="_blank" href="https://gitcafe.net/" >Git主题 ' . GIT_VER . '</a>进行创作';
     return $text;
 }
 add_filter('admin_footer_text', 'git_admin_footer_text');
@@ -232,17 +226,6 @@ if (function_exists('register_sidebar')) {
         'after_title' => '</h2></div>'
     ));
 }
-//获取最新版本号
-if (!git_get_option('git_updates_b')):
-    function Coding_git_ver() {
-        $jsonbody = curl_post('https://raw.githubusercontent.com/yunluo/Git/gh-pages/info.json');
-        $arr = json_decode($jsonbody['data']); //解析
-        $coding_ver = $arr->version;
-        if ($jsonbody['code'] == 200) {
-            return $coding_ver;
-        }
-    }
-endif;
 
 //面包屑导航
 function deel_breadcrumbs() {
@@ -257,10 +240,8 @@ function footerScript() {
         wp_deregister_script('jquery');
         if (git_get_option('git_jqcdn') == 'git_jqcdn_upai') {
             wp_register_script('jquery', 'https://upcdn.b0.upaiyun.com/libs/jquery/jquery-1.8.3.min.js', false, '1.0', true); //底部加载,速度快,兼容差
-
         } else {
             wp_register_script('jquery', get_template_directory_uri() . '/assets/js/jquery.min.js', false, '1.0', false); //头部加载,速度慢,兼容好
-
         }
         wp_enqueue_script('jquery');
         wp_register_script('default', get_template_directory_uri() . '/assets/js/global.js', false, '1.0', true); //底部加载
@@ -1135,7 +1116,7 @@ function reply_to_read($atts, $content = null) {
 add_shortcode('reply', 'reply_to_read');
 //bing美图自定义登录页面背景
 function custom_login_head() {
-    $arr = json_decode(curl_post('https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1') ['data']);
+    $arr = json_decode(curl_post('https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1')['data']);
     if (git_get_option('git_loginbg')) {
         $imgurl = git_get_option('git_loginbg');
     } else {
@@ -1409,35 +1390,23 @@ function hui_admin_comment_ctrlenter() {
     </script>';
 };
 add_action('admin_footer', 'hui_admin_comment_ctrlenter');
+
 //获取所有站点分类id
 function Bing_show_category() {
-    $Bing_show_category = get_transient('Bing_show_category');
-    if(false === $Bing_show_category){ 
-    global $wpdb;
-    $request = "SELECT $wpdb->terms.term_id, name FROM $wpdb->terms ";
-    $request.= " LEFT JOIN $wpdb->term_taxonomy ON $wpdb->term_taxonomy.term_id = $wpdb->terms.term_id ";
-    $request.= " WHERE $wpdb->term_taxonomy.taxonomy = 'category' ";
-    $request.= " ORDER BY term_id asc";
-    $categorys = $wpdb->get_results($request);
-    set_transient('Bing_show_category', $categorys, 60*60*24*5);//缓存5天
-    }
-    foreach ($categorys as $category) { //调用菜单
-        $output = '<span>' . $category->name . "=(<b>" . $category->term_id . '</b>)</span>&nbsp;&nbsp;';
+	$Bing_show_category = get_transient('Bing_show_category');
+	if(false === $Bing_show_category){
+	$cat_ids = get_all_category_ids();
+	set_transient('Bing_show_category', $cat_ids, 60*60*24*10);//缓存10天
+	}
+	$Bing_show_category = json_decode( json_encode( $Bing_show_category),true);
+    foreach ($Bing_show_category as $category) { //调用菜单
+		$cat_name = get_cat_name($category);
+        $output = '<span>' . $cat_name . "=(<b>" . $category . '</b>)</span>&nbsp;&nbsp;';
         echo $output;
     }
 }
 
-//获取更新提示
-if (!git_get_option('git_updates_b')):
-    if (Coding_git_ver() > GIT_VER):
-        function shapeSpace_custom_admin_notice() {
-            echo '<div class="notice notice-error is-dismissible">
-        <p>Git主题版本现已更新至 ' . Coding_git_ver() . ' 版本 , 您目前的版本是 ' . GIT_VER . '&nbsp;&nbsp;<a href="/wp-admin/update-core.php" class="button button-primary" aria-label="现在更新Git-alpha" id="update-theme" data-slug="Git-alpha">现在更新</a></p>
-    </div>';
-        }
-        add_action('admin_notices', 'shapeSpace_custom_admin_notice');
-    endif;
-endif;
+
 
 
 //用于自动清理未付款订单，每天一次
@@ -2249,10 +2218,10 @@ add_filter('mce_buttons_3', 'git_editor_buttons');
 if (git_get_option('git_vip')):
     function get_author_class($comment_author_email, $user_id) {
         $author_count = get_transient('author_count');
-        if(false === $author_count){ 
+        if(false === $author_count){
         global $wpdb;
         $author_count = count($wpdb->get_results("SELECT comment_ID as author_count FROM $wpdb->comments WHERE comment_author_email = '$comment_author_email' "));
-        set_transient('author_count', $author_count, 60*60*24);//缓存24小时
+        set_transient('author_count', $author_count, 60*60*2);//缓存2小时
         }
         if ($author_count >= 1 && $author_count < git_get_option('git_vip1')) echo '<a class="vip1" title="评论达人 LV.1"></a>';
         else if ($author_count >= git_get_option('git_vip1') && $author_count < git_get_option('git_vip2')) echo '<a class="vip2" title="评论达人 LV.2"></a>';
