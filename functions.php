@@ -973,9 +973,11 @@ if (git_get_option('git_nofollow')):
                     $tag2 = $matches[$i][0];
                     $url = $matches[$i][0];
                     $noFollow = '';
+                    /*
                     $pattern = '/target\s*=\s*"\s*_blank\s*"/';
                     preg_match($pattern, $tag2, $match, PREG_OFFSET_CAPTURE);
                     if (count($match) < 1) $noFollow.= ' target="_blank" ';
+                    */
                     $pattern = '/rel\s*=\s*"\s*[n|d]ofollow\s*"/';
                     preg_match($pattern, $tag2, $match, PREG_OFFSET_CAPTURE);
                     if (count($match) < 1) $noFollow.= ' rel="nofollow" ';
