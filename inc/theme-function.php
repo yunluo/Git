@@ -47,7 +47,7 @@ function wx_send($post_ID) {
     if(!isset($_POST['git_wx_submit'])) return;
 	if( wp_is_post_revision($post_ID) ) return;
 	$text = get_the_title($post_ID); //微信推送信息标题
-	$wx_post_link = get_permalink($post_ID);//文章链接
+	$wx_post_link = get_permalink($post_ID).'?from=pushbear';//文章链接
 	$wx_post_content = deel_strimwidth(strip_tags(strip_shortcodes(get_post($post_ID)->post_content)) , 0, 210 , '……');
 	$desp = '![特色图]('.link_the_thumbnail_src().')
 ***
