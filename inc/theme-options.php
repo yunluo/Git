@@ -158,7 +158,7 @@ $options = array(
     ),
     array(
         'name'  => '主题更新设置',
-        'desc'  => '禁止主题更新【 选择后，您将无法收到本主题的更新推送，但是选择后可以有效减缓后台卡顿的问题(8.5以后版本)】',
+        'desc'  => '禁止主题更新【 选择后，您将无法收到本主题的更新推送，请慎重选择】',
         'id'    => 'git_updates_b',
         'type'  => 'checkbox'
     ),
@@ -420,7 +420,7 @@ $options = array(
     ),
     array(
         'name'  => 'VIP 3',
-        'desc'  => '输入的数字减去上面的数字就是VIP 3的所要求的评论数字区间，默认是20',
+        'desc'  => '输入的数字减去上面的数字就是VIP 3的所要求的评论���字区间，默认是20',
         'id'    => 'git_vip3',
         'type'  => 'number',
         'std'   => 20
@@ -1335,7 +1335,7 @@ $options = array(
     ),
     array(
         'name'  => '自定义注册重定向URL',
-        'desc'  => '如果上面开启的话,这里一定要填写链接',
+        'desc'  => '如果���面开启的话,这里一定要填写链接',
         'id'    => 'git_register_redirect_url',
         'type'  => 'text',
         'std'   => ''
