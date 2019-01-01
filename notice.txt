@@ -1,1 +1,1 @@
-主题更新到<font color="#ff0000"><strong>9.7.1</strong></font>版本，对主题后台做了一些优化，在后台会感觉到很快
+主题更新到<font color="#ff0000"><strong>9.8</strong></font>版本，修复了很多错误，增加了一些功能，做了一些优化，推荐更新。
