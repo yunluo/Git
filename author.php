@@ -160,5 +160,5 @@ wp_reset_postdata();
 </style>
 </div>
 </div>
-<?php wp_enqueue_script('author_tabs', get_stylesheet_directory_uri() . '/assets/js/author_tabs.js', array('jquery')); ?>
+<?php wp_enqueue_script('author_tabs', GIT_URL . '/assets/js/author_tabs.js', array('jquery')); ?>
 <?php get_sidebar(); get_footer();?>

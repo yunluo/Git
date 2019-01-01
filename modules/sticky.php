@@ -68,4 +68,4 @@ if (git_get_option('git_qncdn_b')) {
 ?>
 </div>
 </div><div class="ws_shadow"></div>
-	</div><?php wp_enqueue_script('slider', get_stylesheet_directory_uri() . '/assets/js/slider.js', array('jquery')); ?>
+	</div><?php wp_enqueue_script('slider', GIT_URL . '/assets/js/slider.js', array('jquery')); ?>

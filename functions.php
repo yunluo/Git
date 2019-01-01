@@ -612,7 +612,7 @@ add_shortcode('dm', 'DemoUrl');
 function my_quicktags() {
     global $pagenow;
     if ($pagenow == 'post-new.php' || $pagenow == 'post.php') {
-        wp_enqueue_script('my_quicktags', get_stylesheet_directory_uri() . '/assets/js/my_quicktags.js', array(
+        wp_enqueue_script('my_quicktags', GIT_URL . '/assets/js/my_quicktags.js', array(
             'quicktags'
         ) , '1.0', true);
     }
@@ -2097,7 +2097,7 @@ function disable_emoji9s_tinymce($plugins) {
 }
 //取当前主题下img\smilies\下表情图片路径
 function custom_gitsmilie_src($old, $img) {
-    return get_stylesheet_directory_uri() . '/assets/img/smilies/' . $img;
+    return GIT_URL . '/assets/img/smilies/' . $img;
 }
 function init_gitsmilie() {
     global $wpsmiliestrans;
