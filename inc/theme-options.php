@@ -23,7 +23,7 @@ $options = array(
         'desc'  => '最新消息显示在全站导航条下方，非常给力的推广位置',
         'id'    => 'git_tui',
         'type'  => 'textarea',
-        'std'   => '<li>欢迎访问乐趣公园网站，WordPress信息，WordPress教程，推荐使用最新版火狐浏览器和Chrome浏览器访问本网站，欢迎加入乐趣公园<code><a target="_blank" href="https://gitcafe.net/go/qun"><i class="fa fa-qq"></i> QQ群</a></code></li><li>Git主题现已支持滚动公告栏功能，兼容其他浏览器，看到的就是咯，在后台最新消息那里用li标签添加即可。</li><li>最新版Git主题已支持说说碎语功能，可像添加文章一样直接添加说说，新建说说页面即可，最后重新保存固定连接，<a target="_blank" href="https://gitcafe.net/shuo.html">演示地址</a></li><li>百度口碑求点赞啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊<a target="_blank" href="http://koubei.baidu.com/s/gitcafe.net">http://koubei.baidu.com/s/gitcafe.net</a></li><li>如果您觉得本站非常有看点，那么赶紧使用Ctrl+D 收藏乐趣公园吧</li><li>云落的宠物用品淘宝店铺，传送门：<a target="_blank" href="http://kimipet.taobao.com">http://kimipet.taobao.com</a></li>'
+        'std'   => '<li>欢迎访问乐趣公园网站，WordPress信息，WordPress教程，推荐使用最新版火狐浏览器和Chrome浏览器访问本网站，欢迎加入乐趣公园<code><a target="_blank" href="https://gitcafe.net/go/qun"><i class="fa fa-qq"></i> QQ群</a></code></li><li>Git主题现已支持滚动公告栏功能，兼容其他浏览器，看到的就是咯，在后台最新消息那里用li标签添加即可。</li><li>最新版Git主题已支持说说碎语功能，可像添加文章一样直接添加说说，新建说说页面即可，最后重新保存固定连接，<a target="_blank" href="https://gitcafe.net/shuo.html">演示地址</a></li><li>百度口碑求点赞啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊<a target="_blank" href="http://koubei.baidu.com/s/gitcafe.net">http://koubei.baidu.com/s/gitcafe.net</a></li><li>如果您觉得本站非常有看点，那么赶紧使用Ctrl+D 收藏乐趣公园吧</li>'
     ),
     array(
         'name'  => '友情链接页面',
@@ -304,6 +304,13 @@ $options = array(
         'name'  => '自动首行缩进',
         'desc'  => '开启 【开启后对文字内容自动首行缩进2格】',
         'id'    => 'git_suojin',
+        'type'  => 'checkbox',
+        'std'   => 'checked'
+    ),
+    array(
+        'name'  => '自动中英文空格',
+        'desc'  => '开启 【开启后对中英文会间隔开，但是会打乱部分关键词】',
+        'id'    => 'git_auto_kg',
         'type'  => 'checkbox',
         'std'   => 'checked'
     ),
@@ -623,7 +630,7 @@ $options = array(
     ),
     array(
         'name'  => '侧边栏跟随',
-        'desc'  => '开启【开启后为下面的选项选择侧边栏序号】',
+        'desc'  => '开启 【开启后为下面的选项选择侧边栏序号，注意是从2开始数的】',
         'id'    => 'git_sideroll_b',
         'type'  => 'checkbox'
     ),
@@ -957,7 +964,7 @@ $options = array(
     ),
     array(
         'name'  => 'Email',
-        'desc'  => '请填写好您的邮我代码，<a class="button-primary" rel="nofollow" href="http://open.mail.qq.com/cgi-bin/qm_help_mailme?sid=,2,zh_CN&t=open_mailme" target="_blank">获取邮我组建代码</a>并<a class="button-primary" rel="nofollow" href="http://71bbs.people.com.cn/postImages/89/CB/A1/8F/1509845344655.png" target="_blank">如图设置</a>',
+        'desc'  => '请填写好您的邮我代码，<a class="button-primary" rel="nofollow" href="http://open.mail.qq.com/cgi-bin/qm_help_mailme?sid=,2,zh_CN&t=open_mailme" target="_blank">获取邮我组建代码</a>',
         'id'    => 'git_emailContact',
         'type'  => 'text',
         'std'   => ''
@@ -1203,7 +1210,7 @@ $options = array(
     ),
     array(
         'name'  => '网站下雪特效',
-        'desc'  => '启用    【开启后，将产生全站下雪特效，但是对网站性能略有影响】',
+        'desc'  => '启用    【开启后，将产生全站下雪特效，但是没事的时候也不要下雪】',
         'id'    => 'git_snow_b',
         'type'  => 'checkbox'
     ),
@@ -1335,7 +1342,7 @@ $options = array(
     ),
     array(
         'name'  => '自定义注册重定向URL',
-        'desc'  => '如果���面开启的话,这里一定要填写链接',
+        'desc'  => '如果自定义跳转开启的话,这里一定要填写链接',
         'id'    => 'git_register_redirect_url',
         'type'  => 'text',
         'std'   => ''
@@ -1375,7 +1382,7 @@ $options = array(
         'type'  => 'hr'
     ),
 	array(
-        'title' => '有赞支付设置&nbsp;&nbsp;&nbsp;<a href="https://console.youzanyun.com/login" target="_blank" >注册有赞</a>&nbsp;&nbsp;&nbsp;【新用户已停止注册，老用户继续使用】',
+        'title' => '有赞支付设置&nbsp;&nbsp;&nbsp;<a href="https://console.youzanyun.com/login" target="_blank" >注册有赞</a>&nbsp;&nbsp;&nbsp;【新用户已停止注册，老用户继续使用，老用户失效后将移除】',
         'type'  => 'subtitle'
     ),
 	array(
@@ -1424,7 +1431,7 @@ $options = array(
         'type'  => 'hr'
     ),
 	array(
-        'title' => '简付支付设置&nbsp;&nbsp;&nbsp;<a href="https://b.eapay.cc" target="_blank" >注册简付</a>',
+        'title' => '简付支付设置&nbsp;&nbsp;&nbsp;<a href="https://b.eapay.cc" target="_blank" >注册简付</a>&nbsp;&nbsp;&nbsp;【小团队产品，不是太好，后面考虑逐渐淘汰掉】',
         'type'  => 'subtitle'
     ),
 	array(
@@ -1555,7 +1562,7 @@ $options = array(
     ),
     array(
         'name'  => 'CDN镜像后台化',
-        'desc'  => '启用【一般可不启用，如果您启用CDN镜像之后并删除了本地文件，则必须开启】',
+        'desc'  => '启用【一般可不启用，如果您启用CDN镜像之后并在FTP删除了本地文件，则必须开启】',
         'id'    => 'git_adminqn_b',
         'type'  => 'checkbox'
     ),
@@ -1568,20 +1575,20 @@ $options = array(
     ),
     array(
         'name'  => '是否启用GitHub登录',
-        'desc'  => '启用 【开启后，需要到github创建Oauth应用<a class="button-primary" target="_blank" href="https://github.com/settings/applications/new" >立即创建Oauth应用</a>，另外回调地址为网站首页，结尾不包含/,启用之后将小工具拖到指定位置】',
+        'desc'  => '启用 【开启后，需要到github创建Oauth应用<a class="button-primary" target="_blank" href="https://github.com/settings/applications/new" >立即创建Oauth应用</a>，另外回调地址为网站首页，结尾不包含/,启用之后将登录小工具拖到指定位置】',
         'id'    => 'git_github_oauth',
         'type'  => 'checkbox'
     ),
     array(
-        'name'  => 'GitHub登录APPID',
-        'desc'  => '请输入GitHub登录APPID',
+        'name'  => 'GitHub应用APPID',
+        'desc'  => '请输入GitHub应用APPID',
         'id'    => 'git_github_oauth_appid',
         'type'  => 'text',
         'std'   => ''
     ),
     array(
-        'name'  => 'GitHub登录APPSECRET',
-        'desc'  => '请输入GitHub登录APPSECRET',
+        'name'  => 'GitHub应用APPSECRET',
+        'desc'  => '请输入GitHub应用APPSECRET',
         'id'    => 'git_github_oauth_appkey',
         'type'  => 'text',
         'std'   => ''
@@ -1614,7 +1621,7 @@ $options = array(
     ),
     array(
         'name'  => '微信订阅推送KEY',
-        'desc'  => '请输入您的微信推送KEY,和上面那个不一样',
+        'desc'  => '请输入您的微信推送KEY,和上面那个不一样，这个是类似于微信公众号',
         'id'    => 'git_Pushbear_key',
         'type'  => 'text',
         'std'   => ''
@@ -1894,7 +1901,7 @@ function git_options_page() {
     <p><?php echo get_Yunluo_Notice(); ?></p>
 	</div>
     <div class="notice notice-info catlist">
-    <p>您的网站分类列表：<?php echo Bing_show_category(); ?></p>
+    <p>您的网站分类列表：<?php echo Bing_category(); ?></p>
 	</div>
 	<div class="options-search">
 	<input placeholder="搜索主题选项…" type="search" id="theme-options-search" />
@@ -2004,7 +2011,7 @@ switch ( $value['type'] ) {
     <td>
         <?php foreach ($value['options'] as $name => $option) : ?>
         <label>
-            <input type="radio" name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>" value="<?php echo $option; ?>" <?php checked( get_option( $value['id'] ), $option); ?>>
+            <input type="radio" name="<?php echo $value['id']; ?>" value="<?php echo $option; ?>" <?php checked( get_option( $value['id'] ), $option); ?>>
             <?php echo $name; ?>
         </label>
         <?php endforeach; ?>

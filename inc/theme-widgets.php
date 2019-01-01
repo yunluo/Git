@@ -1,7 +1,9 @@
 <?php
 error_reporting(E_ALL^E_NOTICE);//镇魔石，镇压一切魑魅魍魉
 //Github登录小工具
+if(git_get_option('git_github_oauth')){
 add_action('widgets_init', 'GitHub_Login_Widgets');
+}
 function GitHub_Login_Widgets() {
     register_widget('GitHub_Login_Widget');
 }
@@ -20,15 +22,16 @@ class GitHub_Login_Widget extends WP_Widget {
         if ($title) {
             echo $before_title . $title . $after_title;
         }
+		echo '<style type="text/css">.githubtn{margin:50px auto;border-color:#ec7063;border-radius:4px;background-color:#ec7063;background-position:50%;background-size:200% 200%;color:#fff}</style>';
         if (is_user_logged_in()) {?>
                 <a href="<?php
 			global $wp;
 			$current_url = home_url(add_query_arg(array(),$wp->request));
-            echo wp_logout_url($current_url); ?>" title="退出"><p class="pull-center"><input type="button" value="退出登录"></p></a>
+            echo wp_logout_url($current_url); ?>" title="退出登录"><p class="pull-center"><input class="githubtn" type="button" value="退出登录"></p></a>
             <?php
         } else {?>
                 <a href="<?php
-            echo github_oauth_url(); ?>"><p class="pull-center"><input type="button" value="使用GitHub登录"></p></a>
+            echo github_oauth_url(); ?>"><p class="pull-center"><input class="githubtn" type="button" value="使用GitHub登录"></p></a>
             <?php
         }
         echo $after_widget;
@@ -186,7 +189,7 @@ class git_comment extends WP_Widget {
 }
 function mod_newcomments($limit, $outpost, $outer) {
     $comments = get_transient('comments');
-    if(false === $comments){ 
+    if(false === $comments){
     global $wpdb;
     $sql = "SELECT DISTINCT ID, post_title, post_password, comment_ID, comment_post_ID, comment_author, comment_date_gmt, comment_approved,comment_author_email, comment_type,comment_author_url, SUBSTRING(comment_content,1,40) AS com_excerpt FROM $wpdb->comments LEFT OUTER JOIN $wpdb->posts ON ($wpdb->comments.comment_post_ID = $wpdb->posts.ID) WHERE comment_post_ID!='" . $outpost . "' AND user_id!='" . $outer . "' AND comment_approved = '1' AND comment_type = '' AND post_password = '' ORDER BY comment_date_gmt DESC LIMIT $limit";
     $comments = $wpdb->get_results($sql);
@@ -338,7 +341,7 @@ function githeme_posts_list($orderby, $limit, $cat, $img) {
         } else {
             if ($img) {
                 echo '<span class="thumbnail">';
-                echo '<img width="100px" height="64px" src="' . get_template_directory_uri() . '/timthumb.php?src=';
+                echo '<img width="100px" height="64px" src="' . GIT_URL . '/timthumb.php?src=';
                 echo post_thumbnail_src();
                 echo '&h=64&w=100&q=90&zc=1&ct=1" alt="' . get_the_title() . '" /></span>';
             } else {

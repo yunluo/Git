@@ -33,7 +33,7 @@ if ($posttags) {
             echo post_thumbnail_src();
             echo ''.$githumb3.'" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img class="thumb" style="width:185px;height:110px" '.$src.'="' . get_template_directory_uri() . '/timthumb.php?src=';
+            echo '<img class="thumb" style="width:185px;height:110px" '.$src.'="' . GIT_URL . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=110&w=185&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
         } ?><br><span class="r_title"><?php
@@ -74,7 +74,7 @@ if ($i < $post_num) {
             echo post_thumbnail_src();
             echo ''.$githumb3.'" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img class="thumb" style="width:185px;height:110px" '.$src.'="' . get_template_directory_uri() . '/timthumb.php?src=';
+            echo '<img class="thumb" style="width:185px;height:110px" '.$src.'="' . GIT_URL . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=110&w=185&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
         } ?><br><span class="r_title"><?php

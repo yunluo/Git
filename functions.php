@@ -5,6 +5,7 @@ if (phpversion() < 5.5) {
 }
 /*定义一些常量*/
 define('GIT_VER', wp_get_theme()->get('Version'));
+define('GIT_URL', GIT_URL);
 add_action('after_setup_theme', 'deel_setup');
 include ('inc/theme-options.php');
 include ('inc/theme-widgets.php');
@@ -18,7 +19,7 @@ function deel_setup() {
     add_theme_support('post-thumbnails');//缩略图设置
     add_theme_support('post-formats', array('aside')); //增加文章形式
     add_theme_support('custom-background', array(
-        'default-image' => get_template_directory_uri() . '/assets/img/bg.png',
+        'default-image' => GIT_URL . '/assets/img/bg.png',
         'default-repeat' => 'repeat',
         'default-position-x' => 'left',
         'default-position-y' => 'top',
@@ -241,12 +242,12 @@ function footerScript() {
         if (git_get_option('git_jqcdn') == 'git_jqcdn_upai') {
             wp_register_script('jquery', 'https://upcdn.b0.upaiyun.com/libs/jquery/jquery-1.8.3.min.js', false, '1.0', true); //底部加载,速度快,兼容差
         } else {
-            wp_register_script('jquery', get_template_directory_uri() . '/assets/js/jquery.min.js', false, '1.0', false); //头部加载,速度慢,兼容好
+            wp_register_script('jquery', GIT_URL . '/assets/js/jquery.min.js', false, '1.0', false); //头部加载,速度慢,兼容好
         }
         wp_enqueue_script('jquery');
-        wp_register_script('default', get_template_directory_uri() . '/assets/js/global.js', false, '1.0', true); //底部加载
+        wp_register_script('default', GIT_URL . '/assets/js/global.js', false, '1.0', true); //底部加载
         wp_enqueue_script('default');
-        wp_register_style('style', get_template_directory_uri() . '/style.css', false, '1.0');
+        wp_register_style('style', GIT_URL . '/style.css', false, '1.0');
         wp_enqueue_style('style');
     }
 }
@@ -338,7 +339,7 @@ $search_placeholder = git_get_option('git_search_placeholder');
 }
 
 function deel_avatar_default() {
-    return get_template_directory_uri() . '/assets/img/default.png';
+    return GIT_URL . '/assets/img/default.png';
 }
 //评论头像缓存
 function deel_avatar($avatar) {
@@ -353,7 +354,7 @@ function deel_avatar($avatar) {
     else $avatar = strtr($avatar, array(
         $g => $w . '/avatar/' . $f . '.png'
     ));
-    if (filesize($e) < 500) copy(get_template_directory_uri() . '/assets/img/default.png', $e);
+    if (filesize($e) < 500) copy(GIT_URL . '/assets/img/default.png', $e);
     return $avatar;
 }
 if (git_get_option('git_avater') == 'git_avatar_b') {
@@ -471,7 +472,7 @@ function deel_post_new($timer = '48') {
 }
 //修改评论表情调用路径
 function deel_smilies_src($img_src, $img, $siteurl) {
-    return get_template_directory_uri() . '/assets/img/smilies/' . $img;
+    return GIT_URL . '/assets/img/smilies/' . $img;
 }
 //阻止站内文章Pingback
 function deel_noself_ping(&$links) {
@@ -773,7 +774,7 @@ function post_thumbnail_src() {
         @$post_thumbnail_src = $matches[1][0]; //获取该图片 src
         if (empty($post_thumbnail_src)) { //如果日志中没有图片，则显示随机图片
             $random = mt_rand(1, 12);
-            echo get_template_directory_uri();
+            echo GIT_URL;
             echo '/assets/img/pic/' . $random . '.jpg';
             //如果日志中没有图片，则显示默认图片
             //echo '/assets/img/thumbnail.png';
@@ -904,7 +905,7 @@ function fancybox($content) {
     return $content;
 }
 add_filter('the_content', 'fancybox');
-add_filter('asgarosforum_filter_post_content', 'fancybox');
+ 
 //WordPress文字标签关键词自动内链
 $match_num_min = git_get_option('git_autolink_1'); //一篇文章中同一個標籤少於幾次不自動鏈接
 $match_num_max = git_get_option('git_autolink_2'); //一篇文章中同一個標籤最多自動鏈接幾次
@@ -949,7 +950,6 @@ if (git_get_option('git_imgalt_b')):
         return $content;
     }
     add_filter('the_content', 'imagesalt');
-    add_filter('asgarosforum_filter_post_content', 'imagesalt');
     //图片A标签添加title属性
     function aimagesalt($content) {
         global $post;
@@ -959,7 +959,6 @@ if (git_get_option('git_imgalt_b')):
         return $content;
     }
     add_filter('the_content', 'aimagesalt');
-    add_filter('asgarosforum_filter_post_content', 'aimagesalt');
 endif;
 //自动给文章以及评论添加nofollow属性
 if (git_get_option('git_nofollow')):
@@ -973,11 +972,6 @@ if (git_get_option('git_nofollow')):
                     $tag2 = $matches[$i][0];
                     $url = $matches[$i][0];
                     $noFollow = '';
-                    /*
-                    $pattern = '/target\s*=\s*"\s*_blank\s*"/';
-                    preg_match($pattern, $tag2, $match, PREG_OFFSET_CAPTURE);
-                    if (count($match) < 1) $noFollow.= ' target="_blank" ';
-                    */
                     $pattern = '/rel\s*=\s*"\s*[n|d]ofollow\s*"/';
                     preg_match($pattern, $tag2, $match, PREG_OFFSET_CAPTURE);
                     if (count($match) < 1) $noFollow.= ' rel="nofollow" ';
@@ -1002,7 +996,7 @@ function fa_get_wpsmiliestrans() {
     $wpsmilies = array_unique($wpsmiliestrans);
     $output = '';
     foreach ($wpsmilies as $alt => $src_path) {
-        $output.= '<a class="add-smily" data-smilies="' . $alt . '"><img class="wp-smiley" style="height:24px;width:24px;" src="' . get_template_directory_uri() . '/assets/img/smilies/' . rtrim($src_path, "gif") . 'gif" /></a>';
+        $output.= '<a class="add-smily" data-smilies="' . $alt . '"><img class="wp-smiley" style="height:24px;width:24px;" src="' . GIT_URL . '/assets/img/smilies/' . rtrim($src_path, "gif") . 'gif" /></a>';
     }
     return $output;
 }
@@ -1015,7 +1009,7 @@ function fa_smilies_custom_button($context) {
 //////// 后台评论列表获取表情按钮//////
 function zfunc_smiley_button($custom = false, $before = '', $after = '') {
     if ($custom == true) $smiley_url = site_url() . '/wp-includes/images/smilies';
-    else $customsmiley_url = get_template_directory_uri() . '/assets/img/smilies';
+    else $customsmiley_url = GIT_URL . '/assets/img/smilies';
     echo $before;
 ?>
 		<a href="javascript:grin(':?:')"><img src="<?php
@@ -1079,7 +1073,7 @@ add_action('admin_init', 'Ajax_data_zfunc_smiley_button');
 function zfunc_admin_enqueue_scripts($hook_suffix) {
     global $pagenow;
     if ($pagenow == 'edit-comments.php') {
-        wp_enqueue_script('zfunc-comment-reply', get_template_directory_uri() . '/assets/js/admin_reply.js', false, '1.0', true);
+        wp_enqueue_script('zfunc-comment-reply', GIT_URL . '/assets/js/admin_reply.js', false, '1.0', true);
     }
 }
 add_action('admin_print_styles', 'zfunc_admin_enqueue_scripts');
@@ -1393,22 +1387,19 @@ function hui_admin_comment_ctrlenter() {
 add_action('admin_footer', 'hui_admin_comment_ctrlenter');
 
 //获取所有站点分类id
-function Bing_show_category() {
-	$Bing_show_category = get_transient('Bing_show_category');
-	if(false === $Bing_show_category){
-	$cat_ids = get_all_category_ids();
-	set_transient('Bing_show_category', $cat_ids, 60*60*24*10);//缓存10天
-	}
-	$Bing_show_category = json_decode( json_encode( $Bing_show_category),true);
-    foreach ($Bing_show_category as $category) { //调用菜单
-		$cat_name = get_cat_name($category);
-        $output = '<span>' . $cat_name . "=(<b>" . $category . '</b>)</span>&nbsp;&nbsp;';
+function Bing_category(){
+    $cat_ids = get_transient('Bing_category');
+    if (false === $cat_ids) {
+        $cat_ids = implode(",", get_all_category_ids());
+        set_transient('Bing_category', $cat_ids, 60*60*24*5);//缓存5天
+    }
+    $cat_ids = explode(",", $cat_ids);
+    foreach ($cat_ids as $catid) {
+        $cat_name = get_cat_name($catid);
+        $output = '<span>' . $cat_name . "=(<b>" . $catid . '</b>)</span>&nbsp;&nbsp;';
         echo $output;
     }
 }
-
-
-
 
 //用于自动清理未付款订单，每天一次
 if(git_get_option('git_pay_way')=='git_eapay_ok'){

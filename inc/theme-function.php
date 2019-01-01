@@ -141,7 +141,7 @@ function link_the_thumbnail_src() {
                 //没有缩略图就取文章中第一张图片作为缩略图
             } else {
                 $random = mt_rand(1, 12);
-                return get_template_directory_uri() . '/assets/img/pic/' . $random . '.jpg';
+                return GIT_URL . '/assets/img/pic/' . $random . '.jpg';
                 //文章中没有图片就在 random 文件夹下随机读取图片作为缩略图
 
             }
@@ -179,7 +179,7 @@ function git_external_posts($atts, $content = null) {
     $title = preg_match('!<title>(.*?)</title>!i', $result, $matches) ? $matches[1] : '我是标题我是标题我是标题我是标题我是标题我是标题我是标题';
     $tags = get_meta_tags($content);
     $description = $tags['description'];
-    $imgpath = get_template_directory_uri() . '/assets/img/pic/' . mt_rand(1, 12) . '.jpg';
+    $imgpath = GIT_URL . '/assets/img/pic/' . mt_rand(1, 12) . '.jpg';
     global $post;
     $contents = '';
     setup_postdata($post);
@@ -529,16 +529,15 @@ if (git_get_option('git_lazyload')):
         return $content;
     }
     add_filter('the_content', 'lazyload');
-    add_filter('asgarosforum_filter_post_content', 'lazyload');
 endif;
 //自动中英文空格
 function content_autospace($data) {
     $data = preg_replace('/([\x{4e00}-\x{9fa5}]+)([A-Za-z0-9_]+)/u', '${1} ${2}', $data);
     $data = preg_replace('/([A-Za-z0-9_]+)([\x{4e00}-\x{9fa5}]+)/u', '${1} ${2}', $data);
     return $data;
-}
+}if(git_get_option('git_auto_kg')){
 add_filter('the_content', 'content_autospace');
-add_filter('asgarosforum_filter_post_content', 'content_autospace');
+}
 //只搜索文章标题
 function git_search_by_title($search, $wp_query) {
     if (!empty($search) && !empty($wp_query->query_vars['search_terms'])) {
@@ -696,23 +695,6 @@ function git_rips_unlink_tempfix( $data ) {
 }
 add_filter( 'wp_update_attachment_metadata', 'git_rips_unlink_tempfix' );
 
-//禁止WordPress检测重复评价
-/*  暂时禁用
-function disable_repeat_check($comment_data){
-    $random = mt_rand(1, 12);
-    $comment_data['comment_content'] .= "￥{" . $random . "}￥";
-    return $comment_data;
-}
-add_filter('preprocess_comment', 'disable_repeat_check');
-
-function disable_repeat_check_post($comment_id){
-    global $wpdb;
-    $comment_content = $wpdb->get_var("SELECT comment_content FROM $wpdb->comments WHERE comment_ID = '$comment_id' LIMIT 1");
-    $comment_content = preg_replace("/￥\{.*\}￥/", "", $comment_content);
-    $wpdb->query("UPDATE $wpdb->comments SET comment_content = '" . $wpdb->escape($comment_content) . "' WHERE comment_ID = '$comment_id' LIMIT 1");
-}
-add_action('comment_post', 'disable_repeat_check_post');
-*/
 //标签增加另外选项
 class Git_Tax_Image{
     function __construct(){

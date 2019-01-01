@@ -140,7 +140,7 @@ class Points_Shortcodes {
 				$atts
 		);
 		extract( $options );
-
+		date_default_timezone_set('Asia/Shanghai');
 		if ( is_string( $description ) && ( ( $description == '0' ) || ( strtolower( $description ) == 'false' ) ) ) {
 			$description = false;
 		}
@@ -196,8 +196,8 @@ class Points_Shortcodes {
 			$customPagHTML = '<div><span>Page '. $page .' of ' . $totalPage . '</span><br>' . paginate_links( array(
 					'base' => add_query_arg( 'cpage', '%#%' ),
 					'format' => '',
-					'prev_text' => __('&laquo;'),
-					'next_text' => __('&raquo;'),
+					'prev_text' => '&laquo;',
+					'next_text' => '&raquo;',
 					'total' => $totalPage,
 					'current' => $page
 			)).'</div>';

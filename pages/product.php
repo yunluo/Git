@@ -37,7 +37,7 @@ if (have_posts()) : while (have_posts()) : the_post(); ?>
             echo post_thumbnail_src();
             echo ''.$githumb6.'" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img class="thumb" style="width:275px;height:275px" '.$src.'="' . get_template_directory_uri() . '/timthumb.php?src=';
+            echo '<img class="thumb" style="width:275px;height:275px" '.$src.'="' . GIT_URL . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=275&w=275&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
         } ?>

@@ -60,11 +60,16 @@ if(git_get_option('git_pay_way')=='git_payjs_ok'){
 		'attach' => get_current_user_id(),   // 订单备注
 		'out_trade_no' => 'E'.date("YmdHis").mt_rand(100000000, 999999999),       // 订单号
 		'total_fee' => $_POST['money']*100,             // 金额,单位:分
-		'notify_url' => home_url().'/wp-content/themes/Git-alpha/modules/push.php',
+		'notify_url' => GIT_URL.'/modules/push.php',
+		'hide' => '1'
 	];
-	$rst = $payjs->native($arr);
-	//var_dump($rst);
-	$SKQR = $rst['qrcode'];
+	if(git_is_mobile()){
+		$rst = $payjs->cashier($arr);//手机使用
+		$SKQR = 'http://qr.liantu.com/api.php?text=' . urlencode($rst);
+	}else{
+		$rst = $payjs->native($arr);//电脑使用
+		$SKQR = $rst['qrcode'];
+	}
 }
 
 if(git_get_option('git_pay_way')=='git_eapay_ok'){
@@ -80,6 +85,7 @@ if(git_get_option('git_pay_way')=='git_eapay_ok'){
 	$point_number = $data['total_fee'] * git_get_option('git_chongzhi_dh');
 	$YZid = $data['out_trade_no'];
 }
+
 	/*有赞结束*/
 if(is_user_logged_in()) {
 echo '<span class="pull-center"><form method="post">
@@ -95,6 +101,28 @@ if(isset($_POST['money'])){
 <p class="pull-center">你当前正在充值的金额为&nbsp;<font style="font-weight:bold;" color="#cc0000">'.filter_var($_POST['money'], FILTER_SANITIZE_NUMBER_INT).'</font> 元</p>
 <img class="pull-center" src="' . $SKQR . '" />
 </div>';}
+echo '<script type="text/javascript">
+    if (window.Notification) {
+	var popNotice = function() {
+			if (Notification.permission == "granted") {
+				var n = new Notification("您已提交订单，请及时扫码支付", {
+					body: "扫码支付之后，我们会使用邮箱通知您的支付结果，您可以打开您的注册邮箱查看充值详情，如果有异常，请联系本站管理员，祝您生活愉快，谢谢~",
+					icon: "https://wx4.sinaimg.cn/mw690/0060lm7Tly1fyr3i051a8g306o06oq3w.gif"
+				});
+			}
+		};
+		if (Notification.permission == "granted") {
+			popNotice()
+		} else if (Notification.permission != "denied") {
+			Notification.requestPermission(function(permission) {
+				popNotice()
+			})
+		}
+
+} else {
+	console.log("您的浏览器不支持Web Notification")
+}
+</script>';
 }
 }else{
 	echo '<div class="alert alert-error" role="alert">本页面需要您登录才可以操作，请先 <a target="_blank" href="'.esc_url( wp_login_url( get_permalink() ) ).'">点击登录</a>  或者<a href="'.esc_url( wp_registration_url() ).'">立即注册</a></div>';

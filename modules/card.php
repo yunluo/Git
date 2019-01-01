@@ -39,7 +39,7 @@ if (is_home()) { ?>
             echo post_thumbnail_src();
             echo ''.$githumb5.'" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img class="thumb" style="width:253px;height:169px" '.$src.'="' . get_template_directory_uri() . '/timthumb.php?src=';
+            echo '<img class="thumb" style="width:253px;height:169px" '.$src.'="' . GIT_URL . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=169&w=253&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
         } ?></a>

@@ -36,7 +36,7 @@ while (have_posts()):
             echo post_thumbnail_src();
             echo ''.$githumb7.'" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img class="thumb" '.$src.'="' . get_template_directory_uri() . '/timthumb.php?src=';
+            echo '<img class="thumb" '.$src.'="' . GIT_URL . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=273&w=856&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
         } ?>
@@ -103,7 +103,7 @@ while (have_posts()):
     $t2 = date("Y-m-d H:i:s");
     $diff = (strtotime($t2) - strtotime($t1)) / 3600;
     if ($diff < 12) {
-        echo '<img src="' . get_template_directory_uri() . '/assets/img/new.gif" alt="24小时内最新">';
+        echo '<img src="' . GIT_URL . '/assets/img/new.gif" alt="24小时内最新">';
     } ?> </a></h2>
 	</header>
 <?php
@@ -121,7 +121,7 @@ while (have_posts()):
             echo post_thumbnail_src();
             echo ''.$githumb4.'" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img class="thumb" style="width:260px;height:160px" '.$src.'="' . get_template_directory_uri() . '/timthumb.php?src=';
+            echo '<img class="thumb" style="width:260px;height:160px" '.$src.'="' . GIT_URL . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=160&w=260&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
         } ?></a></div>

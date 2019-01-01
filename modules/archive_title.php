@@ -56,7 +56,7 @@ while (have_posts()):
             echo post_thumbnail_src();
             echo ''.$githumb4.'" alt="' . get_the_title() . '" />';
         } else {
-            echo '<img class="thumb" style="width:200px;height:123px" '.$src.'="' . get_template_directory_uri() . '/timthumb.php?src=';
+            echo '<img class="thumb" style="width:200px;height:123px" '.$src.'="' . GIT_URL . '/timthumb.php?src=';
             echo post_thumbnail_src();
             echo '&h=123&w=200&q=90&zc=1&ct=1" alt="' . get_the_title() . '" />';
         } ?></a></div>
