@@ -5,7 +5,7 @@ if (phpversion() < 5.5) {
 }
 /*定义一些常量*/
 define('GIT_VER', wp_get_theme()->get('Version'));
-define('GIT_URL', GIT_URL);
+define('GIT_URL', get_template_directory_uri());
 add_action('after_setup_theme', 'deel_setup');
 include ('inc/theme-options.php');
 include ('inc/theme-widgets.php');
