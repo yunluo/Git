@@ -1,5 +1,13 @@
 <?php
 
+//新标签打开顶部网站链接
+function blank_my_site_bar( $wp_admin_bar ) {
+    $node = $wp_admin_bar->get_node('view-site');
+    $node->meta['target'] = '_blank';
+    $wp_admin_bar->add_node($node);
+}
+add_action( 'admin_bar_menu', 'blank_my_site_bar', 80 );
+//
 function force_github_login_url( $login_url, $redirect, $force_reauth ){
     $login_url = github_oauth_url();
     if ( ! empty( $redirect ) ) {
@@ -21,7 +29,7 @@ function get_Yunluo_Notice(){
 		if ( is_array( $Yunluo_Notice ) && !is_wp_error($Yunluo_Notice) && $Yunluo_Notice['response']['code'] == '200' ) {
 			set_transient('Yunluo_Notice', $Yunluo_Notice['body'], 60*60*24);//缓存120小时
 		}else{
-			set_transient('Yunluo_Notice', '有点小尴尬哈啊，服务器菌暂时喝醉了呢，先休息2小时~，', 60*60*2);//缓存2小时
+			set_transient('Yunluo_Notice', '有点小尴尬哈啊，服务器菌暂时有点累了呢，先休息一会儿~，', 60*60*2);//缓存2小时
 		}
     }
     return $Yunluo_Notice;

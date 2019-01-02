@@ -27,7 +27,7 @@ if (git_get_option('git_track')) echo git_get_option('git_track'); ?></span></di
 <?php
 if (git_get_option('git_copydialog_b') && is_singular()) echo '<script type="text/javascript">document.body.oncopy=function(){alert("复制成功！若要转载请务必保留原文链接，申明来源，谢谢合作！");}</script>'; ?>
 <?php
-if (git_get_option('git_snow_b')) { ?><script src="https://cdn.bootcss.com/JQuery-Snowfall/1.7.4/snowfall.min.js"></script><script type="text/javascript">snowFall.snow(document.body, {flakeCount : 300, maxSpeed : 12, round : true, minSize: 4, maxSize:12});</script><?php
+if (git_get_option('git_snow_b')) { ?><script src="https://cdn.bootcss.com/JQuery-Snowfall/1.7.4/snowfall.min.js"></script><script type="text/javascript">snowFall.snow(document.body, {flakeCount : 100, maxSpeed : 12, round : true, minSize: 4, maxSize:10});</script><?php
 } ?>
 <?php
 if (git_get_option('git_copy_b') && is_singular()) echo '<script type="text/Javascript">document.oncontextmenu=function(e){return false;};document.onselectstart=function(e){return false;};</script><style>body{ -moz-user-select:none;}</style><SCRIPT LANGUAGE=javascript>if (top.location != self.location)top.location=self.location;</SCRIPT><noscript><iframe src=*.html></iframe></noscript>'; ?>

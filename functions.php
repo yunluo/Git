@@ -66,27 +66,6 @@ remove_filter('term_description', 'wp_kses_data');
 add_filter('show_admin_bar', '__return_false');
 //关键字
 if (git_get_option('git_keywords')) add_action('wp_head', 'deel_keywords');
-//新标签打开文章链接
-global $pagenow;
-if ($pagenow == 'post.php'):
-    function googlo_admin_aritical_ctrlenter() {
-        echo '<script type="text/javascript">
-var postlink = document.getElementById("edit-slug-box").getElementsByTagName("a");
-	for(var i=0;i<postlink.length;i++)
-{ postlink[i].target = "_blank"; }
-	</script>';
-    };
-    add_action('admin_footer', 'googlo_admin_aritical_ctrlenter');
-endif;
-//新标签打开顶部网站链接
-function googlo_admin_site_ctrlenter() {
-    echo '<script type="text/javascript">
-var sitelink = document.getElementById("wp-admin-bar-site-name").getElementsByClassName("ab-item");
-	for(var i=0;i<sitelink.length;i++)
-{ sitelink[i].target = "_blank"; }
-	</script>';
-};
-add_action('admin_footer', 'googlo_admin_site_ctrlenter');
 //页面描述 d_description
 if (git_get_option('git_description')) add_action('wp_head', 'deel_description');
 
