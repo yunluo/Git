@@ -132,7 +132,6 @@ class Points_Shortcodes {
 		$options = shortcode_atts(
 				array(
 						'user_id'         => '',
-						'items_per_page'  => 10,
 						'order_by'        => 'point_id',
 						'order'           => 'DESC',
 						'description'     => true
@@ -152,27 +151,18 @@ class Points_Shortcodes {
 		global $wp_query;
 		$curauth = $wp_query->get_queried_object();
 		$user_id = $curauth->ID;
-		$points = Points::get_points_by_user( $user_id, null, $order_by, $order, OBJECT );
-
-		// Pagination
-		$total           = sizeof( $points );
-		$page            = isset( $_GET['cpage'] ) ? abs( (int) $_GET['cpage'] ) : 1;
-		$offset          = ( $page * $items_per_page ) - $items_per_page;
-		$totalPage       = ceil($total / $items_per_page);
-
-		$points = Points::get_points_by_user( $user_id, $items_per_page, $order_by, $order, OBJECT, $offset );
-
+		$points = Points::get_points_by_user( $user_id );
+		$output = '<table class="points_user_points_table">' .
+		'<tr>' .
+		'<th>日期时间' .
+		'<th>' . ucfirst( Points::get_label( 100 ) ) . '</th>' .
+		'<th>类别</th>' .
+		'<th>状态</th>' .
+		$desc_th .
+		'</tr>';
 		if ( $user_id !== 0 ) {
 			if ( sizeof( $points ) > 0 ) {
 				foreach ( $points as $point ) {
-					$output = '<table class="points_user_points_table">' .
-					'<tr>' .
-					'<th>日期时间' .
-					'<th>' . ucfirst( Points::get_label( 100 ) ) . '</th>' .
-					'<th>类别</th>' .
-					'<th>状态</th>' .
-					$desc_th .
-					'</tr>';
 					$desc_td = '';
 					if ( $description ) {
 						$desc_td = 	'<td>' . $point->description . '</td>';
@@ -191,18 +181,6 @@ class Points_Shortcodes {
 
 		$output .= '</table>';
 
-		// Pagination
-		if($totalPage > 1){
-			$customPagHTML = '<div><span>Page '. $page .' of ' . $totalPage . '</span><br>' . paginate_links( array(
-					'base' => add_query_arg( 'cpage', '%#%' ),
-					'format' => '',
-					'prev_text' => '&laquo;',
-					'next_text' => '&raquo;',
-					'total' => $totalPage,
-					'current' => $page
-			)).'</div>';
-			$output .= $customPagHTML;
-		}
 
 		return $output;
 	}

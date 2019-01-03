@@ -18,11 +18,6 @@ class Points_Wordpress {
 		if ( get_option('points-welcome', '0') !== '0' ) {
 			add_action( 'user_register', array( __CLASS__,'user_register' ) );
 		}
-		/*继续构建*/
-		if ( get_option('points-post', '0') !== '0' ) {
-			add_action( 'asgarosforum_after_add_thread_submit', array( __CLASS__,'points_post' ) );
-		}
-		/*构建结束*/
 	}
 
 	public static function user_register ( $user_id ) {
@@ -34,10 +29,6 @@ class Points_Wordpress {
 			'status' 	  => get_option( 'points-points_status', POINTS_STATUS_ACCEPTED ),
 			'type'        => POINTS_TYPE_USER_REGISTRATION
 		) );
-	}
-
-	public static function points_post ( $user_id ) {/*论坛发帖子+积分*/
-		Points::set_points( get_option('points-welcome', 0), $user_id );
 	}
 
 	public static function wp_set_comment_status( $comment_id, $status ) {

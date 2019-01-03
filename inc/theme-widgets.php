@@ -188,12 +188,12 @@ class git_comment extends WP_Widget {
     }
 }
 function mod_newcomments($limit, $outpost, $outer) {
-    $comments = get_transient('comments');
+    $comments = get_transient('newcomments');
     if(false === $comments){
     global $wpdb;
     $sql = "SELECT DISTINCT ID, post_title, post_password, comment_ID, comment_post_ID, comment_author, comment_date_gmt, comment_approved,comment_author_email, comment_type,comment_author_url, SUBSTRING(comment_content,1,40) AS com_excerpt FROM $wpdb->comments LEFT OUTER JOIN $wpdb->posts ON ($wpdb->comments.comment_post_ID = $wpdb->posts.ID) WHERE comment_post_ID!='" . $outpost . "' AND user_id!='" . $outer . "' AND comment_approved = '1' AND comment_type = '' AND post_password = '' ORDER BY comment_date_gmt DESC LIMIT $limit";
     $comments = $wpdb->get_results($sql);
-    set_transient('comments', $comments, 60*60*2);//缓存2小时
+    set_transient('newcomments', $comments, 60*60*2);//缓存2小时
     }
         $output='';
     foreach ($comments as $comment) {

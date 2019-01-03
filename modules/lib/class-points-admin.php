@@ -31,14 +31,28 @@ class Points_Admin {
 	}
 
 	public static function points_menu() {
-
 		$alert = "";
 		if(isset( $_POST['psearch'] )){
-			$points = Points::get_points_by_user( $_POST['psearch'] );
-				$k[] = '<div style="margin-bottom:10px;">用户ID：'.$_POST['psearch'].'  &nbsp;&nbsp;总积分为：'.Points::get_user_total_points( $_POST['psearch'] ).'</div>';
+			$sdata = trim($_POST['psearch']);
+			if(preg_match('/E20/', $sdata)){//order id
+				global $wpdb;
+				$point_id = $wpdb->get_row("SELECT point_id FROM " . Points_Database::points_get_table( "users" ) . " WHERE description = '{$sdata}'", ARRAY_A )['point_id'];
+				$points = Points::get_point( $point_id );
+			}elseif(filter_var($sdata, FILTER_VALIDATE_EMAIL)){//email
+				$user = get_user_by( 'email', $sdata );
+				$points = Points::get_points_by_user( $user->ID );
+				$k[] = '<div style="margin-bottom:10px;">用户ID：'.$user->ID.'  &nbsp;&nbsp;总积分为：'.Points::get_user_total_points( $user->ID ).'</div>';
+			}else{//userid
+				$points = Points::get_points_by_user( $sdata );
+				$k[] = '<div style="margin-bottom:10px;">用户ID：'.$sdata.'  &nbsp;&nbsp;总积分为：'.Points::get_user_total_points( $sdata ).'</div>';
+			}
+			if(is_array($points)){
 				foreach ( $points as $point ) {
 					$k[] = '<div style="margin-bottom:5px;">积分：'.$point->points.' &nbsp;&nbsp;描述：'.$point->description.' &nbsp;&nbsp;日期：'.$point->datetime.'</div>';
 				}
+			}else{
+					$k[] = '<div style="margin-bottom:5px;">积分：'.$points->points.' &nbsp;&nbsp;描述：'.$points->description.' &nbsp;&nbsp;日期：'.$points->datetime.'</div>';
+			}
 				$alert = implode(" ", $k);
 		}
 
@@ -116,7 +130,7 @@ class Points_Admin {
 		}
 
 		if ($alert != "") {
-			echo '<div style="background-color: #ffffe0;border: 1px solid #993;padding: 1em;margin-right: 1em;">' . filter_var($alert, FILTER_SANITIZE_STRING) . '</div>';
+			echo '<div style="background-color: #ffffe0;border: 1px solid #993;padding: 1em;margin-right: 1em;">' . $alert . '</div>';
 		}
 
 		$current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
@@ -132,7 +146,7 @@ class Points_Admin {
 				<a class="add button" href="<?php echo esc_url( add_query_arg( 'action', 'edit', $current_url ) ); ?>" title="点击手动添加金币">添加金币</a>
 			</span>
 			<form method="POST" style="float:right;">
-				<input placeholder="搜索用户ID" type="search" name="psearch" value="" />
+				<input size="40" placeholder="搜索用户ID/用户邮箱/订单号" type="search" name="psearch" value="" />
 				</form>
 			<?php echo '<style type="text/css">tbody#the-list tr:hover{background:rgba(132,219,162,.61)}</style>';$exampleListTable->display(); ?>
 		</div>
@@ -148,7 +162,6 @@ class Points_Admin {
 			update_option( 'points-comments_enable', $_POST['points_comments_enable'] );
 			update_option( 'points-comments', $_POST['points_comments'] );
 			update_option( 'points-welcome', $_POST['points_welcome'] );
-			update_option( 'points-post', $_POST['points_post'] );
 			$label = ( isset( $_POST['points_label'] ) && $_POST['points_label'] !== "" )?$_POST['points_label']:"";
 			update_option( 'points-points_label', $label );
 			update_option( 'points-points_status', $_POST['points_status'] );
@@ -176,7 +189,7 @@ class Points_Admin {
 					</div>
 
 					<div class="points-admin-line">
-						<div class="points-admin-label">默认金币状态
+						<div class="points-admin-label">默认金币状态，选择【正常】
 							<select name="points_status">
 							<?php
 							$output = "";
@@ -201,7 +214,7 @@ class Points_Admin {
 					<div class="points-admin-line">
 						<div class="points-admin-label">启用评论金币
 							<?php
-							$enable_comments = get_option('points-comments_enable', 1);
+							$enable_comments = get_option('points-comments_enable', 0);
 							?>
 							<input type="checkbox" name="points_comments_enable" value="1" <?php echo $enable_comments=="1"?" checked ":""?>>
 						</div>
@@ -209,9 +222,9 @@ class Points_Admin {
 					<div class="points-admin-line">
 						<div class="points-admin-label">评论金币
 							<?php
-							$enable_comments = get_option('points-comments_enable', 1);
+							$enable_comments = get_option('points-comments_enable', 0);
 							?>
-							<input type="text" name="points_comments" value="<?php echo get_option('points-comments', 1); ?>" size="4">
+							<input type="text" name="points_comments" value="<?php echo get_option('points-comments', 0); ?>" size="4">
 						</div>
 					</div>
 				</div>
@@ -219,11 +232,7 @@ class Points_Admin {
 					<h3>其他</h3>
 					<div class="points-admin-line">
 						<div class="points-admin-label">注册欢迎金币
-							<input type="text" name="points_welcome" value="<?php echo get_option('points-welcome', "0"); ?>" size="4">
-						</div>
-
-						<div class="points-admin-label">论坛发帖金币
-							<input type="text" name="points_post" value="<?php echo get_option('points-post', "0"); ?>" size="4">
+							<input type="text" name="points_welcome" value="<?php echo get_option('points-welcome', 0); ?>" size="4">
 						</div>
 					</div>
 				</div>

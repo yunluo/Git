@@ -105,10 +105,12 @@ echo '<script type="text/javascript">
     if (window.Notification) {
 	var popNotice = function() {
 			if (Notification.permission == "granted") {
+				setTimeout( function(){
 				var n = new Notification("您已提交订单，请及时扫码支付", {
 					body: "扫码支付之后，我们会使用邮箱通知您的支付结果，您可以打开您的注册邮箱查看充值详情，如果有异常，请联系本站管理员，祝您生活愉快，谢谢~",
 					icon: "https://wx4.sinaimg.cn/mw690/0060lm7Tly1fyr3i051a8g306o06oq3w.gif"
 				});
+				}, 2 * 1000 );
 			}
 		};
 		if (Notification.permission == "granted") {

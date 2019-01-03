@@ -7,7 +7,8 @@ function blank_my_site_bar( $wp_admin_bar ) {
     $wp_admin_bar->add_node($node);
 }
 add_action( 'admin_bar_menu', 'blank_my_site_bar', 80 );
-//
+
+//用github登录替换默认的登录
 function force_github_login_url( $login_url, $redirect, $force_reauth ){
     $login_url = github_oauth_url();
     if ( ! empty( $redirect ) ) {
