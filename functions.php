@@ -1090,11 +1090,15 @@ function reply_to_read($atts, $content = null) {
 add_shortcode('reply', 'reply_to_read');
 //bing美图自定义登录页面背景
 function custom_login_head() {
-    $arr = json_decode(curl_post('https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1')['data']);
     if (git_get_option('git_loginbg')) {
         $imgurl = git_get_option('git_loginbg');
     } else {
+        $imgurl = get_transient('Bing_img');
+        if(false === $imgurl){ 
+        $arr = json_decode(curl_post('https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1')['data']);
         $imgurl = 'http://cn.bing.com' . $arr->images[0]->url;
+        set_transient('Bing_img', $imgurl, 60*60*24);
+        }
     }
     if (defined('UM_DIR')) {
         echo '<style type="text/css">#um_captcha{width:170px!important;}</style>';
