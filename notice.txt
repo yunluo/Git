@@ -1,1 +1,1 @@
-主题更新到<font color="#ff0000"><strong>9.8.1</strong></font>版本，修复了很多错误，增加了一些功能，做了一些优化，推荐更新，可以作为长期使用，另外金币可以直接搜索用户邮箱，用户ID，和订单号搜索，充值弹窗提醒做延时3秒钟处理
+主题更新到<font color="#ff0000"><strong>9.8.1</strong></font>版本，修复了很多错误，增加了一些功能，做了一些优化，推荐更新，可以作为长期使用，另外金币可以直接搜索用户邮箱，用户ID，和订单号搜索，充值弹窗提醒做延时3秒钟处理，无法自动更新的可以点击这里更新：<a target="_blank" href="https://dev.tencent.com/u/googlo/p/Git/git/archive/alpha">下载最新版</a>
