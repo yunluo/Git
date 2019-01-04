@@ -714,7 +714,7 @@ function git_is_mobile() {
     if (empty($_SERVER['HTTP_USER_AGENT'])) {
         return false;
     } elseif ((strpos($_SERVER['HTTP_USER_AGENT'], 'Mobile') !== false && strpos($_SERVER['HTTP_USER_AGENT'], 'iPad') === false) // many mobile devices (all iPh, etc.)
-     || strpos($_SERVER['HTTP_USER_AGENT'], 'Android') !== false || strpos($_SERVER['HTTP_USER_AGENT'], 'Silk/') !== false || strpos($_SERVER['HTTP_USER_AGENT'], 'Kindle') !== false || strpos($_SERVER['HTTP_USER_AGENT'], 'BlackBerry') !== false || strpos($_SERVER['HTTP_USER_AGENT'], 'Opera Mini') !== false || strpos($_SERVER['HTTP_USER_AGENT'], 'Opera Mobi') !== false) {
+     || strpos($_SERVER['HTTP_USER_AGENT'], 'Android') !== false || strpos($_SERVER['HTTP_USER_AGENT'], 'NetType/') !== false || strpos($_SERVER['HTTP_USER_AGENT'], 'Kindle') !== false || strpos($_SERVER['HTTP_USER_AGENT'], 'MQQBrowser') !== false || strpos($_SERVER['HTTP_USER_AGENT'], 'Opera Mini') !== false || strpos($_SERVER['HTTP_USER_AGENT'], 'Opera Mobi') !== false || strpos($_SERVER['HTTP_USER_AGENT'], 'HUAWEI') !== false || strpos($_SERVER['HTTP_USER_AGENT'], 'TBS/') !== false || strpos($_SERVER['HTTP_USER_AGENT'], 'Mi') !== false || strpos($_SERVER['HTTP_USER_AGENT'], 'iPhone') !== false) {
         return true;
     } else {
         return false;
