@@ -967,7 +967,6 @@ if (git_get_option('git_nofollow')):
         return $content;
     }
     add_filter('the_content', 'git_auto_nofollow');
-    add_filter('asgarosforum_filter_post_content', 'git_auto_nofollow');
 endif;
 //输出WordPress表情
 function fa_get_wpsmiliestrans() {
@@ -1130,7 +1129,6 @@ function git_esc_callback($matches) {
 }
 add_filter('the_content', 'git_esc_html', 2);
 add_filter('comment_text', 'git_esc_html', 2);
-add_filter('asgarosforum_filter_post_content', 'git_esc_html', 2);
 //强制兼容<pre>
 function git_prettify_replace($text) {
     $replace = array(
@@ -1140,7 +1138,6 @@ function git_prettify_replace($text) {
     return $text;
 }
 add_filter('the_content', 'git_prettify_replace');
-add_filter('asgarosforum_filter_post_content', 'git_prettify_replace');
 //首页隐藏一些分类
 function exclude_category_home($query) {
     if ($query->is_home) {
@@ -2171,9 +2168,11 @@ if (git_get_option('git_compress')):
             $buffer_out.= "\n<!--压缩前的大小: $initial bytes; 压缩后的大小: $final bytes; 节约：$savings% -->";
             return $buffer_out;
         }
-        ob_start("wp_compress_html_main");
+    if ( !is_admin() ) { 
+            ob_start("wp_compress_html_main");
+        }
     }
-    add_action('get_header', 'wp_compress_html');
+    add_action('init', 'wp_compress_html');
     function git_unCompress($content) {
         if (preg_match_all('/(crayon-|<\/pre>)/i', $content, $matches)) {
             $content = '<!--wp-compress-html--><!--wp-compress-html no compression-->' . $content;
@@ -2182,7 +2181,6 @@ if (git_get_option('git_compress')):
         return $content;
     }
     add_filter('the_content', 'git_unCompress');
-    add_filter('asgarosforum_filter_post_content', 'git_unCompress');
 endif;
 //增强编辑器开始
 function git_editor_buttons($buttons) {
