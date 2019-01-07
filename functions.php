@@ -49,8 +49,8 @@ function unregister_d_widget() {
 }
 add_action('widgets_init', 'unregister_d_widget');
 //添加后台左下角文字
-function git_admin_footer_text($text) {
-        $text = '感谢使用<a target="_blank" href="https://gitcafe.net/" >Git主题 ' . GIT_VER . '</a>进行创作';
+function git_admin_footer_text($text){
+    $text = '感谢使用<a target="_blank" href="https://gitcafe.net/" >Git主题 ' . GIT_VER . '</a>进行创作';
     return $text;
 }
 add_filter('admin_footer_text', 'git_admin_footer_text');
@@ -142,7 +142,9 @@ function git_notify_postauthor($notify_message,$comment_ID) {
 add_filter('comment_notification_text', 'git_notify_postauthor', 10, 2);
 add_filter('wp_password_change_notification_email', '__return_false'); //关闭密码修改站长邮件
 add_filter('password_change_email', '__return_false'); //关闭密码修改用户邮件
-if (git_get_option('git_user_notification_to_admin')) add_filter('wp_new_user_notification_email_admin', '__return_false'); //关闭新用户注册站长邮件
+if (git_get_option('git_user_notification_to_admin')) {
+    add_filter('wp_new_user_notification_email_admin', '__return_false');
+} //关闭新用户注册站长邮件
 //欢迎新用户邮件
 if (git_get_option('git_user_notification_to_user')) {
     function git_register_mail($user_id) {
@@ -155,7 +157,6 @@ if (git_get_option('git_user_notification_to_user')) {
     }
     add_action('user_register', 'git_register_mail');
     add_filter('wp_new_user_notification_email', '__return_false'); //关闭新用户注册用户邮件
-
 }
 //禁用WordPress活动
 function git_dweandw_remove() {
@@ -208,8 +209,10 @@ if (function_exists('register_sidebar')) {
 }
 
 //面包屑导航
-function deel_breadcrumbs() {
-    if (!is_single() || get_post_type() != 'post') return false;
+function deel_breadcrumbs(){
+    if (!is_single() || get_post_type() != 'post') {
+        return false;
+    }
     $categorys = get_the_category();
     $category = $categorys[0];
     return '<a title="返回首页" href="' . home_url() . '"><i class="fa fa-home"></i></a> <small>></small> ' . get_category_parents($category->term_id, true, ' <small>></small> ') . '<span class="muted">' . get_the_title() . '</span>';
@@ -231,25 +234,39 @@ function footerScript() {
     }
 }
 add_action('wp_enqueue_scripts', 'footerScript');
-if (!function_exists('deel_paging')):
-    function deel_paging() {
+if (!function_exists('deel_paging')) {
+    function deel_paging(){
         $p = 4;
-        if (is_singular()) return;
+        if (is_singular()) {
+            return;
+        }
         global $wp_query, $paged;
         $max_page = $wp_query->max_num_pages;
-        if ($max_page == 1) return;
+        if ($max_page == 1) {
+            return;
+        }
         echo '<div class="pagination"><ul>';
-        if (empty($paged)) $paged = 1;
+        if (empty($paged)) {
+            $paged = 1;
+        }
         // echo '<span class="pages">Page: ' . $paged . ' of ' . $max_page . ' </span> ';
         echo '<li class="prev-page">';
         previous_posts_link('上一页');
         echo '</li>';
-        if ($paged > $p + 1) p_link(1, '<li>第一页</li>');
-        if ($paged > $p + 2) echo "<li><span>&middot;&middot;&middot;</span></li>";
-        for ($i = $paged - $p; $i <= $paged + $p; $i++) {
-            if ($i > 0 && $i <= $max_page) $i == $paged ? print "<li class=\"active\"><span>{$i}</span></li>" : p_link($i);
+        if ($paged > $p + 1) {
+            p_link(1, '<li>第一页</li>');
         }
-        if ($paged < $max_page - $p - 1) echo "<li><span> ... </span></li>";
+        if ($paged > $p + 2) {
+            echo "<li><span>&middot;&middot;&middot;</span></li>";
+        }
+        for ($i = $paged - $p; $i <= $paged + $p; $i++) {
+            if ($i > 0 && $i <= $max_page) {
+                $i == $paged ? print "<li class=\"active\"><span>{$i}</span></li>" : p_link($i);
+            }
+        }
+        if ($paged < $max_page - $p - 1) {
+            echo "<li><span> ... </span></li>";
+        }
         //if ( $paged < $max_page - $p ) p_link( $max_page, '&raquo;' );
         echo '<li class="next-page">';
         next_posts_link('下一页');
@@ -257,11 +274,14 @@ if (!function_exists('deel_paging')):
         // echo '<li><span>共 '.$max_page.' 页</span></li>';
         echo '</ul></div>';
     }
-    function p_link($i, $title = '') {
-        if ($title == '') $title = "第 {$i} 页";
-        echo "<li><a href='", esc_html(get_pagenum_link($i)) , "'>{$i}</a></li>";
+    function p_link($i, $title = '')
+    {
+        if ($title == '') {
+            $title = "第 {$i} 页";
+        }
+        echo "<li><a href='", esc_html(get_pagenum_link($i)), "'>{$i}</a></li>";
     }
-endif;
+}
 function deel_strimwidth($str, $start, $width, $trimmarker) {
     $output = preg_replace('/^(?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){0,' . $start . '}((?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){0,' . $width . '}).*/s', '\1', $str);
     return $output . $trimmarker;
@@ -269,37 +289,38 @@ function deel_strimwidth($str, $start, $width, $trimmarker) {
 function git_get_option($e) {
     return stripslashes(get_option($e));
 }
-if (!function_exists('deel_views')):
-    function deel_record_visitors() {
+if (!function_exists('deel_views')) {
+    function deel_record_visitors(){
         if (is_singular()) {
             global $post;
             $post_ID = $post->ID;
             if ($post_ID) {
-                $post_views = (int)get_post_meta($post_ID, 'views', true);
-                if (!update_post_meta($post_ID, 'views', ($post_views + 1))) {
+                $post_views = (int) get_post_meta($post_ID, 'views', true);
+                if (!update_post_meta($post_ID, 'views', $post_views + 1)) {
                     add_post_meta($post_ID, 'views', 1, true);
                 }
             }
         }
     }
     add_action('wp_head', 'deel_record_visitors');
-    function deel_views($after = '') {
+    function deel_views($after = '')
+    {
         global $post;
         $post_ID = $post->ID;
-        $views = (int)get_post_meta($post_ID, 'views', true);
+        $views = (int) get_post_meta($post_ID, 'views', true);
         echo $views, $after;
     }
-endif;
+}
 //页面伪静态
-if (git_get_option('git_pagehtml_b')):
-function html_page_permalink() {
-    global $wp_rewrite;
-        if (!strpos($wp_rewrite->get_page_permastruct() , '.html')) {
+if (git_get_option('git_pagehtml_b')) {
+    function html_page_permalink(){
+        global $wp_rewrite;
+        if (!strpos($wp_rewrite->get_page_permastruct(), '.html')) {
             $wp_rewrite->page_structure = $wp_rewrite->page_structure . '.html';
         }
+    }
+    add_action('init', 'html_page_permalink', -1);
 }
-add_action('init', 'html_page_permalink', -1);
-endif;
 //baidu分享
 $dHasShare = false;
 function deel_share() {
@@ -349,7 +370,9 @@ function git_avatar_cache($avatar) {
     ) , git_get_option('git_avatar_qnurl') , $avatar);
     return $avatar;
 }
-if (git_get_option('git_avater') == 'git_avatar_qn') add_filter('get_avatar', 'git_avatar_cache', 10, 3);
+if (git_get_option('git_avater') == 'git_avatar_qn') {
+    add_filter('get_avatar', 'git_avatar_cache', 10, 3);
+}
 
 //随机头像
 function local_random_avatar($avatar) {
@@ -369,20 +392,20 @@ if (git_get_option('git_avater') == 'git_avatar_rand') {
     add_filter('get_avatar', 'local_random_avatar', 1, 5);
 }
 //给外部链接加上跳转
-if (git_get_option('git_go')):
-    function git_go_url($content) {
+if (git_get_option('git_go')) {
+    function git_go_url($content){
         preg_match_all('/<a(.*?)href="(.*?)"(.*?)>/', $content, $matches);
         if ($matches && !is_page('about')) {
             foreach ($matches[2] as $val) {
-                if (strpos($val, '://') !== false && strpos($val, home_url()) === false && !preg_match('/\.(jpg|jpeg|png|ico|bmp|gif|tiff)/i', $val)) {
-                    $content = str_replace("href=\"$val\"", "href=\"" . get_permalink(git_page_id('go')) . "?url=$val\" ", $content);
+                if (strpos($val, '://') !== false && strpos($val, home_url()) === false && !preg_match('/\\.(jpg|jpeg|png|ico|bmp|gif|tiff)/i', $val)) {
+                    $content = str_replace("href=\"{$val}\"", "href=\"" . get_permalink(git_page_id('go')) . "?url={$val}\" ", $content);
                 }
             }
         }
         return $content;
     }
     add_filter('the_content', 'git_go_url', 999);
-endif;
+}
 //关键字
 function deel_keywords() {
     global $s, $post;
@@ -598,8 +621,11 @@ function my_quicktags() {
 };
 add_action('admin_print_scripts', 'my_quicktags');
 //过滤外文评论
-if (git_get_option('git_spam_lang') && !is_user_logged_in()):
-    function refused_spam_comments($commentdata) {
+if (git_get_option('git_spam_lang')) {
+    function refused_spam_comments($commentdata){
+        if (is_user_logged_in()) {
+            return $commentdata;
+        }
         $pattern = '/[一-龥]/u';
         $jpattern = '/[ぁ-ん]+|[ァ-ヴ]+/u';
         if (!preg_match($pattern, $commentdata['comment_content'])) {
@@ -611,10 +637,13 @@ if (git_get_option('git_spam_lang') && !is_user_logged_in()):
         return $commentdata;
     }
     add_filter('preprocess_comment', 'refused_spam_comments');
-endif;
+}
 //屏蔽关键词，email，url，ip
-if (git_get_option('git_spam_keywords') && !is_user_logged_in()):
-    function Googlofuckspam($commentdata) {
+if (git_get_option('git_spam_keywords')) {
+    function Googlofuckspam($commentdata){
+        if (is_user_logged_in()) {
+            return $commentdata;
+        }
         if (wp_blacklist_check($commentdata['comment_author'], $commentdata['comment_author_email'], $commentdata['comment_author_url'], $commentdata['comment_content'], $commentdata['comment_author_IP'], $commentdata['comment_agent'])) {
             header("Content-type: text/html; charset=utf-8");
             err('不好意思，您的评论违反本站评论规则');
@@ -623,25 +652,29 @@ if (git_get_option('git_spam_keywords') && !is_user_logged_in()):
         }
     }
     add_filter('preprocess_comment', 'Googlofuckspam');
-endif;
+}
 //屏蔽长连接评论
-if (git_get_option('git_spam_long') && !is_user_logged_in()):
-    function lang_url_spamcheck($approved, $commentdata) {
-        return (strlen($commentdata['comment_author_url']) > 50) ? 'spam' : $approved;
+if (git_get_option('git_spam_long') && !is_user_logged_in()) {
+    function lang_url_spamcheck($approved, $commentdata)
+    {
+        return strlen($commentdata['comment_author_url']) > 50 ? 'spam' : $approved;
     }
     add_filter('pre_comment_approved', 'lang_url_spamcheck', 99, 2);
-endif;
+}
 //屏蔽昵称，评论内容带链接的评论
-if (git_get_option('git_spam_url') && !is_user_logged_in()):
-    function Googlolink($commentdata) {
-        $links = '/http:\/\/|https:\/\/|www\./u';
+if (git_get_option('git_spam_url')) {
+    function Googlolink($commentdata){
+        if (is_user_logged_in()) {
+            return $commentdata;
+        }
+        $links = '/http:\\/\\/|https:\\/\\/|www\\./u';
         if (preg_match($links, $commentdata['comment_author']) || preg_match($links, $commentdata['comment_content'])) {
             err('在昵称和评论里面是不准发链接滴.');
         }
-        return ($commentdata);
+        return $commentdata;
     }
     add_filter('preprocess_comment', 'Googlolink');
-endif;
+}
 //点赞
 add_action('wp_ajax_nopriv_bigfa_like', 'bigfa_like');
 add_action('wp_ajax_bigfa_like', 'bigfa_like');
@@ -822,7 +855,7 @@ if (git_get_option('git_categroy_b')):
     }
 endif;
 /*cURL库 */
-if (function_exists('curl_init')):
+if (function_exists('curl_init')) {
     function curl_post($url, $postfields = '', $headers = '', $timeout = 20, $file = 0) {
         $ch = curl_init();
         $options = array(
@@ -859,7 +892,7 @@ if (function_exists('curl_init')):
             'info' => $info
         );
     }
-endif;
+}
 //添加文章版权信息
 function git_copyright($content) {
     if ((is_single() || is_feed()) && git_get_option('git_copyright_b')) {
@@ -877,7 +910,6 @@ function git_copyright($content) {
 add_filter('the_content', 'git_copyright');
 //fancybox图片灯箱效果
 function fancybox($content) {
-    global $post;
     $pattern = "/<a(.*?)href=('|\")([^>]*).(bmp|gif|jpeg|jpg|png|swf)('|\")(.*?)>(.*?)<\\/a>/i";
     $replacement = '<a$1href=$2$3.$4$5 rel="box" class="fancybox"$6>$7</a>';
     $content = preg_replace($pattern, $replacement, $content);
@@ -919,9 +951,9 @@ function tag_link($content) {
 if (git_get_option('git_autolink_b')) {
     add_filter('the_content', 'tag_link', 1);
 }
-if (git_get_option('git_imgalt_b')):
+if (git_get_option('git_imgalt_b')) {
     //图片img标签添加alt，title属性
-    function imagesalt($content) {
+    function imagesalt($content){
         global $post;
         $pattern = "/<img(.*?)src=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>/i";
         $replacement = '<img$1src=$2$3.$4$5 alt="' . $post->post_title . '" title="' . $post->post_title . '"$6>';
@@ -930,7 +962,7 @@ if (git_get_option('git_imgalt_b')):
     }
     add_filter('the_content', 'imagesalt');
     //图片A标签添加title属性
-    function aimagesalt($content) {
+    function aimagesalt($content){
         global $post;
         $pattern = "/<a(.*?)href=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>/i";
         $replacement = '<a$1href=$2$3.$4$5 title="' . $post->post_title . '"$6>';
@@ -938,12 +970,13 @@ if (git_get_option('git_imgalt_b')):
         return $content;
     }
     add_filter('the_content', 'aimagesalt');
-endif;
+}
 //自动给文章以及评论添加nofollow属性
-if (git_get_option('git_nofollow')):
-    function git_auto_nofollow($content) {
-        $regexp = "<a\s[^>]*href=(\"??)([^\" >]*?)\\1[^>]*>";
-        if (preg_match_all("/$regexp/siU", $content, $matches, PREG_SET_ORDER)) {
+if (git_get_option('git_nofollow')) {
+    function git_auto_nofollow($content)
+    {
+        $regexp = "<a\\s[^>]*href=(\"??)([^\" >]*?)\\1[^>]*>";
+        if (preg_match_all("/{$regexp}/siU", $content, $matches, PREG_SET_ORDER)) {
             if (!empty($matches)) {
                 $srcUrl = get_option('siteurl');
                 for ($i = 0; $i < count($matches); $i++) {
@@ -951,13 +984,15 @@ if (git_get_option('git_nofollow')):
                     $tag2 = $matches[$i][0];
                     $url = $matches[$i][0];
                     $noFollow = '';
-                    $pattern = '/rel\s*=\s*"\s*[n|d]ofollow\s*"/';
+                    $pattern = '/rel\\s*=\\s*"\\s*[n|d]ofollow\\s*"/';
                     preg_match($pattern, $tag2, $match, PREG_OFFSET_CAPTURE);
-                    if (count($match) < 1) $noFollow.= ' rel="nofollow" ';
+                    if (count($match) < 1) {
+                        $noFollow .= ' rel="nofollow" ';
+                    }
                     $pos = strpos($url, $srcUrl);
                     if ($pos === false) {
                         $tag = rtrim($tag, '>');
-                        $tag.= $noFollow . '>';
+                        $tag .= $noFollow . '>';
                         $content = str_replace($tag2, $tag, $content);
                     }
                 }
@@ -967,7 +1002,7 @@ if (git_get_option('git_nofollow')):
         return $content;
     }
     add_filter('the_content', 'git_auto_nofollow');
-endif;
+}
 //输出WordPress表情
 function fa_get_wpsmiliestrans() {
     global $wpsmiliestrans;
@@ -1061,9 +1096,9 @@ function reply_to_read($atts, $content = null) {
         "notice" => '<blockquote><center><p class="reply-to-read" style="color: blue;">注意：本段内容须成功“<a href="' . get_permalink() . '#respond" title="回复本文">回复本文</a>”后“<a href="javascript:window.location.reload();" title="刷新本页">刷新本页</a>”方可查看！</p></center></blockquote>'
     ) , $atts));
     $email = null;
-    $user_ID = (int)wp_get_current_user()->ID;
+    $user_ID = get_current_user_id();
     if ($user_ID > 0) {
-        $email = get_userdata($user_ID)->user_email;
+        $email = get_user_by('id', $user_ID)->user_email;
         //对博主直接显示内容
         $admin_email = get_bloginfo('admin_email');
         if ($email == $admin_email) {
@@ -1479,43 +1514,42 @@ function arr_split_zh($tempaddtext) {
     return $arr_cont;
 }
 //百度收录提示
-if (git_get_option('git_baidurecord_b') && function_exists('curl_init')):
-function baidu_check($url, $post_id){
-    $baidu_record  = get_post_meta($post_id,'baidu_record',true);
-    if( $baidu_record != 1){
-        $url='http://www.baidu.com/s?wd='.$url;
-        $curl=curl_init();
-        curl_setopt($curl,CURLOPT_URL,$url);
-        curl_setopt($curl,CURLOPT_RETURNTRANSFER,1);
-        $rs=curl_exec($curl);
-        curl_close($curl);
-        if(!strpos($rs,'没有找到该URL，您可以直接访问') && !strpos($rs,'很抱歉，没有找到与') ){
-            update_post_meta($post_id, 'baidu_record', 1) || add_post_meta($post_id, 'baidu_record', 1, true);
-            return 1;
+if (git_get_option('git_baidurecord_b') && function_exists('curl_init')) {
+    function baidu_check($url, $post_id){
+        $baidu_record = get_post_meta($post_id, 'baidu_record', true);
+        if ($baidu_record != 1) {
+            $url = 'http://www.baidu.com/s?wd=' . $url;
+            $curl = curl_init();
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+            $rs = curl_exec($curl);
+            curl_close($curl);
+            if (!strpos($rs, '没有找到该URL，您可以直接访问') && !strpos($rs, '很抱歉，没有找到与')) {
+                update_post_meta($post_id, 'baidu_record', 1) || add_post_meta($post_id, 'baidu_record', 1, true);
+                return 1;
+            } else {
+                return 0;
+            }
         } else {
-            return 0;
+            return 1;
         }
-    } else {
-       return 1;
+    }
+    function baidu_record(){
+        global $wpdb;
+        $post_id = null === $post_id ? get_the_ID() : $post_id;
+        if (baidu_check(get_permalink($post_id), $post_id) == 1) {
+            echo '<a target="_blank" title="点击查看" rel="external nofollow" href="http://www.baidu.com/s?wd=' . get_the_title() . '">已收录</a>';
+        } else {
+            echo '<a style="color:red;" rel="external nofollow" title="点击提交，谢谢您！" target="_blank" href="http://zhanzhang.baidu.com/sitesubmit/index?sitename=' . get_permalink() . '">未收录</a>';
+        }
     }
 }
-function baidu_record() {
-    global $wpdb;
-    $post_id = ( null === $post_id ) ? get_the_ID() : $post_id;
-    if(baidu_check(get_permalink($post_id), $post_id ) == 1) {
-        echo '<a target="_blank" title="点击查看" rel="external nofollow" href="http://www.baidu.com/s?wd='.get_the_title().'">已收录</a>';
-   } else {
-        echo '<a style="color:red;" rel="external nofollow" title="点击提交，谢谢您！" target="_blank" href="http://zhanzhang.baidu.com/sitesubmit/index?sitename='.get_permalink().'">未收录</a>';
-   }
-}
-endif;
 
 //主题自动更新服务
-if (!git_get_option('git_updates_b')):
+if (!git_get_option('git_updates_b')) {
     require 'modules/updates.php';
-    $example_update_checker = new ThemeUpdateChecker('Git-alpha', 'https://raw.githubusercontent.com/yunluo/Git/gh-pages/info.json' /*此处链接不可改*/);
-endif;
-
+    $example_update_checker = new ThemeUpdateChecker('Git-alpha', 'https://raw.githubusercontent.com/yunluo/Git/gh-pages/info.json');
+}
 
 //本地头像
 class simple_local_avatars {
@@ -1718,7 +1752,7 @@ if (!is_admin() && git_get_option('git_qncdn_b')) {
 if (is_admin() && git_get_option('git_cdnurl_b') && git_get_option('git_adminqn_b')) {
     function attachment_replace($text) {
         $replace = array(
-            '' . home_url() . '' => '' . git_get_option('git_cdnurl_b') . ''
+             home_url()  => git_get_option('git_cdnurl_b')
         );
         $text = str_replace(array_keys($replace) , $replace, $text);
         return $text;
@@ -1726,15 +1760,15 @@ if (is_admin() && git_get_option('git_cdnurl_b') && git_get_option('git_adminqn_
     add_filter('wp_get_attachment_url', 'attachment_replace');
 }
 //评论分页的seo处理
-function canonical_for_git() {
+function canonical_for_git(){
     global $post;
-    if (get_query_var('paged') > 1):
+    if (get_query_var('paged') > 1) {
         echo "\n";
         echo "<link rel='canonical' href='";
         echo get_permalink($post->ID);
         echo "' />\n";
         echo "<meta name=\"robots\" content=\"noindex,follow\">";
-    endif;
+    }
 }
 add_action('wp_head', 'canonical_for_git');
 //移除默认的图片宽度以及高度
@@ -1745,13 +1779,13 @@ function remove_wps_width($html) {
 add_filter('post_thumbnail_html', 'remove_wps_width', 10);
 add_filter('image_send_to_editor', 'remove_wps_width', 10);
 //评论拒绝HTML代码
-if (git_get_option('git_html_comment')):
-    function git_comment_post($incoming_comment) {
+if (git_get_option('git_html_comment')) {
+    function git_comment_post($incoming_comment){
         $incoming_comment['comment_content'] = htmlspecialchars($incoming_comment['comment_content']);
         $incoming_comment['comment_content'] = str_replace("'", '&apos;', $incoming_comment['comment_content']);
-        return ($incoming_comment);
+        return $incoming_comment;
     }
-    function git_comment_display($comment_to_display) {
+    function git_comment_display($comment_to_display){
         $comment_to_display = str_replace('&apos;', "'", $comment_to_display);
         return $comment_to_display;
     }
@@ -1759,7 +1793,7 @@ if (git_get_option('git_html_comment')):
     add_filter('comment_text', 'git_comment_display', '', 1);
     add_filter('comment_text_rss', 'git_comment_display', '', 1);
     add_filter('comment_excerpt', 'git_comment_display', '', 1);
-endif;
+}
 if (!defined('UM_DIR')) { /*判断是否按照UM插件*/
     //注册表单
     function git_show_extra_register_fields() {
@@ -1862,8 +1896,8 @@ add_filter('pre_get_posts', 'git_post_order_in_admin');
 /*
 UA信息
 */
-if (git_get_option('git_ua_b')):
-    function user_agent($ua) {
+if (git_get_option('git_ua_b')) {
+    function user_agent($ua){
         //开始解析操作系统
         $os = null;
         if (preg_match('/Windows NT 6.0/i', $ua)) {
@@ -1899,7 +1933,7 @@ if (git_get_option('git_ua_b')):
             $browser = '搜狗浏览器 2' . $matches[1];
         } elseif (preg_match('#360([a-zA-Z0-9.]+)#i', $ua, $matches)) {
             $browser = '360浏览器 ' . $matches[1];
-        } elseif (preg_match('#Maxthon( |\/)([a-zA-Z0-9.]+)#i', $ua, $matches)) {
+        } elseif (preg_match('#Maxthon( |\\/)([a-zA-Z0-9.]+)#i', $ua, $matches)) {
             $browser = 'Maxthon 浏览器' . $matches[2];
         } elseif (preg_match('#Chrome/([a-zA-Z0-9.]+)#i', $ua, $matches)) {
             $browser = 'Chrome ' . $matches[1];
@@ -1931,7 +1965,7 @@ if (git_get_option('git_ua_b')):
         }
         return $os . "  |  " . $browser;
     }
-endif;
+}
 //添加碎语功能
 function git_shuoshuo() {
     $labels = array(
@@ -1984,7 +2018,7 @@ function custom_shuoshuo_rewrites_init() {
 }
 add_action('init', 'custom_shuoshuo_rewrites_init');
 //添加产品功能
-if (!defined('UM_DIR')): /*如果安装um的话，就禁用这个功能*/
+if (!defined('UM_DIR')) { /*如果安装um的话，就禁用这个功能*/
     function git_product() {
         $labels = array(
             'name' => '产品',
@@ -2061,7 +2095,7 @@ if (!defined('UM_DIR')): /*如果安装um的话，就禁用这个功能*/
         add_rewrite_rule('product/([0-9]+)?.html$', 'index.php?post_type=product&p=$matches[1]', 'top');
     }
     add_action('init', 'custom_product_rewrites_init');
-endif;
+}
 /*
 修复4.2表情bug
 下面代码来自：http://www.9sep.org/remove-emoji-in-wordpress
@@ -2141,47 +2175,53 @@ function init_gitsmilie() {
 add_action('init', 'init_gitsmilie', 5);
 
 //压缩html代码
-if (git_get_option('git_compress')):
-    function wp_compress_html() {
-        function wp_compress_html_main($buffer) {
+if (git_get_option('git_compress')) {
+    function wp_compress_html()
+    {
+        function wp_compress_html_main($buffer)
+        {
             $initial = strlen($buffer);
             $buffer = explode("<!--wp-compress-html-->", $buffer);
             $count = count($buffer);
-            $buffer_out = '';
             for ($i = 0; $i <= $count; $i++) {
                 if (stristr($buffer[$i], '<!--wp-compress-html no compression-->')) {
-                    $buffer[$i] = (str_replace("<!--wp-compress-html no compression-->", " ", $buffer[$i]));
+                    $buffer[$i] = str_replace("<!--wp-compress-html no compression-->", " ", $buffer[$i]);
                 } else {
-                    $buffer[$i] = (str_replace("\t", " ", $buffer[$i]));
-                    $buffer[$i] = (str_replace("\n\n", "\n", $buffer[$i]));
-                    $buffer[$i] = (str_replace("\n", "", $buffer[$i]));
-                    $buffer[$i] = (str_replace("\r", "", $buffer[$i]));
+                    $buffer[$i] = str_replace("\t", " ", $buffer[$i]);
+                    $buffer[$i] = str_replace("\n\n", "\n", $buffer[$i]);
+                    $buffer[$i] = str_replace("\n", "", $buffer[$i]);
+                    $buffer[$i] = str_replace("\r", "", $buffer[$i]);
                     while (stristr($buffer[$i], '  ')) {
-                        $buffer[$i] = (str_replace("  ", " ", $buffer[$i]));
+                        $buffer[$i] = str_replace("  ", " ", $buffer[$i]);
                     }
                 }
-                $buffer_out.= $buffer[$i];
+                $buffer_out .= $buffer[$i];
             }
             $final = strlen($buffer_out);
-            $savings = ($initial - $final) / $initial * 100;
+            if ($initial !== 0) {
+                $savings = ($initial - $final) / $initial * 100;
+            } else {
+                $savings = 0;
+            }
             $savings = round($savings, 2);
-            $buffer_out.= "\n<!--压缩前的大小: $initial bytes; 压缩后的大小: $final bytes; 节约：$savings% -->";
+            $buffer_out .= "\n<!--压缩前的大小: {$initial} bytes; 压缩后的大小: {$final} bytes; 节约：{$savings}% -->";
             return $buffer_out;
         }
-    if ( !is_admin() ) { 
+        if (!is_admin()) {
             ob_start("wp_compress_html_main");
         }
     }
     add_action('init', 'wp_compress_html');
-    function git_unCompress($content) {
-        if (preg_match_all('/(crayon-|<\/pre>)/i', $content, $matches)) {
+    function git_unCompress($content)
+    {
+        if (preg_match_all('/(crayon-|script|textarea|<\\/pre>)/i', $content, $matches)) {
             $content = '<!--wp-compress-html--><!--wp-compress-html no compression-->' . $content;
-            $content.= '<!--wp-compress-html no compression--><!--wp-compress-html-->';
+            $content .= '<!--wp-compress-html no compression--><!--wp-compress-html-->';
         }
         return $content;
     }
     add_filter('the_content', 'git_unCompress');
-endif;
+}
 //增强编辑器开始
 function git_editor_buttons($buttons) {
     $buttons[] = 'fontselect';
@@ -2213,8 +2253,6 @@ function git_wps_login_error() {
     remove_action('login_head', 'wp_shake_js', 12);
 }
 add_action('login_head', 'git_wps_login_error');
-//设HTML为默认编辑器
-//add_filter( 'wp_default_editor', create_function('', 'return "html";') );
 //使链接自动可点击
 add_filter('the_content', 'make_clickable');
 //管理后台添加按钮
@@ -2311,13 +2349,17 @@ function git_reset_password_message($message, $key) {
 }
 add_filter('retrieve_password_message', 'git_reset_password_message', null, 2);
 //保护后台登录
-if (git_get_option('git_admin')):
-    function git_login_protection() {
-        if ($_GET['' . git_get_option('git_admin_q') . ''] !== '' . git_get_option('git_admin_a') . '') header('Location: http://www.baidu.com'); /* 不用密码登录，直接滚到百度去 */
+if (git_get_option('git_admin')) {
+    function git_login_protection()
+    {
+        if ($_GET['' . git_get_option('git_admin_q') . ''] !== '' . git_get_option('git_admin_a') . '') {
+            header('Location: http://www.baidu.com');
+        }
+        /* 不用密码登录，直接滚到百度去 */
         exit;
     }
     add_action('login_enqueue_scripts', 'git_login_protection');
-endif;
+}
 /*救命啊！ps.很好，搜索这段代码很可能意味着你把自己后台给锁了，将保护后台登录这大段代码删除即可*/
 //登录失败提醒
 if (git_get_option('git_login_tx')) {
@@ -2335,17 +2377,29 @@ if (git_get_option('git_login_tx')) {
     add_action('wp_login_failed', 'git_login_failed_notify');
 }
 //取消静态资源的版本查询
-if (git_get_option('git_query')):
-    function _remove_script_version($src) {
+if (git_get_option('git_query')) {
+    function _remove_script_version($src){
         $parts = explode('?ver', $src);
         return $parts[0];
     }
     add_filter('script_loader_src', '_remove_script_version', 15, 1);
     add_filter('style_loader_src', '_remove_script_version', 15, 1);
-endif;
+}
 //百度主动推送
 if (git_get_option('git_sitemap_api')) {
-    function git_Baidu_Submit($post_ID) {
+    function Git_Baidu_Submit_Success() {
+        echo '<div class="notice notice-success is-dismissible">
+        <p>百度实时推送已成功！</p>
+        </div>';
+    }
+    function Git_Baidu_Submit_Error() {
+        echo '<div class="notice notice-error is-dismissible">
+        <p>百度实时推送已失败，您可以稍后继续提交试试</p>
+        </div>';
+    }
+    add_action( 'admin_notices', 'Git_Baidu_Submit_Success' );
+    add_action( 'admin_notices', 'Git_Baidu_Submit_Error' );
+    function Git_Baidu_Submit($post_ID) {
         if (get_post_meta($post_ID, 'git_baidu_submit', true) == 1) return;
         $url = get_permalink($post_ID);
         $api = git_get_option('git_sitemap_api');
@@ -2355,12 +2409,19 @@ if (git_get_option('git_sitemap_api')) {
             'body' => $url,
             'headers' => 'Content-Type: text/plain'
         ));
-        $result = json_decode($result['body'], true);
+        if ( is_array( $result ) && !is_wp_error($result) && $result['response']['code'] == '200' ) {
+            $result = json_decode($result['body'], true);
+        }else{
+            Git_Baidu_Submit_Error();
+        }
         if (array_key_exists('success', $result)) {
             add_post_meta($post_ID, 'git_baidu_submit', 1, true);
+            Git_Baidu_Submit_Success();
+        }else{
+            Git_Baidu_Submit_Error();
         }
     }
-    add_action('publish_post', 'git_Baidu_Submit', 0);
+    add_action('publish_post', 'Git_Baidu_Submit', 0);
 }
 //登录可见
 function login_to_read($atts, $content = null) {

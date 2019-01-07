@@ -245,18 +245,17 @@ function only_my_media_library($wp_query) {
 }
 add_filter('parse_query', 'only_my_media_library');
 //CDN水印
-if (git_get_option('git_cdn_water') ):
-    function cdn_water($content) {
-        global $post;
-		if(get_post_type() !== 'product'){
-        $pattern = "/<img(.*?)src=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>/i";
-        $replacement = '<img$1src=$2$3.$4!water.jpg$5$6>';
-        $content = preg_replace($pattern, $replacement, $content);
-		}
+if (git_get_option('git_cdn_water')) {
+    function cdn_water($content){
+        if (get_post_type() !== 'product') {
+            $pattern = "/<img(.*?)src=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>/i";
+            $replacement = '<img$1src=$2$3.$4!water.jpg$5$6>';
+            $content = preg_replace($pattern, $replacement, $content);
+        }
         return $content;
     }
     add_filter('the_content', 'cdn_water');
-endif;
+}
 //快速插入列表
 function git_list_shortcode_handler($atts, $content = '') {
     $lists = explode("\n", $content);
@@ -408,8 +407,7 @@ function git_ripms_columns($value, $column_name, $user_id) {
 add_action('manage_users_custom_column', 'git_ripms_columns', 10, 3);
 // 创建一个新字段存储用户登录时间
 function git_insert_last_login($login) {
-    global $user_id;
-    $user = get_userdatabylogin($login);
+    $user = get_user_by('login', $login);
     update_user_meta($user->ID, 'last_login', current_time('mysql'));
 }
 add_action('wp_login', 'git_insert_last_login');
@@ -444,7 +442,7 @@ function git_add_users_column_reg_time($column_headers) {
 add_filter('manage_users_custom_column', 'git_show_users_column_reg_time', 10, 3);
 function git_show_users_column_reg_time($value, $column_name, $user_id) {
     if ($column_name == 'reg_time') {
-        $user = get_userdata($user_id);
+        $user = get_user_by('id', $user_id);
         return get_date_from_gmt($user->user_registered);
     } else {
         return $value;
@@ -468,15 +466,15 @@ function git_users_search_order($obj) {
     }
 }
 //后台登陆数学验证码
-if (git_get_option('git_admin_captcha')):
-    function git_add_login_fields() {
-        $num1 = mt_rand(0, 99);
+if (git_get_option('git_admin_captcha')) {
+    function git_add_login_fields(){
+        $num1 = mt_rand(0, 20);
         $num2 = mt_rand(0, 20);
         echo "<p><label for='sum'> {$num1} + {$num2} = ?<br /><input type='text' name='sum' class='input' value='' size='25' tabindex='4'>" . "<input type='hidden' name='num1' value='{$num1}'>" . "<input type='hidden' name='num2' value='{$num2}'></label></p>";
     }
     add_action('login_form', 'git_add_login_fields');
     add_action('register_form', 'git_add_login_fields');
-    function git_login_val() {
+    function git_login_val(){
         $sum = $_POST['sum'];
         switch ($sum) {
             case $_POST['num1'] + $_POST['num2']:
@@ -484,19 +482,19 @@ if (git_get_option('git_admin_captcha')):
             case null:
                 wp_die('错误: 请输入验证码&nbsp; <a href="javascript:;" onclick="javascript:history.back();">返回上页</a>');
                 break;
-
             default:
                 wp_die('错误: 验证码错误,请重试&nbsp; <a href="javascript:;" onclick="javascript:history.back();">返回上页</a>');
         }
     }
     add_action('login_form_login', 'git_login_val');
     add_action('register_post', 'git_login_val');
-endif;
+}
 //限制每个ip的注册数量
-if (git_get_option('git_regist_ips')):
-    function validate_reg_ips() {
+if (git_get_option('git_regist_ips')) {
+    function validate_reg_ips(){
         global $err_msg;
-        $allow_time = git_get_option('git_regist_ips_num'); //每个IP允许注册的用户数
+        $allow_time = git_get_option('git_regist_ips_num');
+        //每个IP允许注册的用户数
         $allowed = true;
         $ipsfile = ABSPATH . '/ips.txt';
         $ips = file_get_contents($ipsfile);
@@ -509,43 +507,58 @@ if (git_get_option('git_regist_ips')):
         return $allowed;
     }
     add_filter('validate_username', 'validate_reg_ips', 10, 1);
-    function ip_restrict_errors($errors) {
+    function ip_restrict_errors($errors){
         global $err_msg;
-        if (isset($errors->errors['invalid_username'])) $errors->errors['invalid_username'][0] = $err_msg;
+        if (isset($errors->errors['invalid_username'])) {
+            $errors->errors['invalid_username'][0] = $err_msg;
+        }
         return $errors;
     }
     add_filter('registration_errors', 'ip_restrict_errors');
-    function update_reg_ips() {
+    function update_reg_ips(){
         $ipsfile = ABSPATH . '/ips.txt';
         file_put_contents($ipsfile, getIp() . "\r\n", FILE_APPEND);
     }
     add_action('user_register', 'update_reg_ips');
-    function getIp() {
-        if (getenv("HTTP_CLIENT_IP") && strcasecmp(getenv("HTTP_CLIENT_IP") , "unknown")) $ip = getenv("HTTP_CLIENT_IP");
-        else if (getenv("HTTP_X_FORWARDED_FOR") && strcasecmp(getenv("HTTP_X_FORWARDED_FOR") , "unknown")) $ip = getenv("HTTP_X_FORWARDED_FOR");
-        else if (getenv("REMOTE_ADDR") && strcasecmp(getenv("REMOTE_ADDR") , "unknown")) $ip = getenv("REMOTE_ADDR");
-        else if (isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] && strcasecmp($_SERVER['REMOTE_ADDR'], "unknown")) $ip = $_SERVER['REMOTE_ADDR'];
-        else $ip = "unknown";
+    function getIp(){
+        if (getenv("HTTP_CLIENT_IP") && strcasecmp(getenv("HTTP_CLIENT_IP"), "unknown")) {
+            $ip = getenv("HTTP_CLIENT_IP");
+        } else {
+            if (getenv("HTTP_X_FORWARDED_FOR") && strcasecmp(getenv("HTTP_X_FORWARDED_FOR"), "unknown")) {
+                $ip = getenv("HTTP_X_FORWARDED_FOR");
+            } else {
+                if (getenv("REMOTE_ADDR") && strcasecmp(getenv("REMOTE_ADDR"), "unknown")) {
+                    $ip = getenv("REMOTE_ADDR");
+                } else {
+                    if (isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] && strcasecmp($_SERVER['REMOTE_ADDR'], "unknown")) {
+                        $ip = $_SERVER['REMOTE_ADDR'];
+                    } else {
+                        $ip = "unknown";
+                    }
+                }
+            }
+        }
         return $ip;
     }
-endif;
+}
 //懒加载
-if (git_get_option('git_lazyload')):
-    function lazyload($content) {
+if (git_get_option('git_lazyload')) {
+    function lazyload($content){
         if (!is_feed() || !is_robots()) {
             $content = preg_replace('/<img(.+)src=[\'"]([^\'"]+)[\'"](.*)>/i', "<img\$1data-original=\"\$2\" \$3>\n<noscript>\$0</noscript>", $content);
         }
         return $content;
     }
     add_filter('the_content', 'lazyload');
-endif;
+}
 //自动中英文空格
-function content_autospace($data) {
-    $data = preg_replace('/([\x{4e00}-\x{9fa5}]+)([A-Za-z0-9_]+)/u', '${1} ${2}', $data);
-    $data = preg_replace('/([A-Za-z0-9_]+)([\x{4e00}-\x{9fa5}]+)/u', '${1} ${2}', $data);
-    return $data;
-}if(git_get_option('git_auto_kg')){
-add_filter('the_content', 'content_autospace');
+if (git_get_option('git_auto_kg')) {
+    function content_autospace($data){
+        $data = preg_replace('/([\\x{4e00}-\\x{9fa5}]+)([A-Za-z0-9_]+)/u', '${1} ${2}', $data);
+        $data = preg_replace('/([A-Za-z0-9_]+)([\\x{4e00}-\\x{9fa5}]+)/u', '${1} ${2}', $data);
+        return $data;
+    }
+    add_filter('the_content', 'content_autospace');
 }
 //只搜索文章标题
 function git_search_by_title($search, $wp_query) {
