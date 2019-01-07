@@ -2387,22 +2387,10 @@ if (git_get_option('git_query')) {
 }
 //百度主动推送
 if (git_get_option('git_sitemap_api')) {
-    function Git_Baidu_Submit_Success() {
-        echo '<div class="notice notice-success is-dismissible">
-        <p>百度实时推送已成功！</p>
-        </div>';
-    }
-    function Git_Baidu_Submit_Error() {
-        echo '<div class="notice notice-error is-dismissible">
-        <p>百度实时推送已失败，您可以稍后继续提交试试</p>
-        </div>';
-    }
-    add_action( 'admin_notices', 'Git_Baidu_Submit_Success' );
-    add_action( 'admin_notices', 'Git_Baidu_Submit_Error' );
     function Git_Baidu_Submit($post_ID) {
         if (get_post_meta($post_ID, 'git_baidu_submit', true) == 1) return;
         $url = get_permalink($post_ID);
-        $api = git_get_option('git_sitemap_api');
+        $api = trim(git_get_option('git_sitemap_api'));
         $request = new WP_Http;
         $result = $request->request($api, array(
             'method' => 'POST',
@@ -2411,14 +2399,9 @@ if (git_get_option('git_sitemap_api')) {
         ));
         if ( is_array( $result ) && !is_wp_error($result) && $result['response']['code'] == '200' ) {
             $result = json_decode($result['body'], true);
-        }else{
-            Git_Baidu_Submit_Error();
         }
         if (array_key_exists('success', $result)) {
             add_post_meta($post_ID, 'git_baidu_submit', 1, true);
-            Git_Baidu_Submit_Success();
-        }else{
-            Git_Baidu_Submit_Error();
         }
     }
     add_action('publish_post', 'Git_Baidu_Submit', 0);
