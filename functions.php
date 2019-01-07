@@ -2176,10 +2176,9 @@ add_action('init', 'init_gitsmilie', 5);
 
 //压缩html代码
 if (git_get_option('git_compress')) {
-    function wp_compress_html()
-    {
-        function wp_compress_html_main($buffer)
-        {
+    function wp_compress_html(){
+        function wp_compress_html_main($buffer){
+            if ( substr( ltrim( $buffer ), 0, 5) == '<?xml' ) return $buffer;
             $initial = strlen($buffer);
             $buffer = explode("<!--wp-compress-html-->", $buffer);
             $count = count($buffer);
@@ -2214,7 +2213,7 @@ if (git_get_option('git_compress')) {
     add_action('init', 'wp_compress_html');
     function git_unCompress($content)
     {
-        if (preg_match_all('/(crayon-|script|textarea|<\\/pre>)/i', $content, $matches)) {
+        if (preg_match_all('/(crayon-|<?xml|script|textarea|<\\/pre>)/i', $content, $matches)) {
             $content = '<!--wp-compress-html--><!--wp-compress-html no compression-->' . $content;
             $content .= '<!--wp-compress-html no compression--><!--wp-compress-html-->';
         }
@@ -2390,7 +2389,7 @@ if (git_get_option('git_sitemap_api')) {
     function Git_Baidu_Submit($post_ID) {
         if (get_post_meta($post_ID, 'git_baidu_submit', true) == 1) return;
         $url = get_permalink($post_ID);
-        $api = trim(git_get_option('git_sitemap_api'));
+        $api = git_get_option('git_sitemap_api');
         $request = new WP_Http;
         $result = $request->request($api, array(
             'method' => 'POST',
