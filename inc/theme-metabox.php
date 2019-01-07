@@ -29,7 +29,7 @@ if ( !class_exists('myCustomFields') ) {
                 "title"         => "自定义缩略图/主图",
                 "description"   => "这里可以输入您的自定义缩略图链接、也是产品页面的产品主图",
                 "type"          =>   "text",
-                "scope"         =>   array( "page", "post", "product" , "gallery" ),
+                "scope"         =>   array(  "post", "product" ),
                 "capability"    => "edit_posts"
             ),
             array(
@@ -79,7 +79,7 @@ if ( !class_exists('myCustomFields') ) {
                 "title"         => "转载来源名字",
                 "description"   => "这里可以输入文章转载名字，不填写的话，不显示转载标签",
                 "type"          =>   "text",
-                "scope"         =>   array( "post", "page" ),
+                "scope"         =>   array( "post" ),
                 "capability"    => "edit_posts"
             ),
             array(
@@ -87,7 +87,7 @@ if ( !class_exists('myCustomFields') ) {
                 "title"         => "转载来源链接",
                 "description"   => "这里可以输入您的转载来源链接",
                 "type"          =>   "text",
-                "scope"         =>   array( "post", "page" ),
+                "scope"         =>   array( "post" ),
                 "capability"    => "edit_posts"
             ),
             array(
@@ -95,7 +95,7 @@ if ( !class_exists('myCustomFields') ) {
                 "title"         => "单页下载文件名字",
                 "description"   => "这里可以输入您的下载文件的名字",
                 "type"          =>   "text",
-                "scope"         =>   array( "post", "page" ),
+                "scope"         =>   array( "post" ),
                 "capability"    => "edit_posts"
             ),
             array(
@@ -103,7 +103,7 @@ if ( !class_exists('myCustomFields') ) {
                 "title"         => "单页下载文件大小",
                 "description"   => "这里可以输入您的下载文件的大小，可以加上单位，比如：233KB或者233MB",
                 "type"          =>   "text",
-                "scope"         =>   array( "post", "page" ),
+                "scope"         =>   array( "post" ),
                 "capability"    => "edit_posts"
             ),
             array(
@@ -111,7 +111,7 @@ if ( !class_exists('myCustomFields') ) {
                 "title"         => "单页下载下载链接【新版】",
                 "description"   => "按照链接,名字,备注的格式,注意中间是用英文逗号,换行可添加多个,举个栗子：<code>https://www.baidu.com,百度官网,中国最大的搜索引擎网站</code>",
                 "type"          =>   "textarea",
-                "scope"         =>   array( "post", "page" ),
+                "scope"         =>   array( "post" ),
                 "capability"    => "edit_posts"
             ),
             array(
@@ -119,7 +119,7 @@ if ( !class_exists('myCustomFields') ) {
                 "title"         => "代码演示",
                 "description"   => "请在这里输入您的演示代码",
                 "type"          => "textarea",
-                "scope"         =>   array( "post", "page" ),
+                "scope"         =>   array( "post" ),
                 "capability"    => "edit_pages"
             )
         );

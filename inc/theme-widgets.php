@@ -22,11 +22,11 @@ class GitHub_Login_Widget extends WP_Widget {
         if ($title) {
             echo $before_title . $title . $after_title;
         }
-		echo '<style type="text/css">.githubtn{margin:50px auto;border-color:#ec7063;border-radius:4px;background-color:#ec7063;background-position:50%;background-size:200% 200%;color:#fff}</style>';
+        echo '<style type="text/css">.githubtn{height:50px;font-weight:bold;font-size:large;margin:50px auto;border-color:#ec7063;border-radius:4px;background-color:#ec7063;background-position:50%;background-size:200% 200%;color:#fff}</style>';
         if (is_user_logged_in()) {?>
                 <a href="<?php
-			global $wp;
-			$current_url = home_url(add_query_arg(array(),$wp->request));
+            global $wp;
+            $current_url = home_url(add_query_arg(array(),$wp->request));
             echo wp_logout_url($current_url); ?>" title="退出登录"><p class="pull-center"><input class="githubtn" type="button" value="退出登录"></p></a>
             <?php
         } else {?>
@@ -39,15 +39,15 @@ class GitHub_Login_Widget extends WP_Widget {
     function form($instance) {
 ?>
 <p>
-	<label>
-		标题：
-		<input id="<?php
+    <label>
+        标题：
+        <input id="<?php
 echo $this->get_field_id('title'); ?>" name="<?php
 echo $this->get_field_name('title'); ?>" type="text" value="<?php
 echo $instance['title']; ?>" class="widefat" />
-	</label>
+    </label>
 </p>
-		<p>显示一个Github登录按钮，详细设置请至主题后台设置</p>
+        <p>显示一个Github登录按钮，详细设置请至主题后台设置</p>
 <?php
     }
 }
@@ -77,24 +77,24 @@ class git_banner extends WP_Widget {
     }
     function form($instance) {
 ?>
-		<p>
-			<label>
-				广告名称：
-				<input id="<?php
+        <p>
+            <label>
+                广告名称：
+                <input id="<?php
         echo $this->get_field_id('title'); ?>" name="<?php
         echo $this->get_field_name('title'); ?>" type="text" value="<?php
         echo $instance['title']; ?>" class="widefat" />
-			</label>
-		</p>
-		<p>
-			<label>
-				广告代码：
-				<textarea id="<?php
+            </label>
+        </p>
+        <p>
+            <label>
+                广告代码：
+                <textarea id="<?php
         echo $this->get_field_id('code'); ?>" name="<?php
         echo $this->get_field_name('code'); ?>" class="widefat" rows="12" style="font-family:Courier New;"><?php
         echo $instance['code']; ?></textarea>
-			</label>
-		</p>
+            </label>
+        </p>
 <?php
     }
 }
@@ -188,12 +188,12 @@ class git_comment extends WP_Widget {
     }
 }
 function mod_newcomments($limit, $outpost, $outer) {
-    $comments = get_transient('newcomments');
+    $comments = get_transient('comments');
     if(false === $comments){
     global $wpdb;
     $sql = "SELECT DISTINCT ID, post_title, post_password, comment_ID, comment_post_ID, comment_author, comment_date_gmt, comment_approved,comment_author_email, comment_type,comment_author_url, SUBSTRING(comment_content,1,40) AS com_excerpt FROM $wpdb->comments LEFT OUTER JOIN $wpdb->posts ON ($wpdb->comments.comment_post_ID = $wpdb->posts.ID) WHERE comment_post_ID!='" . $outpost . "' AND user_id!='" . $outer . "' AND comment_approved = '1' AND comment_type = '' AND post_password = '' ORDER BY comment_date_gmt DESC LIMIT $limit";
     $comments = $wpdb->get_results($sql);
-    set_transient('newcomments', $comments, 60*60*2);//缓存2小时
+    set_transient('comments', $comments, 60*60*2);//缓存2小时
     }
         $output='';
     foreach ($comments as $comment) {
@@ -236,76 +236,76 @@ class git_postlist extends WP_Widget {
     }
     function form($instance) {
 ?>
-		<p>
-			<label>
-				标题：
-				<input style="width:100%;" id="<?php
+        <p>
+            <label>
+                标题：
+                <input style="width:100%;" id="<?php
         echo $this->get_field_id('title'); ?>" name="<?php
         echo $this->get_field_name('title'); ?>" type="text" value="<?php
         echo $instance['title']; ?>" />
-			</label>
-		</p>
-		<p>
-			<label>
-				排序：
-				<select style="width:100%;" id="<?php
+            </label>
+        </p>
+        <p>
+            <label>
+                排序：
+                <select style="width:100%;" id="<?php
         echo $this->get_field_id('orderby'); ?>" name="<?php
         echo $this->get_field_name('orderby'); ?>" style="width:100%;">
-					<option value="comment_count" <?php
+                    <option value="comment_count" <?php
         selected('comment_count', $instance['orderby']); ?>>评论数</option>
-					<option value="date" <?php
+                    <option value="date" <?php
         selected('date', $instance['orderby']); ?>>发布时间</option>
-					<option value="rand" <?php
+                    <option value="rand" <?php
         selected('rand', $instance['orderby']); ?>>随机</option>
-				</select>
-			</label>
-		</p>
-		<p>
-			<label>
-				分类限制：
-				<a style="font-weight:bold;color:#f60;text-decoration:none;" href="javascript:;" title="格式：1,2 &nbsp;表限制ID为1,2分类的文章&#13;格式：-1,-2 &nbsp;表排除分类ID为1,2的文章&#13;也可直接写1或者-1；注意逗号须是英文的">？</a>
-				<input style="width:100%;" id="<?php
+                </select>
+            </label>
+        </p>
+        <p>
+            <label>
+                分类限制：
+                <a style="font-weight:bold;color:#f60;text-decoration:none;" href="javascript:;" title="格式：1,2 &nbsp;表限制ID为1,2分类的文章&#13;格式：-1,-2 &nbsp;表排除分类ID为1,2的文章&#13;也可直接写1或者-1；注意逗号须是英文的">？</a>
+                <input style="width:100%;" id="<?php
         echo $this->get_field_id('cat'); ?>" name="<?php
         echo $this->get_field_name('cat'); ?>" type="text" value="<?php
         echo $instance['cat']; ?>" size="24" />
-			</label>
-		</p>
-		<p>
-			<label>
-				显示数目：
-				<input style="width:100%;" id="<?php
+            </label>
+        </p>
+        <p>
+            <label>
+                显示数目：
+                <input style="width:100%;" id="<?php
         echo $this->get_field_id('limit'); ?>" name="<?php
         echo $this->get_field_name('limit'); ?>" type="number" value="<?php
         echo $instance['limit']; ?>" size="24" />
-			</label>
-		</p>
-		<p>
-			<label>
-				More 显示文字：
-				<input style="width:100%;" id="<?php
+            </label>
+        </p>
+        <p>
+            <label>
+                More 显示文字：
+                <input style="width:100%;" id="<?php
         echo $this->get_field_id('more'); ?>" name="<?php
         echo $this->get_field_name('more'); ?>" type="text" value="<?php
         echo $instance['more']; ?>" size="24" />
-			</label>
-		</p>
-		<p>
-			<label>
-				More 链接：
-				<input style="width:100%;" id="<?php
+            </label>
+        </p>
+        <p>
+            <label>
+                More 链接：
+                <input style="width:100%;" id="<?php
         echo $this->get_field_id('link'); ?>" name="<?php
         echo $this->get_field_name('link'); ?>" type="url" value="<?php
         echo $instance['link']; ?>" size="24" />
-			</label>
-		</p>
-		<p>
-			<label>
-				<input style="vertical-align:-3px;margin-right:4px;" class="checkbox" type="checkbox" <?php
+            </label>
+        </p>
+        <p>
+            <label>
+                <input style="vertical-align:-3px;margin-right:4px;" class="checkbox" type="checkbox" <?php
         checked($instance['img'], 'on'); ?> id="<?php
         echo $this->get_field_id('img'); ?>" name="<?php
         echo $this->get_field_name('img'); ?>">显示图片
-			</label>
-		</p>
-	<?php
+            </label>
+        </p>
+    <?php
     }
 }
 function githeme_posts_list($orderby, $limit, $cat, $img) {
@@ -389,68 +389,68 @@ class git_reader extends WP_Widget {
     }
     function form($instance) {
 ?>
-		<p>
-			<label>
-				标题：
-				<input class="widefat" id="<?php
+        <p>
+            <label>
+                标题：
+                <input class="widefat" id="<?php
         echo $this->get_field_id('title'); ?>" name="<?php
         echo $this->get_field_name('title'); ?>" type="text" value="<?php
         echo $instance['title']; ?>" />
-			</label>
-		</p>
-		<p>
-			<label>
-				显示数目：
-				<input class="widefat" id="<?php
+            </label>
+        </p>
+        <p>
+            <label>
+                显示数目：
+                <input class="widefat" id="<?php
         echo $this->get_field_id('limit'); ?>" name="<?php
         echo $this->get_field_name('limit'); ?>" type="number" value="<?php
         echo $instance['limit']; ?>" />
-			</label>
-		</p>
-		<p>
-			<label>
-				排除某人：
-				<input class="widefat" id="<?php
+            </label>
+        </p>
+        <p>
+            <label>
+                排除某人：
+                <input class="widefat" id="<?php
         echo $this->get_field_id('outer'); ?>" name="<?php
         echo $this->get_field_name('outer'); ?>" type="text" value="<?php
         echo $instance['outer']; ?>" />
-			</label>
-		</p>
-		<p>
-			<label>
-				几天内：
-				<input class="widefat" id="<?php
+            </label>
+        </p>
+        <p>
+            <label>
+                几天内：
+                <input class="widefat" id="<?php
         echo $this->get_field_id('timer'); ?>" name="<?php
         echo $this->get_field_name('timer'); ?>" type="number" value="<?php
         echo $instance['timer']; ?>" />
-			</label>
-		</p>
-		<p>
-			<label>
-				<input style="vertical-align:-3px;margin-right:4px;" class="checkbox" type="checkbox" <?php
+            </label>
+        </p>
+        <p>
+            <label>
+                <input style="vertical-align:-3px;margin-right:4px;" class="checkbox" type="checkbox" <?php
         checked($instance['addlink'], 'on'); ?> id="<?php
         echo $this->get_field_id('addlink'); ?>" name="<?php
         echo $this->get_field_name('addlink'); ?>">加链接
-			</label>
-		</p>
-		<p>
-			<label>
-				More 显示文字：
-				<input style="width:100%;" id="<?php
+            </label>
+        </p>
+        <p>
+            <label>
+                More 显示文字：
+                <input style="width:100%;" id="<?php
         echo $this->get_field_id('more'); ?>" name="<?php
         echo $this->get_field_name('more'); ?>" type="text" value="<?php
         echo $instance['more']; ?>" size="24" />
-			</label>
-		</p>
-		<p>
-			<label>
-				More 链接：
-				<input style="width:100%;" id="<?php
+            </label>
+        </p>
+        <p>
+            <label>
+                More 链接：
+                <input style="width:100%;" id="<?php
         echo $this->get_field_id('link'); ?>" name="<?php
         echo $this->get_field_name('link'); ?>" type="url" value="<?php
         echo $instance['link']; ?>" size="24" />
-			</label>
-		</p>
+            </label>
+        </p>
 
 <?php
     }
@@ -517,180 +517,48 @@ class git_rec extends WP_Widget {
     }
     function form($instance) {
 ?>
-		<p>
-			<label>
-				第一文字：<input style="width:200px;" id="<?php
-        echo $this->get_field_id('atitle1'); ?>" name="<?php
-        echo $this->get_field_name('atitle1'); ?>" type="text" value="<?php
-        echo $instance['atitle1']; ?>" />
-			</label>
-		</p>
-		<p>
-			<label>
-				第一链接：<input style="width:200px;" id="<?php
-        echo $this->get_field_id('alink1'); ?>" name="<?php
-        echo $this->get_field_name('alink1'); ?>" type="url" value="<?php
-        echo $instance['alink1']; ?>" />
-			</label>
-		</p>
-		<p>
-			<label>
-				第一样式：<select style="width:200px;" id="<?php
-        echo $this->get_field_id('aclass1'); ?>" name="<?php
-        echo $this->get_field_name('aclass1'); ?>" >
-					<option value="aclass01" <?php
-        selected('aclass01', $instance['aclass1']); ?>>黑色</option>
-					<option value="aclass02" <?php
-        selected('aclass02', $instance['aclass1']); ?>>蓝色</option>
-					<option value="aclass03" <?php
-        selected('aclass03', $instance['aclass1']); ?>>红色</option>
-					<option value="aclass04" <?php
-        selected('aclass04', $instance['aclass1']); ?>>黄色</option>
-					<option value="aclass05" <?php
-        selected('aclass05', $instance['aclass1']); ?>>绿色</option>
-				</select>
-			</label>
-		</p><hr />
+<?php
+for ($x=1; $x<=5; $x++) {
+  ?>
+  <p>
+      <label>
+          第<?php echo $x;?>组文字：<input style="width:200px;" id="<?php
+  echo $this->get_field_id('atitle'.$x); ?>" name="<?php
+  echo $this->get_field_name('atitle'.$x); ?>" type="text" value="<?php
+  echo $instance['atitle'.$x]; ?>" />
+      </label>
+  </p>
+  <p>
+      <label>
+          第<?php echo $x;?>组链接：<input style="width:200px;" id="<?php
+  echo $this->get_field_id('alink'.$x); ?>" name="<?php
+  echo $this->get_field_name('alink'.$x); ?>" type="url" value="<?php
+  echo $instance['alink'.$x]; ?>" />
+      </label>
+  </p>
+  <p>
+      <label>
+          第<?php echo $x;?>组样式：<select style="width:200px;" id="<?php
+  echo $this->get_field_id('aclass'.$x); ?>" name="<?php
+  echo $this->get_field_name('aclass'.$x); ?>" >
+              <option value="aclass01" <?php
+  selected('aclass01', $instance['aclass'.$x]); ?>>黑色</option>
+              <option value="aclass02" <?php
+  selected('aclass02', $instance['aclass'.$x]); ?>>蓝色</option>
+              <option value="aclass03" <?php
+  selected('aclass03', $instance['aclass'.$x]); ?>>红色</option>
+              <option value="aclass04" <?php
+  selected('aclass04', $instance['aclass'.$x]); ?>>黄色</option>
+              <option value="aclass05" <?php
+  selected('aclass05', $instance['aclass'.$x]); ?>>绿色</option>
+          </select>
+      </label>
+  </p><hr />
 
-		<p>
-			<label>
-				第二文字：<input style="width:200px;" id="<?php
-        echo $this->get_field_id('atitle2'); ?>" name="<?php
-        echo $this->get_field_name('atitle2'); ?>" type="text" value="<?php
-        echo $instance['atitle2']; ?>" />
-			</label>
-		</p>
-		<p>
-			<label>
-				第二链接：<input style="width:200px;" id="<?php
-        echo $this->get_field_id('alink2'); ?>" name="<?php
-        echo $this->get_field_name('alink2'); ?>" type="url" value="<?php
-        echo $instance['alink2']; ?>" />
-			</label>
-		</p>
-		<p>
-			<label>
-				第二样式：<select style="width:200px;" id="<?php
-        echo $this->get_field_id('aclass2'); ?>" name="<?php
-        echo $this->get_field_name('aclass2'); ?>" >
-					<option value="aclass01" <?php
-        selected('aclass01', $instance['aclass2']); ?>>黑色</option>
-					<option value="aclass02" <?php
-        selected('aclass02', $instance['aclass2']); ?>>蓝色</option>
-					<option value="aclass03" <?php
-        selected('aclass03', $instance['aclass2']); ?>>红色</option>
-					<option value="aclass04" <?php
-        selected('aclass04', $instance['aclass2']); ?>>黄色</option>
-					<option value="aclass05" <?php
-        selected('aclass05', $instance['aclass2']); ?>>绿色</option>
-				</select>
-			</label>
-		</p><hr />
+<?php
+}
+?>
 
-		<p>
-			<label>
-				第三文字：<input style="width:200px;" id="<?php
-        echo $this->get_field_id('atitle3'); ?>" name="<?php
-        echo $this->get_field_name('atitle3'); ?>" type="text" value="<?php
-        echo $instance['atitle3']; ?>" />
-			</label>
-		</p>
-		<p>
-			<label>
-				第三链接：<input style="width:200px;" id="<?php
-        echo $this->get_field_id('alink3'); ?>" name="<?php
-        echo $this->get_field_name('alink3'); ?>" type="url" value="<?php
-        echo $instance['alink3']; ?>" />
-			</label>
-		</p>
-		<p>
-			<label>
-				第三样式：<select style="width:200px;" id="<?php
-        echo $this->get_field_id('aclass3'); ?>" name="<?php
-        echo $this->get_field_name('aclass3'); ?>" >
-					<option value="aclass01" <?php
-        selected('aclass01', $instance['aclass3']); ?>>黑色</option>
-					<option value="aclass02" <?php
-        selected('aclass02', $instance['aclass3']); ?>>蓝色</option>
-					<option value="aclass03" <?php
-        selected('aclass03', $instance['aclass3']); ?>>红色</option>
-					<option value="aclass04" <?php
-        selected('aclass04', $instance['aclass3']); ?>>黄色</option>
-					<option value="aclass05" <?php
-        selected('aclass05', $instance['aclass3']); ?>>绿色</option>
-				</select>
-			</label>
-		</p><hr />
-
-		<p>
-			<label>
-				第四文字：<input style="width:200px;" id="<?php
-        echo $this->get_field_id('atitle4'); ?>" name="<?php
-        echo $this->get_field_name('atitle4'); ?>" type="text" value="<?php
-        echo $instance['atitle4']; ?>" />
-			</label>
-		</p>
-		<p>
-			<label>
-				第四链接：<input style="width:200px;" id="<?php
-        echo $this->get_field_id('alink4'); ?>" name="<?php
-        echo $this->get_field_name('alink4'); ?>" type="url" value="<?php
-        echo $instance['alink4']; ?>" />
-			</label>
-		</p>
-		<p>
-			<label>
-				第四样式：<select style="width:200px;" id="<?php
-        echo $this->get_field_id('aclass4'); ?>" name="<?php
-        echo $this->get_field_name('aclass4'); ?>" >
-					<option value="aclass01" <?php
-        selected('aclass01', $instance['aclass4']); ?>>黑色</option>
-					<option value="aclass02" <?php
-        selected('aclass02', $instance['aclass4']); ?>>蓝色</option>
-					<option value="aclass03" <?php
-        selected('aclass03', $instance['aclass4']); ?>>红色</option>
-					<option value="aclass04" <?php
-        selected('aclass04', $instance['aclass4']); ?>>黄色</option>
-					<option value="aclass05" <?php
-        selected('aclass05', $instance['aclass4']); ?>>绿色</option>
-				</select>
-			</label>
-		</p><hr />
-
-		<p>
-			<label>
-				第五文字：<input style="width:200px;" id="<?php
-        echo $this->get_field_id('atitle5'); ?>" name="<?php
-        echo $this->get_field_name('atitle5'); ?>" type="text" value="<?php
-        echo $instance['atitle5']; ?>" />
-			</label>
-		</p>
-		<p>
-			<label>
-				第五链接：<input style="width:200px;" id="<?php
-        echo $this->get_field_id('alink5'); ?>" name="<?php
-        echo $this->get_field_name('alink5'); ?>" type="url" value="<?php
-        echo $instance['alink5']; ?>" />
-			</label>
-		</p>
-		<p>
-			<label>
-				第五样式：<select style="width:200px;" id="<?php
-        echo $this->get_field_id('aclass5'); ?>" name="<?php
-        echo $this->get_field_name('aclass5'); ?>" >
-					<option value="aclass01" <?php
-        selected('aclass01', $instance['aclass5']); ?>>黑色</option>
-					<option value="aclass02" <?php
-        selected('aclass02', $instance['aclass5']); ?>>蓝色</option>
-					<option value="aclass03" <?php
-        selected('aclass03', $instance['aclass5']); ?>>红色</option>
-					<option value="aclass04" <?php
-        selected('aclass04', $instance['aclass5']); ?>>黄色</option>
-					<option value="aclass05" <?php
-        selected('aclass05', $instance['aclass5']); ?>>绿色</option>
-				</select>
-			</label>
-		</p><hr />
 <?php
     }
 }
@@ -723,7 +591,7 @@ class git_slick extends WP_Widget {
         $stitle4 = $instance['stitle4'];
         echo $before_widget;
         echo '<div class="slick" style="height:200px">';
-        echo '<div><a target="_blank" href="' . $slink1 . '" title="' . $stitle1 . '" ><img alt="' . $stitle1 . '" width="360" height="200" src="' . $simg1 . '" ></a></div>';
+        echo '<div><a target="_blank" href="' . $slink1.'" title="' . $stitle1 . '" ><img alt="' . $stitle1 . '" width="360" height="200" src="' . $simg1 . '" ></a></div>';
         echo '<div><a target="_blank" href="' . $slink2 . '" title="' . $stitle2 . '" ><img alt="' . $stitle2 . '" width="360" height="200" src="' . $simg2 . '" ></a></div>';
         echo '<div><a target="_blank" href="' . $slink3 . '" title="' . $stitle3 . '" ><img alt="' . $stitle3 . '" width="360" height="200" src="' . $simg3 . '" ></a></div>';
         echo '<div><a target="_blank" href="' . $slink4 . '" title="' . $stitle4 . '" ><img alt="' . $stitle4 . '" width="360" height="200" src="' . $simg4 . '" ></a></div>';
@@ -732,114 +600,40 @@ class git_slick extends WP_Widget {
     }
     function form($instance) {
 ?>
-		<p>
-			<label>
-				幻灯一图片：<span class="git_tip">360×200</span>
-				<input id="<?php
-        echo $this->get_field_id('simg1'); ?>" name="<?php
-        echo $this->get_field_name('simg1'); ?>" type="text" value="<?php
-        echo $instance['simg1']; ?>" class="widefat" />
-			</label>
-		</p>
-		<p>
-			<label>
-				幻灯一链接：
-				<input style="width:100%;" id="<?php
-        echo $this->get_field_id('slink1'); ?>" name="<?php
-        echo $this->get_field_name('slink1'); ?>" type="url" value="<?php
-        echo $instance['slink1']; ?>" size="24" />
-			</label>
-		</p>
-		<p>
-			<label>
-				幻灯一标题：
-				<input id="<?php
-        echo $this->get_field_id('stitle1'); ?>" name="<?php
-        echo $this->get_field_name('stitle1'); ?>" type="text" value="<?php
-        echo $instance['stitle1']; ?>" class="widefat" />
-			</label>
-		</p><hr />
-		<p>
-			<label>
-				幻灯二图片：<span class="git_tip">360×200</span>
-				<input id="<?php
-        echo $this->get_field_id('simg2'); ?>" name="<?php
-        echo $this->get_field_name('simg2'); ?>" type="text" value="<?php
-        echo $instance['simg2']; ?>" class="widefat" />
-			</label>
-		</p>
-		<p>
-			<label>
-				幻灯二链接：
-				<input style="width:100%;" id="<?php
-        echo $this->get_field_id('slink2'); ?>" name="<?php
-        echo $this->get_field_name('slink2'); ?>" type="url" value="<?php
-        echo $instance['slink2']; ?>" size="24" />
-			</label>
-		</p>
-				<p>
-			<label>
-				幻灯二标题：
-				<input id="<?php
-        echo $this->get_field_id('stitle2'); ?>" name="<?php
-        echo $this->get_field_name('stitle2'); ?>" type="text" value="<?php
-        echo $instance['stitle2']; ?>" class="widefat" />
-			</label>
-		</p><hr />
-		<p>
-			<label>
-				幻灯三图片：<span class="git_tip">360×200</span>
-				<input id="<?php
-        echo $this->get_field_id('simg3'); ?>" name="<?php
-        echo $this->get_field_name('simg3'); ?>" type="text" value="<?php
-        echo $instance['simg3']; ?>" class="widefat" />
-			</label>
-		</p>
-		<p>
-			<label>
-				幻灯三链接：
-				<input style="width:100%;" id="<?php
-        echo $this->get_field_id('slink3'); ?>" name="<?php
-        echo $this->get_field_name('slink3'); ?>" type="url" value="<?php
-        echo $instance['slink3']; ?>" size="24" />
-			</label>
-		</p>
-				<p>
-			<label>
-				幻灯三标题：
-				<input id="<?php
-        echo $this->get_field_id('stitle3'); ?>" name="<?php
-        echo $this->get_field_name('stitle3'); ?>" type="text" value="<?php
-        echo $instance['stitle3']; ?>" class="widefat" />
-			</label>
-		</p><hr />
-		<p>
-			<label>
-				幻灯四图片：<span class="git_tip">360×200</span>
-				<input id="<?php
-        echo $this->get_field_id('simg4'); ?>" name="<?php
-        echo $this->get_field_name('simg4'); ?>" type="text" value="<?php
-        echo $instance['simg4']; ?>" class="widefat" />
-			</label>
-		</p>
-		<p>
-			<label>
-				幻灯四链接：
-				<input style="width:100%;" id="<?php
-        echo $this->get_field_id('slink4'); ?>" name="<?php
-        echo $this->get_field_name('slink4'); ?>" type="url" value="<?php
-        echo $instance['slink4']; ?>" size="24" />
-			</label>
-		</p>
-				<p>
-			<label>
-				幻灯四标题：
-				<input id="<?php
-        echo $this->get_field_id('stitle4'); ?>" name="<?php
-        echo $this->get_field_name('stitle4'); ?>" type="text" value="<?php
-        echo $instance['stitle4']; ?>" class="widefat" />
-			</label>
-		</p><hr />
+<?php
+for ($x=1; $x<=4; $x++) {
+  ?>
+        <p>
+            <label>
+                幻灯<?php echo $x;?>图片：<span class="git_tip">360×200</span>
+                <input id="<?php
+        echo $this->get_field_id('simg'.$x); ?>" name="<?php
+        echo $this->get_field_name('simg'.$x); ?>" type="text" value="<?php
+        echo $instance['simg'.$x]; ?>" class="widefat" />
+            </label>
+        </p>
+        <p>
+            <label>
+                幻灯<?php echo $x;?>链接：
+                <input style="width:100%;" id="<?php
+        echo $this->get_field_id('slink'.$x); ?>" name="<?php
+        echo $this->get_field_name('slink'.$x); ?>" type="url" value="<?php
+        echo $instance['slink'.$x]; ?>" size="24" />
+            </label>
+        </p>
+        <p>
+            <label>
+                幻灯<?php echo $x;?>标题：
+                <input id="<?php
+        echo $this->get_field_id('stitle'.$x); ?>" name="<?php
+        echo $this->get_field_name('stitle'.$x); ?>" type="text" value="<?php
+        echo $instance['stitle'.$x]; ?>" class="widefat" />
+            </label>
+        </p><hr />
+<?php
+}
+?>
+
 <?php
     }
 }
@@ -881,114 +675,39 @@ class git_slide extends WP_Widget {
     }
     function form($instance) {
 ?>
-		<p>
-			<label>
-				幻灯一图片：<span class="git_tip">360×149</span>
-				<input id="<?php
-        echo $this->get_field_id('img1'); ?>" name="<?php
-        echo $this->get_field_name('img1'); ?>" type="text" value="<?php
-        echo $instance['img1']; ?>" class="widefat" />
-			</label>
-		</p>
-		<p>
-			<label>
-				幻灯一链接：
-				<input style="width:100%;" id="<?php
-        echo $this->get_field_id('link1'); ?>" name="<?php
-        echo $this->get_field_name('link1'); ?>" type="url" value="<?php
-        echo $instance['link1']; ?>" size="24" />
-			</label>
-		</p>
-		<p>
-			<label>
-				幻灯一标题：
-				<input id="<?php
-        echo $this->get_field_id('ttitle1'); ?>" name="<?php
-        echo $this->get_field_name('ttitle1'); ?>" type="text" value="<?php
-        echo $instance['ttitle1']; ?>" class="widefat" />
-			</label>
-		</p><hr />
-		<p>
-			<label>
-				幻灯二图片：<span class="git_tip">360×149</span>
-				<input id="<?php
-        echo $this->get_field_id('img2'); ?>" name="<?php
-        echo $this->get_field_name('img2'); ?>" type="text" value="<?php
-        echo $instance['img2']; ?>" class="widefat" />
-			</label>
-		</p>
-		<p>
-			<label>
-				幻灯二链接：
-				<input style="width:100%;" id="<?php
-        echo $this->get_field_id('link2'); ?>" name="<?php
-        echo $this->get_field_name('link2'); ?>" type="url" value="<?php
-        echo $instance['link2']; ?>" size="24" />
-			</label>
-		</p>
-				<p>
-			<label>
-				幻灯二标题：
-				<input id="<?php
-        echo $this->get_field_id('ttitle2'); ?>" name="<?php
-        echo $this->get_field_name('ttitle2'); ?>" type="text" value="<?php
-        echo $instance['ttitle2']; ?>" class="widefat" />
-			</label>
-		</p><hr />
-		<p>
-			<label>
-				幻灯三图片：<span class="git_tip">360×149</span>
-				<input id="<?php
-        echo $this->get_field_id('img3'); ?>" name="<?php
-        echo $this->get_field_name('img3'); ?>" type="text" value="<?php
-        echo $instance['img3']; ?>" class="widefat" />
-			</label>
-		</p>
-		<p>
-			<label>
-				幻灯三链接：
-				<input style="width:100%;" id="<?php
-        echo $this->get_field_id('link3'); ?>" name="<?php
-        echo $this->get_field_name('link3'); ?>" type="url" value="<?php
-        echo $instance['link3']; ?>" size="24" />
-			</label>
-		</p>
-				<p>
-			<label>
-				幻灯三标题：
-				<input id="<?php
-        echo $this->get_field_id('ttitle3'); ?>" name="<?php
-        echo $this->get_field_name('ttitle3'); ?>" type="text" value="<?php
-        echo $instance['ttitle3']; ?>" class="widefat" />
-			</label>
-		</p><hr />
-		<p>
-			<label>
-				幻灯四图片：<span class="git_tip">360×149</span>
-				<input id="<?php
-        echo $this->get_field_id('img4'); ?>" name="<?php
-        echo $this->get_field_name('img4'); ?>" type="text" value="<?php
-        echo $instance['img4']; ?>" class="widefat" />
-			</label>
-		</p>
-		<p>
-			<label>
-				幻灯四链接：
-				<input style="width:100%;" id="<?php
-        echo $this->get_field_id('link4'); ?>" name="<?php
-        echo $this->get_field_name('link4'); ?>" type="url" value="<?php
-        echo $instance['link4']; ?>" size="24" />
-			</label>
-		</p>
-				<p>
-			<label>
-				幻灯四标题：
-				<input id="<?php
-        echo $this->get_field_id('ttitle4'); ?>" name="<?php
-        echo $this->get_field_name('ttitle4'); ?>" type="text" value="<?php
-        echo $instance['ttitle4']; ?>" class="widefat" />
-			</label>
-		</p><hr />
+<?php
+for ($x=1; $x<=4; $x++) {
+  ?>
+        <p>
+            <label>
+                幻灯<?php echo $x;?>图片：<span class="git_tip">360×149</span>
+                <input id="<?php
+        echo $this->get_field_id('img'.$x); ?>" name="<?php
+        echo $this->get_field_name('img'.$x); ?>" type="text" value="<?php
+        echo $instance['img'.$x]; ?>" class="widefat" />
+            </label>
+        </p>
+        <p>
+            <label>
+                幻灯<?php echo $x;?>链接：
+                <input style="width:100%;" id="<?php
+        echo $this->get_field_id('link'.$x); ?>" name="<?php
+        echo $this->get_field_name('link'.$x); ?>" type="url" value="<?php
+        echo $instance['link'.$x]; ?>" size="24" />
+            </label>
+        </p>
+        <p>
+            <label>
+                幻灯<?php echo $x;?>标题：
+                <input id="<?php
+        echo $this->get_field_id('ttitle'.$x); ?>" name="<?php
+        echo $this->get_field_name('ttitle'.$x); ?>" type="text" value="<?php
+        echo $instance['ttitle'.$x]; ?>" class="widefat" />
+            </label>
+        </p><hr />
+        <?php
+        }
+        ?>
 <?php
     }
 }
@@ -1022,7 +741,7 @@ class git_social extends WP_Widget {
     }
     function form($instance) {
 ?>
-		<p>显示一组社交图标，详细设置请至主题后台设置</p>
+        <p>显示一组社交图标，详细设置请至主题后台设置</p>
 <?php
     }
 }
@@ -1066,35 +785,35 @@ class git_subscribe extends WP_Widget {
         $info = esc_attr($instance['info']);
         $placeholder = esc_attr($instance['placeholder']);
 ?>
-		<p><label for="<?php
+        <p><label for="<?php
         echo $this->get_field_id('title'); ?>">标题</label>
-		<input class="widefat" id="<?php
+        <input class="widefat" id="<?php
         echo $this->get_field_id('title'); ?>" name="<?php
         echo $this->get_field_name('title'); ?>" type="text" value="<?php
         echo $title; ?>" /></p>
 
-		<p><label for="<?php
+        <p><label for="<?php
         echo $this->get_field_id('nid'); ?>">nId：</label>
-		<input class="widefat" id="<?php
+        <input class="widefat" id="<?php
         echo $this->get_field_id('nid'); ?>" name="<?php
         echo $this->get_field_name('nid'); ?>" type="text" value="<?php
         echo $nid; ?>" /></p>
 
-		<p><label for="<?php
+        <p><label for="<?php
         echo $this->get_field_id('info'); ?>">提示文字：</label>
-		<input class="widefat" id="<?php
+        <input class="widefat" id="<?php
         echo $this->get_field_id('info'); ?>" name="<?php
         echo $this->get_field_name('info'); ?>" type="text" value="<?php
         echo $info; ?>" /></p>
 
-		<p><label for="<?php
+        <p><label for="<?php
         echo $this->get_field_id('placeholder'); ?>">占位文字：</label>
-		<input class="widefat" id="<?php
+        <input class="widefat" id="<?php
         echo $this->get_field_id('placeholder'); ?>" name="<?php
         echo $this->get_field_name('placeholder'); ?>" type="text" value="<?php
         echo $placeholder; ?>" /></p>
 
-		<p class="description">本工具基于 <a href="http://list.qq.com/" target="_blank">QQ邮件列表</a> 服务。</p>
+        <p class="description">本工具基于 <a href="http://list.qq.com/" target="_blank">QQ邮件列表</a> 服务。</p>
 <?php
     }
 }
@@ -1136,51 +855,51 @@ class git_tag extends WP_Widget {
     }
     function form($instance) {
 ?>
-		<p>
-			<label>
-				名称：
-				<input id="<?php
+        <p>
+            <label>
+                名称：
+                <input id="<?php
         echo $this->get_field_id('title'); ?>" name="<?php
         echo $this->get_field_name('title'); ?>" type="text" value="<?php
         echo $instance['title']; ?>" class="widefat" />
-			</label>
-		</p>
-		<p>
-			<label>
-				显示数量：
-				<input id="<?php
+            </label>
+        </p>
+        <p>
+            <label>
+                显示数量：
+                <input id="<?php
         echo $this->get_field_id('count'); ?>" name="<?php
         echo $this->get_field_name('count'); ?>" type="number" value="<?php
         echo $instance['count']; ?>" class="widefat" />
-			</label>
-		</p>
-		<p>
-			<label>
-				去除前几个：
-				<input id="<?php
+            </label>
+        </p>
+        <p>
+            <label>
+                去除前几个：
+                <input id="<?php
         echo $this->get_field_id('offset'); ?>" name="<?php
         echo $this->get_field_name('offset'); ?>" type="number" value="<?php
         echo $instance['offset']; ?>" class="widefat" />
-			</label>
-		</p>
-		<p>
-			<label>
-				More 显示文字：
-				<input style="width:100%;" id="<?php
+            </label>
+        </p>
+        <p>
+            <label>
+                More 显示文字：
+                <input style="width:100%;" id="<?php
         echo $this->get_field_id('more'); ?>" name="<?php
         echo $this->get_field_name('more'); ?>" type="text" value="<?php
         echo $instance['more']; ?>" size="24" />
-			</label>
-		</p>
-		<p>
-			<label>
-				More 链接：
-				<input style="width:100%;" id="<?php
+            </label>
+        </p>
+        <p>
+            <label>
+                More 链接：
+                <input style="width:100%;" id="<?php
         echo $this->get_field_id('link'); ?>" name="<?php
         echo $this->get_field_name('link'); ?>" type="url" value="<?php
         echo $instance['link']; ?>" size="24" />
-			</label>
-		</p>
+            </label>
+        </p>
 <?php
     }
 }
@@ -1217,69 +936,69 @@ class git_textbanner extends WP_Widget {
     }
     function form($instance) {
 ?>
-		<p>
-			<label>
-				名称：
-				<input id="<?php
+        <p>
+            <label>
+                名称：
+                <input id="<?php
         echo $this->get_field_id('title'); ?>" name="<?php
         echo $this->get_field_name('title'); ?>" type="text" value="<?php
         echo $instance['title']; ?>" class="widefat" />
-			</label>
-		</p>
-		<p>
-			<label>
-				描述：
-				<textarea id="<?php
+            </label>
+        </p>
+        <p>
+            <label>
+                描述：
+                <textarea id="<?php
         echo $this->get_field_id('content'); ?>" name="<?php
         echo $this->get_field_name('content'); ?>" class="widefat" rows="3"><?php
         echo $instance['content']; ?></textarea>
-			</label>
-		</p>
-		<p>
-			<label>
-				标签：
-				<input id="<?php
+            </label>
+        </p>
+        <p>
+            <label>
+                标签：
+                <input id="<?php
         echo $this->get_field_id('tag'); ?>" name="<?php
         echo $this->get_field_name('tag'); ?>" type="text" value="<?php
         echo $instance['tag']; ?>" class="widefat" />
-			</label>
-		</p>
-		<p>
-			<label>
-				链接：
-				<input style="width:100%;" id="<?php
+            </label>
+        </p>
+        <p>
+            <label>
+                链接：
+                <input style="width:100%;" id="<?php
         echo $this->get_field_id('link'); ?>" name="<?php
         echo $this->get_field_name('link'); ?>" type="url" value="<?php
         echo $instance['link']; ?>" size="24" />
-			</label>
-		</p>
-		<p>
-			<label>
-				样式：
-				<select style="width:100%;" id="<?php
+            </label>
+        </p>
+        <p>
+            <label>
+                样式：
+                <select style="width:100%;" id="<?php
         echo $this->get_field_id('style'); ?>" name="<?php
         echo $this->get_field_name('style'); ?>" style="width:100%;">
-					<option value="style01" <?php
+                    <option value="style01" <?php
         selected('style01', $instance['style']); ?>>蓝色</option>
-					<option value="style02" <?php
+                    <option value="style02" <?php
         selected('style02', $instance['style']); ?>>橘红色</option>
-					<option value="style03" <?php
+                    <option value="style03" <?php
         selected('style03', $instance['style']); ?>>绿色</option>
-					<option value="style04" <?php
+                    <option value="style04" <?php
         selected('style04', $instance['style']); ?>>紫色</option>
-					<option value="style05" <?php
+                    <option value="style05" <?php
         selected('style05', $instance['style']); ?>>青色</option>
-				</select>
-			</label>
-		</p>
-		<p>
-			<label>
-				<input style="vertical-align:-3px;margin-right:4px;" class="checkbox" type="checkbox" <?php
+                </select>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input style="vertical-align:-3px;margin-right:4px;" class="checkbox" type="checkbox" <?php
         checked($instance['blank'], 'on'); ?> id="<?php
         echo $this->get_field_id('blank'); ?>" name="<?php
         echo $this->get_field_name('blank'); ?>">新打开浏览器窗口
-			</label>
-		</p>
+            </label>
+        </p>
 <?php
     }
 }
