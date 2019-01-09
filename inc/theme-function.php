@@ -26,7 +26,7 @@ add_filter( 'login_url', 'force_github_login_url', 10, 3 );
 function get_Yunluo_Notice(){
 	$Yunluo_Notice = get_transient('Yunluo_Notice');
 	if(false === $Yunluo_Notice){ 
-        $Yunluo_Notice = wp_remote_get('https://upyun.gitcafe.net/static/notice.txt');
+        $Yunluo_Notice = wp_remote_get('https://raw.githubusercontent.com/yunluo/GitCafeApi/master/notice.txt');
 		if ( is_array( $Yunluo_Notice ) && !is_wp_error($Yunluo_Notice) && $Yunluo_Notice['response']['code'] == '200' ) {
 			set_transient('Yunluo_Notice', $Yunluo_Notice['body'], 60*60*24);//缓存120小时
 		}else{

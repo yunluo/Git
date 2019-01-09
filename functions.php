@@ -1553,7 +1553,7 @@ if (git_get_option('git_baidurecord_b') && function_exists('curl_init')) {
 //主题自动更新服务
 if (!git_get_option('git_updates_b')) {
     require 'modules/updates.php';
-    $example_update_checker = new ThemeUpdateChecker('Git-alpha', 'https://upyun.gitcafe.net/static/info.json');
+    $example_update_checker = new ThemeUpdateChecker('Git-alpha', 'https://raw.githubusercontent.com/yunluo/GitCafeApi/master/info.json');
 }
 
 //本地头像
