@@ -1405,7 +1405,12 @@ add_action('admin_footer', 'hui_admin_comment_ctrlenter');
 function Bing_category(){
     $cat_ids = get_transient('Bing_category');
     if (false === $cat_ids) {
-        $cat_ids = implode(",", get_all_category_ids());
+        $categories = get_terms('category', 'hide_empty=0');
+        $k = [];
+        foreach ($categories as $categorie) {
+            $k[] = $categorie->term_id;
+        }
+        $cat_ids = implode(",", $k);
         set_transient('Bing_category', $cat_ids, 60*60*24*5);//缓存5天
     }
     $cat_ids = explode(",", $cat_ids);
@@ -1548,7 +1553,7 @@ if (git_get_option('git_baidurecord_b') && function_exists('curl_init')) {
 //主题自动更新服务
 if (!git_get_option('git_updates_b')) {
     require 'modules/updates.php';
-    $example_update_checker = new ThemeUpdateChecker('Git-alpha', 'https://raw.githubusercontent.com/yunluo/Git/gh-pages/info.json');
+    $example_update_checker = new ThemeUpdateChecker('Git-alpha', 'https://upyun.gitcafe.net/static/info.json');
 }
 
 //本地头像
