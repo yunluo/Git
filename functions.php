@@ -2211,11 +2211,9 @@ if (git_get_option('git_compress')) {
             $buffer_out .= "\n<!--压缩前的大小: {$initial} bytes; 压缩后的大小: {$final} bytes; 节约：{$savings}% -->";
             return $buffer_out;
         }
-        if (!is_admin()) {
             ob_start("wp_compress_html_main");
-        }
     }
-    add_action('init', 'wp_compress_html');
+    add_action('get_header', 'wp_compress_html');
     function git_unCompress($content)
     {
         if (preg_match_all('/(crayon-|<?xml|script|textarea|<\\/pre>)/i', $content, $matches)) {
