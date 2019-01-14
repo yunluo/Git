@@ -4,6 +4,14 @@
  */
 require( '../../../../wp-load.php' );
 
+//开始查询付款状态
+if (isset($_POST['check_trade_no']) && $_POST['from'] == 'checkpay') {
+    if (git_check($_POST['check_trade_no'])) {
+        exit('1');
+    } else {
+        exit('0');
+    }
+}
 /* 有赞支付通知开始 */
 if(git_get_option('git_pay_way')=='git_youzan_ok'){
 $client_id = git_get_option('git_yzclient_id');
@@ -70,9 +78,10 @@ if(git_get_option('git_pay_way')=='git_eapay_ok'){
     $eapay = new Eapay($config);
 	$data = $eapay->notify();//此步骤已完成验签
 	//需要做唯一性检查
-	if(git_check($data['out_trade_no']) != 1) exit('Repeat push');
-	$paypoint_id = $wpdb->get_row("SELECT `point_id` FROM `" . Points_Database::points_get_table("users") . "` WHERE `description` = '{$data['out_trade_no']}' LIMIT 6", ARRAY_A)['point_id'];
-	$userid = $wpdb->get_row("SELECT `user_id` FROM `" . Points_Database::points_get_table("users") . "` WHERE `description` = '{$data['out_trade_no']}' LIMIT 6", ARRAY_A)['user_id'];
+	$payresult = $wpdb->query("SELECT `point_id` FROM `" . Points_Database::points_get_table("users") . "` WHERE `description` = '{$data['out_trade_no']}' LIMIT 1", ARRAY_A);
+	if( $payresult != 1) exit('Repeat push');
+	$paypoint_id = $wpdb->get_row("SELECT `point_id` FROM `" . Points_Database::points_get_table("users") . "` WHERE `description` = '{$data['out_trade_no']}' LIMIT 1", ARRAY_A)['point_id'];
+	$userid = Points::get_point( $paypoint_id )->user_id;
 	$amount = $data['total_fee'];
 	error_log('eapay pay ok, Order_ID:'.$data['out_trade_no']);
 	echo 'success';

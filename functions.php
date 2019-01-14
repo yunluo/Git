@@ -2400,6 +2400,7 @@ if (git_get_option('git_sitemap_api')) {
             'headers' => 'Content-Type: text/plain'
         ));
         if ( is_array( $result ) && !is_wp_error($result) && $result['response']['code'] == '200' ) {
+            error_log('baidu_submit_result：'.$result['body']);
             $result = json_decode($result['body'], true);
         }
         if (array_key_exists('success', $result)) {

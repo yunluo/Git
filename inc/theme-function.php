@@ -130,32 +130,15 @@ if (git_get_option('git_Server') && !is_admin()) {
     add_action('comment_post', 'sc_send', 19, 2);
 }
 // 内链图片src
-function link_the_thumbnail_src() {
+function link_the_thumbnail_src(){
     global $post;
-    if (get_post_meta($post->ID, 'thumbnail', true)) {
-        //如果有缩略图，则显示缩略图
-        $image = get_post_meta($post->ID, 'thumbnail', true);
-        return $image;
-    } else {
-        if (has_post_thumbnail()) {
-            //如果有缩略图，则显示缩略图
-            $img_src = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID) , "Full");
-            return $img_src[0];
-        } else {
-            $content = $post->post_content;
-            preg_match_all('/<img.*?(?: |\\t|\\r|\\n)?src=[\'"]?(.+?)[\'"]?(?:(?: |\\t|\\r|\\n)+.*?)?>/sim', $content, $strResult, PREG_PATTERN_ORDER);
-            $n = count($strResult[1]);
-            if ($n > 0) {
-                return $strResult[1][0];
-                //没有缩略图就取文章中第一张图片作为缩略图
-            } else {
-                $random = mt_rand(1, 12);
-                return GIT_URL . '/assets/img/pic/' . $random . '.jpg';
-                //文章中没有图片就在 random 文件夹下随机读取图片作为缩略图
-
-            }
-        }
+    $content = $post->post_content;
+    preg_match('/src="(.*?)"/i', $content, $matches, PREG_OFFSET_CAPTURE, 0);
+    $post_thumbnail_src = $matches[1][0];
+    if (empty($post_thumbnail_src)) {
+        $post_thumbnail_src = GIT_URL . '/assets/img/pic/' . mt_rand(1, 12) . '.jpg';
     }
+    return $post_thumbnail_src;
 }
 //给文章加内链短代码
 function git_insert_posts($atts, $content = null) {
@@ -667,13 +650,14 @@ function Notification_js() {
 	}
 	var popNotice = function() {
 			if (Notification.permission == "granted") {
-				var n = new Notification("<?php
+                setTimeout(function() {
+                var n = new Notification("<?php
         echo git_get_option('git_notification_title'); ?>", {
-					body: "<?php
+                    body: "<?php
         echo git_get_option('git_notification_body'); ?>",
-					icon: "<?php
+                    icon: "<?php
         echo git_get_option('git_notification_icon'); ?>"
-				});
+                });
 				n.onclick = function() {
 					window.location.href="<?php
         echo git_get_option('git_notification_link'); ?>";
@@ -683,6 +667,7 @@ function Notification_js() {
 					setCookie("git_Notification", "<?php
         echo git_get_option('git_notification_cookie'); ?>")
 				}
+                }, 2 * 1000)
 			}
 		};
 	if (getCookie("git_Notification") == "<?php
