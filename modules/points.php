@@ -5,24 +5,20 @@ if ( !defined( 'POINTS_CORE_LIB' ) && defined( 'GIT_VER' ) ) {
 
 define( 'POINTS_DEFAULT_POINTS_LABEL', '金币' );
 if(git_get_option('git_github_oauth')){
-require_once ( POINTS_CORE_LIB . '/github.php' );
+require ( POINTS_CORE_LIB . '/github.php' );
 }
-require_once ( POINTS_CORE_LIB . '/constants.php' );
-require_once ( POINTS_CORE_LIB . '/class-points.php' );
-require_once ( POINTS_CORE_LIB . '/class-points-database.php' );
-require_once ( POINTS_CORE_LIB . '/class-points-shortcodes.php' );
-require_once ( POINTS_CORE_LIB . '/class-points-admin.php' );
-require_once ( POINTS_CORE_LIB . '/class-points-table.php' );
-require_once ( POINTS_CORE_LIB . '/class-points-wordpress.php' );
-if(git_get_option('git_pay_way')=='git_youzan_ok'){
-require_once ( POINTS_CORE_LIB.'/youzan/YZGetTokenClient.php' );
-require_once ( POINTS_CORE_LIB.'/youzan/YZTokenClient.php' );
+require ( POINTS_CORE_LIB . '/constants.php' );
+require ( POINTS_CORE_LIB . '/class-points.php' );
+require ( POINTS_CORE_LIB . '/class-points-database.php' );
+require ( POINTS_CORE_LIB . '/class-points-shortcodes.php' );
+require ( POINTS_CORE_LIB . '/class-points-admin.php' );
+require ( POINTS_CORE_LIB . '/class-points-table.php' );
+require ( POINTS_CORE_LIB . '/class-points-wordpress.php' );
+if(git_get_option('git_pay_way') == 'git_payjs_ok' ){
+require ( POINTS_CORE_LIB.'/Payjs.php' );
 }
-if(git_get_option('git_pay_way')=='git_payjs_ok'){
-require_once ( POINTS_CORE_LIB.'/Payjs.php' );
-}
-if(git_get_option('git_pay_way')=='git_eapay_ok'){
-require_once ( POINTS_CORE_LIB.'/Eapay.php' );
+if(git_get_option('git_pay_way') == 'git_eapay_ok' ){
+require ( POINTS_CORE_LIB.'/Eapay.php' );
 }
 
 class Points_Class {

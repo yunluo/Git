@@ -1,5 +1,35 @@
 <?php
 
+//评论地址更换
+function git_comment_author( $query_vars ) {
+	if ( array_key_exists( 'author_name', $query_vars ) ) {
+		global $wpdb;
+		$author_id = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key='first_name' AND meta_value = %s", $query_vars['author_name'] ) );
+		if ( $author_id ) {
+			$query_vars['author'] = $author_id;
+			unset( $query_vars['author_name'] );
+		}
+	}
+	return $query_vars;
+}
+add_filter( 'request', 'git_comment_author' );
+
+function git_comment_author_link( $link, $author_id, $author_nicename ) {
+	$my_name = get_user_meta( $author_id, 'first_name', true );
+	if ( $my_name ) {
+		$link = str_replace( $author_nicename, $my_name, $link );
+	}
+	return $link;
+}
+add_filter( 'author_link', 'git_comment_author_link', 10, 3 );
+
+//生成订单号编码
+function git_order_id(){
+	date_default_timezone_set('Asia/Shanghai');
+	$order_id = 'E' . date("YmdHis") . mt_rand(10000, 99999);
+	return $order_id;
+}
+
 //新标签打开顶部网站链接
 function blank_my_site_bar( $wp_admin_bar ) {
     $node = $wp_admin_bar->get_node('view-site');
@@ -46,15 +76,14 @@ function git_page_id($pagephp) {
 //根据订单描述金币数据唯一性检查
 function git_check($k) {
 	global $wpdb;
-	$payresult = $wpdb->query("SELECT `point_id` FROM `" . Points_Database::points_get_table("users") . "` WHERE `description` = '{$k}' LIMIT 6", ARRAY_A);
-	return $payresult;//0=无数据，1=正常，>1均为错误数据
+	$result = $wpdb->query("SELECT `point_id` FROM `" . Points_Database::points_get_table("users") . "` WHERE `description` = '{$k}' AND status='accepted' LIMIT 3", ARRAY_A);
+	return $result;//0=无数据，1=正常，>1均为错误数据
 }
 
 //微信订阅推送
 function wx_send($post_ID) {
 	if (get_post_meta($post_ID, 'git_wx_submit', true) == 1) return;
     if(!isset($_POST['git_wx_submit'])) return;
-	if( wp_is_post_revision($post_ID) ) return;
 	$text = get_the_title($post_ID); //微信推送信息标题
 	$wx_post_link = get_permalink($post_ID).'?from=pushbear';//文章链接
 	$wx_post_content = deel_strimwidth(strip_tags(strip_shortcodes(get_post($post_ID)->post_content)) , 0, 210 , '……');

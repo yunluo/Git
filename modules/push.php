@@ -9,47 +9,9 @@ if (isset($_POST['check_trade_no']) && $_POST['from'] == 'checkpay') {
     if (git_check($_POST['check_trade_no'])) {
         exit('1');
     } else {
-        exit('0');
+        exit('0');//使用exit退出是因为和下面没有啥关系
     }
 }
-/* 有赞支付通知开始 */
-if(git_get_option('git_pay_way')=='git_youzan_ok'){
-$client_id = git_get_option('git_yzclient_id');
-$client_secret = git_get_option('git_yzclient_secret');
-$kdt_id = git_get_option('git_yzkdt_id');
-
-$json = file_get_contents('php://input');
-$data = json_decode($json, true);
-
-//判断是否是test请求
-if($data['test'] == true){
-    echo json_encode(['code' => 0, 'msg' => 'success']);
-    exit();
-}
-
-//判断消息是否合法，若合法则返回成功标识
- $msg = $data['msg'];
- $sign_string = $client_id."".$msg."".$client_secret;
- $sign = md5($sign_string);
- if($sign != $data['sign']){
-	 exit("非法请求");
- }else{
-	 echo json_encode(['code' => 0, 'msg' => 'success']);
- }
-
- //需要做唯一性检查
- if(git_check($data['id']) >= 1) exit('Repeat push');
-
- /**
-  * msg内容经过 urlencode 编码，需进行解码
-  */
-	 $msg = json_decode(urldecode($msg),true);//推送的信息
-	 $amount = $msg['full_order_info']['orders']['0']['payment']; 	//交易金额
-	 $userid = $msg['full_order_info']['orders']['0']['title']; 	//交易标题
-	 $YZid = $data['id']; //有赞支付ID
-	 error_log('youzan pay ok, Order_ID:'.$YZid.', User_ID:'.$userid.', Amount:'.$amount);//输出到日志
-}
-/* 有赞支付通知结束 */
 
 /* Payjs支付通知开始 */
 if(git_get_option('git_pay_way')=='git_payjs_ok'){
@@ -61,7 +23,7 @@ if(git_get_option('git_pay_way')=='git_payjs_ok'){
     $payjs = new Payjs($config);
 	$data = $payjs->notify();//
 	//需要做唯一性检查
-	if(git_check($data['out_trade_no']) >= 1) exit('Repeat push');
+	if(git_check($data['out_trade_no']) != 0) exit('Repeat push');
 	if($data['return_code'] == 1){
 			$amount = $data['total_fee']/100; 	//交易金额
 			$userid = $data['attach']; 	//交易标题
@@ -78,8 +40,6 @@ if(git_get_option('git_pay_way')=='git_eapay_ok'){
     $eapay = new Eapay($config);
 	$data = $eapay->notify();//此步骤已完成验签
 	//需要做唯一性检查
-	$payresult = $wpdb->query("SELECT `point_id` FROM `" . Points_Database::points_get_table("users") . "` WHERE `description` = '{$data['out_trade_no']}' LIMIT 1", ARRAY_A);
-	if( $payresult != 1) exit('Repeat push');
 	$paypoint_id = $wpdb->get_row("SELECT `point_id` FROM `" . Points_Database::points_get_table("users") . "` WHERE `description` = '{$data['out_trade_no']}' LIMIT 1", ARRAY_A)['point_id'];
 	$userid = Points::get_point( $paypoint_id )->user_id;
 	$amount = $data['total_fee'];
@@ -87,7 +47,7 @@ if(git_get_option('git_pay_way')=='git_eapay_ok'){
 	echo 'success';
 }
 /* 简付支付通知结束 */
-if(empty($userid) ||empty($amount) )exit('数据为空');//阻止某些极少数空值的
+if( empty($userid) || empty($amount) )exit('数据为空');//阻止某些极少数空值的
 
 	$user = get_user_by( 'id', $userid  );
 	$point_number = $amount * git_get_option('git_chongzhi_dh');

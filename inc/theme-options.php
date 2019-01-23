@@ -1372,39 +1372,10 @@ $options = array(
         'id'    => 'git_pay_way',
         'type'  => 'radio',
         'options' => array(
-            '调用有赞支付' => 'git_youzan_ok',
 			'调用Payjs支付' => 'git_payjs_ok',
             '调用简付支付' => 'git_eapay_ok'
         ),
-        'std'   => 'git_youzan_ok'
-    ),
-	array(
-        'type'  => 'hr'
-    ),
-	array(
-        'title' => '有赞支付设置&nbsp;&nbsp;&nbsp;<a href="https://console.youzanyun.com/login" target="_blank" >注册有赞</a>&nbsp;&nbsp;&nbsp;【新用户已停止注册，老用户继续使用，老用户失效后将移除】',
-        'type'  => 'subtitle'
-    ),
-	array(
-        'name'  => '有赞client_id',
-        'desc'  => '',
-        'id'    => 'git_yzclient_id',
-        'type'  => 'text',
-        'std'   => 2333333333
-    ),
-	array(
-        'name'  => '有赞client_secret',
-        'desc'  => '',
-        'id'    => 'git_yzclient_secret',
-        'type'  => 'text',
-        'std'   => 444444444
-    ),
-	array(
-        'name'  => '有赞授权店铺id',
-        'desc'  => '',
-        'id'    => 'git_yzkdt_id',
-        'type'  => 'text',
-        'std'   => 4025684
+        'std'   => 'git_payjs_ok'
     ),
     array(
         'type'  => 'hr'
@@ -1431,7 +1402,7 @@ $options = array(
         'type'  => 'hr'
     ),
 	array(
-        'title' => '简付支付设置&nbsp;&nbsp;&nbsp;<a href="https://b.eapay.cc" target="_blank" >注册简付</a>&nbsp;&nbsp;&nbsp;【小团队产品，不是太好，后面考虑逐渐淘汰掉】',
+        'title' => '简付支付设置&nbsp;&nbsp;&nbsp;<a href="https://b.eapay.cc" target="_blank" >注册简付</a>',
         'type'  => 'subtitle'
     ),
 	array(

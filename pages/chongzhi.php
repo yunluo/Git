@@ -25,28 +25,6 @@ echo str_replace('</ul></div>', '', preg_replace('/<div[^>]*><ul[^>]*>/', '', wp
 			<div class="article-content">
 				<?php the_content(); ?>
 <?php
-if(git_get_option('git_pay_way')=='git_youzan_ok'){
-	/*开始有赞*/
-	$client_id = git_get_option('git_yzclient_id');
-    $client_secret = git_get_option('git_yzclient_secret');
-	$kdt_id = git_get_option('git_yzkdt_id');
-    $token_client = new YZGetTokenClient($client_id, $client_secret);
-    $type = 'self';
-    $keys = array(
-        'grant_type' => 'silent',
-        'kdt_id' => intval($kdt_id),
-    );
-    $token = $token_client->get_token($type, $keys);
-    $client = new YZTokenClient($token['access_token']);
-    $method = 'youzan.pay.qrcode.create'; //要调用的api名称
-    $api_version = '3.0.0'; //要调用的api版本号
-	$my_params = [
-    'qr_name' => get_current_user_id(),
-    'qr_price' => $_POST['money']*100,
-    'qr_type' => 'QR_TYPE_DYNAMIC',
-	];
-	$SKQR = $client->post($method, $api_version, $my_params)['response']['qr_code'];
-}
 if(git_get_option('git_pay_way')=='git_payjs_ok'){
 	// 配置通信参数
 	$config = [
@@ -58,14 +36,14 @@ if(git_get_option('git_pay_way')=='git_payjs_ok'){
 	$data = [
 		'body' => '积分充值',   // 订单标题
 		'attach' => get_current_user_id(),   // 订单备注
-		'out_trade_no' => 'E'.date("YmdHis").mt_rand(100000000, 999999999),       // 订单号
-		'total_fee' => $_POST['money']*100,             // 金额,单位:分
+		'out_trade_no' => git_order_id(),       // 订单号
+		'total_fee' => filter_var($_POST['money'], FILTER_SANITIZE_NUMBER_INT)*100,             // 金额,单位:分
 		'notify_url' => GIT_URL.'/modules/push.php',
 		'hide' => '1'
 	];
 	if(git_is_mobile()){
 		$rst = $payjs->cashier($data);//手机使用
-		$SKQR = 'http://qr.liantu.com/api.php?text=' . urlencode($rst);
+		$SKQR = 'https://api.isoyu.com/qr/?m=1&e=L&p=7&url=' . urlencode($rst);
 	}else{
 		$rst = $payjs->native($data);//电脑使用
 		$SKQR = $rst['qrcode'];
@@ -75,8 +53,8 @@ if(git_get_option('git_pay_way')=='git_payjs_ok'){
 if(git_get_option('git_pay_way')=='git_eapay_ok'){
 	$eapay = new Eapay($config);
 	$data = array(
-		'out_trade_no' => 'E' . date("YmdHis") . mt_rand(100000000, 999999999), //举例为：E20181125153426343026279
-		'total_fee' => $_POST['money'], //充值的钱，注意金额单位为元
+		'out_trade_no' => git_order_id(), //举例为：E20181125153426343026279
+		'total_fee' => filter_var($_POST['money'], FILTER_SANITIZE_NUMBER_INT), //充值的钱，注意金额单位为元
 		'subject' => '积分充值',//根据业务需要吗，一般是固定的
 		'body' => get_current_user_id(),//订单备注
 		'show_url' => get_permalink(git_page_id('chongzhi')),
@@ -92,10 +70,9 @@ echo '<span class="pull-center"><form method="post">
 	<input type="submit" value="点击充值">
 	</form></span>';
 if(isset($_POST['money'])){
-
 	if(git_get_option('git_pay_way')=='git_eapay_ok'){
 	Points::set_points($point_number, $userid, array('description' => $YZid , 'status' => 'pending'));//增加金币待审核
-	header("Location:{$eapay->cashier($data)}");
+	echo '<a class="lhb" target="_blank" href="'.$eapay->cashier($data).'">立即支付</a>';
 	}else{
 	echo '<div class="pull-center">
 	<p class="pull-center">请使用微信或者支付宝扫描二维码</p>
@@ -105,7 +82,7 @@ if(isset($_POST['money'])){
 echo '<script src="https://cdn.bootcss.com/sweetalert/2.0.0/sweetalert.min.js"></script>
 <script type="text/javascript">
 var num = 0;
-var max = 25;
+var max = 30;
 var timeres;
 
 function payok(a) {
@@ -130,12 +107,11 @@ function checkpay() {
 function timecheck(){
 	num++;
 	if (num < max) {
-		timeres = setTimeout(timecheck,5*1000);
+		timeres = setTimeout(timecheck,10*1000);
 		checkpay();
 	}
 }
-timeres = setTimeout(timecheck,5*1000);
-
+timeres = setTimeout(timecheck,10*1000);
 if (window.Notification) {
 	var popNotice = function() {
 			if (Notification.permission == "granted") {
@@ -158,7 +134,7 @@ if (window.Notification) {
 	console.log("您的浏览器不支持Web Notification")
 }
 </script>';
-}
+	}
 }else{
 	echo '<div class="alert alert-error" role="alert">本页面需要您登录才可以操作，请先 <a target="_blank" href="'.esc_url( wp_login_url( get_permalink() ) ).'">点击登录</a>  或者<a href="'.esc_url( wp_registration_url() ).'">立即注册</a></div>';
 }

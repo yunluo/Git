@@ -7,12 +7,12 @@ if (phpversion() < 5.5) {
 define('GIT_VER', wp_get_theme()->get('Version'));
 define('GIT_URL', get_template_directory_uri());
 add_action('after_setup_theme', 'deel_setup');
-include ('inc/theme-options.php');
-include ('inc/theme-widgets.php');
-include ('inc/theme-metabox.php');
-include ('inc/theme-function.php');
+require ('inc/theme-options.php');
+require ('inc/theme-widgets.php');
+require ('inc/theme-metabox.php');
+require ('inc/theme-function.php');
 if (!defined('POINTS_CORE_DIR')) {
-    include ('modules/points.php');
+    require ('modules/points.php');
 }
 function deel_setup() {
     //添加主题特性
@@ -511,8 +511,6 @@ function comment_mail_notify($comment_id) {
         $from = "From: \"" . get_option('blogname') . "\" <$wp_email>";
         $headers = "$from\nContent-Type: text/html; charset=" . get_option('blog_charset') . "\n";
         wp_mail($to, $subject, $message, $headers);
-        //echo 'mail to ', $to, '<br/> ' , $subject, $message; // for testing
-
     }
 }
 //自动勾选
@@ -788,9 +786,6 @@ function post_thumbnail_src() {
             $random = mt_rand(1, 12);
             echo GIT_URL;
             echo '/assets/img/pic/' . $random . '.jpg';
-            //如果日志中没有图片，则显示默认图片
-            //echo '/assets/img/thumbnail.png';
-
         }
     };
     echo $post_thumbnail_src;
@@ -1898,35 +1893,34 @@ function git_post_order_in_admin($wp_query) {
     }
 }
 add_filter('pre_get_posts', 'git_post_order_in_admin');
-/*
-UA信息
-*/
+
+//UA信息
 if (git_get_option('git_ua_b')) {
     function user_agent($ua){
         //开始解析操作系统
         $os = null;
         if (preg_match('/Windows NT 6.0/i', $ua)) {
-            $os = "Windows Vista";
+            $os = 'Windows Vista';
         } elseif (preg_match('/Windows NT 6.1/i', $ua)) {
-            $os = "Windows 7";
+            $os = 'Windows 7';
         } elseif (preg_match('/Windows NT 6.2/i', $ua)) {
-            $os = "Windows 8";
+            $os = 'Windows 8';
         } elseif (preg_match('/Windows NT 6.3/i', $ua)) {
-            $os = "Windows 8.1";
+            $os = 'Windows 8.1';
         } elseif (preg_match('/Windows NT 10.0/i', $ua)) {
-            $os = "Windows 10";
+            $os = 'Windows 10';
         } elseif (preg_match('/Windows NT 5.1/i', $ua)) {
-            $os = "Windows XP";
+            $os = 'Windows XP';
         } elseif (preg_match('/Mac OS X/i', $ua)) {
-            $os = "Mac OS X";
+            $os = 'Mac OS X';
         } elseif (preg_match('#Linux#i', $ua)) {
-            $os = "Linux ";
+            $os = 'Linux ';
         } elseif (preg_match('#Windows Phone#i', $ua)) {
-            $os = "Windows Phone ";
+            $os = 'Windows Phone ';
         } elseif (preg_match('/Windows NT 5.2/i', $ua) && preg_match('/Win64/i', $ua)) {
-            $os = "Windows XP 64 bit";
+            $os = 'Windows XP 64 bit';
         } elseif (preg_match('/Android ([0-9.]+)/i', $ua, $matches)) {
-            $os = "Android " . $matches[1];
+            $os = 'Android ' . $matches[1];
         } elseif (preg_match('/iPhone OS ([_0-9]+)/i', $ua, $matches)) {
             $os = 'iPhone ' . $matches[1];
         } else {
@@ -1955,10 +1949,14 @@ if (git_get_option('git_ua_b')) {
             $browser = '腾讯TT浏览器 ' . $matches[1];
         } elseif (preg_match('#(UCWEB|UBrowser|UCBrowser)/([a-zA-Z0-9.]+)#i', $ua, $matches)) {
             $browser = 'UC浏览器 ' . $matches[1];
+        } elseif (preg_match('#(QQ|TIM)/([a-zA-Z0-9.]+)#i', $ua, $matches)) {
+            $browser = '手机QQ ' . $matches[1];
         } elseif (preg_match('#Vivaldi/([a-zA-Z0-9.]+)#i', $ua, $matches)) {
             $browser = 'Vivaldi浏览器 ' . $matches[1];
         } elseif (preg_match('#wp-(iphone|android)/([a-zA-Z0-9.]+)#i', $ua, $matches)) {
             $browser = 'WordPress客户端 ' . $matches[1];
+        } elseif (preg_match('#MicroMessenger/([a-zA-Z0-9.]+)#i', $ua, $matches)) {
+            $browser = '微信浏览器 ' . $matches[1];
         } elseif (preg_match('#Edge ([a-zA-Z0-9.]+)#i', $ua, $matches)) {
             $browser = '微软Edge浏览器 ' . $matches[1];
         } elseif (preg_match('#MSIE ([a-zA-Z0-9.]+)#i', $ua, $matches)) {
