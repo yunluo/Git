@@ -2,7 +2,7 @@
 代码如诗 , 如痴如醉 !
 -->
 <!DOCTYPE HTML>
-<html xmlns:wb="http://open.weibo.com/wb">
+<html xmlns:wb="http://open.weibo.com/wb" lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-transform" />
