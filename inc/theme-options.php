@@ -2036,8 +2036,7 @@ switch ( $value['type'] ) {
         <p>&nbsp;&nbsp;定名为Git，首先是因为主题采用Git版本系统管理代码的，写的最多的代码就是Git了，另外G代表我的Googlo.Me，遂定名为Git。</p>
         <p>&nbsp;&nbsp;感谢大前端的D8主题，感谢欲思的欲思主题，感谢小影的主题，感谢知更鸟的主题，感谢露兜博客，感谢devework，感谢开源中国，感谢一直跟随主题版本升级的朋友们</p>
 <h2>其他事项</h2>
-<a class="button button-primary" href="https://coding.net/u/googlo/p/Git/git/commits/alpha" target="_blank">更新日志</a>
-<a class="button button-primary" href="https://gitcafe.net/bbs.html" target="_blank">支持论坛</a>
+<a class="button button-primary" href="https://gitcafe.net/tool/gitrss.php" target="_blank">更新日志</a>
 <a class="button button-primary" href="https://gitcafe.net/archives/3275.html" target="_blank">使用文档</a>
 <h2>关注公众号</h2>
 <p>欢迎关注乐趣公园公众号，<font color="#ff0000">PS.主题有不会使用的，也可以直接在公众号查找使用方法哦</font></p>

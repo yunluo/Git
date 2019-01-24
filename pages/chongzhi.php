@@ -37,16 +37,16 @@ if(git_get_option('git_pay_way')=='git_payjs_ok'){
 		'body' => '积分充值',   // 订单标题
 		'attach' => get_current_user_id(),   // 订单备注
 		'out_trade_no' => git_order_id(),       // 订单号
-		'total_fee' => filter_var($_POST['money'], FILTER_SANITIZE_NUMBER_INT)*100,             // 金额,单位:分
+		'total_fee' => intval($_POST['money'])*100,             // 金额,单位:分
 		'notify_url' => GIT_URL.'/modules/push.php',
 		'hide' => '1'
 	];
 	if(git_is_mobile()){
 		$rst = $payjs->cashier($data);//手机使用
-		$SKQR = 'https://api.isoyu.com/qr/?m=1&e=L&p=7&url=' . urlencode($rst);
+		$SKQR = $rst;
 	}else{
 		$rst = $payjs->native($data);//电脑使用
-		$SKQR = $rst['qrcode'];
+		$SKQR = $rst['code_url'];
 	}
 }
 
@@ -54,7 +54,7 @@ if(git_get_option('git_pay_way')=='git_eapay_ok'){
 	$eapay = new Eapay($config);
 	$data = array(
 		'out_trade_no' => git_order_id(), //举例为：E20181125153426343026279
-		'total_fee' => filter_var($_POST['money'], FILTER_SANITIZE_NUMBER_INT), //充值的钱，注意金额单位为元
+		'total_fee' => intval($_POST['money']), //充值的钱，注意金额单位为元
 		'subject' => '积分充值',//根据业务需要吗，一般是固定的
 		'body' => get_current_user_id(),//订单备注
 		'show_url' => get_permalink(git_page_id('chongzhi')),
@@ -72,12 +72,20 @@ echo '<span class="pull-center"><form method="post">
 if(isset($_POST['money'])){
 	if(git_get_option('git_pay_way')=='git_eapay_ok'){
 	Points::set_points($point_number, $userid, array('description' => $YZid , 'status' => 'pending'));//增加金币待审核
-	echo '<a class="lhb" target="_blank" href="'.$eapay->cashier($data).'">立即支付</a>';
+	echo '<div class="pull-center"><a class="lhb" target="_blank" href="'.$eapay->cashier($data).'">立即支付</a></div>';
 	}else{
 	echo '<div class="pull-center">
 	<p class="pull-center">请使用微信或者支付宝扫描二维码</p>
-<p class="pull-center">你当前正在充值的金额为&nbsp;<font style="font-weight:bold;" color="#cc0000">'.filter_var($_POST['money'], FILTER_SANITIZE_NUMBER_INT).'</font> 元</p>
-<img class="pull-center" src="' . $SKQR . '" />
+<p class="pull-center">你当前正在充值的金额为&nbsp;<font style="font-weight:bold;" color="#cc0000">'.intval($_POST['money']).'</font> 元</p>
+<p class="pull-center"><canvas id="qrious"></canvas></p>
+ <script src="https://cdn.bootcss.com/qrious/4.0.2/qrious.min.js"></script>
+ <script type="text/javascript">
+   var qr = new QRious({
+	 element: document.getElementById("qrious"),
+	 size : 300,
+	 value: "'.$SKQR.'"
+   });
+ </script>
 </div>';}
 echo '<script src="https://cdn.bootcss.com/sweetalert/2.0.0/sweetalert.min.js"></script>
 <script type="text/javascript">
