@@ -2021,7 +2021,7 @@ function custom_shuoshuo_rewrites_init() {
 }
 add_action('init', 'custom_shuoshuo_rewrites_init');
 //添加产品功能
-if (!defined('UM_DIR')) { /*如果安装um的话，就禁用这个功能*/
+if (!defined('UM_DIR') || !defined('WC_PLUGIN_FILE')) { /*如果安装um/Woo的话，就禁用这个功能*/
     function git_product() {
         $labels = array(
             'name' => '产品',
