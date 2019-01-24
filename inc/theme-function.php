@@ -161,6 +161,8 @@ if (git_get_option('git_Server') && !is_admin()) {
 // 内链图片src
 function link_the_thumbnail_src(){
     global $post;
+    ob_start();
+    ob_end_clean();
     $content = $post->post_content;
     preg_match('/src="(.*?)"/i', $content, $matches, PREG_OFFSET_CAPTURE, 0);
     $post_thumbnail_src = $matches[1][0];
