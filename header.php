@@ -303,7 +303,7 @@ if ( $query->have_posts() ) {
     while ( $query->have_posts() ) {
         $query->the_post();
         echo '<li>';
-        strip_tags(the_title());
+        strip_tags(the_content());
         echo '</li>';
     }
 } else {
