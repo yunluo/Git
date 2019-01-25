@@ -50,8 +50,16 @@ while (have_posts()):
     if (comments_open()) echo '<span class="muted"><i class="fa fa-comments-o"></i> <a href="' . get_comments_link() . '">' . get_comments_number('0', '1', '%') . '个评论</a></span>'; ?>
 				<?php
     if (git_get_option('git_qr_b') && !git_is_mobile()) { ?><span class="muted"><i class="fa fa-qrcode"></i> <a style="cursor : pointer;" onMouseOver="document.all.qr.style.visibility=''" onMouseOut="document.all.qr.style.visibility='hidden'">扫描二维码</a>
-				<span id="qr" style="visibility: hidden;"><img alt = <?php the_title();?> style="position:absolute;z-index:99999;" src="https://www.aninfo.cc/api/qr/?url=<?php
-        the_permalink(); ?>"/></span></span><?php
+				<span id="qr" style="visibility: hidden;"><img style="position:absolute;z-index:99999;" id="qrious"></span></span>
+		 <script src="https://cdn.bootcss.com/qrious/4.0.2/qrious.min.js"></script>
+		 <script type="text/javascript">
+		   var qr = new QRious({
+			 element: document.getElementById("qrious"),
+			 size : 200,
+			 value: "<?php the_permalink(); ?>"
+		   });
+		 </script>
+		<?php
     } ?>
 				<span class="muted"><?php
     edit_post_link('[编辑]'); ?></span>
@@ -61,7 +69,7 @@ while (have_posts()):
 		$fahuodi = get_post_meta($post->ID, 'git_product_fahuodi', true);
 		$cpjianjie = get_post_meta($post->ID, 'git_product_cpjianjie', true);
 		$tblink = get_post_meta($post->ID, 'git_product_tblink', true);
-		if(get_post_type() == 'product'){
+		if(get_post_type() == 'product' && !defined('WC_PLUGIN_FILE')){
 		    echo '<hr /><div class="products" id="products">
 			<div class="product-img"><a target="_blank" rel="nofollow" href="' . get_post_meta($post->ID, 'git_product_tblink', true) . '"><img src="' . get_post_meta($post->ID, 'git_thumb', true) . '" width="360px" height="360px" alt="" /></a></div>
 			<div class="product-detail">
@@ -170,16 +178,8 @@ if (git_get_option('git_auther_b') && !defined('UM_DIR')) { ?>
         echo '<span class="socials-icon-wrap"><a class="ab-img ab-sinawb" target="_blank" href="' . get_the_author_meta('sina_weibo') . '" title="微博"><i class="fa fa-weibo"></i></a></span>';
     } ?>
 <?php
-    if (get_the_author_meta('qq_weibo')) {
-        echo '<span class="socials-icon-wrap"><a class="ab-img ab-qqwb" target="_blank" href="' . get_the_author_meta('qq_weibo') . '" title="腾讯微博"><i class="fa fa-tencent-weibo"></i></a></span>';
-    } ?>
-<?php
     if (get_the_author_meta('twitter')) {
         echo '<span class="socials-icon-wrap"><a class="ab-img ab-twitter" target="_blank" href="' . get_the_author_meta('twitter') . '" title="Twitter"><i class="fa fa-twitter"></i></a></span>';
-    } ?>
-<?php
-    if (get_the_author_meta('google_plus')) {
-        echo '<span class="socials-icon-wrap"><a class="ab-img ab-googleplus" target="_blank" href="' . get_the_author_meta('google_plus') . '" title="Google+"><i class="fa fa-google-plus"></i></a></span>';
     } ?>
 <?php
     if (get_the_author_meta('github')) {
@@ -194,9 +194,9 @@ if (git_get_option('git_auther_b') && !defined('UM_DIR')) { ?>
     if (get_the_author_meta('qq')) {
         echo '<span class="socials-icon-wrap"><a class="ab-img ab-qq" target="_blank" href="tencent://message/?uin=' . get_the_author_meta('qq') . '&Site=&Menu=yes" title="QQ交谈"><i class="fa fa-qq"></i></a></span>';
     } ?>
-</div>
-</div>
-</div>
+            </div>
+        </div>
+    </div>
 </div>
 <?php
 } ?>

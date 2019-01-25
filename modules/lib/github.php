@@ -20,6 +20,7 @@ function github_oauth(){
             'method' => 'POST',
             'headers' => array('Accept' => 'application/json'),
             'body' => $data,
+		    'timeout' => 50
         )
     );
     if(is_wp_error($response)) wp_die('网络错误，请重试！');
@@ -27,15 +28,28 @@ function github_oauth(){
     $token = $output['access_token'];
     if(!$token) wp_die('授权失败，请重试！');
     $get_user_info = 'https://api.github.com/user?access_token='.$token;
-    $datas = wp_remote_get( $get_user_info );
+    $datas = wp_remote_get( $get_user_info, ['timeout' => 50]);
     if(is_wp_error($datas)) wp_die('网络错误，请重试！');
     $str = json_decode($datas['body'] , true);
     $github_id = $str['id'];
-    $email = $str['email'];
-    $name = $str['name'];
+    $github_email = $str['email'];
+	$username = $str['login'];
+	$blogsite = $str['blog'];
+	$github_url = $str['html_url'];//github主页
+	$github_des = $str['bio'];//简介
     if(!$github_id) wp_die('无法获取用户信息');
     if( is_user_logged_in() ){
         update_user_meta( get_current_user_id() ,'github_id',$github_id);
+		$update_data = array();
+		$update_data['user_email'] = $github_email;
+		$update_data['nickname'] = $username;
+		$update_data['display_name'] = $username;
+		$update_data['user_url'] = $blogsite;
+		$update_data['description'] = $github_des;
+		foreach($update_data as $key => $value) {
+			update_user_meta( get_current_user_id(), $key, $value );
+		}
+		wp_mail( $github_email , '【登录提醒】您使用Github登录'.bloginfo('name'),'登录账号:'.$username.'&nbsp;&nbsp;&nbsp;如果不是您本人登录，请登录Github查看账户');
         github_oauth_redirect();
     } else {
         $user_github = get_users(array(
@@ -44,15 +58,16 @@ function github_oauth(){
 			)
         );
         if( is_wp_error($user_github) || !count($user_github) ){
-            $username = $str['title'];
             $login_name = wp_create_nonce($github_id);
             $random_password = wp_generate_password( $length=12, $include_standard_special_chars=false );
             $userdata = array(
                 'user_login' => $login_name,
-                'display_name' => $name,
-                'user_email' => $email,
+                'display_name' => $username,
+                'user_email' => $github_email,
                 'user_pass' => $random_password,
-                'nickname' => $name
+                'nickname' => $username,
+				'user_url' => $blogsite,
+				'description' => $github_des,
             );
             $user_id = wp_insert_user( $userdata );
             wp_signon(array(
@@ -60,6 +75,8 @@ function github_oauth(){
                 'user_password'=>$random_password
             ),false);
             update_user_meta($user_id ,'github_id',$github_id);
+			update_user_meta($user_id ,'github',$github_url);
+			wp_mail( $github_email , '【登录提醒】您使用Github登录'.bloginfo('name'),'登录账号:'.$username.'&nbsp;&nbsp;&nbsp;如果不是您本人登录，请登录Github查看账户');
             github_oauth_redirect();
         }else{
             wp_set_auth_cookie($user_github[0]->ID);

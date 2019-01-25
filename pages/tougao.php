@@ -77,7 +77,7 @@ while (have_posts()):
 </div>
 <div style="text-align: center; padding-top: 10px;">
 <input type="hidden" value="send" name="tougao_form" />
-<input class="button" style="width:100px;height:30px;" type="submit" value="提交" /> &nbsp;&nbsp; <input style="width:100px;height:30px;" class="buttn" type="reset" value="重填" />
+<input class="button" style="width:100px;height:30px;" type="submit" value="提交" /> &nbsp;&nbsp; <input style="width:100px;height:30px;" class="button" type="reset" value="重填" />
 </div>
 </form>
 <br/>

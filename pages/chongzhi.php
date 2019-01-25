@@ -72,12 +72,12 @@ echo '<span class="pull-center"><form method="post">
 if(isset($_POST['money'])){
 	if(git_get_option('git_pay_way')=='git_eapay_ok'){
 	Points::set_points($point_number, $userid, array('description' => $YZid , 'status' => 'pending'));//增加金币待审核
-	echo '<div class="pull-center"><a class="lhb" target="_blank" href="'.$eapay->cashier($data).'">立即支付</a></div>';
-	}else{
+	$SKQR = $eapay->cashier($data);
+	}
 	echo '<div class="pull-center">
 	<p class="pull-center">请使用微信或者支付宝扫描二维码</p>
 <p class="pull-center">你当前正在充值的金额为&nbsp;<font style="font-weight:bold;" color="#cc0000">'.intval($_POST['money']).'</font> 元</p>
-<p class="pull-center"><canvas id="qrious"></canvas></p>
+<p class="pull-center"><img id="qrious"></p>
  <script src="https://cdn.bootcss.com/qrious/4.0.2/qrious.min.js"></script>
  <script type="text/javascript">
    var qr = new QRious({
@@ -86,7 +86,7 @@ if(isset($_POST['money'])){
 	 value: "'.$SKQR.'"
    });
  </script>
-</div>';}
+</div>';
 echo '<script src="https://cdn.bootcss.com/sweetalert/2.0.0/sweetalert.min.js"></script>
 <script type="text/javascript">
 var num = 0;

@@ -19,7 +19,10 @@ date_default_timezone_set('Asia/Shanghai');
     <div class="content">
 		<div class="mod-head" style="display: block;">
 			<div class="info-left  user-online">
-				<div class="portrait"><?php echo get_avatar($curauth->ID , '110');?></div>
+				<div class="portrait"><?php $grava = 'https://cn.gravatar.com/avatar/'.md5( strtolower( trim( $curauth->user_email ) ) ).'?s=120&d=mp&r=g';
+				echo '<img src="'.$grava.'">';
+				?>
+				</div>
 			</div>
 			<div class="info-right">
 				<div class="user-name clearfix">
@@ -49,7 +52,11 @@ date_default_timezone_set('Asia/Shanghai');
                             <div id="tab1_author" class="tab_content_author">
                             	<?php
                             	$localavatar = get_user_meta($curauth->ID, 'simple_local_avatar', true);
-                            	if ($oneself && empty($localavatar)) {echo '<div class="alert alert-error">您尚未上传您的自定义头像，您当前使用的是随机头像，请点击编辑资料以上传头像</div>';} ?>
+								$githubid = get_user_meta($curauth->ID, 'github_id', true);
+                            	if ($oneself && empty($localavatar)) {echo '<div class="alert alert-error">您尚未上传您的自定义头像，您当前使用的是随机头像，请点击编辑资料以上传头像</div>';}
+								if ($oneself && !empty($githubid) && empty($curauth->user_email)) {echo '<div id="sc_error"><strong>重要提示：貌似您是从Github登录的用户，请 <a target="_blank" href="/wp-admin/profile.php#email">点击这里</a> 绑定邮箱，谢谢！！！</strong></div>';}
+
+								?>
 							<h2>会员资料</h2>
 									<div class="alert alert-info w49">ID：<?php echo $curauth->ID; ?></div>
 									<div class="alert alert-success w49">邮箱：<?php if ($oneself) {echo $curauth->user_email;}else{echo'您没有查看权限';} ?></div>
