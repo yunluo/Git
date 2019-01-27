@@ -1079,12 +1079,11 @@ add_action('admin_init', 'Ajax_data_zfunc_smiley_button');
 
 //后台回复评论支持表情插入
 function zfunc_admin_enqueue_scripts($hook_suffix) {
-    global $pagenow;
-    if ($pagenow == 'edit-comments.php') {
+    if ($hook_suffix == 'edit-comments.php') {
         wp_enqueue_script('zfunc-comment-reply', GIT_URL . '/assets/js/admin_reply.js', false, '1.0', true);
     }
 }
-add_action('admin_print_styles', 'zfunc_admin_enqueue_scripts');
+add_action('admin_enqueue_scripts', 'zfunc_admin_enqueue_scripts');
 //使用短代码添加回复后可见内容开始
 function reply_to_read($atts, $content = null) {
     extract(shortcode_atts(array(
