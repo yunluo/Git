@@ -49,8 +49,8 @@ while (have_posts()):
 				<?php
     if (comments_open()) echo '<span class="muted"><i class="fa fa-comments-o"></i> <a href="' . get_comments_link() . '">' . get_comments_number('0', '1', '%') . '个评论</a></span>'; ?>
 				<?php
-    if (git_get_option('git_qr_b') && !git_is_mobile()) { ?><span class="muted"><i class="fa fa-qrcode"></i> <a style="cursor : pointer;" onMouseOver="document.all.qr.style.visibility=''" onMouseOut="document.all.qr.style.visibility='hidden'">扫描二维码</a>
-				<span id="qr" style="visibility: hidden;"><img style="position:absolute;z-index:99999;" id="qrious"></span></span>
+    if (git_get_option('git_qr_b') && !git_is_mobile()) { ?><span class="muted"><i class="fa fa-qrcode"></i> <a style="cursor:pointer;" onMouseOver="document.all.qr.style.visibility=''" onMouseOut="document.all.qr.style.visibility='hidden'">扫描二维码</a>
+		 <div id="qr" style="padding:15px 240px;float:right;visibility:hidden;"><img style="position:absolute;z-index:99999;" id="qrious"></div>
 		 <script src="https://cdn.bootcss.com/qrious/4.0.2/qrious.min.js"></script>
 		 <script type="text/javascript">
 		   var qr = new QRious({
@@ -58,7 +58,7 @@ while (have_posts()):
 			 size : 200,
 			 value: "<?php the_permalink(); ?>"
 		   });
-		 </script>
+		 </script></span>
 		<?php
     } ?>
 				<span class="muted"><?php
