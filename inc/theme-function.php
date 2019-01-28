@@ -67,17 +67,24 @@ function get_Yunluo_Notice(){
 }
 
 //获取页面id，并且不可重用
-function git_page_id($pagephp) {
+function git_page_id( $pagephp ) {
     global $wpdb;
+    $pagephp = esc_sql($pagephp);
     $pageid = $wpdb->get_row("SELECT `post_id` FROM `{$wpdb->postmeta}` WHERE `meta_value` = 'pages/{$pagephp}.php'", ARRAY_A) ['post_id'];
     return $pageid;
 }
 
-//根据订单描述金币数据唯一性检查
-function git_check($k) {
+//根据订单描述金币数据
+//d=订单号 u=用户id
+function git_check( $d , $u = null) {
 	global $wpdb;
-	$result = $wpdb->query("SELECT `point_id` FROM `" . Points_Database::points_get_table("users") . "` WHERE `description` = '{$k}' AND status='accepted' LIMIT 3", ARRAY_A);
-	return $result;//0=无数据，1=正常，>1均为错误数据
+	$des = " WHERE `description` = '" . $d . "'";
+	$userid = "";
+	if ( isset( $u ) && ( $u !== null ) ) {
+		$userid = " AND `user_id` = '" . $u . "'";
+	}
+	$result = $wpdb->query("SELECT `point_id` FROM " . Points_Database::points_get_table("users") . $des . $userid . " AND `status` = 'accepted' LIMIT 3", ARRAY_A);
+	return $result;//0=无订单结果，1=有订单结果，>1均为异常数据
 }
 
 //微信订阅推送
