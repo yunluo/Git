@@ -19,7 +19,7 @@ get_header(); ?>
 <?php $limit = get_option('posts_per_page');
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 query_posts('post_type=shuoshuo&post_status=publish&showposts=' . $limit=10 . '&paged=' . $paged);
-if (have_posts()) : while (have_posts()) : the_post(); ?>
+while (have_posts()) : the_post(); ?>
  <li><span class="tt"><?php
         the_time('Y年n月j日G:i'); ?></span>
  <div id="shuo-<?php the_ID(); ?>" class="shuoshuo-content"><?php
@@ -28,7 +28,7 @@ if (have_posts()) : while (have_posts()) : the_post(); ?>
         the_author() ?></span></div></div>
         <span class="zhutou"><?php echo get_avatar(get_the_author_meta('email'),64); ?></span>
         </li>
-<?php endwhile;endif; ?>
+<?php endwhile;wp_reset_query(); ?>
  </ul>
 </div>
 </div>

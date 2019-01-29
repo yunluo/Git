@@ -66,7 +66,7 @@ if ( $edit_id ){
 $comment_id = $commentdata['comment_ID'] = $edit_id;
 wp_update_comment( $commentdata );
 } else {
-$comment_id = wp_new_comment( $commentdata );
+$comment_id = wp_insert_comment( $commentdata );
 }
 $comment = get_comment($comment_id);
 if ( !$user->ID ) {

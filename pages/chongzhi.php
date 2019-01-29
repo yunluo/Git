@@ -102,7 +102,7 @@ function payok(a) {
 
 function checkpay() {
 	var a = new XMLHttpRequest();
-	a.open("post", "'.GIT_URL.'/modules/push.php");
+	a.open("POST", "'.GIT_URL.'/modules/push.php");
 	a.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	a.send("check_trade_no='.$data['out_trade_no'].'&from=checkpay");
 	a.onreadystatechange = function() {

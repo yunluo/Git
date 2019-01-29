@@ -56,9 +56,9 @@ add_filter( 'login_url', 'force_github_login_url', 10, 3 );
 function get_Yunluo_Notice(){
 	$Yunluo_Notice = get_transient('Yunluo_Notice');
 	if(false === $Yunluo_Notice){ 
-        $Yunluo_Notice = wp_remote_get('https://raw.githubusercontent.com/yunluo/GitCafeApi/master/notice.txt');
+        $Yunluo_Notice = wp_remote_get('https://cdn.jsdelivr.net/gh/yunluo/GitCafeApi/notice.txt');
 		if ( is_array( $Yunluo_Notice ) && !is_wp_error($Yunluo_Notice) && $Yunluo_Notice['response']['code'] == '200' ) {
-			set_transient('Yunluo_Notice', $Yunluo_Notice['body'], 60*60*24);//缓存120小时
+			set_transient('Yunluo_Notice', $Yunluo_Notice['body'], 60*60*12);//缓存12小时
 		}else{
 			set_transient('Yunluo_Notice', '有点小尴尬哈啊，服务器菌暂时有点累了呢，先休息一会儿~，', 60*60*2);//缓存2小时
 		}

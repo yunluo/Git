@@ -286,32 +286,20 @@ if (git_get_option('git_sign_b')) {
 </div>
         <?php
 } ?>
-        <div class="toptip" id="callboard"><ul style="font-size:16px;margin-top: 2px;">
-        <?php
-        if(git_get_option('git_gun_b')=='git_gun_tui'){
-            echo git_get_option('git_tui');
-        }elseif(git_get_option('git_gun_b')=='git_gun_shuo'){
-$args = array(
-    'post_type'              => array( 'shuoshuo' ),
-    'post_status'            => array( 'publish' ),
-    'posts_per_page'         => '10',
-    'ignore_sticky_posts'    => false,
-    'cache_results'          => true,
-);
-$query = new WP_Query( $args );
-if ( $query->have_posts() ) {
-    while ( $query->have_posts() ) {
-        $query->the_post();
-        echo '<li>';
-        strip_tags(the_content());
-        echo '</li>';
-    }
-} else {
-    echo '暂无说说';
-}
-wp_reset_postdata();
-        }
- ?>
+        <div class="toptip" id="callboard"><ul style="font-size:16px;margin-top:2px;">
+		<?php
+		if (git_get_option('git_gun_b') == 'git_gun_tui') {
+			echo git_get_option('git_tui');
+		} elseif (git_get_option('git_gun_b') == 'git_gun_shuo') {
+			query_posts('post_type=shuoshuo&post_status=publish&showposts=10');
+			while (have_posts()) {
+				the_post();
+				echo '<li>';
+				strip_tags(the_content());
+				echo '</li>';
+			}
+			wp_reset_query();
+		}?>
 </ul></div>
     </div>
 <?php
