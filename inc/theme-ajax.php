@@ -66,7 +66,10 @@ if ( $edit_id ){
 $comment_id = $commentdata['comment_ID'] = $edit_id;
 wp_update_comment( $commentdata );
 } else {
-$comment_id = wp_insert_comment( $commentdata );
+$comment_id = wp_new_comment( $commentdata,true);
+    if(is_wp_error($comment_id)){
+	    err( '人类的本质是复读机，并不是重复评论' );
+    }
 }
 $comment = get_comment($comment_id);
 if ( !$user->ID ) {

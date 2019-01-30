@@ -109,9 +109,10 @@ remove_action('wp_head', 'wp_oembed_add_discovery_links');
 remove_action('wp_head', 'wp_oembed_add_host_js');
 remove_filter('pre_oembed_result', 'wp_filter_pre_oembed_result', 10);
 // 屏蔽 REST API
-add_filter('rest_enabled', '__return_false');
-add_filter('rest_jsonp_enabled', '__return_false');
-// 移除头部 wp-json 标签和 HTTP header 中的 link
+function git_disable_rest_api($access){
+    return new WP_Error('rest_cannot_acess', '无访问权限', array('status' => 403));
+}
+add_filter('rest_authentication_errors', 'git_disable_rest_api');
 remove_action('wp_head', 'rest_output_link_wp_head', 10);
 remove_action('template_redirect', 'rest_output_link_header', 11);
 //清除wp_footer带入的embed.min.js
@@ -120,11 +121,11 @@ function git_deregister_embed_script() {
 }
 add_action('wp_footer', 'git_deregister_embed_script');
 //显示数据库查询次数、查询时间及内存占用的代码
-function iperformance($visible = false) {
+function git_performance($visible = false) {
     $stat = sprintf('%d 次查询 用时 %.3f 秒, 耗费了 %.2fMB 内存', get_num_queries() , timer_stop(0, 3) , memory_get_peak_usage() / 1024 / 1024);
     echo $visible ? $stat : "<!-- {$stat} -->";
 }
-add_action('wp_footer', 'iperformance', 20);
+add_action('wp_footer', 'git_performance', 20);
 //禁止 s.w.org
 function git_remove_dns_prefetch($hints, $relation_type) {
     if ('dns-prefetch' === $relation_type) {
