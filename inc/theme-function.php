@@ -48,7 +48,7 @@ function force_github_login_url( $login_url, $redirect, $force_reauth ){
         $login_url = add_query_arg( 'reauth', '1', $login_url );
     }
     return $login_url;
-}if(git_get_option('git_github_oauth_force')){
+}if(git_get_option('git_github_oauth_force') && git_get_option('git_github_oauth')){
 add_filter( 'login_url', 'force_github_login_url', 10, 3 );
 }
 

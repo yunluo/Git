@@ -1197,6 +1197,12 @@ $options = array(
         'type'  => 'subtitle'
     ),
     array(
+        'name'  => '禁用REST API',
+        'desc'  => '禁用  【禁用后，APP开发或者小程序开发会有影响】',
+        'id'    => 'git_restapi_b',
+        'type'  => 'checkbox'
+    ),
+    array(
         'name'  => '链接去掉Categroy',
         'desc'  => '启用  【开启后，需要至设置——固定连接——重新保存一下，否则会发生404错误】',
         'id'    => 'git_categroy_b',
