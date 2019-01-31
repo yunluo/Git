@@ -1,11 +1,6 @@
 <?php
-/*
-	template name: 页面(新版)
-	description: template for Git theme
-*/
 get_header();
 ?>
-
 <div class="pagewrapper clearfix">
 	<aside class="pagesidebar">
 		<ul class="pagesider-menu">
