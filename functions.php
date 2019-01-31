@@ -1263,6 +1263,11 @@ function git_order_id(){
 	return $order_id;
 }
 
+//默认头像
+function deel_avatar_default() {
+    return GIT_URL . '/assets/img/default.png';
+}
+
 //懒加载
 if (git_get_option('git_lazyload')) {
     function lazyload($content){

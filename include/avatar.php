@@ -1,8 +1,6 @@
 <?php
 
-function deel_avatar_default() {
-    return GIT_URL . '/assets/img/default.png';
-}
+
 //评论头像缓存
 function deel_avatar($avatar) {
     $tmp = strpos($avatar, 'http');
