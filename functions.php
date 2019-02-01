@@ -1132,19 +1132,19 @@ function get_link_items() {
 }
 
 //保护后台登录
+//救命啊！ps.很好，搜索这段代码很可能意味着你把自己后台给锁了，将下面保护后台登录这段代码删除即可
+//开始删除
 if (git_get_option('git_admin')) {
     function git_login_protection()
     {
-        if ($_GET['' . git_get_option('git_admin_q') . ''] !== '' . git_get_option('git_admin_a') . '') {
-            header('Location: http://www.baidu.com');
+        if ($_GET[''.git_get_option('git_admin_q').''] !== git_get_option('git_admin_a')) {
+            header('Location: http://www.baidu.com');//不用密码登录，直接滚到百度去
+            exit;
         }
-        /* 不用密码登录，直接滚到百度去 */
-        exit;
     }
     add_action('login_enqueue_scripts', 'git_login_protection');
 }
-/*救命啊！ps.很好，搜索这段代码很可能意味着你把自己后台给锁了，将保护后台登录这大段代码删除即可*/
-
+//删除到这里结束
 
 //获取云落的远程通知，加入缓存，1天一次
 function get_Yunluo_Notice(){
@@ -1252,13 +1252,13 @@ function deel_avatar_default() {
 }
 //懒加载
 if (git_get_option('git_lazyload')) {
-    function lazyload($content){
+    function git_lazyload($content){
         if (!is_feed() || !is_robots()) {
             $content = preg_replace('/<img(.+)src=[\'"]([^\'"]+)[\'"](.*)>/i', "<img\$1data-original=\"\$2\" \$3>\n<noscript>\$0</noscript>", $content);
         }
         return $content;
     }
-    add_filter('the_content', 'lazyload');
+    add_filter('the_content', 'git_lazyload');
 }
 
 //只搜索文章标题
