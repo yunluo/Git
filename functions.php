@@ -40,6 +40,13 @@ function deel_setup() {
 function git_get_option($e) {
     return stripslashes(get_option($e));
 }
+
+//自定义ajax提醒
+function git_err($ErrMsg) {
+    header('HTTP/1.1 405 Method Not Allowed');
+    echo $ErrMsg;
+    exit;
+}
 //去除部分默认小工具
 function unregister_d_widget() {
 	unregister_widget('WP_Widget_Search');
@@ -335,10 +342,10 @@ if (git_get_option('git_spam_lang')) {
         $pattern = '/[一-龥]/u';
         $jpattern = '/[ぁ-ん]+|[ァ-ヴ]+/u';
         if (!preg_match($pattern, $commentdata['comment_content'])) {
-            err('写点汉字吧，博主外语很捉急！You should type some Chinese word!');
+            git_err('写点汉字吧，博主外语很捉急！You should type some Chinese word!');
         }
         if (preg_match($jpattern, $commentdata['comment_content'])) {
-            err('日文滚粗！Japanese Get out！日本语出て行け！ You should type some Chinese word！');
+            git_err('日文滚粗！Japanese Get out！日本语出て行け！ You should type some Chinese word！');
         }
         return $commentdata;
     }
@@ -352,7 +359,7 @@ if (git_get_option('git_spam_keywords')) {
         }
         if (wp_blacklist_check($commentdata['comment_author'], $commentdata['comment_author_email'], $commentdata['comment_author_url'], $commentdata['comment_content'], $commentdata['comment_author_IP'], $commentdata['comment_agent'])) {
             header("Content-type: text/html; charset=utf-8");
-            err('不好意思，您的评论违反本站评论规则');
+            git_err('不好意思，您的评论违反本站评论规则');
         } else {
             return $commentdata;
         }
@@ -375,7 +382,7 @@ if (git_get_option('git_spam_url')) {
         }
         $links = '/http:\\/\\/|https:\\/\\/|www\\./u';
         if (preg_match($links, $commentdata['comment_author']) || preg_match($links, $commentdata['comment_content'])) {
-            err('在昵称和评论里面是不准发链接滴.');
+            git_err('在昵称和评论里面是不准发链接滴.');
         }
         return $commentdata;
     }
@@ -1252,13 +1259,13 @@ function deel_avatar_default() {
 }
 //懒加载
 if (git_get_option('git_lazyload')) {
-    function git_lazyload($content){
+    function lazyload($content){
         if (!is_feed() || !is_robots()) {
             $content = preg_replace('/<img(.+)src=[\'"]([^\'"]+)[\'"](.*)>/i', "<img\$1data-original=\"\$2\" \$3>\n<noscript>\$0</noscript>", $content);
         }
         return $content;
     }
-    add_filter('the_content', 'git_lazyload');
+    add_filter('the_content', 'lazyload');
 }
 
 //只搜索文章标题
