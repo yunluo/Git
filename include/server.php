@@ -142,7 +142,7 @@ if (!is_admin() && git_get_option('git_qncdn_b')) {
 //CDN水印
 if (git_get_option('git_cdn_water')) {
     function cdn_water($content){
-        if (get_post_type() !== 'product') {
+        if (get_post_type() == 'post') {
             $pattern = "/<img(.*?)src=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>/i";
             $replacement = '<img$1src=$2$3.$4!water.jpg$5$6>';
             $content = preg_replace($pattern, $replacement, $content);
