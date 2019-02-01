@@ -102,9 +102,9 @@ function payok(a) {
 
 function checkpay() {
 	var a = new XMLHttpRequest();
-	a.open("POST", "'.GIT_URL.'/modules/push.php");
+	a.open("POST", "'.admin_url('admin-ajax.php').'");
 	a.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	a.send("check_trade_no='.$data['out_trade_no'].'&from=checkpay");
+	a.send("action=payrest&check_trade_no='.$data['out_trade_no'].'");
 	a.onreadystatechange = function() {
 		if (a.readyState == 4 && a.status == 200) {
 			payok(a.responseText)
@@ -115,11 +115,11 @@ function checkpay() {
 function timecheck(){
 	num++;
 	if (num < max) {
-		timeres = setTimeout(timecheck,10*1000);
+		timeres = setTimeout(timecheck,5*1000);
 		checkpay();
 	}
 }
-timeres = setTimeout(timecheck,10*1000);
+timeres = setTimeout(timecheck,5*1000);
 if (window.Notification) {
 	var popNotice = function() {
 			if (Notification.permission == "granted") {

@@ -55,18 +55,6 @@ function git_admin_footer_text($text){
 }
 add_filter('admin_footer_text', 'git_admin_footer_text');
 
-//分类，标签描述添加图片
-remove_filter('pre_term_description', 'wp_filter_kses');
-remove_filter('pre_link_description', 'wp_filter_kses');
-remove_filter('pre_link_notes', 'wp_filter_kses');
-remove_filter('term_description', 'wp_kses_data');
-
-// 友情链接扩展
-add_filter('pre_option_link_manager_enabled', '__return_true');
-
-//评论表情改造，如需更换表情，assets/img/smilies/下替换
-add_filter('smilies_src', 'deel_smilies_src', 1, 10);
-
 //显示数据库查询次数、查询时间及内存占用的代码
 function git_performance($visible = false) {
     $stat = sprintf('%d 次查询 用时 %.3f 秒, 耗费了 %.2fMB 内存', get_num_queries() , timer_stop(0, 3) , memory_get_peak_usage() / 1024 / 1024);
@@ -254,7 +242,7 @@ function deel_post_new($timer = '48') {
 function deel_smilies_src($img_src, $img, $siteurl) {
     return GIT_URL . '/assets/img/smilies/' . $img;
 }
-
+add_filter('smilies_src', 'deel_smilies_src', 1, 10);
 //自动勾选
 function deel_add_checkbox() {
     echo '<label for="comment_mail_notify" class="checkbox inline" style="padding-top:0;"><input name="comment_mail_notify" id="comment_mail_notify" value="comment_mail_notify" checked="checked" type="checkbox">评论通知</label>';
@@ -414,6 +402,20 @@ function bigfa_like() {
     }
     die;
 }
+
+//检查付款情况
+function payrest(){
+    if (isset($_POST['check_trade_no']) && $_POST['action'] == 'payrest') {
+        if (git_check($_POST['check_trade_no'])) {
+            exit('1');
+        } else {
+            exit('0');
+        }
+    }
+}
+add_action( 'wp_ajax_payrest', 'payrest' );
+add_action( 'wp_ajax_nopriv_payrest', 'payrest' );
+
 //最热排行
 function hot_posts_list() {
     if (git_get_option('git_hot_b') == 'git_hot_zd') {

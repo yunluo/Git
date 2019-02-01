@@ -381,3 +381,12 @@ function init_gitsmilie() {
     add_filter('smilies_src', 'custom_gitsmilie_src', 10, 2);
 }
 add_action('init', 'init_gitsmilie', 5);
+
+//分类，标签描述添加图片
+remove_filter('pre_term_description', 'wp_filter_kses');
+remove_filter('pre_link_description', 'wp_filter_kses');
+remove_filter('pre_link_notes', 'wp_filter_kses');
+remove_filter('term_description', 'wp_kses_data');
+
+// 友情链接扩展
+add_filter('pre_option_link_manager_enabled', '__return_true');

@@ -4,15 +4,6 @@
  */
 require( '../../../../wp-load.php' );
 
-//开始查询付款状态
-if (isset($_POST['check_trade_no']) && $_POST['from'] == 'checkpay') {
-    if (git_check($_POST['check_trade_no'])) {
-        exit('1');
-    } else {
-        exit('0');//使用exit退出是因为和下面没有啥关系
-    }
-}
-
 /* Payjs支付通知开始 */
 if(git_get_option('git_pay_way')=='git_payjs_ok'){
 	// 配置通信参数
