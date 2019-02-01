@@ -897,21 +897,15 @@ function git_shuoshuo() {
         'search_items' => '搜索说说',
         'not_found' => '暂无说说',
         'not_found_in_trash' => '没有已遗弃的说说',
-        'parent_item_colon' => '',
         'menu_name' => '说说'
     );
     $args = array(
         'labels' => $labels,
-        'public' => true,
-        'publicly_queryable' => true,
+        'public' => false,
         'show_ui' => true,
         'show_in_menu' => true,
-        'query_var' => true,
-        'rewrite' => true,
         'capability_type' => 'post',
-        'has_archive' => true,
         'menu_icon' => 'dashicons-megaphone',
-        'hierarchical' => false,
         'menu_position' => 4,
         'supports' => array(
             'editor',
@@ -922,19 +916,7 @@ function git_shuoshuo() {
     register_post_type('shuoshuo', $args);
 }
 add_action('init', 'git_shuoshuo');
-//说说的固定连接格式
-function custom_shuoshuo_link($link, $post = 0) {
-    if ($post->post_type == 'shuoshuo') {
-        return home_url('shuoshuo/' . $post->ID . '.html');
-    } else {
-        return $link;
-    }
-}
-add_filter('post_type_link', 'custom_shuoshuo_link', 1, 3);
-function custom_shuoshuo_rewrites_init() {
-    add_rewrite_rule('shuoshuo/([0-9]+)?.html$', 'index.php?post_type=shuoshuo&p=$matches[1]', 'top');
-}
-add_action('init', 'custom_shuoshuo_rewrites_init');
+
 //添加产品功能
 if (!defined('UM_DIR') || !defined('WC_PLUGIN_FILE')) { /*如果安装um/Woo的话，就禁用这个功能*/
     function git_product() {
@@ -1184,8 +1166,7 @@ function git_page_id( $pagephp ) {
     return $pageid;
 }
 
-//根据订单描述金币数据
-//d=订单号 u=用户id
+//根据订单描述金币数据，d=订单号 u=用户id
 function git_check( $d , $u = null) {
 	global $wpdb;
 	$des = " WHERE `description` = '" . $d . "'";
@@ -1267,7 +1248,6 @@ function git_order_id(){
 function deel_avatar_default() {
     return GIT_URL . '/assets/img/default.png';
 }
-
 //懒加载
 if (git_get_option('git_lazyload')) {
     function lazyload($content){
