@@ -423,6 +423,33 @@ function payrest(){
 add_action( 'wp_ajax_payrest', 'payrest' );
 add_action( 'wp_ajax_nopriv_payrest', 'payrest' );
 
+//ajax生成登录二维码
+function weauth_qr_gen(){
+    if (isset($_POST['wastart']) && $_POST['action'] == 'weauth_qr_gen') {
+        if (!empty($_POST['wastart'])) {
+            $rest = implode("|", get_weauth_qr());
+            exit($rest);
+        }
+    }
+}
+add_action( 'wp_ajax_weauth_qr_gen', 'weauth_qr_gen' );
+add_action( 'wp_ajax_nopriv_weauth_qr_gen', 'weauth_qr_gen' );
+
+//检查登录状况
+function weauth_check(){
+    if (isset($_POST['sk']) && $_POST['action'] == 'weauth_check') {
+        $rest = substr($_POST['sk'],-16);
+        $weauth_cache = get_transient($rest.'ok');
+        if (!empty($weauth_cache)) {
+          session_start();
+          $_SESSION['openid'] = $weauth_cache;
+            exit($weauth_cache);//openid
+        }
+    }
+}
+add_action( 'wp_ajax_weauth_check', 'weauth_check' );
+add_action( 'wp_ajax_nopriv_weauth_check', 'weauth_check' );
+
 //最热排行
 function hot_posts_list() {
     if (git_get_option('git_hot_b') == 'git_hot_zd') {
@@ -1412,5 +1439,6 @@ class Git_Tax_Image{
 
 $wptt_tax_image = new Git_Tax_Image();
 //WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://gitcafe.net/archives/4032.html
+
 
 ?>
