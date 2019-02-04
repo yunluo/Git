@@ -4,6 +4,15 @@
 	description: template for Git theme
 */
 get_header();
+//登录之后强制跳转到修改邮箱页面
+$userid = get_current_user_id();
+if($userid != 0){
+  $email = get_user_by('ID',$userid)->user_email;
+  if(empty($email)){
+  wp_redirect( admin_url('profile.php').'#email' );
+  exit;
+    }
+}
 ?>
 <div class="pagewrapper clearfix">
   		<header class="pageheader clearfix">
@@ -23,39 +32,22 @@ get_header();
 			</div>
 		<?php comments_template('', true); endwhile;  ?>
 <script src="https://cdn.bootcss.com/sweetalert/2.1.2/sweetalert.min.js"></script>
-  <?php
- /* 因为没能解决COOKIE跨域的问题，所以临时用cookie办法解决 */
-global $wpdb;
-$kk = $_COOKIE['openid'];
-$sql = "SELECT `user_id` FROM `{$wpdb->usermeta}` WHERE `meta_key` = 'wx_openid' AND `meta_value` = '{$kk}'";
-$rest = $wpdb->get_row($sql);
-$user_id = $rest->user_id;
-if($user_id != 0){
-wp_set_auth_cookie($user_id);
-}
-  ?>
 <script type="text/javascript">
 var num = 0;
 var max = 30;
 var timeres;
-
-	function setCookie(name, value) {
-		var exp = new Date();
-		exp.setTime(exp.getTime() + 1000);
-		document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString() + ";path=/";
-	}
-  
-function weauthok(ak) { 
-	if ( ak != 0) {
-    setCookie('openid',ak);
-    swal("登录成功！", "您以后都可以使用微信登录网站", "success")
-.then((value) => {
-    window.location.reload();
-  });
- clearTimeout(timeres);
+ 
+function weauthok(k) {
+	if (k != 0) {
+		clearTimeout(timeres);
+		swal("微信登录成功！", "您以后都可以使用微信登录网站", "success").then((value)=> {
+			swal("尚未绑定邮箱", "为了方便使用邮箱登录，我们墙裂推荐绑定邮箱", "error").then((value)=> {
+				window.location.href = "?spam="+k+"";
+			})
+		});
 	}
 }
- 
+
 function qr_gen() {
 	var a = new XMLHttpRequest(),qrdiv = document.getElementById("weauth_qr"),ssk = document.getElementById("ssk");
 	a.open("POST", "<?php echo admin_url('admin-ajax.php');?>");
@@ -80,9 +72,9 @@ function weauth_check() {
 	      a.onreadystatechange = function() {
 		      if (a.readyState == 4 && a.status == 200) {
 			      weauthok(a.responseText);
-		      }
-	      }
-      }
+		    }
+	   }
+  }
 }
   
 function timecheck(){

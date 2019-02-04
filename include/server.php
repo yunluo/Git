@@ -188,7 +188,7 @@ if (git_get_option('git_sitemap_api')) {
 }
 
 //用github登录替换默认的登录
-function force_weauth_login_url( $login_url, $redirect, $force_reauth ){
+function force_github_login_url( $login_url, $redirect, $force_reauth ){
     $login_url = get_permalink(git_page_id('weauth'));
     if ( ! empty( $redirect ) ) {
         $login_url = add_query_arg( 'redirect_to', urlencode( $redirect ), $login_url );
@@ -197,9 +197,8 @@ function force_weauth_login_url( $login_url, $redirect, $force_reauth ){
         $login_url = add_query_arg( 'reauth', '1', $login_url );
     }
     return $login_url;
-}if(git_get_option('git_weauth_oauth') && git_get_option('git_weauth_oauth_force')){
-add_filter( 'login_url', 'force_weauth_login_url', 10, 3 );
 }
+add_filter( 'login_url', 'force_github_login_url', 10, 3 );
 
 //微信订阅推送
 function wx_send($post_ID) {
@@ -324,7 +323,6 @@ wp_embed_unregister_handler('youku');
 wp_embed_unregister_handler('tudou');
 
 ////////////////weauth//////////////
-if(git_get_option('git_weauth_oauth')){
 function weauth_oauth_redirect(){
     wp_redirect( home_url());
     exit;
@@ -352,53 +350,63 @@ function weauth_rewrite_rules($wp_rewrite){
 }
 add_action('generate_rewrite_rules', 'weauth_rewrite_rules');
 
-
 function weauth_oauth(){
-      $weauth_user = $_GET['user'];
-      $weauth_sk = esc_attr($_GET['sk']);
-      $weauth_res = get_transient($weauth_sk);
-
-  if(empty($weauth_res)){return;}
-  $weauth_user = stripslashes($weauth_user);
-  $weauth_user = json_decode($weauth_user,true);
-  $nickname = $weauth_user['nickName'];
-  $wxavatar = $weauth_user['avatarUrl'];
-  $openid = $weauth_user['openid'];  
-  $login_name = 'wx_'.wp_create_nonce($openid);
-  if(is_user_logged_in()){
-        $user_id = get_current_user_id();
-        update_user_meta($user_id ,'wx_openid',$openid);
-        update_user_meta($user_id ,'simple_local_avatar',$wxavatar);
-  }else{
-        $weauth_user = get_users(array(
-           'meta_key '=>'wx_openid',
-           'meta_value'=> $openid
-          )
-        );
-    if( is_wp_error($weauth_user) || !count($weauth_user) ){
-          	$random_password = wp_generate_password( $length=12, $include_standard_special_chars=false );
-            $userdata = array(
-                'user_login' => $login_name,
-                'display_name' => $nickname,
-                'user_pass' => $random_password,
-                'nickname' => $nickname
-            );
-            $user_id = wp_insert_user( $userdata ) ;
-            update_user_meta($user_id ,'wx_openid',$openid);
-            update_user_meta($user_id ,'simple_local_avatar',$wxavatar);
-    }else{
-            $user_id = $weauth_user[0]->ID;
-            wp_set_auth_cookie($user_id);
+    $weauth_user = $_GET['user'];
+    $weauth_sk = esc_attr($_GET['sk']);
+    $weauth_res = get_transient($weauth_sk);
+    if (empty($weauth_res)) {
+        return;
     }
-  }
-  set_transient($weauth_sk.'ok', $openid, 60*3);
-  weauth_oauth_redirect();
+    $weauth_user = stripslashes($weauth_user);
+    $weauth_user = json_decode($weauth_user, true);
+    $nickname = $weauth_user['nickName'];
+    $wxavatar = $weauth_user['avatarUrl'];
+    $openid = $weauth_user['openid'];
+    $login_name = 'wx_' . wp_create_nonce($openid);
+    if (is_user_logged_in()) {
+        $user_id = get_current_user_id();
+        update_user_meta($user_id, 'wx_openid', $openid);
+        update_user_meta($user_id, 'simple_local_avatar', $wxavatar);
+    } else {
+        $weauth_user = get_users(array(
+          'meta_key ' => 'wx_openid', 
+          'meta_value' => $openid
+              )
+         );
+        if (is_wp_error($weauth_user) || !count($weauth_user)) {
+            $random_password = wp_generate_password(12, false);
+            $userdata = array(
+              'user_login' => $login_name, 
+              'display_name' => $nickname, 
+              'user_pass' => $random_password, 
+              'nickname' => $nickname
+            );
+            $user_id = wp_insert_user($userdata);
+            update_user_meta($user_id, 'wx_openid', $openid);
+            update_user_meta($user_id, 'simple_local_avatar', $wxavatar);
+        } else {
+            $user_id = $weauth_user[0]->ID;
+        }
+    }
+    set_transient($weauth_sk . 'ok', $user_id, 60);//用于登录的随机数，有效期为一分钟
+    weauth_oauth_redirect();
 }
-
+//初始化
 function weauth_oauth_init(){
     if (isset($_GET['user']) && isset($_GET['sk'])){
         weauth_oauth();
     }
 }
 add_action('init','weauth_oauth_init');
+
+//GET自动登录
+function weauth_oauth_login(){
+    $key = isset($_GET['spam']) ? $_GET['spam'] : false;
+    if ($key) {
+        $user_id = get_transient($key.'ok');
+        if ($user_id != 0) {
+            wp_set_auth_cookie($user_id);
+        }
+    }
 }
+add_action('init', 'weauth_oauth_login');

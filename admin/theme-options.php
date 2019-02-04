@@ -1575,13 +1575,13 @@ $options = array(
     ),
     array(
         'name'  => '是否启用微信扫码登录',
-        'desc'  => '启用 【开启后，新建微信登录页面即可】',
+        'desc'  => '启用 【开启后，新建微信登录页面即可，另外需要HTTPS】',
         'id'    => 'git_weauth_oauth',
         'type'  => 'checkbox'
     ),
     array(
         'name'  => '是否启用强制微信登录',
-        'desc'  => '启用 【开启后，将禁用WordPress自带的登录，所有登录地址都跳转到github的登录】',
+        'desc'  => '启用 【开启后，将禁用WordPress自带的登录，所有登录地址都跳转到微信的登录，如需临时使用自带登录，可以使用这个链接：你的域名/wp-login.php?loggedout=true】',
         'id'    => 'git_weauth_oauth_force',
         'type'  => 'checkbox'
     ),
