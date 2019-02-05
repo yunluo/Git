@@ -4,15 +4,6 @@
 	description: template for Git theme
 */
 get_header();
-//登录之后强制跳转到修改邮箱页面
-$userid = get_current_user_id();
-if($userid != 0){
-  $email = get_user_by('ID',$userid)->user_email;
-  if(empty($email)){
-  wp_redirect( admin_url('profile.php').'#email' );
-  exit;
-    }
-}
 ?>
 <div class="pagewrapper clearfix">
   		<header class="pageheader clearfix">
