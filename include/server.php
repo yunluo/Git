@@ -197,9 +197,9 @@ function force_github_login_url( $login_url, $redirect, $force_reauth ){
         $login_url = add_query_arg( 'reauth', '1', $login_url );
     }
     return $login_url;
-}
+}if(git_get_option('git_weauth_oauth') && git_get_option('git_weauth_oauth_force')){
 add_filter( 'login_url', 'force_github_login_url', 10, 3 );
-
+}
 //微信订阅推送
 function wx_send($post_ID) {
 	if (get_post_meta($post_ID, 'git_wx_submit', true) == 1) return;
