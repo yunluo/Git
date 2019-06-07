@@ -36,14 +36,10 @@ if (git_get_option('git_avater') == 'git_avatar_qn') {
 
 //随机头像
 function local_random_avatar($avatar) {
-    //weibo图片数组
-    $random_avatar_arr = array('1mknpj301s01sq2p','1muzjj301s01sa9u','1nu4uj301s01s742','1vr2tj301s01s3ya','1ynnvj301s01s742','21h0xj301s01st8h','25715j301s01swe9','1ztzkj301s01s3ya','28gq6j301s01sdfm','2bnlaj301s01swe9','2gfu8j301s01s0si','2ji9yj301s01sjr6','2nm3ej301s01s3ya','2pxloj301s01sa9u','2t4ooj301s01s3ya','2wx4gj301s01sjr5','2eb8ij301s01sq2q','358evj301s01s742','37tkaj301s01st8h','3c0jsj301s01st8h','3egr8j301s01sdfm','3hnkaj301s01sjr5','3jtrmj301s01sgle','3oqcij301s01swe9','3rbkaj301s01sq2p','37si0j301s01smwx','3wryvj301s01sq2q','3wxndj301s01sdfm','46z1aj301s01sjr6','474jwj301s01sgld','4933uj301s01sa9t','4elr0j301s01s0si','4hemtj301s01s3ya','4hp1jj301s01swe9','4l437j301s01st8h','4p7guj301s01st8i','4ssbvj301s01sdfm','4xt1nj301s01s742','4zt3ij301s01sdfm','54yemj301s01s743','5aue3j301s01s742','5fqmsj301s01s0si','5irw7j301s01s0si','5pwg6j301s01sjr6','4orlpj301s01sq2p','60tpnj301s01smwy','63xd5j301s01st8h','67mwfj301s01sgle','5mpmhj301s01swe9','6brl7j301s01sa9u','6enj2j301s01sjr6','6fcy3j301s01st8h','6ighbj301s01sq2q','6l0ckj301s01sq2p','6o857j301s01st8i','6r1gej301s01st8h','6vf84j301s01sgld','6xv53j301s01sa9u','712o4j301s01s3ya','73fh4j301s01s3ya','6nd20j301s01sdfm','77f9vj301s01sq2p','7dffqj301s01sgld','7e6ytj301s01s3ya','7mmy6j301s01sa9u','7tffsj301s01s0si','78mwgj301s01swea','80qg1j301s01smwy','83d77j301s01sjr6','86p3wj301s01s0si','8ctn7j301s01sgle','8iwdlj301s01smwx','8prg4j301s01sa9u','7kvtcj301s01sgle','8velij301s01sgle','89dobj301s01swea','909gfj301s01sq2p','92fmmj301s01sq2p','933ykj301s01sjr6','9654fj301s01swe9','98z1rj301s01s3ya','9ce7ej301s01sgle','9d5frj301s01st8i','9fogej301s01swea','9j6f3j301s01sgle','9ji1qj301s01s742','9m619j301s01sa9u','9qtxnj301s01sgle','9tn7mj301s01sgle','9w2o6j301s01swe9');
-        $random_avatar = array_rand($random_avatar_arr,1);
-        $sinasrc = $random_avatar_arr[$random_avatar] ;
     if(git_get_option('git_avatar_qnurl')){
         $avatarsrc = '//' . git_get_option('git_avatar_qnurl') . '/myavatar/' . mt_rand(1, git_get_option('git_avatar_randnum')) . '.jpg';
     }else{
-        $avatarsrc = '//wx2.sinaimg.cn/large/005zWjpngy1frvlt' . $sinasrc . '.jpg';
+        $avatarsrc = 'https://cdn.jsdelivr.net/gh/yunluo/GitCafeApi/avatar/' . mt_rand(1, 1999) . '.jpg';
     }
     $avatar = "<img src=$avatarsrc class='avatar rand_avatar photo' />";
     return $avatar;
