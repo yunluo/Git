@@ -28,10 +28,8 @@ while (have_posts()) : the_post(); ?>
         the_author() ?></span></div></div>
         <span class="zhutou"><?php echo get_avatar(get_the_author_meta('email'),64); ?></span>
         </li>
-<?php endwhile;wp_reset_query(); ?>
+<?php endwhile;deel_paging();wp_reset_query(); ?>
  </ul>
 </div>
 </div>
-<?php
-deel_paging(); ?>
 <?php get_footer(); ?>

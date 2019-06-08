@@ -56,7 +56,7 @@ echo str_replace('</ul></div>', '', preg_replace('/<div[^>]*><ul[^>]*>/', '', wp
                 </ul>
             </div>
             </article>
-        <?php endwhile;  ?>
+        <?php endwhile;?>
     </div>
 </div>
 <?php get_footer(); ?>

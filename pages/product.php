@@ -55,7 +55,8 @@ if (have_posts()) : while (have_posts()) : the_post(); ?>
         the_permalink(); ?>"><i class="fa fa-shopping-cart"></i> 立刻购买</a></div>
 			</div>
 		</div>
-<?php endwhile;endif; ?>
+<?php endwhile;
+deel_paging();
+endif; ?>
 </div>
-<?php deel_paging(); ?>
 <?php get_footer(); ?>
