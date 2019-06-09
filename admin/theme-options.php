@@ -92,7 +92,7 @@ $options = array(
     ),
     array(
         'name'  => 'SSL版百度分享',
-        'desc'  => '开启之后，百度分享在HTTPS下生效，这个需要稍微做一点事，点击【这个链接】下载文件，解压到网站根目录即可',
+        'desc'  => '开启之后，百度分享在HTTPS下生效，这个需要稍微做一点事，点击<a href="https://www.lanzous.com/i4i6a4h" target="_blank">【这个链接】</a>下载文件，解压到网站根目录即可',
         'id'    => 'git_sharesslssl_b',
         'type'  => 'checkbox'
     ),
