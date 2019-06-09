@@ -185,7 +185,7 @@ add_filter('login_headerurl', 'lhu');
 function lht(){
 	return get_bloginfo('name');
 }
-add_filter('login_headertitle', 'lht');
+add_filter('login_headertext', 'lht');
 
 //固化插入图片选项
 function git_attachment_display_settings() {
