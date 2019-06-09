@@ -36,8 +36,10 @@ if (git_get_option('git_footercode')) echo git_get_option('git_footercode'); ?>
 <?php
 wp_footer();
 global $dHasShare;
-if ($dHasShare == true) {
-    echo '<script>with(document)0[(getElementsByTagName("head")[0]||body).appendChild(createElement("script")).src="' . GIT_URL . '/assets/js/share.js?v=89860593.js?cdnversion="+~(-new Date()/36e5)];</script>';
+if ($dHasShare == true && git_get_option('git_sharesslssl_b')) {
+    echo '<script>with(document)0[(getElementsByTagName("head")[0]||body).appendChild(createElement("script")).src="/static/api/js/share.js?v=89860593.js?cdnversion="+~(-new Date()/36e5)];</script>';
+}else{
+    echo '<script>with(document)0[(getElementsByTagName("head")[0]||body).appendChild(createElement("script")).src="' . GIT_URL . '/assets/js/share.js?v=89860593.js?cdnversion="+~(-new Date()/36e5)];</script>'; 
 }
 ?>
 </body>
