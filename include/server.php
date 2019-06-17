@@ -187,54 +187,6 @@ if (git_get_option('git_sitemap_api')) {
     add_action('publish_post', 'Git_Baidu_Submit', 0);
 }
 
-//用github登录替换默认的登录
-function force_github_login_url( $login_url, $redirect, $force_reauth ){
-    $login_url = get_permalink(git_page_id('weauth'));
-    if ( ! empty( $redirect ) ) {
-        $login_url = add_query_arg( 'redirect_to', urlencode( $redirect ), $login_url );
-    }
-    if ( $force_reauth ) {
-        $login_url = add_query_arg( 'reauth', '1', $login_url );
-    }
-    return $login_url;
-}if(git_get_option('git_weauth_oauth') && git_get_option('git_weauth_oauth_force')){
-add_filter( 'login_url', 'force_github_login_url', 10, 3 );
-}
-//微信订阅推送
-function wx_send($post_ID) {
-	if (get_post_meta($post_ID, 'git_wx_submit', true) == 1) return;
-    if(!isset($_POST['git_wx_submit'])) return;
-	$text = get_the_title($post_ID); //微信推送信息标题
-	$wx_post_link = get_permalink($post_ID).'?from=pushbear';//文章链接
-	$wx_post_content = deel_strimwidth(strip_tags(strip_shortcodes(get_post($post_ID)->post_content)) , 0, 210 , '……');
-	$desp = '![特色图]('.link_the_thumbnail_src().')
-***
-
->'.$wx_post_content.'
-
-***
-
-[【点击链接查看全文】]('.$wx_post_link.')'; //微信推送内容正文
-	$key = git_get_option('git_Pushbear_key');
-	$request = new WP_Http;
-	$api_url = 'https://pushbear.ftqq.com/sub';
-	$body = array(
-		'sendkey' => $key,
-		'text' => $text,
-		'desp' => $desp
-	);
-	$headers = 'Content-type: application/x-www-form-urlencoded';
-	$result = $request->post($api_url, array(
-            'body' => $body,
-            'headers' => $headers
-        )
-	);
-	add_post_meta($post_ID, 'git_wx_submit', 1, true);
-}
-if(git_get_option('git_Pushbear_key')){
-add_action('publish_post', 'wx_send');
-}
-
 //评论微信推送
 if (git_get_option('git_Server') && !is_admin()) {
     function sc_send($comment_id) {
@@ -308,19 +260,7 @@ function wp_iframe_handler_youku($matches, $attr, $url, $rawattr) {
     return apply_filters('iframe_youku', $iframe, $matches, $attr, $url, $ramattr);
 }
 wp_embed_register_handler('youku_iframe', '#http://v.youku.com/v_show/id_(.*?).html#i', 'wp_iframe_handler_youku');
-// add tudou using iframe
-function wp_iframe_handler_tudou($matches, $attr, $url, $rawattr) {
-    if (git_is_mobile()) {
-        $height = 200;
-    } else {
-        $height = 485;
-    }
-    $iframe = '<iframe width=100% height=' . $height . 'px src="http://www.tudou.com/programs/view/html5embed.action?code=' . esc_attr($matches[1]) . '" frameborder=0 allowfullscreen></iframe>';
-    return apply_filters('iframe_tudou', $iframe, $matches, $attr, $url, $ramattr);
-}
-wp_embed_register_handler('tudou_iframe', '#http://www.tudou.com/programs/view/(.*?)/#i', 'wp_iframe_handler_tudou');
 wp_embed_unregister_handler('youku');
-wp_embed_unregister_handler('tudou');
 
 ////////////////weauth//////////////
 function weauth_oauth_redirect(){

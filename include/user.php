@@ -268,38 +268,7 @@ function git_add_last_login_column_value($value, $column_name, $user_id) {
     return $value;
 }
 add_action('manage_users_custom_column', 'git_add_last_login_column_value', 10, 3);
-//注册时间
-add_filter('manage_users_columns', 'git_add_users_column_reg_time');
-function git_add_users_column_reg_time($column_headers) {
-    $column_headers['reg_time'] = '注册时间';
-    return $column_headers;
-}
-add_filter('manage_users_custom_column', 'git_show_users_column_reg_time', 10, 3);
-function git_show_users_column_reg_time($value, $column_name, $user_id) {
-    if ($column_name == 'reg_time') {
-        $user = get_user_by('id', $user_id);
-        return get_date_from_gmt($user->user_registered);
-    } else {
-        return $value;
-    }
-}
-add_filter('manage_users_sortable_columns', 'git_users_sortable_columns');
-function git_users_sortable_columns($sortable_columns) {
-    $sortable_columns['reg_time'] = 'reg_time';
-    return $sortable_columns;
-}
-add_action('pre_user_query', 'git_users_search_order');
-function git_users_search_order($obj) {
-    if (!isset($_REQUEST['orderby']) || $_REQUEST['orderby'] == 'reg_time') {
-        if (!in_array($_REQUEST['order'], array(
-            'asc',
-            'desc'
-        ))) {
-            $_REQUEST['order'] = 'desc';
-        }
-        $obj->query_orderby = "ORDER BY user_registered " . $_REQUEST['order'] . "";
-    }
-}
+
 //后台登陆数学验证码
 if (git_get_option('git_admin_captcha')) {
     function git_add_login_fields(){

@@ -88,8 +88,6 @@ class Points_Shortcodes {
         $current_url = home_url(add_query_arg(array(),$wp->request));
 		if(git_get_option('git_fancylogin')){
 			$login_uri = '<a id="showdiv" href="#loginbox" data-original-title="点击登录">点击登录</a>';
-		}elseif(git_get_option('git_github_oauth')){
-			$login_uri = '<a href="'.esc_url(github_oauth_url()).'" data-original-title="GitHub登录">GitHub登录</a>';
 		}else{
 			$login_uri = '<a href="'.esc_url(wp_login_url( $current_url )).'" data-original-title="点击登录">点击登录</a>';
 		}

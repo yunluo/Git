@@ -1,46 +1,18 @@
 <?php
 
 
-//评论头像缓存
-function deel_avatar($avatar) {
-    $tmp = strpos($avatar, 'http');
-    $g = substr($avatar, $tmp, strpos($avatar, "'", $tmp) - $tmp);
-    $tmp = strpos($g, 'avatar/') + 7;
-    $f = substr($g, $tmp, strpos($g, "?", $tmp) - $tmp);
-    $w = site_url();
-    $e = ABSPATH . 'avatar/' . $f . '.png';
-    $t = 30 * 24 * 60 * 60;
-    if (!is_file($e) || (time() - filemtime($e)) > $t) copy(htmlspecialchars_decode($g) , $e);
-    else $avatar = strtr($avatar, array(
-        $g => $w . '/avatar/' . $f . '.png'
-    ));
-    if (filesize($e) < 500) copy(GIT_URL . '/assets/img/default.png', $e);
-    return $avatar;
-}
-if (git_get_option('git_avater') == 'git_avatar_b') {
-    add_filter('get_avatar', 'deel_avatar');
-}
 //头像镜像
-function git_avatar_cache($avatar) {
-    $avatar = str_replace(array(
-        "www.gravatar.com",
-        "0.gravatar.com",
-        "1.gravatar.com",
-        "2.gravatar.com"
-    ) , git_get_option('git_avatar_qnurl') , $avatar);
-    return $avatar;
+function get_ssl_avatar($avatar) {
+   $avatar = preg_replace('/.*\/avatar\/(.*)\?s=([\d]+)&.*/','<img src="https://cdn.v2ex.com/gravatar/$1?s=50" class="avatar avatar-$2">',$avatar);
+   return $avatar;
 }
 if (git_get_option('git_avater') == 'git_avatar_qn') {
-    add_filter('get_avatar', 'git_avatar_cache', 10, 3);
+add_filter('get_avatar', 'get_ssl_avatar', 10, 3);
 }
 
 //随机头像
 function local_random_avatar($avatar) {
-    if(git_get_option('git_avatar_qnurl')){
-        $avatarsrc = '//' . git_get_option('git_avatar_qnurl') . '/myavatar/' . mt_rand(1, git_get_option('git_avatar_randnum')) . '.jpg';
-    }else{
-        $avatarsrc = 'https://cdn.jsdelivr.net/gh/yunluo/GitCafeApi/avatar/' . mt_rand(1, 1999) . '.jpg';
-    }
+    $avatarsrc = 'https://cdn.jsdelivr.net/gh/yunluo/GitCafeApi/avatar/' . mt_rand(1, 1999) . '.jpg';
     $avatar = "<img src=$avatarsrc class='avatar rand_avatar photo' />";
     return $avatar;
 }

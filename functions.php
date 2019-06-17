@@ -36,11 +36,6 @@ function deel_setup() {
     }
 }
 
-//获取主题选项
-function git_get_option($e) {
-    return stripslashes(get_option($e));
-}
-
 //自定义ajax提醒
 function git_err($ErrMsg) {
     header('HTTP/1.1 405 Method Not Allowed');
@@ -126,7 +121,7 @@ function footerScript() {
     if (!is_admin()) {
         wp_deregister_script('jquery');
         if (git_get_option('git_jqcdn') == 'git_jqcdn_upai') {
-            wp_register_script('jquery', 'https://upcdn.b0.upaiyun.com/libs/jquery/jquery-1.8.3.min.js', false, '1.0', true); //底部加载,速度快,兼容差
+            wp_register_script('jquery', 'https://cdn.jsdelivr.net/gh/yunluo/GitCafeApi/js/jquery-1.8.3.min.js', false, '1.0', true); //底部加载,速度快,兼容差
         } else {
             wp_register_script('jquery', GIT_URL . '/assets/js/jquery.min.js', false, '1.0', false); //头部加载,速度慢,兼容好
         }
@@ -607,7 +602,7 @@ function fancybox($content) {
     return $content;
 }
 add_filter('the_content', 'fancybox');
- 
+
 //输出WordPress表情
 function fa_get_wpsmiliestrans() {
     global $wpsmiliestrans;
@@ -1181,7 +1176,7 @@ if (git_get_option('git_admin')) {
 //获取云落的远程通知，加入缓存，1天一次
 function get_Yunluo_Notice(){
 	$Yunluo_Notice = get_transient('Yunluo_Notice');
-	if(false === $Yunluo_Notice){ 
+	if(false === $Yunluo_Notice){
         $Yunluo_Notice = wp_remote_get('https://cdn.jsdelivr.net/gh/yunluo/GitCafeApi/notice.txt');
 		if ( is_array( $Yunluo_Notice ) && !is_wp_error($Yunluo_Notice) && $Yunluo_Notice['response']['code'] == '200' ) {
 			set_transient('Yunluo_Notice', $Yunluo_Notice['body'], 60*60*12);//缓存12小时

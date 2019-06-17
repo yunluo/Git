@@ -19,9 +19,10 @@ date_default_timezone_set('Asia/Shanghai');
     <div class="content">
 		<div class="mod-head" style="display: block;">
 			<div class="info-left  user-online">
-				<div class="portrait"><?php $grava = 'https://cn.gravatar.com/avatar/'.md5( strtolower( trim( $curauth->user_email ) ) ).'?s=120&d=mp&r=g';
-				echo '<img src="'.$grava.'">';
-				?>
+				<div class="portrait"><?php
+				$localavatar = get_user_meta($curauth->ID, 'simple_local_avatar', true);
+				if(!empty($localavatar)){ echo '<img src="'.$localavatar.'" class="avatar avatar-220">';}else{echo get_avatar($curauth->ID, 220);}
+				 ?>
 				</div>
 			</div>
 			<div class="info-right">
@@ -51,11 +52,7 @@ date_default_timezone_set('Asia/Shanghai');
                         <div class="tab_container_author">
                             <div id="tab1_author" class="tab_content_author">
                             	<?php
-                            	$localavatar = get_user_meta($curauth->ID, 'simple_local_avatar', true);
-								$githubid = get_user_meta($curauth->ID, 'github_id', true);
-                            	if ($oneself && empty($localavatar)) {echo '<div class="alert alert-error">您尚未上传您的自定义头像，您当前使用的是随机头像，请点击编辑资料以上传头像</div>';}
-								if ($oneself && !empty($githubid) && empty($curauth->user_email)) {echo '<div id="sc_error"><strong>重要提示：貌似您是从Github登录的用户，请 <a target="_blank" href="/wp-admin/profile.php#email">点击这里</a> 绑定邮箱，谢谢！！！</strong></div>';}
-
+								if ($oneself && empty($curauth->user_email)) {echo '<div id="sc_error"><strong>重要提示：您当前尚未绑定邮箱，为了完善资料，请 <a target="_blank" href="/wp-admin/profile.php#email">点击这里</a> 绑定邮箱，谢谢！！！</strong></div>';}
 								?>
 							<h2>会员资料</h2>
 									<div class="alert alert-info w49">ID：<?php echo $curauth->ID; ?></div>
