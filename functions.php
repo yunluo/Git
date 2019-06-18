@@ -1099,8 +1099,7 @@ if (git_get_option('git_vip')):
 endif;
 
 //管理后台添加按钮
-function git_custom_adminbar_menu($meta = TRUE) {
-    global $wp_admin_bar;
+function git_custom_adminbar_menu($wp_admin_bar) {
     if (!is_user_logged_in()) {
         return;
     }
@@ -1110,7 +1109,7 @@ function git_custom_adminbar_menu($meta = TRUE) {
     $wp_admin_bar->add_menu(array(
         'id' => 'git_option',
         'title' => '主题选项', /* 设置链接名 */
-        'href' => 'admin.php?page=theme-options.php'
+        'href' => 'admin.php?page=git-theme-options'
     ));
     $wp_admin_bar->add_menu(array(
         'id' => 'git_guide',

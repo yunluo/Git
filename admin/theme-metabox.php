@@ -15,15 +15,6 @@ if ( !class_exists('myCustomFields') ) {
         * @var  array  $customFields  开始组件自定义面板数组
         */
         var $customFields = array(
-            
-            array(
-                "name"          => "wx_submit",
-                "title"         => "推送到订阅用户微信",
-                "description"   => "请慎重选择是否推送，优质的文章才值得推送哦，滥用此功能的可能会被禁用该功能哦~",
-                "type"          => "checkbox",
-                "scope"         =>   array( "post" ),
-                "capability"    => "manage_options"
-            ),
             array(
                 "name"          => "thumb",
                 "title"         => "自定义缩略图/主图",
@@ -120,7 +111,7 @@ if ( !class_exists('myCustomFields') ) {
                 "description"   => "请在这里输入您的演示代码",
                 "type"          => "textarea",
                 "scope"         =>   array( "post" ),
-                "capability"    => "edit_pages"
+                "capability"    => "edit_posts"
             )
         );
         /**
@@ -132,17 +123,6 @@ if ( !class_exists('myCustomFields') ) {
             // 下面这句可以关闭WordPress自带的自定义栏目，但是不推荐，需要的话可以开启
             //add_action( 'do_meta_boxes', array( $this, 'removeDefaultCustomFields' ), 10, 3 );
         }
-        /**
-        * 移除WordPress自带的自定义栏目
-        
-        function removeDefaultCustomFields( $type, $context, $post ) {
-            foreach ( array( 'normal', 'advanced', 'side' ) as $context ) {
-                foreach ( $this->postTypes as $postType ) {
-                    remove_meta_box( 'postcustom', $postType, $context );
-                }
-            }
-        }
-        */
         /**
         * 创建一组你自己的自定义栏目
         */
