@@ -187,6 +187,27 @@ if (git_get_option('git_sitemap_api')) {
     add_action('publish_post', 'Git_Baidu_Submit', 0);
 }
 
+//强制微信登录
+function force_weauth_login_url( $login_url, $redirect, $force_reauth ){
+    $login_url = get_permalink(git_page_id('weauth'));
+    if ( ! empty( $redirect ) ) {
+        $login_url = add_query_arg( 'redirect_to', urlencode( $redirect ), $login_url );
+    }
+    if ( $force_reauth ) {
+        $login_url = add_query_arg( 'reauth', '1', $login_url );
+    }
+    return $login_url;
+}if(git_get_option('git_weauth_oauth') && git_get_option('git_weauth_oauth_force')){
+add_filter( 'login_url', 'force_weauth_login_url', 10, 3 );
+}
+
+//在登录框添加额外的微信登录
+function weixin_login_button() {
+    echo '<p><a class="button button-large" href="'.get_permalink(git_page_id('weauth')).'">微信登录</a></p><br>';
+}if(git_get_option('git_weauth_oauth')){
+add_action('login_form', 'weixin_login_button');
+}
+
 //评论微信推送
 if (git_get_option('git_Server') && !is_admin()) {
     function sc_send($comment_id) {
@@ -236,7 +257,7 @@ function custom_login_head() {
         $imgurl = git_get_option('git_loginbg');
     } else {
         $imgurl = get_transient('Bing_img');
-        if(false === $imgurl){ 
+        if(false === $imgurl){
         $arr = json_decode(curl_post('https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1')['data']);
         $imgurl = 'http://cn.bing.com' . $arr->images[0]->url;
         set_transient('Bing_img', $imgurl, 60*60*24);
@@ -281,7 +302,7 @@ function get_weauth_qr(){
   $qr64['qrcode'] = json_decode(file_get_contents('https://wa.isdot.net/qrcode?str='.$qr64['key']),true)['qrcode'];
   return $qr64;
 }
- 
+
 function weauth_rewrite_rules($wp_rewrite){
     if ($ps = get_option('permalink_structure')) {
         $new_rules['^weauth'] = 'index.php?user=$matches[1]&sk=$matches[2]';
@@ -309,16 +330,16 @@ function weauth_oauth(){
         update_user_meta($user_id, 'simple_local_avatar', $wxavatar);
     } else {
         $weauth_user = get_users(array(
-          'meta_key ' => 'wx_openid', 
+          'meta_key ' => 'wx_openid',
           'meta_value' => $openid
               )
          );
         if (is_wp_error($weauth_user) || !count($weauth_user)) {
             $random_password = wp_generate_password(12, false);
             $userdata = array(
-              'user_login' => $login_name, 
-              'display_name' => $nickname, 
-              'user_pass' => $random_password, 
+              'user_login' => $login_name,
+              'display_name' => $nickname,
+              'user_pass' => $random_password,
               'nickname' => $nickname
             );
             $user_id = wp_insert_user($userdata);
