@@ -14,9 +14,6 @@ require ( POINTS_CORE_LIB . '/class-points-wordpress.php' );
 if(git_get_option('git_pay_way') == 'git_payjs_ok' ){
 require ( POINTS_CORE_LIB.'/Payjs.php' );
 }
-if(git_get_option('git_pay_way') == 'git_eapay_ok' ){
-require ( POINTS_CORE_LIB.'/Eapay.php' );
-}
 
 class Points_Class {
 	private static $notices = array();

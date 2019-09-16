@@ -50,30 +50,13 @@ if(git_get_option('git_pay_way')=='git_payjs_ok'){
 	}
 }
 
-if(git_get_option('git_pay_way')=='git_eapay_ok'){
-	$eapay = new Eapay($config);
-	$data = array(
-		'out_trade_no' => git_order_id(), //举例为：E20181125153426343026279
-		'total_fee' => intval($_POST['money']), //充值的钱，注意金额单位为元
-		'subject' => '积分充值',//根据业务需要吗，一般是固定的
-		'body' => get_current_user_id(),//订单备注
-		'show_url' => get_permalink(git_page_id('chongzhi')),
-	);
-	$userid = $data['body'];
-	$point_number = $data['total_fee'] * git_get_option('git_chongzhi_dh');
-	$YZid = $data['out_trade_no'];
-}
-/*简付结束*/
 if(is_user_logged_in()) {
 echo '<span class="pull-center"><form method="post">
 	<input type="number" placeholder="1元='.git_get_option('git_chongzhi_dh').'金币" name="money" required="required">&nbsp;&nbsp;元
 	<input type="submit" value="点击充值">
 	</form></span>';
 if(isset($_POST['money'])){
-	if(git_get_option('git_pay_way')=='git_eapay_ok'){
-	Points::set_points($point_number, $userid, array('description' => $YZid , 'status' => 'pending'));//增加金币待审核
-	$SKQR = $eapay->cashier($data);
-	}
+
 	echo '<div class="pull-center">
 	<p class="pull-center">请使用微信或者支付宝扫描二维码</p>
 <p class="pull-center">你当前正在充值的金额为&nbsp;<font style="font-weight:bold;" color="#cc0000">'.intval($_POST['money']).'</font> 元</p>

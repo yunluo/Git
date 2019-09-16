@@ -783,21 +783,6 @@ function Bing_category(){
     }
 }
 
-//用于自动清理未付款订单，每天一次
-if(git_get_option('git_pay_way')=='git_eapay_ok'){
-function git_clear_activation() {
-	if ( !wp_next_scheduled( 'clean_daily_unpay' ) ) {
-		wp_schedule_event(time(), 'daily', 'clean_daily_unpay');
-	}
-}
-add_action('wp', 'git_clear_activation');
-function do_this_daily() {
-	global $wpdb;
-	$wcu_sql = "DELETE FROM `" . Points_Database::points_get_table("users") . "` WHERE `status` = 'pending'";
-	$wpdb->query($wcu_sql);
-}
-add_action('clean_daily_unpay', 'do_this_daily');
-}
 
 //主题自动更新服务
 if (!git_get_option('git_updates_b')) {
