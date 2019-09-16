@@ -3,18 +3,21 @@
 	template name: 下载模板页面
 	description: template for Git theme
 */
-get_header();
+
 ?>
 <?php
 $pid = isset( $_GET['pid'] ) ? trim(htmlspecialchars($_GET['pid'], ENT_QUOTES)) : '';
-if( !$pid ) { wp_redirect( home_url() );exit;}
+if( !$pid ) { wp_die('下载页面不是直接打开的哦');}
 $title = get_the_title($pid);
-$values1 = get_post_custom_values('git_download_name',$pid);
-empty($values1) ? Header('Location:/') : $theCode1 = $values1[0];
-$values2 = get_post_custom_values('git_download_size',$pid);
-empty($values2) ? Header('Location:/') : $theCode2 = $values2[0];
-$values3 = get_post_custom_values('git_download_link',$pid);
-empty($values3) ? Header('Location:/') : $theCode3 = $values3[0];
+$theCode1 = get_post_meta( $pid, 'git_download_name', true );
+$theCode2 = get_post_meta( $pid, 'git_download_size', true );
+$theCode3 = get_post_meta( $pid, 'git_download_link', true );
+
+if(empty($theCode1)){ $theCode1 = '不知名文件';}
+if(empty($theCode2)){ $theCode2 = '未知大小';}
+if( empty($theCode3) ) { wp_die('不填写文件下载链接是不可以的哦');}
+
+get_header();
 ?>
 <style type="text/css">#filelink a:hover{background:#4094EF none repeat scroll 0 0;color:#FFF!important;transition-duration:.3s;border-color:#FFF}#filelink a{margin:25px 15px 25px 0px;color:#4094EF!important;padding:5px 50px;font-family:微软雅黑,"Microsoft YaHei";font-size:19px;border:1px solid #4094EF;box-shadow:0 1px 3px rgba(0,0,0,.1)}</style>
 <div class="pagewrapper clearfix">
