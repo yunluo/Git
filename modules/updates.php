@@ -41,9 +41,8 @@ class ThemeUpdateChecker {
 		$queryArgs['installed_version'] = $this->getInstalledVersion();
 		$queryArgs = apply_filters(self::$filterPrefix.'query_args-'.$this->theme, $queryArgs);
 
-		//Various options for the wp_remote_get() call. Themes can filter these, too.
 		$options = array(
-			'timeout' => 20, //seconds
+			'timeout' => 50, //seconds
 		);
 		$options = apply_filters(self::$filterPrefix.'options-'.$this->theme, $options);
 
