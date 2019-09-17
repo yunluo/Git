@@ -674,7 +674,8 @@ $theme_options = array(
 		'type'  => 'radio',
 		'options' => array(
 			'git_slide_3d' => '豪华版幻灯片',
-			'git_slide_pt' => '简单版幻灯片'
+			'git_slide_pt' => '简单版幻灯片',
+			'git_slide_off' => '关闭幻灯片',
 		),
 		'std'   => 'git_slide_pt'
 	),
