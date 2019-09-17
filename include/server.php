@@ -202,10 +202,18 @@ add_filter( 'login_url', 'force_weauth_login_url', 10, 3 );
 }
 
 //在登录框添加额外的微信登录
+if(git_get_option('git_weauth_oauth')){
+
 function weixin_login_button() {
     echo '<p><a class="button button-large" href="'.get_permalink(git_page_id('weauth')).'">微信登录</a></p><br>';
-}if(git_get_option('git_weauth_oauth')){
+}
 add_action('login_form', 'weixin_login_button');
+
+function weixin_login_middle() { 
+    return '<p><a class="lhb" href="'.get_permalink(git_page_id('weauth')).'">微信登录</a></p><br>';
+};
+add_filter( 'login_form_middle', 'weixin_login_middle', 10, 1 );
+
 }
 
 //评论微信推送
