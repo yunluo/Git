@@ -257,7 +257,7 @@ if (git_get_option('git_sign_b')) {
                 }else{/*如果没有按照um插件的话就..*/
                     echo '<i class="fa fa-sign-in" ></i> <a id="showdiv" href="#loginbox" data-original-title="点击登录">登录</a>';
                     echo '&nbsp;&nbsp;<i class="fa fa-pencil-square-o" ></i>  <a href="'.esc_url( wp_registration_url() ).'">注册</a>';
-                    echo '<div id="loginbox" style="width:350px;height:280px;overflow:auto;display:none;">';
+                    echo '<div id="loginbox" style="width:350px;height:auto;overflow:auto;display:none;">';
                     wp_login_form(array( 'redirect' => site_url( $_SERVER['REQUEST_URI'] ) ));
                     echo '</div>';
                 }
