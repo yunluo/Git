@@ -1149,8 +1149,7 @@ if (git_get_option('git_admin')) {
     function git_login_protection()
     {
         if ($_GET[''.git_get_option('git_admin_q').''] !== git_get_option('git_admin_a')) {
-            header('Location: http://www.baidu.com');//不用密码登录，直接滚到百度去
-            exit;
+             wp_die('您的访问密码错误，请使用加密链接登录，如果不明白怎么回事，请直接到主题function文件搜索【救命】');
         }
     }
     add_action('login_enqueue_scripts', 'git_login_protection');
