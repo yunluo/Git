@@ -669,7 +669,7 @@ $theme_options = array(
     ),
 	array(
 		'name'  => '选择适合网站的幻灯片方案',
-		'desc'  => '选择一种风格作为标签页面的展示形式，有卡片式和列表式',
+		'desc'  => '选择一种幻灯片风格作为首页大图，如果不需要可以禁用',
 		'id'    => 'git_slide_style',
 		'type'  => 'radio',
 		'options' => array(
