@@ -187,6 +187,9 @@ if (git_get_option('git_sitemap_api')) {
     add_action('publish_post', 'Git_Baidu_Submit', 0);
 }
 
+
+
+
 //强制微信登录
 function force_weauth_login_url( $login_url, $redirect, $force_reauth ){
     $login_url = get_permalink(git_page_id('weauth'));
@@ -209,12 +212,25 @@ function weixin_login_button() {
 }
 add_action('login_form', 'weixin_login_button');
 
-function weixin_login_middle() { 
+function weixin_login_middle() {
     return '<p><a class="lhb" href="'.get_permalink(git_page_id('weauth')).'">微信登录</a></p><br>';
 };
 add_filter( 'login_form_middle', 'weixin_login_middle', 10, 1 );
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //评论微信推送
 if (git_get_option('git_Server') && !is_admin()) {
@@ -357,8 +373,8 @@ function weauth_oauth(){
             $user_id = $weauth_user[0]->ID;
         }
     }
-    set_transient($weauth_sk . 'ok', $user_id, 60);//用于登录的随机数，有效期为一分钟
-    weauth_oauth_redirect();
+    set_transient($weauth_sk . 'ok', $user_id, 20);//用于登录的随机数，有效期为20秒
+    //weauth_oauth_redirect();
 }
 //初始化
 function weauth_oauth_init(){
@@ -375,6 +391,7 @@ function weauth_oauth_login(){
         $user_id = get_transient($key.'ok');
         if ($user_id != 0) {
             wp_set_auth_cookie($user_id);
+			echo '<script type="text/javascript">window.location = document.referrer;</script>';
         }
     }
 }

@@ -27,12 +27,12 @@ get_header();
 var num = 0;
 var max = 30;
 var timeres;
- 
+
 function weauthok(k) {
 	if (k != 0) {
 		clearTimeout(timeres);
 		swal("微信登录成功！", "您以后都可以使用微信登录网站", "success").then((value)=> {
-			swal("尚未绑定邮箱", "为了方便使用邮箱登录，我们墙裂推荐绑定邮箱", "error").then((value)=> {
+			swal("绑定邮箱小Tips", "为了方便使用邮箱登录，我们墙裂推荐您绑定邮箱", "info").then((value)=> {
 				window.location.href = "?spam="+k+"";
 			})
 		});
@@ -67,7 +67,7 @@ function weauth_check() {
 	   }
   }
 }
-  
+
 function timecheck(){
 	num++;
 	if (num < max) {
