@@ -787,7 +787,7 @@ function Bing_category(){
 //主题自动更新服务
 if (!git_get_option('git_updates_b')) {
     require 'modules/updates.php';
-    $example_update_checker = new ThemeUpdateChecker('Git-alpha', 'https://cdn.jsdelivr.net/gh/yunluo/GitCafeApi/info.json');
+    $example_update_checker = new ThemeUpdateChecker('Git-alpha', 'https://u.gitcafe.net/api/info.json');
 }
 
 //评论拒绝HTML代码
