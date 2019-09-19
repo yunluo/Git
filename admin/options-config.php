@@ -1250,8 +1250,7 @@ $theme_options = array(
 			'id'    => 'git_pay_way',
 			'type'  => 'radio',
 			'options' => array(
-				'git_payjs_ok' => '调用Payjs支付',
-				'git_eapay_ok' => '调用简付支付'
+				'git_payjs_ok' => '调用Payjs支付'
 			),
 			'std'   => 'git_payjs_ok'
 		),
@@ -1274,22 +1273,10 @@ $theme_options = array(
 			'std'   => 444444444
 		),
 		array(
-			'title' => '简付支付设置&nbsp;&nbsp;&nbsp;<a href="https://b.eapay.cc" target="_blank" >注册简付</a>',
-			'type'  => 'title'
-		),
-		array(
-			'name'  => '简付App ID',
-			'desc'  => '',
-			'id'    => 'git_eapay_id',
-			'type'  => 'text',
-			'std'   => 2333333333
-		),
-		array(
-			'name'  => '简付App Key',
-			'desc'  => '',
-			'id'    => 'git_eapay_secret',
-			'type'  => 'text',
-			'std'   => 444444444
+			'name'  => '支付宝支付',
+			'desc'  => '启用 【本功能需要到Payjs后台申请使用支付宝支付，未申请或者申请未通过请勿开启，默认使用微信支付】',
+			'id'    => 'git_payjs_alipay',
+			'type'  => 'checkbox'
 		)
 	),
 	'高级设置' => array(
@@ -1321,7 +1308,7 @@ $theme_options = array(
 			'id'    => 'git_compress',
 			'type'  => 'checkbox'
 		),
-			array(
+		array(
 			'name'  => '图片懒加载',
 			'desc'  => '启用 【开启后，网站图片将进行懒加载】',
 			'id'    => 'git_lazyload',

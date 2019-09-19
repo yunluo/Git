@@ -41,6 +41,14 @@ if(git_get_option('git_pay_way')=='git_payjs_ok'){
 		'notify_url' => GIT_URL.'/modules/push.php',
 		'hide' => '1'
 	];
+	if( git_get_option('git_payjs_alipay') && isset($_POST['alipay'])){
+		$data['type'] = 'alipay';
+	}
+	if( git_get_option('git_payjs_alipay') && isset($_POST['alipay'])){
+		$payway = '支付宝';
+	}else{
+		$payway = '微信';
+	}
 	if(git_is_mobile()){
 		$rst = $payjs->cashier($data);//手机使用
 		$SKQR = $rst;
@@ -52,13 +60,16 @@ if(git_get_option('git_pay_way')=='git_payjs_ok'){
 
 if(is_user_logged_in()) {
 echo '<span class="pull-center"><form method="post">
-	<input type="number" placeholder="1元='.git_get_option('git_chongzhi_dh').'金币" name="money" required="required">&nbsp;&nbsp;元
-	<input type="submit" value="点击充值">
+	<input type="number" placeholder="1元='.git_get_option('git_chongzhi_dh').'金币" name="money" required="required">&nbsp;&nbsp;元<br>';
+if( git_get_option('git_payjs_alipay') ){
+	echo '<input type="checkbox" name="alipay" value="alipay">&nbsp;&nbsp;&nbsp;使用支付宝支付<br>';
+}
+echo '<input type="submit" value="点击充值">
 	</form></span>';
 if(isset($_POST['money'])){
 
 	echo '<div class="pull-center">
-	<p class="pull-center">请使用微信或者支付宝扫描二维码</p>
+	<p class="pull-center">请使用&nbsp;<font size="" color="#ff0000"><strong>'.$payway.'</strong></font>&nbsp;扫描二维码</p>
 <p class="pull-center">你当前正在充值的金额为&nbsp;<font style="font-weight:bold;" color="#cc0000">'.intval($_POST['money']).'</font> 元</p>
 <p class="pull-center"><img id="qrious"></p>
  <script src="https://cdn.bootcss.com/qrious/4.0.2/qrious.min.js"></script>
@@ -78,8 +89,10 @@ var timeres;
 
 function payok(a) {
 	if (a == 1) {
-		swal("支付已到账！", "感谢大佬支付，详情查看邮箱", "success");
 		clearTimeout(timeres);
+			swal("'.$payway.'支付已到账！", "感谢大佬支付，详情查看邮箱", "success").then((value)=> {
+				window.location = document.referrer;
+			});
 	}
 }
 
