@@ -24,58 +24,31 @@ get_header();
 		<?php comments_template('', true); endwhile;  ?>
 <script src="https://cdn.bootcss.com/sweetalert/2.1.2/sweetalert.min.js"></script>
 <script type="text/javascript">
-var num = 0;
-var max = 30;
-var timeres;
-
-function weauthok(k) {
-	if (k != 0) {
-		clearTimeout(timeres);
-		swal("微信登录成功！", "您以后都可以使用微信登录网站", "success").then((value)=> {
-			swal("绑定邮箱小Tips", "为了方便使用邮箱登录，我们墙裂推荐您绑定邮箱", "info").then((value)=> {
-				window.location.href = "?spam="+k+"";
-			})
-		});
-	}
-}
-
 function qr_gen() {
-	var a = new XMLHttpRequest(),qrdiv = document.getElementById("weauth_qr"),ssk = document.getElementById("ssk");
-	a.open("POST", "<?php echo admin_url('admin-ajax.php');?>");
-	a.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	a.send("action=weauth_qr_gen&wastart=1");
-	a.onreadystatechange = function() {
-		if (a.readyState == 4 && a.status == 200) {
-      var ss = a.responseText.split("|");
-      qrdiv.innerHTML = "<img style=\"width:300px;height:300px\" src="+ss[1].replace("&quot;","")+">";
-      ssk.innerHTML = ss[0];
-		}
-	}
+    ajax.post("<?php echo admin_url('admin-ajax.php');?>", "action=weauth_qr_gen&wastart=1", function(n) {
+        var t = n.split("|"), e = document.getElementById("weauth_qr"), a = document.getElementById("ssk");
+        e.innerHTML = '<img style="width:300px;height:300px" src=' + t[1].replace("&quot;", "") + ">", 
+        a.innerHTML = t[0];
+    });
 }
 
 function weauth_check() {
-      var ssk = document.getElementById("ssk").innerHTML;
-      if (typeof(ssk) != "undefined" && ssk != null && ssk != "" && ssk.length != 0) {
-	      var a = new XMLHttpRequest();
-	      a.open("POST", "<?php echo admin_url('admin-ajax.php');?>");
-	      a.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	      a.send("action=weauth_check&sk=" + ssk);
-	      a.onreadystatechange = function() {
-		      if (a.readyState == 4 && a.status == 200) {
-			      weauthok(a.responseText);
-		    }
-	   }
-  }
+    var n = document.getElementById("ssk").innerHTML;
+    void 0 !== n && null != n && "" != n && 0 != n.length && ajax.post("<?php echo admin_url('admin-ajax.php');?>", "action=weauth_check&sk=" + n, function(n) {
+        0 != n && (clearTimeout(timeres), swal("微信登录成功！", "您以后都可以使用微信登录网站", "success").then(function(t) {
+            swal("绑定邮箱小Tips", "为了方便使用邮箱登录，我们墙裂推荐您绑定邮箱", "info").then(function(t) {
+                window.location.href = "?spam=" + n;
+            });
+        }));
+    });
 }
 
-function timecheck(){
-	num++;
-	if (num < max) {
-		timeres = setTimeout(timecheck,5*1000);
-		weauth_check();
-	}
+function timecheck() {
+    ++num < max && (timeres = setTimeout(timecheck, 5e3), weauth_check());
 }
-timeres = setTimeout(timecheck,5*1000);
+
+var num = 0, max = 30, timeres;
+timeres = setTimeout(timecheck, 5e3);
 </script>
 </div>
 <?php get_footer(); ?>

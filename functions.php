@@ -406,6 +406,50 @@ function bigfa_like() {
 }
 
 //检查付款情况
+function pay_chongzhi(){
+    if (isset($_POST['jine']) && $_POST['action'] == 'pay_chongzhi') {
+    $config = [
+        'mchid' => git_get_option('git_payjs_id'),   // 配置商户号
+        'key'   => git_get_option('git_payjs_secret'),   // 配置通信密钥
+    ];
+    // 初始化
+    $payjs = new Payjs($config);
+    $data = [
+        'body' => '积分充值',   // 订单标题
+        'attach' => get_current_user_id(),   // 订单备注
+        'out_trade_no' => git_order_id(),       // 订单号
+        'total_fee' => intval($_POST['jine'])*100,             // 金额,单位:分
+        'notify_url' => GIT_URL.'/modules/push.php',
+        'hide' => '1'
+    ];
+
+
+    $result_money = intval($_POST['jine']);
+
+    $result_trade_no = $data['out_trade_no'];
+
+    if( git_get_option('git_payjs_alipay') && $_POST['way'] =='alipay' ){
+        $data['type'] = 'alipay';
+        $result_way = '支付宝';
+    }else{
+        $result_way = '微信';
+    }
+
+    if(git_is_mobile()){
+        $rst = $payjs->cashier($data);//手机使用
+        $result_img = $rst;
+    }else{
+        $rst = $payjs->native($data);//电脑使用
+        $result_img = $rst['code_url'];
+    }
+    $result = $result_money.'|'.$result_way.'|'. $result_img.'|'. $result_trade_no;
+    exit($result);
+    }
+}
+add_action( 'wp_ajax_pay_chongzhi', 'pay_chongzhi' );
+add_action( 'wp_ajax_nopriv_pay_chongzhi', 'pay_chongzhi' );
+
+//检查付款情况
 function payrest(){
     if (isset($_POST['check_trade_no']) && $_POST['action'] == 'payrest') {
         if (git_check($_POST['check_trade_no'])) {
@@ -787,7 +831,7 @@ function Bing_category(){
 //主题自动更新服务
 if (!git_get_option('git_updates_b')) {
     require 'modules/updates.php';
-    $example_update_checker = new ThemeUpdateChecker('Git-alpha', 'https://u.gitcafe.net/api/info.json');
+    $example_update_checker = new ThemeUpdateChecker('Git-alpha', 'https://cdn.jsdelivr.net/gh/yunluo/GitCafeApi/info.json');
 }
 
 //评论拒绝HTML代码
