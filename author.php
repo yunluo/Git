@@ -21,7 +21,11 @@ date_default_timezone_set('Asia/Shanghai');
 			<div class="info-left  user-online">
 				<div class="portrait"><?php
 				$localavatar = get_user_meta($curauth->ID, 'simple_local_avatar', true);
-				if(!empty($localavatar)){ echo '<img src="'.$localavatar.'" class="avatar avatar-220">';}else{echo get_avatar($curauth->ID, 220);}
+				if(!empty($localavatar) && !is_array($localavatar)){
+				 echo '<img src="'.$localavatar.'" class="avatar avatar-220">';
+				}else{
+					echo get_avatar($curauth->ID, 220);
+				}
 				 ?>
 				</div>
 			</div>
