@@ -405,7 +405,23 @@ function bigfa_like() {
     die;
 }
 
-//检查付款情况
+//付费可见
+function pay_buy(){
+    if (isset($_POST['point']) && isset($_POST['userid']) &&isset($_POST['id']) && $_POST['action'] == 'pay_buy') {
+            Points::set_points( -$_POST['point'],
+                    $_POST['userid'],
+                    array(
+                        'description' => $_POST['id'],
+                        'status' => get_option( 'points-points_status', POINTS_STATUS_ACCEPTED )
+                    )
+            );//扣除金币
+			$pay_content = get_post_meta($_POST['id'], 'pay_content', true);
+            exit($pay_content);
+    }
+}
+add_action( 'wp_ajax_pay_buy', 'pay_buy' );
+add_action( 'wp_ajax_nopriv_pay_buy', 'pay_buy' );
+//在线充值
 function pay_chongzhi(){
     if (isset($_POST['jine']) && $_POST['action'] == 'pay_chongzhi') {
     $config = [
@@ -831,7 +847,7 @@ function Bing_category(){
 //主题自动更新服务
 if (!git_get_option('git_updates_b')) {
     require 'modules/updates.php';
-    $example_update_checker = new ThemeUpdateChecker('Git-alpha', 'https://cdn.jsdelivr.net/gh/yunluo/GitCafeApi/info.json');
+    $example_update_checker = new ThemeUpdateChecker('Git-alpha', 'https://u.gitcafe.net/api/info.json');
 }
 
 //评论拒绝HTML代码
@@ -1204,9 +1220,9 @@ if (git_get_option('git_admin')) {
 function get_Yunluo_Notice(){
 	$Yunluo_Notice = get_transient('Yunluo_Notice');
 	if(false === $Yunluo_Notice){
-        $Yunluo_Notice = wp_remote_get('https://cdn.jsdelivr.net/gh/yunluo/GitCafeApi/notice.txt');
+        $Yunluo_Notice = wp_remote_get('https://u.gitcafe.net/api/notice.txt')['body'];
 		if ( is_array( $Yunluo_Notice ) && !is_wp_error($Yunluo_Notice) && $Yunluo_Notice['response']['code'] == '200' ) {
-			set_transient('Yunluo_Notice', $Yunluo_Notice['body'], 60*60*12);//缓存12小时
+			set_transient('Yunluo_Notice', $Yunluo_Notice, 60*60*12);//缓存12小时
 		}else{
 			set_transient('Yunluo_Notice', '有点小尴尬哈啊，服务器菌暂时有点累了呢，先休息一会儿~，', 60*60*2);//缓存2小时
 		}

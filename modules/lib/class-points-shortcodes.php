@@ -60,68 +60,65 @@ class Points_Shortcodes {
 		}
 		return $output;
 	}
+
 	/*付费可见短代码开始*/
-	public static function pay ($atts, $content = null) {
-		global $wpdb;
-		$user_id = get_current_user_id();
-		$description = get_the_ID();
-		$result = $wpdb->get_row( "SELECT description FROM " . Points_Database::points_get_table( "users" ) . " WHERE user_id=".$user_id." AND description=" . $description . " AND status='accepted' LIMIT 0, 1;", ARRAY_A )['description'];//验证是否支付，如报错，请升级PHP版本
-		if(isset($_POST['buy_content_points'])){//如果点击按钮的话
-			Points::set_points( -$_POST['buy_content_points'],
-					$user_id,
-					array(
-						'description' => $description,
-						'status' => get_option( 'points-points_status', POINTS_STATUS_ACCEPTED )
-					)
-			);//扣除金币
-			return '<script type="text/javascript">alert("支付成功，等待页面刷新！");window.location=document.referrer;</script>';
-		}//endif
-		extract(shortcode_atts(array('point'=>"10"), $atts));
-			$notice ='';
-		if( $result == $description && is_user_logged_in()){
-		    $notice .='<div style="background-color: #ffffe0;border:1px solid #993;padding:1em;" class="pay-content">';
-		    $notice .= $content;
-		    $notice .='</div>';
-			return $notice;
-		}
-		global $wp;
-        $current_url = home_url(add_query_arg(array(),$wp->request));
-		if(git_get_option('git_fancylogin')){
-			$login_uri = '<a id="showdiv" href="#loginbox" data-original-title="点击登录">点击登录</a>';
-		}else{
-			$login_uri = '<a href="'.esc_url(wp_login_url( $current_url )).'" data-original-title="点击登录">点击登录</a>';
-		}
-		if(!is_user_logged_in()){
-			$notice .='<div style="background-color: #ffffe0;border:1px solid #993;padding:1em;" class="pay-content">';
-			$notice .='<p style="color:red;">本段内容需要支付 '.$point.''. get_option('points-points_label', POINTS_DEFAULT_POINTS_LABEL).' 查看</p>';
-			$notice .='<p style="color:red;">您未登录，请 '.$login_uri.'  或者<a href="'.esc_url( wp_registration_url() ).'">立即注册</a></p>';
-			$notice .='</div>';
-			return $notice;
-		}else{
-			if(!current_user_can( 'administrator' )){
-			if( Points::get_user_total_points($user_id, POINTS_STATUS_ACCEPTED ) < $point && $result !== $description){
-			$notice .='<div style="background-color: #ffffe0;border: 1px solid #993;padding:1em;" class="pay-content">';
-			$notice .='<p style="color:red;">本段内容需要支付 '.$point.''. get_option('points-points_label', POINTS_DEFAULT_POINTS_LABEL).' 查看</p>';
-			$notice .='<p style="color:red;">您当前拥有 <em><strong>'.Points::get_user_total_points($user_id, POINTS_STATUS_ACCEPTED ).'</strong></em> 金币，您的金币不足，请充值</p>';
-			$notice .='<p><a class="lhb" href="'.get_permalink(git_page_id('chongzhi')).'" target="_blank" rel="nofollow" data-original-title="立即充值" title="">立即充值</a></p>';
-			$notice .='</div>';
-			return $notice;
-			}
-			}else{return $content;}
-			if(!current_user_can( 'administrator' )){
-			if(Points::get_user_total_points($user_id, POINTS_STATUS_ACCEPTED ) >= $point && $result !== $description){
-			$notice .='<div style="background-color: #ffffe0;border: 1px solid #993;padding:1em;" class="pay-content">';
-			$notice .='<p style="color:red;">本段内容需要付费查看，您当前拥有 <em><strong>'.Points::get_user_total_points($user_id, POINTS_STATUS_ACCEPTED ).'</strong></em> 金币</p>';
-			$notice .='<form method="post">';
-			$notice .='<input type="hidden" id="buy_content_points" name="buy_content_points" value="'.$point.'" />';
-			$notice .='<p><input type="submit" value="支付'.$point.''. get_option('points-points_label', POINTS_DEFAULT_POINTS_LABEL).'"/></p>';
-			$notice .='</form>';
-			$notice .='</div>';
-			return $notice;
-			}
-			}else{return $content;}
-		}
-	}
+
+public static function pay($atts, $content = null) {
+    global $wpdb;
+    $user_id = get_current_user_id();
+    $description = get_the_ID();
+    $result = $wpdb->get_row("SELECT description FROM " . Points_Database::points_get_table("users") . " WHERE user_id=" . $user_id . " AND description=" . $description . " AND status='accepted' LIMIT 0, 3;")->description; //验证是否支付，如报错，请升级PHP版本
+    extract(shortcode_atts(array(
+        'point' => "10"
+    ) , $atts));
+    $notice = '';
+    $pay_content = get_post_meta($description, 'pay_content', true);
+    if (!empty($pay_content) && $pay_content != $content) {
+        update_post_meta($description, 'pay_content', $content, true);
+    } else {
+        add_post_meta($description, 'pay_content', $content, true);
+    }
+    if (is_user_logged_in()) {
+        if ($result == $description || current_user_can('administrator')) {
+            $notice.= '<div class="alert alert-info"">';
+            $notice.= $content;
+            $notice.= '</div>';
+        } else {
+            if (Points::get_user_total_points($user_id, POINTS_STATUS_ACCEPTED) < $point) {
+                $notice.= '<div class="alert alert-info"">';
+                $notice.= '<p style="color:red;">本段内容需要支付 ' . $point . '金币查看</p>';
+                $notice.= '<p style="color:red;">您当前拥有 <em><strong>' . Points::get_user_total_points($user_id, POINTS_STATUS_ACCEPTED) . '</strong></em> 金币，您的金币不足，请充值</p>';
+                $notice.= '<p><a class="lhb" href="' . get_permalink(git_page_id('chongzhi')) . '" target="_blank" rel="nofollow" data-original-title="立即充值" title="">立即充值</a></p>';
+                $notice.= '</div>';
+            } else {
+                $notice.= '<div id="pay_notice" class="alert alert-info"">';
+                $notice.= '<p style="color:red;">本段内容需要付费查看，您当前拥有 <em><strong>' . Points::get_user_total_points($user_id, POINTS_STATUS_ACCEPTED) . '</strong></em> 金币</p>';
+                $notice.= '<p><a class="lhb" style="cursor: pointer;" onclick="pay_point();">点击购买</a></p>';
+                $notice.= '</div>';
+                $notice.= '<p id="pay_success"></p>';
+                echo '<script type="text/javascript">
+function pay_point() {
+    ajax.post("' . admin_url('admin-ajax.php') . '", "action=pay_buy&point=' . $point . '&userid=' . $user_id . '&id=' . $description . '", function(n) {
+        null != n && (document.getElementById("pay_notice").style.display = "none", document.getElementById("pay_success").innerHTML = "<div class=\"alert alert-info\">" + n + "</div>");
+    });
+}</script>';
+            }
+        }
+    } else {
+        global $wp;
+        $current_url = home_url(add_query_arg(array() , $wp->request));
+        if (git_get_option('git_fancylogin')) {
+            $login_uri = '<a id="showdiv" href="#loginbox" data-original-title="点击登录">点击登录</a>';
+        } else {
+            $login_uri = '<a href="' . esc_url(wp_login_url($current_url)) . '" data-original-title="点击登录">点击登录</a>';
+        }
+        $notice.= '<div class="alert alert-info"">';
+        $notice.= '<p style="color:red;">查看本段内容需要支付 ' . $point . ' 金币</p>';
+        $notice.= '<p style="color:red;">您尚未登录，请 ' . $login_uri . '  或者 <a href="' . esc_url(wp_registration_url()) . '">立即注册</a> </p>';
+        $notice.= '</div>';
+    }
+    return $notice;
+}
 	/*付费可见短代码结束*/
 	/**
 	 * Shortcode. 显示用户的积分细节
