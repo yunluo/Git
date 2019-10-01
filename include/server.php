@@ -187,9 +187,6 @@ if (git_get_option('git_sitemap_api')) {
     add_action('publish_post', 'Git_Baidu_Submit', 0);
 }
 
-
-
-
 //强制微信登录
 function force_weauth_login_url( $login_url, $redirect, $force_reauth ){
     $login_url = get_permalink(git_page_id('weauth'));
@@ -218,18 +215,6 @@ function weixin_login_middle() {
 add_filter( 'login_form_middle', 'weixin_login_middle', 10, 1 );
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //评论微信推送
@@ -308,10 +293,6 @@ wp_embed_register_handler('youku_iframe', '#http://v.youku.com/v_show/id_(.*?).h
 wp_embed_unregister_handler('youku');
 
 ////////////////weauth//////////////
-function weauth_oauth_redirect(){
-    wp_redirect( home_url());
-    exit;
-}
 
 function get_weauth_token(){
   $sk = date("YmdHis") . mt_rand(10, 99);
@@ -373,8 +354,7 @@ function weauth_oauth(){
             $user_id = $weauth_user[0]->ID;
         }
     }
-    set_transient($weauth_sk . 'ok', $user_id, 20);//用于登录的随机数，有效期为20秒
-    //weauth_oauth_redirect();
+    set_transient($weauth_sk . 'ok', $user_id, 30);//用于登录的随机数，有效期为20秒
 }
 //初始化
 function weauth_oauth_init(){
@@ -384,15 +364,3 @@ function weauth_oauth_init(){
 }
 add_action('init','weauth_oauth_init');
 
-//GET自动登录
-function weauth_oauth_login(){
-    $key = isset($_GET['spam']) ? $_GET['spam'] : false;
-    if ($key) {
-        $user_id = get_transient($key.'ok');
-        if ($user_id != 0) {
-            wp_set_auth_cookie($user_id);
-			echo '<script type="text/javascript">window.location = document.referrer;</script>';
-        }
-    }
-}
-add_action('init', 'weauth_oauth_login');

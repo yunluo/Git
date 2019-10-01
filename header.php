@@ -53,7 +53,7 @@ echo $sr_2
 </script>
 <!--[if lt IE 9]><script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script><![endif]-->
 <script>
-var ajax={get:function(t,e){var s=new XMLHttpRequest||new ActiveXObject("Microsoft,XMLHTTP");s.open("GET",t,!0),s.onreadystatechange=function(){(4==s.readyState&&200==s.status||304==s.status)&&e.call(this,s.responseText)},s.send()},post:function(t,e,s){var n=new XMLHttpRequest||new ActiveXObject("Microsoft,XMLHTTP");n.open("POST",t,!0),n.setRequestHeader("Content-Type","application/x-www-form-urlencoded"),n.onreadystatechange=function(){4!=n.readyState||200!=n.status&&304!=n.status||s.call(this,n.responseText)},n.send(e)}};
+var ajax={get:function(t,e){var s=new XMLHttpRequest||new ActiveXObject("Microsoft,XMLHTTP");s.open("GET",t,!0),s.onreadystatechange=function(){(4==s.readyState&&200==s.status||304==s.status)&&e.call(this,s.responseText)},s.send()},post:function(t,e,s){var n=new XMLHttpRequest||new ActiveXObject("Microsoft,XMLHTTP");n.open("POST",t,!0),n.setRequestHeader("Content-Type","application/x-www-form-urlencoded"),n.onreadystatechange=function(){4!=n.readyState||200!=n.status&&304!=n.status||s.call(this,n.responseText)},n.send(e)}};function setCookie(e,t,o){var i=new Date;i.setDate(i.getDate()+o),document.cookie=e+"="+escape(t)+(null==o?"":";expires="+i.toGMTString())};function getCookie(e){var t,n=new RegExp("(^| )"+e+"=([^;]*)(;|$)");return(t=document.cookie.match(n))?t[2]:null};
 </script>
 <?php
 if (git_get_option('git_customcss')) echo '<style type="text/css">'.git_get_option('git_customcss').'</style>'; ?>

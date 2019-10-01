@@ -200,14 +200,19 @@ function login_to_read($atts, $content = null) {
         "notice" => '<blockquote><center><p class="reply-to-read" style="color: blue;">注意：本段内容须“' . $logina . '”后方可查看！</p></center></blockquote>'
     ) , $atts));
     if (is_user_logged_in() && !is_null($content) && !is_feed()) {
-        return '<div class="e-secret"><fieldset><legend>隐藏的内容</legend>
+        return '<div id="e-secret"><fieldset><legend>隐藏的内容</legend>
 	' . $content . '<div class="clear"></div></fieldset></div>';
     }
     return $notice;
 }
 add_shortcode('vip', 'login_to_read');
+
 // 部分内容输入密码可见
 function e_secret($atts, $content = null) {
+	extract(shortcode_atts(array(
+        'wx' => null
+    ) , $atts));
+/*
     if (!isset($_COOKIE['weixin_fensi']) && isset($_POST['e_secret_key']) && $_POST['e_secret_key'] == git_get_option('git_mp_code')) {
         setcookie('weixin_fensi', 10086, time() + 2592000, COOKIEPATH, COOKIE_DOMAIN, false); //30天时间
         return '<script type="text/javascript">window.location = document.referrer;</script>';
@@ -215,6 +220,7 @@ function e_secret($atts, $content = null) {
     extract(shortcode_atts(array(
         'wx' => null
     ) , $atts));
+
     if ($_COOKIE['weixin_fensi'] == '10086' || strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false) {
         return '<div class="e-secret"><fieldset><legend>隐藏的内容</legend>
 	' . $content . '<div class="clear"></div></fieldset></div>';
@@ -225,8 +231,46 @@ function e_secret($atts, $content = null) {
             return '<form class="e-secret" method="post" name="e-secret" action="' . $_SERVER["REQUEST_URI"] . '"><label>输入密码查看加密内容：</label><input type="password" name="e_secret_key" class="euc-y-i" maxlength="50"><input type="submit" class="euc-y-s" value="确定"><div class="euc-clear"></div></form>';
         }
     }
+	*/
+	$notice = '';
+	$postid = get_the_ID();
+	$pass_content = get_post_meta($postid, 'pass_content', true);
+    if (!empty($pass_content) && $pass_content != $content) {
+        update_post_meta($postid, 'pass_content', $content, true);
+    } else {
+        add_post_meta($postid, 'pass_content', $content, true);
+    }
+
+if ($_COOKIE["pass_ok"] = "10086" ){
+    $notice .= '<div class="alert alert-info">'.$content.'</div>';
+}else{
+if ($wx == '1') {
+             $notice .= '<div class="wxbox"><img class="wxpic" src="' . git_get_option('git_mp_qr') . '" alt="' . git_get_option('git_mp_name') . '" title="' . git_get_option('git_mp_name') . '" align="right"><div><span class="yzts" style="font-size:18px;">验证码：</span><input name="e_secret_key" id="verifycode" value="" type="text"><input id="verifybtn" value="提交查看" type="submit" onclick="pass_view();"></div><div class="wxtips">' . git_get_option('git_mp_tips') . '</div><div class="cl"></div></div>';
+        } else {
+            $notice .= '<div id="e-secret"><label>输入密码查看加密内容：</label><input type="text" id="verifycode" class="euc-y-i" maxlength="50"><input type="submit" class="euc-y-s" value="确定" onclick="pass_view();"><div class="clear"></div></div>';
+        }
+    }
+		$notice .= '<p id="pass_content"></p>';
+echo '<script type="text/javascript">
+function pass_view() {
+var e = document.getElementById("verifycode").value;
+ajax.post("'.admin_url('admin-ajax.php').'", "action=pass_view&id='.$postid.'&pass=" + e, function(t) {
+	if(t != 0){
+		document.getElementById("e-secret").style.display = "none", 
+		document.getElementById("pass_content").innerHTML = "<div class=\"alert alert-info\">" + t + "</div>";
+        setCookie("pass_ok", "10086", 30);
+		}else{
+		alert("密码错误");
+		}
+})
+}
+</script>';
+		return $notice;
+
+
 }
 add_shortcode('secret', 'e_secret');
+
 
 // 支持文章和页面运行PHP代码
 function php_include($attr) {
@@ -306,7 +350,36 @@ add_shortcode('list', 'git_list_shortcode_handler');
 function secret_css() {
     global $post;
     if (is_singular() && has_shortcode($post->post_content, 'secret')) {
-        echo '<style type="text/css">form.e-secret{margin:20px 0;padding:20px;height:60px;background:#f8f8f8}.e-secret input.euc-y-i[type=password]{float:left;background:#fff;width:100%;line-height:36px;margin-top:5px;border-radius:3px}.e-secret input.euc-y-s[type=submit]{float:right;margin-top:-47px;width:30%;margin-right:1px;border-radius:0 3px 3px 0}input.euc-y-s[type=submit]{background-color:#3498db;color:#fff;font-size:21px;box-shadow:none;-webkit-transition:.4s;-moz-transition:.4s;-o-transition:.4s;transition:.4s;-webkit-backface-visibility:hidden;position:relative;cursor:pointer;padding:13px 20px;text-align:center;border-radius:50px;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;border:0;height:auto;outline:medium;line-height:20px;margin:0}input.euc-y-s[type=submit]:hover{background-color:#5dade2}input.euc-y-i[type=password],input.euc-y-i[type=text]{border:1px solid #F2EFEF;color:#777;display:block;background:#FCFCFC;font-size:18px;transition:all .5s ease 0;outline:0;box-sizing:border-box;-webkit-border-radius:25px;-moz-border-radius:25px;border-radius:25px;padding:5px 16px;margin:0;height:auto;line-height:30px}input.euc-y-i[type=password]:hover,input.euc-y-i[type=text]:hover{border:1px solid #56b4ef;box-shadow:0 0 4px #56b4ef}.wxbox{border:1px dashed #F60;line-height:200%;padding-top:5px;color:red;background-color:#FFF4FF;overflow:hidden;clear:both}.wxbox.yzts{padding-left:10%}.wx form{float:left}.wxbox #verifycode{width:46%;height:32px;line-height:30px;padding:0 25px;border:1px solid #F60}.wxbox #verifybtn{width:10%;height:34px;line-height:34px;padding:0 5px;background-color:#F60;text-align:center;border:none;cursor:pointer;color:#FFF}.cl{clear:both;height:0}.wxpic{float:left;width:18%}.wxtips{color:#32B9B5;float:left;width:72%;padding-left:5%;padding-top:0;font-size:20px;line-height:150%;text-align:left;font-family:Microsoft YaHei}.yzts{margin-left: 40px}@media (max-width:600px){.yzts{margin-left:5px}.wxpic{float:left}.wxbox #verifycode{width:35%}.wxbox #verifybtn{width:22%}.wxpic,.wxtips{width:100%}.wxtips{font-size:15px;padding:2px}}</style>';
+        echo '<style type="text/css">#e-secret{margin:20px 0;padding:20px;height:60px;background:#f8f8f8}#e-secret input.euc-y-i[type=text]{float:left;background:#fff;width:100%;line-height:36px;margin-top:5px;border-radius:3px}#e-secret input.euc-y-s[type=submit]{float:right;margin-top:-47px;width:30%;margin-right:1px;border-radius:0 3px 3px 0}input.euc-y-s[type=submit]{background-color:#3498db;color:#fff;font-size:21px;box-shadow:none;position:relative;cursor:pointer;padding:13px 20px;text-align:center;border:0;height:auto;outline:medium;line-height:20px;margin:0}input.euc-y-i[type=text]{border:1px solid #dae4e8;color:#777;display:block;font-size:18px;outline:0;box-sizing:border-box;padding:5px 16px;margin:0;height:auto;}input.euc-y-i[type=text]:hover{border:1px solid #56b4ef;box-shadow:0 0 4px #56b4ef}.wxbox{border:1px dashed #F60;line-height:200%;padding-top:5px;color:red;background-color:#FFF4FF;overflow:hidden;clear:both}.wxbox.yzts{padding-left:10%}.wx form{float:left}.wxbox #verifycode{width:46%;height:32px;line-height:30px;padding:0 25px;border:1px solid #F60}.wxbox #verifybtn{width:10%;height:34px;line-height:34px;padding:0 5px;background-color:#F60;text-align:center;border:none;cursor:pointer;color:#FFF}.cl{clear:both;height:0}.wxpic{float:left;width:18%}.wxtips{color:#32B9B5;float:left;width:72%;padding-left:5%;padding-top:0;font-size:20px;line-height:150%;text-align:left;font-family:Microsoft YaHei}.yzts{margin-left: 40px}@media (max-width:600px){.yzts{margin-left:5px}.wxpic{float:left}.wxbox #verifycode{width:35%}.wxbox #verifybtn{width:22%}.wxpic,.wxtips{width:100%}.wxtips{font-size:15px;padding:2px}}</style>';
     }
 }
 add_action('wp_head', 'secret_css');
+
+function pay_nologin($atts, $content = '') {
+    extract(shortcode_atts(array('money' => "2" ) , $atts));
+    $pid = get_the_ID();//文章ID
+    $pay_content = get_post_meta($pid, 'pay_content', true);//隐藏的内容，postmeta版本
+    if (!empty($pay_content) && $pay_content != $content) {
+        update_post_meta($pid, 'pay_content', $content, true);
+    } else {
+        add_post_meta($pid, 'pay_content', $content, true);
+    }
+	$pay_log = get_post_meta($pid, 'pay_log', true);//购买记录数据
+	$pay_arr = explode(",", $pay_log);
+	$pay_count = count($pay_arr);//已购买人数
+
+    $notice = '';
+	$notice .= '<style type="text/css">
+	.btn{border:0;border-radius:4px;cursor:pointer;display:inline-block;font-size:15px;font-weight:600;letter-spacing:1px;line-height:36px;outline:0;padding:0 18px;text-align:center;text-transform:uppercase;position:relative}.btn:hover{transition:all .3s ease-in-out}.btn--secondary{background-color:#1dc9b7;color:#fff}.btn--secondary:hover{background-color:#18a899}.content-hide-tips{padding:40px 20px 20px;border:1px dashed #ccc;margin:20px 0 40px;background-color:#f6f6f6;border-radius:4px;position:relative}.content-hide-tips .fa-lock{font-size:30px;right:10px;top:5px;font-style:normal;color:#ccc;position:absolute;z-index:1}.content-hide-tips .rate{left:10px;top:5px;position:absolute;z-index:1;font-weight:500;margin:10px}.content-hide-tips .login-false{text-align:center}.content-hide-tips .coin{display:block;text-align:center;margin-top:10px;margin-bottom:10px}.content-hide-tips .coin span{padding:4px 18px;background-color:#fff;color:#f0ad4e;line-height:1;border-radius:20px;font-size:13px;border:1px solid #f0ad4e}.content-hide-tips .t-c{text-align:center;font-size:13px}.content-hide-tips .red{color:#ff3b41}.pc-button{margin:0 auto;text-align:center}.label{display:inline;padding:.2em .6em .3em;font-size:75%;font-weight:700;line-height:1;color:#fff;text-align:center;white-space:nowrap;vertical-align:baseline;border-radius:.25em}.label:empty{display:none}.label-warning{background-color:#f0ad4e}.swal-button{line-height: normal;}.swal-footer{text-align:center;}
+	</style>';
+	wp_enqueue_script('pax', GIT_URL . '/assets/js/pax.js', array('jquery') , '1.0', true);
+	wp_enqueue_script('sweetalert', 'https://cdn.bootcss.com/sweetalert/2.0.0/sweetalert.min.js', false , '1.0', true);
+	$notice .= '<div id="hide_notice" class="content-hide-tips"><i class="fa fa-lock"></i><span class="rate label label-warning">付费查看内容</span>';
+	$notice .= '<div class="login-false">当前隐藏内容需要支付<div class="coin"><span class="label label-warning">'.$money.'元</span></div></div>';
+	$notice .= '<p class="t-c">已有<span class="red">'.$pay_count.'</span>人支付</p>';
+	$notice .= '<div class="pc-button"><button id="pay_view" type="button" data-action="pay_view" data-money="'.$money.'" data-id="'.$pid.'" class="btn btn--secondary" onclick="pay_view();">立即查看</button>';
+	$notice .= '</div></div>';
+
+	return $notice;
+}
+add_shortcode('pax', 'pay_nologin');
