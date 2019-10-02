@@ -10,6 +10,7 @@ function addcode(a, b) { //ID ， 提取码
         function(c) {
             if (c == '1') {
                 swal("输入成功", "您的邮箱提取码是" + b, "success");
+                localStorage.setItem(a,b);
             }
         });
 }
