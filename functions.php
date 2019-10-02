@@ -527,7 +527,7 @@ function payjs_view(){
         $result_img = $rst;
     }else{
         $rst = $payjs->native($data);//电脑使用
-        $result_img = $rst['qrcode'];
+        $result_img = $rst['code_url'];
     }
     $result = $result_money.'|'. $result_img.'|'. $result_trade_no;
     }
