@@ -212,26 +212,6 @@ function e_secret($atts, $content = null) {
 	extract(shortcode_atts(array(
         'wx' => null
     ) , $atts));
-/*
-    if (!isset($_COOKIE['weixin_fensi']) && isset($_POST['e_secret_key']) && $_POST['e_secret_key'] == git_get_option('git_mp_code')) {
-        setcookie('weixin_fensi', 10086, time() + 2592000, COOKIEPATH, COOKIE_DOMAIN, false); //30天时间
-        return '<script type="text/javascript">window.location = document.referrer;</script>';
-    }
-    extract(shortcode_atts(array(
-        'wx' => null
-    ) , $atts));
-
-    if ($_COOKIE['weixin_fensi'] == '10086' || strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false) {
-        return '<div class="e-secret"><fieldset><legend>隐藏的内容</legend>
-	' . $content . '<div class="clear"></div></fieldset></div>';
-    } else {
-        if ($wx == '1') {
-            return '<div class="wxbox"><img class="wxpic" src="' . git_get_option('git_mp_qr') . '" alt="' . git_get_option('git_mp_name') . '" title="' . git_get_option('git_mp_name') . '" align="right"><form method="post" name="e-secret" action="' . $_SERVER["REQUEST_URI"] . '"><span class="yzts" style="font-size:18px;">验证码：</span><input name="e_secret_key" id="verifycode" value="" type="text"><input id="verifybtn" name="" value="提交查看" type="submit"></form><div class="wxtips">' . git_get_option('git_mp_tips') . '</div><div class="cl"></div></div>';
-        } else {
-            return '<form class="e-secret" method="post" name="e-secret" action="' . $_SERVER["REQUEST_URI"] . '"><label>输入密码查看加密内容：</label><input type="password" name="e_secret_key" class="euc-y-i" maxlength="50"><input type="submit" class="euc-y-s" value="确定"><div class="euc-clear"></div></form>';
-        }
-    }
-	*/
 	$notice = '';
 	$postid = get_the_ID();
 	$pass_content = get_post_meta($postid, 'pass_content', true);
@@ -266,11 +246,8 @@ ajax.post("'.admin_url('admin-ajax.php').'", "action=pass_view&id='.$postid.'&pa
 }
 </script>';
 		return $notice;
-
-
 }
 add_shortcode('secret', 'e_secret');
-
 
 // 支持文章和页面运行PHP代码
 function php_include($attr) {
@@ -355,7 +332,7 @@ function secret_css() {
 }
 add_action('wp_head', 'secret_css');
 
-function pay_nologin($atts, $content = '') {
+function pay_nologin($atts, $content = ''){
     extract(shortcode_atts(array('money' => "2" ) , $atts));
     $pid = get_the_ID();//文章ID
     $pay_content = get_post_meta($pid, 'pay_content', true);//隐藏的内容，postmeta版本
@@ -367,11 +344,8 @@ function pay_nologin($atts, $content = '') {
 	$pay_log = get_post_meta($pid, 'pay_log', true);//购买记录数据
 	$pay_arr = explode(",", $pay_log);
 	$pay_count = count($pay_arr);//已购买人数
-
     $notice = '';
-	$notice .= '<style type="text/css">
-	.sbtn{border:0;border-radius:4px;cursor:pointer;display:inline-block;font-size:15px;font-weight:600;letter-spacing:1px;line-height:36px;outline:0;padding:0 18px;text-align:center;text-transform:uppercase;position:relative}.sbtn:hover{transition:all .3s ease-in-out}.sbtn--secondary{background-color:#1dc9b7;color:#fff}.sbtn--secondary:hover{background-color:#18a899}.content-hide-tips{padding:40px 20px 20px;border:1px dashed #ccc;margin:20px 0 40px;background-color:#f6f6f6;border-radius:4px;position:relative}.content-hide-tips .fa-lock{font-size:30px;right:10px;top:5px;font-style:normal;color:#ccc;position:absolute;z-index:1}.content-hide-tips .rate{left:10px;top:5px;position:absolute;z-index:1;font-weight:500;margin:10px}.content-hide-tips .login-false{text-align:center}.content-hide-tips .coin{display:block;text-align:center;margin-top:10px;margin-bottom:10px}.content-hide-tips .coin span{padding:4px 18px;background-color:#fff;color:#f0ad4e;line-height:1;border-radius:20px;font-size:13px;border:1px solid #f0ad4e}.content-hide-tips .t-c{text-align:center;font-size:13px}.content-hide-tips .red{color:#ff3b41}.pc-button{margin:0 auto;text-align:center}.label{display:inline;padding:.2em .6em .3em;font-size:75%;font-weight:700;line-height:1;color:#fff;text-align:center;white-space:nowrap;vertical-align:baseline;border-radius:.25em}.label:empty{display:none}.label-warning{background-color:#f0ad4e}.swal-button{line-height: normal;}.swal-footer{text-align:center;}
-	</style>';
+	$notice .= '<style type="text/css">.sbtn{border:0;border-radius:4px;cursor:pointer;display:inline-block;font-size:15px;font-weight:600;letter-spacing:1px;line-height:36px;outline:0;padding:0 18px;text-align:center;text-transform:uppercase;position:relative}.sbtn:hover{transition:all .3s ease-in-out}.sbtn--secondary{background-color:#1dc9b7;color:#fff}.sbtn--secondary:hover{background-color:#18a899}.content-hide-tips{padding:40px 20px 20px;border:1px dashed #ccc;margin:20px 0 40px;background-color:#f6f6f6;border-radius:4px;position:relative}.content-hide-tips .fa-lock{font-size:30px;right:10px;top:5px;font-style:normal;color:#ccc;position:absolute;z-index:1}.content-hide-tips .rate{left:10px;top:5px;position:absolute;z-index:1;font-weight:500;margin:10px}.content-hide-tips .login-false{text-align:center}.content-hide-tips .coin{display:block;text-align:center;margin-top:10px;margin-bottom:10px}.content-hide-tips .coin span{padding:4px 18px;background-color:#fff;color:#f0ad4e;line-height:1;border-radius:20px;font-size:13px;border:1px solid #f0ad4e}.content-hide-tips .t-c{text-align:center;font-size:13px}.content-hide-tips .red{color:#ff3b41}.pc-button{margin:0 auto;text-align:center}.label{display:inline;padding:.2em .6em .3em;font-size:75%;font-weight:700;line-height:1;color:#fff;text-align:center;white-space:nowrap;vertical-align:baseline;border-radius:.25em}.label:empty{display:none}.label-warning{background-color:#f0ad4e}.swal-button{line-height: normal;}.swal-footer{text-align:center;}</style>';
     wp_enqueue_script('qrious', 'https://cdn.bootcss.com/qrious/4.0.2/qrious.min.js', false , '1.0', true);
 	wp_enqueue_script('pay', GIT_URL . '/assets/js/pay.js', array('jquery') , '1.0', true);
 	wp_enqueue_script('sweetalert', 'https://cdn.bootcss.com/sweetalert/2.0.0/sweetalert.min.js', false , '1.0', true);
@@ -380,7 +354,6 @@ function pay_nologin($atts, $content = '') {
 	$notice .= '<p class="t-c">已有<span class="red">'.$pay_count.'</span>人支付</p>';
 	$notice .= '<div class="pc-button"><button id="pay_view" type="button" data-action="pay_view" data-money="'.$money.'" data-id="'.$pid.'" class="sbtn sbtn--secondary" onclick="pay_view();">立即查看</button>';
 	$notice .= '</div></div>';
-
 	return $notice;
 }
 add_shortcode('pax', 'pay_nologin');

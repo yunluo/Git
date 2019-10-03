@@ -188,6 +188,10 @@ if (git_get_option('git_sitemap_api')) {
 }
 
 //强制微信登录
+if(git_get_option('git_weauth_oauth') && git_get_option('git_weauth_oauth_force')){
+add_filter( 'login_url', 'force_weauth_login_url', 10, 3 );
+add_filter( 'register_url', 'force_weauth_register_url', 10, 3 );
+}
 function force_weauth_login_url( $login_url, $redirect, $force_reauth ){
     $login_url = get_permalink(git_page_id('weauth'));
     if ( ! empty( $redirect ) ) {
@@ -197,13 +201,14 @@ function force_weauth_login_url( $login_url, $redirect, $force_reauth ){
         $login_url = add_query_arg( 'reauth', '1', $login_url );
     }
     return $login_url;
-}if(git_get_option('git_weauth_oauth') && git_get_option('git_weauth_oauth_force')){
-add_filter( 'login_url', 'force_weauth_login_url', 10, 3 );
+}
+function force_weauth_register_url( $register_url ){
+		$register_url = get_permalink(git_page_id('weauth'));
+		return $register_url;
 }
 
 //在登录框添加额外的微信登录
 if(git_get_option('git_weauth_oauth')){
-
 function weixin_login_button() {
     echo '<p><a class="button button-large" href="'.get_permalink(git_page_id('weauth')).'">微信登录</a></p><br>';
 }
@@ -215,7 +220,6 @@ function weixin_login_middle() {
 add_filter( 'login_form_middle', 'weixin_login_middle', 10, 1 );
 
 }
-
 
 //评论微信推送
 if (git_get_option('git_Server') && !is_admin()) {
@@ -363,4 +367,3 @@ function weauth_oauth_init(){
     }
 }
 add_action('init','weauth_oauth_init');
-

@@ -442,6 +442,7 @@ function weauth_oauth_login(){
             if($mail && !empty($mail) && is_email($mail)){
                 wp_update_user( array( 'ID' => $user_id, 'user_email' => $mail ) );
             }
+            delete_transient($key.'ok');
             exit(wp_unique_id());
         }
     }
@@ -542,6 +543,7 @@ function checkpayjs(){
         if (isset($id) && isset($orderid) && $_POST['action'] == 'checkpayjs') {
             $sid = get_transient('P'.$id);
             if(strpos($sid,'E20') !== false && $orderid == $sid){
+                delete_transient('P'.$id);
                 exit('1');//OK
             }else{
                 exit('0');//no
@@ -652,6 +654,7 @@ function weauth_check(){
         $rest = substr($_POST['sk'],-16);//key
         $weauth_cache = get_transient($rest.'ok');
         if (!empty($weauth_cache)) {
+            delete_transient($rest.'ok');
             exit($rest);//key
         }
     }
@@ -1003,7 +1006,7 @@ function Bing_category(){
 //主题自动更新服务
 if (!git_get_option('git_updates_b')) {
     require 'modules/updates.php';
-    $example_update_checker = new ThemeUpdateChecker('Git-alpha', 'https://cdn.jsdelivr.net/gh/yunluo/GitCafeApi/info.json');
+    $example_update_checker = new ThemeUpdateChecker('Git-alpha', 'https://u.gitcafe.net/api/info.json');
 }
 
 //评论拒绝HTML代码
@@ -1376,9 +1379,9 @@ if (git_get_option('git_admin')) {
 function get_Yunluo_Notice(){
 	$Yunluo_Notice = get_transient('Yunluo_Notice');
 	if(false === $Yunluo_Notice){
-        $Yunluo_Notice = wp_remote_get('https://cdn.jsdelivr.net/gh/yunluo/GitCafeApi/notice.txt');
+        $Yunluo_Notice = wp_remote_get('https://u.gitcafe.net/api/notice.txt')['body'];
 		if ( is_array( $Yunluo_Notice ) && !is_wp_error($Yunluo_Notice) && $Yunluo_Notice['response']['code'] == '200' ) {
-			set_transient('Yunluo_Notice', $Yunluo_Notice['body'], 60*60*12);//缓存12小时
+			set_transient('Yunluo_Notice', $Yunluo_Notice, 60*60*12);//缓存12小时
 		}else{
 			set_transient('Yunluo_Notice', '有点小尴尬哈啊，服务器菌暂时有点累了呢，先休息一会儿~，', 60*60*2);//缓存2小时
 		}
