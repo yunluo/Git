@@ -442,7 +442,6 @@ function weauth_oauth_login(){
             if($mail && !empty($mail) && is_email($mail)){
                 wp_update_user( array( 'ID' => $user_id, 'user_email' => $mail ) );
             }
-            delete_transient($key.'ok');
             exit(wp_unique_id());
         }
     }
@@ -543,7 +542,6 @@ function checkpayjs(){
         if (isset($id) && isset($orderid) && $_POST['action'] == 'checkpayjs') {
             $sid = get_transient('P'.$id);
             if(strpos($sid,'E20') !== false && $orderid == $sid){
-                delete_transient('P'.$id);
                 exit('1');//OK
             }else{
                 exit('0');//no
@@ -654,7 +652,6 @@ function weauth_check(){
         $rest = substr($_POST['sk'],-16);//key
         $weauth_cache = get_transient($rest.'ok');
         if (!empty($weauth_cache)) {
-            delete_transient($rest.'ok');
             exit($rest);//key
         }
     }
