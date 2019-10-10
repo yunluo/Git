@@ -14,7 +14,7 @@ if(git_get_option('git_pay_way')=='git_payjs_ok'){
     $payjs = new Payjs($config);
 	$data = $payjs->notify();//
 	//需要做唯一性检查
-	// if(git_check($data['out_trade_no']) != 0) exit('Repeat push');
+	// 
 	if($data['return_code'] == 1){
 			echo 'success';
 			$amount = $data['total_fee']/100; 	//交易金额
@@ -28,6 +28,8 @@ if(strpos($data['attach'],'P') !== false){//免登陆支付
 	set_transient($userid, $YZid, 30);
 	exit;
 }
+
+if(git_check($data['out_trade_no']) != 0) exit('Repeat push');
 /* payjs支付通知结束 */
 
 if( empty($userid) || empty($amount) )exit('数据为空');//阻止某些极少数空值的
