@@ -217,6 +217,15 @@ if (git_get_option('git_pagehtml_b')) {
         }
     }
     add_action('init', 'html_page_permalink', -1);
+
+function git_search_url_rewrite() {
+    if ( is_search() && ! empty( $_GET['s'] ) && !is_admin()) {
+        wp_redirect( home_url( "/search/" ) . urlencode( get_query_var( 's' ) ) );
+        exit();
+    }
+}
+add_action( 'template_redirect', 'git_search_url_rewrite' );
+
 }
 //baidu分享
 $dHasShare = false;
@@ -229,9 +238,12 @@ function deel_share() {
 
 //搜索表单
 function git_searchform() {
-$search_placeholder = git_get_option('git_search_placeholder');
 ?>
-<form method="get" class="searchform themeform" onsubmit="location.href='<?php echo home_url('/search/'); ?>' + encodeURIComponent(this.s.value).replace(/%20/g, '+'); return false;" action="/"><div><input type="ext" class="search" name="s" onblur="if(this.value=='')this.value='<?php echo $search_placeholder; ?>';" onfocus="if(this.value=='<?php echo $search_placeholder; ?>')this.value='';" value="<?php echo $search_placeholder; ?>"></div></form></div></div>
+<form method="get" class="searchform themeform" action="<?php echo get_option('home'); ?>">
+   <div><input type="text" class="search" placeholder="<?php echo git_get_option('git_search_placeholder'); ?>" name="s" x-webkit-speech /></div>
+</form>
+</div>
+</div>
 <?php
 }
 
