@@ -231,27 +231,19 @@ if (git_get_option('git_sign_b')) {
         <?php if(git_get_option('git_fancylogin')) { /*判断是否打开弹窗登录*/ ?>
         <?php
             if(is_user_logged_in()){/*判断是否登录，如果登录了就... */
-                if(defined('UM_DIR')){/*判断是否按照um插件，如果安装就...*/
                     if( current_user_can( 'manage_options' ) ) {/*如果是管理员的话...*/
                         echo '<i class="fa fa-user"></i> <a href="' . esc_url(admin_url()) . '">' . $u_name . '</a>';
                         echo '&nbsp;&nbsp;<i class="fa fa-power-off"></i> ';
                         echo wp_loginout();
-                        echo '';}else{/*如果不是管理员的话就..*/
+                        echo '';
+                        }else{/*如果不是管理员的话就..*/
+                        $wx_login = get_user_meta($uid, 'wx_openid', true);
+                        if (!empty($wx_login)) echo '<i class="fa fa-lock"></i> <a href="'.esc_url(get_permalink(git_page_id('weauth'))).'">绑定微信</a>';
                         echo '<i class="fa fa-user"></i> <a target="_blank" href="'.esc_url(get_author_posts_url( $uid )).'">' . $u_name . '</a>';
                         echo '&nbsp;&nbsp;<i class="fa fa-power-off"></i> ';
                         echo wp_loginout();
-                        echo '';}
-                }else{/*如果没安装um插件就...*/
-                    if( current_user_can( 'manage_options' ) ) {/*如果是管理员的话...*/
-                        echo '<i class="fa fa-user"></i> <a href="' . esc_url(admin_url()) . '">' . $u_name . '</a>';
-                        echo '&nbsp;&nbsp;<i class="fa fa-power-off"></i> ';
-                        echo wp_loginout();
-                        echo '';}else{/*如果不是管理员的话就..*/
-                        echo '<i class="fa fa-user"></i> <a target="_blank" href="'.esc_url(get_author_posts_url( $uid )).'">' . $u_name . '</a>';
-                        echo '&nbsp;&nbsp;<i class="fa fa-power-off"></i> ';
-                        echo wp_loginout();
-                        echo '';}
-                }
+                        echo '';
+                        }
             }else{/*如果没有登录就...*/
                 if(defined('UM_DIR')){/*如果安装um的话，就...*/
                     echo '<i class="fa fa-sign-in" ></i>  <a style="cursor:pointer;" data-sign="0" class="user-login">登录</a>';
