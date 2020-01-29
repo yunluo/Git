@@ -7,8 +7,8 @@
 if ( !class_exists('ThemeUpdateChecker') ):
 
 class ThemeUpdateChecker {
-	public $theme = 'Git-alpha';              //待检查更新的主题名
-	public $metadataUrl = 'https://u.gitcafe.net/api/info.json';  //元数据文件的路径
+	public $theme = '';              //待检查更新的主题名
+	public $metadataUrl = '';  //元数据文件的路径
 	public $enableAutomaticChecking = true; //是否启用自动更新
 	protected $optionName = '';      //更新时候的文字信息
 	protected $automaticCheckDone = false;
