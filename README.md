@@ -4,6 +4,6 @@
 
 [主题食用说明](https://gitcafe.net/archives/3275.html)
 
-[主题下载](https://coding.net/u/googlo/p/Git/git/archive/alpha)
+[主题下载](https://googlo.coding.net/p/Git/d/Git/git/archive/alpha)
 
 [后台演示](https://gitcafe.net/template/admin.htm)
