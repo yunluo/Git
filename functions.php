@@ -485,7 +485,7 @@ function getcontent(){
         $id = $_POST["id"];
     $action = $_POST["action"];
     if ( isset($id) && $_POST['action'] == 'getcontent') {
-            $pay_content = get_post_meta($id, 'pay_content', true);
+            $pay_content = get_post_meta($id, 'git_pay_content', true);
             exit($pay_content);
     }
 }

@@ -6,7 +6,7 @@ function addcode(a, b) { //ID ， 提取码
         id: a,
         code: b,
     };
-    $.post("/wp-admin/admin-ajax.php", ajax_data,
+    $.post(ajax.url, ajax_data,
         function(c) {
             if (c == '1') {
                 swal("输入成功", "您的邮箱提取码是" + b, "success");
@@ -21,10 +21,10 @@ function checkpayjs(a, b) { //ID，订单号
         id: a,
         orderid: b,
     };
-    $.post("/wp-admin/admin-ajax.php", ajax_data,
+    $.post(ajax.url, ajax_data,
         function(c) {
             if (c == '1') {
-                swal("支付成功!", "为了方便您后续再次查看，请您输入您的常用邮箱作为提取码", "info", {
+                swal("支付成功!", "为了方便您后续再次查看，建议您输入您的常用邮箱作为提取码", "info", {
                         dangerMode: true,
                         closeOnClickOutside: false,
                         content: "input",
@@ -46,7 +46,7 @@ function payjs(a, b, c) {
         money: b,
         way: c,
     };
-    $.post("/wp-admin/admin-ajax.php", ajax_data,
+    $.post(ajax.url, ajax_data,
         function(d) {
             if (d) {
                 var f = document.createElement("img"),
@@ -92,7 +92,7 @@ function getcontent(a) {
         action: 'getcontent',
         id: a
     };
-    $.post("/wp-admin/admin-ajax.php", ajax_data,
+    $.post(ajax.url, ajax_data,
         function(c) {
             if (c) {
                 $("#hide_notice").hide();
@@ -107,12 +107,13 @@ function checkcode(a, b) {
         id: a,
         code: b
     };
-    $.post("/wp-admin/admin-ajax.php", ajax_data,
+    $.post(ajax.url, ajax_data,
         function(c) {
             if (c == 1) {
+                localStorage.setItem('ID:'+a,b);
                 getcontent(a);
             } else {
-                swal("查看失败", "服务器不存在此提取邮箱，请重新输入", "error");
+                swal("查看失败", "服务器不存在此提取码，请重新输入", "error");
             }
         });
 
@@ -127,7 +128,11 @@ function pay_view() {
             closeOnClickOutside: false,
         })
         .then((pay) => {
-            if (pay) {
+            if (pay) {/* 我已支付*/
+                var key = localStorage.getItem('ID:'+id);
+                if(key !== null){
+                    checkcode(id, key);
+                }else{
                 swal("请输入您的支付提取码:", {
                         content: "input",
                         button: "验证提取码"
@@ -135,7 +140,8 @@ function pay_view() {
                     .then((code) => {
                         checkcode(id, `${code}`);
                     });
-            } else {
+                    }
+            } else {/* 未支付,选择支付方式*/
                 payway(id, money);
             }
         });

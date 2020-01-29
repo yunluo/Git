@@ -333,21 +333,17 @@ function secret_css() {
 add_action('wp_head', 'secret_css');
 
 function pay_nologin($atts, $content = ''){
-    extract(shortcode_atts(array('money' => "2" ) , $atts));
+    extract(shortcode_atts(array('money' => "1" ) , $atts));
     $pid = get_the_ID();//文章ID
-    $pay_content = get_post_meta($pid, 'pay_content', true);//隐藏的内容，postmeta版本
-    if (!empty($pay_content) && $pay_content != $content) {
-        update_post_meta($pid, 'pay_content', $content, true);
-    } else {
-        add_post_meta($pid, 'pay_content', $content, true);
-    }
+    $pay_content = get_post_meta($pid, 'git_pay_content', true);//隐藏的内容
 	$pay_log = get_post_meta($pid, 'pay_log', true);//购买记录数据
 	$pay_arr = explode(",", $pay_log);
 	$pay_count = count($pay_arr);//已购买人数
     $notice = '';
 	$notice .= '<style type="text/css">.sbtn{border:0;border-radius:4px;cursor:pointer;display:inline-block;font-size:15px;font-weight:600;letter-spacing:1px;line-height:36px;outline:0;padding:0 18px;text-align:center;text-transform:uppercase;position:relative}.sbtn:hover{transition:all .3s ease-in-out}.sbtn--secondary{background-color:#1dc9b7;color:#fff}.sbtn--secondary:hover{background-color:#18a899}.content-hide-tips{padding:40px 20px 20px;border:1px dashed #ccc;margin:20px 0 40px;background-color:#f6f6f6;border-radius:4px;position:relative}.content-hide-tips .fa-lock{font-size:30px;right:10px;top:5px;font-style:normal;color:#ccc;position:absolute;z-index:1}.content-hide-tips .rate{left:10px;top:5px;position:absolute;z-index:1;font-weight:500;margin:10px}.content-hide-tips .login-false{text-align:center}.content-hide-tips .coin{display:block;text-align:center;margin-top:10px;margin-bottom:10px}.content-hide-tips .coin span{padding:4px 18px;background-color:#fff;color:#f0ad4e;line-height:1;border-radius:20px;font-size:13px;border:1px solid #f0ad4e}.content-hide-tips .t-c{text-align:center;font-size:13px}.content-hide-tips .red{color:#ff3b41}.pc-button{margin:0 auto;text-align:center}.label{display:inline;padding:.2em .6em .3em;font-size:75%;font-weight:700;line-height:1;color:#fff;text-align:center;white-space:nowrap;vertical-align:baseline;border-radius:.25em}.label:empty{display:none}.label-warning{background-color:#f0ad4e}.swal-button{line-height: normal;}.swal-footer{text-align:center;}</style>';
     wp_enqueue_script('qrious', 'https://cdn.bootcss.com/qrious/4.0.2/qrious.min.js', false , '1.0', true);
-	wp_enqueue_script('pay', GIT_URL . '/assets/js/pay.js', array('jquery') , '1.0', true);
+    wp_enqueue_script('pay', GIT_URL . '/assets/js/pay.js', array('jquery') , '1.0', true);
+    wp_localize_script('pay', 'ajax', ['url'=> admin_url('admin-ajax.php') ]);
 	wp_enqueue_script('sweetalert', 'https://cdn.bootcss.com/sweetalert/2.0.0/sweetalert.min.js', false , '1.0', true);
 	$notice .= '<div id="hide_notice" class="content-hide-tips"><i class="fa fa-lock"></i><span class="rate label label-warning">付费查看内容</span>';
 	$notice .= '<div class="login-false">当前隐藏内容需要支付<div class="coin"><span class="label label-warning">'.$money.'元</span></div></div>';

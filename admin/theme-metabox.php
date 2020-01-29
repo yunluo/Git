@@ -10,7 +10,7 @@ if ( !class_exists('myCustomFields') ) {
         /**
         * @var  array  $postTypes  这是自定义面板的使用范围，这里一般就是在文章以及页面
         */
-        var $postTypes = array( "page", "post", "product" );
+        var $postTypes = array( "post");
         /**
         * @var  array  $customFields  开始组件自定义面板数组
         */
@@ -20,51 +20,9 @@ if ( !class_exists('myCustomFields') ) {
                 "title"         => "自定义缩略图/主图",
                 "description"   => "这里可以输入您的自定义缩略图链接、也是产品页面的产品主图",
                 "type"          =>   "text",
-                "scope"         =>   array(  "post", "product" ),
+                "scope"         =>   array(  "post" ),
                 "capability"    => "edit_posts"
             ),
-            array(
-                "name"          => "product_cpjianjie",
-                "title"         => "产品的简介",
-                "description"   => "这里可以输入您的产品的简介，同时作为产品页面的摘要，字数不要多",
-                "type"          =>   "text",
-                "scope"         =>   array( "product" ),
-                "capability"    => "edit_posts"
-            ),
-            array(
-                "name"          => "product_jiage",
-                "title"         => "产品的价格",
-                "description"   => "这里可以输入您的产品的销售价格，显示在产品页面和产品详情页",
-                "type"          =>   "text",
-                "scope"         =>   array( "product" ),
-                "capability"    => "edit_posts"
-            ),
-            array(
-                "name"          => "product_fahuodi",
-                "title"         => "产品的发货地址",
-                "description"   => "这里可以输入您的产品的发货地址",
-                "type"          =>   "text",
-                "scope"         =>   array( "product" ),
-                "capability"    => "edit_posts"
-            ),
-            array(
-                "name"          => "product_tblink",
-                "title"         => "产品的购买链接",
-                "description"   => "这里可以输入您的产品的购买外链，已做nofollow",
-                "type"          =>   "text",
-                "scope"         =>   array( "product" ),
-                "capability"    => "edit_posts"
-            ),
-            /*没有这个功能，暂时留着而已
-            array(
-                "name"          => "singlecode",
-                "title"         => "自定义jq",
-                "description"   => "这里可以输入您的自定义jq代码",
-                "type"          =>   "wysiwyg",
-                "scope"         =>   array( "post", "page" ),
-                "capability"    => "edit_posts"
-            ),
-            */
             array(
                 "name"          => "zhuanzai_name",
                 "title"         => "转载来源名字",
@@ -78,6 +36,14 @@ if ( !class_exists('myCustomFields') ) {
                 "title"         => "转载来源链接",
                 "description"   => "这里可以输入您的转载来源链接",
                 "type"          =>   "text",
+                "scope"         =>   array( "post" ),
+                "capability"    => "edit_posts"
+            ),
+            array(
+                "name"          => "pay_content",
+                "title"         => "免登陆付费查看内容",
+                "description"   => "这里可以输入免费可支付可查看的内容",
+                "type"          => "text",
                 "scope"         =>   array( "post" ),
                 "capability"    => "edit_posts"
             ),

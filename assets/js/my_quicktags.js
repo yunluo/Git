@@ -43,5 +43,5 @@ QTags.addButton( 'nl', '文章内链', '[neilian ids=]', '');
 QTags.addButton( 'wl', '文章外链', '[wailian]', '[/wailian]');
 QTags.addButton( 'ulli', '无序列表', '[list]', '[/list]' );
 QTags.addButton( 'pay', '会员付费查看', '[pay point="10"]\n这里是需要付费的内容\n[/pay]', '' );
-QTags.addButton( 'pax', '游客付费查看', '[paxx money=1]\n这里是需要付费的内容\n[/pax]', '' );
+QTags.addButton( 'pax', '游客付费查看', '[pax money=1]', '' );
 //这儿共有四对引号，分别是按钮的ID、显示名、点一下输入内容、再点一下关闭内容（此为空则一次输入全部内容），\n表示换行。
