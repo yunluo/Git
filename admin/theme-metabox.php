@@ -43,7 +43,7 @@ if ( !class_exists('myCustomFields') ) {
                 "name"          => "pay_content",
                 "title"         => "免登陆付费查看内容",
                 "description"   => "这里可以输入免费可支付可查看的内容",
-                "type"          => "text",
+                "type"          => "textarea",
                 "scope"         =>   array( "post" ),
                 "capability"    => "edit_posts"
             ),
