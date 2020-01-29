@@ -16,6 +16,14 @@ if ( !class_exists('myCustomFields') ) {
         */
         var $customFields = array(
             array(
+                "name"          => "pay_content",
+                "title"         => "免登陆付费查看内容",
+                "description"   => "这里可以输入免费可支付可查看的内容",
+                "type"          => "textarea",
+                "scope"         =>  array( "post" ),
+                "capability"    => "edit_posts"
+            ),
+            array(
                 "name"          => "thumb",
                 "title"         => "自定义缩略图/主图",
                 "description"   => "这里可以输入您的自定义缩略图链接、也是产品页面的产品主图",
@@ -36,14 +44,6 @@ if ( !class_exists('myCustomFields') ) {
                 "title"         => "转载来源链接",
                 "description"   => "这里可以输入您的转载来源链接",
                 "type"          =>   "text",
-                "scope"         =>   array( "post" ),
-                "capability"    => "edit_posts"
-            ),
-            array(
-                "name"          => "pay_content",
-                "title"         => "免登陆付费查看内容",
-                "description"   => "这里可以输入免费可支付可查看的内容",
-                "type"          => "textarea",
                 "scope"         =>   array( "post" ),
                 "capability"    => "edit_posts"
             ),
