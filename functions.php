@@ -450,7 +450,7 @@ function weauth_oauth_login(){
     if($key && $_POST['action'] == 'weauth_oauth_login'){
         $user_id = get_transient($key.'ok');
         if ($user_id != 0) {
-            wp_set_auth_cookie($user_id);
+            wp_set_auth_cookie($user_id,true);
             if($mail && !empty($mail) && is_email($mail)){
                 wp_update_user( array( 'ID' => $user_id, 'user_email' => $mail ) );
             }
