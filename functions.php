@@ -395,6 +395,7 @@ if (git_get_option('git_spam_url')) {
     }
     add_filter('preprocess_comment', 'Googlolink');
 }
+
 //点赞
 add_action('wp_ajax_nopriv_bigfa_like', 'bigfa_like');
 add_action('wp_ajax_bigfa_like', 'bigfa_like');
