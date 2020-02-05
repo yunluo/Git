@@ -39,8 +39,8 @@ function deel_setup() {
 //自定义ajax提醒
 function git_err($ErrMsg) {
     header('HTTP/1.1 405 Method Not Allowed');
-    echo $ErrMsg;
-    exit;
+    //echo $ErrMsg;
+    exit($ErrMsg);
 }
 //去除部分默认小工具
 function unregister_d_widget() {
@@ -395,7 +395,6 @@ if (git_get_option('git_spam_url')) {
     }
     add_filter('preprocess_comment', 'Googlolink');
 }
-
 //点赞
 add_action('wp_ajax_nopriv_bigfa_like', 'bigfa_like');
 add_action('wp_ajax_bigfa_like', 'bigfa_like');
@@ -494,19 +493,20 @@ add_action( 'wp_ajax_getcontent', 'getcontent' );
 add_action( 'wp_ajax_nopriv_getcontent', 'getcontent' );
 
 ///提取码检测
-function check_code(){
-	    $id = $_POST['id'];
-		$code = $_POST['code'];
-    if (isset($code) && isset($id) && $_POST['action'] == 'check_code') {
-	$pay_log = get_post_meta($id, 'pay_log', true);//购买记录数据
-	$pay_arr = explode(",", $pay_log);
-	if(in_array($code,$pay_arr)){
-		exit('1');
-	}else{
-		exit('0');
+function check_code() {
+	$id = $_POST['id'];
+	$code = $_POST['code'];
+	if(empty($code))exit('0');
+	if (isset($id) && $_POST['action'] == 'check_code') {
+		$pay_log = get_post_meta($id, 'pay_log', true);
+		//购买记录数据
+		$pay_arr = explode(",", $pay_log);
+		if(in_array($code,$pay_arr)) {
+			exit('1');
+		} else {
+			exit('0');
+		}
 	}
-    }
-
 }
 add_action( 'wp_ajax_check_code', 'check_code' );
 add_action( 'wp_ajax_nopriv_check_code', 'check_code' );
