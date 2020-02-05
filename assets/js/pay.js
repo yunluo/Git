@@ -10,6 +10,7 @@ function addcode(a, b) { //ID ， 提取码
         function(c) {
             if (c == '1') {
                 swal("输入成功", "您的支付提取码是" + b, "success");
+				localStorage.setItem('payjs_view_id:'+a,b);
             }
         });
 }
@@ -96,7 +97,6 @@ function getcontent(a) {
             if (c) {
                 $("#hide_notice").hide();
                 $("#hide_notice").after("<div class='content-hide-tips'><span class='rate label label-warning'>付费内容：</span><p>" + c + "</p></div>");
-                localStorage.setItem('payjs_view_id:'+a,c);
             }
         });
 }
@@ -111,6 +111,7 @@ function checkcode(a, b) {
         function(c) {
             if (c == '1') {
                 getcontent(a);
+				localStorage.setItem('payjs_view_id:'+a,b);
             } else {
                 swal("查看失败", "服务器不存在此提取码，请重新输入", "error");
             }
@@ -143,12 +144,11 @@ function pay_view() {
 
 if ( $("#pay_view").length > 0 ) {/**如果网站有付费可见,就执行 */
     setTimeout(function() {
-        var id = 'payjs_view_id:' + $("#pay_view").data("id"),length = localStorage.length;
+        var id = $("#pay_view").data("id"),keys = 'payjs_view_id:' +id,length = localStorage.length;
         for (var i = 0; i < length; i++) {
             var key = localStorage.key(i),value = localStorage.getItem(key);
-            if (key.indexOf(id) >= 0) {/**发现目标 */
-			$("#hide_notice").hide();
-			$("#hide_notice").after("<div class='content-hide-tips'><span class='rate label label-warning'>付费内容：</span><p>" + value + "</p></div>");
+            if (key.indexOf(keys) >= 0) {/**发现目标 */
+				checkcode(id, value);
                 break;
             }
         }
