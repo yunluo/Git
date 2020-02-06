@@ -332,6 +332,7 @@ function secret_css() {
 }
 add_action('wp_head', 'secret_css');
 
+
 function pay_nologin($atts, $content = ''){
     extract(shortcode_atts(array('money' => "1" ) , $atts));
     $pid = get_the_ID();//文章ID
