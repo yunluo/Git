@@ -37,7 +37,7 @@ foreach ($bookmarks as $bookmark) {
 	if ($bookmark->link_image ) {
 		$ico = $bookmark->link_image ;
 	}else{
-		$ico = 'https://f.ydr.me/' . $bookmark->link_url . '';
+		$ico = 'https://ico.mikelin.cn/' . $bookmark->link_url . '';
 	}
         echo '<li class="col-md-4 mt-15 mb-15 pd-10">
 <div class="pd-0 h-100 borderr-main-4 tra">
