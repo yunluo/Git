@@ -168,12 +168,6 @@ switch ( $type ) {
 	<div class="panel" id="panel_about">
 		<table class="form-table">
 			<tr>
-				<th><h4>云落小贴士</h4></th>
-				<td>
-					<p><?php echo get_Yunluo_Notice(); ?></p>
-				</td>
-			</tr>
-			<tr>
 				<th><h4>联系方式</h4></th>
 				<td>
 					<ul>
