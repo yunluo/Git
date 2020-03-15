@@ -83,6 +83,7 @@ class Payjs
 		$data   = $this->sign($data);
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $this->url);
+        curl_setopt($ch, CURLOPT_USERAGENT, 'HTTP CLIENT');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
