@@ -42,7 +42,8 @@ if (git_get_option('git_sideroll_b')) {
 <script>
 window._deel = {name: '<?php
 bloginfo('name') ?>',url: '<?php
-echo GIT_URL ?>', ajaxpager: '<?php
+echo GIT_URL ?>', luck: '<?php
+echo get_option('git_unlock');?>', ajaxpager: '<?php
 echo git_get_option('git_ajaxpager_b') ?>', commenton: <?php
 echo $commenton
 ?>, roll: [<?php
