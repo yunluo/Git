@@ -464,15 +464,19 @@ add_action( 'wp_ajax_nopriv_weauth_oauth_login', 'weauth_oauth_login' );
 //付费可见
 function pay_buy(){
     if (isset($_POST['point']) && isset($_POST['userid']) &&isset($_POST['id']) && $_POST['action'] == 'pay_buy') {
-            Points::set_points( -$_POST['point'],
-                    $_POST['userid'],
-                    array(
-                        'description' => $_POST['id'],
-                        'status' => get_option( 'points-points_status', POINTS_STATUS_ACCEPTED )
-                    )
-            );//扣除金币
-			$pay_content = get_post_meta($_POST['id'], 'pay_content', true);
-            exit($pay_content);
+            $all = Points::get_user_total_points($_POST['userid'], 'accepted');
+            if( $all < $_POST['point']){
+                exit;
+            }else{
+                Points::set_points( -$_POST['point'],$_POST['userid'],
+                array(
+                    'description' => $_POST['id'],
+                    'status'      => 'accepted'
+                )
+        );//扣除金币
+        $pay_content = get_post_meta($_POST['id'], 'pay_content', true);
+        exit($pay_content);
+            }
     }
 }
 add_action( 'wp_ajax_pay_buy', 'pay_buy' );
