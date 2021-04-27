@@ -19,6 +19,7 @@ function git_update_options() {
 	$current_options = get_option('git_options_setup', array());
 	foreach ($theme_options as $panel) {
 		foreach ($panel as $option) {
+			$option = array();
 			$id = $option['id'];
 			$type = $option['type'];
 			if ( !$id ) continue;
