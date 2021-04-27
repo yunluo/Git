@@ -666,7 +666,7 @@ add_action( 'wp_ajax_nopriv_weauth_qr_gen', 'weauth_qr_gen' );
 //检查登录状况
 function weauth_check(){
     if (isset($_POST['sk']) && $_POST['action'] == 'weauth_check') {
-        $rest = substr($_POST['sk'],-16);//key
+        $rest = substr($_POST['sk'],-3);//key
         $weauth_cache = get_transient($rest.'ok');
         if (!empty($weauth_cache)) {
             exit($rest);//key

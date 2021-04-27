@@ -299,10 +299,11 @@ wp_embed_unregister_handler('youku');
 ////////////////weauth//////////////
 
 function get_weauth_token(){
-  $sk = date("YmdHis") . mt_rand(10, 99);
-  set_transient($sk, 1, 60*6);
-  $key = $_SERVER['HTTP_HOST'].'@'.$sk;
-  return $key;
+    $strs = 'QWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnm';
+    $sk   = substr(str_shuffle($strs), mt_rand(0, strlen($strs) - 11), 3); //3位
+    set_transient($sk . '-OK', 1, 60); //1分钟缓存  get_transient($sk.'OK') == 1
+    $key = $_SERVER['HTTP_HOST'] . '@' . $sk;
+    return $key;
 }
 
 function get_weauth_qr(){
