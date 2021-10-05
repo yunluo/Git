@@ -390,3 +390,4 @@ remove_filter('term_description', 'wp_kses_data');
 
 // 友情链接扩展
 add_filter('pre_option_link_manager_enabled', '__return_true');
+

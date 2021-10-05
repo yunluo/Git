@@ -2,3 +2,4 @@ cache/*.txt
 .coding-ide/*
 .ecloud/*
 *.ini
+.vscode/settings.json

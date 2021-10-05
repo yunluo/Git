@@ -26,6 +26,8 @@ function deel_setup() {
         'default-size' => 'auto',
         'default-attachment' => 'fixed'
     ));
+    //移除WordPress 5.8的小工具区块编辑器
+    remove_theme_support( 'widgets-block-editor' );
     add_editor_style('editor-style.css');
     //定义菜单
     if (function_exists('register_nav_menus')) {
@@ -1650,4 +1652,3 @@ $wptt_tax_image = new Git_Tax_Image();
 //WordPress函数代码结束,打算在本文件添加代码的建议参照这个方法：http://gitcafe.net/archives/4032.html
 
 
-?>
