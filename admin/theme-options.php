@@ -63,7 +63,6 @@ foreach ( array_keys($theme_options) as $i => $name ) {
 ?>
 			<li><a href="#panel_about" data-panel="about">关于主题</a></li>
 		</ul>
-<div class="search-form"><label class="screen-reader-text" for="wp-filter-search-input">筛选主题选项…</label><input placeholder="筛选主题选项…" type="search" id="wp-filter-search-input" class="wp-filter-search"></div>
 </div>
 
 <form method="post">

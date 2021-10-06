@@ -3,3 +3,4 @@ cache/*.txt
 .ecloud/*
 *.ini
 .vscode/*
+.SynologyWorkingDirectory/*
