@@ -151,7 +151,7 @@ wp_reset_postdata();
 								$jinbis = Points::get_user_total_points($curauth->ID, POINTS_STATUS_ACCEPTED );
 								if($jinbis != ""){echo $jinbis;}else{ echo '0';}?> 金币，<?php
 								$jinbis = Points::get_user_total_points($curauth->ID, POINTS_STATUS_ACCEPTED );
-								if($jinbis <= 0){echo '穷逼一枚';}elseif($jinbis > 0 && $jinbis <= 100){ echo '小有余财';}else{echo '大富豪';}?></div>
+								if($jinbis <= 0){echo '清清白白';}elseif($jinbis > 0 && $jinbis <= 100){ echo '小有余财';}else{echo '腰缠万贯';}?></div>
 								<div class="alert alert-success" role="alert">金币细节</div>
 								<?php echo do_shortcode('[points_user_points_details]');?>
                             </div>
